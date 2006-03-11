@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+	<view name="showFieldsSelect" url="/CampusHR/qryFieldsSelect.jsp"></view>
+	<view name="showStaffQuery" url="/CampusHR/staffQuery.jsp"></view>
+	<view name="showQueryResults" url="/CampusHR/qryResults.jsp"></view>
+</views>

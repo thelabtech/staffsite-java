@@ -1,0 +1,42 @@
+DBIO Transition Notes
+
+1. Database Conversion, run conversion script for new primary keys, etc.
+	a. wsn_sp_WsnEvaluation
+	b. wsn_sp_WsnApplication
+	c. wsn_sp_WsnProject
+	d. hr_ms_Payment
+	e. hr_si_Application
+	f. hr_si_Application_Archive2003
+	g. hr_si_Payment
+	h. hr_si_Person
+	i. hr_si_Person_Archive2003
+
+	Mobilization Upgrade.sql
+
+2. Run nine (9) boolean upgrade scripts (for example: WsnApplication Boolean Upgrade.sql)
+	a. MS Boolean Upgrade.sql
+	b. MSPayment Boolean Upgrade.sql
+	c. SIApplication Boolean Upgrade.sql
+	d. SIApplication_Archive2003 Boolean Upgrade.sql
+	e. SIPerson Boolean Upgrade.sql
+	f. SIPerson_Archive2003 Boolean Upgrade.sql
+	g. SIProject Boolean Upgrade.sql
+	h. SIReference Boolean Upgrade.sql
+	i. SIReference_Archive2003 Boolean Upgrade.sql
+	j. WsnEvaluation Boolean Upgrade.sql
+	k. WsnProject Boolean Upgrade.sql
+	l. WsnReference Boolean Upgrade.sql
+
+3. References.java requires portal/home.jsp to be updated when switch.  useBean "org.alt60m.html.References" change to "org.alt60m.html.dbio.References"
+
+4. Table WsnApplication, fk_ssmUserID change to int (4) from varchar
+
+5. Find max (foreign key) fk_ssmUserID in WsnApplication table, then set starting userID in simplesecuritymanager_user table
+(for example: for tempMB simplesecuritymanager_user Identity Seed sets starting UserID to 25924)
+
+6. Delete all SIApplication records where fk_SIPersonID = older non-existing (long) varchar (this would cause a failure to occurr)
+
+7. Make sure all views work and there aren't old Castor IDs in FK fields
+
+Coding notes:
+1. Change various beans and servlets, for example make SQL and java conform to new boolean bit changes (change 'T' to '1')

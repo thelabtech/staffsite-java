@@ -1,0 +1,3 @@
+<%=box.printBottom()%>
+</form>
+<%@ include file="../footer.jspf" %>

@@ -1,0 +1,171 @@
+<!-- Start Experience Information -->
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="2"><b>Experience Information</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you considering or interested in:
+			<div class="evaltitle">
+				<table WIDTH="100%" CELLSPACING="0" class="evalrefinbox">
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.get_1a())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Campus Crusade for Christ, Impact, Destino or Epic staff</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.get_1b())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">9-12 month internship</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.get_1c())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Missions</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.get_1d())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Other</td>
+					</tr>
+				</table>
+			</div>
+			<div class="evaltitle">Have you participated in a Campus Crusade project before?
+			</div>
+			<div class="eval"><%=ShowYesNo(p.get_1e())%></div>
+			<div class="evaltitle">If yes, which one(s)?</div>
+			<div class="eval"><%=ShowNoNull(p.get_1f())%></div>
+			<div class="evaltitle"><b>Summer Project Staff Intern</b></div>
+			<div class="eval"><%=ShowYesNo(p.getIsApplyingForStaffInternship())%></div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you a U.S. citizen?
+			<div class="eval"><%=ShowYesNo(p.getUsCitizen())%></div>
+			<div class="evaltitle">If No, please answer the following:</div>
+			<div class="evaltitle">What country are you a citizen of?</div>
+			<div class="eval"><%=ShowNoNull(p.get_2b())%></div>
+			<div class="evaltitle">Can you get a work visa?</div>
+			<div class="eval"><%=ShowYesNo(p.get_2c())%></div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">High school honors, activities and leadership<BR>(Check all the apply)
+			<div class="evaltitle">
+				<table WIDTH="100%" CELLSPACING="0" class="evalrefinbox">
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3a())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">A. Scholastic Honors</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3b())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">B. Class Officer</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3c())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">C. Student Council</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3d())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">D. Club Memberships</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3e())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">E. Drama and/or Music</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3f())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">F. Athletics</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_3g())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">G. Other<font class="eval"> (<%=ShowNoNull(p.get_3h())%>)</font></td>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">College honors, activities and leadership<BR>(Check all the apply)
+			<div class="evaltitle">
+				<table WIDTH="100%" CELLSPACING="0" class="evalrefinbox">
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4a())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">A. Scholastic Honors</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4b())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">B. Student Government</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4c())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">C. Faternity/Sorority</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4d())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">D. Resident Assistant</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4e())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">E. Club Memberships</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4f())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">F. Drama and/or Music</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4g())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">G. Athletics</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_4h())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">H. Other<font class="eval"> (<%=ShowNoNull(p.get_4i())%>)</font></td>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Ministry skills and talents<BR>(Check all the apply)
+			<div class="evaltitle">
+				<table WIDTH="100%" CELLSPACING="0" class="evalrefinbox">
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_5a())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">A. Drama</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_5b())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">B. Organization</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_5d())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">C. Language<font class="eval"> (<%=ShowNoNull(p.get_5e())%>)</font></td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_5c())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">D. Public Speaking</td>
+					</tr>
+					<TR>
+						<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowCheck(p.get_5f())%></td>
+						<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">E. Music<font class="eval"> (<%=ShowNoNull(p.get_5g())%>)</font></td>
+					</tr>
+				</table>
+			</div>
+			<div class="evaltitle">Would you be interested in helping lead music on project?</div>
+			<div class="eval"><%=ShowYesNo(p.get_5h())%></div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How have you spent your last two summers?
+			<div class="eval"><%=ShowNoNull(p.get_6())%></div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">7.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Employment experience<BR>(Name/Job Title/Dates of Employment, most recent first)
+			<div class="eval"><%=ShowNoNull(p.get_7())%></div>
+		</td>
+	</tr>
+</TABLE>
+
+<!-- End Experience Information -->

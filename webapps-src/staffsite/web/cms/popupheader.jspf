@@ -1,0 +1,4 @@
+<jsp:useBean id="box" class="org.alt60m.html.Box"/>
+<%@ include file="/style.jspf"%>
+<% Hashtable profile = (Hashtable)session.getValue("profile"); %>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#2C4F93" VLINK="#84794A"  MARGINWIDTH="0" MARGINHEIGHT="0" TOPMARGIN="0" LEFTMARGIN="0" onUnload="window.opener.focus();" onLoad="self.focus();"">

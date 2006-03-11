@@ -1,0 +1,3 @@
+SELECT istprod_ministry_TargetArea.name, istprod_ministry_TargetArea.state, istprod_ministry_TargetArea.country, istprod_ministry_TargetArea.region
+FROM istprod_ministry_TargetArea
+WHERE (((istprod_ministry_TargetArea.state)="PA" Or (istprod_ministry_TargetArea.state)="MD" Or (istprod_ministry_TargetArea.state)="NJ" Or (istprod_ministry_TargetArea.state)="DE" Or (istprod_ministry_TargetArea.state)="WV" Or (istprod_ministry_TargetArea.state)="VA") AND ((istprod_ministry_TargetArea.region) Is Null));

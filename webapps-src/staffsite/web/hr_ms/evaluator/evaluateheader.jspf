@@ -1,0 +1,183 @@
+<%@ include file="evaluateHeaderCode.jspf" %>
+<%@ include file="evaluatecolors.jspf" %>
+
+<HTML>
+<HEAD>
+<TITLE>WSN SPT</TITLE>
+<link rel="stylesheet" href="/hr_ms/themes/hr_ms_evaluation.css" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(/hr_ms/themes/hr_si_evaluation.css); /*IE and NN6x styles*/
+</style>
+<script language="javascript">
+<!--
+	function doPostFormNextAction(action, nextAction, nextParm) {
+		// use this to save the page and do a specific reference form action on the server
+		var theform = document.appForm;
+		theform.action.value = action;	// method of MSController to perform
+		theform.nextAction.value = nextAction;	// next method to perform after first method
+		theform.nextParm.value = nextParm;	// parameter sent to next method (like page name for goToPage)
+		theform.submit();
+	}
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+function TrackCount(fieldObj,countFieldName,maxChars)
+{
+  var countField = eval("fieldObj.form."+countFieldName);
+  var diff = maxChars - fieldObj.value.length;
+
+  // Need to check & enforce limit here also in case user pastes data
+  if (diff < 0)
+  {
+	fieldObj.value = fieldObj.value.substring(0,maxChars);
+	diff = maxChars - fieldObj.value.length;
+  }
+  countField.value = diff;
+}
+function LimitText(fieldObj,maxChars)
+{
+  var result = true;
+  if (fieldObj.value.length >= maxChars)
+	result = false;
+
+  if (window.event)
+	window.event.returnValue = result;
+  return result;
+}
+function doAddScore(fieldObj,scoreFieldName,factor,valueFieldName)
+{
+  var scoreField = eval("fieldObj.form."+scoreFieldName);
+  var total = 7;
+  fieldObj.value = total;
+  return fieldObj.value;
+}
+// onBlur="checkDate(this)"
+function checkDate(objName) {
+    var day = new Date(objName.value);
+    if(objName.value == "");
+    else if(""+day == "NaN") {
+		objName.select();
+		alert("That date is invalid.  Please try again.");
+		objName.focus();
+    } else {
+		objName.value = (day.getMonth()<9?"0":"") + (1+day.getMonth()) + "/" + (day.getDate()<10?"0":"") + day.getDate() + "/" + day.getFullYear();
+		if(day.getFullYear()>9999) { // 3-10-03 kl: validate year, do not allow beyond 9999
+			objName.select();
+			alert("That date is invalid.  Please try again.");
+			objName.focus();
+		}
+    }
+    return false;
+}
+// -->
+</script>
+<%@ include file="/hr_ms/headersmalltemparary.jspf" %>
+<%	box.setTitle("<a href='/servlet/WsnSpController?action=showIndex' class=headinggraphic><img src='/wsnsp/images/banner1.gif'></a>"); %>
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+<p> <%=fontText%>
+<FORM NAME="appForm" ACTION="MSController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="WsnApplicationID" VALUE="<%=ar.getValue("WsnApplicationID")%>">
+<INPUT TYPE="HIDDEN" NAME="EvalID" VALUE="<%=hasAValue(eval.getEvalID())?eval.getEvalID():""%>">
+<INPUT TYPE="HIDDEN" NAME="page" value="<%=ar.getValue("page")%>">
+<INPUT TYPE="HIDDEN" NAME="sendingpage" value="<%=ar.getValue("nextParm")%>">
+<INPUT TYPE="HIDDEN" NAME="toframe" value="<%=ar.getValue("toframe")%>">
+<input type="hidden" name="action">
+<input type="hidden" name="nextAction">
+<input type="hidden" name="nextParm">
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr valign="top">
+		<TD WIDTH="20%" CLASS="appbar" VALIGN="TOP">
+		<table width="100%" border="0" bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>" cellpadding="0" cellspacing="0">
+
+	<tr><TD>
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#336699" height="100%" width="100%">
+		<tr><td colspan="2" class="evalbigbold" bgcolor="#bbbb88"><%=ShowNoNull(p.getLegalFirstName()) + " " + ShowNoNull(p.getLegalLastName()) %><br><HR></TD>
+		</TR>
+		<TR>
+		<TD>
+			<table ecellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88" height="100%" width="100%">
+				<tr><td class="evalsmallboldtitle" bgcolor="#bbbb88">School</td>
+				</TR>
+				<TR><TD class="evalsmall"><%=ShowNoNull(p.getUniversityFullName()) %></td>
+				</tr>
+			</table>
+		</td>
+		</tr>
+	</table>
+	</td></tr>
+
+			<%
+			int useEvalFormSave = 0;
+			String currentPage = ar.getValue("page");
+			if (currentPage.equals("evalsummary") || currentPage.equals("evalpayments") || currentPage.equals("evalparents") ) {
+				useEvalFormSave = 1;
+			}	
+			for (int x = 0; x < menuTitles.length - 1; x++){ %>
+			<TR><TD CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>"><A CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>" HREF="javascript: doPostFormNextAction('<%= useEvalFormSave == 1 ? "evalFormSave" : "evalFormEdit"%>', 'goToView', '<%=pages[x]%>')"><%=menuTitles[x]%></A></TD></TR>
+			<% } %>
+			<% if (ar.getValue("toframe").equals("yes") || ar.getValue("page").equals("evalsummary")) { %>
+				<TD class="evaldim" align="right"><%=menuTitles[menuTitles.length - 1]%></TD>
+			<% } else { %>
+				<TR><TD CLASS="<%= pageNum == menuTitles.length ? "menuactive" : "menu"%>"><A CLASS="<%= pageNum == menuTitles.length ? "menuactive" : "menu"%>" HREF="javascript: doPostFormNextAction('<%= useEvalFormSave == 1 ? "evalFormSave" : "evalFormEdit"%>', 'goToView', '<%=pages[menuTitles.length - 1]%>')"><%=menuTitles[menuTitles.length - 1]%></A></TD></TR>
+			<% } %>
+
+		</TABLE>
+		</td>
+<!-- Start Main Work Area -->
+<td width="64%">
+<TABLE width="100%" cellpadding="0" cellspacing="0" bgcolor="#bbbb88" bordercolor="#bbbb88" border="1">
+<TR>
+	<TD align="right">
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<tr><TD class="evalsmallboldtitle" colspan="2">Application</TD>
+		</TR>
+		<tr><TD class="evalsmallboldtitle">Status:</TD><TD class="evalsmall" bgcolor="#cccc99">--<%=ShowNoNull(p.getStatus())%>--</TD>
+		</TR>
+		<tr><TD class="evalsmallboldtitle">Started:</TD><TD class="evalsmallboldtitle">Submitted:</TD>
+		</TR>
+		<tr><TD class="evalsmall" bgcolor="#cccc99"><%=DisplayRealDate(p.getCreateDate())%></TD><TD class="evalsmall" bgcolor="#cccc99"><%=DisplayRealDate(p.getSubmittedDate())%></TD>
+		</TR>
+	</table>
+	</td>
+	<TD align="right">
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<!--<TR>
+		<TD colspan="2" class="evalsmallboldtitle" bgcolor="#bbbb88">References</td>
+		</TR>-->
+		<TR>
+		<TD class="evalsmallboldtitle" colspan="2">References</td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle" nowrap>Staff 1</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><%=DisplayRefStatus(refs1.getFormWorkflowStatus(), refs1.getLastChangedDate())%></td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle" nowrap>Staff 2</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><%=DisplayRefStatus(refs2.getFormWorkflowStatus(), refs2.getLastChangedDate())%></td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle" nowrap>Peer</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><%=DisplayRefStatus(refp.getFormWorkflowStatus(), refp.getLastChangedDate())%></td>
+		</tr>
+	</table>
+	</td>
+	<TD align="right">
+	<table width="100%" cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<tr><TD class="evalsmallboldtitle" nowrap>Project Preferences</TD>
+		<TD class="evalsmall" bgcolor="#cccc99" colspan="2">3. <%=projectName[2]%></TD>
+		</TR>
+		<TR>
+		<TD class="evalsmall" bgcolor="#cccc99">1. <%=projectName[0]%></TD><TD class="evalsmall" bgcolor="#cccc99" colspan="2">4. <%=projectName[3]%></TD>
+		</TR>
+		<TR>
+		<TD class="evalsmall" bgcolor="#cccc99">2. <%=projectName[1]%></TD><TD class="evalsmall" bgcolor="#cccc99" colspan="2">5. <%=projectName[4]%></TD>
+		</TR>
+		<TD class="evalsmallboldtitle" colspan="2" width="80%">Applying for Summer Internship?</TD><TD class="evalsmall" bgcolor="#cccc99" width="20%"><%=ShowYesNo(p.getIsApplyingForStaffInternship())%></td>
+		</TR>
+	</table>
+	</td>
+</TR>
+</TABLE>

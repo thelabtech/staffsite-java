@@ -1,0 +1,46 @@
+<jsp:useBean id="box" class="org.alt60m.html.ThemeBox"/>
+<%
+	// setup pages
+	String titles[] = {"Home", "Instructions", "Frequently Asked Questions", "About Us", "Contact Us", "STINT/Internship Opportunities", "A Real Life Story", "Privacy Policy"};
+	String pages[] = {"index", "instructions", "faq", "aboutUs", "contactUs", "opportunities", "aPersonalStory", "privacyPolicy"};
+	// figure out which page we are on & store in pageNum
+	int pageNum = 1;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equalsIgnoreCase(thePage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	if (pageNum == 0)
+		System.out.println("Error: Page="+thePage+" not found!");
+
+	String pageTitle = titles[pageNum - 1];
+%>
+<%@ include file="siMainHeader.jspf" %>
+	<div style="text-align:center;">
+	<%	
+		box.setTableInside(true);
+		box.setWidth("90%");
+		box.setTitle(titles[pageNum - 1]);
+	%><%=box.printTop() %>
+
+	<table cellspacing="0" cellpadding="1" border="0" width="100%">
+		<tr>
+			<td valign="top" class="appbar" width="20%">
+			<div style="text-align:center;">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="appbar"><div style="text-align:center;">Navigation</div></td>
+			</tr>
+				<% for (int x = 1; x <= titles.length; x++){ %>
+				<tr>
+					<% if(pageNum == x) { %>
+					<td class="menuactive"><nobr><%=titles[x-1]%></nobr></td>
+					<% } else { %>
+					<td class="menu"><nobr><a href="/hr_si/<%=pages[x - 1]%>.jsp" class="menu" style="width: 100%;"><%=titles[x-1]%></a></nobr></td>
+					<% } %>
+				</tr>
+				<% } %>
+			</table>
+			</div>
+			<td class="app" width="80%" valign="top">

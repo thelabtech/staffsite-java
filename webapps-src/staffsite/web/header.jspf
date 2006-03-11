@@ -1,0 +1,31 @@
+<%@ include file="/headers/auth.jspf"%>
+<%@ include file="/headers/javascript.jspf"%>
+<%@ include file="/style.jspf"%>
+<script src="/__utm.js"></script>
+<STYLE>
+SPAN {cursor: hand ; }
+.onme1 {color: #D5DAEA ; }
+.offme{color: #7788BB ; }
+</STYLE> 
+<%@ include file="/headers/box.jspf"%>
+
+<body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#336699" VLINK="#336699" leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' ONLOAD="header_init();">
+<%@ include file="/headers/overlib.jspf"%>
+<CENTER>
+<TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
+	<TR>
+		<TD>
+		<!-- Header begin -->
+		<%// String isStudent = profile.get("IsStudent").toString(); %>
+		<%// if (isStudent.equals("false")) { %>
+			<%@ include file="/headers/bigheadergraphic.jspf"%>
+		<%// } else { %>
+			<%//@ include file="/headers/bigstudentheadergraphic.jspf"%>
+		<%// } %>
+			<P>
+		<!-- Header end -->
+		</TD>
+	</TR>
+	<TR>
+		 <TD BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0">
+		 <!--Start all table-->

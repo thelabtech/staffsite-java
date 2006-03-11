@@ -1,0 +1,52 @@
+The major areas to test are:
+1. Address Change
+   A. permanent address change
+   B. temp address change
+   C. employment info change
+
+2. Marriage Form
+   A. Staff guy marrying non-staff girl
+   B. Staff guy marrying staff girl
+   C. Staff girl marrying non-staff guy
+   D. Staff girl marrying staff guy
+
+3. Birth
+   A. natural
+   B. adopted
+
+4. Dependent change -- this just passes thru to staff services
+
+(5-7 require approvals)
+5. Job change
+   A. change w/in same region
+   B. change of region
+   C. change from campus to non-campus
+   D. change from non-campus to campus (probably broken)
+
+6. Leave of absence
+
+7. Resignation
+
+HR Only:
+8. approve request
+   A. approve
+   B. unapprove
+
+9. query tool
+
+10. initiate an acos -- make sure they don't inadvertantly change themselves.
+
+
+General Things
+1. Everything has an effective date. Everything should be tested with
+an immediate effective date and an effective date in the future and
+keeping an eye on things to see if the changes get applied when that
+date passes.
+
+2. Make sure the emails to staff services get sent and have what has
+changed.
+
+3. Make sure email notifications to approvers go to the right people
+in the right order and approval history is correct.
+
+4. Make sure the right things get set at the right times.

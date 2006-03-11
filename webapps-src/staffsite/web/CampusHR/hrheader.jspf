@@ -1,0 +1,244 @@
+<%@ page import="java.util.*" %>
+<%@ include file="/style.jspf"%>
+
+<%
+	if (session.getValue("loggedIn") == null || session.isNew()){
+		response.sendRedirect("/index.jsp");
+	} else { // Global if section start
+	Hashtable profile = (Hashtable) session.getValue("profile");
+	String profileId = "";
+	if (profile!=null){
+		profileId = (String)profile.get("StaffSiteProfileId");
+	}
+
+	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
+
+	String boxStyle = "";
+	boxStyle = (String)session.getValue("boxStyle");
+%>
+<jsp:useBean id="box" class="org.alt60m.html.Box"/>
+<STYLE>
+input
+{
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px;
+	border-color: #000000;
+	border-style: solid;
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 10pt;
+	background-color: #EEEEEE;
+	text-align: center;
+}
+.button
+{
+	border-width: 1;
+	border-style: solid;
+	border-color: #FFFFFF;
+	color: #FFFFFF;
+	background-color: #336699;
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: bold;
+}
+td
+{
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 10pt;
+	background-color: #EEEEEE;
+	color: #003366;
+}
+.paper
+{
+	background-color: #FFFFFF;
+}
+.label
+{
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+}
+.noborder
+{
+	border-width: 0px;
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 10pt;
+}
+.outline
+{
+	border-width: 1;
+	border-color: #336699;
+	border-style: solid;
+}
+.header
+{
+	border-width: 1;
+	border-color: #336699;
+	background-color: #DDDDDD;
+	border-style: solid;
+	font-size: 12pt;
+	font-weight: bold;
+}
+.div
+{
+	background-color: #336699;
+	color: #FFFFFF;
+	font-family: Arial, Tahoma, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+}
+.small
+{
+	font-size: 8pt;
+	background-color: #EEEEEE;
+}
+SPAN {cursor: hand ; }
+.onme1 {color: #D5DAEA ; }
+.offme{color: #7788BB ; }
+</STYLE> 
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function verifyInput() {
+	var returnVal = true;
+	for(var i=0; i<verifyInput.arguments.length; i++) {
+		returnVal = (returnVal && ((verifyInput.arguments[i].value != null) && (verifyInput.arguments[i].value.length != 0)));
+	}
+	return returnVal;
+}
+
+function validateDate() {
+	var isValid  = true;
+	var month = parseInt(validateDate.arguments[0].value, 10);
+	var day = parseInt(validateDate.arguments[1].value, 10);
+	var year = parseInt(validateDate.arguments[2].value);
+	var daysInMonth = new Array(31,29,31,30,31,30,31,31,30,31,30,31);
+	if (month > 0 && month <= 12) {
+		if (day > 0 && day <= daysInMonth[month-1]) {
+			if (year.toString().length == 4) { // years must be between 1970 and 2037 due to Unix date handling. Integer dates start on Jan 1, 1970 and overflow sometime in 2038.
+				if ( !(year >= 1970 && year <= 2037) ) {
+					isValid = false;
+				}
+			} else if (year.toString().length == 2) {
+				if ( !(year >= 70 && year <= 99) && !(year >= 00 && year <= 37) ) {
+					isValid = false;
+				}
+			} else { isValid = false; }
+		} else { isValid = false; }
+	} else { isValid = false; }
+
+	return isValid;
+}
+
+function KeyPress(what,e,max,action) {
+    if (document.layers) {
+        if (e.target.value.length >= max)
+            eval(action);
+    }
+    else if (document.all) {
+        if (what.value.length > (max-1))
+            eval(action);
+    }
+}
+
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures)
+}
+
+var theDateElement;
+
+function pickdate(element) {
+	theDateElement = element;
+    myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+	var goTo = "/selday.jsp";
+	goTo=goTo+'?date=' + '<%= today.get(Calendar.MONTH) + 1%>/<%= today.get(Calendar.DAY_OF_MONTH)%>/<%= today.get(Calendar.YEAR)%>';
+    myFloater.location.href = goTo;
+}
+
+function setdate(theDate) {
+	theDateElement.value=theDate;
+	theDateElement.blur();
+}
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		header_08_over = newImage("/images/header_08-over.gif");
+		header_09_over = newImage("/images/header_09-over.gif");
+		header_10_over = newImage("/images/header_10-over.gif");
+		header_11_over = newImage("/images/header_11-over.gif");
+		header_12_over = newImage("/images/header_12-over.gif");
+		preloadFlag = true;
+	}
+}
+// -->
+</SCRIPT>
+
+</head>
+<body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#336699" VLINK="#336699" leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' ONLOAD="preloadImages();">
+<CENTER>
+<TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
+	<TR>
+		<TD CLASS="paper">
+		<!-- Header begin -->
+		<TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+			<TR>
+				<TD CLASS="paper" COLSPAN=8 ALIGN=RIGHT>
+				<!-- other link text -->
+				<%=fontB1%>
+				| <A HREF="/sitemap.jsp"><%=fontB1%>site map</FONT></A>
+				| <a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
+				| <A HREF="/logout.jsp"><%=fontB1%>logoff</FONT></A>
+				|&nbsp;&nbsp;&nbsp;&nbsp;
+				</FONT>
+				</TD>
+			</TR>
+
+			<TR>
+				<TD CLASS="paper" ROWSPAN=3><IMG SRC="/images/header_noshield_01.gif" WIDTH=153 HEIGHT=21></TD>
+				<TD CLASS="paper"><IMG SRC="/images/header_07.gif" WIDTH=309 HEIGHT=21></TD>
+				<TD CLASS="paper"><A HREF="/servlet/StaffController?action=showHome"
+						ONMOUSEOVER="changeImages('header_08', '/images/header_08-over.gif'); return true;"
+						ONMOUSEOUT="changeImages('header_08', '/images/header_08.gif'); return true;">
+						<IMG NAME="header_08" SRC="/images/header_08.gif" WIDTH=53 HEIGHT=21 BORDER=0></A></TD>
+				<TD CLASS="paper"><A HREF="/servlet/StaffController?action=showMPD"
+						ONMOUSEOVER="changeImages('header_09', '/images/header_09-over.gif'); return true;"
+						ONMOUSEOUT="changeImages('header_09', '/images/header_09.gif'); return true;">
+						<IMG NAME="header_09" SRC="/images/header_09.gif" WIDTH=45 HEIGHT=21 BORDER=0></A></TD>
+				<TD CLASS="paper"><A HREF="/servlet/StaffController?action=showTools"
+						ONMOUSEOVER="changeImages('header_10', '/images/header_10-over.gif'); return true;"
+						ONMOUSEOUT="changeImages('header_10', '/images/header_10.gif'); return true;">
+						<IMG NAME="header_10" SRC="/images/header_10.gif" WIDTH=51 HEIGHT=21 BORDER=0></A></TD>
+				<TD CLASS="paper"><A HREF="/servlet/CmsController"
+						ONMOUSEOVER="changeImages('header_11', '/images/header_11-over.gif'); return true;"
+						ONMOUSEOUT="changeImages('header_11', '/images/header_11.gif'); return true;">
+						<IMG NAME="header_11" SRC="/images/header_11.gif" WIDTH=85 HEIGHT=21 BORDER=0></A></TD>
+				<TD CLASS="paper"><A HREF="/links.jsp"
+						ONMOUSEOVER="changeImages('header_12', '/images/header_12-over.gif'); return true;"
+						ONMOUSEOUT="changeImages('header_12', '/images/header_12.gif'); return true;">
+						<IMG NAME="header_12" SRC="/images/header_12.gif" WIDTH=53 HEIGHT=21 BORDER=0></A></TD>
+				<TD CLASS="paper"><IMG SRC="/images/header_13.gif" WIDTH=11 HEIGHT=21></TD>
+			</TR>
+		</TABLE>
+			<P>
+		<!-- Header end -->
+		</TD>
+	</TR>
+	<TR>
+		 <TD CLASS="paper" BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0">
+		 <!--Start all table--><BR>

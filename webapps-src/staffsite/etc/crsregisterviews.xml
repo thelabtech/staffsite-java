@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application:	Conference Registration System(CRS)
+	Controller:		org.alt60m.crs.servlet.CRSRegister
+	Change log:		Name - date - type
+					Andy Stanberry - 3/4/2003 - Created
+					Scott Paulis - 10/4/2004 - Added createSpouseLogin
+					Greg Wilson	- 10/25/2004 - findStaff*, accounttransfer extensions
+					Scott Paulis - 11/2/2004 - selectRegistrationType
+					Scott Paulis - 11/4/2004 - confirmSpouse, confirmSpouseLogin
+-->
+
+<views>
+	<view name="listEvents" url="/crs/registration/listEvents.jsp"></view>
+	<view name="askSpouseQuestions" url="/crs/registration/askSpouseQuestions.jsp"></view>
+	<view name="confirmSpouse" url="/crs/registration/confirmSpouse.jsp"></view>
+	<view name="confirmSpouseLogin" url="/crs/registration/confirmSpouseLogin.jsp"></view>
+	<view name="selectRegistrationType" url="/crs/registration/selectRegistrationType.jsp"></view>
+	<view name="showEventDetails" url="/crs/registration/showEventDetails.jsp"></view>
+	<view name="userLogin" url="/crs/registration/userLogin.jsp"></view>
+	<view name="editPersonDetails" url="/crs/registration/editPersonDetails.jsp"></view>
+	<view name="listQuestions" url="/crs/registration/listQuestions.jsp"></view>
+	<view name="findStaffScholarship" url="/crs/registration/findStaffScholarship.jsp"></view>
+	<view name="findStaffMinAcctTransfer" url="/crs/registration/findMinistryAcctTransfer.jsp"></view>
+	<view name="listMerchandise" url="/crs/registration/listMerchandise.jsp"></view>
+	<view name="paymentSuccess" url="/crs/registration/paymentSuccess.jsp"></view>
+	<view name="paymentFailure" url="/crs/registration/paymentFailure.jsp"></view>
+	<view name="paymentByCheck" url="/crs/registration/paymentByCheck.jsp"></view>
+	<view name="paymentByCreditCard" url="/crs/registration/paymentByCreditCard.jsp"></view>
+	<view name="paymentByAccountTransfer" url="/crs/registration/paymentByAccountTransfer.jsp"></view>
+	<view name="paymentByMinistryAccountTransfer" url="/crs/registration/paymentByMinistryAccountTransfer.jsp"></view>
+	<view name="paymentByECheck" url="/crs/registration/paymentByECheck.jsp"></view>
+	<view name="paymentByScholarship" url="/crs/registration/paymentByScholarship.jsp"></view>
+	<view name="reviewPayments" url="/crs/registration/reviewPayments.jsp"></view>
+	<view name="reviewRegistration" url="/crs/registration/reviewRegistration.jsp"></view>
+	<view name="confirmPayment" url="/crs/registration/confirmPayment.jsp"></view>
+	<view name="editChildRegistrations" url="/crs/registration/editChildRegistrations.jsp"></view>
+	<view name="editStaffRegistrationDetails" url="/crs/registration/editStaffRegistrationDetails.jsp"></view>
+	<view name="editStudentRegistrationDetails" url="/crs/registration/editStudentRegistrationDetails.jsp"></view>
+	<view name="editGuestRegistrationDetails" url="/crs/registration/editGuestRegistrationDetails.jsp"></view>
+	<view name="lookupPerson" url="/crs/registration/lookupPerson.jsp"></view>
+	<view name="createSpouseLogin" url="/crs/registration/createSpouseLogin.jsp"></view>
+
+	<view name="error" url="/crs/registration/error.jsp"></view>
+	<view name="confirm" url="/crs/registration/confirm.jsp"></view>
+	<view name="lookupSSM" url="/crs/registration/lookupUser.jsp"></view>
+</views>

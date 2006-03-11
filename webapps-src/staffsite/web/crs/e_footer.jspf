@@ -1,0 +1,35 @@
+</TD>
+</TR>
+<TR>
+	<TD>
+	<TABLE
+		WIDTH="100%"
+		CELLPADDING="0"
+		CELLSPACING="0">
+		<TR>
+			<TD><%
+	if(session.getValue("eventLoggedIn") != null){
+%>
+			<DIV
+				CLASS="small"
+				ALIGN="LEFT">ID: <A
+				HREF="?action=showConference&conferenceID=<%=session.getValue("eventLoggedIn")%>"><%=session.getValue("eventLoggedIn")%></A></DIV>
+			<%
+	}
+%></TD>
+			<TD><%
+	if(session.getValue("authLevel") != null){
+%>
+			<DIV
+				CLASS="small"
+				ALIGN="RIGHT">auth: <%=session.getValue("authLevel")%></DIV>
+			<%
+	}
+%></TD>
+		</TR>
+	</TABLE>
+	</TD>
+</TR>
+</TABLE>
+<%session.putValue("system","Conference Registration System");%>
+<%@ include file="/footer.jspf"%>

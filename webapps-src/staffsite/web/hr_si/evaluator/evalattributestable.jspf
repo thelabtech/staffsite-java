@@ -1,0 +1,141 @@
+<!-- Start Reference Peronal Attributes -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Reference Personal Attributes</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<%=htmlutils.printAttribTitle("<b>Responsibility:</b> Carries out duties and obligations")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 4)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 6)%>
+			<%=htmlutils.printAttribLabels4("Very<br>Irresponsible", "Irresponsible", "Responsible", "Very<br>Responsible")%>
+			<%=htmlutils.printAttribTitle("<B>Adaptability:</B> Adjusts well to change in circumstances")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 7)%>
+			<%=htmlutils.printAttribLabels4("Adapts with<br>Difficulty", "Adapts<br>Moderately", "Adapts<br>Well", "Adapts<br>Very Well")%>
+			<%=htmlutils.printAttribTitle("<B>Perseverance:</B> Moves ahead in the face of adversity")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 2)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 4)%>
+			<%=htmlutils.printAttribLabels4("Quits<br>Often", "Quits<br>Sometimes", "Usually<br>Perseveres", "Always<br>keeps Going")%>
+			<%=htmlutils.printAttribTitle("<B>Personal Appearence and Manners:</B>")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 4)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 2)%>
+			<%=htmlutils.printAttribLabels4("Careless", "Fair", "Good", "Very Good")%>
+			<%=htmlutils.printAttribTitle("Cooperation and Teamwork:</B> Works well with others")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels4("Doesn't<br>Cooperate", "Cooperate<br>Poorly", "Cooperate<br>Well", "Cooperate<br>Very Well")%>
+			<%=htmlutils.printAttribTitle("<B>Communication:</B> Presents thoughts with clarity and meaning")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 3)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 4)%>
+			<%=htmlutils.printAttribLabels4("Poor", "Fair", "Good", "Outstanding")%>
+			<%=htmlutils.printAttribTitle("<B>Spiritual Maturity:</B> Demonstrates mature walk with God")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 6)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels4("Poor", "Questionable", "Good", "Impeccable")%>
+			<%=htmlutils.printAttribTitle("<B>Sensitivity:</B> Sensitive to the needs and feelings of others")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 3)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 4)%>
+			<%=htmlutils.printAttribLabels3("Insensitive", "Sensitive", "Very Sensitive")%>
+			<%=htmlutils.printAttribTitle("<B>Emotional Stability:</B> Responds well to stressful situations")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels4("Difficulty<br>with Stress", "Handles<br>Inconsistently", "Handles<br>Well" , "Handles<br>with Skill")%>
+			<%=htmlutils.printAttribTitle("<B>Self-Image:</B> Accepts and understands self")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 6)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 7)%>
+			<%=htmlutils.printAttribLabels4("Very<br>Poor", "Fair", "Good", "Exceptional")%>
+			<%=htmlutils.printAttribTitle("<B>Personal Ministry:</B> Effective personal influence for Christ")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 4)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 4)%>
+			<%=htmlutils.printAttribLabels4("Not<br>Effective", "Limited<br>Effectiveness", "Active<br>Ministry", "Exceptional<br>Effectiveness")%>
+			<%=htmlutils.printAttribTitle("<B>Initiating with others:</B> Begins conversations with ease")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 3)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels4("Never<br>Initiates", "Occasionally<br>Initiates", "Often<br>Initiates", "Very<br>Initiative")%>
+			<%=htmlutils.printAttribTitle("<B>Teachablitity:</B> Willing to recieve instruction and counsel")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 4)%>
+			<%=htmlutils.printAttribLabels3("Unteachable", "Teachable", "Very Teachable")%>
+			<%=htmlutils.printAttribTitle("Procrastination")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 4)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 6)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Critical attitude")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 6)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Irritablity")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Anxiety, worry")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 7)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Depression")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 3)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Domineering manner")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 6)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Rebelliousness")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 5)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+			<%=htmlutils.printAttribTitle("Anger")%>
+			<%=htmlutils.printAttribNumbers()%>
+			<%=htmlutils.printAttribDetail(1, 4)%>
+			<%=htmlutils.printAttribDetail(2, 0, false)%>
+			<%=htmlutils.printAttribDetail(3, 5)%>
+			<%=htmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<!-- End Reference Peronal Attributes -->

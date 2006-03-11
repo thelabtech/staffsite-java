@@ -1,0 +1,36 @@
+InfoBase Component
+
+InfoBase provides a system to organize campus ministries by country, geographic location, metro-area, campus with strategy and status, teams, campus staff, and resultant success criteria reporting.  The user can bookmark individual teams, campus, and target area.  This is a quick reference back to the details of the success criteria related to that bookmark.
+
+The maps, choice lists, and entry fields must be tested during Level 3 testing.
+
+	Regional Offices
+		Profile info on office
+		Success Criteria Summary
+		List of Campus's under this office
+			Add new Campus
+			Metro Teams associated with Campus
+			Team Info
+			Success Criteria Reporter
+			Strategy 
+			Status
+			Update Status
+			Bookmark Campus
+		List of Metro Teams
+			Add Staff to team
+			Team Info
+			Add Campus to Metro Team 
+		List of Target Areas
+			Add new Target area
+			Add/Edit Contact information to Target
+			Add Team to Target Campus
+
+	Geographic Locations
+		List of Campus's within this geographic location
+			Campus's and Metro Teams associated with Geographic location
+			Team/Campus Info
+			Success Criteria Reporter
+			Strategy 
+			Status
+			Update Status
+			Bookmark Campus

@@ -1,0 +1,6 @@
+SELECT First(istprod_ministry_TargetArea.name) AS [name Field], First(istprod_ministry_LocalLevel.lane) AS [lane Field], First(istprod_ministry_LocalLevel.region) AS [region Field], Count(istprod_ministry_TargetArea.name) AS NumberOfDups
+FROM [SELECT istprod_ministry_TargetArea.name, istprod_ministry_LocalLevel.lane, istprod_ministry_LocalLevel.region
+FROM (istprod_ministry_LocalLevel INNER JOIN istprod_ministry_Activity ON istprod_ministry_LocalLevel.teamID = istprod_ministry_Activity.fk_teamID) INNER JOIN istprod_ministry_TargetArea ON istprod_ministry_Activity.fk_targetAreaID = istprod_ministry_TargetArea.TargetAreaID
+]. AS [%$##@_Alias]
+GROUP BY istprod_ministry_TargetArea.name, istprod_ministry_LocalLevel.lane, istprod_ministry_LocalLevel.region
+HAVING (((Count([istprod_ministry_TargetArea].[name]))>1) AND ((Count([istprod_ministry_LocalLevel].[lane]))>1));

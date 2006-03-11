@@ -1,0 +1,17 @@
+</td>
+<!-- End Main Work Area -->
+		<td width="16%"><%@ include file="quicklinks.jspf" %></td>
+	</tr>
+</TABLE>
+</form>
+<%=box.printBottom()%>
+<%@ include file="/hr_si/footertemparary.jspf" %>
+</html>
+
+<%
+	// big try-catch for evaluation pages  (see evaluateheader.jsp for try)
+	} catch (Exception e) {
+		System.out.println(e);
+		e.printStackTrace();		
+	}
+%>

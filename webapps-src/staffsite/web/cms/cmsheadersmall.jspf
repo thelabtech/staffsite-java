@@ -1,0 +1,47 @@
+<%int curr_tab = 2;%>
+<%@ include file="/headersmall.jspf"%>
+
+<%	
+	box.setStyle("rounded");
+	box.setTitleFontSize("4");
+	box.setTitleAlign("left");
+	box.setColor(color3);
+	box.setTitle("<table border=0 cellpadding=0 cellspacing=0 width='100%'><tr><td><FONT FACE=Arial COLOR=#FFFFFF><font size='5'><a href='/servlet/CmsController' onMouseOver=\"document.homebutton.src='/infobase/images/ibHomesml_on.gif';\" onMouseOut=\"document.homebutton.src='/infobase/images/ibHomesml_off.gif';\"><img name='homebutton' src='/infobase/images/ibHomesml_off.gif' border=0 align=top></a> <b>Resource Center</b></td><td align=right><a href=\"JavaScript: popupWindow('/help/help_resource_center.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')\"><FONT FACE=Arial COLOR=#FFFFFF><font size='1'>Help With Resource Center</a></td></tr></table>");
+	box.setSubPad("0");
+%>
+<%=box.printTop()%>
+
+<%
+	if (pageTitle!=null) { //need to do a better check for pageTitle not existing here
+		box.setStyle("classic");
+		box.setTitleFontSize("3");
+		box.setTitle("");
+		box.setColor(color2);
+		%>
+		<%=box.printTop()%>
+		<TABLE WIDTH="100%">
+			<TR>
+				<TD WIDTH="100%"><%=fontB4%><b>&nbsp;&nbsp;&nbsp;<%=pageTitle%></b></font></TD>
+				<%
+					if ((!pageTitle.equals("Main Page"))&&(!pageTitle.equals("Advanced Search"))&&(!pageTitle.equals("Search"))) {
+						%>
+						<FORM NAME="searchForm" ACTION="/servlet/CmsController" METHOD="POST">
+						<TD align=RIGHT NOWRAP>
+							<input type=hidden name="action" value="simpleSearch">
+							<%=fontB%>Find a Resource:</FONT>
+							<INPUT TYPE="TEXT" SIZE="25" MAXLENGTH="200" NAME="query">
+							<A HREF="JavaScript: document.searchForm.submit();" onMouseOver="document.searchbutton1.src='/images/search_bon.gif';" onMouseOut="document.searchbutton1.src='/images/search_boff.gif';"><IMG NAME="searchbutton1" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></a>
+							&nbsp;
+							<a href="/servlet/CmsController?action=showAdvancedSearch"><%=font%>[More Options]</font></a>
+						</td>
+						</FORM>
+						<%
+					}
+				%>
+			</TR>
+		</TABLE>
+		<%=box.printBottom()%>
+		<%
+	}
+%>
+<% box.reset(); %>

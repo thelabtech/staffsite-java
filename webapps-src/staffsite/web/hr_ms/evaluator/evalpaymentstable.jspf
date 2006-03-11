@@ -1,0 +1,126 @@
+<INPUT NAME="savePayment" VALUE="T" TYPE="hidden">
+<!-- Payment Infomration -->
+<HR>
+<%
+	Hashtable paymentsHash = infoBean.getPayments(ar.getValue("WsnApplicationID"));
+	if(paymentsHash != null && paymentsHash.size() > 0){
+%>
+	
+
+	<DIV CLASS="evaltitle">
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="evaltitle">
+					<b>Payment Information</b>
+					<P>
+					Application fee: <BR>
+					<INPUT TYPE="RADIO" NAME="IsPaid" VALUE="true" <%=p.getIsPaid() ? "CHECKED" : "" %>> Paid <BR> 
+					<INPUT TYPE="RADIO" NAME="IsPaid" VALUE="" <%=!p.getIsPaid() ? "CHECKED" : "" %>> Not Paid <BR>
+				</td>
+				<td class="evaltitle" valign="top" align="right">
+					<table width="20%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalpayments')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					</td></td></table>
+				</td>
+			</tr>
+		</table>
+	</DIV>
+
+	<INPUT NAME="paymentQty" VALUE="<%=paymentsHash.size()%>" TYPE="hidden">
+<%
+		Iterator payments = paymentsHash.values().iterator();
+		for(int i = 0; payments.hasNext(); i++){
+			Hashtable payment = (Hashtable)payments.next();
+			org.alt60m.hr.ms.model.dbio.MSPayment paymentObject = infoBean.getMSPayment((String)payment.get("PaymentID"));
+%>
+			<INPUT TYPE="hidden" NAME="id<%=i%>" VALUE="<%=paymentObject.getPaymentID()%>">
+			<HR>
+			<TABLE WIDTH="100%" CELLSPACING="0">
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT" WIDTH="20%">Payment Date</TD>
+					<TD CLASS="eval"><%=paymentObject.getPaymentDate()==null?"&nbsp;":util.formatDate(paymentObject.getPaymentDate())%>
+					</TD>
+				</TR>
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT">Amount</TD>
+					<TD CLASS="eval"><INPUT NAME="<%=paymentObject.getPaymentID()%>.Credit" VALUE="<%=paymentObject.getCredit()%>"></TD>
+				</TR>
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT">Auth Code</TD>
+					<TD CLASS="eval"><INPUT NAME="<%=paymentObject.getPaymentID()%>.AuthCode" VALUE="<%=ShowNoNull(paymentObject.getAuthCode())%>"></TD>
+				</TR>
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT">Account No</TD>
+					<TD CLASS="eval"><INPUT NAME="<%=paymentObject.getPaymentID()%>.AccountNo" VALUE="<%=ShowNoNull(paymentObject.getAccountNo())%>"></TD>
+				</TR>
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT">Payment Type</TD>
+					<TD CLASS="eval">
+					<SELECT NAME="<%=paymentObject.getPaymentID()%>.Type">
+						<OPTION></OPTION>
+						<OPTION VALUE="Credit card payment" <%=paymentObject.getType().equals("Credit card payment") ? "SELECTED" : "" %>>Credit card payment</OPTION>
+						<OPTION VALUE="Mail Intent" <%=paymentObject.getType().equals("Mail Intent") ? "SELECTED" : "" %>>Mail Intent</OPTION>
+						<OPTION VALUE="Staff Intent" <%=paymentObject.getType().equals("Staff Intent") ? "SELECTED" : "" %>>Staff Intent</OPTION>
+					</SELECT>
+					</TD>
+				</TR>
+				<TR>
+					<TD CLASS="evaltitle" ALIGN="RIGHT">Comment</TD>
+					<TD CLASS="eval"><TEXTAREA NAME="<%=paymentObject.getPaymentID()%>.Comment" COLS="60" ROWS="3"><%=paymentObject.getComment()%></TEXTAREA></TD>
+				</TR>
+<!--
+				<TR>
+					<TD CLASS="eval" ALIGN="RIGHT" COLSPAN="2"><INPUT VALUE="Save Changes" TYPE="submit"></TD>
+				</TR>
+-->
+			</TABLE>
+<%
+		}
+	} else {
+%>
+		<P CLASS="eval" ALIGN="CENTER">There aren't any payments to display.<BR>Add a payment below.</P>
+<%
+	}
+%>
+<HR><DIV CLASS="evaltitle"><STRONG>Add Payment</STRONG></DIV><HR>
+<TABLE WIDTH="100%" CELLSPACING="0">
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT" WIDTH="20%">Create a new payment</TD>
+		<TD CLASS="eval"><INPUT TYPE="CHECKBOX" NAME="addPayment" VALUE="T"> (You must click add button below.)</TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT" WIDTH="20%">Amount</TD>
+		<TD CLASS="eval"><INPUT NAME="new.Credit"></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Auth Code</TD>
+		<TD CLASS="eval"><INPUT NAME="new.AuthCode"></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Account No</TD>
+		<TD CLASS="eval"><INPUT NAME="new.AccountNo"></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Payment Type</TD>
+		<TD CLASS="eval">
+		<SELECT NAME="new.Type">
+			<OPTION></OPTION>
+			<OPTION VALUE="Credit card payment">Credit card payment</OPTION>
+			<OPTION VALUE="Mail Intent">Mail Intent</OPTION>
+			<OPTION VALUE="Staff Intent">Staff Intent</OPTION>
+		</SELECT>
+		</TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Comment</TD>
+		<TD CLASS="eval"><TEXTAREA NAME="new.Comment" COLS="60" ROWS="3"></TEXTAREA></TD>
+	</TR>
+	<TR>
+		<TD CLASS="eval" ALIGN="RIGHT" COLSPAN="2">
+			<table width="20%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td nowrap>
+				<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalpayments')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Add Payment&nbsp;&nbsp;&nbsp;</font></A>
+			</td></td></table>
+		</TD>
+	</TR>
+</TABLE>
+<HR>

@@ -1,0 +1,99 @@
+<%
+	int notComplete = 0;
+
+	notComplete += 
+		my360.get("CurrentPosition").equals("") || 
+		my360.get("LeadershipLevel").equals("") || 
+		my360.get("Relationship").equals("")
+		? 1:0	;
+
+
+	notComplete += 
+		my360.get("Q1").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q3").equals("") || 
+		my360.get("Q4").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q5").equals("") || 
+		my360.get("Q6").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q7").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q9").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q11").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q13").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q15").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q17").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q19").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q21").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q23").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q25").equals("")
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q26").equals("") || 
+		my360.get("Q27").equals("")
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q28f1").equals("") || 
+		my360.get("Q28l1").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q28o1").equals("") || 
+		my360.get("Q28a1").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q28t1").equals("") || 
+		my360.get("Q28s1").equals("") 
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q29").equals("") || 
+		my360.get("Q30").equals("")
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q31").equals("") || 
+		my360.get("Q32").equals("")
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q33").equals("") || 
+		my360.get("Q34").equals("")
+		? 1:0	;
+%>

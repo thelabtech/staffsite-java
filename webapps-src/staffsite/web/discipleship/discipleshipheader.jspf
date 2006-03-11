@@ -1,0 +1,43 @@
+<%int curr_tab = 2;%>
+<%@ include file="/headersmall.jspf"%>
+<% try { %>
+<%	box.setStyle("rounded");
+	box.setTitleFontSize("4");
+	box.setTitleAlign("left");
+	box.setColor(color3);
+	box.setTitle("<table border=0 cellpadding=0 cellspacing=0 width='100%'><tr><td><FONT FACE=Arial COLOR=#FFFFFF><font size='5'><a href='/servlet/DiscipleshipController' onMouseOver=\"document.homebutton.src='/infobase/images/ibHomesml_on.gif';\" onMouseOut=\"document.homebutton.src='/infobase/images/ibHomesml_off.gif';\"><img name='homebutton' src='/infobase/images/ibHomesml_off.gif' border=0 align=top></a> <b>Discipleship Tool</b></td><td align=right><a href=\"JavaScript: popupWindow('/help/help_discipleship.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')\"><FONT FACE=Arial COLOR=#FFFFFF><font size='1'>Help With Discipleship Tool</a></td></tr></table>");
+	box.setSubPad("0");
+%>
+<%=box.printTop()%>
+<%try {%>
+<%
+  if (pageTitle!=null) { %>
+	<%	box.setStyle("classic");
+		box.setTitleFontSize("3");
+		box.setTitle("");
+		box.setColor(color2);
+	%>
+	<%=box.printTop()%>
+
+		<TABLE WIDTH="100%">
+			<TR>
+				<TD WIDTH="100%">
+					<%
+					if (pageTitle!=null) { %>
+						<%=fontB4%><b>&nbsp;&nbsp;&nbsp;<%=pageTitle%></b></font>
+						
+					<%
+					  }
+					%>
+				</TD>
+			</TR>
+		</TABLE>
+
+
+
+	<%=box.printBottom()%>
+
+<%
+  }
+%>
+<% box.reset(); %>

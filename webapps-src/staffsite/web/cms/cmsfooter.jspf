@@ -1,0 +1,3 @@
+<% box.setStyle("rounded"); %>
+<%=box.printBottom()%>
+<%@ include file="/footer.jspf"%>

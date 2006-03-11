@@ -1,0 +1,26 @@
+<!-- 	Created by: Scott Welch
+		Date added to CRS: 11/8/2005
+		Description: This little file will add a "Help" section to the bottom of all 
+		pages in creating and managing a conference in CRS. It takes the form of a
+		box, using the crs.css
+		
+		Modified 11/16/2005
+		Removed an extra row and empty cell.
+ -->	
+		<TABLE 
+			BORDER="0" 
+			CELLSPACING="0" 
+			WIDTH="100%" 
+			CLASS="box">
+				&nbsp;
+				<TR>
+					<TD CLASS="boxheader"><IMG SRC="/crs/images/info.gif">Help</TD>
+				</TR>
+				<TR>
+					<TD CLASS="cell">
+					If you are experiencing technical difficulties or need some help using the Conference Registration System, please do the following: <p>
+					1. If you haven't already done so, check the <a href="https://staff.campuscrusadeforchrist.com/cms/content/2873.htm">CRS User Manual</a>. <p>
+					2. <a href="mailto:help@campuscrusadeforchrist.com">Email us</a> anytime, or call us at 1-888-222-5462 between the hours of 9am and 5pm EST Monday through Friday.
+					</TD>
+				</TR>
+		</TABLE>

@@ -1,0 +1,133 @@
+<%!
+    public String DisplayHowWellKnown(int selection) {
+        String display;
+        switch (selection) {
+            case 1:  display = "<font class='eval'>Very Well</font>, Well, Average, Very Little"; break;
+            case 2:  display = "Very Well, <font class='eval'>Well</font>, Average, Very Little"; break;
+            case 3:  display = "Very Well, Well, <font class='eval'>Average</font>, Very Little"; break;
+            case 4:  display = "Very Well, Well, Average, <font class='eval'>Very Little</font>"; break;
+            default: display = "<font class='eval'>No Response</font>"; break;
+        }
+        return display;
+    }
+
+    public String DisplayHowWellComm(int selection) {
+        String display;
+        switch (selection) {
+            case 1:  display = "<font class='eval'>Frequent</font>, Some, Infrequent/Very little"; break;
+            case 2:  display = "Frequent, <font class='eval'>Some</font>, Infrequent/Very little"; break;
+            case 3:  display = "Frequent, Some, <font class='eval'>Infrequent/Very little</font>"; break;
+            default: display = "<font class='eval'>No Response</font>"; break;
+        }
+        return display;
+    }
+
+    public String DisplayRefRel(SIReference ref, String refTitle) {
+
+		String display = "";
+		display = "<tr><td class=\"evaltitle\" colspan=\"4\">";
+		display += "<table align=\"center\" width=\"70%\"><tr><td class=\"menu\" ALIGN=\"center\"><b>" + refTitle + "</b></td></tr></table>";
+		display += "</td>";
+		display += "</tr>";
+		 if("".equals(ref.getReferenceType())) {
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"4\">";
+			display += "<table align=\"center\" width=\"70%\"><tr><td class=\"evaltitle\" ALIGN=\"center\"><b>None</b></td></tr></table>";
+			display += "</td>";
+			display += "</tr>";
+		} else {
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"1\">Name</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\"><b>" + ShowNoNull(ref.getFirstName()) + " " + ShowNoNull(ref.getLastName()) + "</b></td>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" width=\"5%\" nowrap>Work Phone</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\" width=\"25%\" nowrap>" + ShowNoNull(ref.getWorkPhone()) + "</td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" width=\"5%\" nowrap>Address</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\" width=\"25%\" nowrap>" + ShowNoNull(ref.getCurrentAddress1());
+			if (hasAValue(ref.getCurrentAddress2())) {
+				display += "<BR>";
+			} else {
+				display += ShowNoNull(ref.getCurrentAddress2());
+			}
+			display += "</td><TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" width=\"5%\" nowrap>Cell Phone</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\" width=\"25%\" nowrap>" + ShowNoNull(ref.getCellPhone()) + "</td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\"></td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\">" + ShowNoNull(ref.getCurrentCity()) + ", " + ShowNoNull(ref.getCurrentState()) + " " + ShowNoNull(ref.getCurrentZip()) + "</td>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\">Email</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\">" + ShowNoNull(ref.getCurrentEmail()) + "</td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"1\" width=\"5%\" nowrap>Your occupation</td>";
+			display += "<TD CLASS=\"eval\" ALIGN=\"left\" colspan=\"3\">" + ShowNoNull(ref.getTitle()) + "</td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"4\">In what capacity have you known the applicant?<font class=\"eval\">" + ShowNoNull(ref.getHowKnown()) + "</font></td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"4\">How long have you known the applicant?<font class=\"eval\">" + ShowNoNull(ref.getHowLongKnown()) + "</font></td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"4\">How well do you know the applicant? <font size=\"1\"> (" + DisplayHowWellKnown(ref.getHowWellKnown()) + ")</font></td>";
+			display += "</tr>";
+			display += "<tr>";
+			display += "<TD CLASS=\"evaltitle\" align=\"left\" VALIGN=\"TOP\" colspan=\"4\">Quantity of time with applicant in the past year: <font size=\"1\"> (" + DisplayHowWellComm(ref.getHowWellComm()) + "</font><br>&nbsp;</td>";
+			display += "</tr>";
+			display += "<tr><td class=\"evaltitle\" colspan=\"4\">";
+		}
+		return display;
+	}
+%>
+
+<!-- Start Reference Relationship to Applicant -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="4"><b>Reference Relationship with Applicant</b><br>&nbsp;</td>
+	</tr>
+<%
+    SIReference ref = null;
+    String refTitle = "", display = "";
+	if (pfType.equals("ALL")) {
+		for(int currentReferrer=0; currentReferrer<4; currentReferrer++) {
+			switch (currentReferrer) {
+				case 0:
+					refTitle = "CCC staff member";
+					ref = refS;
+					break;
+				case 1:
+					refTitle = "Current discipler or Bible study leader";
+					ref = refD;
+					break;
+				case 2:
+					refTitle = "Roommate";
+					ref = refR;
+					break;
+				case 3:
+					refTitle = "Friend who knows you well";
+					ref = refF;
+					break;
+			}
+			display = DisplayRefRel(ref, refTitle);
+			%><%=display%><%
+			System.out.println("refTitle = " + refTitle);
+		}
+	} else if (pfType.equals("STAFF")) {
+			%><%=DisplayRefRel(refS, "CCC staff member")%><%
+			System.out.println("refTitle = " + refTitle);
+	} else if (pfType.equals("DISCIPLER")) {
+			%><%=DisplayRefRel(refD, "Current discipler or Bible study leader")%><%
+			System.out.println("refTitle = " + refTitle);
+	} else if (pfType.equals("ROOMMATE")) {
+			%><%=DisplayRefRel(refR, "Roommate")%><%
+			System.out.println("refTitle = " + refTitle);
+	} else if (pfType.equals("FRIEND")) {
+			%><%=DisplayRefRel(refF, "Friend who knows you well")%><%
+			System.out.println("refTitle = " + refTitle);
+	}
+%>
+</table>
+
+<!-- End Reference Relationship to Applicant -->
+

@@ -1,0 +1,2 @@
+SELECT istprod_ministry_LocalLevel.teamID, istprod_ministry_LocalLevel.name, istprod_ministry_LocalLevel.isActive, istprod_ministry_Staff.firstName, istprod_ministry_Staff.lastName, istprod_ministry_Staff.jobStatus, istprod_ministry_Staff.ministry, istprod_ministry_Staff.resignationDate
+FROM istprod_ministry_Staff INNER JOIN istprod_ministry_LocalLevel ON istprod_ministry_Staff.fk_teamID = istprod_ministry_LocalLevel.teamID;

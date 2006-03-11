@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+	<view name="error" url="/Review360dbio/light/error.jsp"></view>
+	<view name="saveReviewSession" url="/Review360dbio/light/import.jsp"></view>
+	<view name="editReviewSession" url="/Review360dbio/light/import.jsp"></view>
+	<view name="listStaff" url="/Review360dbio/light/Main.jsp"></view>
+	<view name="showIndex" url="/Review360dbio/ShowIndex.jsp"></view>
+	<view name="listAdminSessions" url="/Review360dbio/ListAdminSessions.jsp"></view>
+	<view name="editReviewSessionDetails" url="/Review360dbio/light/EditAdminSessionDetails.jsp"></view>
+	<view name="editReviewSession" url="/Review360dbio/light/EditReviewSession.jsp"></view>
+	<view name="addReviewer" url="/Review360dbio/light/AddReviewer.jsp"></view>
+	<view name="addNonStaffReviewer" url="/Review360dbio/light/AddNonStaffReviewer.jsp"></view>
+	<view name="newReviewSession1" url="/Review360dbio/light/NewReviewSession1.jsp"></view>
+	<view name="newReviewSession2" url="/Review360dbio/light/NewReviewSession2.jsp"></view>
+	<view name="newReviewSession3" url="/Review360dbio/light/NewReviewSession3.jsp"></view>
+	<view name="showReviewSummary" url="/Review360dbio/light/ShowReviewSummary.jsp"></view>
+	<view name="showHistory" url="/Review360dbio/light/ShowHistory.jsp"></view>
+	<view name="composeEmail" url="/Review360dbio/light/ComposeEmail.jsp"></view>
+	<view name="confirmEmail" url="/Review360dbio/light/ConfirmEmail.jsp"></view>
+	<view name="confirmEmails" url="/Review360dbio/light/ConfirmEmails.jsp"></view>
+	<view name="Q360_0" url="/Review360dbio/light/Question0.jsp"></view>
+	<view name="Q360_1" url="/Review360dbio/light/Question1.jsp"></view>
+	<view name="Q360_2" url="/Review360dbio/light/Question2.jsp"></view>
+	<view name="Q360_3" url="/Review360dbio/light/Question3.jsp"></view>
+	<view name="Q360_4" url="/Review360dbio/light/Question4.jsp"></view>
+	<view name="Q360_5" url="/Review360dbio/light/Question5.jsp"></view>
+	<view name="Q360_6" url="/Review360dbio/light/Question6.jsp"></view>
+	<view name="Q360_7" url="/Review360dbio/light/Question7.jsp"></view>
+	<view name="Q360_8" url="/Review360dbio/light/Question8.jsp"></view>
+	<view name="Q360_9" url="/Review360dbio/light/Question9.jsp"></view>
+</views>

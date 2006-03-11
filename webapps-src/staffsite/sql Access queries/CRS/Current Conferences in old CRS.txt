@@ -1,0 +1,3 @@
+SELECT istprod_crs_CRSConference.conferenceID, istprod_crs_CRSConference.name, istprod_crs_CRSConference.password, istprod_crs_CRSConference.region, istprod_crs_CRSConference.contactName, istprod_crs_CRSConference.contactEmail, istprod_crs_CRSConference.contactPhone, istprod_crs_CRSConference.createDate, istprod_crs_CRSConference.preRegStart, istprod_crs_CRSConference.preRegEnd
+FROM istprod_crs_CRSConference
+WHERE (((istprod_crs_CRSConference.preRegEnd)>#9/11/2003#));

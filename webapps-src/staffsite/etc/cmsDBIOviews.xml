@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+	<view name="browse" url="/cmsdbio/browse.jsp"></view>
+	<view name="browseCat" url="/cmsdbio/browsecategory.jsp"></view>
+	<view name="comBrowse" url="/cmsdbio/comBrowse.jsp"></view>
+	<view name="deleteCategory" url="/cmsdbio/deletecategory.jsp"></view>
+	<view name="downloadRedirect" url="/cmsdbio/downloadredirect.jsp"></view>
+	<view name="edit" url="/cmsdbio/edit.jsp"></view>
+	<view name="fileInfo" url="/cmsdbio/fileinfo.jsp"></view>
+	<view name="home" url="/cmsdbio/home.jsp"></view>
+	<view name="moderate" url="/cmsdbio/moderate.jsp"></view>
+	<view name="moderateReview" url="/cmsdbio/moderatereview.jsp"></view>
+	<view name="popupReplaceResource" url="/cmsdbio/popupreplaceresource.jsp"></view>
+	<view name="renameCategory" url="/cmsdbio/renamecategory.jsp"></view>
+	<view name="searchResults" url="/cmsdbio/searchresults.jsp"></view>
+
+	<view name="addCategory" url="/cms/addcategory.jsp"></view>
+	<view name="addCategory" url="/cms/addcategory.jsp"></view>
+	<view name="advancedSearch" url="/cms/advancedsearch.jsp"></view>
+	<view name="bugtest" url="/cms/bugtest.jsp"></view>
+	<view name="error" url="/cms/error.jsp"></view>
+	<view name="fileTypeNotSupported" url="/cms/filetypenotsupported.jsp"></view>
+	<view name="noMatches" url="/cms/nomatches.jsp"></view>
+	<view name="popupSuccess" url="/cms/popupsuccess.jsp"></view>
+	<view name="popupUploadForm" url="/cms/popupuploadform.jsp"></view>
+	<view name="popupUploadFile" url="/cms/popupuploadfile.jsp"></view>
+	<view name="popupUploadText" url="/cms/popupuploadtext.jsp"></view>
+	<view name="popupUploadWeb" url="/cms/popupuploadweb.jsp"></view>
+	<view name="popupUploadDone" url="/cms/popupuploaddone.jsp"></view>
+	<view name="selectCat" url="/cms/selectcategory.jsp"></view>
+	<view name="selectFile" url="/cms/selectfile.jsp"></view>
+	<view name="submit" url="/cms/submit.jsp"></view>
+	<view name="uploadError" url="/cms/uploaderror.jsp"></view>
+	<view name="uploadForm" url="/cms/uploadform.jsp"></view>
+</views>

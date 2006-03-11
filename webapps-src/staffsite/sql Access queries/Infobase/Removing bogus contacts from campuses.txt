@@ -1,0 +1,2 @@
+SELECT istprod_ministry_Assoc_activityContact.*, istprod_ministry_Staff.*
+FROM istprod_ministry_Staff RIGHT JOIN istprod_ministry_Assoc_activityContact ON istprod_ministry_Staff.accountNo = istprod_ministry_Assoc_activityContact.accountNo;

@@ -1,0 +1,5 @@
+INSERT INTO istprod_wsn_sp_WsnUsers ( ssmUserName, expirationDate, role )
+SELECT DISTINCTROW istprod_staffsite_staffsiteprofile.userName, #12/25/2005# AS Expr1, "Evaluator" AS Expr2
+FROM (istprod_staffsite_staffsiteprofile INNER JOIN istprod_simplesecuritymanager_user ON istprod_staffsite_staffsiteprofile.userName = istprod_simplesecuritymanager_user.username) LEFT JOIN istprod_wsn_sp_WsnUsers ON istprod_simplesecuritymanager_user.username = istprod_wsn_sp_WsnUsers.ssmUserName
+WHERE (((istprod_staffsite_staffsiteprofile.firstName)=[EnterFirst Name]) AND ((istprod_staffsite_staffsiteprofile.lastName)=[Enter Last Name]) AND ((istprod_wsn_sp_WsnUsers.ssmUserName) Is Null))
+WITH OWNERACCESS OPTION;

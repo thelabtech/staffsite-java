@@ -1,0 +1,72 @@
+<%@ page import="java.util.Collection,
+                 java.util.Hashtable,
+                 java.util.Iterator,
+                 java.text.SimpleDateFormat,
+                 java.util.Date" %>
+<!-- Start Parents Letter Code -->
+<%
+    //If no date, then use today's date
+    String dateCreated = (new SimpleDateFormat("MM/dd/yyyy").format(new Date())).toString();
+    if(eval.getParent_dateCreated() != null)
+        dateCreated = (new SimpleDateFormat("MM/dd/yyyy").format(eval.getParent_dateCreated())).toString();
+
+    String dateSigned = "";
+    if(eval.getParent_dateSigned() != null)
+        dateSigned = (new SimpleDateFormat("MM/dd/yyyy").format(eval.getParent_dateSigned())).toString();
+%>
+<!-- Start Parents Letter -->
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" width="70%"><b>Parents Letter</b> - Date Entered: <input type="text" onBlur="checkDate(this)" name="Parent_dateCreated" size="10" value="<%=dateCreated%>" maxlength="10"></td>
+		<td class="evaltitle" valign="bottom" align="right">
+		<!-- <input type="submit" value="Save"> -->
+					<table width="10%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalparents')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					</td></td></table>
+		</td>
+	</tr>
+	<tr><TD CLASS="evaltitle">&nbsp;<TD></TR>
+	<tr>
+        <TD CLASS="eval">We have discussed our son's/daughter's plan to apply for WSN International Summer Project...<TD>
+    </TR>
+	<tr>
+        <TD CLASS="evaltitle">&nbsp;&nbsp;&nbsp;&nbsp;<%=SelectYesNo("Parent_haveDiscussed", eval.getParent_haveDiscussed())%><TD>
+    </TR>
+
+	<tr><TD CLASS="evaltitle">&nbsp;<TD></TR>
+    <tr><td class="evaltitle" width="100%" valign="bottom" colspan="2"><b>Parents' Advice</b></td></tr>
+	<tr>
+        <TD CLASS="eval"><input type='radio' name='Parent_advice' value='1' <%=1==eval.getParent_advice()?"checked":""%>>We have encouraged our son/daughter to participate.<TD>
+    </TR>
+	<tr>
+        <TD CLASS="eval"><input type='radio' name='Parent_advice' value='2' <%=2==eval.getParent_advice()?"checked":""%>>We are not opposed to our son/daugher going, but we have the following reservations:<TD>
+    </TR>
+	<tr>
+        <TD CLASS="eval"><input type='radio' name='Parent_advice' value='3' <%=3==eval.getParent_advice()?"checked":""%>>We have advised our son/daughter not to go for the following reasons:<TD>
+    </TR>
+
+    <tr><td class="evaltitle" width="100%" valign="bottom" colspan="2"><b>Comments, Reasons, and Reservations:</b></td></tr>
+	<tr><td class="evaltitle" width="100%" valign="bottom" colspan="2"><TEXTAREA name="Parent_adviceReason" rows="7" cols="<%=summary100Width%>"><%=eval.getParent_adviceReason()==null?"":eval.getParent_adviceReason()%></TEXTAREA></td></tr>
+	</tr>
+
+	<tr><TD CLASS="evaltitle">&nbsp;<TD></TR>
+
+    <tr><td class="evaltitle" width="100%" valign="bottom" colspan="2"><B>Parent/Guardian</B></td></tr>
+    <tr><td class="eval" width="100%" valign="bottom" colspan="2">Signature: <input type="text" name="Parent_signature" size="25" value="<%=eval.getParent_signature()!=null?eval.getParent_signature():""%>" maxlength=50><I>(Type if readable)</I>
+       &nbsp; &nbsp; Date: <input type="text" onBlur="checkDate(this)" name="Parent_dateSigned" size="10" value="<%=dateSigned%>" maxlength="10"></td></tr>
+    <tr><td class="eval" width="100%" valign="bottom" colspan="2">Parent/Guardian Name(s): <input type="text" name="Parent_name" size="25" value="<%=eval.getParent_name()!=null?eval.getParent_name():""%>" maxlength=50><I>(If known)</I></td></tr>
+	<tr><TD CLASS="evaltitle">&nbsp;<TD></TR>
+	</tr>
+
+    <tr>
+		<td class="evaltitle" valign="bottom" align="center" colspan="2">
+		<!-- <input type="submit" value="Save"> -->
+					<table width="10%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalparents')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					</td></td></table>
+		</td>
+    </TR>
+
+</table>
+
+<!-- End Evaluation Summary -->

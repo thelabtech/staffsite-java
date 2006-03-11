@@ -1,0 +1,3 @@
+SELECT istprod_ministry_TargetArea.TargetAreaID, istprod_ministry_TargetArea.fice, istprod_ministry_TargetArea.name, istprod_ministry_TargetArea.address1, istprod_ministry_TargetArea.city, istprod_ministry_TargetArea.state, istprod_ministry_TargetArea.zip, istprod_ministry_TargetArea.country, istprod_ministry_TargetArea.isNoFiceOK, istprod_ministry_TargetArea.mainCampusFice, istprod_ministry_TargetArea.isClosed
+FROM istprod_ministry_TargetArea
+WHERE (((istprod_ministry_TargetArea.country)="USA") AND ((istprod_ministry_TargetArea.isNoFiceOK)="T")) OR (((istprod_ministry_TargetArea.country)="USA") AND ((istprod_ministry_TargetArea.mainCampusFice)>"0"));

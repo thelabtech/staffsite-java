@@ -1,0 +1,61 @@
+<!-- Start ------------TOOL BOX---------- -->
+<%
+String colorLSG = "#cccc99";
+String fontDimS = "<FONT FACE=\""+fontFace+"\" SIZE=\"1\" COLOR=\""+colorLSG+"\">";
+%>
+<%=fontTextL%><b>Evaluat'n Tools</b></font><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>" cellspacing="0" cellpadding="0">
+		<tr valign='top' border="0"><td colspan="2"><%=fontTextM%><b>Split Screen&nbsp;&nbsp;</b></font><font size="1">with...</font></TD></tr>
+		<tr valign='top'><td width="50%">
+		<% if (request.getParameter("toframe").equals("yes") || request.getParameter("page").equals("evalworksheet") || request.getParameter("page").equals("evalacceptance") || request.getParameter("page").equals("evalsummary")) { %>
+			<%=fontDimS%>Worksheet</font>
+		<% } else { %>
+			<INPUT TYPE="HIDDEN" NAME="toframe" value="yes">
+			<%=font3S%><A HREF="SIController?action=goToPage&page=evalsplit&sendingpage=<%=request.getParameter("page")%>&toframe=yes&bottomframe=evalworksheetframe">Worksheet</A></font>
+		<% } %>
+		</TD><td>
+		<% if (request.getParameter("toframe").equals("yes") || request.getParameter("page").equals("evalworksheet") || request.getParameter("page").equals("evalacceptance") || request.getParameter("page").equals("evalsummary")) { %>
+			<font class="smalldim">Accpt Issues</font>
+		<% } else { %>
+			<%=font3S%><A HREF="SIController?action=goToPage&page=evalsplit&sendingpage=<%=request.getParameter("page")%>&toframe=yes&bottomframe=evalacceptanceframe">Accpt Issues</A></font>
+		<% } %>
+		</TD>
+		</tr>
+		<tr valign='top'><td width="50%">
+		<% if (request.getParameter("toframe").equals("yes") || request.getParameter("page").equals("evalworksheet") || request.getParameter("page").equals("evalacceptance") || request.getParameter("page").equals("evalsummary")) { %>
+			<font class="smalldim">Summary</font>
+		<% } else { %>
+			<%=font3S%><A HREF="SIController?action=goToPage&page=evalsplit&sendingpage=<%=request.getParameter("page")%>&toframe=yes&bottomframe=evalsummaryframe">Summary</A></font>
+		<% } %>
+		</TD>
+		<td>
+		<% if (request.getParameter("toframe").equals("no")) { %>
+			<font class="smalldim">close split</font>
+		<% } else { %>
+			<%=font3S%><A CLASS="small" HREF="SIController?action=goToPage&page=<%=request.getParameter("page")%>&sendingpage=<%=request.getParameter("page")%>&toframe=no" TARGET="_top">close split</A></font>
+		<% } %>
+		</TD></tr>
+		<tr valign='top' border="0"><td colspan="2"><%=fontTextM%><b>Printer Friendly</b></font></TD></tr>
+		<tr valign='top'><td width="50%"><%=font3S%><A HREF="JavaScript: popupWindow('SIController?action=goToPage&page=pfapplication&ApplicationID=<%=request.getParameter("ApplicationID")%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Application</A></font></TD><td><%=font3S%><A HREF="JavaScript: popupWindow('SIController?action=goToPage&page=pfrefs&ApplicationID=<%=request.getParameter("ApplicationID")%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">All Refs.</A></font></TD></tr>
+		<tr valign='top'><td colspan="2"><%=font3S%><A HREF="JavaScript: popupWindow('SIController?action=goToPage&page=pfappandrefs&ApplicationID=<%=request.getParameter("ApplicationID")%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Application w/ All Refs.</A></font></TD></tr>
+		<tr valign='top'><td colspan=2><%=fontTextM%><b>Other</font></b><br></TD></tr>
+		<tr valign='top'><td colspan=2><%=font3S%><a href="/servlet/SIController?action=goToPage&page=studentview&id=00000194345" TARGET="_top">Back to View Applicant</A></font></TD></tr>
+		<tr valign='top'><td colspan=2><%=font3S%><a href='/servlet/SIController?action=goToPage&page=projectview' TARGET="_top">Back to Team Roster</A></font></TD></tr>
+	</TABLE>
+<%=fontTextL%><b>Available Tools</font></b><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=evaluatehome" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_myhome.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="My WSN Home"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=appinfo" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_addapp.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Add Applicant"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=staffappsearch" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_addstaff.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Add Staff"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/wsnsp/filterlistapps.jsp" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_searchpeople.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Search Applicant"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/wsnsp/filterlistprojects.jsp" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_searchproj.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Search Projects"></a></TD></tr>
+	</TABLE>
+	<%=fontTextL%><b>Links</font></b><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="JavaScript: popupWindow('/cms/content/00000129400.htm', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Q & A</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><A HREF="/servlet/CmsController?action=browse&catID=1000029" target='_blank'>Resource Center</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="/servlet/CmsController?action=browse&catId=00000056972" target='_blank'>Leader's Notebook</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="/cms/content/00000038954.doc" target='_blank'>Applicant Flowchart</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href='/wsnsp/info_old.jsp' TARGET="_top">Old Announcements</a></font></TD></tr>
+	</TABLE>
+<!-- End ------------TOOL BOX---------- -->

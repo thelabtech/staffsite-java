@@ -1,0 +1,23 @@
+Review360 Component
+
+	Index Page
+
+	New review session
+		Start new review process
+		Select person to be reviewed
+	Select review requester
+
+	Admin Review Session
+		Add reviewer
+		Email reviewer
+		Monitor progress
+		Fill out Review360 and save
+		Compose email to reviewers
+
+		Edit review session (change title)
+		Compose email
+		Show summary
+		Show reviewer list
+		Edit review session details
+
+	Review results

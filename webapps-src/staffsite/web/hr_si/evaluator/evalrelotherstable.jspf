@@ -1,0 +1,63 @@
+<!-- Start Relationship with Others -->
+
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Relationship with Others</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Relationship with Others</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Ability to communicate</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Ability to develop relationships</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Ability to resolve conflicts</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Tactfulness</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro4")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Sensitivity to other's needs/feelings</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro5")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Team player/servant attitude</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro6")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Relationship with the opposite sex</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ro7")%>
+		</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Comment on the applicant's (a) sensitivity to the needs, feelings, and attitudes of others and (b) ability to work with others.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ro8")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How does the applicant communicate his/her thoughts/feelings to others?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ro9")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How does he/she handle conflict?  Give examples if possible.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ro10")%>
+</table>
+
+<!-- End Relationship with Others -->

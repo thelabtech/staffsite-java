@@ -1,0 +1,44 @@
+			<BR>
+		</TD><!--Closing global table-->
+	</TR>
+</TABLE>
+<%--Date added: 1/16/2006
+	Added by: Scott Welch
+	Purpose: The request.getRequest URL is used to grab the URL from the browser's address
+	bar. It is then put into the variable urlAddressString and checked to see if it contains 
+	the CharSequence (aka string) "www.conferenceregistrationtool.com. If it does, then 
+	Campus Crusade for Christ is not displayed. If not, the footer displays as normal. 
+--%>
+
+<% String urlAddressString = request.getRequestURL().toString();
+	if (!urlAddressString.contains("www.conferenceregistrationtool.com")) { //Beginning of conference cloaking if statement for footer.jspf
+%>
+<center>
+  <table width="755" border="0">
+	<tr>
+		<td align="center" CLASS="small">
+		  <!-- <a href="/general/feedback.jsp"><img src="/images/info.gif" border="0" align="center" alt="Info" WIDTH="42" HEIGHT="41"></a> -->
+		  <i>© 2005 Campus Crusade for Christ International</i><br>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" CLASS="small">
+		  <i><a href="/general/feedback.jsp" target="_blank">Send us feedback.</a></i> 
+		  <br>
+		</td>
+	</tr>
+  </table>
+  </center>
+<% 
+	} // End of conference cloaking if statement for footer.jspf 
+%>
+<script src="/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-79392-3";
+urchinTracker();
+</script>
+</BODY>
+<%
+	} // Global if section end
+%>

@@ -1,0 +1,45 @@
+<% int curr_tab = 3; %>
+<%@ page import="java.util.*" %>
+<% 
+	boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+	String pages[] = {"evalcontact", "evalinterests", "evalexperience", "evalrefrel", "evalrelgod", "evalrelothers", "evalrelself", "evalminskills", "evalleaderskills", "evaloverall", "evalpersonal", "evalmoral", "evalfinmpd", "evalworksheet", "evalfollowthru", "evalplacement"};
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(request.getParameter("page"))){
+			pageNum = x + 1;
+			break;
+		}
+	}
+%>
+<%@ include file="/style.jspf"%>
+
+<jsp:useBean id="box" class="org.alt60m.html.Box"/>
+<%@ include file="evaluatecolors.jspf" %>
+<HTML>
+<HEAD>
+<TITLE>WSN SPT</TITLE>
+<link rel="stylesheet" href="/hr_si/themes/hr_si_evaluation.css" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(/hr_si/themes/hr_si_evaluation.css); /*IE and NN6x styles*/
+</style>
+<script language="javascript">
+<!--
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+// -->
+</script>
+<table width="760" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td width="100%">
+<%	box.setTitle("<b>" + frameTitle + "</b>"); %>
+
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+<p> <%=fontText%>
+<FORM NAME="appForm" ACTION="SIController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="as" VALUE="<%=request.getParameter("as")%>">
+<INPUT TYPE="HIDDEN" NAME="page" value="<%=request.getParameter("page")%>">
+<INPUT TYPE="HIDDEN" NAME="sendingpage" value="<%=request.getParameter("page")%>">
+<INPUT TYPE="HIDDEN" NAME="toframe" value="<%=request.getParameter("toframe")%>">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="goToPage">

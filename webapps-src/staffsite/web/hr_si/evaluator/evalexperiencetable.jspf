@@ -1,0 +1,281 @@
+<%!
+    public String ShowConfidenceLevel(int value) {
+        String display="";
+        if(value==0)
+            display = "no response";
+        else {
+            for(int i=1; i<=5; i++) {
+                if(value==i)  display += "<font class='evalbigbold'>"+i+"</font>";
+                else          display += "&nbsp;&nbsp;"+i+"&nbsp;&nbsp;";
+//                if(i<5)       display += "&nbsp;";
+            }
+        }
+        return display;
+    }
+%>
+<!-- Start Ministry Experience and Church Background -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Ministry Experience</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Church / Campus Crusade / other ministry training.  Please list specific training and involvement.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getMinistryTraining())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What is your understanding of and attitude toward initiative evangelism?.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getEvangelismAttitude())%></td>
+	</tr>
+
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">As an intern your primary responsibilities will focus around initiative evangelism. Are you willing to be trained in initiative evangelism?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getIsEvangelismTrainable())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">	Do you feel most comfortable being the leader or a team participant? Please explain.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getParticipationExplanation())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How do you respond to someone in an authority position?<br><font class="eval"><%=ShowNoNull(app.getAuthorityResponseExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="95%">Please indicate your experience with regard to the following ministry tools.</td>
+	</tr>
+	<tr>
+		<td CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<td CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="95%">
+		<table WIDTH="100%" CELLSPACING="0" class="evalrefinbox">
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="BOTTOM" rowspan="2" width="53%"><b>Ministry Tool</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" colspan="2" width="12%"><b>Familiar<br>With</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" colspan="2" width="12%"><b>Have Use<br>in Ministry</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="23%"><b>Level of<br>Confidence</b></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="6%"><b>Yes</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="6%"><b>No</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="6%"><b>Yes</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="6%"><b>No</b></td>
+				<TD CLASS="insideboxblue" ALIGN="center" VALIGN="TOP" width="26%"><b>Low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;High</b></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Four Spiritual Laws</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarFourSpiritualLaws())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarFourSpiritualLaws())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceFourSpiritualLaws())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceFourSpiritualLaws())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceFourSpiritualLaws())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Life at Large</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarLifeAtLarge())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarLifeAtLarge())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceLifeAtLarge())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceLifeAtLarge())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceLifeAtLarge())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Personal 3 Minute Testimony</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarPersonalTestimony())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarPersonalTestimony())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperiencePersonalTestimony())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperiencePersonalTestimony())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidencePersonalTestimony())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Explaining the gospel without a tool</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarExplainingGospel())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarExplainingGospel())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceExplainingGospel())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceExplainingGospel())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceExplainingGospel())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Sharing your faith with (non-Christian) friends</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarSharingFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarSharingFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceSharingFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceSharingFaith())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceSharingFaith())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Holy Spirit Booklet</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarHolySpiritBooklet())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarHolySpiritBooklet())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceHolySpiritBooklet())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceHolySpiritBooklet())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceHolySpiritBooklet())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Follow-Up Materials</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarFollowUp())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarFollowUp())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceFollowUp())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceFollowUp())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceFollowUp())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Helping someone grow in their faith</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarHelpGrowInFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarHelpGrowInFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceHelpGrowInFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceHelpGrowInFaith())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceHelpGrowInFaith())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Training someone how to share their faith</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarTrainShareFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarTrainShareFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceTrainShareFaith())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceTrainShareFaith())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceTrainShareFaith())%></td>
+			</tr>
+			<TR>
+				<TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Addressing beliefs of another religion</td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getIsFamiliarOtherReligions())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getIsFamiliarOtherReligions())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckYes(app.getHasExperienceOtherReligions())%></td>
+				<TD CLASS="insideboxbb" ALIGN="center" VALIGN="TOP"><%=ShowCheckNo(app.getHasExperienceOtherReligions())%></td>
+				<TD CLASS="insideboxst" ALIGN="center" VALIGN="center"><%=ShowConfidenceLevel(app.getConfidenceOtherReligions())%></td>
+			</tr>
+		</table>
+		&nbsp;</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">7.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What leadership positions have you held in ministry or in other extracurricular activities?
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getLeadershipPositions())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">8.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you been the leader of a discipleship group? <font class="eval"><%=ShowYesNo(app.getHasLedDiscipleshipGroup())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How many other people were involved? <font class="eval"><%=ShowNoNull(app.getDiscipleshipGroupSize())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">9.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What did you like/dislike about being in this role?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getLeadershipEvaluation())%></td>
+	</tr>
+	<tr><td class="evaltitle" colspan="2"><b>CHURCH AND SPIRITUAL BACKGROUND</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">When did you become a Christian?  (month & year)<font class="eval"><%=app.getConversionMonth()%>/<%=app.getConversionYear()%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Denomination of church where you are a member.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getMemberChurchDenomination())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How long?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getMemberChurchDuration())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Name of denomination of church you currently attend (if different from membership).</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getAttendingChurchDenomination())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How long?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getAttendingChurchDuration())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Involvement?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getAttendingChurchInvolvement())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Frequency and amount of time spent with the Lord.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getQuietTimeQuantity())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Describe your time with the Lord.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getQuietTimeDescription())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How does a person obtain salvation?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getExplanationOfSalvation())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What is your understanding of the Sprit-filled life?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getExplanationOfSpiritFilled())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">7.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you ever been involved in the practice of speaking in tongues?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getHasInvolvementSpeakingTongues())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">8.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What is the difference between being indwelt with the Holy Spirit and being filled with the Holy Spirit?  When does each occur?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getDifferenceIndwellingFilled())%></td>
+	</tr>
+</table>
+
+<!-- End Ministry Experience and Church Background -->

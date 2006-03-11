@@ -1,0 +1,101 @@
+
+	<% box.setTitle("Question List");%>
+	<% box.setTableInside(false); %>
+	<%=box.printTop()%>
+	<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="1">
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Key</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<%=fontB1%><U>Section Complete</U></FONT><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<%=fontR1%><U>Section Incomplete</U></FONT><BR>
+		
+		</TD></TR>
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Personal Information</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>><%=fontB1%>&nbsp;&nbsp;-&nbsp;</FONT><A HREF="javascript: goTo(0)"><%if(my360.get("CurrentPosition").equals("") || my360.get("LeadershipLevel").equals("") || my360.get("Relationship").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Change/Update</FONT></A><BR></TD></TR>
+		<TR><TD <%=bgcolorG%>><%=fontB1%>I) Leadership Relationships</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(1)"><%if(my360.get("Q1").equals("") //|| my360.get("Q2") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Leader and God</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(2)"><%if(my360.get("Q3").equals("") || my360.get("Q4").equals("")){%><%=fontR1%><% }else{%><%=fontB1%><%}%>Leader and Self (<%=fontTextS%>DI</FONT>CE)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(3)"><%if(my360.get("Q5").equals("") || my360.get("Q6").equals("")){%><%=fontR1%><% }else{%><%=fontB1%><%}%>Leader and Self (DI<%=fontTextS%>CE</FONT>)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(4)"><%if(my360.get("Q7").equals("") //|| my360.get("Q8") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Leader and Others</FONT></A><BR>	
+		</TD></TR>
+
+		<TR><TD <%=bgcolorG%>><%=fontB1%>II) Leadership Roles</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(5)"><%if(my360.get("Q9").equals("") //|| my360.get("Q10") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Direction Setter</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(6)"><%if(my360.get("Q11").equals("") //|| my360.get("Q12") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Spokesperson</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(7)"><%if(my360.get("Q13").equals("") //|| my360.get("Q14") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Coach</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(8)"><%if(my360.get("Q15").equals("") //|| my360.get("Q16") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Change Agent</FONT></A><BR>
+		
+		</TD></TR>
+		
+		<TR><TD <%=bgcolorG%>><%=fontB1%>III) Leadership Responsibilities</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(9)"><%if(my360.get("Q17").equals("") //|| my360.get("Q18") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Cast Vision</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(10)"><%if(my360.get("Q19").equals("") //|| my360.get("Q20") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Formulate Strategy</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(11)"><%if(my360.get("Q21").equals("") //|| my360.get("Q22") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Align</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(12)"><%if(my360.get("Q23").equals("") //|| my360.get("Q24") == 0
+		){out.print(fontR1); }else{ out.print(fontB1);}%>Motivate</FONT></A><BR>
+		
+		</TD></TR>
+		
+		<TR><TD <%=bgcolorG%>><%=fontB1%>IV) Leadership Results</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(13)"><%if(my360.get("Q25").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Results</FONT></A><BR>
+		
+		</TD></TR>
+		
+		<TR><TD <%=bgcolorG%>><%=fontB1%>V) Professionalism</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(14)"><%if(my360.get("Q26").equals("") || my360.get("Q27").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Professionalism</FONT></A><BR>
+		
+		</TD></TR>
+		
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Summary</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(15)"><%if(my360.get("Q28f1").equals("") //|| my360.get("Q28f2") == 0
+		|| my360.get("Q28l1").equals("") //|| my360.get("Q28l2") == 0
+		){%><%=fontR1%><% }else{%><%=fontB1%><%}%><%=fontTextS%>FL</FONT>OATS</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(16)"><%if(my360.get("Q28o1").equals("") //|| my360.get("Q28o2") == 0 
+		|| my360.get("Q28a1").equals("") //|| my360.get("Q28a2") == 0
+		){%><%=fontR1%><% }else{%><%=fontB1%><%}%>FL<%=fontTextS%>OA</FONT>TS</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(17)"><%if(my360.get("Q28t1").equals("") //|| my360.get("Q28t2") == 0 
+		|| my360.get("Q28s1").equals("") //|| my360.get("Q28s2") == 0
+		){%><%=fontR1%><% }else{%><%=fontB1%><%}%>FLOA<%=fontTextS%>TS</FONT></FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(18)"><%if(my360.get("Q29").equals("") || my360.get("Q30").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Priorities</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(19)"><%if(my360.get("Q31").equals("") || my360.get("Q32").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Suggestions</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(20)"><%if(my360.get("Q33").equals("") || my360.get("Q34").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Other Comments</FONT></A><BR>
+		
+		</TD></TR>
+	</TABLE>
+			<%=box.printBottom()%>

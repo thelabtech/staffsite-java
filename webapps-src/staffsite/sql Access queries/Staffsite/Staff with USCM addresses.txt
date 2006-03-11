@@ -1,0 +1,3 @@
+SELECT istprod_ministry_Staff.firstName, istprod_ministry_Staff.lastName, istprod_ministry_Staff.email, istprod_ministry_Staff.ministry, istprod_ministry_Staff.position, istprod_ministry_Staff.jobStatus, istprod_ministry_Staff.strategy, istprod_ministry_Staff.spouseFirstName, istprod_ministry_Staff.spouseLastName, istprod_ministry_Staff.spouseAccountNo, istprod_ministry_Staff.fianceeFirstName, istprod_ministry_Staff.fianceeLastName, [istprod_ministry_Staff].finaceeAccountno AS Expr1, istprod_ministry_Staff.isFianceeStaff, istprod_ministry_Staff.region, istprod_ministry_Staff.maritalStatus, istprod_ministry_Staff.deptId, istprod_ministry_Staff.jobCode, istprod_ministry_Staff.jobTitle
+FROM istprod_ministry_Staff
+WHERE (((istprod_ministry_Staff.email) Like "*uscm.org"));

@@ -1,0 +1,48 @@
+package id3jnqfcwgh0kracwgh267j;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id22frhcwgh0kracwgh2qmr.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.cms.model:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#id285q5cw6i81mocw99o2u7.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.cms.scripts:oiref> 
+*/
+class reference9 {
+}/**
+@__ref <oiref:design#Class#idads5cwgh0kracwgir1gd.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.cms.test:oiref> 
+*/
+class reference10 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.cms.CmsInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference11 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id285q5cw6i81mocw99o2u7.diagram:oiref>=307,124,59,57,1:oigroup>
+<oigroup:<oiref:design#Class#id22frhcwgh0kracwgh2qmr.diagram:oiref>=44,90,97,84,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.cms.CmsInfo:oiref>=146,186,83,82,1:oigroup>
+<oigroup:<oiref:design#Class#idads5cwgh0kracwgir1gd.diagram:oiref>=310,200,53,57,1:oigroup>
+*/
+class __positions {
+}

@@ -1,0 +1,119 @@
+
+<!-- Start Overall Recommendation -->
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Overall Recommendation</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+</Table>
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What are the applicant's greatest strengths and abilities?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_re1")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What areas of the applicant's life need development or attention?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_re2")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Please summarize this applicant's readiness for an internship with Campus Crusade for Christ's Campus Ministry.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_re3")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Please indicate your overall recommendation:</td>
+	</tr>
+	<% if (pfType.equals("ALL") || pfType.equals("STAFF")) {%>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">(STAFF)<font class="eval"></TD>
+	</TR>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">
+			<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refS.get_re4()==1?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Team leader/associate team leader with major responsibilities</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refS.get_re4()==2?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Good team person: a good follower</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refS.get_re4()==3?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Marginal acceptance, have some reservations</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refS.get_re4()==4?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Definitely not recommend</td></tr>
+			</table>
+		</td>
+	</tr>
+	<%}%>
+	<% if (pfType.equals("ALL") || pfType.equals("DISCIPLER")) {%>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">(DISCIPLER)<font class="eval"></TD>
+	</TR>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">
+			<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refD.get_re4()==1?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Team leader/associate team leader with major responsibilities</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refD.get_re4()==2?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Good team person: a good follower</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refD.get_re4()==3?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Marginal acceptance, have some reservations</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refD.get_re4()==4?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Definitely not recommend</td></tr>
+			</table>
+		</td>
+	</tr>
+	<%}%>
+	<% if (pfType.equals("ALL") || pfType.equals("ROOMMATE")) {%>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">(ROMMATE)<font class="eval"></TD>
+	</TR>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">
+			<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refR.get_re4()==1?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Team leader/associate team leader with major responsibilities</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refR.get_re4()==2?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Good team person: a good follower</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refR.get_re4()==3?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Marginal acceptance, have some reservations</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refR.get_re4()==4?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Definitely not recommend</td></tr>
+			</table>
+		</td>
+	</tr>
+	<%}%>
+	<% if (pfType.equals("ALL") || pfType.equals("FRIEND")) {%>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">(FRIEND)<font class="eval"></TD>
+	</TR>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">
+			<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refF.get_re4()==1?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Team leader/associate team leader with major responsibilities</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refF.get_re4()==2?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Good team person: a good follower</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refF.get_re4()==3?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Marginal acceptance, have some reservations</td></tr>
+			<tr><TD CLASS="insideboxbb" ALIGN="center" width="5%"><%=refF.get_re4()==4?"X":"&nbsp"%></td>
+			<td class="insideboxblue" valign="bottom">Definitely not recommend</td></tr>
+			</table>
+		</td>
+	</tr>
+	<%}%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Please offer any additional comments or concerns you have with regard to the applicant.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_re5")%>
+</table>
+
+<!-- End Overall Recommendation -->

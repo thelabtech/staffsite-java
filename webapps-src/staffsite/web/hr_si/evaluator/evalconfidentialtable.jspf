@@ -1,0 +1,81 @@
+<!-- Start Confidential and Medical Information -->
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="2"><b>Confidential Information</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">22.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have a police or prison record?
+			<div class="eval">No</div>
+			<div class="evaltitle">If yes, please explain:</div>
+			<div class="eval">N/A</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">23.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you consume alcoholic beverages?
+			<div class="eval">Yes</div>
+			<div class="evaltitle">In what situations and how often do you use alcohol?<BR>Would you consider this an area with which you struggle?</div>
+			<div class="eval">Bar hopping</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">24.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the last 12 months, have you used narcotics, halucinogens, or drugs not prescribed by a physician?
+			<div class="eval">Yes</div>
+			<div class="evaltitle">If yes, explain in detail.</div>
+			<div class="eval">I smoke dope.</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">25.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">What convictions have you developed in the area of sexual purity?<BR>(Please be specific.)
+			<div class="eval">I'm affraid of men.</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">26.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the last 12 months have you had a relationship which would not be considered "above reproach" (i.e. light or heavy petting/sexual intercourse/oral sex/pornography)?
+			<div class="eval">Yes</div>
+			<div class="evaltitle">If yes, please explain the details below.<BR>
+			Include steps you have taken to change that involvement.<BR>
+			Is anyone holding you accountable in this area?</div>
+			<div class="eval">That's why I'm affraid of men.</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">27.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the past 12 months have you struggled with or participated in homosexual relationships/practice?
+			<div class="eval">No</div>
+			<div class="evaltitle">If yes, please explain the details below.<BR>
+			Is anyone holding you accountable in this area?</div>
+			<div class="eval">N/A</div>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">28.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the last 12 months, have you struggled with an eating disorder?
+			<div class="eval">Yes</div>
+			<div class="evaltitle">If yes, please explain the details below.<BR>
+			Include steps you have taken to change that involvement.<BR>
+			Is anyone holding you accountable in this area?</div>
+			<div class="eval">Please call me.</div>
+		</td>
+	</tr>
+	<tr><td class="evaltitle" colspan="2"><br><b>Medical Information</b></td></tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">29.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have any particular conditions which may limit you, such as serious allergies requiring medication, back problems, limited mobility, extremely poor eyesight, hearing loss, etc. ?
+			<div class="eval">Yes</div>
+			<div class="evaltitle">If yes, please specify:</div>
+			<div class="eval">I wear reading glasses.</div>
+			<div class="evaltitle">If you are on medication, can you bring enough to last the entire summer?</div>
+			<div class="eval">Yes</div>
+			<div class="evaltitle">Are you currently or have you been under a doctor's care in the past year?</div>
+			<div class="eval">Yes</div>
+			<div class="evaltitle">If yes, please explain:</div>
+			<div class="eval">My doctor wants me to where reading glasses.</div>
+		</td>
+	</tr>
+</table>
+
+<!-- End Confidential and Medical Information -->

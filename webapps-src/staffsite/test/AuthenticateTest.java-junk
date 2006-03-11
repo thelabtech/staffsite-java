@@ -1,0 +1,46 @@
+
+import junit.framework.*;
+//import org.alt60m.staffSite.accounts.*;
+
+public class AuthenticateTest extends TestCase {
+
+	public AuthenticateTest(String name) {
+		super(name);
+	}
+
+	public static void main(String args[]) {
+		junit.textui.TestRunner.run(AuthenticateTest.class);
+	}
+
+	protected void setUp() {
+	}
+
+	/*
+	public static Test suite() {
+		TestSuite suite= new TestSuite();
+		suite.addTest(new AuthenticateTest("testPrint"));
+		return suite;
+	}
+	*/
+	
+	public void testPrint() {
+		assertEquals("Hello", "Hello");
+	}
+
+	public void testAuthenticate() {
+		String profileId;
+		try	{
+			profileId = Authenticate.check("paul.payne", "1234");
+		} catch (AccountNotFoundException anfe) {
+			profileId=anfe.toString();
+		} catch (MultipleAccountsFoundException manfe) {
+			profileId=manfe.toString();
+		} catch (NotSecantAuthorizedException nsae) {
+			profileId=nsae.toString();
+		} catch (AuthorizationUnavailableException aue) {
+			profileId=aue.toString();
+		}
+		assertEquals(profileId, "1");
+	}
+
+}

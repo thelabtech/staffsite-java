@@ -1,0 +1,484 @@
+BODY {
+	margin: 0px;
+	padding: 0px;
+	color: #336699;
+	background: #FFFFFF;
+
+	scrollbar-3dlight-color: #E5E5CC;
+	scrollbar-highlight-color: #336699;
+	scrollbar-shadow-color: #336699;
+	scrollbar-darkshadow-color: #E5E5CC;
+
+	scrollbar-face-color: #D0DDEA;
+
+	scrollbar-arrow-color: #336699;
+	scrollbar-track-color: #E5E5CC;
+}
+
+.main{
+	color: #000000;
+	background: #E5E5CC;
+	border: 1px solid #336699;
+}
+
+A:active, A:visited, A:link {
+	color: #336699;
+	text-decoration: none;
+}
+
+A:hover {
+	color: #336699;
+	background: #FFFF99;
+	text-decoration: none;
+	cursor: hand;
+}
+
+TD {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
+
+HR {
+	color: #336699;
+	height: 1;
+}
+
+INPUT, TEXTAREA, SELECT{
+	font-family: Arial, sans-serif;	
+	font-size: 11px;
+	background: #EEEEEE;
+	color: #336699;
+	border: solid 1px #336699;
+}
+.header{
+	color: #336699;
+	background: url("/crs/images/crs_logo.gif") #D0DDEA no-repeat right;
+	height: 40px;
+	border-bottom: 2px dashed #336699;
+	font-family: Arial, sans-serif;	
+	font-size: 18px;
+	padding: 5px 10px;
+	font-weight: bold;
+}
+
+
+.box{
+	color: #000000;
+	background: #FFFFFF;
+	border-width: 1px 2px 2px 1px;
+	border-style: solid;
+	border-color: #336699;
+}
+
+.migrate{
+	padding: 10px;
+	margin: 10px;
+	color: #000000;
+	background: #FFFFFF;
+	border-width: 1px 2px 2px 1px;
+	border-style: solid;
+	border-color: #336699;
+}
+
+.boxheader{
+	color: #336699;
+	background: #D0DDEA;
+	border-bottom: 2px dashed #336699;
+	font-family: Arial, sans-serif;	
+	font-size: 14px;
+	padding: 5px 3px;
+	font-weight: bold;
+}
+
+.subboxheader{
+	color: #336699;
+	background: #D0DDEA;
+	border-bottom: 1px dashed #336699;
+	font-family: Arial, sans-serif;	
+	font-size: 11px;
+	padding: 5px 3px;
+	font-weight: bold;
+}
+
+
+.boxfooter{
+	color: #336699;
+	border-top: 2px dashed #336699;
+	background: #D0DDEA;
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	padding: 2px 0px;
+}
+
+TD.button{
+	color: #336699;
+	background: #D0DDEA;
+	font-family: Arial, sans-serif;	
+	font-size: 11px;
+	padding: 5px 3px;
+	white-space: nowrap
+}
+
+.hl{
+	font-family: Arial, sans-serif;	
+	font-size: 11px;
+	color: #000000;
+	background: #D0DDEA;
+	border-bottom: 1px solid #FFFFFF;
+	padding: 3px;
+}
+
+
+.cell{
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	color: #000000;
+	background: #FFFFFF;
+	padding: 3px;
+}
+
+.cell_watermark{
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	color: #000000;
+	background: url("/crs/images/crs_watermark.jpg") top center repeat-y #FFFFFF;
+	padding: 3px;
+}
+
+.cell2{
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	color: #000000;
+	background: #EEEEEE;
+	padding: 3px;
+}
+
+.small{
+	font-size: 10px;
+}
+
+.error{
+	font-weight: bold;
+	color: #FF0000;
+}
+
+TD.menuactive {
+	padding: 0px;
+	width: 150px;
+	border-top: 1px solid #336699;
+	border-bottom: 1px solid #336699;
+	font-size: 11px;
+	background: #DDDDDD;
+	font-weight: bold;
+}
+TD.menuinactive {
+	padding: 4px;
+	width: 150px;
+	border-bottom: 1px solid #EEEEEE;
+	font-size: 11px;
+	background: #FFFFFF;
+}
+
+TD.menu {
+	padding: 0px;
+	width: 150px;
+	border-bottom: 1px solid #EEEEEE;
+	font-size: 11px;
+	background: #FFFFFF;
+}
+
+
+A.menu:link, A.menu:active, A.menu:visited {
+	padding: 4px;
+	color: #336699;
+	text-decoration: none;
+	width: 150px;
+	display: block;
+}
+
+A.menuactive:link, A.menuactive:active, A.menuactive:visited {
+	padding: 4px;
+	color: #336699;
+	text-decoration: none;
+	width: 150px;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.menuactive:hover{
+	background: #F5F58F;
+	padding: 4px;
+	color: #336699;
+	text-decoration: none;
+	cursor: hand;
+	width: 150px;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.menu:hover{
+	background: #FFFF99;
+	padding: 3px 4px;
+	color: #336699;
+	text-decoration: none;
+	cursor: hand;
+	width: 150px;
+	border-width: 1px 0px;
+	border-style: solid;
+	border-color: #336699;
+	display: block;
+}
+
+TD.tabactive {
+	padding: 0px;
+	text-align: center;
+	background: #336699;
+	font-size: 11px;
+	border-width: 1px 1px 0px 1px;
+	border-style: solid;
+	border-color: #336699;
+}
+
+TD.tab {
+	padding: 0px;
+	text-align: center;
+	background: #EEEEEE;
+	font-size: 11px;
+	border-width: 1px 1px 0px 1px;
+	border-style: solid;
+	border-color: #336699;
+}
+
+.pager {
+	padding: 0px;
+	text-align: center;
+	background: #EEEEEE;
+	font-size: 11px;
+	border-bottom: #336699 solid 1px;
+}
+
+.smallpager {
+	padding: 0px;
+	text-align: center;
+	background: #EEEEEE;
+	font-size: 11px;
+	border-top: #336699 solid 1px;
+}
+
+A.tab:link, A.tab:active, A.tab:visited {
+	padding: 3px 10px;
+	color: #336699;
+	background: #FFFFFF;
+	text-decoration: none;
+	width: 100%;
+	display: block;
+}
+
+A.tabactive:link, A.tabactive:active, A.tabactive:visited {
+	padding: 3px 10px;
+	color: #FFFFFF;
+	background: #336699;
+	text-decoration: none;
+	width: 100%;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.tabactive:hover{
+	background: #85A35C;
+	padding: 3px 10px;
+	color: #FFFFFF;
+	text-decoration: none;
+	cursor: hand;
+	width: 100%;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.tab:hover{
+	background: #FFFF99;
+	padding: 3px, 10px;
+	color: #336699;
+	text-decoration: none;
+	cursor: hand;
+	width: 100%;
+	display: block;
+}
+
+TD.sortactive {
+	padding: 0px;
+	font-size: 11px;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	border-color: #336699;
+}
+
+TD.sort {
+	padding: 0px;
+	border-bottom: 1px solid #336699;
+	font-size: 11px;
+}
+
+TD.nosort {
+	padding: 2px 4px;
+	border-bottom: 1px solid #336699;
+	font-size: 11px;
+}
+
+
+A.sort:link, A.sort:active, A.sort:visited {
+	padding: 2px 4px;
+	color: #336699;
+	background: #FFFFFF;
+	text-decoration: none;
+	width: 100%;
+	display: block;
+}
+
+A.sortactive:link, A.sortactive:active, A.sortactive:visited {
+	padding: 2px 4px;
+	color: #336699;
+	background: #EEEEEE;
+	text-decoration: none;
+	width: 100%;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.sortactive:hover{
+	background: #F5F58F;
+	padding: 2px 4px;
+	color: #336699;
+	text-decoration: none;
+	cursor: hand;
+	width: 100%;
+	font-weight: bold;
+	font-size: 11px;
+	display: block;
+}
+
+A.sort:hover{
+	background: #FFFF99;
+	padding: 2px 4px;
+	color: #336699;
+	text-decoration: none;
+	cursor: hand;
+	width: 100%;
+	display: block;
+}
+
+TD.linkcell{
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	color: #000000;
+	background: #FFFFFF;
+	padding: 0px;
+}
+
+TD.linkcell2{
+	font-family: Arial, sans-serif;	
+	font-size: 12px;
+	color: #000000;
+	background: #EEEEEE;
+	padding: 0px;
+}
+
+A.linkcell2:link, A.linkcell2:active, A.linkcell2:visited,
+A.linkcell:link, A.linkcell:active, A.linkcell:visited {
+	padding: 4px;
+	width: 100%;
+	color: #336699;
+	text-decoration: none;
+	display: block;
+}
+
+A.linkcell:hover {
+	padding: 3px;
+	width: 100%;
+	color: #336699;
+	background: #FFFF99;
+	text-decoration: none;
+	border: 1px solid #336699;
+	display: block;
+}
+
+A.linkcell2:hover {
+	padding: 3px;
+	width: 100%;
+	color: #336699;
+	background: #F5F58F;
+	text-decoration: none;
+	border: 1px solid #336699;
+	display: block;
+}
+
+A.button:link, A.button:active, A.button:visited {
+	padding: 1px 5px;
+	color: #336699;
+	background: #FFFFFF;
+	text-decoration: none;
+	border-width: 1px 2px 2px 1px;
+	border-style: solid;
+	border-color: #336699;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A.button:hover {
+	padding: 1px 5px;
+	color: #336699;
+	background: #FFFF99;
+	text-decoration: none;
+	cursor: hand;
+	border-width: 2px 1px 1px 2px;
+	border-style: solid;
+	border-color: #336699;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+A.inactivebutton:link, A.inactivebutton:visited, A.inactivebutton:hover, A.inactivebutton:active{
+	padding: 1px 5px;
+	color: #336699;
+	background: #DDDDDD;
+	text-decoration: none;
+	border-width: 2px 1px 1px 2px;
+	border-style: solid;
+	border-color: #336699;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	}
+
+.required{
+	background: #FFFF99;
+}
+
+.reqfilled, .empty{
+	background: #EEEEEE;
+}
+
+.reqactive, .active{
+	background: #D0DDEA;
+}
+
+.question{
+	padding: 2px;
+}
+
+.answer{
+	padding: 5px 10px;
+	font-size: 11px;
+}
+
+
+// rollover colors:
+// 1 - #336699 - #85A35C
+// 2 - #EEEEEE - #F5F58F
+// 3 - #FFFFFF - #FFFF99

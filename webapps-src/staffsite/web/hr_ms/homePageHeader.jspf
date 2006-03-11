@@ -1,0 +1,77 @@
+<jsp:useBean id="box" class="org.alt60m.html.ThemeBox"/>
+<%
+	// setup pages
+	//String titles[] = {"Home", "Instructions", "Frequently Asked Questions", "About Us", "Contact Us", "Summer Project Opportunities", "A Real Life Story", "Privacy Policy"};
+	//String pages[] = {"index", "instructions", "faq", "aboutUs", "contactUs", "opportunities", "aRealLifeStory", "privacyPolicy"};
+	String titles[] = {"Home", "Instructions", "Contact Us", "Privacy Policy"};
+	String pages[] = {"index", "instructions", "contactUs", "privacyPolicy"};
+	
+// figure out which page we are on & store in pageNum
+	int pageNum = 1;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equalsIgnoreCase(thePage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	if (pageNum == 0)
+		System.out.println("Error: Page="+thePage+" not found!");
+
+	// check input string / form data for "skin" info
+	String ssurl = request.getParameter("ssurl");
+	String imgurl = request.getParameter("imgurl");
+	String hpurl = request.getParameter("hpurl");
+	/* not in there? check the session. If it is in the input string, put it in the session
+		 Also, put the "skin" values into the session. */
+	if (ssurl == null || ssurl.trim().equals("")) {
+		ssurl = (String)session.getValue("ssurl");
+		if (ssurl == null || ssurl.trim().equals("")) ssurl = "/hr_ms/themes/ussp.css";
+	} else session.putValue("ssurl", ssurl);
+	if (imgurl == null || imgurl.trim().equals("")) {
+		imgurl = (String)session.getValue("imgurl");
+		if (imgurl == null || imgurl.trim().equals("")) imgurl = "/hr_ms/images/pageheader.gif";
+	} else session.putValue("imgurl", imgurl);
+	if (hpurl == null || hpurl.trim().equals("")) {
+		hpurl = (String)session.getValue("hpurl");
+		if (hpurl == null || hpurl.trim().equals("")) hpurl = "http://staff.campuscrusadeforchrist.com/servlet/MSController";
+	} else session.putValue("hpurl", hpurl);
+%>
+<html>
+<head>
+	<title>::: Summer Project Application > <%=titles[pageNum - 1]%> :::</title>
+	<link rel="stylesheet" type="text/css" href="<%=ssurl%>" />
+</head>
+<body marginwidth="0" marginheight="0" leftmargin="0" rightmargin="0" topmargin="0">
+	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td class="header"><!--<a href="<%=hpurl%>">--><img src="<%=imgurl%>" border="0"><!--</a>--></td>
+		</tr>
+	</table>
+
+	<br /><br /><br />
+
+	<div style="text-align:center;">
+	<%	
+		box.setTableInside(true);
+		box.setWidth("90%");
+		box.setTitle(titles[pageNum - 1]);
+	%><%=box.printTop() %>
+	<table cellspacing="0" cellpadding="1" border="0" width="100%">
+		<tr>
+			<td valign="top" class="appbar" width="10%">
+			<div style="text-align:center;">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="appbar"><div style="text-align:center;">Navigation</div></td>
+				<% for (int x = 1; x <= titles.length; x++){ %>
+				<tr>
+					<% if(pageNum == x) { %>
+					<td class="menuactive"><nobr><%=titles[x-1]%></nobr></td>
+					<% } else { %>
+					<td class="menu"><nobr><a href="/hr_ms/<%=pages[x - 1]%>.jsp" class="<%= pageNum == x ? "menuactive" : "menu"%>"><%=titles[x-1]%></a></nobr></td>
+					<% } %>
+				</tr>
+				<% } %>
+			</table>
+			</div>
+			<td class="app" width="90%" valign="top">

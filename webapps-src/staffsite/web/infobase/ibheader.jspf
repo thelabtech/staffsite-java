@@ -1,0 +1,63 @@
+<script src="/__utm.js"></script>
+<%int curr_tab = 2;%>
+<%@ include file="/headersmall.jspf"%>
+<% try { %>
+<%	box.setStyle("rounded");
+	box.setTitleFontSize("4");
+	box.setTitleAlign("left");
+	box.setColor(color3);
+	box.setTitle("<table border=0 cellpadding=0 cellspacing=0 width='100%'><tr><td><FONT FACE=Arial COLOR=#FFFFFF><font size='5'><a href='/servlet/InfoBaseController' onMouseOver=\"document.homebutton.src='/infobase/images/ibHomesml_on.gif';\" onMouseOut=\"document.homebutton.src='/infobase/images/ibHomesml_off.gif';\"><img name='homebutton' src='/infobase/images/ibHomesml_off.gif' border=0 align=top></a> <b>InfoBase</b></td><td align=right><a href=\"JavaScript: popupWindow('/help/help_infobase.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')\"><FONT FACE=Arial COLOR=#FFFFFF><font size='1'>Help With InfoBase</a></td></tr></table>");
+	box.setSubPad("0");
+%>
+<%=box.printTop()%>
+<%try {%>
+<%
+  if (pageTitle!=null) { %>
+	<%	box.setStyle("classic");
+		box.setTitleFontSize("3");
+		box.setTitle("");
+		box.setColor(color2);
+	%>
+	<%=box.printTop()%>
+
+		<TABLE WIDTH="100%">
+			<TR>
+				<TD WIDTH="100%">
+					<%
+					if (pageTitle!=null) { %>
+						<%=fontB4%><b>&nbsp;&nbsp;&nbsp;<%=pageTitle%></b></font>
+						
+					<%
+					  }
+					%>
+				</TD>
+				<FORM NAME="searchForm" ACTION="/servlet/InfoBaseController" METHOD="POST">
+				<TD align=RIGHT NOWRAP>
+					<input type=hidden name="action" value="detailedListCampus">
+					<%=fontB%>List campuses with the&nbsp;
+						<select name="searchby">
+						  <option value="name" selected>name</a>
+						  <option value="city">city</a>
+						  <option value="state">state(abbr)</a>
+						  <option value="country">country</a>
+						  <option value="zip">zip</a>
+						</select>
+						&nbsp;=&nbsp;
+					<INPUT TYPE="hidden" name="view" value="campusList">
+					<input type="text" size=12 MAXLENGTH="200" name="searchstring">&nbsp;
+					</FONT>
+						<a href="Javascript: document.searchForm.submit()" onMouseOut="changeImages('headersearch','/images/search_boff.gif')" onMouseOver="changeImages('headersearch','/images/search_bon.gif')"><img name="headersearch" border="0" src="/images/search_boff.gif"></a>
+					<!-- <a href="Javascript:document.simplesearch.submit()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('simplesearchimage','','/ib/images/search_bon.gif',1)"><img name="simplesearchimage" border="0" src="/ib/images/search_boff.gif"></a> -->
+				</td>
+				</FORM>
+			</TR>
+		</TABLE>
+
+
+
+	<%=box.printBottom()%>
+
+<%
+  }
+%>
+<% box.reset(); %>

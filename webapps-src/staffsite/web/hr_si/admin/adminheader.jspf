@@ -1,0 +1,22 @@
+<% int curr_tab = 3; %>
+<%@ page import="org.alt60m.hr.si.servlet.dbio.*" %>
+<%@ include file="/headersmall.jspf" %>
+<%@ include file="/wsnsp/dbio/wsnspcolors.jspf" %>
+	<%
+	if (session.getValue("siYear") == null)
+	{
+		session.putValue("siYear", SIUtil.CURRENT_SI_YEAR);
+	}
+	%>
+
+<body bgcolor="<%=bgcolor%>" link="<%=linkcolor%>" alink="<%=alinkcolor%>" vlink="<%=vlinkcolor%>" text="<%=textcolor%>">
+
+<%	box.setTitle("<a href='/servlet/SIController?action=showProjectTool'><img src='/wsnsp/images/banner1.gif'></a>"); %>
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+
+<p> <%=fontText%>
+<%System.out.println("ERRORMESSAGE: " + ar.getValue("ErrorMessage")); 
+if (ar.getValue("ErrorMessage")!=null) 
+	 out.println("<div style=\"color: #ff3366\">Message: "+ar.getValue("ErrorMessage")+"</div><br />");
+%>

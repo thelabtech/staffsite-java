@@ -1,0 +1,63 @@
+package id1sxu5cwgrdjsocwjkvqg2;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id41vapcwgrdjsocwjkwi34.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.model:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#id285q5cw6i81mocw99o2u7.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.scripts:oiref> 
+*/
+class reference3 {
+}/**
+@__ref <oiref:design#Class#id2h38kcwgrdjsocwjm4wsp.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.test:oiref> 
+*/
+class reference4 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.StaffSiteBroker:oiref><oihard>
+@__modelType reference 
+*/
+class reference5 {
+}/**
+@__ref <oiref:design#Class#id38fg6ctzws5arcu1abit0.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.bean:oiref> 
+*/
+class reference1 {
+}/**
+@__ref <oiref:design#Class#id3l5ydcumwwo1wcumwzvpx.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.profiles:oiref> 
+*/
+class reference2 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id285q5cw6i81mocw99o2u7.diagram:oiref>=10,130,59,57,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.StaffSiteBroker:oiref>=205,143,193,334,1:oigroup>
+<oigroup:<oiref:design#Class#id3l5ydcumwwo1wcumwzvpx.diagram:oiref>=0,418,193,183,1:oigroup>
+<oigroup:<oiref:design#Class#id2h38kcwgrdjsocwjm4wsp.diagram:oiref>=131,10,90,68,1:oigroup>
+<oigroup:<oiref:design#Class#id38fg6ctzws5arcu1abit0.diagram:oiref>=410,348,153,132,1:oigroup>
+<oigroup:<oiref:design#Class#id41vapcwgrdjsocwjkwi34.diagram:oiref>=10,10,101,84,1:oigroup>
+
+*/
+class __positions {
+}

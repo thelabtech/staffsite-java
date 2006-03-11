@@ -1,0 +1,35 @@
+<!-- Start Evaluator's Worksheet -->
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Evaluator's Worksheet</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="2">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="50%" valign="bottom" align="center"><b>Stengths</b></td>
+			<td class="insideboxblue" width="50%" valign="bottom" align="center"><b>Weaknesses</b></td></tr>
+			<td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Relationship with God (time, quality, faith, lordship, forgiveness, seeking righteousness, call)</b></td></tr>
+			<tr><td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td>
+			<td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Relationships with others (communicates, works well, tact, sensitivity, attractive personality, team, opposite sex)</b></td></tr>
+			<tr><td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td>
+			<td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Relationship with Self : DICE  (self-image, emotional maturity, personal maturity, initiative, boundaries)</b></td></tr>
+			<tr><td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td>
+			<td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Ministry Skills (what have they done)</b></td></tr>
+			<tr><td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td>
+			<td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Leadership Development (abilities, roles, responsibilities, experiences, results)</b></td></tr>
+			<tr><td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td>
+			<td class="insideboxblue" width="50%" valign="bottom"><TEXTAREA name="_29b" rows="7" cols="<%=worksheet50Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Notes</b></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><TEXTAREA name="ss_29b" rows="7" cols="<%=worksheet100Width%>"></TEXTAREA></td></tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+    
+
+<!-- End Evaluator's Worksheet -->

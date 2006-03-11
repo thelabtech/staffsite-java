@@ -1,0 +1,47 @@
+<%
+	int notComplete = 0;
+
+	notComplete += 
+		my360.get("CurrentPosition").equals("") || 
+		my360.get("LeadershipLevel").equals("") || 
+		my360.get("Relationship").equals("")
+		? 1:0	;
+
+
+	notComplete += 
+		my360.get("Q1").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q2").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q3").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q4").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q5").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q6").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q7").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q8").equals("")  
+		? 1:0	;
+
+	notComplete += 
+		my360.get("Q9").equals("")  
+		? 1:0	;
+
+%>

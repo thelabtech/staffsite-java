@@ -1,0 +1,34 @@
+<!-- Start Project Preferences -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Project Preferences</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evalbold" ALIGN="left" WIDTH="95%">Ocean City</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evalbold" ALIGN="left" WIDTH="95%">Australia: Melbourne</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evalbold" ALIGN="left" WIDTH="95%">OEXB: Pacific Southwest</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evalbold" ALIGN="left" WIDTH="95%">Argentina: Mendoza</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evalbold" ALIGN="left" WIDTH="95%">-</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">If your preferences are unavailable, are you willing to participate in another Summer Project?</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%">Yes</td>
+	</tr>
+</table>
+<!-- End Project Preferences -->

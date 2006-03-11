@@ -1,0 +1,29 @@
+Directions for making your locator pages:
+
+1. Make your form:
+Your form will need to pass the state's 2 letter abbreviation i.e. state=FL. 
+The name of the parameter must be lowercase "state". See example below:
+
+<FORM action="http://find.uscm.org/locator/uscm/list.jsp" method="post">
+<SELECT name="state">
+          <option value="AL">Alabama </option>
+          <option value="AK">Alaska </option>
+          <option value="AZ">Arizona </option>
+          <option value="AR">Arkansas </option>
+	  ...
+
+You can get a sample form code by going to uscm.org and doing a view sorce to get their form and select box code lising all the states.
+
+2. Create your 2 display pages:
+The list.jsp page will have two jsp sections in it and it tells you where to put your html code.
+The jsp code will return a table each time. You are responsible for puting in any additional headings 
+and footers, etc. You need to use absolute URL's for all 
+your links and images, since these 2 jsp pages are stored on the application server.
+
+For list.jsp it returns a table listing the campuses in that state. 
+For detail.jsp it returns a table with the details of the people who are listed in the staff.uscm.org InfoBase as the contacts 
+for that campus.
+
+3. Copy your pages to the test server to test them and then email them to the developer for posting on the live server.
+
+

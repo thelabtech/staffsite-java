@@ -1,0 +1,17 @@
+<% int curr_tab = 3; %>
+<%@ page import="org.alt60m.hr.ms.servlet.dbio.*" %>
+<%@ include file="/headersmall.jspf" %>
+<%@ include file="wsnspcolors.jspf" %>
+	<%
+	if (session.getValue("wsnYear") == null)
+	{
+		session.putValue("wsnYear", MSInfo.CURRENT_WSN_YEAR);
+	}
+	%>
+<%	box.setTitle("<a href='/servlet/WsnSpController?action=showIndex'><img src='/wsnsp/images/banner1.gif'></a>"); %>
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+
+<body bgcolor="<%=bgcolor%>" link="<%=linkcolor%>" alink="<%=alinkcolor%>" vlink="<%=vlinkcolor%>" text="<%=textcolor%>">
+
+<p> <%=fontText%>

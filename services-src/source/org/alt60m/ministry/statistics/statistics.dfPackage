@@ -1,0 +1,47 @@
+package id3o0yfcv6m4my1cv6quy31;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#org.alt60m.ministry.statistics.LocalLevelReport:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.statistics.TargetAreaReport:oiref><oihard>
+@__modelType reference 
+*/
+class reference31 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.statistics.RegionalReport:oiref><oihard>
+@__modelType reference 
+*/
+class reference32 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.statistics.NationalReport:oiref><oihard>
+@__modelType reference 
+*/
+class reference33 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.statistics.StatsUtils:oiref><oihard>
+@__modelType reference 
+*/
+class reference34 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions 
+*/
+class __positions {
+}

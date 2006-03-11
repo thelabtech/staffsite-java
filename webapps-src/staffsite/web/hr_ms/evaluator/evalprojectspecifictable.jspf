@@ -1,0 +1,98 @@
+<!-- Begin Project Specific Question Answers -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+<tr><td class="evaltitle" colspan="2"><b>Project Specific Questions</b></td>
+</tr>
+
+
+
+<%
+// show additional questions for each project
+String projectPrefChoice[] = {		p.getProjectPref1()==null?"":p.getProjectPref1(),
+									p.getProjectPref2()==null?"":p.getProjectPref2(),
+									p.getProjectPref3()==null?"":p.getProjectPref3(),
+									p.getProjectPref4()==null?"":p.getProjectPref4(),
+									p.getProjectPref5()==null?"":p.getProjectPref5()
+								};
+
+if(projectPrefChoice[0].equals("") & projectPrefChoice[1].equals("") & projectPrefChoice[2].equals("")& projectPrefChoice[3].equals("")& projectPrefChoice[4].equals(""))
+{
+%>
+	<TR>
+		<TD>The applicant has not indicated any project preferences.</TD>
+	</TR>
+<%
+}
+else
+{
+	Collection personAnswers = infoBean.listWsnApplicationAnswers(p.getWsnApplicationID());
+	Vector usedProjects = new Vector();
+	
+	for(int projectPrefIndex=0;projectPrefIndex<5;projectPrefIndex++)
+	{			
+		String projectID = projectPrefChoice[projectPrefIndex];
+		if(!projectID.equals("")&&!usedProjects.contains(projectID))//(if they haven't already been displayed - if they have duplicate project prefs)
+		{
+			usedProjects.add(projectID);	// add this project to the list of projects whose questions/answers have been displayed already on this page
+			%>
+			<TR>
+				<TD ALIGN="LEFT" colspan="2">
+					<TABLE BORDER="1" rules="none" border="1" bordercolor="<%=bordercolor%>">
+						<TR>
+							<TD ALIGN="LEFT" class="evaltitle" WIDTH="20%" valign="top" colspan="2"><b><%=projectName[projectPrefIndex]%></b></TD>
+						</TR>
+						<%
+						Collection projectQuestions = infoBean.listProjectQuestions(projectID, "displayOrder", "ASC");
+						
+						// if project has any additional questions, show them 
+						if(projectQuestions.isEmpty()){
+						%>
+						<TR>
+							<TD ALIGN="CENTER" WIDTH="20%" valign="top" colspan="2">No additional questions.</TD>
+						</TR>
+						<%
+						}
+						else
+						{
+							Iterator questions = projectQuestions.iterator();
+							Iterator answers = personAnswers.iterator();
+							
+							Hashtable hashAnswers = new Hashtable();
+							while(answers.hasNext()){
+								Answer nextAnswer = (Answer)answers.next();
+								hashAnswers.put(String.valueOf(nextAnswer.getQuestionID()), nextAnswer.getBody());
+							}
+		
+							for(int i = 1; questions.hasNext(); i++)
+							{
+								Question question = (Question)questions.next();
+								
+								String answer = hashAnswers.get(String.valueOf(question.getQuestionID())) == null ? "" : (String)hashAnswers.get(String.valueOf(question.getQuestionID()));
+							%>
+							<TR>
+								<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%"><%=question.getQuestionText().getBody()%>
+								<%
+								if(!question.getAnswerType().equals("divider") && !question.getAnswerType().equals("info")&&!question.getAnswerType().equals("hide")){
+								%>
+									<div class="eval"><BLOCKQUOTE><%=answer.equals("") ? "No Answer" : answer%></div>
+								<%
+								}
+								%>
+								</TD>
+							</TR>
+						<%
+							}
+						}
+						%>
+					</TABLE>
+					<br /><br />
+				</TD>
+			</TR>
+			
+			<%
+			}	// end if - whether preference has been indicated
+		}	// end repeat for each project
+	}
+%>
+</TABLE>
+<!-- End Project Specific Question Answers -->

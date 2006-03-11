@@ -1,0 +1,73 @@
+<!-- Start Financial Information and MPD -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>FINANCIAL INFORMATION</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">If accepted, are you aware that you must raise your own financial support and that Campus Crusade for Christ is not responsible for your expenses above that which you have raised?
+		<br><font class="eval"><%=ShowYesNo(app.getIsAwareMustRaiseSupport())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you in debt?
+		<br><font class="eval"><%=ShowYesNo(app.getIsInDebt())%></font><br>If so, List your total indebtedness.
+		<br>
+		<TABLE WIDTH="100%" CELLSPACING="0">
+			<TR>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP"></td>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">Nature of debt</TD>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">Total debt</TD>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">Monthly payment</TD>
+			</tr>
+			<tr>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">A.</td>
+				<td><%=ShowNoNull(app.getDebtNature1())%></td>
+				<td><%=ShowNoNull(app.getDebtTotal1())%></td>
+				<td><%=ShowNoNull(app.getDebtMonthlyPayment1())%></td>
+			</TR>
+			<tr>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">B.</td>
+				<td><%=ShowNoNull(app.getDebtNature2())%></td>
+				<td><%=ShowNoNull(app.getDebtTotal2())%></td>
+				<td><%=ShowNoNull(app.getDebtMonthlyPayment2())%></td>
+			</TR>
+			<tr>
+				<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP">C.</td>
+				<td><%=ShowNoNull(app.getDebtNature3())%></td>
+				<td><%=ShowNoNull(app.getDebtTotal3())%></td>
+				<td><%=ShowNoNull(app.getDebtMonthlyPayment3())%></td>
+			</TR>
+		</table>
+		&nbsp;</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have any other financial responsibilities or obligations?
+		<br><font class="eval"><%=ShowYesNo(app.getHasOtherFinancialResponsibility())%></font><br>Please explain.
+		<br><font class="eval"><%=ShowNoNull(app.getOtherFinancialResponsibilityExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How do you plan to pay off your debt?<br><font class="eval"><%=ShowNoNull(app.getDebtPaymentPlan())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">When do you plan to be debt-free?<br><font class="eval"><%=ShowNoNull(app.getDebtPaymentTimeframe())%></font></td>
+	</tr>
+	<tr><td class="evaltitle" colspan="2"><b><br>MINISTRY PARTNER DEVELOPMENT</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"><br>1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%"><br>How do you feel about developing a team of financial partners?<br>
+		<font class="eval"><%=ShowNoNull(app.getDevelopingPartnersExplanation())%></font></td>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you willing to initiate (through letters, follow-up phone calls, and setting up appointments) with people and ask them to join your team? <br><font class="eval"><%=ShowYesNo(app.getIsWillingDevelopPartners())%></font><BR>If you are not willing, please explain.<br><font class="eval"><%=ShowNoNull(app.getUnwillingDevelopPartnersExplanation())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have the time available and are you willing to commit yourself to spending this time working on MPD?<br><font class="eval"><%=ShowYesNo(app.getIsCommittedDevelopPartners())%></font><BR>If no, please explain.<br><font class="eval"><%=ShowNoNull(app.getUncommittedDevelopPartnersExplanation())%></font></td>
+	</TR>
+</table>
+ 
+<!-- End Financial Information and MPD -->

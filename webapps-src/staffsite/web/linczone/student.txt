@@ -1,0 +1,15 @@
+Dear <%FIRST_NAME%>,
+
+	Thank you for visiting CollegeWalk.  By requesting information about any of the ministries listed on our website, you are indicating that it is important for you to get connected to a community of faith when you go away to college.  We agree.  College life can be a wonderful experience and can help you to grow in your faith in ways you never imagined.  But having a community that supports you is crucial to your growth in your relationship with the Lord.
+
+If you would like more information on the ministries that you have
+requested, visit their Web site listed below.
+
+<%MINISTRY_TAGS%>
+
+God bless you as you seek to grow in your faith and get connected to a
+community on your campus.
+
+In Christ,
+CollegeWalk
+CollegeWalk@uscm.org 

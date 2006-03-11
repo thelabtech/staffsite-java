@@ -1,0 +1,273 @@
+<!-- Start Personal and School Infomration -->
+<TABLE WIDTH="100%" CELLSPACING="0">
+	<TR>
+		<TD CLASS="evaltitle" COLSPAN="2"><STRONG>Personal Information</STRONG></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT" WIDTH="20%">Title</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getTitle())%></TD>
+	</TR>
+	<TR>
+		<TD ALIGN="RIGHT" CLASS="evaltitle">Gender</TD>
+		<TD CLASS="eval"><%=("1".equals(p.getGender())?"Male":"Female")%></TD>
+	</TR>
+	<TR>
+		<TD ALIGN="RIGHT" CLASS="evaltitle">First Name</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getLegalFirstName())%></TD>
+	</TR>
+	<TR>
+		<TD ALIGN="RIGHT" CLASS="evaltitle">Middle Name</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getLegalMiddleName())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Last Name</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getLegalLastName())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Birth Date</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getBirthdate())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT" WIDTH="15%">Marital Status</TD>
+		<TD CLASS="eval"><%=ShowNoNull(WsnPerson.translateMaritalStatus(p.getMaritalStatus()))%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Date Received Christ</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getDateBecameChristian())%></TD>
+	</TR>
+
+	<TR>
+		<TD CLASS="evaltitle" COLSPAN="2"><br><STRONG>Current Mailing Address</STRONG></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Address 1</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentAddress())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Address 2</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentAddress2())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">City, State Zip</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentCity())%>, <%=ShowNoNull(p.getCurrentState())%> <%=ShowNoNull(p.getCurrentZip())%></TD>
+	</TR>
+	<!-- 
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">I will be at the above address until:</TD>
+		<TD CLASS="eval"><%//=ShowNoNull(p.getDateAddressGoodUntil())%></TD>
+	</TR>
+	-->
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Telephone</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentPhone())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Cell Phone</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentCellPhone())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Email</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getCurrentEmail())%></TD>
+	</TR>
+	<TR>
+		<td class="evaltitle" align="right" valign="top">Passport<br>Number:</TD>
+		<TD CLASS="eval" VALIGN="BOTTOM"><%=ShowNoNull(p.getPassportNo())%></td>
+	</tr>
+	<TR>
+		<td class="evaltitle" align="right" valign="top">Expires:</TD>
+		<TD CLASS="eval" VALIGN="BOTTOM"><%=ShowNoNull(p.getPassportExpirationDate())%></td>
+	</tr>
+	<TR>
+		<TD CLASS="evaltitle" colspan="2">How often do you check your email?<BR><font CLASS="eval"><%=ShowNoNull(p.getHowOftenCheckEmail())%></font></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" colspan="2">What is the easiest way to communicate with you?<BR><font CLASS="eval">
+<%
+    if(p.getPreferredContactMethod()!=null) {
+        switch(p.getPreferredContactMethod().charAt(0)) {
+            case ('P'):
+                out.write("Phone");
+                break;
+            case ('C'):
+                out.write("Cell Phone");
+                break;
+            case ('E'):
+                out.write("Email");
+                break;
+        }
+    }
+%>
+        </font></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" COLSPAN="2"><br><STRONG>Parents'/Emergency Contact Address</STRONG></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Parents' Full Names</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergName())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Address 1</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergAddress())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Address 2</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergAddress2())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">City, State Zip</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergCity())%>, <%=ShowNoNull(p.getEmergState())%> <%=ShowNoNull(p.getEmergZip())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Telephone</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergPhone())%></TD>
+	</TR>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="RIGHT">Other Phone</TD>
+		<TD CLASS="eval"><%=ShowNoNull(p.getEmergWorkPhone())%></TD>
+	</TR>
+</TABLE>
+<!--<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" width="25%">Full Legal Name:<br><font size="1">(Title, First, Middle, Last)</font></td><td colspan="3"class="evalbigbold">Miss Tara Bowling</td></tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" align="right">Preferred Name:</td><td class="eval">Tara</td><td class="evaltitle" align="right">Marital Status:</td><td class="eval">Single</td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">CURRENT</td><td colspan="3" valign="top"><font class="evaltitle">Address:</font><br><font class="eval">8050 Ball State University</font><br><font class="eval">Muncie, IN 47304</font><br><font class="evaltitle">Home Phone:</font>765-558-1212<br><font class="evaltitle">Work Phone:</font>-<br><font class="evaltitle">Cell:</font>-<br><font class="evaltitle">Email:</font>Tbowling@bsu.edu
+	</td>
+	</tr> 
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">PERMANENT</td>
+	<td colspan="3" valign="top"><font class="evaltitle">Address:</font><br><font class="eval">9032 West Street</font><br><font class="eval">Evansville, IN 68352</font><br><font class="evaltitle">Home Phone:</font>419-655-7452<br><font class="evaltitle">Work Phone:</font>-<br><font class="evaltitle">Cell:</font>-<br><font class="evaltitle">Email:</font>Tbowling@bsu.edu
+	</td>
+	</tr> 
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMPLOYMENT & SCHOOL</td>
+	<td colspan="3" valign="top"><font class="evaltitle">Do you have a legal right to work in the United States?</font><font class="eval">Yes</font><br><font class="evaltitle">Most recent schools attended:</font><br><font class="eval">Ball State University</font><font class="evaltitle">State:</font><font class="eval">IN</font><br><font class="evaltitle">Graduation Date:</font><font class="eval">May 2002</font><br><font class="evaltitle">Major(s):</font><font class="eval">education
+	</td>
+	</tr> 
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMERGENCY CONTACT INFO 1</td><td colspan="3" valign="top"><font class="evaltitle">Name: </font><font class="eval">Bill Bowling</font><br><font class="evaltitle">Relationship:</font><font class="eval">Father</font><br><font class="evaltitle">Address:</font><br><font class="eval">9032 West Street</font><br><font class="eval">Evansville, IN 68352</font><br><font class="evaltitle">Home Phone:</font>419-655-7452<br><font class="evaltitle">Work Phone:</font>-<br><font class="evaltitle">Cell:</font>-<br><font class="evaltitle">Email:</font>-
+	</td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMERGENCY CONTACT INFO 2</td><td colspan="3" valign="top"><font class="evaltitle">Name: </font><font class="eval">Mary McIntyre</font><br><font class="evaltitle">Relationship:</font><font class="eval">Aunt</font><br><font class="evaltitle">Address:</font><br><font class="eval">5462 Sommer Blvd.</font><br><font class="eval">Jackson, IN 42351</font><br><font class="evaltitle">Home Phone:</font>812-596-8512<br><font class="evaltitle">Work Phone:</font>-<br><font class="evaltitle">Cell:</font>-<br><font class="evaltitle">Email:</font>-
+	</td>
+	</tr> 
+</table>-->
+<TABLE WIDTH="100%" CELLSPACING="0">
+	<TR>
+		<TD CLASS="evaltitle"><br><STRONG>School Information</STRONG></TD>
+	</TR>
+	<tr>
+		<TD class="evaltitle">What State is your school in?</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getUniversityState())%></td>
+	</tr>
+	<TR>
+		<TD class="evaltitle" valign="top">University's Full Name</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getUniversityFullName())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle" valign="top">Major</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getMajor())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Class</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getYearInSchool())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Graduation Date</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getGraduationDate())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Dates of Your Spring Break</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=p.getSpringBreakStart()==null?"":util.formatDate(p.getSpringBreakStart())%> - <%=p.getSpringBreakEnd()==null?"":util.formatDate(p.getSpringBreakEnd())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Earliest date available (consider finals)</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getEarliestAvailableDate())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Date must return</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowNoNull(p.getDateMustReturn())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle">Will you be in school next fall?</TD>
+	</tr>
+	<TR>
+		<TD class="eval"><%=ShowYesNo(p.getInSchoolNextFall())%></TD>
+	</TR>
+	<TR>
+		<TD class="evaltitle" VALIGN="TOP">On your campus is there...</TD>
+	</tr>
+    <TR>
+        <TD>
+            <table CELLSPACING="0" class="evalrefinbox">
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getCampusHasStaffTeam())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Campus team</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getCampusHasStaffCoach())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Staff coach</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getCampusHasMetroTeam())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Metro team</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getCampusHasOther())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Other</td>
+                </tr>
+            </table>
+        </TD>
+    </TR>
+
+	<TR>
+		<TD class="evaltitle" VALIGN="TOP">I participate in</TD>
+	</TR>
+    <TR>
+        <TD>
+            <table CELLSPACING="0" class="evalrefinbox">
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getParticipateImpact())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Impact</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getParticipateDestino())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Destino</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getParticipateEpic())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">Epic</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getParticipateCCC())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">CCC</td>
+                </tr>
+                <TR>
+                    <TD CLASS="eval" ALIGN="center" VALIGN="TOP" width="6%"><%=ShowYesNo(p.getParticipateNone())%></td>
+                    <TD CLASS="insideboxblue" ALIGN="left" VALIGN="center">None</td>
+                </tr>
+            </table>
+        </TD>
+    </TR>
+
+</TABLE>
+<!-- Start Personal and School Infomration -->

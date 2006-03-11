@@ -1,0 +1,9 @@
+<?xml encoding="UTF-8"?>
+<!ELEMENT actions (action)+>
+
+<!ELEMENT action (view?,actionhandler?)>
+<!ATTLIST action name CDATA #REQUIRED>
+<!ELEMENT actionhandler (#PCDATA)>
+<!ELEMENT view (#PCDATA)>
+
+

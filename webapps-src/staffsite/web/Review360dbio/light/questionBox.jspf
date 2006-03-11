@@ -1,0 +1,47 @@
+
+	<% box.setTitle("Question List");%>
+	<% box.setTableInside(false); %>
+	<%=box.printTop()%>
+	<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="1">
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Key</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<%=fontB1%><U>Section Complete</U></FONT><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<%=fontR1%><U>Section Incomplete</U></FONT><BR>
+		
+		</TD></TR>
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Personal Information:</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>><%=fontB1%>&nbsp;&nbsp;-&nbsp;</FONT><A HREF="javascript: goTo(0)"><%if(my360.get("CurrentPosition").equals("") || my360.get("LeadershipLevel").equals("") || my360.get("Relationship").equals("")){out.print(fontR1); }else{ out.print(fontB1);}%>Change/Update</FONT></A><BR></TD></TR>
+		<TR><TD <%=bgcolorG%>><%=fontB1%>Questions:</FONT></TD></TR>
+		<TR><TD <%=bgcolorW%>>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(1)"><%if(my360.get("Q1").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 1)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(2)"><%if(my360.get("Q2").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 2)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(3)"><%if(my360.get("Q3").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 3)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(4)"><%if(my360.get("Q4").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 4)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(5)"><%if(my360.get("Q5").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 5)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(6)"><%if(my360.get("Q6").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 6)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(7)"><%if(my360.get("Q7").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 7)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(8)"><%if(my360.get("Q8").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 8)</FONT></A><BR>
+		<%=fontB1%>&nbsp;-</FONT>
+		<A HREF="javascript: goTo(9)"><%if(my360.get("Q9").equals("") 
+		){out.print(fontR1); }else{ out.print(fontB1);}%>(Question 9)</FONT></A><BR>
+		</TD></TR>
+	</TABLE>
+			<%=box.printBottom()%>

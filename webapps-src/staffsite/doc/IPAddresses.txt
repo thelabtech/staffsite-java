@@ -1,0 +1,10 @@
+alt.60M IP addresses:
+
+Internal:
+10.10.10.190       squish
+172.16.1.80	hart-a020
+10.10.10.8	hart-cm-intweb
+172.16.1.54	www.alt60m.com
+
+External:
+208.156.111.54	www.alt60m.com

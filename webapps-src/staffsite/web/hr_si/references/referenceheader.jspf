@@ -1,0 +1,55 @@
+<jsp:useBean id="selState" class="org.alt60m.html.SelectState"/>
+<jsp:useBean id="util" class="org.alt60m.html.Util"/>
+<%@ include file="../header.jspf" %>
+<% box.setStyle(boxStyle);%>
+<% box.setColor(color7);%>
+<% box.setBodyColor(color7);%>
+<% box.setTableInside(true); %>
+<% box.setWidth("90%"); %>
+<script language="javascript">
+<!--
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+// -->
+</script>
+<FORM NAME="appForm" ACTION="SIController" mETHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="as" VALUE="<%=request.getParameter("as")%>">
+<INPUT TYPE="HIDDEN" NAME="page">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="goToPage">
+<CENTER>
+<% 
+	boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+	int theWidth = 100/8;
+	String titles[] = {"General Information", "Attribute Information 1", "Attribute Information 2", "Attribute Information 3", "Short Answer Information 1", "Short Answer Information 2", "Short Answer Information 3", "Short Answer Information 4"};
+	String appName = "ref";
+%>
+<%=box.printTop() %>
+	<TR>
+		<TD ROWSPAN="5"  BGCOLOR="<%=color7%>" VALIGN="TOP" NOWRAP>
+			<%=fontM%><B>Reference for</B></FONT><%=fontTextM%>John Doe<BR>
+			<%=fontM%><B>by</B></FONT> <%= staff ? "Joe Staff" : "Non Staff"%>
+			<P>
+<%
+			int pageNum = Integer.parseInt((request.getParameter("page")).substring(3,4));
+			for(int x = 0; x < titles.length; x++){
+%>
+				<A HREF="javascript: doPostForm('<%=appName%><%=x + 1%>')"><%= pageNum == x + 1 ? fontTextM : fontM%><%=titles[x]%></A><BR>
+<%
+			}
+%>
+		</TD> 
+		<TD BGCOLOR="<%=color7%>"><TABLE CELLPADDING="0" CELLSPACING="1" BORDER="0" WIDTH="100%"><TR>
+			<TD ALIGN="RIGHT"><%=fontM%><B>Page
+<%
+			for(int x = 1; x <= titles.length; x++){
+%>
+				<A HREF="javascript: doPostForm('<%=appName%><%=x%>')"><%= pageNum == x ? fontTextM : fontM%><B><%=x%></B></A>
+<%
+			}
+%>
+			</TD>
+		</TR></TABLE></TD>
+	</TR>

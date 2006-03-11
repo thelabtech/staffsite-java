@@ -1,0 +1,109 @@
+DROP TABLE fsk_Allocation
+GO
+
+CREATE TABLE fsk_Allocation(
+accountNo varchar(64) not null,
+natlDonation varchar(12) not null,
+region varchar(6) not null,
+regionalAllotment varchar(12) not null,
+regionallyRaised varchar(12) not null,
+locallyRaised varchar(12) not null,
+natlNotes varchar(12) not null,
+regNotes varchar(12) not null,
+localNotes varchar(12) not null,
+firstName varchar(30) not null,
+lastName varchar(30) not null
+)
+GO
+
+ALTER TABLE fsk_Allocation ADD CONSTRAINT PK_fsk_Allocation PRIMARY KEY (accountNo,natlDonation,region,regionalAllotment,regionallyRaised,locallyRaised,natlNotes,regNotes,localNotes,firstName,lastName)
+GO
+
+
+DROP TABLE fsk_FskOrder
+GO
+
+CREATE TABLE fsk_FskOrder(
+fskOrderID varchar(64) not null,
+campusName varchar(128) null,
+region varchar(6) null,
+localAcctNo1 varchar(10) null,
+localAcctNo2 varchar(10) null,
+localAcctNo3 varchar(10) null,
+localAcctNo4 varchar(10) null,
+staffFirstName varchar(30) null,
+staffLastName varchar(30) null,
+staffPhone varchar(24) null,
+staffEmail varchar(50) null,
+dateCreated datetime null,
+dateUpdated datetime null,
+contactFirstName varchar(30) null,
+contactLastName varchar(30) null,
+contactPhone varchar(24) null,
+contactPager varchar(24) null,
+contactCell varchar(24) null,
+contactEmail varchar(50) null,
+kitShipName varchar(30) null,
+kitShipAddress1 varchar(35) null,
+kitShipAddress2 varchar(35) null,
+kitShipCity varchar(30) null,
+kitShipState varchar(6) null,
+kitShipZip varchar(10) null,
+kitShipPhone varchar(24) null,
+totalKits varchar(7) null,
+bagToyImp varchar(7) null,
+bagToyWay varchar(7) null,
+bagToyDes varchar(7) null,
+bagToyEp varchar(7) null,
+bagToyESC varchar(7) null,
+bibleReg varchar(7) null,
+bibleRegCD varchar(7) null,
+bibleEthnic varchar(7) null,
+bibleNIV varchar(7) null,
+bibleNIVCD varchar(7) null,
+videoRel varchar(7) null,
+videoRelCD varchar(7) null,
+videoThirsty varchar(7) null,
+videoThirstyCD varchar(7) null,
+videoChang varchar(7) null,
+videoSurfer varchar(7) null,
+videoClimbing varchar(7) null,
+videoClimbingCD varchar(7) null,
+videoImpact varchar(7) null,
+videoTestimonyCD varchar(7) null,
+bookMTAC varchar(7) null,
+bookCaseForC varchar(7) null,
+bookBeyond varchar(7) null,
+bookRelevant varchar(7) null,
+cdHipHop varchar(7) null,
+cdNoLies varchar(7) null,
+cdHispanic varchar(7) null,
+cardReg varchar(7) null,
+cardAfAm varchar(7) null,
+cardHispanic varchar(7) null,
+cardAsian varchar(7) null,
+planner varchar(7) null,
+fsk_Allocation_accountNo varchar(64) null,
+fsk_Allocation_natlDonation varchar(12) null,
+fsk_Allocation_region varchar(6) null,
+fsk_Allocation_regionalAllotment varchar(12) null,
+fsk_Allocation_regionallyRaised varchar(12) null,
+fsk_Allocation_locallyRaised varchar(12) null,
+fsk_Allocation_natlNotes varchar(12) null,
+fsk_Allocation_regNotes varchar(12) null,
+fsk_Allocation_localNotes varchar(12) null,
+fsk_Allocation_firstName varchar(30) null,
+fk_Allocation varchar(30) null
+)
+GO
+
+ALTER TABLE fsk_FskOrder ADD CONSTRAINT PK_fsk_FskOrder PRIMARY KEY (fskOrderID)
+GO
+
+ALTER TABLE fsk_FskOrder FOREIGN KEY (fsk_Allocation_accountNo,fsk_Allocation_natlDonation,fsk_Allocation_region,fsk_Allocation_regionalAllotment,fsk_Allocation_regionallyRaised,fsk_Allocation_locallyRaised,fsk_Allocation_natlNotes,fsk_Allocation_regNotes,fsk_Allocation_localNotes,fsk_Allocation_firstName,fk_Allocation) REFERENCES fsk_Allocation(accountNo,natlDonation,region,regionalAllotment,regionallyRaised,locallyRaised,natlNotes,regNotes,localNotes,firstName,lastName)
+GO
+
+CREATE INDEX IDX_fsk_FskOrder_fk_Allocation ON fsk_FskOrder (fk_Allocation)
+GO
+
+

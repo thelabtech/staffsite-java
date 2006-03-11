@@ -1,0 +1,57 @@
+DBIO -- Transition Testing & Switch Configuration
+
+Config File Locations:
+C:\ade4\controlled-src\webapps-src\staffsite\etc\web.xml [Switch]
+C:\ade4\classes\poolman.xml
+C:\ade4\controlled-src\services-src\config\mapping\database,xml
+C:\ade4\controlled-src\services-src\config\mapping\database.properties
+
+[NEW] Servlet file locations:
+C:\ade4\controlled-src\services-src\source\org\alt60m\wsn\sp\servlet\WsnSpController.java
+C:\ade4\controlled-src\services-src\source\org\alt60m\hr\ms\servlet\dbio\MSController.java
+C:\ade4\controlled-src\services-src\source\org\alt60m\hr\si\servlet\dbio\SIController.java
+
+[OLD] Servlet file locations:
+C:\ade4\controlled-src\webapps-src\staffsite\src\WsnSpController.java
+C:\ade4\controlled-src\services-src\source\org\alt60m\hr\ms\servlet\MSController.java
+C:\ade4\controlled-src\services-src\source\org\alt60m\hr\si\servlet\SIController.java
+
+
+-------------Web.xml Change these-------------
+
+	<servlet>
+		<servlet-name>MSController</servlet-name>
+		<servlet-class>org.alt60m.hr.ms.servlet.dbio.MSController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SIController</servlet-name>
+		<servlet-class>org.alt60m.hr.si.servlet.dbio.SIController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>WsnSpController</servlet-name>
+		<servlet-class>org.alt60m.wsn.sp.servlet.WsnSpController</servlet-class>
+	</servlet>
+dbi
+	<servlet>
+		<servlet-name>AccountController</servlet-name>
+		<servlet-class>org.alt60m.accounts.servlet.dbio.AccountController</servlet-class>
+	</servlet>
+
+-------------Web.xml Leave these alone-------------
+
+	<servlet-mapping>
+	<servlet-name>MSController</servlet-name>
+	<url-pattern>/servlet/MSController</url-pattern>
+</servlet-mapping>
+
+	<servlet-mapping>
+	<servlet-name>SIController</servlet-name>
+	<url-pattern>/servlet/SIController</url-pattern>
+</servlet-mapping>
+
+
+tempdb:
+username: istdbio
+password: john316

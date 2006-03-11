@@ -1,0 +1,93 @@
+BODY {
+	background-color: #FFFFFF;
+	font-family: Arial, sans-serif;
+	color: #00000;
+	scrollbar-base-color: #336699;
+	font-size: 12;
+}
+
+A:link {
+	color: #3333cc;
+	text-decoration: none;
+}
+
+A:active, A:visited {
+	color: #999966;
+	background: none;
+	text-decoration: none;
+}
+
+A:hover {
+	color: #3333cc;
+	background: #eeeeff;
+	text-decoration: none;
+	cursor: hand;
+}
+
+TABLE {
+	padding: 0px;
+	margin: 0px;
+}
+
+TD {
+	font-size: 12;
+	padding: 2px;
+}
+
+HR {
+	color: #6699cc;
+	height: 1;
+}
+
+INPUT, TEXTAREA, SELECT {
+	font-family: Arial, sans-serif;	
+	padding: 1px;
+	font-size: 12px;
+	background: #D0DDEA;
+	color: #000000;
+	border: solid 1px #6699cc;
+	margin: 1px;
+}
+
+.button {
+	color: #FFFFFF;
+	font-weight: Bold;
+	font-size: 12;
+	text-decoration: none;
+	background: #003399;
+	padding: 0;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #3366cc #000066 #000066 #3366cc;
+}
+
+/* Special design tags */
+.note {
+	font-size: 10px;
+	color: #003399;
+}
+
+.pageheading {
+	font-family: Arial, sans-serif;
+	font-size: medium;
+	color: #003399;
+	text-align: right;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+.warning {
+	font-size: 12px;
+	color: #ff3399;
+	/* text-align: center; */
+}
+
+.indent {
+	margin-left: 15px;
+}
+
+.note2 {
+	font-size: 12px;
+	color: #003399;
+	font-weight: Bold;
+}

@@ -1,0 +1,37 @@
+<%@ page import="java.util.*"%>
+<%
+	if (session.getAttribute("loggedIn") == null){  // || session.isNew() - removed 10/10/05 by Matt Drees
+		// TODO: record current position and place in onLogInGoto session value?
+				 
+		Enumeration e = pageContext.getRequest().getAttributeNames();
+		
+		//The following is done to make this work on both Tomcat 4 and Tomcat 5.5
+		StringBuffer location;
+		//in Tomcat 5.5, the following gets what we want (but is only part of servlet spec 2.4):
+		String locationStr = (String) request.getAttribute("javax.servlet.forward.request_uri");
+		if (locationStr == null)
+			// in Tomcat 4 this works (in Tomcat 5, this will return the path to this jsp; not what we want):
+			location = request.getRequestURL();	
+		else
+			location = new StringBuffer(locationStr);
+		
+		//same reasoning as above
+		String queryString = (String) request.getAttribute("javax.servlet.forward.query_string");
+		if (queryString == null)
+			queryString = request.getQueryString();
+		if (queryString != null)
+			location.append('?').append(queryString);
+		
+		session.setAttribute("onLogInGoto", location.toString());
+		response.sendRedirect("/servlet/StaffController");
+	} else { // Global if section start
+		Hashtable profile = (Hashtable) session.getAttribute("profile");
+		String profileId = "";
+		if (profile!=null){
+			profileId = (String)profile.get("StaffSiteProfileId");
+		}
+
+	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
+	
+	String accountNo = (String)session.getAttribute("accountNo");
+%>

@@ -1,0 +1,61 @@
+General Staff Site Features
+
+HomePage links
+Read LX
+Birthdays and Anniversaries sections and links
+Help pages 
+MPD
+Tools page links
+    Forms regularly needed (accessible online)
+Special Occassions page
+Login and login help functions
+
+Single Sign-in feature for Outlook, PeopleSoft, Staff websiteSingle Sign-On Component
+
+	The Goal is to login into Campus Staff Site and as a result:
+	Be logged into the Web-Outlook 
+	Seamless authentication with CCCI Staff Site
+	Additional authentication to PeopleSoft without additional login
+
+	Web Outlook automatic authentication
+	Provide the user an opportunity to save a case-sensitive password once
+	First time through:
+		Enter Password (case-sensitive)
+			If rejected provide message and option to retry
+				(Optionally use SSO Help)
+			Click on Continue to try again
+
+	Provide the user to prompt for id and password every time into Outlook
+			Prompt for user and password each time through
+
+	Once your choice is made click on check box "Don't show me this option again"	
+
+	For any password mistype or rejection (max 3 times)
+	Provide message and option to retry
+			Optionally use SSO Help
+			Click on Continue to try again
+
+			Test password changes from Outlook also
+
+
+		CCCI Staff Site automatic authentication
+
+			When the link is in place it should allow you in.
+
+
+		Staff Web (PeopleSoft) authentication
+
+			The first time through the user with be prompted for:
+				Username
+				Password
+				Assumes you have a PeopleSoft user account
+
+			If you forget your password click on help prompt for instructions
+	 
+	Web Outlook
+
+		How many attempts to login before rejected  (3)
+
+		Lauches multiple browser instances
+
+		Persistent Thread holding my login security 

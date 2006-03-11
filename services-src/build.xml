@@ -1,0 +1,103 @@
+<project name="services" default="compile" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="src" value="source" />
+	<property name="src.mapping" value="../services-src/config/mapping" />
+	<property name="build" value="..\..\classes" />
+	<property name="dist"  value="..\..\classes-dist" />
+	<property name="staffsite_home"  value="../../tomcat/webapps/staffsite" />
+	<property name="api.docs"  value="../../doc/services-api"/>
+	<property name="javac.optimize" value="off"/>
+	<property name="javac.debug" value="on"/>
+
+	<path id="project.class.path">
+		<fileset dir="..\..\auxclasses">
+			<include name="lib\*.jar"/>
+			<include name="lib\*.zip"/>
+		</fileset>
+	  <pathelement location="${build}"/>
+	</path>
+
+	<target name="docs">
+	<javadoc   packagenames="org.*"
+			   classpathref="project.class.path"
+			   sourcepath="source"
+			   Private="true"
+			   destdir="${api.docs}"
+			   author="true"
+			   version="true">
+	</javadoc>
+	</target>
+
+	<target name="prepare">
+		<echo message="Java version is ${java.version}"/>
+		<tstamp/>
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src}" destdir="${build}" debug="on" optimize="off" deprecation="off">
+			<classpath refid="project.class.path"/>
+		</javac>
+    
+		<!--Move classes to tomcat directory-->
+		<copy todir="${staffsite_home}/WEB-INF/classes">
+			<fileset dir="${build}" />
+		</copy>
+		<!--Move mapping to tomcat directory-->
+		<copy todir="${staffsite_home}/WEB-INF/mapping">
+			<fileset dir="${src.mapping}" includes="*.properties, *.xml"/>
+		</copy>
+		<!--Move libs to tomcat directory-->
+		<copy todir="${staffsite_home}/WEB-INF/lib">
+			<fileset dir="..\..\auxclasses\lib" excludes="j2ee.jar, jce1_2_1.jar, servlet.jar"/>
+		</copy>
+	</target>
+
+	<target name="dist">
+		<tstamp/>
+		<delete dir="${build}-tmp" />
+		<mkdir dir="${build}-tmp"/>
+
+		<javac srcdir="${src}" destdir="${build}-tmp">      
+			<classpath refid="project.class.path"/>
+		</javac>
+		<mkdir dir="${dist}/${DSTAMP}"/>
+		<mkdir dir="${dist}/current"/>
+		<jar jarfile="${dist}/${DSTAMP}/alt60m-services.jar"
+			 basedir="${build}-tmp"
+		/>
+
+		<copy todir="${dist}/current">
+			<fileset dir="${dist}/${DSTAMP}" />
+		</copy>
+		<delete dir="${build}-tmp" />
+	</target>
+
+
+	<path id="project.class.path.deploy">
+		<fileset dir="..\..">
+			<include name="auxclasses\lib\*.jar"/>
+			<include name="${deploy.dir}\WEB-INF\lib\*.jar"/>
+		</fileset>
+	</path>
+	<target name="prepare_deploy">
+		<tstamp/>
+		<delete dir="${build}-tmp" />
+		<mkdir dir="${build}-tmp"/>
+		<javac srcdir="${src}" debug="${javac.debug}" optimize="${javac.optimize}" destdir="${build}-tmp">      
+			<classpath refid="project.class.path.deploy"/>
+		</javac>
+		<copy todir="..\..\${deploy.dir}\WEB-INF\mapping">
+			<fileset dir="${src.mapping}" includes="*.properties, *.xml"/>
+		</copy>
+		<jar jarfile="..\..\${deploy.dir}\WEB-INF\lib\alt60m-services.jar" basedir="${build}-tmp"/>
+		<delete dir="${build}-tmp" />
+	</target>
+
+
+	<target name="clean">
+	<delete dir="${build}" />
+	</target>
+
+</project>

@@ -1,0 +1,6 @@
+SELECT istprod_ministry_LocalLevel.name, Avg(istprod_ministry_Statistic.invldStudents) AS AvgOfinvldStudents
+FROM istprod_ministry_Statistic INNER JOIN (istprod_ministry_TargetArea INNER JOIN (istprod_ministry_LocalLevel INNER JOIN istprod_ministry_Activity ON istprod_ministry_LocalLevel.teamID = istprod_ministry_Activity.fk_teamID) ON istprod_ministry_TargetArea.TargetAreaID = istprod_ministry_Activity.fk_targetAreaID) ON istprod_ministry_Statistic.fk_Activity = istprod_ministry_Activity.ActivityID
+WHERE (((istprod_ministry_LocalLevel.isActive)="T") AND ((istprod_ministry_Statistic.periodBegin)>=#8/1/2003# And (istprod_ministry_Statistic.periodBegin)<=#7/31/2004#))
+GROUP BY istprod_ministry_LocalLevel.name
+HAVING (((Avg(istprod_ministry_Statistic.invldStudents))>0))
+ORDER BY istprod_ministry_LocalLevel.name;

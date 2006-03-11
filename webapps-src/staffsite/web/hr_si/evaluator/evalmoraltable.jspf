@@ -1,0 +1,76 @@
+<!-- Start Moral Convictions -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>MORAL CONVICTIONS</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" COLSPAN="2" ALIGN="left" WIDTH="100%"><br>Phone call requested?<font class="eval"><%=ShowYesNo(app.getHasRequestedPhoneCall())%></font>&nbsp;&nbsp;&nbsp;
+		Phone #:<font class="eval"><%=ShowNoNull(app.getContactPhoneNumber())%></font>
+		<BR>
+		Best time of day to call:<font class="eval"><%=ShowNoNull(app.getContactBestTime())%></font>&nbsp;&nbsp;&nbsp;Time Zone<font class="eval"><%=ShowNoNull(app.getContactTimeZone())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"><br>1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%"><br>What are your convictions regarding pre-marital and extra-marital physical involvement (e.g. petting, oral sex, sexual intercourse)?  What else would you consider as inappropriate activities outside of marriage?<br><font class="eval"><%=ShowNoNull(app.getSexualInvolvementExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you set personal guidelines for the physical area of your relationships to ensure minimal temptation?
+		<br><font class="eval"><%=ShowYesNo(app.getHasSexualGuidelines())%></font><br>If so, what are they?  Please be specific.
+		<br><font class="eval"><%=ShowNoNull(app.getSexualGuidelineExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3a.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you currently dating anyone?  <br><font class="eval"><%=ShowYesNo(app.getIsCurrentlyDating())%></font><br>(If "no," skip to question 4)</td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3b.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Where will they most likely be during your internship?<br><font class="eval"><%=ShowNoNull(app.getCurrentlyDatingLocation())%></font>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you ever been involved in any homosexual activity?<br><font class="eval"><%=ShowYesNo(app.getHasHomosexualInvolvement())%></font>
+		<br>If yes, please explain.<br><font class="eval">N/A</font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the past 12 months have you had any struggles with pornography?<br><font class="eval"><%=ShowYesNo(app.getHasRecentPornographicInvolvement())%></font><br>If so, when was the last incident? (month & year)<br><font class="eval"><%=app.getPornographicInvolvementMonth()%>/<%=app.getPornographicInvolvementYear()%></font><br>Please be specific (video, web, magazine, time involved, etc.).<br><font class="eval"><%=ShowNoNull(app.getPornographicInvolvementExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In the past 12 months have you had a relationship, which would not be considered "above reproach"? (e.g. light/heavy petting, oral sex, sexual intercourse, etc.)<br><font class="eval"><%=ShowYesNo(app.getHasRecentSexualImmorality())%></font><br>When were you last involved in such an incident? (month & year)<br><font class="eval"><%=app.getSexualImmoralityMonth()%>/<%=app.getSexualImmoralityYear()%></font><br>What was the extent of physical involvement? (Please be specific.)<br><font class="eval"><%=ShowNoNull(app.getSexualImmoralityExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%"><strong>Single:</strong></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you dated other men/women since the last occurrence?<br><font class="eval"><%=ShowYesNo(app.getHasOtherDateSinceImmorality())%></font><br>If so, what has been the extent of your physical relationship with them?<br><font class="eval"><%=ShowNoNull(app.getSingleImmoralityResultsExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%"><strong>Married:</strong></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">How has this affected your relationship with your spouse?
+		<br><font class="eval"><%=ShowNoNull(app.getMarriedImmoralityResultsExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">7.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">If "yes" to 4, 5, or 6, what in your life has changed to prevent a similar incident from reoccurring?  If "no," skip to question 9.<br><font class="eval"><%=ShowNoNull(app.getImmoralityLifeChangeExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">8.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you currently having any struggles in the moral area such as a habitually impure thought life, homosexual desires, or difficulty applying your guidelines/convictions, etc.?<br>
+		<font class="eval"><%=ShowNoNull(app.getImmoralityCurrentStrugglesExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">9.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have any additional comments or clarifications?<br><font class="eval"><%=ShowNoNull(app.getAdditionalMoralComments())%></font></td>
+	</tr>
+		</TD>
+	</TR>
+</table>
+ 
+<!-- End Moral Convictions -->

@@ -1,0 +1,30 @@
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top" height="10">
+	<td bgcolor="#ddddee"><font size="2" face="arial"><b>Instructions:</td>
+	<td bgcolor="#ddddee"><font size="2" face="arial"><b>Naming Conventions:</td>
+</tr>
+<tr valign="top">
+	<td bgcolor="#ffffee" width="40%"><font size="1" face="arial">
+	<b>Adding a table:</b>
+	<ul>
+	Fill in the three form fields with the appropriate information. Consult the <b>Naming Conventions</b> before pressing Add Table.
+	</ul>
+	<b>Deleting a table:</b>
+	<ul>
+		Do not do this unless you are absolutely positive that it will not affect anything else. <b>You may only delete tables that you have created.</b>
+	</ul>
+	
+	</td>
+	<td bgcolor="#ffffee" width="50%"><font size="1" face="arial">
+	<b>Table Name:</b>
+		<ul>The table name will be how the database references the table. You should preface the name with a descriptor, underscore, and then an abbreviated name. The name must not have been used already. (eg. for a global Quest field like ethnicity, preface the name with a "Q_" whereas for just the Quest 1 or 2 survey the preface is "Q1_" or "Q2_")
+		</ul>
+	<b>Table Friendly Name:</b>
+		<ul>This is a short descriptor so you know what the contents of the table are.
+		</ul>
+	<b>Sequence Name:</b>
+		<ul>The sequence name should have the same preface as the table name. It should end with "<b>Seq</b>". It must be unique. See the existing sequences for examples.
+		</ul>
+	</td>
+</tr>
+</table>

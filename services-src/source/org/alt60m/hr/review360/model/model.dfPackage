@@ -1,0 +1,45 @@
+package id1uov0cw6i81mocw6r7o01;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#org.alt60m.hr.review360.model.ReviewSession:oiref><oihard>
+@__modelType reference 
+*/
+class reference8 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.hr.review360.model.Review360:oiref><oihard>
+@__modelType reference 
+*/
+class reference11 {
+}/**
+@__ref <oiref:design#Class#id3bstbcw6i81mocw9anodf.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.hr.review360.model.test:oiref> 
+*/
+class reference14 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:MemberLink#<oiref:java#Member#org.alt60m.hr.review360.model.Review360#session:oiref>=310,200,280,200:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#org.alt60m.hr.review360.model.ReviewSession#reviews:oiref>=284,85,15,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#org.alt60m.hr.review360.model.ReviewSession#reviews:oiref>=259,85,72,16,0:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.hr.review360.model.ReviewSession:oiref>=113,10,167,318,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.hr.review360.model.ReviewSession#reviews:oiref>=280,105,310,105:oigroup>
+<oigroup:<oiref:design#Class#id3bstbcw6i81mocw9anodf.diagram:oiref>=9,108,106,68,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#org.alt60m.hr.review360.model.ReviewSession#reviews:oiref>=280,85,26,16,0:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.hr.review360.model.Review360:oiref>=310,10,200,1006,1:oigroup>
+*/
+class __positions {
+}

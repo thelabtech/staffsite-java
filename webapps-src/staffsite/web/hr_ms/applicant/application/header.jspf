@@ -1,0 +1,296 @@
+<%@ page import="org.alt60m.servlet.*, java.util.Date, org.alt60m.wsn.sp.model.dbio.*" %>
+<jsp:useBean id="selState" class="org.alt60m.html.SelectState"/>
+<jsp:useBean id="util" class="org.alt60m.html.Util"/>
+<jsp:useBean id="mshtmlutils" class="org.alt60m.hr.ms.bean.dbio.MSHTMLUtils" />
+<%!
+    public String PersonInputValue(boolean isSubmitted, Hashtable personHash, String field, int size, boolean alwaysEdit) {
+        String output = "NAME='"+field+"' SIZE='"+size+"' MAXLENGTH='"+size+"'";
+        if(!(personHash.get(field)==null || "".equals(personHash.get(field)))) {
+            output += " VALUE='"+personHash.get(field)+"'";
+            if(isSubmitted && !alwaysEdit)
+                output += " READONLY";
+        }
+        return output;
+    }
+	/**
+	* added by kb - 3/3/03
+	* determines if the passed in value is submitted and val is empty.  Certain fields
+	*  shouldn't be shown if the app is submitted and the field isn't empty.  Use this
+	*  method to check.
+	*/
+	public boolean isSubmittedAndNotEmpty(boolean isSubmitted, String val)
+	{
+		if(isSubmitted==false)	
+			return false;
+		if(val==null || "".equals(val) || " ".equals(val)) 
+			return false;
+
+		return true; 
+	}
+    public String PersonYesNo(boolean isSubmitted, Hashtable personHash, String field, boolean alwaysEdit) {
+        boolean selected = personHash.get(field)!=null && ((Boolean)personHash.get(field)).booleanValue() == true;
+        System.out.println(personHash.get(field));
+        return "<INPUT type=radio name='" + field + "' value='true' "+ (selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> Yes <INPUT type=radio name='" + field + "' value='false'"+ (!selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> No";
+    }
+    public String PersonCheckBox(boolean isSubmitted, Hashtable personHash, String field, boolean alwaysEdit) {
+    /*
+        Since checkboxes do not return a value pair if check box is unchecked, we will insert an
+		"Checkbox<fieldname>" hidden field for each checkbox field.  If this field exists, the save
+		function will check to see if the expected field is there.  If not, adds it as a FALSE.  
+		If there, changes it from ON to TRUE.  This assumes that the checkboxes are boolean in the
+		database, and char[FT] in the persistance object.
+    */
+        boolean checked = personHash.get(field)!=null && ((Boolean)personHash.get(field)).booleanValue() == true;
+        String output = (isSubmitted && !alwaysEdit)?"":"<INPUT TYPE='HIDDEN' NAME='Checkbox"+field+"'>";
+        return output + "<INPUT TYPE='CHECKBOX' NAME='"+field+"'"+ (checked?" CHECKED":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +">";
+    }
+    public String PersonValueDisabled(boolean isSubmitted, Hashtable personHash, String field) {
+        String output ="";
+        if(!(personHash.get(field)==null || "".equals(personHash.get(field))) && isSubmitted)
+            output = "DISABLED";
+        return output;
+    }
+    public boolean PersonHasValue(Hashtable personHash, String field) {
+        return !(personHash.get(field)==null || "".equals(personHash.get(field)));
+    }
+    public boolean hasAValue(String value) {
+        return ((value!=null)&&(!("".equals(value))));
+    }
+    
+    public String makeProjectMenuOptions(Collection projects, String prefNum, String prefName, String defaultValue, String isDisabled) {
+		boolean prefFound= false;
+		String returnString="";
+		String menuString= "";
+		if (projects != null) {
+			Iterator itr = projects.iterator();
+			menuString += "<select name=\"ProjectPref"+prefNum+"\" "+isDisabled+">";
+			menuString += "\n\t\t<option value=\"\"></option>	";
+				
+			while (itr.hasNext()) {
+				Hashtable project = (Hashtable)itr.next();
+				String projectID = (String)project.get("WsnProjectID");
+				menuString += "\n\t\t<option value=\""+projectID+"\"";
+				if (projectID.equalsIgnoreCase(defaultValue))
+				{
+					menuString += " selected=\"selected\"";
+					prefFound= true;
+				}
+				menuString += ">"+project.get("Name")+"</option>";
+			}
+			menuString+="\n\t</select>";
+			
+			
+			if(!"DISABLED".equals(isDisabled))
+			{
+				returnString= menuString;
+				if (!prefFound & !(defaultValue==null||"".equals(defaultValue)))
+					returnString+= "<br>You had previously selected <strong>"+prefName+"</strong>.<br>Sorry!  That project is now full.<br>You may choose another project.";
+			}
+			else
+			{
+				returnString= "<strong>"+prefName+"</strong>.";
+			}
+		}
+		return returnString;
+	}
+    
+%>
+<%
+    Hashtable personHash;
+    boolean isSubmitted = false;	// quickly tells pages whether or not application has been submitted
+    boolean AlwaysEdit = true;	// what does this do?
+    boolean NoEditAfterSubmit = false;	// used anywhere?
+
+	// Make sure user is logged in
+	if (session.getValue("userLoggedIn") == null || ((String)session.getValue("userLoggedIn")).trim().equals("") || session.isNew()) {
+		response.sendRedirect("/hr_ms/applicant/login.jsp");
+		return;
+	}
+	
+	//kb--overall try/catch wrapper to give us a wee bit more info when exceptions occur.
+try
+{
+	// user's login details
+	String userID = (String)session.getValue("userID");
+System.out.println("userID: "+userID);
+	String userEmail = (String)session.getValue("userEmail");
+System.out.println("userEmail: "+userEmail);
+	// get name of current page being viewed (must match names in pages[] later)
+	// get only message to be displayed sent from controller
+	String theMessage = "";
+	String thePage = "";
+	try {
+		ActionResults ar = new ActionResults();
+		ar = ActionResults.getActionResults(session);
+		thePage = ar.getValue("page");
+		theMessage = ar.getValue("message");
+		if (theMessage == null)
+			theMessage = "";
+	} catch(Exception e) { }
+
+//kb 10/24/02
+//This section needed by payment pages.  Redirects all subsequent
+// payment pages to 'payment' section.  This in effect hides the other
+// pages from the selectable menus on the top and bottom.  They should NOT
+// be individually selectable.
+if (thePage.equals("payccard") 
+	  || thePage.equals("paymail")
+	  || thePage.equals("paystaff")
+	  || thePage.equals("paymentdone")
+	  || thePage.equals("paymentsoon")
+	  || thePage.equals("payfindstaff"))
+  	  thePage="payment";
+
+System.out.println("thePage: "+thePage);
+System.out.println("theMessage: "+theMessage);
+
+	// figure out if this person is staff or not
+	boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+	// setup pages of the application form:
+			/* Possible Statii:
+				"New" 
+				"Not Accepted"
+				"Accepted"
+				"Accepted & Assigned"
+				"Accepted & Not Assigned"
+				"Evaluating"
+				"Submitted: Waiting for References"
+				"Submitted: Waiting for Payment"
+				"Submitted: Waiting for References and Payment;*/
+	// Default
+	String titles[] = {"Home", "Instructions", "FAQ", "Personal Information", "School Information", "Project Preferences", "Experience Information", "Spiritual Information", "Involvement Information", "Confidential Information", "Medical Information", "Short Answer Information", "Project Specific Questions" , "References", "Payment", "Submit Application"};
+	String pages[] = {"apphome", "instructions", "faq", "app1", "app2", "app3", "app4", "app5", "app6", "app7", "app8", "app9", "additionalquestions" , "reference", "payment", "appsubmit", "payccard", "paymail", "paystaff", "paymentdone"};
+
+	// figure out which page we are on & store in pageNum
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(thePage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	if (pageNum == 0) {
+		System.out.println("Error: Page="+thePage+" not found!");
+		response.sendRedirect("/servlet/MSController?action=goToPage&page=apphome");
+		return;
+	}
+	// setup page title	
+	String pageTitle = "Application - " + titles[pageNum - 1] + "( page #" + pageNum + "/" + titles.length + ")";
+
+	// 02-12-2003 dc: Moved the getting of the personHash to here from all sub-pages.
+	personHash = infoBean.getWsnApplicationHash(userID,userEmail);
+	String WsnApplicationID = (String)personHash.get("WsnApplicationID");
+	
+    String projectName[] = new String[5];
+    try {
+		projectName[0] = hasAValue((String)personHash.get("ProjectPref1"))?infoBean.getProject((String)personHash.get("ProjectPref1")).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[0] = hasAValue((String)personHash.get("ProjectPref1"))?(String)personHash.get("ProjectPref1"):"<error>";
+	}
+	try {
+		projectName[1] = hasAValue((String)personHash.get("ProjectPref2"))?infoBean.getProject((String)personHash.get("ProjectPref2")).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[1] = hasAValue((String)personHash.get("ProjectPref2"))?(String)personHash.get("ProjectPref2"):"<error>";
+	}
+	try {
+		projectName[2] = hasAValue((String)personHash.get("ProjectPref3"))?infoBean.getProject((String)personHash.get("ProjectPref3")).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[2] = hasAValue((String)personHash.get("ProjectPref3"))?(String)personHash.get("ProjectPref3"):"<error>";
+	}
+	try {
+		projectName[3] = hasAValue((String)personHash.get("ProjectPref4"))?infoBean.getProject((String)personHash.get("ProjectPref4")).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[3] = hasAValue((String)personHash.get("ProjectPref4"))?(String)personHash.get("ProjectPref4"):"<error>";
+	}
+	try {
+		projectName[4] = hasAValue((String)personHash.get("ProjectPref5"))?infoBean.getProject((String)personHash.get("ProjectPref5")).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[4] = hasAValue((String)personHash.get("ProjectPref5"))?(String)personHash.get("ProjectPref5"):"<error>";
+	}
+	
+	
+	if ((Date)personHash.get("SubmittedDate") != null)
+		isSubmitted = true;
+    mshtmlutils.setSubmitted(isSubmitted);
+%>
+<%@ include file="../../header.jspf" %>
+<%	
+	box.setTableInside(true);
+	box.setWidth("100%");
+%>
+<script language="javascript">
+<!--
+	function doPostFormNextAction(action, nextAction, nextParm) {
+		// use this to save the page and do a specific reference form action on the server
+		var theform = document.appForm;
+		theform.action.value = action;	// method of MSController to perform
+		theform.nextAction.value = nextAction;	// next method to perform after first method
+		theform.nextParm.value = nextParm;	// parameter sent to next method (like page name for goToPage)
+		theform.submit();
+	}
+function TrackCount(fieldObj,countFieldName,maxChars)
+{
+  var countField = eval("fieldObj.form."+countFieldName);
+  var diff = maxChars - fieldObj.value.length;
+
+  // Need to check & enforce limit here also in case user pastes data
+  if (diff < 0)
+  {
+	fieldObj.value = fieldObj.value.substring(0,maxChars);
+	diff = maxChars - fieldObj.value.length;
+  }
+  countField.value = diff;
+}
+
+function LimitText(fieldObj,maxChars)
+{
+  var result = true;
+  if (fieldObj.value.length >= maxChars)
+	result = false;
+  
+  if (window.event)
+	window.event.returnValue = result;
+  return result;
+}
+// -->
+</script>
+<form name="appForm" action="MSController" method="post">
+<input type="hidden" name="action">
+<input type="hidden" name="as" value="student">
+<input type="hidden" name="page">
+<input type="hidden" name="nextAction">
+<input type="hidden" name="nextParm">
+<!-- Data Persistence Values -->
+<input type="hidden" name="userID" value="<%=userID%>">
+<!--	input type="hidden" name="id" value="< %=id%>">< % System.out.println("***** id: "+id); %>  -->
+<!--	input type="hidden" name="idName" value="< %=idName%>">  -->
+<!--	input type="hidden" name="className" value="< %=className%>">  -->
+<!-- End persistence values -->
+<center>
+<% box.setTitle(titles[pageNum - 1]); %>
+<%=box.printTop() %>
+	<TR>
+		<TD COLSPAN="2" CLASS="appbar" ALIGN="RIGHT">
+		<TABLE CELLPADDING="0" CELLSPACING="0">
+			<TR>
+				<TD CLASS="appbar" ALIGN="RIGHT">Page:</TD>
+				<% for (int x = 1; x <= titles.length; x++){ %>
+				<TD CLASS="<%= pageNum == x ? "menuactive" : "menu"%>"><A HREF="javascript: doPostFormNextAction('appFormSave', 'goToView', '<%=pages[x - 1]%>')" CLASS="<%= pageNum == x ? "menuactive" : "menu"%>"><%=x%></A></TD>
+				<% } %>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="20%" CLASS="appbar" VALIGN="TOP">
+		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+			<TR><TD CLASS="appbar">Section:</TD></TR>
+			<% for (int x = 0; x < titles.length; x++){ %>
+			<TR><TD CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>"><A CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>" HREF="javascript: doPostFormNextAction('appFormSave', 'goToView', '<%=pages[x]%>')"><%=titles[x]%></A></TD></TR>
+			<% } %>
+			<TR><TD CLASS="appbar"><BR>Legend:</TD></TR>
+			<TR><TD CLASS="required">Required Fields</TD></TR>
+			<TR><TD CLASS="empty">Optional Fields</TD></TR>
+		</TABLE>
+		</TD> 
+		<TD CLASS="app" VALIGN="TOP">

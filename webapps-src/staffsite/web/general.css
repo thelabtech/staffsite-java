@@ -1,0 +1,27 @@
+BODY {font-family: serif;
+      background-color: silver;}
+
+H1 {font: x-large Verdana, sans-serif;
+    color: olive;
+    border-bottom: thin black solid;}
+
+TABLE {margin: 0;}
+
+.sidebar {background-color: olive;
+          padding: 0.5em;}
+
+.sidebar UL LI {list-style-type: none;
+                margin-left: 0;
+                margin-right: 0.5em;}
+
+.sidebar UL LI A {color: #FFCCCC;}
+
+.body {background: white no-repeat center 
+       url(http://www.site.org/pix/logo.gif);}
+
+IMG.icon {border: outset gray 3px;
+          padding: 0;}
+
+P {margin: 0em 0.5em;
+   text-indent: 1em;
+   color: #333333;}

@@ -1,0 +1,43 @@
+package id22frhcwgh0kracwgh2qmr;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#org.alt60m.cms.model.CmsFile:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#org.alt60m.cms.model.CmsCategory:oiref><oihard>
+@__modelType reference 
+*/
+class reference7 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions 
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFiles:oiref>=175,97,26,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFiles:oiref>=310,97,26,16,0:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#files:oiref>=171,125,340,125:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFile:oiref>=171,117,340,117:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.cms.model.CmsFile:oiref>=340,40,143,411,1:oigroup>
+<oigroup:Composite#supplierRole#MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFiles:oiref>=270,117,66,16,0:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFiles:oiref>=175,117,31,16,0:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.cms.model.CmsCategory:oiref>=30,40,141,171,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.cms.model.CmsCategory#lnkCmsFiles:oiref>=171,117,340,117:oigroup>
+
+
+*/
+class __positions {
+}

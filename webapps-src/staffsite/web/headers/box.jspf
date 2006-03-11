@@ -1,0 +1,10 @@
+<jsp:useBean id="box" class="org.alt60m.html.Box" scope="request"/>
+<%
+	//------------------------------
+	// Box bean support
+	// Usage: box.printTop()
+	// Usage: box.printTop()
+	//------------------------------
+	String boxStyle = "";
+	boxStyle = (String)session.getValue("boxStyle");
+%>

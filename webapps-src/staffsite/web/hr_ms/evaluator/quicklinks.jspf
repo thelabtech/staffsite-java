@@ -1,0 +1,67 @@
+<!-- Start ------------TOOL BOX---------- -->
+<%
+String teamID = (String)session.getValue("teamID");
+String colorLSG = "#cccc99";
+String fontDimS = "<FONT FACE=\""+fontFace+"\" SIZE=\"1\" COLOR=\""+colorLSG+"\">";
+%>
+<%=fontTextL%><b>Evaluat'n Tools</b></font><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>" cellspacing="0" cellpadding="0">
+		<tr valign='top' border="0"><td colspan="2"><%=fontTextM%><b>Split Screen&nbsp;&nbsp;</b></font><font size="1">with...</font></TD></tr>
+		<tr valign='top'><td width="50%">
+		<% if (ar.getValue("toframe").equals("yes") || ar.getValue("page").equals("evalsummary")) { %>
+			<font class="smalldim">Summary</font>
+		<% } else { %>
+			<!-- 02-26-03 kl: disable split screen for defect 817, currently on hold
+			<font class="smalldim">Summary</font> -->
+			<!-- 02-26-03 kl: tested okay for defect 817, new action=evalFormEdit instead of action=goToPage, currently on hold-->
+			<!--
+			<%=font3S%><A HREF="MSController?action=evalFormEdit&page=evalsplit&sendingpage=<%=ar.getValue("page")%>&toframe=yes&bottomframe=evalsummaryframe&WsnApplicationID=<%=personID%>">Summary</A></font>
+						<A HREF="MSController?action=goToView&page=evalsplit&sendingpage=<%=ar.getValue("page")%>&toframe=yes&bottomframe=evalsummaryframe&WsnApplicationID=<%=personID%>">Summary</A> -->
+						<%=font3S%>
+						<input type="hidden" name="bottomframe" value="evalsummaryframe">
+						<A HREF="javascript: doPostFormNextAction('<%= useEvalFormSave == 1 ? "evalFormSave" : "evalFormEdit"%>', 'goToView', 'evalsplit')">Summary</A></font>
+						</font>
+		<% } %>
+		</TD>
+		<td>
+		<% if (!ar.getValue("toframe").equals("yes")) { %>
+			<font class="smalldim">close split</font>
+		<% } else { %>
+			<!-- 02-25-03 kl: new close split & save JavaScript method tested okay for defect 817, currently on hold -->
+			<script type="text/javascript">
+				function breakout()
+				{
+				parent.bottom.doPostFormNextAction('evalFormSave', 'goToView', '<%=ar.getValue("page")%>');
+				}
+			</script>
+			<%=font3S%>
+			<A CLASS="small" HREF="MSController?action=evalFormEdit&page=<%=ar.getValue("page")%>&sendingpage=<%=ar.getValue("sendingpage")%>&nextPage=goToView&nextParm=<%=ar.getValue("page")%>&WsnApplicationID=<%=personID%>" TARGET="_top" onClick="breakout();">close split</A></font>
+		<% } %>
+		</TD></tr>
+		<tr valign='top' border="0"><td colspan="2"><%=fontTextM%><b>Printer Friendly</b></font></TD></tr>
+		<tr valign='top'><td width="50%"><%=font3S%><A HREF="JavaScript: popupWindow('MSController?action=evalFormEdit&page=pfapplication&nextPage=goToView&nextParm=pfapplication&sendingpage=pfapplication&WsnApplicationID=<%=personID%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Application</A></font></TD><td><%=font3S%><A HREF="JavaScript: popupWindow('MSController?action=evalFormEdit&page=pfrefs&nextPage=goToView&nextParm=pfrefs&sendingpage=pfrefs&WsnApplicationID=<%=personID%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">All Refs.</A></font></TD></tr>
+		<tr valign='top'><td colspan="2"><%=font3S%><A HREF="JavaScript: popupWindow('MSController?action=evalFormEdit&page=pfappandrefs&nextPage=goToView&nextParm=pfappandrefs&sendingpage=pfappandrefs&WsnApplicationID=<%=personID%>', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Application w/ All Refs.</A></font></TD></tr>
+		<tr valign='top'><td colspan=2><%=fontTextM%><b>Other</font></b><br></TD></tr>
+		<tr valign='top'><td colspan=2><%=font3S%><a href="/servlet/WsnSpController?view=showappinfo&action=adminEditApp&id=<%=ar.getValue("WsnApplicationID")%>" TARGET="_top">Back to View Applicant</A></font></TD></tr>
+		<% if (teamID != null && !teamID.equals("notAssigned")) { %>
+			<tr valign='top'><td colspan=2><%=font3S%><a href='/servlet/WsnSpController?view=team&action=showTeam&id=<%=teamID%>' TARGET="_top">Back to Team Roster</A></font></TD></tr>
+		<% } %>
+
+	</TABLE>
+<%=fontTextL%><b>Available Tools</font></b><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=<%=session.getValue("MyHomeAction")%>" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_myhome.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="My WSN Home"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=appinfo" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_addapp.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Add Applicant"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=staffappsearch" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_addstaff.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Add Staff"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=filterListApps" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_searchpeople.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Search Applicant"></a></TD></tr>
+		<tr valign='top'><td colspan=2><a href="/servlet/WsnSpController?action=clearTub&view=filterListProjects" TARGET="_top"><IMG SRC="/wsnsp/images/wsn_searchproj.gif" WIDTH="102" HEIGHT="16" BORDER=0 ALT="Search Projects"></a></TD></tr>
+	</TABLE>
+	<%=fontTextL%><b>Links</font></b><br>
+	<table width='100%' border='1' bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="JavaScript: popupWindow('/cms/content/00000129400.htm', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Q & A</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><A HREF="/servlet/CmsController?action=browse&catID=1000029" target='_blank'>Resource Center</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="/servlet/CmsController?action=browse&catId=00000056972" target='_blank'>Leader's Notebook</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href="/cms/content/00000038954.doc" target='_blank'>Applicant Flowchart</a></font></TD></tr>
+<tr valign='top'><td colspan=2><%=fontTextM%><a href='/wsnsp/dbio/info_old.jsp' TARGET="_top">Old Announcements</a></font></TD></tr>
+	</TABLE>
+<!-- End ------------TOOL BOX---------- -->

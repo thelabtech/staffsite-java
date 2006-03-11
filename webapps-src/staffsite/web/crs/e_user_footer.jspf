@@ -1,0 +1,83 @@
+<%--Date added: 1/16/2005
+	Added by: Scott Welch
+	Purpose: This if statement is part of the conference "cloaking" process, i.e. removing
+	all references to Campus Crusade for Christ. This will remove the Help Section that is
+	at the bottom of every page. Should	Bridges Int'l wish to add information so their 
+	conference attendees can get help with a conference, that can be done here. --%>
+
+<TABLE CELLSPACING="10">
+	<TR>
+		<TD>
+		<TABLE
+			CLASS="box"
+			CELLSPACING="0">
+			<TR>
+				<TD CLASS="subboxheader">Help</TD>
+			</TR>
+			<TR>
+				<TD CLASS="cell"><%
+			if(session.getValue("selectedEvent") != null){
+				Conference helpConference = new Conference();
+				helpConference.setConferenceID(Integer.parseInt((String)session.getValue("selectedEvent")));
+				helpConference.select(); %> 
+				<B>If you have questions about this conference, you may contact:</B>
+				<BLOCKQUOTE><STRONG><%=conference.getContactName()%></STRONG><BR>
+				<%=helpConference.getContactAddress1()%><BR>
+				<%
+					if(helpConference.getContactAddress2() != null && !helpConference.getContactAddress2().equals("")){%> 
+					<%=helpConference.getContactAddress2()%><BR>
+				<%
+					}
+				%> 
+				<%=helpConference.getContactCity()%>, <%=helpConference.getContactState()%>
+				<%=helpConference.getContactZip()%> <BR>
+				<%=helpConference.getContactPhone()%> <BR>
+				<A HREF="mailto:<%=helpConference.getContactEmail()%>"><%=helpConference.getContactEmail()%></A>
+				</BLOCKQUOTE>
+				<%
+					} //end of Help section contact info
+				
+				Conference cloakConference1 = new Conference();
+				String event1 = (String)session.getValue("selectedEvent");
+				if (event1 != null) {
+					cloakConference1.setConferenceID(Integer.parseInt(event1));
+					cloakConference1.select(); 
+				}
+				if  (event1 != null && cloakConference1.getIsCloaked()==false) { //Beginning of conference cloaking if statement for e_user_footer.jspf
+				%>
+				<B>If you are experiencing TECHNICAL difficulties with this online
+				registration process, contact our Customer Service Team by:</B>
+				<P>
+				<UL>
+					<LI>filling out <A HREF="/general/feedback.jsp">this form</A>
+					<LI>emailing us at <A HREF="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</A>
+					<LI>calling 1-888-222-5462 between the hours of 9am and 5pm EST
+					Monday through Friday
+				</UL>
+				<P>In your message, please include the name of the conference that
+				you are trying to register for and describe the problem you are
+				having in as much detail possible. Include any error messages that
+				you are receiving.
+				<P><B>Note:</B> The Conference Registration System works best with
+				Internet Explorer. If you are using another browser and are
+				experiencing difficulties, we recommend using Internet Explorer to
+				register for your conference. If you do not have Internet Explorer
+				on your computer, you can download it <a
+					href="http://www.microsoft.com/windows/ie/default.asp">here</a>.
+				<P ALIGN=CENTER><a
+					href="JavaScript: popupWindow('/general/privacyPolicy.htm', 'Policy', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Privacy
+				policy.</a>
+				<% 
+					} //end of conference cloaking if statement
+				%>
+				</TD>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+</TD>
+</TR>
+</TABLE>
+
+<%@ include file="/footer.jspf"%>

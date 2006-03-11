@@ -1,0 +1,36 @@
+			<BR>
+		</TD><!--Closing global table-->
+	</TR>
+</TABLE>
+<BR>
+  <center>
+  <table width="550" border="0">
+	<tr>
+		<td colspan="2">
+		  <%=fontB%>*If you couldn't find the answer to your question in these help pages, 
+		  please contact Customer Service by email 
+		  (<a href="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</a>) or by phone 
+		  at 1-888-222-5462 between the hours of 9am and 5pm EST Monday through Friday.<br><br><br></font>
+		  </td>
+	</tr>
+	<tr>
+		<td align="center">
+		  <!-- <a href="/general/feedback.jsp"><img src="/images/info.gif" border="0" align="center" alt="Info" WIDTH="42" HEIGHT="41"></a> -->
+		  <%=fontTextS%><i>© 2001 Campus Crusade for Christ International
+		  <br>
+		</td>
+		<td align="right">
+			<a href="javascript:window.close()"><%=fontB%>[Close this window]</font></a>
+		</td>
+	</tr>
+  </table>
+  </center>
+ 	<!-- Begin Google Analytics code -->
+	<script src="/urchin.js" type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	_uacct = "UA-79392-3";
+	urchinTracker();
+	</script>
+	<!-- End Google Analytics code -->
+</BODY>

@@ -1,0 +1,53 @@
+<!-- Start Personal Information -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>PERSONAL INFORMATION</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you ever been convicted of a crime?<br><font class="eval"><%=ShowYesNo(app.getHasCrimeConviction())%></font><BR>If yes, please explain.<br><font class="eval"><%=ShowNoNull(app.getCrimeConvictionExplanation())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you ever used any narcotics, hallucinogens or drugs not prescribed by a physician?<br><font class="eval"><%=ShowYesNo(app.getHasDrugUse())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you use tobacco products?<br><font class="eval"><%=ShowYesNo(app.getIsTobaccoUser())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you willing to give up any social habits that might lessen your effectiveness and influence while associated with Campus Crusade?<br><font class="eval"><%=ShowYesNo(app.getIsWillingChangeHabits())%></font></td>
+	</TR>
+	<tr><td class="evaltitle" colspan="2"><b>ALCOHOL USE</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">In what situations and how often do you drink alcohol?<br><font class="eval"><%=ShowNoNull(app.getAlcoholUseFrequency())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">When presented with an opportunity to drink, what would cause you to decide it would be appropriate?<br><font class="eval"><%=ShowNoNull(app.getAlcoholUseDecision())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">As an intern with our ministry, would you be willing to refrain from drinking alcohol?<br><font class="eval"><%=ShowYesNo(app.getIsWillingRefrainAlcohol())%></font><br>If you are not willing, please explain.<br><font class="eval"><%=ShowNoNull(app.getUnwillingRefrainAlcoholExplanation())%></font></td>
+	</TR>
+	<tr><td class="evaltitle" colspan="2"><b>DRUG USE</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Please write a short paragraph explaining the types of drugs you've used, the approximate dates it occurred, and any details you feel would help us in understanding your situation.<br><font class="eval"><%=ShowNoNull(app.getDrugUseExplanation())%></font></td>
+	</TR>
+	<tr><td class="evaltitle" colspan="2"><b>TOBACCO USE</b></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Please write a short paragraph explaining your tobacco use.  (Please include the types of tobacco products you've used, frequency, the last time, and any details you feel would help us in understanding your situation.).<br><font class="eval"><%=ShowNoNull(app.getTobaccoUseExplanation())%></font></td>
+	</TR>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">As a Campus Crusade for Christ intern, would you be willing to abstain from the use of tobacco products?<br><font class="eval"><%=ShowYesNo(app.getIsWillingAbstainTobacco())%></font></td>
+	</TR>
+</table>
+
+<!-- End Personal Information -->

@@ -1,0 +1,186 @@
+<!-- Start Relationship with Self -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Relationship with Self</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+</table>
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Dynamic Determination</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Self-discipline</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_dd1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Perseverance</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_dd2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Initiative/Drive</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_dd3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Mental Alertness</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_dd4")%>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How much coaching/supervision will this applicant need to successfully complete Ministry Partner Development? To have an effective ministry?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_dd5")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How well does the applicant follow through with tasks? decisions?  Please give examples.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_dd6")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Intellectual Flexibility</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Teachability</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_if1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Common sense and judgment</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_if2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Flexibility</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_if3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Adaptability</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_if4")%>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How has this applicant demonstrated a desire to grow and/or change?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_if5")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What is the applicant's response when things don't go as planned?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_if6")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Character</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Response to Authority</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ch1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Dependability/trustworthiness</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ch2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Conscientiousness</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ch3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Honesty/integrity</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ch4")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Personal maturity</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ch5")%>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2"> Describe how this applicant responds to authority.  How well would he/she follow a peer?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ch6")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Is the applicant able to set appropriate limits in the area of personal responsibility? Does he/she over-commit? Can he/she say 'no' respectfully?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ch7")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Do you have any reservations regarding the financial integrity of this applicant?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ch8")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Emotional Well-Being</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Self-image</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ew1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8"><b>Self-perception (understands strengths and weaknesses)</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ew2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Freedom from worry, anxiety</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ew3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Response to stress</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ew4")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Emotional stability</b></td>
+			</tr>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_ew5")%>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">To your knowledge, how does the applicant respond under difficult, stressful circumstances?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ew6")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2a.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Have you ever know him/her to demonstrate more than a normal amount of discouragement, moodiness, or withdrawal?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ew7")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2b.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">If yes, please explain.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ew8")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3a.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Does he/she determine his/her self-worth by performance? </td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ew9")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3b.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">If yes, please explain.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_ew10")%>
+</table>
+
+<!-- End Relationship with Self -->

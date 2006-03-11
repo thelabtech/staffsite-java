@@ -1,0 +1,75 @@
+package id8zf4a1ct8uh34xct8urkw7;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#idtl7vxlct8uh34xct8urkxb.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.groupware:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#idvvlkctoonxw5ctooopk1.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.contentmgr:oiref> 
+*/
+class reference4 {
+}/**
+@__ref <oiref:design#Class#id2sgohcuwql60tcuwqv4ve.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.ministry:oiref> 
+*/
+class reference5 {
+}/**
+@__ref <oiref:design#Class#id3jnqfcwgh0kracwgh267j.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.cms:oiref> 
+*/
+class reference3 {
+}/**
+@__ref <oiref:design#Class#id1nb26cw6i81mocw6r4ll5.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.hr:oiref> 
+*/
+class reference6 {
+}/**
+@__ref <oiref:design#Class#id1sxu5cwgrdjsocwjkvqg2.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite:oiref> 
+*/
+class reference1 {
+}/**
+@__ref <oiref:design#Class#id4kjs4cwgrdjsocwjnkay7.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.wsn:oiref> 
+*/
+class reference7 {
+}/**
+@__ref <oiref:design#Class#id4i4a6cwm3ry4zcwm4p3gt.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.event:oiref> 
+*/
+class reference10 {
+}}/**
+@__tags
+@shapeType ClassDiagram
+@stereotype module */
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id1sxu5cwgrdjsocwjkvqg2.diagram:oiref>=649,28,67,78,1:oigroup>
+<oigroup:<oiref:design#Class#idvvlkctoonxw5ctooopk1.diagram:oiref>=330,30,177,215,1:oigroup>
+<oigroup:<oiref:design#Class#id2sgohcuwql60tcuwqv4ve.diagram:oiref>=81,258,151,295,1:oigroup>
+<oigroup:<oiref:design#Class#idtl7vxlct8uh34xct8urkxb.diagram:oiref>=10,10,89,94,1:oigroup>
+<oigroup:<oiref:design#Class#id1nb26cw6i81mocw6r4ll5.diagram:oiref>=160,7,73,78,1:oigroup>
+<oigroup:<oiref:design#Class#id3jnqfcwgh0kracwgh267j.diagram:oiref>=436,253,68,119,1:oigroup>
+*/
+class __positions {
+}

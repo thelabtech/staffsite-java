@@ -1,0 +1,21 @@
+	<%	if (pfType.equals("ALL") || pfType.equals("STAFF")) {%>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refS.getFormWorkflowStatus()))?"None":refS.getTitle() + "&nbsp;" + refS.getFirstName()+ "&nbsp;" + refS.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - CCC staff member (STAFF)</td>
+	</tr>
+	<%	}
+		if (pfType.equals("ALL") || pfType.equals("DISCIPLER")) {%>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refD.getFormWorkflowStatus()))?"None":refD.getTitle() + "&nbsp;" + refD.getFirstName()+ "&nbsp;" + refD.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - Current discipler or Bible study leader (DISCIPLER)</td>
+	</tr>
+	<%	}
+		if (pfType.equals("ALL") || pfType.equals("ROOMMATE")) {%>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refR.getFormWorkflowStatus()))?"None":refR.getTitle() + "&nbsp;" + refR.getFirstName()+ "&nbsp;" + refR.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - Roommate (ROOMMATE)</td>
+	</tr>
+	<%	}
+		if (pfType.equals("ALL") || pfType.equals("FRIEND")) {%>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refF.getFormWorkflowStatus()))?"None":refF.getTitle() + "&nbsp;" + refF.getFirstName()+ "&nbsp;" + refF.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - Friend who knows you well (FRIEND)</td>
+	</tr>
+	<%	}
+	%>

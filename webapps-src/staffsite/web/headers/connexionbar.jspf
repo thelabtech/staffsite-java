@@ -1,0 +1,90 @@
+<%@ page import="org.gcx.cas.CASProxyURLConnection" %> 
+<%@ page import="edu.yale.its.tp.cas.proxy.ProxyTicketReceptor" %>
+<%@ page import="org.alt60m.security.CAS.CASUser" %>
+<%@ page import="java.io.IOException" %>
+<%
+//import Connexions Bar
+CASUser user = (CASUser)session.getAttribute("CASUser");
+String pgtiou = (user == null) ? null : user.getPgtIou();
+
+String content = "<div><table><tr><td nowrap = \"true\">We're sorry, but the ConneXion Bar is unavailable. </td>"
+	+ "<td width=\"100%\" nowrap=\"true\" ></td>"
+	+ "<td nowrap = \"true\">| <a href = \"/servlet/StaffController?action=logOut\">Logout</a> |</td></tr></table></div>";
+
+if (pgtiou != null) {
+     String proxyticket = "";
+     //TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
+     String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
+     String barService =  "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
+				// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
+     String signinService = "signin.mygcx.org";
+	try
+     {
+		proxyticket = ProxyTicketReceptor.getProxyTicket(pgtiou, barTicketService);
+		System.out.println(proxyticket);
+		if(proxyticket == null) 
+			System.out.println("connexionbar: No ticket, no explanation");
+		else
+		{
+ 
+ 
+			CASProxyURLConnection proxyCon = new CASProxyURLConnection(signinService);
+			
+			String received = proxyCon.getURL(barService, proxyticket);
+			if (proxyCon.wasSuccess() && received != null) {
+				content = received;
+			}
+			else {
+				//TODO: retry with real service url?
+				System.out.println("Error: " + proxyCon.getError());
+			}
+		}
+	}
+	catch (IOException e)
+	{
+		System.out.println ("Exception Occurred getting content: " + e);
+		System.out.println("Stack trace: ");
+		e.printStackTrace();		
+		//TODO: if it's the first time a user logs in, GCX doesn't like to
+		//send the toolbar.  So rerequest the toolbar.  Remove this when GCX
+		//team fixes their server.
+		//
+		//update: this shouldnt' be necessary, since the first time a user
+		//logs in, we add them to gcx (in simplesecuritymanager).  But it
+		//doesn't hurt to leave it for now.
+		if (e.getMessage().indexOf("Server returned HTTP response code: 401") != -1)
+		{
+			System.out.println("Retrying...");
+			try
+		     {
+				proxyticket = ProxyTicketReceptor.getProxyTicket(pgtiou, barTicketService);
+				if(proxyticket == null) 
+				proxyticket = "No ticket, no explanation \n";
+		        
+		 
+		 
+				CASProxyURLConnection proxyCon = new CASProxyURLConnection(signinService);
+				
+				content = proxyCon.getURL(barService, proxyticket);
+				if (proxyCon.wasSuccess() && content != null) {
+					out.println(content);
+				}
+				else {
+					//TODO: retry with real service url?
+					System.out.println("Error: " + proxyCon.getError());
+				}
+			}
+			catch (IOException e2)
+			{
+			   System.out.println ("Exception Occurred (again) getting content: " + e2);
+			   System.out.println("Stack trace: ");
+			   e2.printStackTrace(System.out);
+			}
+		}
+	}
+}
+out.println(content);
+
+%>
+
+

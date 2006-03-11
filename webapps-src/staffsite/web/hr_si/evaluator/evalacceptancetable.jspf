@@ -1,0 +1,92 @@
+<!-- Start Applicant Follow-Through -->
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Applicant Follow-Through</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="2">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="4"><b>Acceptance Issues</b></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="4"><TEXTAREA name="ss_29b" rows="12" cols="<%=acceptance100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="4"><b>Transition/Developmental Issues</b></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="4"><TEXTAREA name="ss_29b" rows="7" cols="<%=acceptance100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="4">
+				<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Primary Evaluator</td>
+						<td class="insideboxblue" valign="bottom"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+					<tr>
+					</tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Action Recommended</td>
+						<td class="insideboxblue" valign="bottom"><SELECT NAME="actionrec">
+						<option>Accept</option>
+						<option>Declined</option>
+						<option>Follow-through needed</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Initial Evaluation Date</td>
+						<td class="insideboxblue" valign="bottom"><INPUT TYPE="TEXT" name="evaldate" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Secondary Evaluator</td>
+						<td class="insideboxblue" valign="bottom"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+					<tr>
+					</tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Decision Confirmed</td>
+						<td class="insideboxblue" valign="bottom"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Assignment Preference</td>
+						<td class="insideboxblue" valign="bottom">SC<INPUT TYPE="radio" name="Denom" value"SC">WSN<INPUT TYPE="radio" name="Denom" value"SC">Cat<INPUT TYPE="radio" name="Denom" value"Cat">ESM<INPUT TYPE="radio" name="Denom" value"SC">Office<INPUT TYPE="radio" name="Denom" value"SC"></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Lane Recommendation</td>
+						<td class="insideboxblue" valign="bottom"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Location Preference</td>
+						<td class="insideboxblue" valign="bottom">1. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">&nbsp;</td>
+						<td class="insideboxblue" valign="bottom">2. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">&nbsp;</td>
+						<td class="insideboxblue" valign="bottom">3. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Comments</b></td></tr>
+					<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><TEXTAREA name="ss_29b" rows="7" cols="<%=acceptance100Width%>"></TEXTAREA></td></tr>
+					</table>
+			</td></tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Medical Clearance (WSN)</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Medical Evaluator</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Date</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Final Decision</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Senior Evaluator</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+			<tr>
+				<td class="insideboxblue" valign="bottom" width="30%">Date</td>
+				<td class="insideboxblue" valign="bottom" colspan="3"><INPUT TYPE="TEXT" name="Denom" size=20></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<!-- End Applicant Follow-Through  -->

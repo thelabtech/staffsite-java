@@ -1,0 +1,17 @@
+<% int curr_tab = 3; %>
+<%@ include file="/headersmall.jspf" %>
+<%@ include file="/wsnsp/dbio/wsnspcolors.jspf" %>
+<%@ page import="org.alt60m.hr.si.servlet.dbio.*" %>
+	<%
+	if (session.getValue("siYear") == null)
+	{
+		session.putValue("siYear", SIUtil.CURRENT_SI_YEAR);
+	}
+	%>
+<%	box.setTitle("<a href='/servlet/SIController?action=showProjectTool'><img src='/hr_si/images/banner1.gif'></a>"); %>
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+
+<body bgcolor="<%=bgcolor%>" link="<%=linkcolor%>" alink="<%=alinkcolor%>" vlink="<%=vlinkcolor%>" text="<%=textcolor%>">
+
+<p> <%=fontText%>

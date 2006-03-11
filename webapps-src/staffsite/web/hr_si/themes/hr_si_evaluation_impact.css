@@ -1,0 +1,444 @@
+
+/* Default element tags */
+BODY {
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	scrollbar-base-color: #E22F30;
+	margin: 0;
+}
+
+A:link {
+	color: #E22F30;
+	text-decoration: none;
+}
+
+A:active, A:visited {
+	color: #E22F30;
+	background: none;
+	text-decoration: none;
+}
+
+A:hover {
+	color: #F4C10E;
+	background: #E22F30;
+	text-decoration: none;
+	cursor: hand;
+}
+
+/* No graphics buttons */
+
+A.button:link, A.button:active, A.button:visited {
+	padding: 1px 5px;
+	color: #F4C10E;
+	background: #E22F30;
+	text-decoration: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F4C10E;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A.button:hover {
+	padding: 1px 5px;
+	color: #F4C10E;
+	background: #00956F;
+	text-decoration: none;
+	cursor: hand;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F4C10E;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A.menu:link, A.menu:visited {
+	color: #336699;
+	background: #F4C10E;
+	font-weight: bold;
+}
+
+A.menu:hover, A.menu:active {
+	font-weight: bold;
+	color: #FFFFFF;
+	background: #F4C10E;
+}
+
+A.menuactive:link, A.menuactive:visited {
+	color: #000000;
+	background: #cccc99;
+	font-weight: bold;
+}
+
+A.menuactive:hover, A.menuactive:active {
+	color: #FFFFFF;
+	background: #cccc99;
+	font-weight: bold;
+}
+
+A.headinggraphic:link, A.headinggraphic:visited {
+	color: #000000;
+	background: #336699;
+	font-weight: bold;
+}
+
+A.headinggraphic:hover, A.headinggraphic:active {
+	color: #FFFFFF;
+	background: #336699;
+	text-decoration: none;
+	cursor: hand;
+}
+
+TD {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #FFFFFF;
+}
+
+HR {
+	color: #F4C10E;
+	height: 1;
+}
+INPUT, TEXTAREA, SELECT{
+	font-family: Arial, sans-serif;	
+	padding: 1px;
+	font-size: 12px;
+	background: #000000;
+	color: #FFFFFF;
+	border: solid 1px #F4C10E;
+	margin: 1px;
+}
+
+.required{
+	background-color: #E22F30;
+}
+
+.reqfilled, .empty{
+	background-color: #000000;
+}
+
+.reqactive, .active{
+	color: #FFFFFF;
+	background: #00956F;
+}
+
+/* Special design tags */
+
+.boxheader {
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #E22F30;
+	font-weight: bold;
+	border: 1px solid #F4C10E;
+}
+
+.box {
+	border: 1px solid #F4C10E;
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.heading {
+	font-family: Arial, sans-serif;
+	font-size: 18;
+	color: #F4C10E;
+	margin-bottom: 5px
+}
+
+.pageheading {
+	font-family: Arial, sans-serif;
+	font-size: 24;
+	color: #F4C10E;
+	text-align: right;
+	font-weight: bold;
+	margin-bottom: 0px
+}
+
+.footer {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+
+.cell {
+	background: #000000;
+}
+
+.cell2 {
+	background: #ACACAC;
+}
+
+.cell3 {
+	background: #F4C10E;
+	color: #000000;
+}
+
+.appbar {
+	background: #F4C10E;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #000000;
+	font-weight: bold;
+}
+
+.apppageheading {
+	background: #00FF00;
+	font-family: Arial, sans-serif;
+	font-size: 24;
+	color: #000000;
+	font-weight: bold;
+	margin-bottom: 0px
+}
+
+.evalrefoutbox {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding:  0px;
+	border: solid #00FF00 1px;
+}
+
+.evalrefinbox {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding:  0px;
+	border: solid 1px #F4C10E;
+}
+
+.refoutbox {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding:  0px;
+	border: solid #00FF00 1px;
+}
+
+.refinbox {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding:  0px;
+	border: solid 1px #00FF00;
+}
+
+.insidebox {
+	background: #cccc99;
+	border: solid 1px #F4C10E;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.insideboxblue {
+	background: #00FF00;
+	border: solid 1px #F4C10E;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #336699;
+	padding:  2px;
+}
+
+.refinboxblue {
+	background: #00FF00;
+	border: solid 1px #336699;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #336699;
+	padding:  2px;
+}
+
+.insideboxbb {
+	background: #cccc99;
+	border: solid 1px #F4C10E;
+	font-family: Arial, sans-serif;
+	color: #000000;
+	font-size: 14;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.refinboxbb {
+	background: #DDDDDD;
+	border: solid 1px #336699;
+	font-family: Arial, sans-serif;
+	color: #000000;
+	font-size: 14;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.insideboxst {
+	background: #cccc99;
+	border: solid 1px #F4C10E;
+	font-family: Arial, sans-serif;
+	color: #336699;
+	font-size: 9;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.refinboxst {
+	background: #D0DDEA;
+	border: solid 1px #336699;
+	font-family: Arial, sans-serif;
+	color: #336699;
+	font-size: 9;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.app {
+	background: #DDDDDD;
+	font-family: Arial, sans-serif;
+	font-size: 11;
+	padding: 2px 5px;
+}
+
+.eval {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding: 2px 5px;
+}
+
+.evaltitle {
+	color: #336699;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	padding: 2px 5px;
+}
+
+.evalbig {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 14;
+	padding: 2px 5px;
+}
+
+.evalbold {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.evalbigbold {
+	color: #000000;
+	background: #cccc99;
+	font-family: Arial, sans-serif;
+	font-size: 14;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.evalsmall {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 9;
+	padding: 2px 5px;
+}
+
+.evalsmallbold {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 9;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.evalsmallboldtitle {
+	color: #336699;
+	font-family: Arial, sans-serif;
+	font-size: 10;
+	font-weight: bold;
+	padding: 2px 5px;
+}
+
+.appbox {
+	background: #DDDDDD;
+	font-family: Arial, sans-serif;
+	font-size: 11;
+	padding: 2px 3px;
+}
+
+.appnumber {
+	font-family: Courier, fixed;
+	font-weight: bold;
+	font-size: 30;
+	padding: 2px;
+	color: #336699;
+	border-right: dotted 1px #336699;
+	border-bottom: solid 1px #336699;
+	margin: 0px;
+	width: 15px;
+}
+
+.appquestion{
+	padding: 5px;
+	border-bottom: solid 1px #336699;
+}
+
+.applist {
+	margin: 5px 0px;
+	padding-left: 20px;
+}
+
+
+.highlight {
+	background-color: #FF0000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.small {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+.smalldim {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+	color: #cccc99;
+}
+
+.evaldim {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	font-weight: bold;
+	color: #cccc99;
+	background: #F4C10E;
+	border: solid #F4C10E;
+	border-width:  1px;
+	padding: 2px;
+}
+
+.reallysmall {
+	font-family: Arial, sans-serif;
+	font-size: 9;
+}
+
+TD.button{ 
+	padding: 5px 3px;
+}
+
+TD.menuactive {
+	padding: px;
+	font-size: 11px;
+	text-align: right;
+}
+
+TD.menu {
+	padding: 0px;
+	font-size: 11px;
+	text-align: right;
+}
+
+TD.headinggraphic{
+	color: #336699;
+	background: #F4C10E;
+	border: solid #F4C10E;
+	border-width:  1px;
+	padding: 2px;
+}

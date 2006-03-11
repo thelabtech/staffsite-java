@@ -1,0 +1,29 @@
+			<BR>
+		</TD><!--Closing global table-->
+	</TR>
+</TABLE>
+  <center>
+  <table width="755" border="0">
+	<tr>
+		<td align="center" CLASS="small">
+		  <!-- <a href="/general/feedback.jsp"><img src="/images/info.gif" border="0" align="center" alt="Info" WIDTH="42" HEIGHT="41"></a> -->
+		  <i>© 2002 Campus Crusade for Christ International
+		  </i><br>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" CLASS="small">
+		  <i><a href="/general/feedback.jsp">Send us feedback.</a></i><br>
+		</td>
+	</tr>
+  </table>
+  </center>
+ 	<!-- Begin Google Analytics code -->
+	<script src="/urchin.js" type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	_uacct = "UA-79392-3";
+	urchinTracker();
+	</script>
+	<!-- End Google Analytics code -->
+</BODY>

@@ -1,0 +1,24 @@
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+	<FORM NAME="searchFormMod" ACTION="/servlet/CmsController" METHOD="POST" onSubmit="JavaScript: if(document.searchFormMod.query.value==''){return false;}">
+	<input type=hidden name="action" value="simpleSearch">
+	<tr>
+		<td rowspan=2>&nbsp;&nbsp;</td>
+		<td align="right"><%=fontB%>Search&nbsp;&nbsp;<br>for:&nbsp;&nbsp;</FONT></td>
+		<td><INPUT TYPE="TEXT" SIZE="25" MAXLENGTH="200" NAME="query"></td>
+		<td align="center">
+			&nbsp;&nbsp;<A HREF="JavaScript: if(document.searchFormMod.query.value!=''){document.searchFormMod.submit()}else{alert('You must first enter some terms to search by.')};" onMouseOver="document.searchbutton.src='/images/search_bon.gif';" onMouseOut="document.searchbutton.src='/images/search_boff.gif';"><IMG NAME="searchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP" alt='Search'>
+		</td>
+		<td rowspan=2>&nbsp;&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<INPUT TYPE="CHECKBOX" NAME="exact" VALUE="true"><%=fontB%>Exact phrase</FONT>
+		</td>
+		<td align="center">
+			<NOBR><%=font%>[<a href="/servlet/CmsController?action=showAdvancedSearch">More Options</a>]</NOBR><BR>
+			[<A HREF="JavaScript: popupWindow('/help/help_resource_center.jsp#searchtips', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Search Tips</A>]</font>
+		</td>
+	</TR>
+	</FORM>
+</TABLE>

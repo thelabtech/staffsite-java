@@ -1,0 +1,221 @@
+package id2sgohcuwql60tcuwqv4ve;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id3no28cuwql60tcuwqv4w8.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#Logical_View.org.alt60m.ministry.ejb:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.MinistryBroker:oiref><oihard>
+@__modelType reference 
+*/
+class reference20 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.MinistryBrokerException:oiref><oihard>
+@__modelType reference 
+*/
+class reference21 {
+}/**
+@__ref <oiref:design#Class#idu6eycv5a30hrcv5afyk2.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.ministry.test:oiref> 
+*/
+class reference24 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.StaffInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference25 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.TargetAreaInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference26 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.StatsInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference27 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.Strategies:oiref><oihard>
+@__modelType reference 
+*/
+class reference28 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.TeamInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference1 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.ActivityInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference2 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.Regions:oiref><oihard>
+@__modelType reference 
+*/
+class reference23 {
+}/**
+@__ref <oiref:design#Class#id3o0yfcv6m4my1cv6quy31.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.ministry.statistics:oiref> 
+*/
+class reference30 {
+}/**
+@__ref <oiref:design#Class#idsje6ctzcaojoctzgaraw.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.ministry.proximity:oiref> 
+*/
+class reference13 {
+}/**
+@__ref <oiref:design#Class#id35gxscu2zlp66cu2znyb1.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.ministry.bean:oiref> 
+*/
+class reference3 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.AuthorizationInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference4 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.StaffChangeRequestInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference5 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.MinistryLocatorInfo:oiref><oihard>
+@__modelType reference 
+*/
+class reference6 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.HRTool:oiref><oihard>
+@__modelType reference 
+*/
+class reference7 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.QueueChangeRequest:oiref><oihard>
+@__modelType reference 
+*/
+class reference11 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.ApplyStaffChanges:oiref><oihard>
+@__modelType reference 
+*/
+class reference12 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.Notifier:oiref><oihard>
+@__modelType reference 
+*/
+class reference14 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.AuthorizeChangeRequest:oiref><oihard>
+@__modelType reference 
+*/
+class reference15 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.ministry.LocalTestPackage:oiref><oihard>
+@__modelType reference 
+*/
+class reference8 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:java#Class#org.alt60m.ministry.Notifier:oiref>=590,1020,200,334,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#leaveOfAbsence#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,930,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#getUserData#(#java.util.Hashtable#java.lang.String#java.lang.String#)#:oiref>=820,870,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#jobChangeRequest#(#java.util.Map#)#:oiref>=990,1100,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.ApplyStaffChanges#applyChanges#(##)#:oiref>=1010,1190,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#addNewChild#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,900,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.HRTool:oiref>=830,710,200,421,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#getTeamName#(#java.lang.String#)#:oiref>=820,910,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#addressChangeRequest#(#java.util.Map#)#:oiref>=1080,1260,194,16,1:oigroup>
+<oigroup:<oiref:design#Class#idu6eycv5a30hrcv5afyk2.diagram:oiref>=455,5,164,180,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#leaveOfAbsence#(#java.util.Map#)#:oiref>=1030,1120,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.StaffChangeRequestInfo#_mb:oiref>=287,673,287,224:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.TeamInfo:oiref>=379,398,200,190,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.ApplyStaffChanges#getNumRemainingAuths#(#org.alt60m.ministry.model.StaffChangeRequest#)#:oiref>=700,960,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#orderAuthorizationsBySequence#(#java.util.Collection#)#:oiref>=710,1130,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#RESIGNATION_EMAIL:oiref>=650,1040,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#addNewChild#(#java.util.Map#)#:oiref>=1050,1090,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#getTeamList#(#java.lang.String#)#:oiref>=830,890,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.MinistryLocatorInfo#_mb:oiref>=551,683,308,224:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.StaffInfo#_mb:oiref>=449,153,398,153:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#orderAuthorizationsBySequence#(#java.util.Collection#)#:oiref>=830,940,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#log#(#org.apache.log4j.Priority#java.lang.Exception#)#:oiref>=630,1250,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.ApplyStaffChanges:oiref>=630,850,177,149,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#lookUpAuthEmail#(#org.alt60m.ministry.model.Authorization#java.lang.String#)#:oiref>=1110,1410,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.QueueChangeRequest:oiref>=1050,800,200,245,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#ACS_STAFF_SERVICES_EMAIL:oiref>=660,1050,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.ApplyStaffChanges#applyChanges#(#org.alt60m.ministry.model.StaffChangeRequest#)#:oiref>=1010,1200,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#makeFieldChange#(#org.alt60m.ministry.MinistryBroker#java.lang.String#java.lang.String#java.lang.String#)#:oiref>=1050,970,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.Strategies:oiref>=9,350,172,126,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#log#(#org.apache.log4j.Priority#java.lang.String#)#:oiref>=630,1260,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.AuthorizeChangeRequest#authorize#(#java.lang.String#java.lang.String#java.lang.String#java.lang.String#)#:oiref>=1050,1180,150,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#getPendingRequests#(#java.lang.String#java.lang.String#)#:oiref>=830,920,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#log#(#java.lang.String#)#:oiref>=830,970,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.AuthorizationInfo:oiref>=661,133,200,158,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#resignation#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,960,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.MinistryBrokerException:oiref>=450,248,152,133,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#notifyNonCampus#(##)#:oiref>=1100,1380,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#unauthorize#(#java.lang.String#java.lang.String#java.lang.String#java.lang.String#java.lang.String#)#:oiref>=830,990,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.ActivityInfo#_mb:oiref>=649,84,398,84:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.ActivityInfo:oiref>=649,9,146,110,1:oigroup>
+<oigroup:<oiref:design#Class#id35gxscu2zlp66cu2znyb1.diagram:oiref>=5,487,132,100,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#notifyCampus#(#org.alt60m.ministry.model.StaffChangeRequest#org.alt60m.ministry.model.Staff#org.alt60m.ministry.model.Authorization#java.lang.String#)#:oiref>=1100,1390,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.TargetAreaInfo#_mb:oiref>=266,306,266,224:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.AuthorizationInfo#_mb:oiref>=661,178,398,178:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.ApplyStaffChanges#log#(#java.lang.String#)#:oiref>=630,980,171,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#log#(#java.lang.String#)#:oiref>=620,1270,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#ERROR_EMAIL:oiref>=670,1050,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#dependentChangeRequest#(#java.util.Map#)#:oiref>=1090,1290,194,16,1:oigroup>
+<oigroup:<oiref:design#Class#id3o0yfcv6m4my1cv6quy31.diagram:oiref>=105,664,118,132,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.LocalTestPackage:oiref>=831,566,118,133,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.StaffChangeRequestInfo:oiref>=241,673,200,126,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#getConfigProperties#(#java.lang.String#)#:oiref>=640,1070,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.TeamInfo#_mb:oiref>=476,398,330,224:oigroup>
+<oigroup:<oiref:design#Class#idsje6ctzcaojoctzgaraw.diagram:oiref>=662,684,159,119,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#authorize#(#java.lang.String#java.lang.String#java.lang.String#java.lang.String#java.lang.String#)#:oiref>=830,980,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.Regions:oiref>=376,535,156,126,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.AuthorizeChangeRequest:oiref>=1070,1080,156,149,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.StatsInfo:oiref>=615,386,200,286,1:oigroup>
+<oigroup:<oiref:design#Class#id3no28cuwql60tcuwqv4w8.diagram:oiref>=10,10,136,343,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#maritalStatusChangeRequest#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,870,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#emailStaffServices#(#java.util.Map#)#:oiref>=1080,1440,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.MinistryBroker:oiref>=236,34,162,190,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#WEBSITE_EMAIL_ADDR:oiref>=650,1050,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.StaffInfo:oiref>=449,90,200,270,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.AuthorizeChangeRequest#unauthorize#(#java.lang.String#java.lang.String#java.lang.String#)#:oiref>=1050,1210,150,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#notifyNextAuthorizor#(#org.alt60m.ministry.model.StaffChangeRequest#)#:oiref>=1100,1370,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.TargetAreaInfo:oiref>=165,306,200,222,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.BookmarkInfo#_mb:oiref>=297,494,297,224:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#addressChangeRequest#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,850,194,16,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.ministry.MinistryLocatorInfo:oiref>=451,683,200,142,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#resignation#(#java.util.Map#)#:oiref>=1050,970,194,16,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#org.alt60m.ministry.StatsInfo#_mb:oiref>=715,386,364,224:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#PIU_STAFF_SERVICES_EMAIL:oiref>=670,1070,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#findByLastName#(#java.lang.String#)#:oiref>=830,890,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#emailStaffServices#(#java.lang.String#)#:oiref>=1100,1460,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.HRTool#getChangeRequest#(#java.lang.String#)#:oiref>=830,940,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#jobChangeRequest#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,920,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#maritalStatusChangeRequest#(#java.util.Map#)#:oiref>=1070,1280,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.QueueChangeRequest#dependentChangeRequest#(#java.lang.String#java.lang.String#java.util.Map#)#:oiref>=1050,880,194,16,1:oigroup>
+<oigroup:<oiref:java#Member#org.alt60m.ministry.Notifier#lookupCampusEmail#(#org.alt60m.ministry.model.Authorization#java.lang.String#)#:oiref>=1100,1430,194,16,1:oigroup>
+*/
+class __positions {
+}

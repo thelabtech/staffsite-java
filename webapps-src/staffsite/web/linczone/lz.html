@@ -1,0 +1,408 @@
+<html>
+<head>
+<title>Welcome to the LincZone</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<SCRIPT language=JAVASCRIPT type=TEXT/JAVASCRIPT>
+<!--
+
+function popupWindow(cUrl,cName,cFeatures) {
+	var childWindow = window.open(cUrl,cName,cFeatures);
+	if (childWindow.opener == null) childWindow.opener = self;
+	childWindow.focus();
+}
+
+
+function makeMonthArray() {this.length=12;
+        this[1] = "January", this[2] = "February"; this[3] = "March"; 
+        this[4] = "April", this[5] = "May"; this[6] = "June";
+        this[7] = "July", this[8] = "August"; this[9] = "September"; 
+        this[10] = "October", this[11] = "November"; this[12] = "December"; 
+return(this);
+}
+function makeDayArray() { 
+this.length=7;
+        this[1] = "Sunday", this[2] = "Monday"; this[3] = "Tuesday";
+        this[4] = "Wednesday", this[5] = "Thursday"; this[6] = "Friday"; 
+        this[7] = "Saturday"; 
+return(this);
+}
+function writeDate() { 
+        attdate = new Date();
+        monthName = new makeMonthArray();
+        dayName = new makeDayArray();
+        day = attdate.getDay() + 1;
+        date = attdate.getDate();
+        month = attdate.getMonth() + 1;
+       year = attdate.getYear();
+        sec = attdate.getSeconds()
+        if (90 <=year && year < 2000) { 
+                year = 1900 + year;
+        } 
+		dateStr = dayName[day];
+        dateStr += ", "; 
+		dateStr += monthName[month];
+        dateStr += " "; 
+        dateStr += date; 
+        dateStr += ", "; 
+        dateStr += year;
+document.write(dateStr);
+}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_validateForm() { //v4.0
+  var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
+  for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=MM_findObj(args[i]);
+    if (val) { nm=val.name; if ((val=val.value)!="") {
+      if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
+        if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
+      } else if (test!='R') {
+        if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
+        if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
+          min=test.substring(8,p); max=test.substring(p+1);
+          if (val<min || max<val) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
+    } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
+  }
+  if(verifyMinistryCheckboxes()==false) { errors+= '- you must select at least one organization.\n'; }
+  if (errors) alert('The following error(s) occurred:\n'+errors);
+  document.MM_returnValue = (errors == '');
+}
+
+function verifyMinistryCheckboxes() {
+
+	// Loop from zero to the one minus the number of checkbox button selections
+	for (counter = 0; counter < Info.ministryInfo.length; counter++) {
+		if (Info.ministryInfo[counter].checked) { return true; }
+	}
+	return false;
+}
+//-->
+</SCRIPT>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000033" background="http://testwww.linczone.com/images/background.gif" link="#ff6600">
+<table width="700" border="0" cellpadding="0" background="http://testwww.linczone.com/images/cellbg.gif" align="center">
+  <tr>
+    <td>
+      <table width="650" border="0" cellpadding="0" align="center">
+        <tr>
+          <td valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="650">
+              <tr align=center valign=top> 
+                <td align=center valign=top width="557"> 
+                  <div align="center"><img src="http://testwww.linczone.com/images/masthead2.gif" width="550" border="0" height="160"><br>
+                  </div>
+                  <br>
+                  <table border="0" cellpadding="0" cellspacing="0" width="650" align="center">
+                    <tr> 
+                      <td valign=top colspan="3">
+                        <div align="right"><font face="verdana" size="1" color="#000033"> 
+                          <script language=JAVASCRIPT type="TEXT/JAVASCRIPT">
+	<!-- Hide script from old browsers
+
+<!--
+	writeDate()
+// -->
+
+	// End hiding script from old browsers -->
+</script>
+                          </font></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign=top colspan="3" height="20"><img src="http://testwww.linczone.com/images/spc15x40.gif" width="65" height="20"></td>
+                    </tr>
+                    <tr> 
+                      <td valign=top width=450> 
+                        <p><img src="http://testwww.linczone.com/images/spc15x40.gif" width=220 height=1 border=0><br>
+                          <font face="Times New Roman, Times, serif" size="3"><b><font face="Arial, Verdana, helvetica, sans-serif" size="2">Why 
+                          do so many kids enter college and lose the fervor they 
+                          once had for Christ?</font></b><font face="Arial, Verdana, helvetica, sans-serif" size="2"><br>
+                          <br>
+                          If you are a high school student, you've probably never 
+                          thought about it. But if you are in youth ministry, 
+                          the odds are that you have. The fact of the matter is 
+                          that sometimes kids just need someone to help them find 
+                          an environment where they can continue to grow spiritually.<br>
+                          <br>
+                          <b>LINCZone</b> wants to help in making the spiritual 
+                          transition to life on the college campus. <b>LINCZone</b> 
+                          will connect you (or your students if you are a youth 
+                          minister) with to the ministries you request information 
+                          from. </font></font><font face="Arial, Verdana, helvetica, sans-serif" size="2">Simply 
+                          submit the information below and it will be made available 
+                          to evangelical campus ministries on the student's destination 
+                          campus.<br>
+                          <br>
+                          If you are a student, get started on the right foot 
+                          in college. If you are a youth pastor, ensure that your 
+                          investment in your students' lives will continue to 
+                          pay off.</font></p>
+                        <p><img src="http://testwww.linczone.com/images/divider.gif" width="100%" height="20"><br>
+                        </p>
+                        <table border="0" cellpadding="0" cellspacing="0" width="450" dwcopytype="CopyTableCell">
+                          <tr align=left valign=top> 
+                            <td> 
+                              <p><font color="#669900" face="Impact,Helvetica,Arial" size="4">E</font><font color="#669900" face="Impact,Helvetica,Arial" size=6><font size="4">nter 
+                                Your Information</font></font><br>
+                              </p>
+                              <FORM name=Info action=linczone_submit.jsp method=post><table width="100%" border="0" cellspacing="0" cellpadding="5">
+                                  <tr valign="top"> 
+                                    <td colspan="2"> 
+                                      <p><font face="Times New Roman, Times, serif" size="2" color="#FF0000">* 
+                                        = Required Information</font></p>
+                                      <p><font face="Arial, Verdana, helvetica, sans-serif" size="2" color="#000033"><b>Graduate's 
+                                        Information </b></font></p>
+                                    </td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td><font face="Times New Roman, Times, serif" size="3"><b><font color="#FF0000" face="Arial, Verdana, helvetica, sans-serif" size="2">*</font><font face="Arial, Verdana, helvetica, sans-serif" size="2">First 
+                                      Name: 
+                                      <input type="text" size="15" name="firstname">
+                                      </font></b></font></td>
+                                    <td><font face="Times New Roman, Times, serif" size="3"><b><font color="#FF0000" face="Arial, Verdana, helvetica, sans-serif" size="2">*</font><font face="Arial, Verdana, helvetica, sans-serif" size="2">Last 
+                                      : 
+                                      <input type="text" size="20" name="lastname">
+                                      </font></b></font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>Home 
+                                      Address: 
+                                      <input type="text" size="35" name="address">
+                                      </b></font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>City:<strong> 
+                                      </strong> 
+                                      <input type="text" size="15" name="city">
+                                      </b></font><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>State: 
+                                      <input type="text" size="5" name="state">
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FF0000">*</font>Zip:<strong> 
+                                      </strong></b> 
+                                      <input type="text" size="6" name="zip">
+                                      </font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>E-mail:</b> 
+                                      <input type="text" size="25" name="email">
+                                      </font></td>
+                                    <td>&nbsp;</td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>High 
+                                      School</b> 
+                                      <input type="text" name="highschool" size="25">
+                                      </font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>School that will be attending: 
+                              <STRONG>(required)</STRONG></B><BR>
+							  <INPUT type=text size=35 name=campusname READONLY> </FONT>
+							  <INPUT type=hidden name=campusid>
+                                      <A HREF="javascript:popupWindow('campuslist.jsp','Help','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=400,width=510,height=400' )">Select 
+                                      School</A></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"> 
+                                      <p><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b><font color="#FF0000">*</font>Organization(s) 
+                                        you would like to receive information 
+                                        from</b>:<br>
+                                        <font color="#FF0000">(Choose one or more)</font> 
+                                        Notice: These ministries may not have 
+                                        a local outreach at your school. </font></p>
+                                      <blockquote> 
+                                        <p><font face="Arial, Verdana, helvetica, sans-serif" size="2"> 
+                                          <INPUT type=checkbox 
+                              value=ccc name=ministryInfo>
+                                          <font face="Arial, Helvetica, sans-serif">Campus 
+                                          Crusade for Christ<BR>
+                                          <INPUT type=checkbox value=nav 
+                              name=ministryInfo>
+                                          Navigators<BR>
+                                          <INPUT type=checkbox 
+                              value=iv name=ministryInfo>
+                                          Intervarsity</font></FONT><font face="Arial, Helvetica, sans-serif" size="2"><BR>
+                                          <INPUT type=checkbox value=fca 
+                              name=ministryInfo>
+                                          Fellowship of Christian Athletes<BR>
+                                          <INPUT type=checkbox value=bsu name=ministryInfo>
+                                          Baptist Student Union <BR>
+                                          <INPUT type=checkbox value=cacm 
+                              name=ministryInfo>
+                                          Chi Alpha Christian Ministries <BR>
+                                          <INPUT type=checkbox value=efca 
+                              name=ministryInfo>
+                                          Evangelical Free Church Student Ministries 
+                                          <BR>
+                                          <INPUT type=checkbox value=gcm 
+                              name=ministryInfo>
+                                          Great Commission Ministries<br>
+                                          <input type=checkbox name=ministryInfo value=all>
+                                          All of Above</font>
+                                      </blockquote>
+                                    </td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"> <font face="Arial, Verdana, helvetica, sans-serif" size="2"><font color="#000033"><b><font color="#FF0000">If 
+                                      you are submitting this information for 
+                                      someone else, please provide the following:</font></b></font> 
+                                      </font> </td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b>First 
+                                      Name:</b> 
+                                      <input type="text" name="referrerfirst" size="20">
+                                      </font></td>
+                                    <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b>Last 
+                                      Name:</b> 
+                                      <input type="text" name="referrerlast" size="25">
+                                      </font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b>Relationship 
+                                      to Contact:</b> 
+                                      <select name="relationship" size="1">
+                                        <option value="">Choose one ...</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="leader">Youth Leader</option>
+                                        <option value="pastor">Pastor</option>
+                                        <option value="other">Other</option>
+                                      </select>
+                                      </font></td>
+                                  </tr>
+                                  <tr valign="top"> 
+                                    <td colspan="2"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><b>Your 
+                                      E-mail Address:</b> 
+                                      <input type="text" name="refemail" size="25">
+                                      </font></td>
+                                  </tr>
+                                </table>
+                                <p> 
+                                  <input type = "submit" name = "btnSubmit" value="Send Information" onClick="MM_validateForm('firstname','','R','lastname','','R','address', '','R','city','','R','state','','R','zip','','R','email','','RisEmail','highschool','','R','campusname','','R','refemail','','NisEmail');return document.MM_returnValue"  >
+                                  or 
+                                  <input type = "reset" name = "btnReset" value="Clear Form"  >
+                                </p>
+                              </form>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td valign=top width=50><img src="http://testwww.linczone.com/images/spc15x40.gif" width="50" height="46"></td>
+                      <td valign=top width="150"> 
+                        <p><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10"><font face="Arial, Verdana, helvetica, sans-serif" size="2"> 
+                          Further Questions<br>
+                          Call <b>1-800-678-LINC</b></font></p>
+                        <p><img src="http://testwww.linczone.com/images/divider.gif" width="150" height="20"></p>
+                        <p><font face="Arial, Helvetica, sans-serif" size="2"><b><font face="Arial, Verdana, helvetica, sans-serif">Articles 
+                          about <br>
+                          College Life from <a href="http://www.waymore.com">Waymore.com</a></font></b></font></p>
+                        <p><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                          <a href="http://www.waymore.org/campus_life/studytips.html" target="_blank">Study 
+                          Tips</a><br>
+                          <img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                          <a href="http://www.waymore.org/campus_life/laundry.html" target="_blank">Recipe 
+                          for Basic Laundry</a><br>
+                          <img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                          <a href="http://www.waymore.org/campus_life/savetime.html">30 
+                          Easy Ways to Save Time</a><br>
+                          <img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                          <a href="http://www.waymore.org/campus_life/roommate.html" target="_blank">How 
+                          to Get Along with Your Roommate</a><br>
+                          <img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10"> <a href="http://www.waymore.org/campus_life/bettergrades.html" target="_blank">How 
+                          to Get Better Grades </a><br>
+                          <img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10"> <a href="http://www.waymore.org/campus_life/debt.html" target="_blank">Living 
+                          Debt-Free </a></font> </p>
+                        <p><img src="http://testwww.linczone.com/images/divider.gif" width="150" height="20"></p>
+                        <p><font face="Arial, Helvetica, sans-serif"><b><font size="2">Links</font></b></font></p>
+                        <table width="150" border="0" cellspacing="0" cellpadding="0">
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.campuscrusadeforchrist.com/">Campus 
+                              Crusade<br>
+                              for Christ</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.gospelcom.net/iv/">InterVarsity</a> 
+                              </font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://home.navigators.org/us/collegiate/index.cfm">The 
+                              Navigators</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.studentz.com">Lifeway 
+                              Christian Resources (Baptist Student Ministry)</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.gospelcom.net/fca/index.php">Fellowship 
+                              of<br>
+                              Christian Athletes</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://chialpha.ag.org/homemissions/chi_alpha">Chi 
+                              Alpha <br>
+                              Christian Ministries</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.efca.org/sm/fcsmindex.html">Evangelical 
+                              Free Church Student Ministries</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.gcmweb.org/" target="_blank">Great 
+                              Commission Ministries</a></font></td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr valign="top"> 
+                            <td width="15"><font face="Arial, Verdana, helvetica, sans-serif" size="2"><img src="http://testwww.linczone.com/images/dot.gif" width="10" height="10" align="absmiddle"> 
+                              <a href="http://www.campuscrusadeforchrist.com/"></a></font></td>
+                            <td><font face="Arial, Verdana, helvetica, sans-serif" size="2"><a href="http://gocampus.org/">Go 
+                              Campus Coaching Center</a></font></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <p><br>
+                    <a href="about.html"><img src="http://testwww.linczone.com/images/b2.gif" width="153" height="48" border="0"></a><a href="http://testwww.linczone.com/contact.html"><img src="http://testwww.linczone.com/images/b3.gif" width="108" height="48" border="0"></a> 
+                  </p>
+                  <p> <img src="http://testwww.linczone.com/images/smlogo.gif" width="35" height="27" border="0"><br>
+                    <font color="#666666" size=1>&copy;2001, the LincZone.</font> 
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

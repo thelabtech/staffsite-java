@@ -1,0 +1,4 @@
+</form>
+<%=box.printBottom()%>
+<%@ include file="/hr_si/footertemparary.jspf" %>
+</html>

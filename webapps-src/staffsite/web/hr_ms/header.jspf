@@ -1,0 +1,273 @@
+<%@ page import="java.util.*" %>
+<jsp:useBean id="box" class="org.alt60m.html.ThemeBox"/>
+<%
+	String appType = "";
+	if(session.getValue("appType") != null && session.getValue("appType").equals("impact")){
+		pageTitle = "ImpactFellowship Login";
+		session.putValue("ssurl", "/hr_ms/themes/impact.css");
+		session.putValue("imgurl", "/hr_ms/images/impactheader.gif");
+		session.putValue("hpurl", "http://put an url here");
+		appType = "impact";
+	}
+	// check input string / form data for "skin" info
+	String ssurl = request.getParameter("ssurl");
+	String imgurl = request.getParameter("imgurl");
+	String hpurl = request.getParameter("hpurl");
+	/* not in there? check the session. If it is in the input string, put it in the session
+		 Also, put the "skin" values into the session. */
+	if (ssurl == null || ssurl.trim().equals("")) {
+		ssurl = (String)session.getValue("ssurl");
+		if (ssurl == null || ssurl.trim().equals("")) ssurl = "/hr_ms/themes/ussp.css";
+	} else session.putValue("ssurl", ssurl);
+	if (imgurl == null || imgurl.trim().equals("")) {
+		imgurl = (String)session.getValue("imgurl");
+		if (imgurl == null || imgurl.trim().equals("")) imgurl = "/hr_ms/images/pageheader.gif";
+	} else session.putValue("imgurl", imgurl);
+	if (hpurl == null || hpurl.trim().equals("")) {
+		hpurl = (String)session.getValue("hpurl");
+		if (hpurl == null || hpurl.trim().equals("")) hpurl = "http://staff.campuscrusadeforchrist.com/servlet/MSController";
+	} else session.putValue("hpurl", hpurl);
+%>
+<% if (pageTitle == null || pageTitle.equals("")) pageTitle = "Campus Crusade Mobilizing System"; %>
+<html>
+<head>
+<title><%=pageTitle%></title>
+<link rel="stylesheet" href="<%=ssurl%>" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(<%=ssurl%>); /*IE and NN6x styles*/
+</style><SCRIPT LANGUAGE="JavaScript">
+<!--
+	function Highlight(e){
+		if(e.className == "required" || e.className == "reqfilled"){
+			e.className = "reqactive";
+		} else{
+			e.className = "active";
+		}
+	}
+
+	function UnHighlight(e){
+		if(e.className == "reqactive"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else if(e.className == "required"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else
+			e.className = "empty";
+	}
+
+	function UnHighlightAll(){
+		for(var x = 0; x < document.forms.length; x++)
+			for(var y = 0; y < document.forms[x].elements.length; y++){
+				UnHighlight(document.forms[x].elements[y]);
+		}
+	}
+
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures);
+	xWin.focus();
+}
+
+var theDateElement;
+
+function pickdate(element) {
+	theDateElement = element;
+	myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+	var goTo = "/selday.jsp";
+	if (theDateElement.value!=null && theDateElement.value!="" && theDateElement.value !=" ")
+	{
+		goTo=goTo+'?date='+theDateElement.value;
+	}
+    myFloater.location.href = goTo;
+}
+
+// onBlur="checkEmail(this)"
+function checkEmail(objName) {
+    if(objName.value == "")
+        UnHighlight(objName);
+    else {
+		//convert email to lower case
+		objName.value = objName.value.toLowerCase();
+		if(!validEmail(objName.value)){
+			alert("You must enter a valid email address");
+			objName.focus();
+		}		
+        UnHighlight(objName);
+    }
+    return false;
+}
+function validEmail(email){
+	//var filter = new RegExp("^[a-z0-9]+([-_\.]?[a-z0-9])+@[a-z0-9]+([-_\.]?[a-z0-9])+\.[a-z]{2,4}");
+	var filter = new RegExp("^[a-z0-9\-\.%_&+]+@(([a-z0-9]|[a-z0-9]+[a-z0-9-]*[a-z0-9]+)\.)+[a-z0-9][a-z0-9]+$");
+	if (filter.test(email))
+		return true;
+	else
+		return false;
+}
+
+// onBlur="checkDate(this)"
+function checkDate(objName) {
+	var day = new Date(objName.value);
+    if(objName.value == "")
+        UnHighlight(objName);
+    else if(""+day == "NaN") {
+		objName.select();
+		alert("That date is invalid.  Please try again.");
+		objName.focus();
+    } else {
+		//note in the next line that the month that gets returned is -1 of the normal month (11=December)
+		objName.value = (day.getMonth()<9?"0":"") + (1+day.getMonth()) + "/" + (day.getDate()<10?"0":"") + day.getDate() + "/" ;
+		//fix 1903, etc (Y2K problem) -- we'll use 1950 as the pivot date. kb 2/14/2003
+	    if(day.getFullYear()>9999) { // 3-10-03 kl: validate year, do not allow beyond 9999
+			objName.select();
+			alert("That date is invalid.  Please try again.");
+			objName.focus();
+		} 
+		if(day.getFullYear()<1950) {
+			//objName.value = objName.value + (day.getFullYear()+100); //add a century
+			objName.select();
+			alert("That date is invalid.  Please try again.");
+			objName.focus();
+		}
+		else
+			objName.value = objName.value + day.getFullYear();
+			
+        UnHighlight(objName);
+    }
+    return false;
+}
+
+// onBlur="CheckPhones(this)"
+function CheckPhones(e){
+	if (isEmpty(e.value)) return true;
+	if (isAllBlanks(e.value) == true){
+		e.select();
+		alert("Invalid Phone Number");
+		e.focus();
+	}
+	UnHighlight(e);
+}
+//-----------------------------
+function isEmpty(s){
+	return ((s == null) || (s.length == 0))
+}
+//-----------------------------
+function isBlank(c){
+	var test = "" + c;
+	if (test == " "){
+	return true;
+	}
+	return false;
+}
+//-----------------------------
+function isAllBlanks(s){
+	var test = "" + s;
+	for (var k = 0; k < test.length; k++){
+		var c = test.substring(k, k+1);
+		if (isBlank(c) == false){
+		return false;
+		}
+	}
+	return true;
+}
+
+//modified kb 2/14/03
+function setdate(theDate) {
+	var finaldate="";
+    var day = new Date(theDate);
+	
+	//note in the next line that the month that gets returned is -1 of the normal month (11=December)
+	finaldate = (day.getMonth()<9?"0":"") + (1+day.getMonth()) + "/" + (day.getDate()<10?"0":"") + day.getDate() + "/" ;
+	//fix 1903, etc (Y2K problem) -- we'll use 1950 as the pivot date. kb 2/14/2003
+	if(day.getFullYear()<1950) 
+		finaldate = finaldate + (day.getFullYear()+100); //add a century
+	else
+		finaldate = finaldate + day.getFullYear();
+
+	theDateElement.value=finaldate;
+	theDateElement.blur();
+}
+
+// Greg's Color Picker System
+var theColorElement;
+
+function setColor(val) {
+	theColorElement.value=val;
+	theColorElement.blur();
+}
+function pickColor(element) {
+	theColorElement = element;
+    myFloater = window.open('','ColorPicker','resizable=no,scrollbars=no,width=177,height=110');
+	var goTo = "/sel_color.jsp";
+    myFloater.location.href = goTo;
+}
+//End color picker
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		header_08_over = newImage("/images/header_08-over.gif");
+		header_09_over = newImage("/images/header_09-over.gif");
+		header_10_over = newImage("/images/header_10-over.gif");
+		header_11_over = newImage("/images/header_11-over.gif");
+		header_12_over = newImage("/images/header_12-over.gif");
+		preloadFlag = true;
+	}
+}
+
+var minutesTillLogout = 21;
+function startTimeoutWarningClock(){
+    try { if(timeOutClockDisabled); } catch (temp) {
+        if(minutesTillLogout==1)    alert("Warning!  Your session is about to time out.  Please save your work soon.");
+        if(minutesTillLogout!=0)    minutesTillLogout = minutesTillLogout-1
+        if(minutesTillLogout>10)    document.all.outputdiv.innerHTML = "<a href=\"JavaScript: popupWindow('/hr_ms/helpTimeout.htm', 'StaffSiteHelp', 'height=200,width=350,dependent=yes,scrollbars=no,resizable')\"><b><font color='#FFFFFF'>Your session will end in " + minutesTillLogout + " minutes</Font></B></A>";
+        else                        document.all.outputdiv.innerHTML = "<a href=\"JavaScript: popupWindow('/hr_ms/helpTimeout.htm', 'StaffSiteHelp', 'height=200,width=350,dependent=yes,scrollbars=no,resizable')\"><font color='#FF0000'><span style='font-weight: 700; background-color: #FFFF00'>Warning!  Your session will end in " + minutesTillLogout + "  minutes</span></font></A>";
+        setTimeout("startTimeoutWarningClock()", 60000)
+    }
+}
+
+function init(){
+	UnHighlightAll();
+	preloadImages();
+//    startTimeoutWarningClock();
+}
+
+
+// -->
+</SCRIPT>
+<META HTTP-EQUIV="CacheControl" CONTENT="no-cache">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+</HEAD>
+<BODY onLoad="init()">
+
+
+<CENTER>
+	<!-- commented out header -->
+	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<FORM NAME="frm">
+        <tr>
+			<td class="header"><a href="<%=hpurl%>"><img src="<%=imgurl%>" border="0"></a></td>
+            <TD class="header" align="right" valign="top"><DIV name="outputdiv" id="outputdiv"></DIV></TD>
+		</tr>
+        </FORM>
+	</table><br /><br />
+	<!--commented out -->
+	
+<TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
+	<TR>
+		 <TD ALIGN="LEFT" CELLSPACING="0">
+		 <!--Start all table-->

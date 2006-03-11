@@ -1,0 +1,20 @@
+<%!
+String user     = "randd";
+String password = "quest20";
+String url      = "jdbc:oracle:thin:@(description=(address=(host=hart-ca009v.net.ccci.org)(protocol=tcp)(port=1521))(connect_data=(sid=prod)))";
+ResultSet rs				= null;
+Statement stmt				= null;
+Connection con				= null;
+%>
+<HTML>
+<HEAD>
+<TITLE><%=pageTitle%></TITLE>
+</HEAD>
+<BODY BGCOLOR='#FFFFFF'>
+<table cellpadding='0' cellspacing='0' border='0' width='100%'>
+	<tr valign='bottom' bgcolor='#ddddee'>
+	<td align='right'><font face='arial' size='1'><b><%=pageTitle%> </td>
+	</tr>
+</table> 
+<a href='entrance.jsp'><img src='./images/questlogo.gif' border='0'></a><font face='arial'><p><%=font%><center>
+<!-- ---------------endofheader-------------- -->

@@ -1,0 +1,160 @@
+<!-- Start Applicant Placement and Development Recommendations -->
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Intern Placement and Development Recommendations</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="2">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" valign="bottom" colspan="6">
+				<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Location Preference</td>
+						<td class="insideboxbb" valign="bottom">Tara Bowling</td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Sending Campus</td>
+						<td class="insidebox" valign="bottom"><b>Bowling Green State University</b></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Staff Reference</td>
+						<td class="insidebox" valign="bottom"><b>Ted Border</b> - CCC staff member</td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Discipler Reference</td>
+						<td class="insidebox" valign="bottom"><b>Ann Miller</b> - Current discipler or Bible study leader</td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Lane Preference</td>
+						<td class="insideboxblue" valign="bottom">SC<INPUT TYPE="radio" name="Denom" value"SC">WSN<INPUT TYPE="radio" name="Denom" value"SC">Cat<INPUT TYPE="radio" name="Denom" value"Cat">ESM<INPUT TYPE="radio" name="Denom" value"SC">Office<INPUT TYPE="radio" name="Denom" value"SC"></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">Location Preference</td>
+						<td class="insideboxblue" valign="bottom">1. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">&nbsp;</td>
+						<td class="insideboxblue" valign="bottom">2. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr>
+						<td class="insideboxblue" valign="bottom" width="30%">&nbsp;</td>
+						<td class="insideboxblue" valign="bottom">3. <INPUT TYPE="TEXT" name="Denom" size=20></td>
+					</tr>
+					<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Assignment Recommendation:</b></td></tr>
+					<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+					</table>
+			</td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6"><b>Intern Profile and Suggestions for Development</b></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Relationship with God</b><br><font size="1">(spiritual maturity, faith, lordship, forgiveness)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.   Does the applicant spend consistent and fruitful time with God?  How are they applying what they are learning?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.  Are there areas where growth is needed?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Relationship with Others</b><br><font size="1">(social maturity, tact sensitivity, ability to work with team, attractive personality)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.  Describe this applicant's relationships with others (same sex, opposite sex, friends, co-workers).	How well does he/she communicate and work with a team?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.   Comment on this applicant's sensitivity to others.    How does he/she  respond to conflict?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6"><b>Relationship with Self - DICE</b></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Dynamic Determination:</b><br><font size="1">(self-discipline, conscientiousness, initiative, drive,	follow-through, perseverance)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1. Comment on the applicant's initiative.    How well does he/she follow through with tasks and decisions?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2. How well does this applicant manage his/her time  (personal, as well as ministry time)?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Intellectual Flexibility:</b><br><font size="1">(flexibility, adaptability, teachability, judgement)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.	Is  this applicant teachable?  How has he/she demonstrated that?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.	What is this  applicant's  response (in thinking and behavior) when things don't go as planned?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Character Development:</b><br><font size="1">(response to authority, bonding, boundaries, good and bad, adulthood)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.	Describe how this applicant relates to authority.   How well would they follow a peer?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.	Please comment on  the applicant's overall maturity and character .  (Is he/she  personally responsible?  Do they function as an adult?  Is he/she  a man/woman of integrity?)<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Emotional Well-being:</b><br><font size="1">(self-image, self-perception, stability, ability to handle stress, performance orientation)</font></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" nowrap>&nbsp;</td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			<td CLASS="insideboxbb"><INPUT TYPE="radio" name="Denom" value"SC"></td>
+			</tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.	Please comment on the applicant's self-image.  Is he/she secure enough to work with staff as well as  meet new situations with confidence?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.	How does stress affect this applicant - both externally (behavior) and internally (mental state).  Will he/she be a drain on others?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Leadership Development:</b></td>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.	Past personal ministry and/or leadership experiences:<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.	Comment on this applicant's readiness and ability to lead both : those he/she is ministering to  (students)  and  those he/she is ministering with (peers)?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">3a.  Recommended team assignment:<br>Team Leader<INPUT TYPE="radio" name="Denom" value"SC">&nbsp;&nbsp;&nbsp;Associate Team Leader<INPUT TYPE="radio" name="Denom" value"SC">&nbsp;&nbsp;&nbsp;Team Member<INPUT TYPE="radio" name="Denom" value"SC"></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">3b.  Why?<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="27%"  valign="bottom"><b>Recommendations:</b></td>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">1.	This applicant's personal  strengths/giftings and greatest contribution to the ministry will likely be:<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">2.	Areas of needed development and concern for this person's success and effectiveness in ministry are:<br><TEXTAREA name="ss_29b" rows="7" cols="<%=summary100Width%>"></TEXTAREA></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">Prepared by:<INPUT TYPE="TEXT" name="Denom" size=20></td></tr>
+			<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="6">Date:<INPUT TYPE="TEXT" name="Denom" size=20></td></tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<!-- End Applicant Placement and Development Recommendation -->

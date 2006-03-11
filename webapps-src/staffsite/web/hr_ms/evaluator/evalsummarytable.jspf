@@ -1,0 +1,334 @@
+<jsp:useBean id="selProj" class="org.alt60m.wsn.sp.bean.dbio.SelectWsnProj2000"/>
+<%@ page import="java.util.Collection,
+                 java.util.Hashtable,
+                 java.util.Iterator"%>
+<!-- Start Evaluation Summary Code -->
+<%!
+private String makeProjectMenuOptions(Collection projects, String defaultValue) {
+	String returnString = "";
+	Iterator itr = projects.iterator();
+	if (itr.hasNext()) {
+		while (itr.hasNext()) {
+			Hashtable project = (Hashtable)itr.next();
+			String projectID = (String)project.get("WsnProjectID");
+			returnString += "\n\t\t<option value=\""+projectID+"\"";
+			if (projectID.equalsIgnoreCase(defaultValue)) returnString += " selected=\"selected\"";
+			returnString += ">"+project.get("Name")+"</option>";
+		}
+	}
+		return returnString;
+}
+%><%
+    Collection projects = infoBean.getValidProjects("", true, p.getGender(), 
+		hasAValue(p.getProjectPref1())?p.getProjectPref1():"", 
+		hasAValue(p.getProjectPref2())?p.getProjectPref2():"", 
+		hasAValue(p.getProjectPref3())?p.getProjectPref3():"", 
+		hasAValue(p.getProjectPref4())?p.getProjectPref4():"", 
+		hasAValue(p.getProjectPref5())?p.getProjectPref5():"");
+%>
+<!-- Start Evaluation Summary -->
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle"><b>Evaluation Summary</b></td>
+
+<% if(!p.isReadyToEvaluate()) { %>
+    </tr>
+    <tr>
+        <td class="evaltitle">This person is not ready to be evaluated.<BR>Their application must be paid and all references must be submitted.</td>
+    </tr>
+<% } else { %>
+
+		<td class="evaltitle" valign="bottom" align="right">
+		<!-- <input type="submit" value="Save"> -->
+					<table width="20%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td>
+					<% if (ar.getValue("toframe").equals("yes")) { %>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalsummaryframe')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					<% } else { %>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalsummary')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					<% } %>
+					</td></td></table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="2">
+			<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+				<tr>
+					<td class="insideboxblue" valign="bottom" width="30%">Applicant</td>
+					<td class="insideboxbb" valign="bottom"><%=ShowNoNull(p.getLegalFirstName()) + " " + ShowNoNull(p.getLegalLastName()) %></td>
+				</tr>
+				<tr>
+					<td class="insideboxblue" valign="bottom" width="30%">Status</td>
+					<td class="insidebox" valign="bottom">
+						<select name="Status">
+							<option <%="Pending".equals(p.getStatus())?"selected":""%>>Pending</option>
+							<option <%="Accepted".equals(p.getStatus())?"selected":""%>>Accepted</option>
+							<option <%="Declined".equals(p.getStatus())?"selected":""%>>Declined</option>
+							<option <%="Withdrawn".equals(p.getStatus())?"selected":""%>>Withdrawn</option>
+						</select>
+					</td>
+				<tr>
+				<tr>
+					<td class="insideboxblue" valign="bottom" width="30%">Assigned Project (Placement)</td>
+					<td class="insidebox" valign="bottom">
+<%
+						// 3/13/03 dc New: show all projects.
+						selProj.setName("IsMember"); 
+						// Fix JSP if IsMemberId empty or no longer exists
+						if (p.getIsMemberId() != null) {
+							selProj.setCurrentValue( (String)p.getIsMember().getWsnProjectID() );
+						}
+%>
+						<%=selProj.print()%>
+                    </TD>
+                </tr>
+				</tr>
+					<td class="insideboxblue" valign="bottom" width="30%">Applicant Notified</td>
+					<td class="insidebox" valign="bottom"><%=SelectYesNo("ApplicantNotified", eval.getApplicantNotified())%></td>
+				</tr>
+				</tr>
+					<td class="insideboxblue" valign="bottom" width="100%" colspan="2">Note: Selecting yes allows student to see his status (pending, accepted, declined, or withdrawn) when he logs into www.applyforsummerproject.com.  You are encouraged to notify the applicant first before selecting yes.</td>
+				</tr>
+				<tr>
+					<td class="insideboxblue" valign="bottom" width="100%" colspan="2">
+						<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">Qualifying Factors</td>
+								<td class="insideboxblue" valign="bottom" width="35%">Location of Information<br>(use the menu items items (tabs) on the left, e.g. TAB 4 = Ref. Personal Attrib's. 4)</td>
+								<td class="insideboxblue" valign="bottom" width="10%">Factor Weight</td>
+								<td class="insideboxblue" valign="bottom" width="10%">Factor Score</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">1. Spiritual Maturity/Knowledge of and demonstration of Spirit-filled life</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 4: #1-21<BR>TAB 7: #9-10<BR>TAB 9: #30-32</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">10</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><DIV name="outputdiv" id="outputdiv"><%=10*eval.get_Qual1()%></DIV></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual1", eval.get_Qual1(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">2. Attitude toward Authority and General Teachability</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 4: #13-21<BR>TAB 5: #4<BR>TAB 7: #11</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">10</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=10*eval.get_Qual2()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual2", eval.get_Qual2(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">3. Leadership Displayed or Leadership Potential</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 4: #1-12<BR>TAB 5: #5<BR>TAB 6: #3-5<BR>TAB 9: #33</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">8</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=8*eval.get_Qual3()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual3", eval.get_Qual3(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">4. Emotional Stability</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 4: #1-21</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">7</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=7*eval.get_Qual4()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual4", eval.get_Qual4(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">5. Attitude toward Evangelism</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 5: #8<BR>TAB 7: #14 & 15</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">7</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=7*eval.get_Qual5()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual5", eval.get_Qual5(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">6. Reason for applying to a project</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 9: #31 & 32</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">6</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=6*eval.get_Qual6()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual6", eval.get_Qual6(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">7. Social Maturity</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 4: #1-21<BR>TAB 5: #3</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">6</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=6*eval.get_Qual7()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual7", eval.get_Qual7(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="35%">8. Amount of CCC involvement</td>
+								<td class="insideboxblue" valign="bottom" width="35%">TAB 7: #16-21</td>
+								<td class="insideboxblue" valign="bottom" width="10%" rowspan="2">6</td>
+								<td class="insideboxblue" valign="bottom" width="10%" align="right" rowspan="2"><%=6*eval.get_Qual8()%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="80%" colspan="2">
+								<table class="evaltitle" cellpadding="0" cellspacing="0" width="100%" align="center">
+                                    <%=SelectRating("_Qual8", eval.get_Qual8(),7)%>
+									<tr><td class="evaltitle" width="15%" align="center" valign="top">1<br>Low</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;2&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;3&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">4<br>Average</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;5&nbsp;</td>
+										<td class="evaltitle" width="14%" align="center" valign="top">&nbsp;6&nbsp;</td>
+										<td class="evaltitle" width="15%" align="center" valign="top">7<br>High</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="100%" colspan="5" align="right"><b>TOTAL SCORE <%=eval.getScore()%></b></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="insideboxblue" width="100%" valign="bottom" colspan="2">
+						<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">Disqualifying Factors</td>
+								<td class="insideboxblue" valign="bottom" width="40%">Location of Information<br>(use the menu items items (tabs) on the left, e.g. TAB 4 = Ref. Personal Attrib's. 4)</td>
+								<td class="insideboxblue" valign="bottom" width="20%">Check if applies</td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">1. Charismatic involvement</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 7: #8 & 13</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual1", eval.get_DeQual1())%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">2. Moral Problem</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 5: #6<BR>TAB 8: #25-27</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual2", eval.get_DeQual2())%></td>
+							</tr>
+						<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">3. Drug or alcohol problem</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 8: #22 & 24</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual3", eval.get_DeQual3())%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">4. Bad attitude toward evangelism</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 5: #8<BR>TAB 7: #14 & 15</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual4", eval.get_DeQual4())%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">5. Unresponsive to authority</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 4: #13-21<BR>TAB 5: #4<BR>TAB 7: #11</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual5", eval.get_DeQual5())%></td>
+							</tr>
+							<tr>
+								<td class="insideboxblue" valign="bottom" width="40%">6. Eating Disorder</td>
+								<td class="insideboxblue" valign="bottom" width="40%">TAB 5: #7<BR>TAB 8: #28</td>
+								<td class="insideboxblue" valign="bottom" width="20%"><%=SelectYesNo("_DeQual6", eval.get_DeQual6())%></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><b>Any other comments of importance in selection:</b></td></tr>
+				<tr><td class="insideboxblue" width="100%" valign="bottom" colspan="2"><TEXTAREA name="Comment" rows="7" cols="<%=summary100Width%>"><%=eval.getComment()==null?"":eval.getComment()%></TEXTAREA></td></tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="evaltitle" valign="bottom" align="center" colspan="2">
+		<!-- <input type="submit" value="Save"> -->
+					<table width="10%" cellpadding="0" cellspacing="0" bordercolor="#33699" border="1"><tr><td>
+					<% if (ar.getValue("toframe").equals("yes")) { %>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalsummaryframe')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					<% } else { %>
+						<a HREF="javascript: doPostFormNextAction('evalFormSave', 'goToView', 'evalsummary')" CLASS="menu"><font size="4">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</font></A>
+					<% } %>
+					</td></td></table>
+		</td>
+<% } %>
+</table>
+
+<!-- End Evaluation Summary -->

@@ -1,0 +1,55 @@
+<!-- Start Relationship with God -->
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Relationship with God</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue" width="15%" valign="bottom"><b>Relationship with God</b></td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">N<br>o<br>t<br>&nbsp;<br>K<br>n<br>o<br>w<br>n</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">P<br>o<br>o<br>r</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">B<br>e<br>l<br>o<br>w<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">A<br>b<br>o<br>v<br>e<br>&nbsp;<br>A<br>v<br>g</td>
+			<TD class="insideboxst" width="3%" align="center" valign="bottom">E<br>x<br>c<br>e<br>l<br>l<br>e<br>n<br>t</td>
+			<td class="insideboxblue" valign="bottom">Optional (brief) Comments</td>
+			</tr>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Consistent spiritual walk</b></td>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_rg1")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Evidence of Spirit-filled life</b></td>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_rg2")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Knowledge of the Bible</b></td>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_rg3")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Consistency in Prayer</b></td>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_rg4")%>
+			<tr><td class="insideboxblue" valign="bottom" colspan="8" nowrap><b>Consistency in Bible reading</b></td>
+            <%=PrintEvalBox(refS, refD, refR, refF, pfType, "_rg5")%>
+		</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What evidence is there that God is at work in this applicant's life?  Where is he/she seeing growth?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_rg6")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2a.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Are you aware of any instances of sexual immorality in the applicant's life (inappropriate physical intimacy, pornography, etc.)?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_rg7")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2b.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Please explain.</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_rg8")%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2c.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Have you talked with him/her about his/her moral convictions and his/her behavior?</td>
+	</tr>
+    <%=PrintEvalComment(refS, refD, refR, refF, pfType, "_rg9")%>
+</table>
+
+<!-- End Relationship with God -->

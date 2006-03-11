@@ -1,0 +1,108 @@
+<!-- Start Reference Personal Attributes -->
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Reference Personal Attributes</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What are the applicant's greatest strengths? [character traits / ablities / skills]<BR>
+		Explain:
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_1sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_1sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_1sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What areas need development or attention? [character traits / ablities / skills]<BR>
+		(CCC staff: refer to growth model)<BR>
+		Explain:
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_2sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_2sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_2sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Describe the applicant's social maturity (confidence and poise in interaction with others)<BR>
+		Explain:
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_3sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_3sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_3sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How does this student respond to authority? (follow? resist? critical attitude?)<BR>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_4sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_4sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_4sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What type of leadership has the student exhibited? What leadership do you see in him/her?<BR>
+		Please be specific.  (CCC Staff: refer to the leadership model)
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_5sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_5sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_5sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Are you aware of any sexual immorality that this person has been involved in?<BR>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_6sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_6sa()%></font></DIV>
+		</TD>
+	</tr>
+	<%
+	String refs1_6sb = refs1.get_6sb();
+	String refs2_6sb = refs2.get_6sb();
+	if (refs1_6sb.trim().equals("")){
+		refs1_6sb = "";
+	} else {
+		refs1_6sb = refs1_6sb + ", ";
+	}
+	if (refs2_6sb.trim().equals("")){
+		refs2_6sb = "";
+	} else {
+		refs2_6sb = refs2_6sb + ", ";
+	}
+	%>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6b.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Has the applicant demonstrated a consistency with biblical standards in his/her relationships with the opposite sex?<BR>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1_6sb%><%=refs1.get_6sc()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2_6sb%><%=refs2.get_6sc()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.get_6sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">7.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Do you believe the applicant struggles with an eating disorder?<BR>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_7sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_7sa()%></font></DIV>
+		</TD>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">8.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">What is the applicant's attitude towards initiative evangelism and Campus Crusade's ministry philosophy?<BR>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.get_8sa()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.get_8sa()%></font></DIV>
+		</TD>
+	</tr>
+	<TR>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">9.</TD>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2"><STRONG>Closing Remark</STRONG><BR>
+		Do you have any reservations about this person participating in a summer project?<BR>
+		If so, please explain:
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 1)<font class="eval"><%=refs1.getClosingRemarks()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(STAFF 2)<font class="eval"><%=refs2.getClosingRemarks()%></font></DIV>
+		<DIV CLASS="evaltitle" colspan="2">(PEER)<font class="eval"><%=refp.getClosingRemarks()%></font></DIV>
+		</TD>
+	</TR>
+</table>
+
+<!-- End Reference Personal Attributes -->

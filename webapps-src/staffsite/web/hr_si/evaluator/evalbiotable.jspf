@@ -1,0 +1,96 @@
+<!-- Start Biographical Information -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b><br>Biographical Information</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Write a paragraph or two on how you came to know Jesus Christ personally, and describe your personal growth in Christ.<br><font class="eval"><%=ShowNoNull(app.getPersonalTestimonyGrowth())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">In two or three paragraphs explain how and why you believe God is leading you to participate in an internship with the Campus Ministry of Campus Crusade for Christ.  Give reasons why you believe He has called you to a specific aspect of the Campus Ministry intern program.  (i.e., Staffed Campus, WSN, Catalytic, ESM, National/Regional office.)<br><font class="eval"><%=ShowNoNull(app.getInternshipParticipationExplanation())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">List your specific and ministry objectives for your intern year.<br><font class="eval"><%=ShowNoNull(app.getInternshipObjectives())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Please describe your current ministry. (Include your experience in evangelism and discipleship.)<br><font class="eval"><%=ShowNoNull(app.getCurrentMinistryDescription())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">How would you describe yourself?</td>
+	</tr>
+	<tr>
+		<TD class="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%"></td>
+		<TD class="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">
+		<table WIDTH="95%" CELLSPACING="0">
+			<TR>
+				<TD>
+					<table WIDTH="100%" CELLSPACING="0" class="insidebox">
+						<tr>
+							<TD CLASS="evaltitle" ALIGN="center" VALIGN="TOP" width="15%" rowspan="3"><b>Strengths</b></td>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">A.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalStrengthA())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">B.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalStrengthB())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">C.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalStrengthC())%></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<TR>
+				<TD>
+					<table WIDTH="100%" CELLSPACING="0" class="insidebox">
+						<tr>
+							<TD CLASS="evaltitle" ALIGN="center" VALIGN="TOP" width="15%" rowspan="3"><b>Areas to be Developed</b></td>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">A.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDevelopmentA())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">B.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDevelopmentB())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">C.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDevelopmentC())%></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<TR>
+				<TD>
+					<table WIDTH="100%" CELLSPACING="0" class="insidebox">
+						<tr>
+							<TD CLASS="evaltitle" ALIGN="center" VALIGN="TOP" width="15%" rowspan="3"><b>Adjectives Friends Use to Describe You</b></td>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">A.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDescriptionA())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">B.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDescriptionB())%></td>
+						</tr>
+						<TR>
+							<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">C.</td>
+							<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="80%"><%=ShowNoNull(app.getPersonalDescriptionC())%></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%" colspan="2">Describe your relationships with your immediate family members.<br><font class="eval"><%=ShowNoNull(app.getFamilyRelationshipDescription())%></font></td>
+	</tr>
+</table>
+
+<!-- End Biographical Information -->

@@ -1,0 +1,3 @@
+SELECT istprod_ministry_Staff.firstName, istprod_ministry_Staff.lastName, istprod_hr_review360_ReviewSessionLight.administratorID, istprod_hr_review360_Review360Light.fk_ReviewSessionLightID
+FROM istprod_hr_review360_Review360Light INNER JOIN (istprod_hr_review360_ReviewSessionLight INNER JOIN istprod_ministry_Staff ON istprod_hr_review360_ReviewSessionLight.revieweeID = istprod_ministry_Staff.accountNo) ON istprod_hr_review360_Review360Light.fk_ReviewSessionLightID = istprod_hr_review360_ReviewSessionLight.ReviewSessionLightID
+WHERE (((istprod_hr_review360_ReviewSessionLight.administratorID)="000355243"));

@@ -1,0 +1,1 @@
+This directory is for classes for objects that are used in all of our stuff... handy things you need.

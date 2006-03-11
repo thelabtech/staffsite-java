@@ -1,0 +1,2729 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./CRSUserMan_files/filelist.xml">
+<title>Development Specification</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Brock Zagel</o:Author>
+  <o:Template>Development Spec Template.dot</o:Template>
+  <o:LastAuthor>Brock Zagel</o:LastAuthor>
+  <o:Revision>13</o:Revision>
+  <o:TotalTime>2414</o:TotalTime>
+  <o:LastPrinted>2002-07-29T17:54:00Z</o:LastPrinted>
+  <o:Created>2002-09-04T17:31:00Z</o:Created>
+  <o:LastSaved>2002-09-06T15:43:00Z</o:LastSaved>
+  <o:Pages>11</o:Pages>
+  <o:Words>5223</o:Words>
+  <o:Characters>29776</o:Characters>
+  <o:Company>Microsoft Corporation</o:Company>
+  <o:Lines>248</o:Lines>
+  <o:Paragraphs>59</o:Paragraphs>
+  <o:CharactersWithSpaces>36567</o:CharactersWithSpaces>
+  <o:Version>9.3821</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:ActiveWritingStyle Lang="EN-US" VendorID="64" DLLVersion="131077"
+   NLCheck="1">1</w:ActiveWritingStyle>
+  <w:DoNotShowRevisions/>
+  <w:DoNotPrintRevisions/>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:536871559 0 0 0 415 0;}
+@font-face
+	{font-family:ArialMT;
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-format:other;
+	mso-font-pitch:auto;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:128;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-1 -369098753 63 0 4129023 0;}
+@font-face
+	{font-family:Arial-BoldMT;
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-format:other;
+	mso-font-pitch:auto;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:Arial-ItalicMT;
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-format:other;
+	mso-font-pitch:auto;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	mso-font-charset:128;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-1 -369098753 63 0 4129023 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+h1
+	{mso-style-next:"Body Text";
+	margin-top:.5in;
+	margin-right:0in;
+	margin-bottom:24.0pt;
+	margin-left:.3in;
+	text-indent:-.3in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	mso-list:l1 level1 lfo2;
+	tab-stops:list .3in;
+	border:none;
+	mso-border-bottom-alt:solid windowtext .5pt;
+	padding:0in;
+	mso-padding-alt:0in 0in 1.0pt 0in;
+	font-size:18.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:gray;
+	mso-font-kerning:0pt;
+	font-weight:bold;}
+h2
+	{mso-style-next:"Body Text";
+	margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:.4in;
+	text-indent:-.4in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	mso-list:l1 level2 lfo2;
+	tab-stops:.5in;
+	font-size:14.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:gray;
+	font-weight:bold;}
+h3
+	{mso-style-next:"Body Text";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.5in;
+	text-indent:-.5in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	mso-list:l1 level3 lfo2;
+	tab-stops:list .5in;
+	font-size:14.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:gray;
+	font-weight:normal;
+	mso-bidi-font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.6in;
+	text-indent:-.6in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	mso-list:l1 level4 lfo2;
+	tab-stops:list .6in;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:gray;
+	font-weight:normal;
+	text-decoration:underline;
+	text-underline:single;}
+h5
+	{mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.7in;
+	margin-bottom:.0001pt;
+	text-indent:-.7in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:5;
+	mso-list:l1 level5 lfo2;
+	tab-stops:list .7in;
+	font-size:9.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;
+	font-weight:bold;}
+h6
+	{mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.8in;
+	margin-bottom:.0001pt;
+	text-indent:-.8in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:6;
+	mso-list:l1 level6 lfo2;
+	tab-stops:list .8in;
+	font-size:9.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	font-weight:normal;
+	mso-bidi-font-weight:bold;
+	font-style:italic;}
+p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
+	{mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.9in;
+	margin-bottom:.0001pt;
+	text-indent:-.9in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:7;
+	mso-list:l1 level7 lfo2;
+	tab-stops:list .9in;
+	font-size:9.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	mso-bidi-font-weight:bold;
+	font-style:italic;}
+p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
+	{mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-indent:-1.0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:8;
+	mso-list:l1 level8 lfo2;
+	tab-stops:list 1.0in;
+	font-size:9.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:1.1in;
+	text-indent:-1.1in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:9;
+	mso-list:l1 level9 lfo2;
+	tab-stops:list 1.1in;
+	font-size:9.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:24.0pt right dotted 467.5pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:10.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:48.0pt right dotted 467.5pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 3.0in right 6.0in;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+span.MsoPageNumber
+	{mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	letter-spacing:-.25pt;}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:.5in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoBodyText2, li.MsoBodyText2, div.MsoBodyText2
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	mso-layout-grid-align:none;
+	text-autospace:none;
+	font-size:10.0pt;
+	font-family:ArialMT;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoBodyText3, li.MsoBodyText3, div.MsoBodyText3
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:maroon;}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin:0in;
+	margin-bottom:.0001pt;
+	text-indent:.25in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:2.5in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	color:windowtext;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial Unicode MS";
+	mso-bidi-font-family:"Times New Roman";
+	color:black;}
+p.Issue, li.Issue, div.Issue
+	{mso-style-name:Issue;
+	mso-style-parent:"Body Text";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.25in;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .75pt;
+	padding:0in;
+	mso-padding-alt:1.0pt 1.0pt 1.0pt 1.0pt;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:red;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+p.Risk, li.Risk, div.Risk
+	{mso-style-name:Risk;
+	mso-style-parent:"Body Text";
+	mso-style-next:Mitigation;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.25in;
+	text-align:justify;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l3 level1 lfo6;
+	tab-stops:list .25in;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	letter-spacing:-.25pt;}
+p.Mitigation, li.Mitigation, div.Mitigation
+	{mso-style-name:Mitigation;
+	mso-style-parent:"Body Text";
+	mso-style-next:Risk;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l2 level1 lfo4;
+	tab-stops:list 1.0in;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	letter-spacing:-.25pt;}
+p.Table-Text, li.Table-Text, div.Table-Text
+	{mso-style-name:"Table - Text";
+	margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:9.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;}
+p.Table-ColHead, li.Table-ColHead, div.Table-ColHead
+	{mso-style-name:"Table - Col\. Head";
+	margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	font-size:9.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:windowtext;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p.Guideline, li.Guideline, div.Guideline
+	{mso-style-name:Guideline;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:navy;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+span.blue1
+	{mso-style-name:blue1;
+	mso-ansi-font-size:7.5pt;
+	mso-bidi-font-size:7.5pt;
+	mso-ascii-font-family:Verdana;
+	mso-hansi-font-family:Verdana;
+	color:windowtext;
+	mso-text-animation:none;
+	text-decoration:none;
+	text-underline:none;
+	text-decoration:none;
+	text-line-through:none;}
+ins
+	{mso-style-type:export-only;
+	text-decoration:none;}
+span.msoDel
+	{mso-style-type:export-only;
+	mso-style-name:"";
+	text-decoration:line-through;
+	display:none;
+	color:red;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:.8in 1.0in .8in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:199436183;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-411385330 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l1
+	{mso-list-id:654258702;
+	mso-list-template-ids:1165762688;}
+@list l1:level1
+	{mso-level-style-link:"Heading 1";
+	mso-level-text:%1;
+	mso-level-tab-stop:.3in;
+	mso-level-number-position:left;
+	margin-left:.3in;
+	text-indent:-.3in;}
+@list l1:level2
+	{mso-level-style-link:"Heading 2";
+	mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.4in;
+	mso-level-number-position:left;
+	margin-left:.4in;
+	text-indent:-.4in;}
+@list l1:level3
+	{mso-level-style-link:"Heading 3";
+	mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.5in;}
+@list l1:level4
+	{mso-level-style-link:"Heading 4";
+	mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:.6in;
+	mso-level-number-position:left;
+	margin-left:.6in;
+	text-indent:-.6in;}
+@list l1:level5
+	{mso-level-style-link:"Heading 5";
+	mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:.7in;
+	mso-level-number-position:left;
+	margin-left:.7in;
+	text-indent:-.7in;}
+@list l1:level6
+	{mso-level-style-link:"Heading 6";
+	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:.8in;
+	mso-level-number-position:left;
+	margin-left:.8in;
+	text-indent:-.8in;}
+@list l1:level7
+	{mso-level-style-link:"Heading 7";
+	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:.9in;
+	mso-level-number-position:left;
+	margin-left:.9in;
+	text-indent:-.9in;}
+@list l1:level8
+	{mso-level-style-link:"Heading 8";
+	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-1.0in;}
+@list l1:level9
+	{mso-level-style-link:"Heading 9";
+	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:1.1in;
+	mso-level-number-position:left;
+	margin-left:1.1in;
+	text-indent:-1.1in;}
+@list l2
+	{mso-list-id:982008960;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-126299750 -1244001904 1602392136 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-style-link:Mitigation;
+	mso-level-text:\F0D8;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level2
+	{mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:1089303440;
+	mso-list-type:hybrid;
+	mso-list-template-ids:433101950 671535510 67698703 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l3:level1
+	{mso-level-style-link:Risk;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l3:level2
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1547180210;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1135918310 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l5
+	{mso-list-id:2090541295;
+	mso-list-type:hybrid;
+	mso-list-template-ids:406063618 67698705 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l5:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoHeader style='text-align:justify;tab-stops:.5in center 3.0in right 6.0in'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:20.0pt;mso-bidi-font-size:
+12.0pt;mso-bidi-font-family:Arial;color:navy'>Conference Registration System
+(CRS) User Manual</span></b><span style='font-size:20.0pt;mso-bidi-font-size:
+12.0pt;color:navy'><o:p></o:p></span></p>
+
+<p class=MsoToc1><br>
+<br>
+<!--[if supportFields]><span style='mso-element:field-begin'></span><span
+style="mso-spacerun: yes"> </span>TOC \o &quot;1-3&quot; \h \z <span
+style='mso-element:field-separator'></span><![endif]--></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><a href="#_Toc18982041"><span
+style='mso-bidi-font-size:18.0pt'>1</span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:windowtext;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1'>      </span></span><span style='mso-bidi-font-size:
+18.0pt'>Overview</span><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-tab-count:
+1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982041 \\h"'>1<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340031000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:navy'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982042"><span style='mso-bidi-font-size:
+14.0pt'>1.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Architectural
+Overview</span><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc18982042 \\h"'>1<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340032000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982043"><span style='mso-bidi-font-size:
+14.0pt'>1.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Components:</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'> </span><span
+style='mso-field-code:"PAGEREF _Toc18982043 \\h"'>1<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340033000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><a href="#_Toc18982044"><span
+style='mso-bidi-font-size:18.0pt'>2</span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:windowtext;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1'>      </span></span><span style='mso-bidi-font-size:
+18.0pt'>Component: Create Conference</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982044 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340034000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982045"><span style='mso-bidi-font-size:
+14.0pt'>2.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Purpose</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc18982045 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340035000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982046"><span style='mso-bidi-font-size:
+14.0pt'>2.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Overview</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc18982046 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340036000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982047"><span style='mso-bidi-font-size:
+14.0pt'>2.2.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Primary Event Info and Contact Info.</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span><span style='mso-field-code:"PAGEREF _Toc18982047 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340037000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982048"><span style='mso-bidi-font-size:
+14.0pt'>2.2.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Custom Event Items</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982048 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340038000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982049"><span style='mso-bidi-font-size:
+14.0pt'>2.2.3</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Choose from available preset questions (fields).</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'> </span><span
+style='mso-field-code:"PAGEREF _Toc18982049 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000340039000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982050"><span style='mso-bidi-font-size:
+14.0pt'>2.2.4</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Custom Questions:</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span><span style='mso-field-code:"PAGEREF _Toc18982050 \\h"'>3<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350030000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982051"><span style='mso-bidi-font-size:
+14.0pt'>2.2.5</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Edit Payment Options:</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span><span style='mso-field-code:"PAGEREF _Toc18982051 \\h"'>4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350031000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982052"><span style='mso-bidi-font-size:
+14.0pt'>2.2.6</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Look and Feel:</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span><span style='mso-field-code:"PAGEREF _Toc18982052 \\h"'>4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350032000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982053"><span style='mso-bidi-font-size:
+14.0pt'>2.2.7</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Copying a conference</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982053 \\h"'>4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350033000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><a href="#_Toc18982054"><span
+style='mso-bidi-font-size:18.0pt'>3</span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:windowtext;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1'>      </span></span><span style='mso-bidi-font-size:
+18.0pt'>Component: Conference Registration</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982054 \\h"'>5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350034000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982055"><span style='mso-bidi-font-size:
+14.0pt'>3.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Non-staff
+registration:</span><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'> </span><span
+style='mso-field-code:"PAGEREF _Toc18982055 \\h"'>5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350035000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982056"><span style='mso-bidi-font-size:
+14.0pt'>3.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Staff
+registration:</span><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'> </span><span
+style='mso-field-code:"PAGEREF _Toc18982056 \\h"'>7<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350036000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982057"><span style='mso-bidi-font-size:
+14.0pt'>3.3</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Ministry
+Guest Registration</span><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-tab-count:
+1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982057 \\h"'>7<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350037000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><a href="#_Toc18982058"><span
+style='mso-bidi-font-size:18.0pt'>4</span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:windowtext;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1'>      </span></span><span style='mso-bidi-font-size:
+18.0pt'>Component: Conference Administration</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982058 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350038000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982059"><span style='mso-bidi-font-size:
+14.0pt'>4.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Conference
+Administration Home Page</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982059 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000350039000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982060"><span style='mso-bidi-font-size:
+14.0pt'>4.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Editing
+Conference Information:</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span><span style='mso-field-code:"PAGEREF _Toc18982060 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360030000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982061"><span style='mso-bidi-font-size:
+14.0pt'>4.3</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Viewing
+reports:</span><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'> </span><span
+style='mso-field-code:"PAGEREF _Toc18982061 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360031000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982062"><span style='mso-bidi-font-size:
+14.0pt'>4.4</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Managing
+Student Registrations</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982062 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360032000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982063"><span style='mso-bidi-font-size:
+14.0pt'>4.4.1</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Administrators Editing Student Registrations</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc18982063 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360033000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982064"><span style='mso-bidi-font-size:
+14.0pt'>4.4.2</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Staff Editing Student Registrations</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982064 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360034000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982065"><span style='mso-bidi-font-size:
+14.0pt'>4.4.3</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Deleting Student Registrations</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982065 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360035000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982066"><span style='mso-bidi-font-size:
+14.0pt'>4.4.4</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Managing Student Payments</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982066 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360036000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:60.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982067"><span style='mso-bidi-font-size:
+14.0pt'>4.4.5</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>     </span></span><span style='mso-bidi-font-size:
+14.0pt'>Managing Incomplete Registrations</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982067 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360037000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:.5in 48.0pt right dotted 467.5pt'><span
+class=MsoHyperlink><a href="#_Toc18982068"><span style='mso-bidi-font-size:
+14.0pt'>4.5</span><span style='font-size:12.0pt;font-family:"Times New Roman";
+color:windowtext;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1'>    </span></span><span style='mso-bidi-font-size:14.0pt'>Managing
+Staff Registrations</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc18982068 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360038000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><a href="#_Toc18982069"><span
+style='mso-bidi-font-size:18.0pt'>5</span><span style='font-size:12.0pt;
+font-family:"Times New Roman";color:windowtext;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1'>      </span></span><span style='mso-bidi-font-size:
+18.0pt'>Component: Downloading/Uploading Your Conference Data</span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc18982069 \\h"'>10<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000D0000005F0054006F006300310038003900380032003000360039000000</w:data>
+</xml><![endif]--></span></span></a></span><span style='font-size:12.0pt;
+font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoToc1><!--[if supportFields]><span style='mso-element:field-end'></span><![endif]--><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<div style='border:none;border-bottom:solid windowtext .5pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc18982041"><![if !supportLists]>1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Overview</a> </h1>
+
+</div>
+
+<p class=Guideline><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt;
+color:windowtext;letter-spacing:-.25pt;font-style:normal'>This system allows
+staff, students and guests to register for conferences online. <o:p></o:p></span></p>
+
+<p class=Guideline><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt;
+color:windowtext;letter-spacing:-.25pt;font-style:normal'>The system is very
+customizable. You can choose which kind of payments to allow, including credit
+cards, account numbers (entered, but not processed online), and scholarship
+numbers as well as check mailing instructions. The system will allow conference
+administrators to create and manage their own conferences. They can copy other
+conferences as well. They will be able to add any questions they want. They
+will be able to download an MS Access database or an Excel spreadsheet to use
+for more customized conference management onsite. <o:p></o:p></span></p>
+
+<p class=Guideline><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt;
+color:windowtext;letter-spacing:-.25pt;font-style:normal'>On the Campus Staff
+Site, staff members will be able to register, view reports and update
+scholarship payments. Student leaders and other staff who are not in the campus
+ministry are able to do these same things from a public site if given the web
+address and the proper passwords. They can also create and administrate
+conferences.<o:p></o:p></span></p>
+
+<p class=Guideline><span style="mso-spacerun: yes"> </span></p>
+
+<h2 style='mso-list:l1 level2 lfo2;mso-list-change:"%1\:4\:0\:\.%2\:1\:0\:" "Andersen Consulting" 20010104T1548'><a
+name="_Toc18982042"><![if !supportLists]>1.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Architectural Overview</a></h2>
+
+<p class=Guideline><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt;
+color:windowtext;letter-spacing:-.25pt;font-style:normal'>The system is
+programmed in Java and JSP pages and is hosted and maintained by the Campus
+Ministry alt.60M team in Orlando, FL.</span></p>
+
+<h2 style='mso-list:l1 level2 lfo2;mso-list-change:"%1\:4\:0\:\.%2\:2\:0\:" "Andersen Consulting" 20010104T1548'><a
+name="_Toc18982043"><![if !supportLists]>1.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Components:</a> </h2>
+
+<p class=MsoNormal>Create Conference</p>
+
+<p class=MsoNormal>Conference Registration <br>
+Conference Administration <br>
+Conference database download and upload<span style='font-family:"Times New Roman"'>
+</span><span class=MsoHyperlink><o:p></o:p></span></p>
+
+<div style='border:none;border-bottom:solid windowtext .5pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc18982044"><![if !supportLists]>2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Component: Create Conference</a> </h1>
+
+</div>
+
+<h2 style='mso-list:l1 level2 lfo2;mso-list-change:"%1\:5\:0\:\.%2\:1\:0\:" "Andersen Consulting" 20010104T1548'><a
+name="_Toc18982045"><![if !supportLists]>2.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Purpose</a> </h2>
+
+<p class=MsoNormal>Allow anyone the Campus Ministry approves to create a
+conference that will be available for online registration. Add conference info,
+look and feel, and set passwordsChoose from list of default questionsAdd custom
+questionsChoose payment method options and payment add-ons<span
+style='font-family:"Times New Roman"'> <o:p></o:p></span></p>
+
+<h2 style='mso-list:l1 level2 lfo2;mso-list-change:"%1\:5\:0\:\.%2\:3\:0\:" "Andersen Consulting" 20010104T1548'><a
+name="_Toc18982046"><![if !supportLists]><span style='mso-bidi-font-family:
+Arial;mso-bidi-font-style:italic'>2.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Overview</a><span style='mso-bookmark:_Toc18982046'></span><span
+style='mso-bidi-font-family:Arial;mso-bidi-font-style:italic'><o:p></o:p></span></h2>
+
+<p class=MsoNormal>The administrator gets to the CRS Administration site
+through a link on the Campus Ministry Staff Site (coming soon: or through
+another link or typing in the non-password protected URL. Thus, you don’t need
+access to the staff site to admin or start a conference).<span
+class=MsoHyperlink><span style='font-family:"Times New Roman"'> </span><o:p></o:p></span></p>
+
+<p class=MsoNormal>From the CRS home page, click “[Create a New
+Event/Conference from Scratch]” or “[Create a New Event/Conference by Copying
+an Old Conference].”</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>It then takes you through steps to create a conference:</p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list .5in'>Primary
+     Event Info and Contact Info.</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list .5in'>Custom
+     Event Items (if you don’t have your own informational website for event
+     info)</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list .5in'>Choose
+     from available pre-made event fields/questions.</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list .5in'>Add
+     additional custom registrant questions. </li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list .5in'>Set
+     Event Look and Feel</li>
+</ol>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:ArialMT;
+color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc18982047"><![if !supportLists]>2.2.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Primary Event Info and Contact Info.</a></h3>
+
+<p class=MsoNormal><u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Event Info.<o:p></o:p></span></u></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b><span style='color:black'>Event Name </span></b><span
+style='color:black'>Appears at the top of each page of registration. Listed in
+the conference lists on the staff site.<b><o:p></o:p></b></span></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b><span style='color:black'>Theme<span style="mso-spacerun: yes"> 
+</span></span></b><span style='color:black'>Appears on the CRS home page if
+you are using it.<b><span style='mso-tab-count:1'> </span><o:p></o:p></b></span></span></p>
+
+<p class=MsoHeader style='tab-stops:.5in center 3.0in right 6.0in'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Admin Password
+This will be required for anyone who wants to administrate the conference.
+Staff can update scholarship info and view student lists without being an
+administrator. <span style='mso-tab-count:1'>                                  </span><o:p></o:p></b></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b>Staff Password </b>(coming soon) If you are coming from the staff
+site you don’t need this password to view reports, update scholarships and see
+students because you are already logged in as staff. If you are coming from the
+screen for non-campus ministry staff and student leaders, you will need this
+password to see the above.<b> </b><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b>Confirmation E-Mail </b>The email address in the from box of the
+email that is sent to confirm a payment.<b> </b><o:p></o:p></span></p>
+
+<p class=MsoHeader style='tab-stops:.5in center 3.0in right 6.0in'><b><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• Region</span></b><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'> Leave this blank
+if the event is not associated with a certain region. The Big Break is an
+example.<span style='mso-tab-count:3'>                                </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b>Brief Event Description</b><span style='mso-tab-count:1'>  </span><span
+style='color:black'>Appears on the CRS home page if you are using it.<b><span
+style='mso-tab-count:1'>       </span></b></span><span style='mso-tab-count:
+1'>            </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Web
+Registration Begins </b>This is the first day registration will be available on
+the CRS Web site<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Web
+Registration Ends </b>This is the last day registration will be available on the
+CRS Web site. This date must be later than the Date Pre-Registration Opens.
+Students </span><span style='mso-bidi-font-size:10.0pt'>who attempt to register
+after this date will see a message stating that pre-registration is closed, but
+they can still register on site at the conference.</span><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'> </span><span
+class=MsoHyperlink><span style='mso-bidi-font-family:Arial'><o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>• <b>Contact Information </b>Where questions or checks should be sent
+to.<span style='mso-tab-count:1'> </span> Name, Email, Phone, Address 1,
+Address 2, City, State, Zip.<span style='color:black'><o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc18982048"><![if !supportLists]>2.2.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Custom Event Items</a> </h3>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>If you don’t have a home page for event info, this allows you to add
+text and other info to your home page. Such as speakers, housing information,
+directions, etc.</span><span style='font-size:10.0pt;font-family:ArialMT'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span class=MsoHyperlink><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc18982049"><![if !supportLists]>2.2.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Choose from available preset questions (fields).</a></h3>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>The default
+questions for every event are: first name, last name, address, address2,
+gender, and email. Here is a list of additional “pre-made” questions that you
+might want to include. They are separated into two categories: Additional
+Personal Information and Additional Questions.<br>
+<br>
+Additional Personal Information will be displayed on the &quot;My Contact
+Info&quot; screen of student registration. Additional Questions are required
+for certain reports such as Student Ride Offers or T-shirt Requests. They will
+be listed on the &quot;My Registration Info&quot; page with the other custom
+questions you add. The next page in the wizard will allow you to change the
+order of the custom questions and add any other questions you want to ask the
+registrants. Select as many of these as you would like.<b><span
+style='color:black'><o:p></o:p></span></b></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>They
+default to “don’t include”. Select “include” for any fields you would like
+students to see when they register for the conference. Select “require” for any
+fields you want to include and require them to enter. If you select “include”,
+students will be asked to give that information. Only fields where you select
+“include” or “require” will be visible to students during registration. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>You can
+change your choice on these up until the first person registers. You can edit
+the order of the additional questions which will be grouped with the custom
+questions, but you may not edit the text or the type because of the fact that
+reports are created from them. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>The
+questions you can choose from are listed below:</span><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial;color:blue'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><b><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Additional Personal Info:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Middle Initial: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Home Phone<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: Street Address<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: Street Address 2<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: City<span style='mso-tab-count:1'>     </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: State<span style='mso-tab-count:1'>  </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: Zip Code<span style='mso-tab-count:1'>       </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Address: Country:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Permanent Phone<span style='mso-tab-count:1'>     </span>() -<span
+style='color:red'><o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Campus (selected from the list in the InfoBase)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>School Status(year in school)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Graduation Date:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Greek Affiliation<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Birthday: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Marital Status: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Social Security Number:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><b><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Additional Questions:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>These listed on Page 2 – My registration info.<o:p></o:p></span></u></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Attending Spouse/Fiancee Name: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Number of Children attending: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Number of Previous Conferences<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>If Under Age 18<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>If Staying at Hotel<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Roommate Preference<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>If Interested in a Staff Interview<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>T-Shirt Size (Needed for T-shirt count report)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>(The following two fields are needed if you want staff to be
+able to see a ride report.)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>How Many People They Can Give Rides To<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Where They Are Leaving From<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial;color:black'>Church Name (for Church Delegations)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-indent:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial;color:black'>Church City and State (for
+Church Delegations)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-indent:.5in'><span style='font-size:10.0pt;
+font-family:ArialMT;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:ArialMT;
+color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc18982050"><![if !supportLists]>2.2.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Custom Questions:</a></h3>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>You can add any number of questions you want and create drop down boxes
+or other types of fields listed below. See the website for instructions on each
+type.<span style="mso-spacerun: yes">  </span>These questions will be listed in
+the “My Registration Info” section of the registration site. You can change the
+order of the questions. The optional payment fields will appear hear as well.
+If the question does not have an edit link, it can be edited on the “Edit
+Payment Options” page or the “Edit Preset Questions” page. Examples of custom
+questions are: Major? Do you want to be on the worship team?<span
+style="mso-spacerun: yes">  </span>Which breakout session would you like to
+attend? etc.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Section Divider <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Section Info<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Yes or No<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Check Box<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>1-10<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Date<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Text (1-3 words)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Paragraph (about 20 words)<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Region<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial'>Custom Dropdown</span><span
+style='font-size:10.0pt;mso-bidi-font-family:Arial'><span style='mso-tab-count:
+1'>    </span><o:p></o:p></span></p>
+
+<h3><![if !supportLists]>2.2.5<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]><span style="mso-spacerun: yes"> </span><a name="_Toc18982051">Edit
+Payment Options:</a></h3>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>• <b>Full
+Cost</b> The CRS is designed to allow for a conference price that changes after
+a particular date. This dependant on the discounts. <span style='mso-bidi-font-size:
+10.0pt;mso-bidi-font-family:Arial;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Commuter
+Price </b>Enter the total conference cost for students who indicate that they
+are not staying at the hotel/conference facility. You will need to select yes
+in the pre-made custom question section for the question: Are you commuting. If
+they check yes when registering, it will charge them the commuter price. If
+there is no commuter price difference, put the full cost in this field also. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Registration
+Deposit </b>Enter the amount students must pay to be pre-registered for the
+conference. Students are warned that if this amount is not received by the
+deadline, they will not be pre-registered.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Full Payment
+Discount </b>If you wish to give your students a discount if they pay the full
+conference cost with a credit card during pre-registration, enter the amount of
+the discount here. Otherwise, enter 0. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Early
+Registration Discount </b>If you wish to give your students a discount if they
+pay before a certain date, enter the amount of the discount here. Otherwise,
+enter 0.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Early
+Registration End Date </b>Enter the date of the price change. It cannot be
+earlier than the Date Pre-Registration Opens or later than the Date
+Pre-Registration Closes. If you only have one price, then simply enter any date
+between registration open and close dates.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>• <b>Checks
+Payable To </b>Enter to whom students should make their payment checks payable.
+For example, “Campus Crusade for Christ” or “Dallas Winter Conference.”<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-family:Arial'>•<b> Authnet Merchant username/account # and
+Password<o:p></o:p></b></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-family:Arial'>• <b>Accept Credit Cards </b>Answer Yes if
+you wish to allow students to make their on-line pre-registration payment by
+credit card. This requires a merchant account with Authorize.net and set up
+your account according to the instructions listed under “Setting Up Your
+Region” in this guide. Answer No if you do not want to give students this
+payment option.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-family:Arial'>• <b>Accept Checks </b>Answer Yes if you
+wish to allow students to mail in checks.<span style="mso-spacerun: yes"> 
+</span>Answer No if you do not want to give students this payment option. You
+may wish to go into the admin section and enter the postmark date when you
+receive the check.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-family:Arial'>• <b>Accept Scholarships </b>Answer Yes if
+you wish to allow students to make scholarship entries online. They will be
+prompted to fill in the amount and the staff person’s name to contact. Then you
+or the staff person themselves will need to go in later and fill in the chart
+field combination. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-family:Arial'>• <b>Custom payment add-ons<span
+style="mso-spacerun: yes">  </span></b>You can add as many additional payment
+options as you want. These will be added as custom questions of a special type.
+They will appear on the “My Registration Info” page of the registration site.
+If the registrant chooses yes to an add-on, the dollar amount of the add-on
+will be added to their conference cost. Examples include, Ski trip, purchase a
+book, a t-shirt, etc. <b><o:p></o:p></b></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
+style='mso-bidi-font-family:Arial'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc18982052"><![if !supportLists]>2.2.6<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Look and Feel:</a></h3>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'><br>
+You can change the look and feel from the default colors of white, blue, and saw
+grass to whatever colors you would like. Your choices include:<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'>Background Color #<span style="mso-spacerun:
+yes">   </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'>Text Color # <o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'>Highlight Color #<span style="mso-spacerun: yes"> 
+</span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'>Font Face:<span style="mso-spacerun: yes">  
+</span>(optional)<span style="mso-spacerun: yes">  </span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+mso-bidi-font-family:Arial'>Home Page URL:<span style="mso-spacerun: yes">  
+</span>(optional)</span></b><span style='font-size:11.0pt;mso-bidi-font-size:
+12.0pt;mso-bidi-font-family:Arial'><span style="mso-spacerun: yes">  </span></span><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>Enter
+the URL of the conference Web site. This will appear as a link to take students
+back to your conference Web site when they have completed registration and
+click the exit button. For example,
+http://www.greensborochristmasconference.org.</span><span style='font-size:
+11.0pt;mso-bidi-font-size:10.0pt;font-family:ArialMT;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='mso-bidi-font-size:10.0pt;color:black'>Event
+Logo ID in Resource Center:</span></b><span style='mso-bidi-font-size:10.0pt;
+color:black'><span style="mso-spacerun: yes">  </span>This logo will appear on
+the home/info page if you are using the CRS home/info page instead of your
+own informational website. You must upload an image to the Conferences/Images
+category of the campus staff site Resource Center and put the file ID and
+extension (gif/jpg) here. Example, 00000059082.gif</span><span
+class=MsoHyperlink><span style='font-family:"Times New Roman";mso-bidi-font-family:
+Arial'> </span></span><span class=MsoHyperlink><span style='mso-bidi-font-family:
+Arial'><o:p></o:p></span></span></p>
+
+<h3><a name="_Toc18982053"><![if !supportLists]>2.2.7<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Copying a conference</a></h3>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;color:black'>When you
+copy a conference, it copies everything except the conference password and the
+authorize.net password. It includes the same pre-made question, custom
+questions, look and feel, payment options, etc. You will be able to change anything
+such as dates, adding and deleting custom questions, etc.</span><span
+style='font-family:"Times New Roman"'> </span><span class=MsoHyperlink><span
+style='mso-bidi-font-family:Arial'><o:p></o:p></span></span></p>
+
+<div style='border:none;border-bottom:solid windowtext .5pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc18982054"><![if !supportLists]>3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Component: Conference Registration</a> </h1>
+
+</div>
+
+<h2><a name="_Toc18982055"><![if !supportLists]>3.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Non-staff registration:</a></h2>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>There are 2 ways to send students to the registration
+system. One is to send them to the information/home page for the conference.
+This is useful if you don’t have a website listing all the conference info. The
+other option is to send them directly to the log in/register page. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Students will be asked to log in (or register if they don’t
+already have a log in account). The benefit is that their contact information
+will be saved in our national database and can be used for next year’s
+conference, other conferences, retreats, or other CCC sites, such as online
+summer project applications. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>Once they have logged in or registered: </p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-pagination:
+none;mso-list:l5 level1 lfo11;tab-stops:list .5in;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>If they already registered for the current conference, they
+are taken to the “Review” page where they can edit their answers or make more
+payments. </p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;mso-pagination:
+none;mso-list:l5 level1 lfo11;tab-stops:list .5in;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportLists]>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>If they have not registered yet, they are taken to the “My
+Contact Info” page and then through the registration process.</p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:10.0pt;font-family:ArialMT;
+color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>-The Registrant then sees a list of steps to register for
+the conference with the current step highlighted. Here is list:</p>
+
+<p class=MsoNormal>Select Event<span style="mso-spacerun: yes">  </span>-<span
+style="mso-spacerun: yes">   </span>Start<span style="mso-spacerun: yes">  
+</span>-<span style="mso-spacerun: yes">   </span>My Contact Info – My
+Registration Info<span style="mso-spacerun: yes">  </span>-<span
+style="mso-spacerun: yes">   </span>Payment<span style="mso-spacerun: yes">  
+</span>-<span style="mso-spacerun: yes">   </span>Confirmation<span
+style="mso-spacerun: yes">   </span>-<span style="mso-spacerun: yes">  
+</span>Review<span class=MsoHyperlink><span style='font-family:"Times New Roman"'><span
+style="mso-spacerun: yes">   </span><o:p></o:p></span></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><b>“My Contact Info” section:</b> with all their contact
+info. If they already have an account from a past conference it pre-fills in
+their contact information. Special fields listed below: </p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>First Name:<span style="mso-spacerun: yes"> 
+</span>(Can’t be left off the registration form. Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Last Name:<span style="mso-spacerun: yes">  
+</span>(Can’t be left off the registration form. Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Address: (Can’t be left off the registration form.
+Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Adress 2: (Can’t be left off the registration form.
+Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>City: (Can’t be left off the registration form.<span
+style="mso-spacerun: yes">  </span>Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>State: (Can’t be left off the registration form.<span
+style="mso-spacerun: yes">  </span>Always required.) (validated for Int’l
+addresses?)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>(if US) Zip/Postal Code:<span style="mso-spacerun:
+yes">  </span>(Can’t be left off the registration form.<span
+style="mso-spacerun: yes">  </span>Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Country: (drop down) (Can’t be left off the registration
+form.<span style="mso-spacerun: yes">  </span>Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Home Phone: </p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>E-mail: (Can’t be left off the registration form.
+Always required.)</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'>Pre-fill it in with
+username if there is an @ sign in it. </p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Gender:<span style="mso-spacerun: yes"> 
+</span>(Can’t be left off the registration form. Always required.)</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>College Name: (Popup window to search and select from
+list of infobase campuses.)</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Additional fields that may show up on this page are
+listed on the “Additional Personal Info” section of the administration site.</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><b>“My Registration Info”</b> will list specific questions
+about the conference. Including the conference related preset questions and any
+custom questions or add-on payment options that are selected by the
+administrator.</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style="mso-spacerun: yes"> </span></p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b>“Payment”</b>
+page:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Displays
+the “Account Summary” box. It will show the Pre-registration cost, Event cost,
+add-on amounts, Total Cost, Amount Paid, Amount scholarship. There may be a
+note similar to this, “Note: To guarantee your pre-registration you must pay at
+least the pre-registration cost (including any scholarships). You may pay the
+full amount now.”</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Then
+it lists “Discounts they are eligible for:” such as, $10.00 if a deposit of
+$50.00 is received/postmarked by 09/02/2002.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Then
+it lists ways for them to pay depending on which options where chosen when
+setting up the conference. Example: Pay in full $190. Pay Pre-Registration
+deposit $50. Other $.<span style="mso-spacerun: yes">  </span>Then they choose
+payment method. </p>
+
+<p class=MsoNormal style='tab-stops:60.0pt;mso-layout-grid-align:none;
+text-autospace:none'>There will also be a link to go to the review page and pay
+later. </p>
+
+<p class=MsoNormal style='tab-stops:60.0pt;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='tab-stops:60.0pt;mso-layout-grid-align:none;
+text-autospace:none'>When the registrant clicks a payment type, it takes them
+to that payment screen, then when payment is submitted it takes them to the
+confirmation page. They can print this and then proceed to the summary page
+where they can make other payments or exit. </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><u>Credit
+Card Payment Page</u>: </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-allows
+you to enter a credit card and amount. It pre-fills in your name and address.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-This
+page will send their credit card information to Authorize.net. Authorize.net
+will process the transaction (behind the scenes—This process is transparent to
+the student) and forward them to the confirmation page. To make another
+payment, they can click the payment link from there.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-It
+automatically emails a confirmation that the payment was received. </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-If
+there is an error indicating there was a problem with their credit card, they
+will receive an appropriate message and have the opportunity to use another
+card or change payment methods. If Authorize.net’s system is down, they may get
+no message or an unfriendly message and will be regarded by our system to have
+begun, but not completed pre-registration.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><u>Scholarship/Account
+Transfer page: <o:p></o:p></u></p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'>Explains scholarships. Has them type in the following
+information:</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-tab-count:1'>            </span>Name of
+person/campus scholarshipping them:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-tab-count:2'>                        </span>Amount of scholarship:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-tab-count:2'>                        </span>Submit.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-tab-count:1'>            </span>Takes them to confirmation page.<span
+style='font-size:10.0pt;font-family:ArialMT;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:10.0pt;font-family:ArialMT;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><u>Check
+payment page:</u> </p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'>Note about the process that they will not be officially
+registered until the check is received and processed.</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-layout-grid-align:none;
+text-autospace:none'>Lists the address to send check to and who to make it
+payable to. </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-tab-count:1'>            </span>Link to proceed to Confirmation
+page.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-tab-count:1'>            </span>Sample text: Your pre-registration
+will only be complete when we have received your check in the amount of at
+least $50 (the pre-registration deposit). You may also pay the full conference
+cost of $120. </p>
+
+<p style='margin-left:.5in'>Print out this page and send it to us with your
+check payable to <span class=blue1><b><span style='font-size:7.5pt;font-family:
+Verdana'>Campus Crusade for Christ</span></b></span>. Mail this page and your
+check to us at:</p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>Campus Crusade for Christ <br>
+13091 Pond Springs Rd. Ste D-350 <br>
+Austin, TX 78729 <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>Student Name: Adam Ant<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>Student ID:<span style="mso-spacerun: yes">  </span>4554<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>School: U of Illinois<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>Conference: Winter Conference Dallas<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:7.5pt;
+font-family:Verdana'>Pre-registration date: 6/28/02<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:12.0pt;
+margin-left:.5in'><span style='font-size:7.5pt;font-family:Verdana'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><u>“Confirmation” Page: <o:p></o:p></u></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>Shows them their payments in a printable format. </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Also,
+some other sample confirmation data:</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Name<span style='mso-tab-count:1'>  </span>Jim Smith</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>ID<span style='mso-tab-count:1'>        </span>1008575</p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>School<span style='mso-tab-count:1'>            </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Conference Name<span style='mso-tab-count:1'>    </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Scholarship Source<span style='mso-tab-count:1'>  </span>Jim
+Smith</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Pre-Registration Date<span style='mso-tab-count:1'>          </span>6/5/2002</p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><u>“Review” page: <o:p></o:p></u></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>-If there is a pre-registration fee that is not paid, it
+says (in big noticeable letters) they need to make a payment to be registered
+or wait for their check to be processed. </p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>-It also gives them the option to click “Edit My Contact
+Info”, “Edit My Registration Info”,<span style="mso-spacerun: yes"> 
+</span>“Make a Payment” or “Exit”.</p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>-It lists their:</p>
+
+<p class=MsoNormal style='text-indent:.5in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>My Information Summary</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'>Name: <span
+style='mso-tab-count:1'>            </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'>College: <span
+style='mso-tab-count:1'>         </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'>Email: </p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in;mso-pagination:
+none;mso-layout-grid-align:none;text-autospace:none'>Address:<span
+style="mso-spacerun: yes">  </span></p>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'><span style='mso-tab-count:1'>            </span>And their
+Finance Information Summary</p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-pagination:none;mso-layout-grid-align:
+none;text-autospace:none'>Pre-Registration Cost: <span style='mso-tab-count:
+1'>        </span><span style="mso-spacerun: yes">  </span>$50/person<br>
+Full Cost: (includes Pre-Reg)<span style='mso-tab-count:1'>          </span><span
+style="mso-spacerun: yes">  </span>$245/person<br>
+Amount Paid: <span style='mso-tab-count:1'>            </span><span
+style="mso-spacerun: yes">  </span>$<br>
+Amount Scholarship: <span style='mso-tab-count:1'>           </span><span
+style="mso-spacerun: yes">  </span>$<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]><span style='font-size:10.0pt;font-family:ArialMT;color:black'><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982056"><![if !supportLists]>3.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Staff registration:</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Staff
+members register in a special section of the CRS through the Campus Staff Site
+or through a public page where non-campus staff would have to register.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>The
+registration process has 2 parts. <u>First</u>, they indicate their marital
+status, children’s attendance, if they are staff in the region, and if they are
+commuting:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">     </span>What is your marital status?<span
+style="mso-spacerun: yes">  </span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">          </span>Single </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">          </span>Married, but only 1 spouse will
+attend the conference </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">          </span>Married and both spouses will attend
+the conference </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">     </span>If you have children, will you be
+bringing them?<span style="mso-spacerun: yes">  </span>Yes<span
+style="mso-spacerun: yes">     </span>No </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">     </span>Will you be staying at the
+hotel/conference facility?<span style="mso-spacerun: yes">  </span>Yes<span
+style="mso-spacerun: yes">     </span>No </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style="mso-spacerun: yes">     </span>Are you on staff with the Campus Ministry
+in the NCO?<span style="mso-spacerun: yes">  </span>Yes<span
+style="mso-spacerun: yes">     </span>No</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><u>Second</u>,
+they get a customized registration page based on how they answered the
+questions in the first part. Married couples enter information for each spouse
+together on one page. Staff members can always go back later and change their
+registration information up to the Default Date Staff Arrive you set up for
+your conference. The only thing staff members cannot do is delete their
+registration altogether. Only the administrator can delete staff registrations.</p>
+
+<p class=MsoNormal>-<span style='mso-tab-count:2'>                       </span>Spouse
+1<span style="mso-spacerun: yes">             </span>Spouse 2 </p>
+
+<p class=MsoNormal>-First Name:<span style="mso-spacerun: yes">   </span></p>
+
+<p class=MsoNormal>-Last Name:<span style="mso-spacerun: yes">   </span></p>
+
+<p class=MsoNormal>-Arrive Date:<span style="mso-spacerun: yes"> 
+</span>(mm/dd/yyyy)<span style="mso-spacerun: yes">  </span>(mm/dd/yyyy) </p>
+
+<p class=MsoNormal>-Leave Date:<span style="mso-spacerun: yes"> 
+</span>(mm/dd/yyyy)<span style="mso-spacerun: yes">  </span>(mm/dd/yyyy) </p>
+
+<p class=MsoNormal>-Campus/Ministry Team: (as you would like it to appear on
+your nametag)<span style="mso-spacerun: yes">   </span></p>
+
+<p class=MsoNormal>-Account to be charged for this conference:<span
+style="mso-spacerun: yes">   </span></p>
+
+<p class=MsoNormal>-How many additional rooms will you need for your
+children?<span style="mso-spacerun: yes">  </span></p>
+
+<p class=MsoNormal>-For each child: First Name, Last Name, Arrive Date, Leave
+Date, Age, In Child Care?</p>
+
+<p class=MsoNormal>-If you need to reserve a meeting room for any reason, tell
+us the date, starting and ending time, how many people will attend, and whether
+you need any catering through the hotel (if applicable):</p>
+
+<p class=MsoNormal>-If single, Roommate Preference should be listed.</p>
+
+<p class=MsoNormal style='tab-stops:185.25pt;mso-layout-grid-align:none;
+text-autospace:none'><span style='font-size:10.0pt;font-family:ArialMT;
+color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982057"><![if !supportLists]>3.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Ministry Guest Registration</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>The
+only reason a guest needs to register is if they are staying in the hotel. If
+they aren’t, then we don’t need to collect money from them, and it isn’t
+critical that they be in our registration system. It is assumed that guests who
+register do so because they need a room in the hotel. Therefore, the only
+pertinent questions are when would they arrive/leave and do they have a
+roommate preference.<br>
+<span style='font-size:10.0pt;mso-bidi-font-family:Arial;color:navy'><br>
+</span>You may wish to give ministry guests (non-staff, non-student attendees
+such as pastors, recruiters, etc.) special access to register through the CRS.
+Since staff members have access not only to registration, but also to view
+student and staff lists, you may not wish to give ministry</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>guests
+access to the staff section of the CRS. Ministry guests can register for your
+conference by visiting a link you give them that is listed on the home page of
+the administrator tool. Or soon they will be able to use a generic URL such as <span
+style='color:black'><a href="http://conference.campuscrusadeforchrist.com/guest"><span
+style='color:black'>http://conference.campusCrusadeForChrist.com/guest</span></a></span>
+which will list all the conferences that are open for registration.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>Their
+registration pages will mirror the staff registration pages without asking for
+account numbers or regional status. Ministry guests’ registration records will
+be added to the Staff table and will show up in staff reports. They are
+distinguished by having a registration type of guest.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-First
+Name:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Last
+Name:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Arrive
+Date:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Leave
+Date:</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-What
+ministry/organization are you with?</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Are
+you planning to have a booth?</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Are
+you planning to have a breakout session?</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-Who
+would you like to room with?</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>-How
+many additional rooms will you need for your children?</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>For
+each child: -First Name, Last Name, Arrive Date, Leave Date, Age, In Child
+Care?</p>
+
+<p class=MsoNormal style='tab-stops:185.25pt;mso-layout-grid-align:none;
+text-autospace:none'>-If you need to reserve a meeting room for any reason,
+tell us the date, starting and ending time, how many people will attend, and
+whether you need any catering through the hotel (if applicable):</p>
+
+<div style='border:none;border-bottom:solid windowtext .5pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc18982058"><![if !supportLists]>4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Component: Conference Administration</a> </h1>
+
+</div>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>The administrator
+may log on by selecting a conference from a drop down list and using the
+conference password.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>There
+is a link on the Campus Ministry Staff Site on the Tools page. </p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>There
+will be a screen for use by staff to 1. register as staff, 2. view reports, 3
+view student lists and enter scholarships, 4. administrate, 5. create a
+conference from scratch or by copying another conference. The page has 2
+sections - a current conferences section and an archived conferences section.<span
+style="mso-spacerun: yes">  </span>To get to either conference, you will select
+your region or n/a (for multi-region events) from a Region drop down box. Then
+you will get a drop down box of the conferences in that region. The current
+ones will be all conferences that have a conference end date later than today.<span
+style="mso-spacerun: yes">  </span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:11.0pt;mso-bidi-font-size:10.0pt;font-family:ArialMT;
+color:black'><span style='mso-tab-count:1'>            </span><span
+style="mso-spacerun: yes"> </span><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982059"><![if !supportLists]>4.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Conference Administration Home Page</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>When
+you log into the conference admin section, you will see a home page that lists
+general information about the conference including the below. Conference Name,
+Conference ID, Theme, # Registered, Brief Description, Confirmation Email, Web
+registration begin and end dates, Full cost, Accept Credit Cards, and the URL’s
+for students, staff, and guests to register.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982060"><![if !supportLists]>4.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Editing Conference Information:</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='font-size:11.0pt;mso-bidi-font-size:10.0pt;font-family:ArialMT;
+color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>All
+info is editable. You will not be able to change any custom questions after the
+first person registers. <o:p></o:p></span></p>
+
+<h2><a name="_Toc18982061"><![if !supportLists]>4.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Viewing reports:</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>The
+reports menu can be accessed from the staff site conference page by any staff
+member (or from the staff public page with a staff password) for the
+conference. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>Staff
+members can access the following reports to help prepare for the conference</span><span
+style='font-size:10.0pt;font-family:ArialMT;color:black'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>Staff
+Housing Report</b> This report lists all staff members (and ministry guests)
+who have indicated they will be staying at the hotel/conference facility. It
+also lists arrival/leave dates, roommate preferences, and additional rooms
+needed for children. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>Child
+Care Requests</b> This report lists all children whose parents have requested
+child care at the conference along with their birthdates and arrival and leave
+dates.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>Facilities
+Request</b> This report lists all requests for facilities that staff members
+have made for the conference.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>Ministry
+Booth/Breakout Session Requests</b> This report lists all requests by
+non-regional staff and ministry guests for booths or ministry breakout
+sessions.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>Student
+Ride Offers</b> If you are collecting ride information from your students, this
+report will list the students who have offered to give rides and their city of
+departure.</span><span style='font-size:10.0pt;font-family:ArialMT;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial;color:black'>• <b>T-Shirt
+Size Requests </b>If you have asked students to indicate T-shirt size during
+registration, this report will list the number of requests for each size.</span><span
+style='font-size:11.0pt;mso-bidi-font-size:10.0pt;font-family:ArialMT;
+color:black'><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982062"><![if !supportLists]>4.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Managing Student Registrations</a></h2>
+
+<h3><a name="_Toc18982063"><![if !supportLists]>4.4.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Administrators Editing Student Registrations</a> </h3>
+
+<p class=MsoNormal style='mso-pagination:none;mso-layout-grid-align:none;
+text-autospace:none'>You can view a registrant list sorted by different fields.
+Then click on a person to see all their fields.</p>
+
+<p class=MsoNormal>You can edit any of their information. You can then Edit
+their payments and add payments. You can also delete them.<span
+style='font-family:"Times New Roman"'> <o:p></o:p></span></p>
+
+<h3><a name="_Toc18982064"><![if !supportLists]>4.4.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Staff Editing Student Registrations</a> </h3>
+
+<p class=MsoNormal>Staff will be able to see a list of students from a certain
+campus that they select from a drop down list of campuses in the conferences
+region or nation. They can then click on a link to edit/add scholarship
+information for the student. Currently the payment object has the 4 chart
+fields and an account number field. The CRS saves staff account numbers in the
+accountNo field and ministry account chart field combos in the other 4. This
+will help differentiating which payments are staff accounts verses ministry
+accounts. Then on the form to do the electronic JV we can fill in the first 3
+chartfields that are the same for all staff accounts and place the accountNo
+field in the project column of the form or report.<span style='font-family:
+"Times New Roman"'> <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'>Scholarship payments example. </p>
+
+<p class=MsoNormal style='margin-left:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-layout-grid-align:none;
+text-autospace:none'>For Operating accounts: </p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-layout-grid-align:none;
+text-autospace:none'>BusinessUnit<span style='mso-tab-count:2'>             </span>Dept<span
+style='mso-tab-count:2'>                </span>Region<span style='mso-tab-count:
+2'>                        </span>Project<span style='mso-tab-count:1'>            </span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-layout-grid-align:none;
+text-autospace:none'>_____<span style='mso-tab-count:3'>                         </span>______<span
+style='mso-tab-count:1'>           </span>_____<span style='mso-tab-count:2'>             </span>_____</p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-layout-grid-align:none;
+text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='margin-left:1.0in;mso-layout-grid-align:none;
+text-autospace:none'>For staff member accounts:</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:.5in'>Account Number:
+_____</p>
+
+<p class=MsoNormal style='margin-left:1.0in'><span style='font-size:10.0pt;
+font-family:ArialMT;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc18982065"><![if !supportLists]>4.4.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Deleting Student Registrations</a></h3>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>From
+the “Manage Registrants” screen, edit the student, then click the “Delete”
+button at the end of the page of the student you wish to delete.<span
+style="mso-spacerun: yes">  </span>Deleting a student registration with
+corresponding payment records will eliminate from the CRS any record that you
+received a check or that a credit card transaction took place. It will not
+refund the student’s credit card payment or delete them from the transaction
+batches in Authorize.net.<span style="mso-spacerun: yes">  </span>Deleting a
+student registration does not delete the Student record from the system, only
+the records pertaining to this particular conference. The student will be able
+to find their record by their email/username in the future.<span
+style='font-size:10.0pt;font-family:ArialMT;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-size:10.0pt;font-family:Arial-ItalicMT;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></p>
+
+<h3><a name="_Toc18982066"><![if !supportLists]>4.4.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Managing Student Payments</a></h3>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>From
+the “Manage Registration Info page, click on a registrant, then click the words
+“Manage Payments” near the end of the personal info section.<span
+style="mso-spacerun: yes">  </span>This will take you to a payments page that
+will allow you to manually edit payment records. You will need to do this when
+checks arrive in your office to confirm that payment has been received. For
+checks, enter the amount of the check, and the check number under Comment
+(optional). The date will automatically be saved.<span style="mso-spacerun:
+yes">  </span>If the check was postmarked after the discount date, make a note
+in the comment field so when the student gets to the conference there will be
+an explanation.</p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>You
+may also use this page to delete payment records and manually add new records.
+To delete a record, click the “delete” button below the payment record. To add
+a new record, go to the section at the bottom of the page called “Add New
+Payment”, fill out the information for the new payment, and click “Save”. Note:
+Changing payment records does not affect transactions in Authorize.net.<i><span
+style='font-size:10.0pt;font-family:Arial-ItalicMT;color:black'><o:p></o:p></span></i></p>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><i><span
+style='font-size:10.0pt;font-family:Arial-ItalicMT;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></i></p>
+
+<h3><a name="_Toc18982067"><![if !supportLists]>4.4.5<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span><![endif]>Managing Incomplete Registrations</a></h3>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>When
+a student begins registration and exits after selecting a payment method, but
+before completing the payment process, they have an incomplete registration. This
+will also occur if Authorize.net returns an unexpected error. In this instance,
+they will have a student registration record, but no payment record, and
+therefore are not considered pre-registered. To view a list of these students,
+locate the link for: “Incomplete Registrations” on the “Manage Registration
+Info” page. This will load a page listing the incomplete student registrations.
+To email all these people, click the “E-mail These Registrants” link which will
+bring up a blank email in your default email program with these registrants’
+email addresses in the “to” field. If you want to delete these registrants, you
+can click on each one to get to the screen where you can view, edit, or delete
+their registration record. They will still have their log in and contact info
+saved in the general student database, but they will have to register again and
+answer all the “My Registration Info” questions.<span style='font-size:10.0pt;
+font-family:Arial-BoldMT;color:black'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span class=MsoHyperlink><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><a name="_Toc18982068"><![if !supportLists]>4.5<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Managing Staff Registrations</a></h2>
+
+<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'>You can
+view a complete list of staff members registered for a particular conference
+from the Regional Administrator’s Menu. Under the heading “View Complete Staff
+Registration List. Note: This list includes ministry guests as well. You can
+delete a staff member’s registration by clicking the word Delete at the end of
+their record. You will have an opportunity to view their registration record to
+confirm. To delete the registration, click the button Delete This Registration.
+Note: Deleting a staff member’s registration record will delete registration
+information for their entire family unit.<span style='font-family:"Times New Roman"'>
+</span><span class=MsoHyperlink><o:p></o:p></span></p>
+
+<div style='border:none;border-bottom:solid windowtext .5pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc18982069"><![if !supportLists]>5<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><![endif]>Component: Downloading/Uploading Your Conference Data</a></h1>
+
+</div>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Downloading Your
+Conference Data</b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Times New Roman"'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal>You can download either a Microsoft Access or Excel version
+of the data. To download an Access database for use on-site at your conference:</p>
+
+<p class=MsoNormal>-Log into the conference.<span style='font-size:10.0pt;
+font-family:ArialMT;color:black'> </span><span style="mso-spacerun:
+yes"> </span><span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>-Go to the section &quot;Download Reg. Info&quot; <span
+style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>-Click on the template that you wish your data to be placed
+into. If you have a custom database, you can download using the blank database
+template which will be filled with all the newly generated tables, then copy
+these tables to your database where your reports and queries are stored.<span
+style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>-Wait for your database to be generated (up to a minute)<span
+style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>-Right click on the link supplied, to download your
+database.<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Downloads and Uploads are secure (they use SSL).&nbsp;<span
+style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>&nbsp;<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'>Uploading Your
+Conference Database </b><b style='mso-bidi-font-weight:normal'><span
+style='font-family:"Times New Roman"'><o:p></o:p></span></b></p>
+
+<p class=MsoNormal>If you are a small conference, don't worry about uploading
+you data. This is mainly for big winter conferences. <span style='mso-bidi-font-weight:
+bold'>The main benefit for this function is t</span>o get finalized lists of
+who went to the conference for campus staff to access. This would be adding the
+walk-ins that registered and were entered at the conference and deleting the
+no-shows (removing their registration, but not their person record or log in
+account from the student database). </p>
+
+<p class=MsoNormal><span style="mso-spacerun: yes"> </span><span
+style='font-size:10.0pt;mso-bidi-font-family:Arial'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>Before uploading the database, you should compact it. This will greatly
+reduce the size of the file and save you upload time. Here’s how: open up the
+database and click:<br>
+<b>Tools -&gt; Database Utilities -&gt; Compact and Repair Database</b></span><span
+style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>&nbsp;<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>Assuming you have followed the guidelines listed below,
+return to the &quot;Download Reg. Info&quot;<span style="mso-spacerun: yes"> 
+</span>section of the website.<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>Find the “Access Database Upload” section and “browse” to
+find your database file.<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>Click upload and be very patient, as it may take several
+minutes to first upload, and then process your database.<span style='font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal>&nbsp;<span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo14;tab-stops:list .5in'>When
+     you upload a conference, it removes no-show registrations from the
+     national server (just their registration, so they no longer show up on
+     your web reports), and adds walk-in attendee information <span
+     style='font-family:"Times New Roman"'><o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo14;tab-stops:list .5in'>For
+     uploading you need to have an email address for each person. (They will be
+     skipped otherwise) <span style='font-family:"Times New Roman"'><o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo14;tab-stops:list .5in'>Custom
+     answers or finance records will not be uploaded. <span style='font-family:
+     "Times New Roman"'><o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo14;tab-stops:list .5in'>You
+     may create new tables, queries, forms and macros in this database. <span
+     style='font-family:"Times New Roman"'><o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo14;tab-stops:list .5in'>You
+     may modify any tables in it with the following caveats: <span
+     style='font-family:"Times New Roman"'><o:p></o:p></span></li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='mso-list:l4 level2 lfo14;tab-stops:list 1.0in'>In
+      the<b style='mso-bidi-font-weight:normal'> Registrants table</b>, if you
+      modify any of the structure of the fields prior to the registrationID
+      field, you will not be able to upload walk-in or no-show information
+      after the conference.<span style="mso-spacerun: yes">  </span>You may
+      add, modify, or remove any fields after the registrationID field. </li>
+  <li class=MsoNormal style='mso-list:l4 level2 lfo14;tab-stops:list 1.0in'>The
+      <b style='mso-bidi-font-weight:normal'>Registrants table</b> lists
+      registrants who registered online for your conference with personID
+      numbers having values less than 5,000,000. You will notice that walk-ins
+      will be assigned Student ID numbers higher than 5,000,000. If you modify
+      this table in any way that changes this configuration, you will not be
+      able to upload walk-in information after the conference.<span
+      style="mso-spacerun: yes">  </span>This includes exporting these records
+      to another table which you use for registration and changing the personID
+      field from the type auto-number to type number.<span style="mso-spacerun:
+      yes">  </span></li>
+ </ul>
+</ul>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-family:Arial'>&nbsp;</span><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>Creating a
+template for download use.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>If you want us to post a copy of your database to be used as a template
+from the download page, follow the procedures below.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>You may want to download a current template from the conference download
+page to modify to be used as your template.<o:p></o:p></span></p>
+
+<p class=MsoNormal><u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>You may:</span></u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'><br>
+Edit/Add Forms<br>
+Edit/Add Your own tables<br>
+Delete Auto-Generated tables - they will be re-created each time someone downloads
+using this template.<o:p></o:p></span></p>
+
+<p class=MsoNormal><u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:
+Arial'>You may not:<br>
+</span></u><span style='mso-bidi-font-size:10.0pt;mso-bidi-font-family:Arial'>Modify
+any of the Auto-Generated tables (see below for list) because any changes you
+make will be overwritten by our system.</span><span style='font-size:10.0pt;
+mso-bidi-font-family:Arial'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-family:Arial'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoNormal>When you submit this template to be added to our system
+(submit to the Campus Ministry Information Solutions Team at alt.60m@uscm.org),
+it is advisable to remove all non-relevant data, and compact the
+database.&nbsp; (Delete Auto-Generated tables to save space since they will be
+recreated.)<br>
+<b><br>
+Auto-Generated tables:</b> ChildRegistration, Conference, CustomQuestions,
+GuestRegistration, Payments, Registrants, Schools, StaffRegistration,
+StudentRegistration <span style='font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+"Arial Unicode MS";mso-bidi-font-family:Arial;color:black'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+"Arial Unicode MS";mso-bidi-font-family:Arial;color:black'>When creating your
+template, you may wish to add fields to the Registrants table such as
+“walk-in?” or “name tag printed?”.<span style="mso-spacerun: yes">  </span>When
+the template is used to create the downloaded database, the Registrants table
+WILL be deleted and recreated.<span style="mso-spacerun: yes">  </span>Here is
+how you tell our system to recreate your custom fields.<span
+style="mso-spacerun: yes">  </span>Before sending us your template, create your
+custom fields in the Registrants_Custom table.<span style="mso-spacerun: yes"> 
+</span>Our system will append your custom fields to the Registrants table that
+it generates.<o:p></o:p></span></p>
+
+<p>Last Modified:<span style='mso-tab-count:2'>                        </span><!--[if supportFields]><span
+style='mso-element:field-begin'></span> TIME \@ &quot;M/d/yyyy&quot; <span
+style='mso-element:field-separator'></span><![endif]-->9/6/2002<!--[if supportFields]><span
+style='mso-element:field-end'></span><![endif]--><span style='mso-bidi-font-size:
+10.0pt;font-family:Arial;mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+package id32bhhcw6i81mocw6r4xeh;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id1uov0cw6i81mocw6r7o01.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.hr.review360.model:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#id285q5cw6i81mocw99o2u7.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.hr.review360.scripts:oiref> 
+*/
+class reference13 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id1uov0cw6i81mocw6r7o01.diagram:oiref>=165,203,107,100,1:oigroup>
+*/
+class __positions {
+}

@@ -1,0 +1,12 @@
+
+Priority 2 (expected, can be done after started being used)
+- make fileInfo page look good
+- buttons
+
+Priority 3 (not expected)
+- on uploadpopuppage, make status bar visible
+- delete resource may need a confirmation window (esp. to set the url)
+- upload html
+- get rid of all the tubs
+- tweak the catbrowse look
+- sorting 321 quality (not available now)

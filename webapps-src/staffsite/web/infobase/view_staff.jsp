@@ -1,0 +1,158 @@
+<%@ page import="org.alt60m.servlet.*, java.util.*, java.text.*" %>
+<%
+ActionResults ar; 
+ar = ActionResults.getActionResults(session);
+SimpleDateFormat normalDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+SimpleDateFormat noYearDateFormat = new SimpleDateFormat("MM/dd");
+boolean isHr = (new Boolean(ar.getValue("isHR"))).booleanValue();
+Hashtable h = ar.getHashtable("staffinfo");
+		String ministry = (String)h.get("Ministry");
+		String jobTitle = (String)h.get("JobTitle");
+		String mobilePhone = (String)h.get("MobilePhone");
+		String firstName = (String)h.get("FirstName");
+		String staffID = (String)h.get("AccountNo");
+		String accountCode = (String)h.get("AccountCode");
+		String deptID = (String)h.get("DeptId");
+		String city = (String)h.get("City");
+		String zip = (String)h.get("Zip");
+		String otherCity = (String)h.get("OtherCity");
+		String maritalStatus = (String)h.get("MaritalStatus");
+		String email = (String)h.get("Email");
+		String position = (String)h.get("Position");
+    String workPhone = (String)h.get("WorkPhone");
+    String note = (String)h.get("Note");
+    Boolean isMale = (Boolean)h.get("IsMale");
+    String title = (String)h.get("Title");
+    String region = (String)h.get("Region");
+    String otherCountry = (String)h.get("OtherCountry");
+    String otherZip = (String)h.get("OtherZip");
+    String role = (String)h.get("Role");
+    String namePrefix = (String)h.get("NamePrefix");
+    String jobCode = (String)h.get("JobCode");
+    String country = (String)h.get("Country");
+    String homePhone = (String)h.get("HomePhone");
+    String countryCode = (String)h.get("CountryCode");
+    String state = (String)h.get("State");
+    String deptName = (String)h.get("DeptName");
+    String spouseName = (String)h.get("SpouseFirstName");
+    //String intlContact = (String)h.get("IntlContact");
+    String address4 = (String)h.get("Address4");
+    String url = (String)h.get("Url");
+    String address3 = (String)h.get("Address3");
+    String address2 = (String)h.get("Address2");
+    String pager = (String)h.get("Pager");
+    String address1 = (String)h.get("Address1");
+		String marriageDate = "";
+		String hireDate = "";
+		String birthDate = "";
+		if(h.get("MarriageDate") != null)
+			marriageDate = normalDateFormat.format((Date)h.get("MarriageDate"));
+		if(h.get("BirthDate") != null) 
+			birthDate = noYearDateFormat.format((Date)h.get("BirthDate"));
+		if(h.get("HireDate") != null)
+			hireDate = normalDateFormat.format((Date)h.get("HireDate"));
+    String preferredName = (String)h.get("PreferredName");
+    String lastName = (String)h.get("LastName");
+    //String partCoord = (String)h.get("PartCoord");
+    String fax = (String)h.get("Fax");
+    String team = (String)h.get("Team");
+    String status = (String)h.get("JobStatus");
+    String strategy = (String)h.get("Strategy");
+
+%>
+<% String pageTitle = "Staff Information: " + preferredName + " " + lastName; %>
+<html>
+<head>
+<title><%= pageTitle %></title>
+</head>
+
+<%@ include file="/infobase/ibheader.jspf" %>
+<P ALIGN="CENTER"><CENTER>
+<TABLE WIDTH="98%" BORDER="0" CELLPADDING="2" CELLSPACING="0">
+<TR><TD WIDTH="50%" valign="top">
+<% box.setTitle("&nbsp;Contact Information");
+   box.setStyle("Classic");
+	 box.setWidth("98%");
+%>
+<%=box.printTop() %>
+				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+				<TR><TD VALIGN="TOP"><%=font%><B>Name: </B></FONT></TD><TD><%= font %><%= (title!=null ? title : "") + " " + firstName + " " + lastName %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Preferred Name: </B></FONT></TD><TD><%= font %><%= preferredName %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Address: </B></FONT></TD><TD><%= font %>
+				              <%if(!address1.trim().equals("")) out.print(address1);
+				                if(!address2.trim().equals("")) out.print("<BR>"+address2);
+				                if(!address3.trim().equals("")) out.print("<BR>"+address3);
+				                if(!address4.trim().equals("")) out.print("<BR>"+address4);
+												out.print("<BR>");
+				                if(!city.equals("")) out.print(city+", ");
+				                if(!state.equals("")) out.print(state+" ");
+				                if(!zip.equals("")) out.print(zip+" ");
+				                if(!country.equals("")) out.print("<BR>" + country);%></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>E-mail: </B></FONT></TD><TD><%= font %><A HREF="mailto: <%= email %>"><%= email %></A></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Home Phone: </B></FONT></TD><TD><%= font %><%= homePhone %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Work Phone: </B></FONT></TD><TD><%= font %><%= workPhone %></TD></TR>
+				<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
+					<TR><TD VALIGN="TOP"><%=font%><B>Mobile Phone: </B></FONT></TD><TD><%= font %><%= mobilePhone %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Pager: </B></FONT></TD><TD><%= font %><%= pager %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Fax: </B></FONT></TD><TD><%= font %><%= fax %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Website URL: </B></FONT></TD><TD><%= font %><A HREF="<%= url %>"><%= url %></A></TD></TR>
+				<% } %>
+				</TABLE>
+<%= box.printBottom() %>
+</TD>
+<TD WIDTH="50%">
+<% box.setTitle("&nbsp;Misc Information"); %>
+<%=box.printTop() %>
+<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+				<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
+				<% if(maritalStatus.equals("M"))
+					   maritalStatus = "Married";
+           else
+					   maritalStatus = "Single";
+						 %>
+				<TR><TD VALIGN="TOP"><%=font%><B>Marital Status: </B></FONT></TD><TD><%= font %><%= maritalStatus %></TD></TR>
+        <% if(maritalStatus.equals("Married")) { %>
+				<TR><TD VALIGN="TOP"><%=font%><B>Spouse Name: </B></FONT></TD><TD><%= font %><%= (spouseName!=null ? spouseName : "") %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Marriage Date: </B></FONT></TD><TD><%= font %><%= marriageDate %></A></TD></TR>
+        <% } %>
+				<TR><TD VALIGN="TOP"><%=font%><B>Birthday: </B></FONT></TD><TD><%= font %><%= birthDate %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Joined Staff: </B></FONT></TD><TD><%= font %><%= hireDate  %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Region: </B></FONT></TD><TD><%= font %><%= region %></TD></TR>
+				<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
+					<TR><TD VALIGN="TOP"><%=font%><B>Dept. Name: </B></FONT></TD><TD><%= font %><%= deptName %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Job Title: </B></FONT></TD><TD><%= font %><%= jobTitle %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Job Code: </B></FONT></TD><TD><%= font %><%= jobCode %></A></TD></TR>
+				<% } else { %>
+					<TR><TD VALIGN="TOP"><%=font%><B>Ministry: </B></FONT></TD><TD><%= font %><%= ministry %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Status: </B></FONT></TD><TD><%= font %><%= status %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Strategy: </B></FONT></TD><TD><%= font %><%= strategy %></A></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Position: </B></FONT></TD><TD><%= font %><%= position %></A></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Team: </B></FONT></TD><TD><%= font %><%= team %></A></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Job: </B></FONT></TD><TD><%= font %><%= jobTitle %></A></TD></TR>				
+				<% } %>
+					<TR><TD VALIGN="TOP"><%=font%><B>Note: </B></FONT></TD><TD><%= font %><%= note %></A></TD></TR>
+				</TABLE>
+				<%= box.printBottom() %>
+				<% if(isHr) { %><BR>
+<% box.setTitle("&nbsp;HR only information"); %>
+<%=box.printTop() %>
+<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+				<TR><TD VALIGN="TOP"><%=font%><B>Children: </B></FONT></TD><TD><%=font%><%
+				Iterator c = ar.getCollection("dependentInfo").iterator();
+				while(c.hasNext()) {
+					out.print(c.next() + "<BR>");
+				}
+				%></FONT></TD></TR>
+
+				</TABLE>
+				<%= box.printBottom() %>
+					<% } %>
+</TD>
+</TR>
+<TR><TD COLSPAN="2"><%=font%>&nbsp;To change your staff information, <A HREF="/servlet/HRUpdateController">click here</A>. 
+</TABLE>
+
+</CENTER>
+		<!--<%=fontB%><%=ar.toHTML()%>-->
+<%@ include file="/infobase/ibfooter.jspf" %>
+</html>

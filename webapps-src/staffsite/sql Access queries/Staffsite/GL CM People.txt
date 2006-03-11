@@ -1,0 +1,3 @@
+SELECT istprod_ministry_Staff.firstName, istprod_ministry_Staff.lastName, istprod_ministry_Staff.ministry, istprod_ministry_Staff.region
+FROM istprod_ministry_Staff
+WHERE (((istprod_ministry_Staff.ministry)="Campus Ministry") AND ((istprod_ministry_Staff.region)="GL"));

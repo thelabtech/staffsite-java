@@ -1,0 +1,90 @@
+<project name="Common" default="compile" basedir=".">
+
+  <!-- set global properties for this build -->
+  <property name="src" value="source" />
+  <property name="build" value="../../classes" />
+  <property name="dist"  value="../../classes-dist" />
+  <property name="temp-dir"  value="${build}/common-tmp" />
+  <property name="staffsite_home"  value="../../tomcat/webapps/staffsite" />
+  <property name="api.docs"  value="../../doc/common-api"/>
+  <property name="javac.optimize" value="off"/>
+  <property name="javac.debug" value="on"/>
+
+  <path id="project.class.path">
+      <fileset dir="..\..\auxclasses">
+		<include name="lib\*.jar"/>
+		<include name="lib\*.zip"/>
+      </fileset>
+      <pathelement location="${build}"/>
+  </path>
+
+	<target name="docs">
+	<javadoc   packagenames="org.*"
+			   classpathref="project.class.path"
+			   sourcepath="source"
+			   Private="true"
+			   destdir="${api.docs}"
+			   author="true"
+			   version="true">
+	</javadoc>
+	</target>
+
+  <target name="prepare">
+    <tstamp/>
+    <mkdir dir="${build}" />
+  </target>
+
+  <target name="compile" depends="prepare">
+
+    <javac srcdir="${src}" destdir="${build}" debug="on" optimize="off" deprecation="off">
+	<classpath refid="project.class.path"/>
+    </javac> 
+
+    <!--Move classes to tomcat directory-->
+    <copy todir="${staffsite_home}/WEB-INF/classes">
+          <fileset dir="${build}" />
+    </copy>
+    
+  </target>
+
+  <target name="dist">
+    <tstamp/>
+
+    <!--Compile to temp directory-->
+    <delete dir="${temp-dir}" />
+    <mkdir dir="${temp-dir}"/>
+    <javac srcdir="${src}" destdir="${temp-dir}" >
+	<classpath refid="project.class.path"/>
+    </javac>
+
+    <!--Make distribution dir-->
+    <mkdir dir="${dist}/${DSTAMP}"/>
+    <mkdir dir="${dist}/current"/>
+
+    <!--Make a jar file from the temp directory-->
+    <jar jarfile="${dist}/${DSTAMP}/alt60m-common.jar" basedir="${temp-dir}"/>
+
+    <copy todir="${dist}/current">
+          <fileset dir="${dist}/${DSTAMP}" />
+    </copy>
+
+    <delete dir="${temp-dir}" />
+  </target>
+  
+	<target name="prepare_deploy">
+		<tstamp/>
+		<delete dir="${build}-tmp" />
+		<mkdir dir="${build}-tmp"/>
+		<javac srcdir="${src}" debug="${javac.debug}" optimize="${javac.optimize}" destdir="${build}-tmp">      
+			<classpath refid="project.class.path"/>
+		</javac>
+		<jar jarfile="..\..\${deploy.dir}\WEB-INF\lib\alt60m-common.jar" basedir="${build}-tmp"/>
+		<delete dir="${build}-tmp" />
+	</target>
+
+
+  <target name="clean">
+    <delete dir="${build}" />
+  </target>
+
+</project>

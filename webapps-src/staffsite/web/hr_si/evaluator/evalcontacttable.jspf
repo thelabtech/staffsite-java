@@ -1,0 +1,33 @@
+<!-- Start Contact Infomration -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" width="25%" align="right">Full Legal Name:<br><font size="1">(Title, First, Middle, Last)</font></td><td colspan="3"class="evalbigbold"><%=ShowNoNull(p.getTitle())%>  <%=ShowNoNull(p.getFirstName())%> <%=ShowNoNull(p.getMiddleName())%> <%=ShowNoNull(p.getLastName())%></td></tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" align="right">Preferred Name:</td><td class="eval"><%=ShowNoNull(p.getPreferredName())%></td><td class="evaltitle" align="right">Marital Status:</td><td class="eval"><%=ShowNoNull(SIPerson.translateMaritalStatus(p.getMaritalStatus()))%></td></tr>
+	<tr><td class="evaltitle" align="right">SS#:</td><td colspan="3" class="eval"><%=ShowNoNull(app.getSsn())%></td></tr>
+	<tr><td class="evaltitle" align="right">Electronic Signature:</td><td colspan="3" class="eval"><%=ShowNoNull(app.getElectronicSignature())%></td></tr>
+	<tr><td class="evaltitle" align="right">App Submited Date(YYYY/MM/DD):</td><td colspan="3" class="eval"><%=ShowNoNull(app.getDateSubmitted())%></td></tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td class="evaltitle" valign="top" align="right">CURRENT</td>
+<td colspan="3" valign="top"><font class="evaltitle">Address:</font><br><font class="eval"><%=ShowNoNull(p.getCurrentAddress1())%><%=hasAValue(p.getCurrentAddress2())?"<BR>":""%><%=ShowNoNull(p.getCurrentAddress2())%></font><br><font class="eval"><%=ShowNoNull(p.getCurrentCity())%>, <%=ShowNoNull(p.getCurrentState())%> <%=ShowNoNull(p.getCurrentZip())%></font><br><font class="evaltitle">Home Phone:</font><%=ShowNoNull(p.getCurrentHomePhone())%><br><font class="evaltitle">Work Phone:</font><%=ShowNoNull(p.getCurrentWorkPhone())%><br><font class="evaltitle">Cell:</font><%=ShowNoNull(p.getCurrentCellPhone())%><br><font class="evaltitle">Email:</font><%=ShowNoNull(p.getCurrentEmail())%>
+	</td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">PERMANENT</td>
+	<td colspan="3" valign="top"><font class="evaltitle">Address:</font><br><font class="eval"><%=ShowNoNull(p.getPermAddress1())%><%=hasAValue(p.getPermAddress2())?"<BR>":""%><%=ShowNoNull(p.getPermAddress2())%></font><br><font class="eval"><%=ShowNoNull(p.getPermCity())%>, <%=ShowNoNull(p.getPermState())%> <%=ShowNoNull(p.getPermZip())%></font><br><font class="evaltitle">Home Phone:</font><%=ShowNoNull(p.getPermHomePhone())%><br><font class="evaltitle">Work Phone:</font><%=ShowNoNull(p.getPermWorkPhone())%><br><font class="evaltitle">Cell:</font><%=ShowNoNull(p.getPermCellPhone())%><br><font class="evaltitle">Email:</font><%=ShowNoNull(p.getPermEmail())%>
+	</td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMPLOYMENT & SCHOOL</td>
+	<td colspan="3" valign="top"><font class="evaltitle">Do you have a legal right to work in the United States?</font><font class="eval"><%=ShowYesNo(p.getWorkInUS())%></font><br><font class="evaltitle">Most recent schools attended:</font><br><font class="eval"><%=ShowNoNull(p.getRecentSchools())%></font><font class="evaltitle">State:</font><font class="eval"><%=ShowNoNull(p.getUniversityState())%></font><br><font class="evaltitle">Graduation Date:</font><font class="eval"><%=ShowNoNull(p.getGraduationDate())%></font><br><font class="evaltitle">Major(s):</font><font class="eval"><%=ShowNoNull(p.getMajors())%>
+	</td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMERGENCY CONTACT INFO 1</td>
+        <td colspan="3" valign="top"><font class="evaltitle">Name: </font><font class="eval"><%=ShowNoNull(p.getEmerContactName())%></font><br><font class="evaltitle">Relationship:</font><font class="eval"><%=ShowNoNull(p.getEmerContactRelationship())%></font><br><font class="evaltitle">Address:</font><br><font class="eval"><%=ShowNoNull(p.getEmerAddress1())%><%=hasAValue(p.getEmerAddress2())?"<BR>":""%><%=ShowNoNull(p.getEmerAddress2())%></font><br><font class="eval"><%=ShowNoNull(p.getEmerCity())%>, <%=ShowNoNull(p.getEmerState())%> <%=ShowNoNull(p.getEmerState())%></font><br><font class="evaltitle">Home Phone:</font><%=ShowNoNull(p.getEmerHomePhone())%><br><font class="evaltitle">Work Phone:</font><%=ShowNoNull(p.getEmerWorkPhone())%><br><font class="evaltitle">Cell:</font><%=ShowNoNull(p.getEmerCellPhone())%><br><font class="evaltitle">Email:</font><%=ShowNoNull(p.getEmerEmail())%></td>
+	</tr>
+	<tr><td colspan="4">&nbsp;</td></tr>
+	<tr><td class="evaltitle" valign="top" align="right">EMERGENCY CONTACT INFO 2</td>
+        <td colspan="3" valign="top"><font class="evaltitle">Name: </font><font class="eval"><%=ShowNoNull(p.getEmer2ContactName())%></font><br><font class="evaltitle">Relationship:</font><font class="eval"><%=ShowNoNull(p.getEmer2ContactRelationship())%></font><br><font class="evaltitle">Address:</font><br><font class="eval"><%=ShowNoNull(p.getEmer2Address1())%><%=hasAValue(p.getEmer2Address2())?"<BR>":""%><%=ShowNoNull(p.getEmer2Address2())%></font><br><font class="eval"><%=ShowNoNull(p.getEmer2City())%>, <%=ShowNoNull(p.getEmer2State())%> <%=ShowNoNull(p.getEmer2State())%></font><br><font class="evaltitle">Home Phone:</font><%=ShowNoNull(p.getEmer2HomePhone())%><br><font class="evaltitle">Work Phone:</font><%=ShowNoNull(p.getEmer2WorkPhone())%><br><font class="evaltitle">Cell:</font><%=ShowNoNull(p.getEmer2CellPhone())%><br><font class="evaltitle">Email:</font><%=ShowNoNull(p.getEmer2Email())%></td>
+	</tr>
+</table>
+<!-- Start Contact Infomration -->

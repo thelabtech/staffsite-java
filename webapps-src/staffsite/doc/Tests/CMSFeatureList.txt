@@ -1,0 +1,58 @@
+CMS (Content Management System) or the Resource Center
+
+ This component offers a reasonably secure resource center for uploading and downloading 
+a wide array of document types by multiple users even beyond Lake Hart.  The 
+responsible party for a document can update or replace it.  A moderator edits the documents.
+The CMS engine should allow special characters (apostrophe, etc.).
+
+	Home
+	Browse
+		Edit for content/delete/category
+		Click the magnifying glass beside a file to view more information
+		Open a file from the more information page
+		Search to show/download/edit
+			Try out the search function on the home page, both with and without the "exact phrase" checked
+			Try the advanced search options
+			Open a file from the search results screen by clicking its title
+			Click the "more info" link for a file displayed on the search results page
+			Test search types
+				Ranked (best matches)
+				Meta-Info searches
+				Date-range searches
+				Include apostrophe in title
+
+		Files to download/edit
+			Save a file to computer by right clicking the "download" button and choosing "save target as"
+			Test all file types
+			Meta-info
+
+		Category
+			Browse
+			Show
+			Rename
+	
+	Moderate
+		Click the "moderate" button
+		Try out "accept," "delete," and "review" for a couple of files.
+		Under "review," try making some changes and hit "accept with changes."
+		Also try "delete" from the "review" screen, as well as "back."
+		Also try "attach a new resource" from this screen.
+		Edit a resource's meta-information
+		Try adding a resource to more categories and removing it from a category or categories
+		Replace a resource with a new file
+		Remove a subcategory
+		Rename a subcategory
+		Add a subcategory
+
+	Category
+		Show/Browse
+		Delete
+		Rename
+
+	Submit a file
+		Upload a resource
+		Contact Person
+		File Type (test all file types)
+		Submitter
+		Quality
+ 

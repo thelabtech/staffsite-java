@@ -1,0 +1,3 @@
+SELECT istprod_ministry_TargetArea.name, istprod_ministry_Activity.strategy, istprod_ministry_Activity.status, istprod_ministry_Activity.periodBegin, istprod_ministry_Activity.periodEnd, istprod_ministry_TargetArea.TargetAreaID, istprod_ministry_Activity.ActivityID
+FROM istprod_ministry_Activity INNER JOIN istprod_ministry_TargetArea ON istprod_ministry_Activity.fk_targetAreaID = istprod_ministry_TargetArea.TargetAreaID
+WHERE (((istprod_ministry_Activity.strategy)="SC") AND ((istprod_ministry_Activity.status)<>"IN"));

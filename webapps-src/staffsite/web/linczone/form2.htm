@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>CollegeWalk Registration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	background-color: #ff6600;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<link href="http://www.collegewalk.com/pages.css" rel="stylesheet" type="text/css">
+<SCRIPT language=JAVASCRIPT type=TEXT/JAVASCRIPT>
+<!--
+function popupWindow(cUrl,cName,cFeatures) {
+	var childWindow = window.open(cUrl,cName,cFeatures);
+	if (childWindow.opener == null) childWindow.opener = self;
+	childWindow.focus();
+}
+
+
+function makeMonthArray() {this.length=12;
+        this[1] = "January", this[2] = "February"; this[3] = "March"; 
+        this[4] = "April", this[5] = "May"; this[6] = "June";
+        this[7] = "July", this[8] = "August"; this[9] = "September"; 
+        this[10] = "October", this[11] = "November"; this[12] = "December"; 
+return(this);
+}
+function makeDayArray() { 
+this.length=7;
+        this[1] = "Sunday", this[2] = "Monday"; this[3] = "Tuesday";
+        this[4] = "Wednesday", this[5] = "Thursday"; this[6] = "Friday"; 
+        this[7] = "Saturday"; 
+return(this);
+}
+function writeDate() { 
+        attdate = new Date();
+        monthName = new makeMonthArray();
+        dayName = new makeDayArray();
+        day = attdate.getDay() + 1;
+        date = attdate.getDate();
+        month = attdate.getMonth() + 1;
+       year = attdate.getYear();
+        sec = attdate.getSeconds()
+        if (90 <=year && year < 2000) { 
+                year = 1900 + year;
+        } 
+		dateStr = dayName[day];
+        dateStr += ", "; 
+		dateStr += monthName[month];
+        dateStr += " "; 
+        dateStr += date; 
+        dateStr += ", "; 
+        dateStr += year;
+document.write(dateStr);
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_validateForm() { //v4.0
+  var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
+  for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=MM_findObj(args[i]);
+    if (val) { nm=val.name; if ((val=val.value)!="") {
+      if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
+        if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
+      } else if (test!='R') {
+        if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
+        if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
+          min=test.substring(8,p); max=test.substring(p+1);
+          if (val<min || max<val) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
+    } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
+  }
+  if(verifyMinistryCheckboxes()==false) { errors+= '- you must select at least one organization.\n'; }
+  if (errors) alert('The following error(s) occurred:\n'+errors);
+  document.MM_returnValue = (errors == '');
+}
+
+function verifyMinistryCheckboxes() {
+
+	// Loop from zero to the one minus the number of checkbox button selections
+	for (counter = 0; counter < Info.ministryInfo.length; counter++) {
+		if (Info.ministryInfo[counter].checked) { return true; }
+	}
+	return false;
+}
+
+function tmt_compareField(f1,f2,rule,errorMsg){
+	var myErr = "";
+	if(eval("MM_findObj('"+f1+"').value"+rule+"MM_findObj('"+f2+"').value")){
+		alert(unescape(errorMsg));myErr += 'errorMsg';}
+	document.MM_returnValue = (myErr == "");
+}
+//-->
+</SCRIPT>
+
+</head>
+
+<body><table width="450" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="25" rowspan="4"><img src="http://www.collegewalk.com/images/spacer.gif" width="25"></td>
+    <td><img src="http://www.collegewalk.com/images/cwlogo.gif" width="284" height="111"></td>
+  </tr>
+  <tr>
+    <td><table width="450" border="0" cellpadding="0" cellspacing="0" bgcolor="#000033">
+  <tr> 
+    <td height="2" colspan="3"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="2"></td>
+  </tr>
+  <tr> 
+    <td width="2"><img src="http://www.collegewalk.com/images/spacer.gif" WIDTH="2"></td>
+    <td width="446" valign="top" bgcolor="#FFFFFF"> <table width="446" border="0" cellpadding="0" cellspacing="0" background=http://www.collegewalk.com/images/cellback.gif">
+                    <tr> 
+          <td height="18" colspan="3"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="20"></td>
+        </tr>
+        <tr> 
+          <td width="18"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="1"></td>
+                      <td width="410" valign="top"> <FORM name=Info action="linczone_submit.jsp" method=post>
+                          <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                            <tr valign="top"> 
+                              <td colspan="2"> <h1>Enter Your Information<span class="body"> 
+                                  (or Graduates' Information) <br>
+                                  <a href="policy.htm" target="_blank">Privacy Policy</a><br>
+                                  <font color="#FF0000">* = Required Information</font></span></h1></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td width="52%"><p><b><font color="#FF0000">*</font>First 
+                                  Name: 
+                                  <input type="text" size="15" name="firstname" maxlength="120">
+                                  </b></p></td>
+                              <td width="48%"><p><b><font color="#FF0000">*</font>Last 
+                                  : 
+                                  <input type="text" size="20" name="lastname" maxlength="120">
+                                  </b></p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b><font color="#FF0000">*</font>Home 
+                                  Address: 
+                                  <input type="text" size="35" name="address" maxlength="120">
+                                  </b></p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b><font color="#FF0000">*</font>City:<strong> 
+                                  </strong> 
+                                  <input type="text" size="15" name="city" maxlength="20">
+                                  <font color="#FF0000">*</font>State: 
+                                  <input type="text" size="5" name="state" maxlength="20">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FF0000">*</font>Zip:<strong> 
+                                  </strong></b> 
+                                  <input type="text" size="6" name="zip" maxlength="80">
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b><font color="#FF0000">*</font>E-mail:</b> 
+                                  <input type="text" size="25" name="email2" maxlength="120">
+                                  <br>
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b><font color="#FF0000">*</font>Confirm 
+                                  E-mail:</b> 
+                                  <input type="text" name="email" size="25" maxlength="120" onBlur="tmt_compareField('email2','email','!=','Make%20sure%20you%20have%20entered%20the%20correct%20e-mail%20address.%20%20You%20entered%20two%20different%20values.');return document.MM_returnValue">
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b><font color="#FF0000">*</font>High 
+                                  School</b> 
+                                  <input type="text" name="highschool" size="25" maxlength="120">
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><B><FONT color=#ff0000>*</FONT>School 
+                                  that will be attending: <STRONG>(required)</STRONG></B><BR>
+                                  <INPUT 
+                                readOnly size=35 name=campusname maxlength="200">
+                                  <INPUT 
+                                type=hidden name=campusid>
+                                  <A 
+                                href="javascript:popupWindow('campuslist.jsp','Help','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=400,width=510,height=400'%20)">Select 
+                                  School</A></p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"> <p><b><font color="#FF0000">*</font>Organization(s) 
+                                  you would like to receive information from</b>:<br>
+                                  <font color="#FF0000">(Choose one or more)</font> 
+                                  Notice: These ministries may not have a local 
+                                  outreach at your school. </p>
+                                <blockquote> 
+                                  <p> 
+                                    <INPUT type=checkbox 
+                              value=ccc name=ministryInfo>
+                                    Campus Crusade for Christ<BR>
+                                    <INPUT type=checkbox value=nav 
+                              name=ministryInfo>
+                                    Navigators<BR>
+                                    <INPUT type=checkbox 
+                              value=iv name=ministryInfo>
+                                    InterVarsity<BR>
+                                    <INPUT type=checkbox value=fca 
+                              name=ministryInfo>
+                                    Fellowship of Christian Athletes<BR>
+                                    <INPUT type=checkbox value=bsu name=ministryInfo>
+                                    Baptist Student Union <BR>
+                                    <INPUT type=checkbox value=cacm 
+                              name=ministryInfo>
+                                    Chi Alpha Campus Ministries <BR>
+                                    <INPUT type=checkbox value=efca 
+                              name=ministryInfo>
+                                    Evangelical Free Church Student Ministries 
+                                    <BR>
+                                    <INPUT type=checkbox value=gcm 
+                              name=ministryInfo>
+                                    Great Commission Ministries<br>
+                                    <input type=checkbox value=wesley name=ministryInfo>
+                                    Wesley Foundation<br>
+                                    <input type=checkbox name=ministryInfo value=all>
+                                    All of Above </blockquote></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"> <p><font color="#000033"><b><font color="#FF0000">If 
+                                  you are submitting this information for someone 
+                                  else, please provide the following:</font></b></font> 
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td><p><b>First Name:</b> 
+                                  <input type="text" name="referrerfirst" size="20" maxlength="120">
+                                </p></td>
+                              <td><p><b>Last Name:</b> 
+                                  <input type="text" name="referrerlast" size="25" maxlength="120">
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b>Relationship to Contact:</b> 
+                                  <select name="relationship" size="1">
+                                    <option value="">Choose one ...</option>
+                                    <option value="parent">Parent</option>
+                                    <option value="leader">Youth Leader</option>
+                                    <option value="pastor">Pastor</option>
+                                    <option value="other">Other</option>
+                                  </select>
+                                </p></td>
+                            </tr>
+                            <tr valign="top"> 
+                              <td colspan="2"><p><b>Your E-mail Address:</b> 
+                                  <input type="text" name="refemail" size="25" maxlength="200">
+                                </p></td>
+                            </tr>
+                          </table>
+                          <p> 
+                            <INPUT onclick="MM_validateForm('firstname','','R','lastname','','R','address','','R','city','','R','state','','R','zip','','R','email','','RisEmail','highschool','','R','campusname','','R','refemail','','NisEmail');return document.MM_returnValue" type=submit value="Send Information" name=btnSubmit>
+                            or 
+                            <INPUT type=reset value="Clear Form" name=btnReset>
+                          </p>
+                        </form>
+                        <h1>&nbsp;</h1>
+            </td>
+                      <td width="18"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr> 
+          <td height="18" colspan="3"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+      </table></td>
+    <td width="2"><img src="http://www.collegewalk.com/images/spacer.gif" WIDTH="2"></td>
+  </tr>
+  <tr> 
+    <td height="2" colspan="3"><img src="http://www.collegewalk.com/images/spacer.gif" width="1" height="2"></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top"><p><strong><span class="sub">&copy; 2003 CollegeWalk, A Ministry of Campus Crusade for Christ, Intl.</span></strong><span class="sub"><br>
+  Developed and maintained by Student LINC</span></p>    </td>
+  </tr>
+</table>
+
+</body>
+</html>

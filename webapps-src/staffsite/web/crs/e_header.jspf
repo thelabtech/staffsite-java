@@ -1,0 +1,158 @@
+<script src="/__utm.js"></script>
+<%int curr_tab = 3;%>
+<HTML>
+<HEAD>
+<TITLE><%=pageTitle%></TITLE>
+<LINK
+	rel=STYLESHEET
+	href="/crs/crs.css"
+	Type="text/css">
+</HEAD>
+<%@ include file="/headers/noauth.jspf"%>
+<%@ include file="/style.jspf"%>
+<%@ include file="/headers/javascript.jspf"%>
+<jsp:useBean
+	id="formatter"
+	class="org.alt60m.html.Formatter"
+	scope="request" />
+<jsp:useBean
+	id="toolsMenu"
+	class="org.alt60m.html.Menu"
+	scope="request" />
+<jsp:useBean
+	id="conferenceMenu"
+	class="org.alt60m.html.Menu"
+	scope="request" />
+<jsp:useBean
+	id="creationMenu"
+	class="org.alt60m.html.Menu"
+	scope="request" />
+<%
+	if (session.getAttribute("loggedIn") == null || session.isNew()){
+		toolsMenu.setTitle("Tools");
+		toolsMenu.setNames(new String[]{
+			"CRS Home", 
+			"Select a Conference", 
+		});
+		toolsMenu.setURLs(new String[]{
+			"/servlet/CRSAdmin?action=adminHome",
+			"/servlet/CRSAdmin?action=listConferences",
+		});
+	} else {
+		toolsMenu.setTitle("Tools");
+		toolsMenu.setNames(new String[]{
+			"CRS Home", 
+			"Select a Conference", 
+			"Create a New Conference", 
+			"Clone an Existing Conference",
+		});
+		toolsMenu.setURLs(new String[]{
+			"/servlet/CRSAdmin?action=adminHome",
+			"/servlet/CRSAdmin?action=listConferences",
+			"/servlet/CRSAdmin?action=createConference",
+			"/servlet/CRSAdmin?action=cloneConference",
+		});
+	}
+
+	conferenceMenu.setTitle(conference.getName());
+	conferenceMenu.setHeaderClass("subboxheader");
+	conferenceMenu.setNames(new String[]{
+		"Conference Details", 
+		"Manage Registrants",
+		"View Reports",
+		"Clone this Conference",
+		"Delete this Conference",
+		"Edit Conference Info",
+		"Edit Additional Conference Information",
+		"Manage Registrant Types, Questions & Financial Details",
+/*		"Edit Registrant Type Details",
+		"Edit Financial Info",
+		"Edit Additional Expenses",
+		"Edit Profile Questions",
+		"Edit Conference Specific Questions",
+*/		"Edit Display Options",
+		"Download Conference Data"
+	});
+	conferenceMenu.setURLs(new String[]{
+		"/servlet/CRSAdmin?action=showConference",
+		"/servlet/CRSAdmin?action=lookupRegistrations",
+		"/servlet/CRSAdmin?action=listReports",
+		"/servlet/CRSAdmin?action=cloneConference",
+		"/servlet/CRSAdmin?action=confirmDeleteConference",
+		"/servlet/CRSAdmin?action=editConferenceDetails",
+		"/servlet/CRSAdmin?action=listCustomItems",
+		"/servlet/CRSAdmin?action=listRegistrationTypes",
+/*		"/servlet/CRSAdmin?action=editRegistrationTypeDetails",
+		"/servlet/CRSAdmin?action=editFinancialDetails",
+		"/servlet/CRSAdmin?action=listMerchandise",
+		"/servlet/CRSAdmin?action=editProfileQuestions",
+		"/servlet/CRSAdmin?action=listQuestions",
+*/		"/servlet/CRSAdmin?action=editDisplayOptions",
+		"/servlet/CRSAdmin?action=prepDownload"
+	});
+
+	creationMenu.setTitle("Conference Creation");
+	creationMenu.setHeaderClass("subboxheader");
+	creationMenu.setNames(new String[]{
+		"1) Conference info",
+		"2) Additional Conference Information",
+		"3) Manage Registrant Types",
+	
+	/*		"4) Edit Registrant Type Details",
+			"5) Financial info",
+			"6) Additional Expenses",
+			"7) Profile Questions",
+			"8) Conference-Specific Questions",
+	*/		
+	
+		"4) Display options",
+	});
+	creationMenu.setURLs(new String[]{
+		"/servlet/CRSAdmin?action=editConferenceDetails",
+		"/servlet/CRSAdmin?action=listCustomItems",
+		"/servlet/CRSAdmin?action=listRegistrationTypes",
+/*		"/servlet/CRSAdmin?action=editRegistrationTypeDetails",
+		"/servlet/CRSAdmin?action=editFinancialDetails",
+		"/servlet/CRSAdmin?action=listMerchandise",
+		"/servlet/CRSAdmin?action=editProfileQuestions",
+		"/servlet/CRSAdmin?action=listQuestions",
+*/		"/servlet/CRSAdmin?action=editDisplayOptions"
+	});
+%>
+<BODY onLoad="UnHighlightAll()">
+<%@ include file="/headers/overlib.jspf"%>
+<CENTER>
+<TABLE
+	WIDTH=760
+	BORDER=0
+	CELLPADDING=0
+	CELLSPACING=0>
+	<!-- Whole Page table -->
+	<TR>
+		<TD><!-- Header begin --> <%@ include
+			file="/headers/smallheadergraphic.jspf"%>
+		<P><!-- Header end -->
+		</TD>
+	</TR>
+	<TR>
+		<TD
+			BGCOLOR="#FFFFFF"
+			ALIGN="LEFT"
+			CELLSPACING="0"><!--Start all table-->
+		<TABLE
+			CLASS="main"
+			CELLSPACING="0"
+			WIDTH="100%">
+			<%
+	if (pageTitle!=null) { 
+%>
+			<TR>
+				<TD
+					CLASS="header"
+					VALIGN="BOTTOM"><%=pageTitle%></TD>
+			</TR>
+			<%
+	}
+%>
+			<TR>
+				<TD>

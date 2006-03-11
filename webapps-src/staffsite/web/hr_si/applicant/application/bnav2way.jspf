@@ -1,0 +1,15 @@
+	<TR>
+		<TD COLSPAN="2">
+		<TABLE WIDTH="100%" CELLSPACING="0">
+			<TR>
+				<TD ALIGN="LEFT" VALIGN="TOP" WIDTH="33%" CLASS="button"><A CLASS="button" HREF="JavaScript: doPostForm('<%=pages[pageNum - 2]%>')" CLASS="button">&lt;&lt;Back</A></TD>
+				<TD ALIGN="CENTER" VALIGN="TOP" WIDTH="33%" CLASS="button"><A CLASS="button" HREF="JavaScript: doPostForm('finishA')" CLASS="button">Save Work/Finish Later</A></TD>
+				<TD ALIGN="RIGHT" VALIGN="TOP" WIDTH="33%" CLASS="button"><A CLASS="button" HREF="JavaScript: doPostForm('<%=pages[pageNum]%>')">Next&gt;&gt;</A></TD>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+<%=box.printBottom()%>
+</FORM>
+<%@ include file="/hr_si/siMainFooter.jspf" %>

@@ -1,0 +1,10 @@
+<%=box.printBottom()%>
+</form>
+<%@ include file="../footer.jspf" %>
+<%
+	}	// end of BIG try catch for entire JSP
+	catch (Exception e) {
+		System.out.println("Exception in JSP page! " + e);
+		e.printStackTrace();		
+	}
+%>

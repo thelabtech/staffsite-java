@@ -1,0 +1,58 @@
+<STYLE type="text/css">
+A {text-decoration: none;}
+A:link {text-decoration: none;}
+A:active {text-decoration: none;}
+A:visited {text-decoration: none;}
+A:hover {text-decoration: underline;}
+</STYLE>
+
+<%
+
+//	Edit this section to change most all background colors
+String color1 = "#003399";
+String color2 = "#F6F7FE";
+String color3 = "#A1B5DF";
+//String color1 = "#FF9933";   //Orange!
+
+
+String barColor = "bgcolor=" + color1;
+String barFaded = "bgcolor=" + color3;
+String borderColor = "bordercolor=" + color1;
+String backColor = "bgcolor=" + color2;
+
+//	Body attribute
+String noMargins = "topmargin=0 bottomargin=0 rightmargin=0 leftmargin=0";
+String colorLinks = "link=" + color3 + " vlink=" + color3 + " alink=white";
+
+//	Table attributes
+String tblPage = "<TABLE cellpadding=6px cellspacing=0 border=0 width=100% >";
+String tblTDL = "<TR><TD width=200px align=right valign=top>";
+String tblTDC = "<TD width=* align=center valign=top>";
+String tblTDR = "<TD width=200px align=left valign=top>";
+
+String noPadding = "cellpadding=0 cellspacing=0 border=0";
+String littlePadding = "cellpadding=3px cellspacing=0 border=0";
+String bigPadding = "cellpadding=8px cellspacing=0 border=0";
+String thinBorder = "cellpadding=3px cellspacing=0 border=1 " + borderColor;
+
+String widthAll = "width=100%";
+String width750 = "width=750px";
+String width600 = "width=600px";
+String width500 = "width=500px";
+String width400 = "width=400px";
+String width300 = "width=300px";
+String width200 = "width=200px";
+String width150 = "width=150px";
+String width100 = "width=100px";
+
+//	Some Fonts
+String font = "<FONT face=arial size=-1 color=003399>";
+String fontS = "<FONT face=arial size=-2 color=003399>";
+String fontA = "<FONT face=arial size=-1 color=003399>";
+String fontB = "<FONT face=arial size=-1 color=003399><B>";
+String fontT = "<FONT face=arial size=-1 color=FFFFFF><B>";
+String fontH = "<FONT face=arial size=+2 color=FFFFFF><B>";
+String fontTH = "<FONT face=arial color=003399><B>";
+
+
+%>

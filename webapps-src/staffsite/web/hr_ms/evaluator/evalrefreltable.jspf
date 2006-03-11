@@ -1,0 +1,108 @@
+<%@ page import="org.alt60m.wsn.sp.model.dbio.WsnReference"%>
+<!-- Start Reference Relationship to Applicant -->
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="4"><b>Reference Relationship with Applicant</b><br>&nbsp;</td>
+	</tr>
+
+
+<%
+    WsnReference ref = null;
+    String refTitle = "";
+	String currType = "";
+    for(int currentReferrer=0; currentReferrer<3; currentReferrer++) {
+        switch (currentReferrer) {
+            case 0:
+                refTitle = "Spiritual Leader #1";
+				currType = "S1";
+                ref = refs1;
+                break;
+            case 1:
+                refTitle = "Spiritual Leader #2";
+				currType = "S2";
+                ref = refs2;
+                break;
+            case 2:
+                refTitle = "Peer";
+				currType = "P";
+                ref = refp;
+                break;
+        }
+%>
+	<tr><td class="evaltitle" colspan="4">
+		<table align="center" width="100%" border=0 frame=0>
+			<tr>
+				<td class="menu" ALIGN="left" width='25%'>
+					&nbsp;
+				</td>
+				<td class="menu" ALIGN="center" width='50%'>
+					<b><%=refTitle%></b>
+				</td>
+				<td class="menu" ALIGN="right" width='25%'>
+<%					if("".equals(ref.getReferenceType())) { %>
+						<a href='MSController?action=refFormAdd&personID=<%=personID%>&refType=<%=currType%>' target='blank'>Add</a>
+<%					} else { %>
+						<a href='MSController?action=refFormEncEdit&encRefID=<%=ref.encodeReferenceID()%>&eval=y' target='blank'>View/Edit</a>
+<%					} %>					
+				</td>
+			</tr>
+		</table>
+	</td>
+	</tr>
+<% if("".equals(ref.getReferenceType())) { %>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">
+		<table align="center" width="70%"><tr><td class="evaltitle" ALIGN="center"><b>None</b><BR></td></tr></table>
+		</td>
+	</tr>
+<% } else { %>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="1">Name</td>
+		<TD CLASS="eval" ALIGN="left" colspan="3"><b><%=ShowNoNull(ref.getTitle())%> <%=ShowNoNull(ref.getFirstName())%> <%=ShowNoNull(ref.getLastName())%></b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" width="5%" nowrap>Address</td>
+		<TD CLASS="eval" ALIGN="left" width="25%" nowrap><%=ShowNoNull(ref.getCurrentAddress1())%>
+            <%=hasAValue(ref.getCurrentAddress2())?"<BR>"+ref.getCurrentAddress2():""%> </td>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" width="5%" nowrap>Home</td>
+		<TD CLASS="eval" ALIGN="left" valign="top" width="25%" nowrap><%=ShowNoNull(ref.getHomePhone())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP"></td>
+		<TD CLASS="eval" ALIGN="left"><%=ShowNoNull(ref.getCurrentCity())%>, <%=ShowNoNull(ref.getCurrentState())%> <%=ShowNoNull(ref.getCurrentZip())%></td>
+		<TD CLASS="evaltitle" align="left">Work</td>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP"><%=ShowNoNull(ref.getWorkPhone())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP">Email</td>
+		<TD CLASS="eval" ALIGN="left"><%=ShowNoNull(ref.getCurrentEmail())%></td>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP">Cell</td>
+		<TD CLASS="eval" ALIGN="left"><%=ShowNoNull(ref.getCellPhone())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">In what capacity have you known the applicant?<font class="eval"><%=ShowNoNull(ref.getHowKnown())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">How long have you known the applicant?<font class="eval"><%=ShowNoNull(ref.getHowLongKnown())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">How well do you know the applicant? <font class="eval"><%=ShowNoNull(ref.getHowWellKnown())%></font></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">Are you CCC staff?<font class="eval"><%=ShowYesNo(ref.getIsStaff())%></font></font></td>
+	</tr>
+<% if(ref.getIsStaff()) {%>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">Account Number<font class="eval"><%=ShowNoNull(ref.getStaffNumber())%></font></font></td>
+	</tr>
+<% } %>
+	<tr>
+		<TD CLASS="evaltitle" align="left" VALIGN="TOP" colspan="4">Is it okay for the student's mid-project evaluation to be sent to you?<font class="eval"><%=ShowYesNo(ref.getSendMidEval())%></font></font></td>
+	</tr>
+
+<%      }
+    }
+%>
+</table>
+
+<!-- End Reference Relationship to Applicant -->
+

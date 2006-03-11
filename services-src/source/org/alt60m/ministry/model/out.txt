@@ -1,0 +1,1341 @@
+***********************************************************************************************
+Processing Activity.java
+***********************************************************************************************
+public String getStatus() {
+	return status; 
+}
+public void setStatus(String status) {
+	this.status = status; 
+}
+public Date getPeriodEnd() {
+	return periodEnd; 
+}
+public void setPeriodEnd(Date periodEnd) {
+	this.periodEnd = periodEnd; 
+}
+public String getStrategy() {
+	return strategy; 
+}
+public void setStrategy(String strategy) {
+	this.strategy = strategy; 
+}
+public String getTransUsername() {
+	return transUsername; 
+}
+public void setTransUsername(String transUsername) {
+	this.transUsername = transUsername; 
+}
+public TargetArea getTargetArea() {
+	return targetArea; 
+}
+public void setTargetArea(TargetArea targetArea) {
+	this.targetArea = targetArea; 
+}
+public Date getPeriodBegin() {
+	return periodBegin; 
+}
+public void setPeriodBegin(Date periodBegin) {
+	this.periodBegin = periodBegin; 
+}
+***********************************************************************************************
+Processing Address.java
+***********************************************************************************************
+public Date getStartDate() {
+	return startDate; 
+}
+public void setStartDate(Date startDate) {
+	this.startDate = startDate; 
+}
+public Date getEndDate() {
+	return endDate; 
+}
+public void setEndDate(Date endDate) {
+	this.endDate = endDate; 
+}
+public String getAddress1() {
+	return address1; 
+}
+public void setAddress1(String address1) {
+	this.address1 = address1; 
+}
+public String getAddress2() {
+	return address2; 
+}
+public void setAddress2(String address2) {
+	this.address2 = address2; 
+}
+public String getAddress3() {
+	return address3; 
+}
+public void setAddress3(String address3) {
+	this.address3 = address3; 
+}
+public String getAddress4() {
+	return address4; 
+}
+public void setAddress4(String address4) {
+	this.address4 = address4; 
+}
+public String getCity() {
+	return city; 
+}
+public void setCity(String city) {
+	this.city = city; 
+}
+public String getState() {
+	return state; 
+}
+public void setState(String state) {
+	this.state = state; 
+}
+public String getZip() {
+	return zip; 
+}
+public void setZip(String zip) {
+	this.zip = zip; 
+}
+public String getCountry() {
+	return country; 
+}
+public void setCountry(String country) {
+	this.country = country; 
+}
+***********************************************************************************************
+Processing Authorization.java
+***********************************************************************************************
+public Date getAuthDate() {
+	return authDate; 
+}
+public void setAuthDate(Date authDate) {
+	this.authDate = authDate; 
+}
+public String getRole() {
+	return role; 
+}
+public void setRole(String role) {
+	this.role = role; 
+}
+public String getAuthorized() {
+	return authorized; 
+}
+public void setAuthorized(String authorized) {
+	this.authorized = authorized; 
+}
+public long getSequence() {
+	return sequence; 
+}
+public void setSequence(long sequence) {
+	this.sequence = sequence; 
+}
+***********************************************************************************************
+Processing ChangeRequest.java
+***********************************************************************************************
+public Date getRequestDate() {
+	return requestDate; 
+}
+public void setRequestDate(Date requestDate) {
+	this.requestDate = requestDate; 
+}
+public Date getEffectiveDate() {
+	return effectiveDate; 
+}
+public void setEffectiveDate(Date effectiveDate) {
+	this.effectiveDate = effectiveDate; 
+}
+public Date getAppliedDate() {
+	return appliedDate; 
+}
+public void setAppliedDate(Date appliedDate) {
+	this.appliedDate = appliedDate; 
+}
+public String getType() {
+	return type; 
+}
+public void setType(String type) {
+	this.type = type; 
+}
+***********************************************************************************************
+Processing Dependent.java
+***********************************************************************************************
+public String getFirstName() {
+	return firstName; 
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName; 
+}
+public String getMiddleName() {
+	return middleName; 
+}
+public void setMiddleName(String middleName) {
+	this.middleName = middleName; 
+}
+public String getLastName() {
+	return lastName; 
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName; 
+}
+public Date getBirthDate() {
+	return birthDate; 
+}
+public void setBirthDate(Date birthDate) {
+	this.birthDate = birthDate; 
+}
+public String getGender() {
+	return gender; 
+}
+public void setGender(String gender) {
+	this.gender = gender; 
+}
+***********************************************************************************************
+Processing FieldChange.java
+***********************************************************************************************
+public String getField() {
+	return field; 
+}
+public void setField(String field) {
+	this.field = field; 
+}
+public String getOldValue() {
+	return oldValue; 
+}
+public void setOldValue(String oldValue) {
+	this.oldValue = oldValue; 
+}
+public String getNewValue() {
+	return newValue; 
+}
+public void setNewValue(String newValue) {
+	this.newValue = newValue; 
+}
+***********************************************************************************************
+Processing LocalLevel.java
+***********************************************************************************************
+public String getLane() {
+	return lane; 
+}
+public void setLane(String lane) {
+	this.lane = lane; 
+}
+***********************************************************************************************
+Processing MinistryUtils.java
+***********************************************************************************************
+***********************************************************************************************
+Processing NatlTeam.java
+***********************************************************************************************
+***********************************************************************************************
+Processing NonCccMin.java
+***********************************************************************************************
+public String getMinistry() {
+	return ministry; 
+}
+public void setMinistry(String ministry) {
+	this.ministry = ministry; 
+}
+public String getFirstName() {
+	return firstName; 
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName; 
+}
+public String getLastName() {
+	return lastName; 
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName; 
+}
+public String getAddress1() {
+	return address1; 
+}
+public void setAddress1(String address1) {
+	this.address1 = address1; 
+}
+public String getAddress2() {
+	return address2; 
+}
+public void setAddress2(String address2) {
+	this.address2 = address2; 
+}
+public String getCity() {
+	return city; 
+}
+public void setCity(String city) {
+	this.city = city; 
+}
+public String getState() {
+	return state; 
+}
+public void setState(String state) {
+	this.state = state; 
+}
+public String getZip() {
+	return zip; 
+}
+public void setZip(String zip) {
+	this.zip = zip; 
+}
+public String getCountry() {
+	return country; 
+}
+public void setCountry(String country) {
+	this.country = country; 
+}
+public String getHomePhone() {
+	return homePhone; 
+}
+public void setHomePhone(String homePhone) {
+	this.homePhone = homePhone; 
+}
+public String getWorkPhone() {
+	return workPhone; 
+}
+public void setWorkPhone(String workPhone) {
+	this.workPhone = workPhone; 
+}
+public String getMobilePhone() {
+	return mobilePhone; 
+}
+public void setMobilePhone(String mobilePhone) {
+	this.mobilePhone = mobilePhone; 
+}
+public String getEmail() {
+	return email; 
+}
+public void setEmail(String email) {
+	this.email = email; 
+}
+public String getUrl() {
+	return url; 
+}
+public void setUrl(String url) {
+	this.url = url; 
+}
+public String getPager() {
+	return pager; 
+}
+public void setPager(String pager) {
+	this.pager = pager; 
+}
+public String getFax() {
+	return fax; 
+}
+public void setFax(String fax) {
+	this.fax = fax; 
+}
+public String getNote() {
+	return note; 
+}
+public void setNote(String note) {
+	this.note = note; 
+}
+***********************************************************************************************
+Processing Note.java
+***********************************************************************************************
+public Date getDateEntered() {
+	return dateEntered; 
+}
+public void setDateEntered(Date dateEntered) {
+	this.dateEntered = dateEntered; 
+}
+public String getTitle() {
+	return title; 
+}
+public void setTitle(String title) {
+	this.title = title; 
+}
+public String getNote() {
+	return note; 
+}
+public void setNote(String note) {
+	this.note = note; 
+}
+***********************************************************************************************
+Processing RegionalStat.java
+***********************************************************************************************
+public Date getPeriodBegin() {
+	return periodBegin; 
+}
+public void setPeriodBegin(Date periodBegin) {
+	this.periodBegin = periodBegin; 
+}
+public Date getPeriodEnd() {
+	return periodEnd; 
+}
+public void setPeriodEnd(Date periodEnd) {
+	this.periodEnd = periodEnd; 
+}
+public long getNsSc() {
+	return nsSc; 
+}
+public void setNsSc(long nsSc) {
+	this.nsSc = nsSc; 
+}
+public long getNsWsn() {
+	return nsWsn; 
+}
+public void setNsWsn(long nsWsn) {
+	this.nsWsn = nsWsn; 
+}
+public long getNsCat() {
+	return nsCat; 
+}
+public void setNsCat(long nsCat) {
+	this.nsCat = nsCat; 
+}
+public long getNsIcrD() {
+	return nsIcrD; 
+}
+public void setNsIcrD(long nsIcrD) {
+	this.nsIcrD = nsIcrD; 
+}
+public long getNsIcrI() {
+	return nsIcrI; 
+}
+public void setNsIcrI(long nsIcrI) {
+	this.nsIcrI = nsIcrI; 
+}
+public long getNsIcrE() {
+	return nsIcrE; 
+}
+public void setNsIcrE(long nsIcrE) {
+	this.nsIcrE = nsIcrE; 
+}
+public long getNiSc() {
+	return niSc; 
+}
+public void setNiSc(long niSc) {
+	this.niSc = niSc; 
+}
+public long getNiWsn() {
+	return niWsn; 
+}
+public void setNiWsn(long niWsn) {
+	this.niWsn = niWsn; 
+}
+public long getNiCat() {
+	return niCat; 
+}
+public void setNiCat(long niCat) {
+	this.niCat = niCat; 
+}
+public long getNiIcrD() {
+	return niIcrD; 
+}
+public void setNiIcrD(long niIcrD) {
+	this.niIcrD = niIcrD; 
+}
+public long getNiIcrI() {
+	return niIcrI; 
+}
+public void setNiIcrI(long niIcrI) {
+	this.niIcrI = niIcrI; 
+}
+public long getNiIcrE() {
+	return niIcrE; 
+}
+public void setNiIcrE(long niIcrE) {
+	this.niIcrE = niIcrE; 
+}
+***********************************************************************************************
+Processing RegionalTeam.java
+***********************************************************************************************
+public String getNo() {
+	return no; 
+}
+public void setNo(String no) {
+	this.no = no; 
+}
+public String getAbbrv() {
+	return abbrv; 
+}
+public void setAbbrv(String abbrv) {
+	this.abbrv = abbrv; 
+}
+***********************************************************************************************
+Processing Staff.java
+***********************************************************************************************
+public String getFirstName() {
+	return firstName; 
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName; 
+}
+public String getMiddleInitial() {
+	return middleInitial; 
+}
+public void setMiddleInitial(String middleInitial) {
+	this.middleInitial = middleInitial; 
+}
+public String getLastName() {
+	return lastName; 
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName; 
+}
+public boolean getIsMale() {
+	return isMale; 
+}
+public void setIsMale(boolean isMale) {
+	this.isMale = isMale; 
+}
+public String getPosition() {
+	return position; 
+}
+public void setPosition(String position) {
+	this.position = position; 
+}
+public String getCountryStatus() {
+	return countryStatus; 
+}
+public void setCountryStatus(String countryStatus) {
+	this.countryStatus = countryStatus; 
+}
+public String getJobStatus() {
+	return jobStatus; 
+}
+public void setJobStatus(String jobStatus) {
+	this.jobStatus = jobStatus; 
+}
+public String getMinistry() {
+	return ministry; 
+}
+public void setMinistry(String ministry) {
+	this.ministry = ministry; 
+}
+public String getStrategy() {
+	return strategy; 
+}
+public void setStrategy(String strategy) {
+	this.strategy = strategy; 
+}
+public boolean getIsNewStaff() {
+	return isNewStaff; 
+}
+public void setIsNewStaff(boolean isNewStaff) {
+	this.isNewStaff = isNewStaff; 
+}
+public String getPrimaryEmpLocState() {
+	return primaryEmpLocState; 
+}
+public void setPrimaryEmpLocState(String primaryEmpLocState) {
+	this.primaryEmpLocState = primaryEmpLocState; 
+}
+public String getPrimaryEmpLocCountry() {
+	return primaryEmpLocCountry; 
+}
+public void setPrimaryEmpLocCountry(String primaryEmpLocCountry) {
+	this.primaryEmpLocCountry = primaryEmpLocCountry; 
+}
+public String getPrimaryEmpLocCity() {
+	return primaryEmpLocCity; 
+}
+public void setPrimaryEmpLocCity(String primaryEmpLocCity) {
+	this.primaryEmpLocCity = primaryEmpLocCity; 
+}
+public String getSpouseFirstName() {
+	return spouseFirstName; 
+}
+public void setSpouseFirstName(String spouseFirstName) {
+	this.spouseFirstName = spouseFirstName; 
+}
+public String getSpouseMiddleName() {
+	return spouseMiddleName; 
+}
+public void setSpouseMiddleName(String spouseMiddleName) {
+	this.spouseMiddleName = spouseMiddleName; 
+}
+public String getSpouseLastName() {
+	return spouseLastName; 
+}
+public void setSpouseLastName(String spouseLastName) {
+	this.spouseLastName = spouseLastName; 
+}
+public String getSpouseAccountNo() {
+	return spouseAccountNo; 
+}
+public void setSpouseAccountNo(String spouseAccountNo) {
+	this.spouseAccountNo = spouseAccountNo; 
+}
+public String getSpouseEmail() {
+	return spouseEmail; 
+}
+public void setSpouseEmail(String spouseEmail) {
+	this.spouseEmail = spouseEmail; 
+}
+public String getFianceeFirstName() {
+	return fianceeFirstName; 
+}
+public void setFianceeFirstName(String fianceeFirstName) {
+	this.fianceeFirstName = fianceeFirstName; 
+}
+public String getFianceeMiddleName() {
+	return fianceeMiddleName; 
+}
+public void setFianceeMiddleName(String fianceeMiddleName) {
+	this.fianceeMiddleName = fianceeMiddleName; 
+}
+public String getFianceeLastName() {
+	return fianceeLastName; 
+}
+public void setFianceeLastName(String fianceeLastName) {
+	this.fianceeLastName = fianceeLastName; 
+}
+public String getFinaceeAccountno() {
+	return finaceeAccountno; 
+}
+public void setFinaceeAccountno(String finaceeAccountno) {
+	this.finaceeAccountno = finaceeAccountno; 
+}
+public boolean getIsFianceeStaff() {
+	return isFianceeStaff; 
+}
+public void setIsFianceeStaff(boolean isFianceeStaff) {
+	this.isFianceeStaff = isFianceeStaff; 
+}
+public Date getFianceeJoinStaffDate() {
+	return fianceeJoinStaffDate; 
+}
+public void setFianceeJoinStaffDate(Date fianceeJoinStaffDate) {
+	this.fianceeJoinStaffDate = fianceeJoinStaffDate; 
+}
+public boolean getIsFianceeJoiningNS() {
+	return isFianceeJoiningNS; 
+}
+public void setIsFianceeJoiningNS(boolean isFianceeJoiningNS) {
+	this.isFianceeJoiningNS = isFianceeJoiningNS; 
+}
+public boolean getJoiningNS() {
+	return joiningNS; 
+}
+public void setJoiningNS(boolean joiningNS) {
+	this.joiningNS = joiningNS; 
+}
+public String getHomePhone() {
+	return homePhone; 
+}
+public void setHomePhone(String homePhone) {
+	this.homePhone = homePhone; 
+}
+public String getWorkPhone() {
+	return workPhone; 
+}
+public void setWorkPhone(String workPhone) {
+	this.workPhone = workPhone; 
+}
+public String getMobilePhone() {
+	return mobilePhone; 
+}
+public void setMobilePhone(String mobilePhone) {
+	this.mobilePhone = mobilePhone; 
+}
+public String getPager() {
+	return pager; 
+}
+public void setPager(String pager) {
+	this.pager = pager; 
+}
+public String getEmail() {
+	return email; 
+}
+public void setEmail(String email) {
+	this.email = email; 
+}
+public boolean getIsEmailSecure() {
+	return isEmailSecure; 
+}
+public void setIsEmailSecure(boolean isEmailSecure) {
+	this.isEmailSecure = isEmailSecure; 
+}
+public String getUrl() {
+	return url; 
+}
+public void setUrl(String url) {
+	this.url = url; 
+}
+public Date getNewStaffTrainingDate() {
+	return newStaffTrainingDate; 
+}
+public void setNewStaffTrainingDate(Date newStaffTrainingDate) {
+	this.newStaffTrainingDate = newStaffTrainingDate; 
+}
+public String getFax() {
+	return fax; 
+}
+public void setFax(String fax) {
+	this.fax = fax; 
+}
+public String getNote() {
+	return note; 
+}
+public void setNote(String note) {
+	this.note = note; 
+}
+public String getRegion() {
+	return region; 
+}
+public void setRegion(String region) {
+	this.region = region; 
+}
+public String getAccountNo() {
+	return accountNo; 
+}
+public void setAccountNo(String accountNo) {
+	this.accountNo = accountNo; 
+}
+public String getCountryCode() {
+	return countryCode; 
+}
+public void setCountryCode(String countryCode) {
+	this.countryCode = countryCode; 
+}
+public String getSsn() {
+	return ssn; 
+}
+public void setSsn(String ssn) {
+	this.ssn = ssn; 
+}
+public String getMaritalStatus() {
+	return maritalStatus; 
+}
+public void setMaritalStatus(String maritalStatus) {
+	this.maritalStatus = maritalStatus; 
+}
+public String getDeptId() {
+	return deptId; 
+}
+public void setDeptId(String deptId) {
+	this.deptId = deptId; 
+}
+public String getJobCode() {
+	return jobCode; 
+}
+public void setJobCode(String jobCode) {
+	this.jobCode = jobCode; 
+}
+public String getAccountCode() {
+	return accountCode; 
+}
+public void setAccountCode(String accountCode) {
+	this.accountCode = accountCode; 
+}
+public String getCompFreq() {
+	return compFreq; 
+}
+public void setCompFreq(String compFreq) {
+	this.compFreq = compFreq; 
+}
+public String getCompRate() {
+	return compRate; 
+}
+public void setCompRate(String compRate) {
+	this.compRate = compRate; 
+}
+public String getCompChngAmt() {
+	return compChngAmt; 
+}
+public void setCompChngAmt(String compChngAmt) {
+	this.compChngAmt = compChngAmt; 
+}
+public String getJobTitle() {
+	return jobTitle; 
+}
+public void setJobTitle(String jobTitle) {
+	this.jobTitle = jobTitle; 
+}
+public String getDeptName() {
+	return deptName; 
+}
+public void setDeptName(String deptName) {
+	this.deptName = deptName; 
+}
+public String getCoupleTitle() {
+	return coupleTitle; 
+}
+public void setCoupleTitle(String coupleTitle) {
+	this.coupleTitle = coupleTitle; 
+}
+public String getOtherPhone() {
+	return otherPhone; 
+}
+public void setOtherPhone(String otherPhone) {
+	this.otherPhone = otherPhone; 
+}
+public String getPreferredName() {
+	return preferredName; 
+}
+public void setPreferredName(String preferredName) {
+	this.preferredName = preferredName; 
+}
+public String getNamePrefix() {
+	return namePrefix; 
+}
+public void setNamePrefix(String namePrefix) {
+	this.namePrefix = namePrefix; 
+}
+public Date getOrigHireDate() {
+	return origHireDate; 
+}
+public void setOrigHireDate(Date origHireDate) {
+	this.origHireDate = origHireDate; 
+}
+public Date getBirthDate() {
+	return birthDate; 
+}
+public void setBirthDate(Date birthDate) {
+	this.birthDate = birthDate; 
+}
+public Date getMarriageDate() {
+	return marriageDate; 
+}
+public void setMarriageDate(Date marriageDate) {
+	this.marriageDate = marriageDate; 
+}
+public Date getHireDate() {
+	return hireDate; 
+}
+public void setHireDate(Date hireDate) {
+	this.hireDate = hireDate; 
+}
+public Date getRehireDate() {
+	return rehireDate; 
+}
+public void setRehireDate(Date rehireDate) {
+	this.rehireDate = rehireDate; 
+}
+public Date getLoaStartDate() {
+	return loaStartDate; 
+}
+public void setLoaStartDate(Date loaStartDate) {
+	this.loaStartDate = loaStartDate; 
+}
+public Date getLoaEndDate() {
+	return loaEndDate; 
+}
+public void setLoaEndDate(Date loaEndDate) {
+	this.loaEndDate = loaEndDate; 
+}
+public String getLoaReason() {
+	return loaReason; 
+}
+public void setLoaReason(String loaReason) {
+	this.loaReason = loaReason; 
+}
+public long getSeverancePayMonthsReq() {
+	return severancePayMonthsReq; 
+}
+public void setSeverancePayMonthsReq(long severancePayMonthsReq) {
+	this.severancePayMonthsReq = severancePayMonthsReq; 
+}
+public Date getServiceDate() {
+	return serviceDate; 
+}
+public void setServiceDate(Date serviceDate) {
+	this.serviceDate = serviceDate; 
+}
+public Date getLastIncDate() {
+	return lastIncDate; 
+}
+public void setLastIncDate(Date lastIncDate) {
+	this.lastIncDate = lastIncDate; 
+}
+public Date getJobEntryDate() {
+	return jobEntryDate; 
+}
+public void setJobEntryDate(Date jobEntryDate) {
+	this.jobEntryDate = jobEntryDate; 
+}
+public Date getDeptEntryDate() {
+	return deptEntryDate; 
+}
+public void setDeptEntryDate(Date deptEntryDate) {
+	this.deptEntryDate = deptEntryDate; 
+}
+public Date getReportingDate() {
+	return reportingDate; 
+}
+public void setReportingDate(Date reportingDate) {
+	this.reportingDate = reportingDate; 
+}
+public String getEmploymentType() {
+	return employmentType; 
+}
+public void setEmploymentType(String employmentType) {
+	this.employmentType = employmentType; 
+}
+public String getResignationReason() {
+	return resignationReason; 
+}
+public void setResignationReason(String resignationReason) {
+	this.resignationReason = resignationReason; 
+}
+public Date getResignationDate() {
+	return resignationDate; 
+}
+public void setResignationDate(Date resignationDate) {
+	this.resignationDate = resignationDate; 
+}
+public boolean getContributionsToOtherAcct() {
+	return contributionsToOtherAcct; 
+}
+public void setContributionsToOtherAcct(boolean contributionsToOtherAcct) {
+	this.contributionsToOtherAcct = contributionsToOtherAcct; 
+}
+public String getContributionsToAcntName() {
+	return contributionsToAcntName; 
+}
+public void setContributionsToAcntName(String contributionsToAcntName) {
+	this.contributionsToAcntName = contributionsToAcntName; 
+}
+public String getContributionsToAcntNo() {
+	return contributionsToAcntNo; 
+}
+public void setContributionsToAcntNo(String contributionsToAcntNo) {
+	this.contributionsToAcntNo = contributionsToAcntNo; 
+}
+***********************************************************************************************
+Processing StaffChangeRequest.java
+***********************************************************************************************
+***********************************************************************************************
+Processing Statistic.java
+***********************************************************************************************
+public Date getPeriodBegin() {
+	return periodBegin; 
+}
+public void setPeriodBegin(Date periodBegin) {
+	this.periodBegin = periodBegin; 
+}
+public Date getPeriodEnd() {
+	return periodEnd; 
+}
+public void setPeriodEnd(Date periodEnd) {
+	this.periodEnd = periodEnd; 
+}
+public long getExposures() {
+	return exposures; 
+}
+public void setExposures(long exposures) {
+	this.exposures = exposures; 
+}
+public long getDecisions() {
+	return decisions; 
+}
+public void setDecisions(long decisions) {
+	this.decisions = decisions; 
+}
+public long getAttendedLastConf() {
+	return attendedLastConf; 
+}
+public void setAttendedLastConf(long attendedLastConf) {
+	this.attendedLastConf = attendedLastConf; 
+}
+public long getInvldNewBlvrs() {
+	return invldNewBlvrs; 
+}
+public void setInvldNewBlvrs(long invldNewBlvrs) {
+	this.invldNewBlvrs = invldNewBlvrs; 
+}
+public long getInvldStudents() {
+	return invldStudents; 
+}
+public void setInvldStudents(long invldStudents) {
+	this.invldStudents = invldStudents; 
+}
+public long getInvldFreshmen() {
+	return invldFreshmen; 
+}
+public void setInvldFreshmen(long invldFreshmen) {
+	this.invldFreshmen = invldFreshmen; 
+}
+public long getInvldSophomores() {
+	return invldSophomores; 
+}
+public void setInvldSophomores(long invldSophomores) {
+	this.invldSophomores = invldSophomores; 
+}
+public long getInvldJuniors() {
+	return invldJuniors; 
+}
+public void setInvldJuniors(long invldJuniors) {
+	this.invldJuniors = invldJuniors; 
+}
+public long getInvldSeniors() {
+	return invldSeniors; 
+}
+public void setInvldSeniors(long invldSeniors) {
+	this.invldSeniors = invldSeniors; 
+}
+public long getInvldGrads() {
+	return invldGrads; 
+}
+public void setInvldGrads(long invldGrads) {
+	this.invldGrads = invldGrads; 
+}
+public long getVolunteers() {
+	return volunteers; 
+}
+public void setVolunteers(long volunteers) {
+	this.volunteers = volunteers; 
+}
+public long getStaff() {
+	return staff; 
+}
+public void setStaff(long staff) {
+	this.staff = staff; 
+}
+public long getNonStaffStint() {
+	return nonStaffStint; 
+}
+public void setNonStaffStint(long nonStaffStint) {
+	this.nonStaffStint = nonStaffStint; 
+}
+public long getStaffStint() {
+	return staffStint; 
+}
+public void setStaffStint(long staffStint) {
+	this.staffStint = staffStint; 
+}
+***********************************************************************************************
+Processing TargetArea.java
+***********************************************************************************************
+public String getName() {
+	return name; 
+}
+public void setName(String name) {
+	this.name = name; 
+}
+public String getAddress1() {
+	return address1; 
+}
+public void setAddress1(String address1) {
+	this.address1 = address1; 
+}
+public String getAddress2() {
+	return address2; 
+}
+public void setAddress2(String address2) {
+	this.address2 = address2; 
+}
+public String getCity() {
+	return city; 
+}
+public void setCity(String city) {
+	this.city = city; 
+}
+public String getState() {
+	return state; 
+}
+public void setState(String state) {
+	this.state = state; 
+}
+public String getZip() {
+	return zip; 
+}
+public void setZip(String zip) {
+	this.zip = zip; 
+}
+public String getCountry() {
+	return country; 
+}
+public void setCountry(String country) {
+	this.country = country; 
+}
+public String getPhone() {
+	return phone; 
+}
+public void setPhone(String phone) {
+	this.phone = phone; 
+}
+public String getFax() {
+	return fax; 
+}
+public void setFax(String fax) {
+	this.fax = fax; 
+}
+public String getEmail() {
+	return email; 
+}
+public void setEmail(String email) {
+	this.email = email; 
+}
+public String getUrl() {
+	return url; 
+}
+public void setUrl(String url) {
+	this.url = url; 
+}
+public String getAbbrv() {
+	return abbrv; 
+}
+public void setAbbrv(String abbrv) {
+	this.abbrv = abbrv; 
+}
+public String getFice() {
+	return fice; 
+}
+public void setFice(String fice) {
+	this.fice = fice; 
+}
+public String getPopulation() {
+	return population; 
+}
+public void setPopulation(String population) {
+	this.population = population; 
+}
+public String getNote() {
+	return note; 
+}
+public void setNote(String note) {
+	this.note = note; 
+}
+public String getAltName() {
+	return altName; 
+}
+public void setAltName(String altName) {
+	this.altName = altName; 
+}
+public boolean getIsSecure() {
+	return isSecure; 
+}
+public void setIsSecure(boolean isSecure) {
+	this.isSecure = isSecure; 
+}
+public String getRegion() {
+	return region; 
+}
+public void setRegion(String region) {
+	this.region = region; 
+}
+public String getMpta() {
+	return mpta; 
+}
+public void setMpta(String mpta) {
+	this.mpta = mpta; 
+}
+public String getUrlToLogo() {
+	return urlToLogo; 
+}
+public void setUrlToLogo(String urlToLogo) {
+	this.urlToLogo = urlToLogo; 
+}
+public String getEnrollment() {
+	return enrollment; 
+}
+public void setEnrollment(String enrollment) {
+	this.enrollment = enrollment; 
+}
+public String getMonthSchoolStarts() {
+	return monthSchoolStarts; 
+}
+public void setMonthSchoolStarts(String monthSchoolStarts) {
+	this.monthSchoolStarts = monthSchoolStarts; 
+}
+public String getMonthSchoolStops() {
+	return monthSchoolStops; 
+}
+public void setMonthSchoolStops(String monthSchoolStops) {
+	this.monthSchoolStops = monthSchoolStops; 
+}
+public boolean getIsSemester() {
+	return isSemester; 
+}
+public void setIsSemester(boolean isSemester) {
+	this.isSemester = isSemester; 
+}
+public String getAoaPriority() {
+	return aoaPriority; 
+}
+public void setAoaPriority(String aoaPriority) {
+	this.aoaPriority = aoaPriority; 
+}
+public String getAoa() {
+	return aoa; 
+}
+public void setAoa(String aoa) {
+	this.aoa = aoa; 
+}
+public String getCiaUrl() {
+	return ciaUrl; 
+}
+public void setCiaUrl(String ciaUrl) {
+	this.ciaUrl = ciaUrl; 
+}
+public String getInfoUrl() {
+	return infoUrl; 
+}
+public void setInfoUrl(String infoUrl) {
+	this.infoUrl = infoUrl; 
+}
+public Vector getActivities() {
+	return activities; 
+}
+public void setActivities(Vector activities) {
+	this.activities = activities; 
+}
+***********************************************************************************************
+Processing Team.java
+***********************************************************************************************
+public String getName() {
+	return name; 
+}
+public void setName(String name) {
+	this.name = name; 
+}
+public String getNote() {
+	return note; 
+}
+public void setNote(String note) {
+	this.note = note; 
+}
+public String getRegion() {
+	return region; 
+}
+public void setRegion(String region) {
+	this.region = region; 
+}
+public String getAddress1() {
+	return address1; 
+}
+public void setAddress1(String address1) {
+	this.address1 = address1; 
+}
+public String getAddress2() {
+	return address2; 
+}
+public void setAddress2(String address2) {
+	this.address2 = address2; 
+}
+public String getCity() {
+	return city; 
+}
+public void setCity(String city) {
+	this.city = city; 
+}
+public String getState() {
+	return state; 
+}
+public void setState(String state) {
+	this.state = state; 
+}
+public String getZip() {
+	return zip; 
+}
+public void setZip(String zip) {
+	this.zip = zip; 
+}
+public String getPhone() {
+	return phone; 
+}
+public void setPhone(String phone) {
+	this.phone = phone; 
+}
+public String getFax() {
+	return fax; 
+}
+public void setFax(String fax) {
+	this.fax = fax; 
+}
+public String getEmail() {
+	return email; 
+}
+public void setEmail(String email) {
+	this.email = email; 
+}
+public String getCountry() {
+	return country; 
+}
+public void setCountry(String country) {
+	this.country = country; 
+}
+public String getUrl() {
+	return url; 
+}
+public void setUrl(String url) {
+	this.url = url; 
+}
+public boolean getIsActive() {
+	return isActive; 
+}
+public void setIsActive(boolean isActive) {
+	this.isActive = isActive; 
+}
+public Date getStartDate() {
+	return startDate; 
+}
+public void setStartDate(Date startDate) {
+	this.startDate = startDate; 
+}
+public Date getStopDate() {
+	return stopDate; 
+}
+public void setStopDate(Date stopDate) {
+	this.stopDate = stopDate; 
+}
+***********************************************************************************************
+Processing WsnPartnership.java
+***********************************************************************************************
+public String getStatus() {
+	return status; 
+}
+public void setStatus(String status) {
+	this.status = status; 
+}
+public Date getPeriodBegin() {
+	return periodBegin; 
+}
+public void setPeriodBegin(Date periodBegin) {
+	this.periodBegin = periodBegin; 
+}
+public Date getPeriodEnd() {
+	return periodEnd; 
+}
+public void setPeriodEnd(Date periodEnd) {
+	this.periodEnd = periodEnd; 
+}
+public String getStrategy() {
+	return strategy; 
+}
+public void setStrategy(String strategy) {
+	this.strategy = strategy; 
+}
+public String getName() {
+	return name; 
+}
+public void setName(String name) {
+	this.name = name; 
+}
+public boolean getIsApproved() {
+	return isApproved; 
+}
+public void setIsApproved(boolean isApproved) {
+	this.isApproved = isApproved; 
+}
+public String getWsnStatus() {
+	return wsnStatus; 
+}
+public void setWsnStatus(String wsnStatus) {
+	this.wsnStatus = wsnStatus; 
+}
+public String getAccountingUnit() {
+	return accountingUnit; 
+}
+public void setAccountingUnit(String accountingUnit) {
+	this.accountingUnit = accountingUnit; 
+}
+public String getAnnualBudget() {
+	return annualBudget; 
+}
+public void setAnnualBudget(String annualBudget) {
+	this.annualBudget = annualBudget; 
+}
+public String getNotes() {
+	return notes; 
+}
+public void setNotes(String notes) {
+	this.notes = notes; 
+}
+public String getTransUsername() {
+	return transUsername; 
+}
+public void setTransUsername(String transUsername) {
+	this.transUsername = transUsername; 
+}

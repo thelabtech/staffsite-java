@@ -1,0 +1,283 @@
+/*
+AS 2/2/2003
+Impact colors: 
+Red: #E22F30;
+Green: #00956F
+Yellow: #F4C10E
+Grey: #ACACAC
+*/
+
+
+/* Default element tags */
+BODY {
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	scrollbar-base-color: #E22F30;
+	margin: 0;
+}
+
+A:link {
+	color: #E22F30;
+	text-decoration: none;
+}
+
+A:active, A:visited {
+	color: #E22F30;
+	background: none;
+	text-decoration: none;
+}
+
+A:hover {
+	color: #F4C10E;
+	background: #E22F30;
+	text-decoration: none;
+	cursor: hand;
+}
+
+/* No graphics buttons */
+
+A.button:link, A.button:active, A.button:visited {
+	padding: 1px 5px;
+	color: #F4C10E;
+	background: #E22F30;
+	text-decoration: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F4C10E;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A.button:hover {
+	padding: 1px 5px;
+	color: #F4C10E;
+	background: #00956F;
+	text-decoration: none;
+	cursor: hand;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F4C10E;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+
+TD {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #FFFFFF;
+}
+
+HR {
+	color: #F4C10E;
+	height: 1;
+}
+
+INPUT, TEXTAREA, SELECT{
+	font-family: Arial, sans-serif;	
+	padding: 1px;
+	font-size: 12px;
+	background: #000000;
+	color: #FFFFFF;
+	border: solid 1px #F4C10E;
+	margin: 1px;
+}
+
+.reqfilled{
+	background: #000000;
+}
+
+.required{
+	background: #E22F30;
+}
+
+.empty{
+	background: #000000;
+}
+
+.reqactive, .active{
+	color: #FFFFFF;
+	background: #00956F;
+}
+
+/* Special design tags */
+
+.boxheader {
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #E22F30;
+	font-weight: bold;
+	border: 1px solid #F4C10E;
+}
+
+.box {
+	border: 1px solid #F4C10E;
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.heading {
+	font-family: Arial, sans-serif;
+	font-size: 18;
+	color: #F4C10E;
+	margin-bottom: 5px
+}
+
+.pageheading {
+	font-family: Arial, sans-serif;
+	font-size: 24;
+	color: #F4C10E;
+	text-align: right;
+	font-weight: bold;
+	margin-bottom: 0px
+}
+
+.footer {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+
+.cell {
+	background: #000000;
+}
+
+.cell2 {
+	background: #ACACAC;
+}
+
+.cell3 {
+	background: #F4C10E;
+	color: #000000;
+}
+
+.appbar {
+	background: #F4C10E;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #000000;
+	font-weight: bold;
+}
+
+.app {
+	background: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 11;
+	padding: 2px 5px;
+}
+
+.refradio {
+	font-family: Arial, sans-serif;
+	font-size: 11;
+}
+
+.refradiounder {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+	border-bottom: solid 1px #F4C10E;
+}
+
+.appnumber {
+	font-family: Courier New, Courier, fixed;
+	font-weight: bold;
+	font-size: 30;
+	padding: 2px;
+	color: #F4C10E;
+	border-right: dotted 1px #F4C10E;
+	border-bottom: solid 1px #F4C10E;
+	margin: 0px;
+	width: 15px;
+}
+
+.appquestion{
+	padding: 5px;
+	border-bottom: solid 1px #F4C10E;
+}
+
+.applist {
+	margin: 5px 0px;
+	padding-left: 20px;
+}
+
+
+.highlight {
+	background-color: #FF0000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.small {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+TD.button{ 
+	padding: 5px 3px;
+}
+
+TD.menuactive {
+	padding: px;
+	font-size: 11px;
+	text-align: right;
+}
+
+TD.menu {
+	padding: 0px;
+	font-size: 11px;
+	text-align: right;
+}
+
+
+A.menu:link, A.menu:active, A.menu:visited {
+	padding: 4px;
+	color: #000000;
+	background: #E22F30;
+	text-decoration: none;
+	width: 100%;
+}
+
+A.menu:hover{
+	padding: 3px;
+	color: #FFFFFF;
+	background: #00956F;
+	text-decoration: none;
+	cursor: hand;
+	border: 1px solid #000000;
+	width: 100%;
+}
+
+A.menuactive:link, A.menuactive:active, A.menuactive:visited {
+	padding: 4px;
+	color: #FFFFFF;
+	background: #000000;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 11px;
+	width: 100%;
+}
+
+A.menuactive:hover{
+	padding: 3px;
+	color: #FFFFFF;
+	background: #00956F;
+	text-decoration: none;
+	cursor: hand;
+	font-weight: bold;
+	font-size: 11px;
+	border: 1px solid #F4C10E;
+	width: 100%;
+}
+
+.warning {
+	font-size: 12px;
+	color: #ff3399;
+	/* text-align: center; */
+}
+.header {
+	background: url('/hr_ms/images/impactheaderbg.gif');
+}

@@ -1,0 +1,149 @@
+<!-- Header file for hr_ms.references JSP files -->
+<%@ page import="org.alt60m.servlet.*, java.util.Date" %>
+<jsp:useBean id="selState" class="org.alt60m.html.SelectState"/>
+<jsp:useBean id="util" class="org.alt60m.html.Util"/>
+<jsp:useBean id="mshtmlutils" class="org.alt60m.hr.ms.bean.dbio.MSHTMLUtils" />
+<%
+	// Get the action results object from the session
+	ActionResults ar = ActionResults.getActionResults(session);
+	if (ar==null) response.sendRedirect("/servlet/MSController");	// goto default page
+
+	// This section sets up values to be used for data persistence.
+	String refID = "new";
+	Hashtable wsnReferenceHash = ar.getHashtable("wsnReferenceHash");
+	if (wsnReferenceHash == null)
+		wsnReferenceHash = new Hashtable();
+	else {
+		Integer i = (Integer)wsnReferenceHash.get("ReferenceID");
+		refID = i.toString();
+	}
+	Hashtable WsnApplicationHash = ar.getHashtable("WsnApplicationHash");
+	if (WsnApplicationHash == null)
+		WsnApplicationHash = new Hashtable();
+
+	// titles of each page of the reference form
+	String thePage = ar.getValue("page");
+	String titles[] = {"Welcome", "General Information", "Personal Attributes 1", "Personal Attributes 2", "Personal Attributes 3", "Short Answer 1", "Short Answer 2", "Short Answer 3", "Finish Later/Submit"};
+	// page (view) names of each page in the reference form
+	String pages[] = {"ref1", "ref2", "ref3", "ref4", "ref5", "ref6", "ref7", "ref8", "ref9"};
+	// get the # of the page we are on:
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(thePage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	// title of this html page:
+	String pageTitle = "Reference Form - " + titles[pageNum - 1] + "(" + pageNum + "/" + titles.length + ")";
+
+	//-- Setup some variables to make JSP programming easier:
+	// full name of reference person:
+	String referenceFullName =
+		((String)wsnReferenceHash.get("FirstName") == null? "" : (String)wsnReferenceHash.get("FirstName")) + " " + ((String)wsnReferenceHash.get("LastName") == null ? "" : (String)wsnReferenceHash.get("LastName"));
+	// referenceType string and boolean
+	String referenceType = (String)wsnReferenceHash.get("ReferenceType") == null ? "" : (String)wsnReferenceHash.get("ReferenceType");
+	boolean isPeerReference;
+	if (referenceType.equalsIgnoreCase("P")) {
+		referenceType = "Peer";
+		isPeerReference = true;
+	} else {
+		referenceType = "Spiritual Leader";
+		isPeerReference = false;
+	}
+	if(wsnReferenceHash.get("AppType") != null && wsnReferenceHash.get("AppType").equals("impact"))
+		session.putValue("appType", "impact");
+
+%>
+<%@ include file="../header.jspf" %>
+<%	
+	box.setTableInside(true);
+	box.setWidth("100%");
+%>
+<script language="javascript">
+<!--
+	function doPostForm(nextPage) {
+		// use this to save the page and go to another page on this reference form
+		var theform = document.refForm;
+		theform.nextAction.value = "goToView";	// our "pages" are really "views" on the server
+		theform.page.value = nextPage;
+		theform.submit();
+	}
+	function doPostFormNextAction(nextAction) {
+		// use this to save the page and do a specific reference form action on the server
+		var theform = document.refForm;
+		theform.nextAction.value = nextAction;
+		theform.submit();
+	}
+	function TrackCount(fieldObj,countFieldName,maxChars)
+	{
+	  var countField = eval("fieldObj.form."+countFieldName);
+	  var diff = maxChars - fieldObj.value.length;
+
+	  // Need to check & enforce limit here also in case user pastes data
+	  if (diff < 0)
+	  {
+		fieldObj.value = fieldObj.value.substring(0,maxChars);
+		diff = maxChars - fieldObj.value.length;
+	  }
+	  countField.value = diff;
+	}
+	function LimitText(fieldObj,maxChars)
+	{
+	  var result = true;
+	  if (fieldObj.value.length >= maxChars)
+		result = false;
+	  
+	  if (window.event)
+		window.event.returnValue = result;
+	  return result;
+	}
+// -->
+</script>
+<FORM NAME="refForm" ACTION="MSController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="refFormSave">
+<INPUT TYPE="HIDDEN" NAME="nextAction">
+<INPUT TYPE="HIDDEN" NAME="page">
+<INPUT TYPE="HIDDEN" NAME="refID" VALUE="<%=refID%>">
+
+<CENTER>
+<% box.setTitle(titles[pageNum - 1]); %>
+<%=box.printTop() %>
+	<TR>
+		<TD COLSPAN="2" CLASS="appbar" ALIGN="RIGHT">
+		<TABLE CELLPADDING="0" CELLSPACING="0">
+			<TR>
+				<TD CLASS="menu">Page</TD>
+<%
+				for(int x = 1; x <= titles.length; x++){
+%>
+					<TD CLASS="<%= pageNum == x ? "menuactive" : "menu"%>"><A HREF="javascript: doPostForm('<%=pages[x - 1]%>')" CLASS="<%= pageNum == x ? "menuactive" : "menu"%>"><%=x%></A></TD>
+<%
+			}
+%>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="20%" CLASS="appbar" VALIGN="TOP">
+
+		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+			<TR><TD CLASS="appbar">Section:</TD></TR>
+<%
+			for(int x = 0; x < titles.length; x++){
+%>
+				<TR><TD CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>"><A CLASS="<%= pageNum == x + 1 ? "menuactive" : "menu"%>" HREF="javascript: doPostForm('<%=pages[x]%>')"><%=titles[x]%></A></TD></TR>
+<%
+			}
+			if (displayEditLegend) {
+%>
+				<TR><TD CLASS="appbar"><BR>Legend:</TD></TR>
+				<TR><TD CLASS="required">Required Fields</TD></TR>
+				<TR><TD CLASS="empty">Optional Fields</TD></TR>
+<%
+				}
+%>
+		</TABLE>
+		</TD> 
+		<TD CLASS="app" VALIGN="TOP">

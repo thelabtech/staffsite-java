@@ -1,0 +1,16 @@
+<%@ page import="java.util.*" %>
+<%
+	if (false) { //This line removed, to disable authentication. //session.getValue("loggedIn") == null || session.isNew()){
+		response.sendRedirect("/index.jsp");
+	} else { // Global if section start
+	Hashtable profile = (Hashtable) session.getValue("profile");
+	String profileId = "";
+	if (profile!=null){
+		profileId = (String)profile.get("StaffSiteProfileId");
+	}
+
+	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
+	String todayString = ((today.get(Calendar.MONTH) + 1) + "/" + today.get(Calendar.DATE) + "/" + today.get(Calendar.YEAR));
+	String accountNo = "";
+	accountNo = (String)session.getValue("accountNo");
+%>

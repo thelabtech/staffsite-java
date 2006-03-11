@@ -1,0 +1,246 @@
+<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.hr.si.model.dbio.*" %>
+<jsp:useBean id="htmlutils" class="org.alt60m.hr.si.bean.dbio.SIHTMLUtils" />
+<jsp:useBean id="infoBean" class="org.alt60m.hr.si.bean.dbio.SIInfoBean"/>
+<%!
+    public String ShowNoNull(Object value) {//Note, do not try to run boolean through this.  It is not necesary, and it errors.
+        return ShowNoNull(value,"&nbsp;");
+    }
+    public String ShowNoNull(Object value, String noValueDisplay) {
+        return value!=null?value.toString():noValueDisplay;
+    }
+    public String ShowYesNo(int value) {
+        if(value==1)
+        	return "Yes";
+		else if (value==0)
+			return "No";
+		else
+			return "No Answer";
+    }
+    public String ShowYesNo(boolean value) {
+        return value?"Yes":"No";
+    }
+    public String ShowCheckYes(int value) {
+        return value==1?"X":"&nbsp;";
+    }
+    public String ShowCheckNo(int value) {
+        return value==0?"X":"&nbsp;";
+    }
+    public String ShowCheck(boolean value) {
+        return value?"X":"&nbsp;";
+    }
+    public boolean hasAValue(String value) {
+        return ((value!=null)&&(!("".equals(value))));
+    }
+    public String DisplayRefStatus(String value) {
+        String status = "<font color=\"#FF0000\">None</font>";
+        if("I".equals(value)) status = "<font color=\"#FFFFF00\">Started</font>";
+        if("D".equals(value)) status = "<font color=\"#008000\">Completed</font>";
+        return status;
+    }
+    public String DisplayRealDate(Date day) {
+        return (day==null)?"":((1+day.getMonth()) + "/" + day.getDate() + "/" + day.getYear());
+    }
+    public String SelectYesNo(String field, boolean value) {
+        return "<input type='radio' name='"+field+"' value='True' " + (value?"checked":"") + ">Yes <input type='radio' name='"+field+"' value='False' " + (value?"":"checked") + ">No";
+    }
+
+    public String PrintEvalBox(SIReference refS, SIReference refD, SIReference refR, SIReference refF, String pfType, String field) throws Exception {
+        String refTitle = "", display = "";
+        SIReference ref = null;
+		refTitle = pfType;
+		if (pfType.equals("ALL")) {
+			for(int currentReferrer=0; currentReferrer<4; currentReferrer++) {
+				switch (currentReferrer) {
+					case 0:  ref = refS;  refTitle = "STAFF";      break;
+					case 1:  ref = refD;  refTitle = "DISCIPLER";  break;
+					case 2:  ref = refR;  refTitle = "ROOMMATE";   break;
+					case 3:  ref = refF;  refTitle = "FRIEND";     break;
+				}
+			System.out.println("refTitle1 = " + refTitle);
+			System.out.println("field1 = " + field);
+				display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+				display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+			}
+		} else if (pfType.equals("STAFF")){
+	        ref = refS;
+			display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+			display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+		} else if (pfType.equals("DISCIPLER")){
+	        ref = refD;
+			display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+			display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+		} else if (pfType.equals("ROOMMATE")){
+	        ref = refR;
+			display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+			display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+		} else if (pfType.equals("FRIEND")){
+	        ref = refF;
+			System.out.println("refTitleFriend = " + refTitle);
+			System.out.println("fieldFriend = " + field);
+			System.out.println("refFriend = " + ref);
+			System.out.println("pfTypeFriend = " + pfType);
+				display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+				display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+		}
+		return display;
+    }
+
+    public String PrintEvalBoxforOneRef(SIReference refS, SIReference refD, SIReference refR, SIReference refF, String pfType, String field, String refTitle) throws Exception {
+        String display = "";
+        SIReference ref = null;
+		ref = refF;
+
+		System.out.println("refTitle1New = " + refTitle);
+		System.out.println("field1New = " + field);
+		display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+		display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
+        return display;
+    }
+
+    public String PrintEvalBoxHTMLLines(SIReference ref, String pfType, String refTitle, String field) throws Exception {
+
+		System.out.println("refTitle2 = " + refTitle);
+		System.out.println("field2 = " + field);
+		System.out.println("ref = " + ref);
+		System.out.println("pfType = " + pfType);
+		String display = "";
+		int value = Integer.parseInt(ref.getClass().getMethod("get"+field, null).invoke(ref, null).toString());
+		display +="<tr><td class='insideboxblue' valign='bottom' nowrap>"+refTitle+"</td>";
+		for(int i=1;i<=6;i++) {
+			if(i==value+1)
+				display += "<TD CLASS='insideboxbb' ALIGN='center' valign='bottom'>X</td>";
+			else
+				display += "<td CLASS='insideboxbb'>"+((value==0&&i==1)?"-":"&nbsp;")+"</td>";
+		}
+
+		return display;
+    }
+
+    public String PrintEvalBoxHTMLBottom(SIReference ref, String pfType, String refTitle, String field) throws Exception {
+
+		System.out.println("refTitle2 = " + refTitle);
+		System.out.println("field2 = " + field);
+		String display = "";
+        display +="<td CLASS='insideboxbb'>"+ref.getClass().getMethod("get"+field+"c", null).invoke(ref, null)+"&nbsp;</td></TR>\n";
+
+		return display;
+    }
+
+    public String PrintEvalComment(SIReference refS, SIReference refD, SIReference refR, SIReference refF, String pfType, String field) throws Exception {
+        String refTitle = "", display = "";
+        SIReference ref = null;
+		refTitle = pfType;
+		if (pfType.equals("ALL")) {
+			for(int currentReferrer=0; currentReferrer<4; currentReferrer++) {
+				switch (currentReferrer) {
+					case 0:  ref = refS;  refTitle = "STAFF";      break;
+					case 1:  ref = refD;  refTitle = "DISCIPLER";  break;
+					case 2:  ref = refR;  refTitle = "ROOMMATE";   break;
+					case 3:  ref = refF;  refTitle = "FRIEND";     break;
+				}
+
+				display += PrintEvalCommentLines(ref, field, refTitle);
+			}
+		} else if (pfType.equals("STAFF")){
+	        ref = refS;
+			display += PrintEvalCommentLines(ref, field, refTitle);
+		} else if (pfType.equals("DISCIPLER")){
+	        ref = refD;
+			display += PrintEvalCommentLines(ref, field, refTitle);
+		} else if (pfType.equals("ROOMMATE")){
+	        ref = refR;
+			display += PrintEvalCommentLines(ref, field, refTitle);
+		} else if (pfType.equals("FRIEND")){
+	        ref = refF;
+			System.out.println("refTitleFriend = " + refTitle);
+			System.out.println("fieldFriend = " + field);
+			System.out.println("refFriend = " + ref);
+			System.out.println("pfTypeFriend = " + pfType);
+			display += PrintEvalCommentLines(ref, field, refTitle);
+		}
+        return display;
+    }
+
+    public String PrintEvalCommentLines(SIReference ref, String field, String refTitle) throws Exception {
+
+        String tempString;
+		tempString = ref.getClass().getMethod("get"+field, null).invoke(ref, null).toString();
+		if("true".equals(tempString))       tempString="Yes";
+		else if("false".equals(tempString))  tempString="No";
+
+		return("<tr><TD CLASS='eval' ALIGN='left' VALIGN='TOP' WIDTH='5%'>&nbsp;</td><TD CLASS='evaltitle' ALIGN='left' WIDTH='95%' colspan='2'>("+
+						refTitle + ")<font class='eval'>"+ tempString + "</font></td></tr>\n");
+	}
+%>
+<%
+try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
+//  SIReference refS, refD, refR, refF;
+	ActionResults ar = new ActionResults();
+	ar = ActionResults.getActionResults(session);
+	String thePage = ar.getValue("page");
+
+	// Load a person object to be used on any page using this header
+	String ApplicationID = request.getParameter("ApplicationID");
+	String pfType = request.getParameter("pfType");
+	String yearID = request.getParameter("yearID");
+
+	// 02-11-04 kl: to reuse existing jsp coding, polymorphism using superclass
+	SIApplication app = null;
+	SIPerson p = null;
+	SIReference refS = null;
+	SIReference refD = null;
+	SIReference refR = null;
+	SIReference refF = null;
+/*	if(yearID.equals("2003")){
+		app = new SIApplication_Archive2003();
+		app = infoBean.getSIApplication_Archive(ApplicationID);
+		p = new SIPerson_Archive2003();
+		p = infoBean.getSIPerson_Archive(app.getFk_SIPersonID());
+		refS = new SIReference_Archive2003();
+		refD = new SIReference_Archive2003();
+		refR = new SIReference_Archive2003();
+		refF = new SIReference_Archive2003();
+		refS = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "S");
+		refD = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "D");
+		refR = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "R");
+		refF = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "F");
+	}
+	else {*/
+		app = new SIApplication();
+		app = infoBean.getSIApplication(ApplicationID, yearID);
+		p = new SIPerson();
+		p = infoBean.getSIPerson(app.getFk_SIPersonID());
+		refS = new SIReference();
+		refD = new SIReference();
+		refR = new SIReference();
+		refF = new SIReference();
+		refS = infoBean.getSIReferenceByType(app.getApplicationID(), "S", yearID);
+		refD = infoBean.getSIReferenceByType(app.getApplicationID(), "D", yearID);
+		refR = infoBean.getSIReferenceByType(app.getApplicationID(), "R", yearID);
+		refF = infoBean.getSIReferenceByType(app.getApplicationID(), "F", yearID);
+//	}
+
+// 	SIApplication app = infoBean.getSIApplication(ApplicationID);
+//  SIPerson p = infoBean.getSIPerson(app.getFk_SIPersonID());
+
+    String projectName[] = new String[3];
+    projectName[0] = hasAValue(app.getLocationA())?infoBean.getSIProject(Integer.parseInt(app.getLocationA())).getDisplayLocation():"-";
+    projectName[1] = hasAValue(app.getLocationB())?infoBean.getSIProject(Integer.parseInt(app.getLocationB())).getDisplayLocation():"-";
+    projectName[2] = hasAValue(app.getLocationC())?infoBean.getSIProject(Integer.parseInt(app.getLocationC())).getDisplayLocation():"-";
+
+	// Get each reference (stored in variables with reference type S, D, R, or F)
+//    refS = infoBean.getSIReferenceByType(app.getApplicationID(),"S");
+//    refD = infoBean.getSIReferenceByType(app.getApplicationID(),"D");
+//    refR = infoBean.getSIReferenceByType(app.getApplicationID(),"R");
+//    refF = infoBean.getSIReferenceByType(app.getApplicationID(),"F");
+//    if (refS == null) refS = new SIReference();
+//    if (refD == null) refD = new SIReference();
+//    if (refR == null) refR = new SIReference();
+//    if (refF == null) refF = new SIReference();
+	SIReference allRefs[] = {refS, refD, refR, refF};
+
+    // Get Evaluation Information
+//    WsnEvaluation eval = infoBean.getWsnEvaluation(ApplicationID);
+//    if (eval == null) eval = new WsnEvaluation();
+
+%>

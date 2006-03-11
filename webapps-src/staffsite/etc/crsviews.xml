@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+<!-- THIS DOCUMENT IS DEPRECATED  gdw 20040919 -->
+<!-- DO NOT BOTHER WITH IT. DELETE ASAP.       -->
+<!-- administration...-->
+    <view name="adminError" url="/crs/adminError.jsp"></view>
+	<view name="adminHome" url="/crs/adminHome.jsp"></view> <!-- for admins -->
+	<view name="adminView" url="/crs/adminView.jsp"></view>
+	<view name="adminReorderItems" url="/crs/adminEditEventInfo.jsp"></view>
+	<view name="adminEditItem" url="/crs/adminEditItem.jsp"></view>
+	<view name="adminSaveItem" url="/crs/adminEditEventInfo.jsp"></view>
+	<view name="adminEditQuestion" url="/crs/adminEditQuestion.jsp"></view>
+	<view name="adminSaveQuestion" url="/crs/adminEditEventInfo.jsp"></view>
+	<view name="adminEditOption" url="/crs/adminEditOption.jsp"></view>
+    <view name="adminPrepDownload" url="/crs/adminDownload.jsp"></view>
+    <view name="adminDownloadFile" url="/crs/adminDownloadFile.jsp"></view>
+    <view name="adminUpload" url="/crs/adminUpload.jsp"></view>
+	<view name="adminManageRegistrations" url="/crs/adminManage.jsp"></view>
+	<view name="adminManageRegistrant" url="/crs/adminManageRegistrant.jsp"></view>
+	<view name="adminManagePayments" url="/crs/adminManagePayments.jsp"></view>
+	<view name="adminSaveRegistrant" url="/crs/adminManage.jsp"></view>
+	<view name="adminClone" url="/crs/adminClone.jsp"></view>
+	<view name="adminReports" url="/crs/adminReports.jsp"></view>
+	<view name="adminReportDisplay" url="/crs/adminReportDisplay.jsp"></view>
+<!-- admin wizard...-->
+    <view name="wizardStart" url="/crs/wizardGeneralInfo.jsp"></view>
+    <view name="wizardInstructions1" url="/crs/wizardInstructions1.jsp"></view>
+	<view name="wizardItems" url="/crs/wizardCustomItems.jsp"></view>
+	<view name="wizardPremade" url="/crs/wizardPremade.jsp"></view>
+	<view name="wizardQuestions" url="/crs/wizardCustomQuestions.jsp"></view>
+	<view name="wizardPayment" url="/crs/wizardPayment.jsp"></view>
+	<view name="wizardLookFeel" url="/crs/wizardLookFeel.jsp"></view>
+<!-- registrants...-->
+    <view name="userError" url="/crs/userError.jsp"></view>
+    <view name="userHome" url="/crs/userHome.jsp"></view>
+    <view name="userSelectEvent" url="/crs/userView.jsp"></view>
+    <view name="userLogin" url="/crs/userLogin.jsp"></view>
+	<view name="userChangePassword1" url="/crs/userChangePassword1.jsp"></view>
+	<view name="userChangePassword2" url="/crs/userChangePassword2.jsp"></view>
+	<view name="userCreateLogin" url="/crs/userCreateLogin.jsp"></view>
+	<view name="userRegister" url="/crs/userRegister.jsp"></view>
+	<view name="userEditQuestions" url="/crs/userEditQuestions.jsp"></view>
+	<view name="userChoices" url="/crs/userChoices.jsp"></view>
+	<view name="userAccount" url="/crs/userAccount.jsp"></view>
+	<view name="userPaymentInfo" url="/crs/userPaymentInfo.jsp"></view>
+	<view name="userPaymentProcess" url="/crs/userPaymentConf.jsp"></view>
+	<view name="userPaymentConfirm" url="/crs/userPaymentConfirm.jsp"></view>
+	<view name="userPaymentSuccess" url="/crs/userPaymentSuccess.jsp"></view>
+	<view name="userPaymentFailure" url="/crs/userPaymentFailure.jsp"></view>
+    <view name="userPaymentByCheck" url="/crs/userPaymentByCheck.jsp"></view>
+    <view name="staffRegister" url="/crs/staffRegister.jsp"></view>
+    <view name="staffRegister2" url="/crs/staffRegister2.jsp"></view>
+    <view name="staffRegConfirmation" url="/crs/staffConfirmation.jsp"></view>
+<!-- general...-->
+	<view name="error" url="/crs/userError.jsp"></view>
+</views>

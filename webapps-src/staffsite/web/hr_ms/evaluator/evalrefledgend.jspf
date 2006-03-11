@@ -1,0 +1,9 @@
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refs1.getFormWorkflowStatus()))?"None":refs1.getTitle() + "&nbsp;" + refs1.getFirstName()+ "&nbsp;" + refs1.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - CCC staff member #1 (STAFF 1)</td>
+	</tr>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refs2.getReferenceType()))?"None":refs2.getTitle() + "&nbsp;" + refs2.getFirstName()+ "&nbsp;" + refs2.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - CCC staff member #2 (STAFF 2)</td>
+	</tr>
+	<tr><td class="evalbigbold" align="right"><%=("".equals(refp.getFormWorkflowStatus()))?"None":refp.getTitle() + "&nbsp;" + refp.getFirstName()+ "&nbsp;" + refp.getLastName()%></td>
+	<td class="evaltitle" colspan="2"> - Peer (Peer)</td>
+	</tr>

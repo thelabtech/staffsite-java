@@ -1,0 +1,220 @@
+<html>
+	<head>
+		<title><%=pageTitle%></title>
+		<link
+		rel = STYLESHEET
+		href = "/crs/registercss.jsp?conferenceID=<%=conference.isPKEmpty() ? "" : String.valueOf(conference.getConferenceID())%>"
+		Type = "text/css"
+		>
+	</head>
+	<%@ include file="/headers/noauth.jspf"%>
+	<%@ include file="/style.jspf"%>
+	<%@ include file="/headers/javascript.jspf"%>
+	<jsp:useBean id="formatter" class="org.alt60m.html.Formatter" scope="request"/>
+	<jsp:useBean id="registrationMenu" class="org.alt60m.html.Menu" scope="request"/>
+	<jsp:useBean id="accountManagementMenu" class="org.alt60m.html.Menu" scope="request"/>
+	<jsp:useBean id="otherOptionsMenu" class="org.alt60m.html.Menu" scope="request"/>
+
+	<script language="javascript">
+	<!--
+	// copied from org.alt60m.hr.ms.bean.dbio.MSHTMLUtils.java
+/*
+NOT WORKING AS OF 11/2/04 SEP
+
+	function TrackCount(fieldObj,countFieldName,maxChars)
+	{
+		alert("I'm tracking this count.");
+		alert("FieldObj="+fieldObj);
+		alert("CountFieldName="+countFieldName);
+		
+		var countField = eval("fieldObj.form."+countFieldName);
+		alert("CountField="+countField);
+		 
+		var diff = maxChars - fieldObj.value.length;
+		alert("Diff="+diff);
+	 
+	 	// Need to check & enforce limit here also in case user pastes data
+ 		if (diff < 0)
+ 		{
+ 			fieldObj.value = fieldObj.value.substring(0,maxChars);
+	   		diff = maxChars - fieldObj.value.length;
+	  	}
+	  	countField.value = diff;
+	}
+
+	function LimitText(fieldObj,maxChars)
+	{
+		var result = true;
+		if (fieldObj.value.length >= maxChars)
+			result = false;
+	  
+	  	if (window.event)
+	  		window.event.returnValue = result;
+	  return result;
+	}
+	*/
+	
+	//	 -->
+	</script>
+	
+	<%
+		boolean clk1 = conference.getIsCloaked(); //Added 1/16/2005 - Initalizes and grabs the value of IsCloaked from crs_Conference
+		
+		registrationMenu.setTitle("Registration Steps");
+		registrationMenu.setHeaderClass("subboxheader");
+		if(registration.getSpouseComing() == 2){
+			registrationMenu.setTitle("Registration Steps<br>Editing your " + (isSpouse ? "spouse's" : "") + " registration");
+			/*registrationMenu.setNames(new String[]{
+				"1) Select Event",
+				"2) Event Details",
+				"3) Login",
+				"4) Edit Profile Info",
+				"5) Answer Questions",
+				"6) Select Additional Expenses",
+				"7) Edit Spouse Profile Info",
+				"8) Answer Spouse Questions",
+				"9) Select Spouse Additional Expenses",
+				"10) Make Payment",
+				"11) Confirmation",
+				"12) Review"
+			});
+			registrationMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=listEvents",
+				"/servlet/CRSRegister?action=selectEvent",
+				"/servlet/CRSRegister?action=userLogin",
+				"/servlet/CRSRegister?action=editPersonDetails",
+				"/servlet/CRSRegister?action=listQuestions",
+				"/servlet/CRSRegister?action=listMerchandise",
+				"/servlet/CRSRegister?action=editPersonDetails&spouseReg=T",
+				"/servlet/CRSRegister?action=listQuestions&spouseReg=T",
+				"/servlet/CRSRegister?action=listMerchandise&spouseReg=T",
+				"/servlet/CRSRegister?action=reviewPayments",
+				"/servlet/CRSRegister?action=reviewRegistration",
+				"/servlet/CRSRegister?action=reviewRegistration"
+			});*/
+			registrationMenu.setNames(new String[]{
+					"1) Edit Profile",
+					"2) Answer Questions",
+					"3) Select Additional Expenses",
+					"4) Edit Spouse Profile",
+					"5) Answer Spouse Questions",
+					"6) Select Spouse Additional Expenses",
+					"7) Make Payment",
+					"8) Review"
+				});
+				registrationMenu.setURLs(new String[]{
+					"/servlet/CRSRegister?action=editPersonDetails",
+					"/servlet/CRSRegister?action=listQuestions",
+					"/servlet/CRSRegister?action=listMerchandise",
+					"/servlet/CRSRegister?action=editPersonDetails&spouseReg=T",
+					"/servlet/CRSRegister?action=listQuestions&spouseReg=T",
+					"/servlet/CRSRegister?action=listMerchandise&spouseReg=T",
+					"/servlet/CRSRegister?action=reviewPayments",
+					"/servlet/CRSRegister?action=reviewRegistration"
+				});
+		} else {
+		/*registrationMenu.setNames(new String[]{
+				"1) Select Event",
+				"2) Event Details",
+				"3) Login",
+				"4) Edit Profile Info",
+				"5) Answer Questions",
+				"6) Select Additional Expenses",
+				"7) Make Payment",
+				"8) Confirmation",
+				"9) Review"
+			});
+			registrationMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=listEvents",
+				"/servlet/CRSRegister?action=selectEvent",
+				"/servlet/CRSRegister?action=userLogin",
+				"/servlet/CRSRegister?action=editPersonDetails",
+				"/servlet/CRSRegister?action=listQuestions",
+				"/servlet/CRSRegister?action=listMerchandise",
+				"/servlet/CRSRegister?action=reviewPayments",
+				"/servlet/CRSRegister?action=reviewRegistration",
+				"/servlet/CRSRegister?action=reviewRegistration"
+			});
+			*/
+			registrationMenu.setNames(new String[]{
+					"1) Edit Profile",
+					"2) Answer Questions",
+					"3) Select Additional Expenses",
+					"4) Make Payment",
+					"5) Review"
+				});
+				registrationMenu.setURLs(new String[]{
+					"/servlet/CRSRegister?action=editPersonDetails",
+					"/servlet/CRSRegister?action=listQuestions",
+					"/servlet/CRSRegister?action=listMerchandise",
+					"/servlet/CRSRegister?action=reviewPayments",
+					"/servlet/CRSRegister?action=reviewRegistration"
+				});
+		}
+				
+		accountManagementMenu.setTitle("Account Management");
+		accountManagementMenu.setHeaderClass("subboxheader");
+		accountManagementMenu.setNames(new String[]{
+			"Change Password"
+			});
+			accountManagementMenu.setURLs(new String[]{
+				"javascript:popupWindow('/accounts/popUpChangePassword.jsp', 'PasswordChange', 'height=500,width=700,dependent=yes,scrollbars=yes')"
+			});
+			
+		otherOptionsMenu.setTitle("Other Options");
+		otherOptionsMenu.setHeaderClass("subboxheader");
+		
+		// 1/16/06 - SRW - new code added for the cloaked conference. It removed the "Register for Another
+		// Event" from the Other Options Menu because it leads to an uncloaked site. 
+		if (conference.getIsCloaked()==false){
+			otherOptionsMenu.setNames(new String[]
+			{
+				"See Event Details",
+				"Register For Another Event",
+				"Logout"
+			});
+		} else	{
+			otherOptionsMenu.setNames(new String[]
+			{
+				"See Event Details",
+				"Logout"
+			});
+		}
+		if (conference.getIsCloaked()==true){
+			otherOptionsMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=showEventDetails",
+				"/servlet/CRSRegister?action=selectEvent"});
+		} else if ("".equals(conference.getSplashPageURL())) {
+			otherOptionsMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=showEventDetails",
+				"/servlet/CRSRegister?action=listEvents",
+				"/servlet/CRSRegister?action=selectEvent"});
+		} else if (conference.getSplashPageURL().startsWith("http://")) {
+			otherOptionsMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=showEventDetails",
+				"/servlet/CRSRegister?action=listEvents",
+				conference.getSplashPageURL()});
+		} else {
+			otherOptionsMenu.setURLs(new String[]{
+				"/servlet/CRSRegister?action=showEventDetails",
+				"/servlet/CRSRegister?action=listEvents",
+				"http://"+conference.getSplashPageURL()});
+		}
+	%>
+	<body onLoad="UnHighlightAll()">
+		<%@ include file="/headers/overlib.jspf"%>
+		<center>
+			<table WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
+				<tr>
+					<td ALIGN="LEFT" CELLSPACING="0">
+						<!--Start all table-->
+						<table CLASS="main" CELLSPACING="0" WIDTH="100%">
+							<%
+							if (pageTitle!=null) {
+							%>
+							<tr><td CLASS="header"><%=pageTitle%></td></tr>
+							<%
+							}
+							%>
+							<tr>
+								<td>

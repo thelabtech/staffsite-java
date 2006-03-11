@@ -1,0 +1,236 @@
+<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.hr.si.bean.dbio.*, org.alt60m.hr.si.model.dbio.*" %>
+<jsp:useBean id="selState" class="org.alt60m.html.SelectState"/>
+<jsp:useBean id="util" class="org.alt60m.html.Util"/>
+<jsp:useBean id="box" class="org.alt60m.html.ThemeBox"/>
+<jsp:useBean id="sihtmlutils" class="org.alt60m.hr.si.bean.dbio.SIHTMLUtils" />
+<jsp:useBean id="siBean" class="org.alt60m.hr.si.bean.dbio.SIInfoBean"/>
+<%
+    boolean isSubmitted = false;
+    boolean AlwaysEdit = true;
+    boolean NoEditAfterSubmit = false;
+
+	// Make sure user is logged in
+	if (session.getValue("userLoggedIn") == null || ((String)session.getValue("userLoggedIn")).trim().equals("") || session.isNew())
+	{
+		response.sendRedirect("/hr_si/index.jsp");
+		return;
+	}
+
+	// user's login details
+	String userID = (String)session.getValue("userID");
+	System.out.println("userID: "+userID);
+	int intUserID = new Integer(userID).intValue();
+	System.out.println("userID: "+userID);
+	String userEmail = (String)session.getValue("userEmail");
+	System.out.println("userEmail: "+userEmail);
+
+	//following added by KB to spoof all pay* pages to be payment.
+    String returnpage = (String) request.getParameter("page");
+	if(returnpage!=null)
+	{
+ 	 if(returnpage.startsWith("pay")) returnpage = "payment";
+	 if("submitapp".equals(returnpage)) returnpage = "submit";
+	}
+	System.out.println("returned page = " + returnpage);
+	// boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+	String titles[] = {"Home", "Instructions",  "Frequently Asked Questions","Contact Information", "Ministry Interests", "References", "STINT Only", "Ministry Experience", "Church Background", "Personal Information", "Alcohol Use", "Drug Use", "Tobacco Use", "Moral Convictions", "Financial Information", "Ministry Partner Development", "Biographical Information", "Statement of Beliefs", "Payment", "Submit Application"};
+	String pages[] = {"apphome", "instruct", "faq", "contact", "interests", "refs", "stintonly", "experience", "church", "personal", "ause", "duse", "tuse", "moral", "financial", "mpd", "bio", "belief", "payment", "submit"};
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(returnpage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	String pageTitle = "Application - " + titles[pageNum - 1] + "(" + pageNum + "/" + titles.length + ")";
+	ActionResults ar = ActionResults.getActionResults(session);
+	String SIPersonID = (String) session.getValue("SIPersonID");
+	String ApplicationID = (String) session.getValue("ApplicationID");
+	System.out.println("ApplicationID=" + ApplicationID);
+	System.out.println("SIPersonID=" + SIPersonID);
+
+	//lookup person and application -- refactored out of jsps kb 2/4/03
+	SIApplication a = null;
+	SIPerson p = null;
+	try{
+		if(SIPersonID==null || "null".equals(SIPersonID) || "".equals(SIPersonID)){
+		//lookup by userid
+		p = SIInfoBean.getSIPersonBySSM(userID, userEmail);
+		a = SIInfoBean.getSIApplicationByPersonID(p.getSIPersonID(), intUserID);
+		}else{
+			p = siBean.getSIPerson(SIPersonID);
+			if(ApplicationID==null){
+				a = siBean.getSIApplicationByPersonID(SIPersonID, intUserID);
+			} else{
+				a = siBean.getSIApplication(ApplicationID);
+			}
+		}
+	}catch(Exception e){
+		System.out.println("ERROR trying to get person/application objects:");
+		e.printStackTrace();
+	}
+	System.out.println("Retrieved person object: " + p.getSIPersonID());
+	System.out.println("Retrieved app    object: " + a.getApplicationID());
+
+    if (a.getDateSubmitted() != null)
+        isSubmitted = true;
+	else
+        isSubmitted = false;
+    sihtmlutils.setSubmitted(isSubmitted);
+
+	//Set appType in session if it isn't already
+	if(session.getValue("appType") != null)
+		session.putValue("appType", a.getAppType());
+%>
+
+<%@ include file="../../siMainHeader.jspf" %>
+<% box.setTableInside(true); %>
+<% box.setWidth("100%"); %>
+<script language="javascript">
+<!--
+	function doPostFormNextAction(nextAction, nextParm) {
+		// 3-4-03 kl:  added for refs.jsp stafflist popup processing
+		// use this to save the page and do a specific reference form action on the server
+		var theform = document.appForm;
+		theform.page.value = 'refs';
+		theform.nextAction.value = nextAction;	// next method to perform after first method
+		theform.nextParm.value = nextParm;	// parameter sent to next method (like page name for goToPage)
+		theform.submit();
+	}
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+	function TrackCount(fieldObj,countFieldName,maxChars)
+	{
+	  var countField = eval("fieldObj.form."+countFieldName);
+	  var diff = maxChars - fieldObj.value.length;
+
+	  // Need to check & enforce limit here also in case user pastes data
+	  if (diff < 0)
+	  {
+		fieldObj.value = fieldObj.value.substring(0,maxChars);
+		diff = maxChars - fieldObj.value.length;
+	  }
+	  countField.value = diff;
+	}
+
+	function LimitText(fieldObj,maxChars)
+	{
+	  var result = true;
+	  if (fieldObj.value.length >= maxChars)
+		result = false;
+
+	  if (window.event)
+		window.event.returnValue = result;
+	  return result;
+	}
+// -->
+</script>
+<FORM NAME="appForm" ACTION="SIController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="as" VALUE="<%=request.getParameter("as")%>">
+<INPUT TYPE="HIDDEN" NAME="page">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="goToPage">
+<INPUT TYPE="HIDDEN" NAME="nextAction">
+<INPUT TYPE="HIDDEN" NAME="nextParm">
+<input type="hidden" name="userID" value="<%=userID%>">
+<CENTER>
+<%=box.printTop() %>
+		<TD COLSPAN="2" CLASS="appbar">
+		<TABLE CELLPADDING="0" CELLSPACING="0" width="100%">
+			<TR>
+		<td class="appbar" width="20%">&nbsp;
+</td>
+				<td class="apppageheading" align="left">&nbsp;</td>
+				<TD CLASS="menu" align="left" width="25">Page</TD>
+				<% for (int x = 1; x <= titles.length; x++){ %>
+					<% if(pageNum == x) { %>
+					<td class="menuactive"><nobr><a href="javascript: doPostForm('<%=pages[x - 1]%>')" class="menuactive"><%=x%></a></nobr></td>
+					<% } else { %>
+					<td class="menu"><nobr><a href="javascript: doPostForm('<%=pages[x - 1]%>')" class="menu"><%=x%></a></nobr></td>
+					<% } %>
+				<% } %>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="20%" CLASS="appbar" VALIGN="TOP">
+			<div style="text-align:center;">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="appbar"><div style="text-align:center;">Navigation</div></td>
+			</tr>
+			<% for (int x = 1; x <= titles.length; x++){ %>
+				<tr>
+					<% if(pageNum == x) { %>
+					<td class="menuactive"><nobr><a href="javascript: doPostForm('<%=pages[x-1]%>')" class="menuactive" style="text-align: right; width: 100%;"><div style="text-align: right;"><%=titles[x-1]%></a></nobr></td>
+					<% } else { %>
+					<td class="menu"><nobr><a href="javascript: doPostForm('<%=pages[x-1]%>')" class="menu" style="text-align: right; width: 100%;"><%=titles[x-1]%></a></nobr></td>
+					<% } %>
+				</tr>
+				<% } %>
+			</table>
+			</div>
+		</TD>
+		<TD CLASS="appbox" VALIGN="TOP">
+
+		<%System.out.println("ERRORMESSAGE: " + ar.getValue("ErrorMessage"));
+		if (ar.getValue("ErrorMessage")!=null)
+		  {	%>
+		   <font color="red">Message: <%=ar.getValue("ErrorMessage")%>
+		<%}%>
+
+<%! //Common html formatting code
+
+    public String InputValue(boolean isSubmitted, String value, boolean allowEdit) {
+		StringBuffer sbuf = new StringBuffer();
+        if(!(value==null || "".equals(value))) {
+            sbuf.append(" VALUE='");
+			sbuf.append(value);
+			sbuf.append("'");
+            if(isSubmitted && !allowEdit)
+                sbuf.append(" READONLY");
+        }
+        return sbuf.toString();
+    }
+
+//    public String showYesNo(String field, Object value, boolean alwaysEdit) {
+//        boolean selected = value!=null && ((Boolean)value).booleanValue() == true;
+//        return "<INPUT type=radio name='" + field + "' value='true' "+ (selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> Yes <INPUT type=radio name='" + field + "' value='false'"+ (!selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> No";
+//    }
+
+    public String ValueDisabled(boolean isSubmitted, String value) {
+		return ValueCheck(isSubmitted, value, "DISABLED");
+	}
+
+    public String ValueReadOnly(boolean isSubmitted, String value) { 
+		return ValueCheck(isSubmitted, value, "READONLY"); 
+	}
+
+    public String ValueCheck(boolean isSubmitted, String value, String readOnlyString) {
+        String output ="";
+		boolean isEmpty = value==null || "".equals(value) || "0".equals(value) || "null".equals(value);
+		//if it IS submitted and ISN'T empty then it should be readonly
+        if(isSubmitted && !isEmpty )
+            output = readOnlyString;
+        return output;
+    }
+
+	//i return disabled ALWAYS if isSubmitted is true regardless of value (obviously since not passing it in)
+    public String InputDisabled(boolean isSubmitted) {
+        return isSubmitted?"DISABLED":"";
+    }
+
+    public String ValueRadio(boolean isSubmitted, int selectionValue, int selectedValue) {
+        String output ="value='" + selectionValue + "'";
+        if(selectedValue == selectionValue) output += " CHECKED";
+        if(selectedValue!=0 && isSubmitted) output += " DISABLED";
+        return output;
+    }
+
+//    public boolean PersonHasValue(String value) {
+//        return !(value==null || "".equals(value));
+//    }
+%>

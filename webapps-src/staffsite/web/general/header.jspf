@@ -1,0 +1,57 @@
+<script src="/__utm.js"></script>
+<%@ page import="java.util.*" %>
+<%@ page import="org.alt60m.servlet.*" %>
+<%@ page import="org.alt60m.crs.model.*" %>
+
+<%
+	String errorMessage = "";
+	ActionResults ar = new ActionResults();
+	String ignore_AR_Error = (String)session.getValue("ignore_AR_Error");
+	try {
+		ar = ActionResults.getActionResults(session);
+		if (ignore_AR_Error == null || ignore_AR_Error.trim().equals(""))
+			errorMessage = (String)ar.getValue("errorMessage");
+	} catch (Exception e) { }
+	if (errorMessage == null || errorMessage.trim().equals(""))
+		errorMessage = request.getParameter("errorMessage");
+	
+	// Added 2/2/06 SRW - grabs the conferenceID passed in to this page. This is necessary in order 
+	// to grab the isCloaked field to see if the conference is cloaked or not. 
+	Conference cloakConference = new Conference();
+	String event = (String)session.getValue("selectedEvent");
+		if (event != null) {
+			cloakConference.setConferenceID(Integer.parseInt(event));
+			cloakConference.select(); 
+		}
+
+	boolean clk = cloakConference.getIsCloaked();
+
+	if (event != null && clk == true) pageTitle = "Conference Registration Tool - User Account Password Management";
+		
+	if (pageTitle == null || pageTitle.equals("")) pageTitle = "Campus Crusade for Christ | Campus Ministry"; 
+%>
+<html>
+<head>
+<title><%=pageTitle%></title>
+<META HTTP-EQUIV="CacheControl" CONTENT="no-cache">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<link rel="stylesheet" href="/general/branding.css" type="text/css">
+<script language="JavaScript"><!--
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures);
+}
+// --></script>
+</head>
+<body>
+
+<center>
+<table width="600" border="0" cellpadding="10" cellspacing="5">
+	<tr>
+		<td colspan="2">
+			<center><span class="pageheading"><%=pageTitle%></span></center>
+			<% if ((errorMessage != null) && !(errorMessage.trim().equals(""))) out.println("<div class=\"warning\">"+errorMessage+"</div>"); %>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">

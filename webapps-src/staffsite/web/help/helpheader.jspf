@@ -1,0 +1,53 @@
+<script src="/__utm.js"></script>
+<%@ page import="java.util.*" %>
+<%@ include file="/style.jspf"%>
+<HTML>
+<HEAD>
+<TITLE>Campus Crusade Login Help</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures)
+}
+
+function parentWindow(url) {
+	opener.window.location.href = url;
+	window.close();
+}
+// -->
+</SCRIPT>
+
+</head>
+<body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#336699" VLINK="#336699">
+
+<TABLE width="550" align=center BORDER="0" CELLPADDING="0" CELLSPACING="0">
+	<TR>
+		<TD>
+			<center><a name=Top><%=fontB5%><big><b>Staff Site Help</b></big></font></a></center>
+		</td>
+		<td align="right">
+			<a href="javascript:window.close()"><%=fontB%>[Close]</font></a>
+		</td>
+	</tr>
+	<TR>
+		 <TD BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0" colspan="2">
+			 <center>
+			 <%=fontB%>
+			 <a href="/help/help_home.jsp">Help Home</a> | 
+			 <a href="/help/help_general.jsp">General Help</a> | 
+			 <a href="/help/help_logging_in.jsp">Logging in</a> | 
+			 <a href="/help/help_email.jsp">Outlook E-mail</a> | 
+			 <a href="/help/help_resource_center.jsp">Resource Center</a> | 
+			 <a href="/help/help_infobase.jsp">Campus InfoBase</a> | <br>
+			 <a href="/help/help_enter_success_criteria.jsp">Entering Success Criteria</a> | 
+			 <a href="/help/help_success_criteria_reports.jsp">Success Criteria Reports</a> | 
+			 <a href="/help/help_360_review.jsp">360 Reviews</a>
+			 <br>
+			 </font>
+			 </center>
+		</td>
+	</tr>
+	<TR>
+		 <TD BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0">
+		 <!--This table cell and row is closed in the helpfooter.jspf-->

@@ -1,0 +1,137 @@
+<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.wsn.sp.model.dbio.*" %>
+<jsp:useBean id="mshtmlutils" class="org.alt60m.hr.ms.bean.dbio.MSHTMLUtils" />
+<jsp:useBean id="infoBean" class="org.alt60m.hr.ms.bean.dbio.MSInfoBean"/>
+<jsp:useBean id="util" class="org.alt60m.html.Util"/>
+<%!
+    public String ShowNoNull(Object value) {//Note, do not try to run boolean through this.  It is not necesary, and it errors.
+        return value!=null?value.toString():"&nbsp;";
+    }
+    public String ShowYesNo(boolean value) {
+        return value?"Yes":"No";
+    }
+    public String ShowCheck(boolean value) {
+        return value?"X":"&nbsp;";
+    }
+    public boolean hasAValue(String value) {
+        return ((value!=null)&&(!("".equals(value))));
+    }
+    public String DisplayRefStatus(String value, Date lastChange) {
+        String status = "<font color=\"#FF0000\">None</font>";
+        if(lastChange!=null && "N".equals(value)) status = "<font color=\"#0000FF\">Not Started</font>";
+        if("I".equals(value)) status = "<font color=\"#FFFFF00\">Started</font>";
+        if("D".equals(value)) status = "<font color=\"#008000\">Completed</font>";
+        return status;
+    }
+    public String DisplayRealDate(Date day) {
+        return (day==null)?"":((1+day.getMonth()) + "/" + day.getDate() + "/" + day.getYear());
+    }
+    public String SelectYesNo(String field, boolean value) {
+        return "<input type='radio' name='"+field+"' value='True' " + (value?"checked":"") + ">Yes <input type='radio' name='"+field+"' value='False' " + (value?"":"checked") + ">No";
+    }
+    public String SelectRating(String field, int value, int count) {
+        String display = "<TR>";
+        for(int i=1;i<=count;i++)
+            display += "<td width='14%' align='center' valign='top'><input type='radio' name='"+field+"' value='"+i+"'"+(value==i?" checked":"")+"></td>";
+        return display + "</TR>";
+    }
+%>
+<%
+try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
+	System.out.println("Got Here");
+
+if (session.getValue("tub") == null) {
+	System.out.println("Tub NOT there");
+	Hashtable h = new Hashtable();
+//	session.setValue("tub", h);
+} else {
+	System.out.println("Tub there");
+}
+
+
+	ActionResults ar = new ActionResults();
+	ar = ActionResults.getActionResults(session);
+	String thePage = ar.getValue("nextParm");
+
+	boolean staff = ar.getValue("as") != null && ar.getValue("as").equals("staff");
+	String menuTitles[] = {	"Personal & School Info. 1",
+	"Project Preferences 2",
+	"Reference Relationship 3",
+	"Ref. Personal Attrib's. 4",
+	"Ref. Short Answers 5",
+	"Experience Information 6",
+	"Spritual & Involvement 7",
+	"Confidential & Medical 8",
+	"Short Answer Info. 9",
+	"Project Specific Questions 10",
+	"Payments 11",
+	"Parents Letter 12",
+	"Evaluator's Summary 13"};
+	String pageTitleDisplays[] = {"Personal and School Information", "Project Preferences", "Reference Relationship with Applicant", "Personal Attributes", "Reference's Short Answers", "Experience Information", "Spiritual and Involvement Information", "Confidential and Medical Information", "Short Answer Information", "Project Specific Questions", "Payments", "Parents Letter", "Evaluation Summary"};
+	String pages[] = {"evalpersonschool", "evalprojpreference", "evalrefrel", "evalattributes", "evalrefshortanswer", "evalexperience", "evalspiritual", "evalconfidential", "evalappshortanswer", "evalprojectspecific","evalpayments", "evalparents", "evalsummary"};
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(thePage)){
+			pageNum = x + 1;
+			break;
+		}
+	}
+
+//	String pageTitle = "Evaluation - " + pageTitleDisplays[pageNum - 1] + "(" + pageNum + "/" + menuTitles.length + ")";
+
+	// Load a person object to be used on any page using this header
+	String personID = ar.getValue("WsnApplicationID");
+	System.out.println("personID = " + personID);
+  	WsnApplication p = null;
+    p = infoBean.getWsnApplication(personID);
+
+    String projectName[] = new String[5];
+    try {
+		projectName[0] = hasAValue(p.getProjectPref1())?infoBean.getProject(p.getProjectPref1()).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[0] = hasAValue(p.getProjectPref1())?p.getProjectPref1():"<error>";
+	}
+	try {
+		projectName[1] = hasAValue(p.getProjectPref2())?infoBean.getProject(p.getProjectPref2()).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[1] = hasAValue(p.getProjectPref2())?p.getProjectPref2():"<error>";
+	}
+	try {
+		projectName[2] = hasAValue(p.getProjectPref3())?infoBean.getProject(p.getProjectPref3()).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[2] = hasAValue(p.getProjectPref3())?p.getProjectPref3():"<error>";
+	}
+	try {
+		projectName[3] = hasAValue(p.getProjectPref4())?infoBean.getProject(p.getProjectPref4()).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[3] = hasAValue(p.getProjectPref4())?p.getProjectPref4():"<error>";
+	}
+	try {
+		projectName[4] = hasAValue(p.getProjectPref5())?infoBean.getProject(p.getProjectPref5()).get("Name").toString():"-";
+	} catch(Exception e) {
+		projectName[4] = hasAValue(p.getProjectPref5())?p.getProjectPref5():"<error>";
+	}
+	
+	
+	// Get the up to 3 reference hashtable for this application
+	// Get PEER REFERENCE (stored in variables prefixed with "refp")
+	WsnReference refp = infoBean.getWsnReference(personID, "P");
+	if (refp == null) {
+        mshtmlutils.hideAttribDetail(3);
+		refp = new WsnReference();
+    }
+	// Get SPRITIUAL REFERENCE #1 (stored in variables prefixed with "refs1")
+	WsnReference refs1 = infoBean.getWsnReference(personID, "S1");
+	if (refs1 == null) {
+        mshtmlutils.hideAttribDetail(1);
+		refs1 = new WsnReference();
+    }
+    // Get SPRITIUAL REFERENCE #2 (stored in variables prefixed with "refs2")
+    WsnReference refs2 = infoBean.getWsnReference(personID, "S2");
+    if (refs2 == null) {
+        mshtmlutils.hideAttribDetail(2);
+        refs2 = new WsnReference();
+    }
+    // Get Evaluation Information
+    WsnEvaluation eval = infoBean.getWsnEvaluation(personID);
+    if (eval == null) eval = new WsnEvaluation();
+%>

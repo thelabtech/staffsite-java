@@ -1,0 +1,165 @@
+<%@ include file="evaluateHeaderCode.jspf" %>
+
+<% int curr_tab = 3; %>
+<%@ page import="java.util.*" %>
+<% 
+	boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+	String menuTitles[] = {	"&nbsp; &nbsp; &nbsp;Contact Information", 
+	"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ministry Interests", 
+	"Min & Church Backgr'nd", 
+	"&nbsp; Reference Relationship", 
+	"&nbsp; Relationship with God", 
+	"Relationship w/ Others", 
+	"Relationship w/Self & Bio", 
+	"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ministry Skills", 
+	"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Leadership Skills", 
+	"Overall Recommendation", 
+	"&nbsp; &nbsp; &nbsp; Personal Information", 
+	"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Moral Convictions", 
+	"&nbsp; &nbsp; &nbsp; &nbsp;Financial & MPD", 
+	"&nbsp;Evaluator's Worksheet", 
+	"Acceptance Issues", 
+	"Evaluator's Summary"};
+	String pageTitleDisplays[] = {"Contact Information", "Ministry Interests and STINT Information", "Ministry Experience and Spiritual Background", "Reference Relationship with Applicant", "Growth Model - Relationship with God", "Growth Model - Relationship with Others", "Growth Model - Relationship with Self and Biographical Information", "Ministry Skills", "Leadership Skills", "Overall Recommendation", "Personal Information", "Moral Convictions", "Financial Information and Ministry Partner Development", "Evaluator's Worksheet", "Applicant Follow-Through", "Intern Placement and Development Recommendation"};
+	String pages[] = {"evalcontact", "evalinterests", "evalexperience", "evalrefrel", "evalrelgod", "evalrelothers", "evalrelself", "evalminskills", "evalleaderskills", "evaloverall", "evalpersonal", "evalmoral", "evalfinmpd", "evalworksheet", "evalacceptance", "evalsummary"};
+	int pageNum = 0;
+	for(int x = 0; x < pages.length; x++){
+		if(pages[x].equals(request.getParameter("page"))){
+			pageNum = x + 1;
+			break;
+		}
+	}
+	
+	String pageTitle = "Evaluation - " + pageTitleDisplays[pageNum - 1] + "(" + pageNum + "/" + menuTitles.length + ")";
+%>
+<%@ include file="evaluatecolors.jspf" %>
+
+<HTML>
+<HEAD>
+<TITLE>WSN SPT</TITLE>
+<link rel="stylesheet" href="/hr_si/themes/hr_si_evaluation.css" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(/hr_si/themes/hr_si_evaluation.css); /*IE and NN6x styles*/
+</style>
+<script language="javascript">
+<!--
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+// -->
+</script>
+<%@ include file="/hr_si/headersmalltemparary.jspf" %>
+<%	box.setTitle("<a href='SIController?action=goToPage&page=projecttool' class=headinggraphic><img src='/hr_si/images/banner1.gif'></a>"); %>
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+<p> <%=fontText%>
+<FORM NAME="appForm" ACTION="SIController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="as" VALUE="<%=request.getParameter("as")%>">
+<INPUT TYPE="HIDDEN" NAME="page" value="<%=request.getParameter("page")%>">
+<INPUT TYPE="HIDDEN" NAME="sendingpage" value="<%=request.getParameter("page")%>">
+<INPUT TYPE="HIDDEN" NAME="toframe" value="<%=request.getParameter("toframe")%>">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="goToPage">
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr valign="top">
+		<TD WIDTH="20%" CLASS="appbar" VALIGN="TOP">
+		<table width="100%" border="0" bgcolor="<%=bordercolor%>" bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>" cellpadding="0" cellspacing="0">
+
+	<tr><TD>
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#336699" height="100%" width="100%">
+		<tr><td colspan="2" class="evalbigbold" bgcolor="#bbbb88">Tara Bowling<br><HR></TD>
+		</TR>
+		<TR>
+		<TD class="evalsmallboldtitle" bgcolor="#bbbb88">Pre-A Status</td>
+		<TD class="evalsmall">---Pending----</td>
+		</TR>
+		<TR>
+		<TD class="evalsmallboldtitle" bgcolor="#bbbb88">FA Status</td>
+		<TD class="evalsmall">---Pending----</td>
+		</tr>
+	</table>
+	</td></tr>
+<%
+			String menuType = "menu";
+			for(int x = 0; x < menuTitles.length; x++){
+				if (pageNum == x + 1) {
+					menuType = "<TD CLASS=\"menuactive\" align=\"right\"><A CLASS=\"menuactive\" HREF=\"SIController?action=goToPage&page=" + pages[x] + "&sendingpage=" + request.getParameter("page") + "&toframe=" + request.getParameter("toframe") + "&ApplicationID="+request.getParameter("ApplicationID")+"\">" + menuTitles[x] + "</A></TD>";
+				} else {
+					menuType = "<TD CLASS=\"menu\" align=\"right\"><A CLASS=\"menu\" HREF=\"SIController?action=goToPage&page=" + pages[x] + "&sendingpage=" + request.getParameter("page") + "&toframe=" + request.getParameter("toframe") + "&ApplicationID="+request.getParameter("ApplicationID")+"\">" + menuTitles[x] + "</A></TD>";
+				}
+				if (pages[x].equals("evalworksheet") && request.getParameter("toframe").equals("yes")) {
+					menuType = "<TD  class=\"evaldim\" align=\"right\">" + menuTitles[x] + "</TD>";
+				}
+				if (pages[x].equals("evalacceptance") && request.getParameter("toframe").equals("yes")) {
+					menuType = "<TD  class=\"evaldim\" align=\"right\">" + menuTitles[x] + "</TD>";
+				}
+				if (pages[x].equals("evalsummary") && request.getParameter("toframe").equals("yes")) {
+					menuType = "<TD  class=\"evaldim\" align=\"right\">" + menuTitles[x] + "</TD>";
+				}
+				%>
+
+				<TR><%=menuType%></TR>
+<%
+			}
+%>
+		</TABLE>
+		</td>
+<!-- Start Main Work Area -->
+<td width="64%">
+<TABLE width="100%" cellpadding="0" cellspacing="0" bgcolor="#bbbb88" bordercolor="#bbbb88" border="1">
+<TR>
+	<TD align="right">
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<TR>
+		<TD colspan="2" class="evalsmallboldtitle">School</td>
+		</TR>
+		<TR>
+		<TD colspan="2" class="evalsmall" bgcolor="#cccc99">Bowling Green State University</td>
+		</tr>
+		<tr><TD class="evalsmallboldtitle">App. Started:</TD><TD class="evalsmall" bgcolor="#cccc99">11/20/2002</TD>
+		</TR>
+		<tr><TD class="evalsmallboldtitle">Submitted:</TD><TD class="evalsmall" bgcolor="#cccc99">11/30/2002</TD>
+		</TR>
+	</table>
+	</td>
+	<TD align="right">
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<!--<TR>
+		<TD colspan="2" class="evalsmallboldtitle" bgcolor="#bbbb88">References</td>
+		</TR>-->
+		<TR>
+		<TD class="evalsmallboldtitle">Staff Ref</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><font color="#008000">Completed</font></td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle">Discipler</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><font color="#FFFFF00">Started</font></td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle">Roommate</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><font color="#008000">Completed</font></td>
+		</tr>
+		<TR>
+		<TD class="evalsmallboldtitle">Friend</td>
+		<TD class="evalsmall" bgcolor="#cccc99"><font color="#FF0000">None</font></td>
+		</tr>
+	</table>
+	</td>
+	<TD align="right">
+	<table cellpadding="0" cellspacing="0" border="1" bordercolor="#bbbb88">
+		<tr><TD class="evalsmallboldtitle">Min. Interest(Location/Explaination)</TD>
+		</TR>
+		<TR>
+		<TD class="evalsmall" bgcolor="#cccc99">A. US Cat/Columbus Catalytic Team</TD>
+		</TR>
+		<TR>
+		<TD class="evalsmall" bgcolor="#cccc99">B.  US Cat/Cleveland Catalytic Team</TD>
+		</TR>
+		<TR>
+		<TD class="evalsmall" bgcolor="#cccc99">C.  US Cat/Chicago Catalytic Team</TD>
+		</tr>
+	</table>
+	</td>
+</TR>
+</TABLE>

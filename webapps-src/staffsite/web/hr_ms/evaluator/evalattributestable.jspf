@@ -1,0 +1,161 @@
+<!-- Start Reference Peronal Attributes -->
+
+<table width="100%" cellpadding="0" cellspacing="0" class="evalrefoutbox">
+	<tr><td class="evaltitle" colspan="3"><b>Reference Personal Attributes</b></td>
+	</tr>
+<%@ include file="evalrefledgend.jspf" %>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="100%" colspan="3">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox" width="100%">
+			<%=mshtmlutils.printAttribTitle("<b>1. Responsibility:</b> Carries out duties and obligations")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_1a(), refs1.get_1a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_1a(), refs2.get_1a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_1a(), refp.get_1a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Very<br>Irresponsible", "Irresponsible", "Responsible", "Very<br>Responsible")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>2. Adaptability:</B> Adjusts well to change in circumstances")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_2a(), refs1.get_2a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_2a(), refs2.get_2a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_2a(), refp.get_2a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Adapts with<br>Difficulty", "Adapts<br>Moderately", "Adapts<br>Well", "Adapts<br>Very Well")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>3. Perseverance:</B> Moves ahead in the face of adversity")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_3a(), refs1.get_3a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_3a(), refs2.get_3a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_3a(), refp.get_3a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Quits<br>Often", "Quits<br>Sometimes", "Usually<br>Perseveres", "Always<br>keeps Going")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>4. Personal Appearance and Manners:</B>")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_4a(), refs1.get_4a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_4a(), refs2.get_4a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_4a(), refp.get_4a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Careless", "Fair", "Good", "Very Good")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>5. Cooperation and Teamwork:</B> Works well with others")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_5a(), refs1.get_5a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_5a(), refs2.get_5a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_5a(), refp.get_5a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Doesn't<br>Cooperate", "Cooperate<br>Poorly", "Cooperate<br>Well", "Cooperate<br>Very Well")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>6. Communication:</B> Presents thoughts with clarity and meaning")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_6a(), refs1.get_6a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_6a(), refs2.get_6a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_6a(), refp.get_6a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Poor", "Fair", "Good", "Outstanding")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>7. Spiritual Maturity:</B> Demonstrates mature walk with God")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_7a(), refs1.get_7a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_7a(), refs2.get_7a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_7a(), refp.get_7a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Poor", "Questionable", "Good", "Impeccable")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>8. Sensitivity:</B> Sensitive to the needs and feelings of others")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_8a(), refs1.get_8a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_8a(), refs2.get_8a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_8a(), refp.get_8a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Insensitive", "Sensitive", "Very Sensitive")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>9. Emotional Stability:</B> Responds well to stressful situations")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_9a(), refs1.get_9a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_9a(), refs2.get_9a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_9a(), refp.get_9a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Difficulty<br>with Stress", "Handles<br>Inconsistently", "Handles<br>Well" , "Handles<br>with Skill")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>10. Self-Image:</B> Accepts and understands self")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_10a(), refs1.get_10a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_10a(), refs2.get_10a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_10a(), refp.get_10a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Very<br>Poor", "Fair", "Good", "Exceptional")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>11. Personal Ministry:</B> Effective personal influence for Christ")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_11a(), refs1.get_11a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_11a(), refs2.get_11a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_11a(), refp.get_11a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Not<br>Effective", "Limited<br>Effectiveness", "Active<br>Ministry", "Exceptional<br>Effectiveness")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>12. Initiating with others:</B> Begins conversations with ease")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_12a(), refs1.get_12a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_12a(), refs2.get_12a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_12a(), refp.get_12a()>0)%>
+			<%=mshtmlutils.printAttribLabels4("Never<br>Initiates", "Occasionally<br>Initiates", "Often<br>Initiates", "Very<br>Initiative")%>
+
+			<%=mshtmlutils.printAttribTitle("<B>13. Teachablitity:</B> Willing to recieve instruction and counsel")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_13a(), refs1.get_13a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_13a(), refs2.get_13a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_13a(), refp.get_13a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Unteachable", "Teachable", "Very Teachable")%>
+
+			<%=mshtmlutils.printAttribTitle("14. Procrastination")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_14a(), refs1.get_14a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_14a(), refs2.get_14a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_14a(), refp.get_14a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("15. Critical attitude")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_15a(), refs1.get_15a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_15a(), refs2.get_15a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_15a(), refp.get_15a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("16. Irritablity")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_16a(), refs1.get_16a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_16a(), refs2.get_16a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_16a(), refp.get_16a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("17. Anxiety, worry")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_17a(), refs1.get_17a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_17a(), refs2.get_17a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_17a(), refp.get_17a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("18. Depression")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_18a(), refs1.get_18a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_18a(), refs2.get_18a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_18a(), refp.get_18a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("19. Domineering manner")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_19a(), refs1.get_19a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_19a(), refs2.get_19a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_19a(), refp.get_19a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("20. Rebelliousness")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_20a(), refs1.get_20a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_20a(), refs2.get_20a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_20a(), refp.get_20a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+
+			<%=mshtmlutils.printAttribTitle("21. Anger")%>
+			<%=mshtmlutils.printAttribNumbers()%>
+			<%=mshtmlutils.printAttribDetail(1, refs1.get_21a(), refs1.get_21a()>0)%>
+			<%=mshtmlutils.printAttribDetail(2, refs2.get_21a(), refs2.get_21a()>0)%>
+			<%=mshtmlutils.printAttribDetail(3, refp.get_21a(), refp.get_21a()>0)%>
+			<%=mshtmlutils.printAttribLabels3("Frequently", "Average", "Rarely")%>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<!-- End Reference Peronal Attributes -->

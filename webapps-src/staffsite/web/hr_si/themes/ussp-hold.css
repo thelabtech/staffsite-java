@@ -1,0 +1,231 @@
+
+/* Default element tags */
+BODY {
+	background-color: #FFFFFF;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	scrollbar-base-color: #336699; 
+}
+
+A:link {
+	color: #336699;
+	text-decoration: none;
+}
+
+A:active, A:visited {
+	color: #336699;
+	background: none;
+	text-decoration: none;
+}
+
+A:hover {
+	color: #FFFFFF;
+	background: #336699;
+	text-decoration: none;
+	cursor: hand;
+}
+
+/* No graphics buttons */
+
+a.button:visited, a.button:link  { 
+	color: #FFFFFF;
+	font-weight: Bold;
+	font-size: 13;
+	text-decoration: none;
+	background: url("/hr_si/images/bluebg.gif");
+	margin: auto;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-style: outset;
+	border-width: 2px;
+	border-color: #dcdcdc #696969 #696969 #dcdcdc;
+	width: auto
+}
+
+a.button:active, a.button:hover  { 
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #336699;
+	margin: auto;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #696969 #dcdcdc #dcdcdc #696969;
+	width: auto
+}
+
+A.menu:link, A.menu:visited{
+	color: #FFFFFF;
+	background: #336699;
+	font-weight: bold;
+}
+
+A.menu:hover, A.menu:active{
+	font-weight: bold;
+	color: #336699;
+	background: #FFFFFF;
+}
+
+TD {
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+HR {
+	color: #336699;
+	height: 1;
+}
+
+INPUT, TEXTAREA, SELECT{
+	font-family: Arial, sans-serif;	
+	padding: 1px;
+	font-size: 12px;
+	background: #D0DDEA;
+	color: #000000;
+	border: solid 1px #336699;
+	margin: 1px;
+}
+
+reqfilled, .required{
+	background-color: #FFFF99;
+}
+
+.empty{
+	background-color: #D0DDEA;
+}
+
+.reqactive, .active{
+	color: #336699;
+	background: #FFFFFF;
+}
+
+/* Special design tags */
+
+.boxheader {
+	background: url("/hr_si/images/bluebg.gif");
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #FFFFFF;
+	font-weight: bold;
+	border: 1px solid #336699;
+}
+
+.box {
+	background: #FFFFFF;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.heading {
+	font-family: Arial, sans-serif;
+	font-size: 18;
+	color: #336699;
+	margin-bottom: 5px
+}
+
+.pageheading {
+	font-family: Arial, sans-serif;
+	font-size: 24;
+	color: #336699;
+	text-align: right;
+	font-weight: bold;
+	margin-bottom: 0px
+}
+
+.footer {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+
+.cell {
+	background-color: #FFFFFF;
+}
+
+.cell2 {
+	background: #DDDDDD;
+}
+
+.cell3 {
+	background-color: #336699;
+	color: #FFFFFF;
+}
+
+.appbar {
+	background: url("/hr_si/images/bluebg.gif");
+	font-family: Arial, sans-serif;
+	font-size: 12;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.app {
+	background: #DDDDDD;
+	font-family: Arial, sans-serif;
+	font-size: 11;
+	padding: 2px 5px;
+}
+
+.appnumber {
+	font-family: Courier, fixed;
+	font-weight: bold;
+	font-size: 30;
+	padding: 2px;
+	color: #336699;
+	border-right: dotted 1px #336699;
+	border-bottom: solid 1px #336699;
+	margin: 0px;
+	width: 15px;
+}
+
+.appquestion{
+	padding: 5px;
+	border-bottom: solid 1px #336699;
+}
+
+.applist {
+	margin: 5px 0px;
+	padding-left: 20px;
+}
+
+
+.highlight {
+	background-color: #FF0000;
+	font-family: Arial, sans-serif;
+	font-size: 12;
+}
+
+.small {
+	font-family: Arial, sans-serif;
+	font-size: 10;
+}
+
+
+TD.button{ 
+	padding-top: 8px; 
+	padding-bottom: 8px; 
+}
+
+
+TD.menuactive{
+	background: #DDDDDD;
+	padding:  4px;
+	text-align: right;
+	border: solid #FFFFFF;
+	border-width:  1px;
+}
+
+TD.menu{
+	color: #FFFFFF;
+	background: #336699;
+	border: solid #FFFFFF;
+	border-width:  1px;
+	padding: 4px;
+	text-align: right; 
+}

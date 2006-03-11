@@ -1,0 +1,295 @@
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//------------------------------
+	// AS 1/21/2003
+	// Required field highlighting functions
+	// Usage: CLASS="required" onFocus="Highlight(this)" onBlur="UnHighlight(this)"
+	// Usage: CLASS="empty" onFocus="Highlight(this)" onBlur="UnHighlight(this)"
+	//------------------------------
+	function Highlight(e){
+		if(e.className == "required" || e.className == "reqfilled"){
+			e.className = "reqactive";
+		} else{
+			e.className = "active";
+		}
+	}
+
+	function UnHighlight(e){
+		if(e.className == "reqactive"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else if(e.className == "required"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else
+			e.className = "empty";
+	}
+
+	function UnHighlightAll(){
+		for(var x = 0; x < document.forms.length; x++)
+			for(var y = 0; y < document.forms[x].elements.length; y++){
+				if(document.forms[x].elements[y].className == "empty" || document.forms[x].elements[y].className == "required")
+					UnHighlight(document.forms[x].elements[y]);
+		}
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 1/21/2003
+	// Verify required fields using the CLASS="required"
+	// Usage: requiredFilled(formName)
+	//------------------------------
+	function requiredFilled(myForm){
+		for(var y = 0; y < myForm.elements.length; y++){
+			if(myForm.elements[y].className == "required" && myForm.elements[y].value == ""){
+				myForm.elements[y].focus();
+				return false;
+			}
+		}
+		return true;
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 1/21/2003
+	// Email validation user@host.domain
+	// Usage: validEmail(address)
+	//------------------------------
+	function validEmail(email){
+		//var filter = new RegExp("^[a-z0-9]+([-_\.]?[a-z0-9])+@[a-z0-9]+([-_\.]?[a-z0-9])+\.[a-z]{2,4}");
+		var filter = new RegExp("^[a-z0-9\-\.%_&+]+@(([a-z0-9]|[a-z0-9]+[a-z0-9-]*[a-z0-9]+)\.)+[a-z0-9][a-z0-9]+$");
+		if (filter.test(email))
+			return true;
+		else
+			return false;
+	}
+	//------------------------------
+	
+	//	------------------------------
+	// Added by SEP 10/29/2004
+	// URL validation (must be http://... or https://...
+	// Usage: validURL(address)
+	//------------------------------
+	function validURLhttp (url) {
+		//var urlPattern = /^((https?):\/\/)?(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+(?:com|edu|biz|org|gov|int|info|mil|net|name|museum|coop|aero|[a-z][a-z])\b(?:\d+)?(?:\/[^;"'<>()\[\]{}\s\x7f-\xff]*" +"(?:[.,?]+[^;"'<>()\[\]{}\s\x7f-\xff]+)*)?/;
+		var urlPattern = /^(https?):\/\/(\w)*/;
+		return urlPattern.test(url.toLowerCase());
+	}
+
+	//------------------------------
+	// AS 6/18/2003
+	// Int validation
+	// Usage: validInt(string)
+	//------------------------------
+	function validInt(e){
+	  var pat=/^\d+$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// Hex validation
+	// Usage: validHex(string)
+	//------------------------------
+	function validHex(e){
+	  var pat=/^[0-9a-fA-F]{6}$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// Credit card validation
+	// Usage: validCC(string)
+	//------------------------------
+	function validCC(e){
+	  var pat=/^\d{13,16}$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// money validation
+	// Usage: validMoney(string)
+	//------------------------------
+	function validMoney(e){
+	  var pat=/^\d*(\.\d{0,2})?$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// float validation
+	// Usage: validFloat(string)
+	//------------------------------
+	function validFloat(e){
+	  var pat=/^\d*(\.\d*)?$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// zip validation
+	// Usage: validZip(string)
+	//------------------------------
+	function validZip(e){
+	  var pat=/^\d{5}(-?\d{4})?$/i;
+	  return(pat.test(e));
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 6/18/2003
+	// date validation
+	// Usage: validDate(string)
+	//------------------------------
+	function validDate(e){
+		myYear = e.substring(e.lastIndexOf("/") + 1);
+		if ((myYear % 4) != 0) {
+			var pat = /^(0?[13578]|1[02])\/([12][0-9]|3[01]|0?[1-9])\/(19|20)(\d\d)$|(^(0?[469]|11)\/([12][0-9]|30|0?[1-9])\/(19|20)(\d\d)$)|(^(0?2)\/(1[0-9]|2[0-8]|0?[1-9])\/(19|20)(\d\d)$)/i;
+			return pat.test(e);
+		} else {
+			var pat = /^(0?[13578]|1[02])\/([12][0-9]|3[01]|0?[1-9])\/(19|20)(\d\d)$|(^(0?[469]|11)\/([12][0-9]|30|0?[1-9])\/(19|20)(\d\d)$)|(^(0?2)\/(1[0-9]|2[0-9]|0?[1-9])\/(19|20)(\d\d)$)/i;
+			return pat.test(e);
+		} 
+	}
+	//------------------------------
+
+	//------------------------------
+	// AS 1/21/2003
+	// Date Range validation arg1 <= arg2
+	// Usage: validDateRange(date1, date2)
+	//------------------------------
+	function validDateRange(arg1, arg2){
+		var arg1array = arg1.split("/");
+		date1 = new Date(arg1array[2], arg1array[0] - 1, arg1array[1]); 
+		var arg2array = arg2.split("/");
+		date2 = new Date(arg2array[2], arg2array[0] - 1, arg2array[1]); 
+		return (date1.getTime() <= date2.getTime());
+	}
+	//------------------------------
+
+	//------------------------------
+	// Date function opicking tool
+	// Usage: onFocus="pickdate(this)"
+	//------------------------------
+	var theDateElement;
+
+	function pickdate(element) {
+		theDateElement = element;
+		theDateElement.blur();
+		myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+		var goTo = "/selday.jsp";
+		if (theDateElement.value!=null){goTo=goTo+'?date='+theDateElement.value;}
+		myFloater.location.href = goTo;
+	}
+
+	function pickdatePicker(element) {
+		theDateElement = element;
+			myFloater = window.open('/crs/pickday.jsp','DatePicker','resizable=no,scrollbars=no,width=325,height=50');
+	}
+
+	function setdate(theDate) {
+		theDateElement.value=theDate;
+		theDateElement.blur();
+	}
+	//------------------------------
+
+
+	function popupWindow(cUrl,cName,cFeatures) {
+		var xWin = window.open(cUrl,cName,cFeatures);
+	}
+
+	// Greg's Color Picker System
+	var theColorElement;
+
+	function setColor(val) {
+		theColorElement.value=val;
+		theColorElement.blur();
+	}
+	function pickColor(element) {
+		theColorElement = element;
+		myFloater = window.open('','ColorPicker','resizable=no,scrollbars=no,width=177,height=110');
+		var goTo = "/sel_color.jsp";
+		myFloater.location.href = goTo;
+	}
+	//End color picker
+
+
+	
+	//------------------------------
+	// Adobe ImageReady functions
+	//------------------------------
+	function newImage(arg) {
+		if (document.images) {
+			rslt = new Image();
+			rslt.src = arg;
+			return rslt;
+		}
+	}
+	function changeImages() {
+		if (document.images && (preloadFlag == true)) {
+			for (var i=0; i<changeImages.arguments.length; i+=2) {
+				document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+			}
+		}
+	}
+
+	//------------------------------
+	// Global Init Function
+	//------------------------------
+	function header_init() {
+		preloadImages();
+		UnHighlightAll();
+	}
+
+	var submitOnce_t = 0;
+	var submitOnce_i = 0;
+	var submitOnce_c = new Array();
+
+	submitOnce_c[0] = "Please wait...";
+	submitOnce_c[1] = "Patience is a virtue...";
+	submitOnce_c[2] = "I'm working on it...";
+	submitOnce_c[3] = "Alright already...";
+
+	function submitOnce(buttonName){
+		var x = (new Date()).getTime();
+
+		if (x - submitOnce_t > 10000) { 
+			submitOnce_t = x; 
+			submitOnce_i = 0; 
+		}
+
+		if(document.all)
+			document.all[buttonName].innerHTML = submitOnce_c[submitOnce_i++];
+		else{
+			anks = document.getElementsByTagName("a");
+			for(i = 0; i < anks.length; i++)
+				if(anks[i].name == buttonName)
+					change = anks[i];
+
+			var new_txt = document.createTextNode(submitOnce_c[submitOnce_i++]);
+			change.replaceChild(new_txt, change.childNodes[0]);
+		}
+
+		if (submitOnce_i >= submitOnce_c.length) { 
+			submitOnce_i = 0; 
+		}
+
+		return submitOnce_t == x;
+	}
+
+	function textCounter(field, countfield, maxlimit) {
+		if (field.value.length > maxlimit){ // if too long...trim it!
+			field.value = field.value.substring(0, maxlimit);
+			// otherwise, update 'characters left' counter
+		} else {
+			countfield.value = maxlimit - field.value.length;
+		}
+	}
+
+
+// -->
+</SCRIPT>

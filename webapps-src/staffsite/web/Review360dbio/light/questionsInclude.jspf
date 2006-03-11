@@ -1,0 +1,22 @@
+<%
+	String rName = (String)tub.getValue("ReviewFor");
+	String fName = rName;
+	if(rName.indexOf(" ") > 0)
+	  fName = rName.substring(0, rName.indexOf(" "));
+	boolean IsMale = new Boolean((String)tub.getValue("IsMale")).booleanValue();
+
+	String hisher = IsMale ? "his" : "her";
+	String himher = IsMale ? "him" : "her";
+	String heshe = IsMale ? "he" : "she";
+	String himselfherself = IsMale ? "himself" : "herself";
+		
+	String q1 = "As you have observed " + fName + " lead this past year, which roles (direction setter, change agent, spokesperson, coach) have been the most evident?";
+	String q2 = "Which of the roles have been lacking or need more focused attention?";
+	String q3 = "As you have observed " + fName + " lead this past year, which responsibilities (motivating, aligning, vision casting, formulating strategy) have been the most evident?";
+	String q4 = "Which of the responsibilities have been lacking or need more focused attention?";
+	String q5 = "How would you describe " + fName + "'s relationships with the Lord, self and others?  Of the three relationships, which do you observe are the strongest and where have you seen gaps?";
+	String q6 = "How would you describe " + fName + "'s effectiveness as a leader this past year?";
+	String q7 = "What one area/obstacle is holding " + fName + " back from being as effective as " + heshe + " could be?";
+	String q8 = "What would be your developmental suggestions for " + fName + "?";
+	String q9 = "Do you have any other concerns about " + fName + " as a leader?";
+%>

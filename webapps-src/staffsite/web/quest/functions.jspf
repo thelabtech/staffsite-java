@@ -1,0 +1,80 @@
+<%!
+
+String getOptionsList (String sqlString, HttpSession thisSession, String thisSessionString) {
+	String value				= "";
+	String ID					= "";
+	String tempString= "";
+	tempString=(String)thisSession.getValue(thisSessionString);
+
+	if ((tempString == null) || (tempString.length() < 2)){
+		try {
+			tempString	= "";
+			Connection con = DriverManager.getConnection(url, user, password);
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while (rs.next()) {
+				value			= rs.getString("value").trim();
+				ID				= rs.getString("ID").trim();
+				if (value.equals("-Not Answered")){
+					tempString= tempString+ "\r\n<option value='" + ID + "' selected>" + value + "</option>";
+				}
+				else {
+					tempString= tempString+ "\r\n<option value='" + ID + "'>" + value + "</option>";
+				}
+			}
+			stmt.close();
+			con.close();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		thisSession.putValue(thisSessionString, tempString);	//dump the string into our session for faster access later
+		System.out.println("Quest- recorded " + thisSessionString + " to the Session");
+	}
+	return tempString;
+}
+
+String removeNA (String inputString){
+		int tempInt1	= inputString.indexOf(">-N");
+		int tempInt2	= inputString.indexOf("</option>",tempInt1);
+		String subStr1	= inputString.substring(0,tempInt1+1);
+		String subStr2	= inputString.substring(tempInt2);
+		String outString = "-";
+		inputString = subStr1.concat("-");
+		return inputString.concat(subStr2);
+}
+
+String headerTitleBar(String pageTitle, String pageName) {
+	return "<HTML>\r\n<HEAD>\r\n<TITLE>" + pageTitle + "</TITLE>\r\n</HEAD>\r\n<BODY BGCOLOR='#FFFFFF'>\r\n<table cellpadding='0' cellspacing='0' border='0' width='100%'>\r\n<tr valign='bottom' bgcolor='#ddddee'>\r\n<td>\r\n<font size='3' face='arial'><b>Research and Development<p>\r\n	</td>\r\n	<td align='right'>\r\n	<font size='2' face='arial'><b>Quest Tablespace admin tool (beta v0.75)<p></font>\r\n	</td>\r\n</tr>\r\n<tr align='center' valign='bottom' bgcolor='#ddddee'><td>	<font size='2' face='arial'><b><i>" + pageTitle + "</td><td align='right'><a href='" + pageName + "'><img src='/quest/images/refresh.gif' alt='refresh' border='0'></a> &nbsp; <a href='./admin.jsp'><img src='/quest/images/home.gif' alt='home' border='0'></a></td></tr></table><!-- ---------------endofheader-------------- -->";
+}
+
+String normalPageHeader(String pageTitle) {
+	return "<html><head><title>" + pageTitle + "</title></head>\r\n<body><table cellpadding='0' cellspacing='0' border='0' width='100%'> <tr valign='bottom' bgcolor='#ddddee'>	<td align='right'><font face='arial' size='1'><b> " + pageTitle + " </td></tr></table> \r\n <a href='entrance.jsp'><img src='/quest/images/questlogo.gif' border='0'></a><font face='arial'><p><font size='2'><center>";
+}
+
+
+String getNA(String tableName) {
+	String tempString = "";
+	try {
+		tempString	= "";
+		Connection con = DriverManager.getConnection(url, user, password);
+		Statement stmt = con.createStatement();
+		ResultSet rs= stmt.executeQuery("Select ID from " + tableName + " where value like '-N%'");
+		rs.next();
+		tempString = rs.getString("ID");
+		stmt.close();
+		con.close();
+	}
+	catch (Exception e) {
+		System.out.println(e);
+	}
+	return tempString;
+}
+
+boolean haveSession(HttpSession thisSession) {
+	if ((String)thisSession.getValue("version")!=null){ 
+		return true;
+	}
+	else { return false; }
+}
+%>

@@ -1,0 +1,138 @@
+<!-- Start Ministry Interests -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr><td class="evaltitle" colspan="2"><b>Ministry Interests</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">I am interested in the following internship(s):</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%">
+		<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">A.</td>
+			<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=projectName[0]%></td>
+		<tr>
+		<tr>
+			<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">B.</td>
+			<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=projectName[1]%></td>
+		<tr>
+		<tr>
+			<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">C.</td>
+			<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=projectName[2]%></td>
+		<tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Earliest date available for internship (month and year):</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getAvailableMonth())%>/<%=ShowNoNull(app.getAvailableYear())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Do you have any plans that would conflict with your involvement in an internship during the time period for which you are applying?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getHasMinistryConflict())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">If yes, please explain.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getMinistryConflictExplanation())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Have you been recruited to a specific location and team?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getHasSpecificLocation())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">By whom?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getSpecificLocationRecruiterName())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">5.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">I would like to be on a team with the following people:</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getTeamMembers())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">6.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Are you dating anyone?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getIsDating())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Where will they be during your internship year?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getDatingLocation())%></td>
+	</tr>
+	<tr><td class="evaltitle" colspan="2"><b>THIS SECTION FOR STINT ONLY</b></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">1.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Does your campus have a partnership with the location of your preference?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getHasCampusPartnership())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">2.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">The WSN Lane does not place dating couples on the same team. Are you currently dating or engaged to another STINT Intern applicant or someone who will be overseas?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowYesNo(app.getIsDating())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">If so, who?</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getDatingStintName())%></td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">3.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">
+		<table cellpadding="0" cellspacing="0" class="evalrefinbox">
+			<tr><td class="insideboxblue">Languages</td><td class="insideboxblue">Years of Study</td><td class="insideboxblue">Fluency (5= completely fluent)</td></tr>
+			<tr><td class="insidebox"><%=ShowNoNull(app.getLanguage1())%>&nbsp;</td><td class="insidebox"><%=ShowNoNull(app.getLanguage1YearsStudied())%>&nbsp;</td><td class="insidebox"><%=app.getLanguage1Fluency()%></td></tr>
+			<tr><td class="insidebox"><%=ShowNoNull(app.getLanguage2())%>&nbsp;</td><td class="insidebox"><%=ShowNoNull(app.getLanguage2YearsStudied())%>&nbsp;</td><td class="insidebox"><%=app.getLanguage2Fluency()%></td></tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<TD CLASS="evaltitle" ALIGN="left" VALIGN="TOP" WIDTH="5%">4.</td>
+		<TD CLASS="evaltitle" ALIGN="left" WIDTH="95%">Please describe any previous cross-cultural training and/or travel experience you have had.</td>
+	</tr>
+	<tr>
+		<TD CLASS="eval" ALIGN="left" VALIGN="TOP" WIDTH="5%">&nbsp;</td>
+		<TD CLASS="eval" ALIGN="left" WIDTH="95%"><%=ShowNoNull(app.getPreviousMinistryExperience())%></td>
+	</tr>
+<tr><td colspan="2">
+</td></tr></table>
+<!-- End Ministry Interests -->

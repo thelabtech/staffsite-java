@@ -1,0 +1,43 @@
+<jsp:useBean id="box" class="org.alt60m.html.Box"/>
+<%@ include file="evaluateHeaderCode.jspf" %>
+<%@ include file="/style.jspf"%>
+<%@ include file="evaluatecolors.jspf" %>
+<HTML>
+<HEAD>
+<TITLE>WSN SPT</TITLE>
+<link rel="stylesheet" href="/hr_si/themes/hr_si_evaluation.css" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(/hr_si/themes/hr_si_evaluation.css); /*IE and NN6x styles*/
+</style>
+<script language="javascript">
+<!--
+	function doPostFormNextAction(action, nextAction, nextParm) {
+		// use this to save the page and do a specific reference form action on the server
+		var theform = document.appForm;
+		theform.action.value = action;	// method of MSController to perform
+		theform.nextAction.value = nextAction;	// next method to perform after first method
+		theform.nextParm.value = nextParm;	// parameter sent to next method (like page name for goToPage)
+		theform.submit();
+	}
+	function doPostForm(page) {
+		var theform = document.appForm;
+		theform.page.value = page;
+		theform.submit();
+	}
+// -->
+</script>
+<table width="760" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td width="100%">
+<%	box.setTitle("<b>" + frameTitle + "</b>"); %>
+
+<%	box.setColor(color3); %>
+<%=box.printTop()%>
+<p> <%=fontText%>
+<FORM NAME="appForm" ACTION="MSController" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="WsnApplicationID" VALUE="<%=ar.getValue("WsnApplicationID")%>">
+<INPUT TYPE="HIDDEN" NAME="EvalID" VALUE="<%=hasAValue(eval.getEvalID())?eval.getEvalID():""%>">
+<INPUT TYPE="HIDDEN" NAME="page" value="evalsummaryframe"> <!-- // 2-24-03 kl: set to evalsummaryframe for defect #817, currently on hold -->
+<INPUT TYPE="HIDDEN" NAME="sendingpage" value="evalsummaryframe">
+<INPUT TYPE="HIDDEN" NAME="toframe" value="<%=ar.getValue("toframe")%>">
+<INPUT TYPE="HIDDEN" NAME="action" VALUE="evalFormSave">
+<input type="hidden" name="nextAction" value="goToView">
+<input type="hidden" name="nextParm" value="evalsummaryframe">

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+<view name="ubersum" url="/fsk/ubersummary.jsp"></view>
+<view name="natlsum" url="/fsk/nationalsummary.jsp"></view>
+<view name="regsum" url="/fsk/regionalsummary.jsp"></view>
+<view name="localsum" url="/fsk/localsummary.jsp"></view>
+<view name="chooselocalsum" url="/fsk/chooselocalsummary.jsp"></view>
+<view name="newlocalsum" url="/fsk/localsummary.jsp"></view>
+<view name="listStaff" url="/fsk/liststaff.jsp"></view>
+<view name="regAlloc" url="/fsk/regionalallocation.jsp"></view>
+<view name="uberAlloc" url="/fsk/uberallocation.jsp"></view>
+<view name="natlAlloc" url="/fsk/nationalallocation.jsp"></view>
+<view name="localAlloc" url="/fsk/localallocation.jsp"></view>
+<view name="chooseAlloc" url="/fsk/chooseallocation.jsp"></view>
+<view name="noAccountNo" url="/fsk/noaccountno.jsp"></view>
+<view name="showOrder" url="/fsk/order.jsp"></view>
+<view name="showOrderError" url="/fsk/ordererror.jsp"></view>
+<view name="showDistribution" url="/fsk/distribution.jsp"></view>
+<view name="error" url="/fsk/error.jsp"></view>
+</views>

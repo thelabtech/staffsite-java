@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>WSN SPT</TITLE>
+<link rel="stylesheet" href="/hr_si/themes/hr_si_evaluation.css" type="text/css"> <!--NN4 Compatible sheet -->
+<style type="text/css">
+@import url(/hr_si/themes/hr_si_evaluation.css); /*IE and NN6x styles*/
+</style>
+
+<STYLE>
+SPAN {cursor: hand ; }
+.onme1 {color: #D5DAEA ; }
+.offme{color: #7788BB ; }
+</STYLE> 
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures)
+}
+
+var theDateElement;
+
+function pickdate(element) {
+	theDateElement = element;
+    myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+	var goTo = "/selday.jsp";
+	if (theDateElement.value!=null){goTo=goTo+'?date='+theDateElement.value;}
+    myFloater.location.href = goTo;
+}
+
+function setdate(theDate) {
+	theDateElement.value=theDate;
+	theDateElement.blur();
+}
+
+// Greg's Color Picker System
+var theColorElement;
+
+function setColor(val) {
+	theColorElement.value=val;
+	theColorElement.blur();
+}
+function pickColor(element) {
+	theColorElement = element;
+    myFloater = window.open('','ColorPicker','resizable=no,scrollbars=no,width=177,height=110');
+	var goTo = "/sel_color.jsp";
+    myFloater.location.href = goTo;
+}
+//End color picker
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		header_08_over = newImage("/images/header_08-over.gif");
+		header_09_over = newImage("/images/header_09-over.gif");
+		header_10_over = newImage("/images/header_10-over.gif");
+		header_11_over = newImage("/images/header_11-over.gif");
+		header_12_over = newImage("/images/header_12-over.gif");
+		preloadFlag = true;
+	}
+}
+// -->
+</SCRIPT>
+
+</head>
+<body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#336699" VLINK="#336699" leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' ONLOAD="preloadImages();">
+<CENTER>
+<table WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
+	<TR>
+		<TD>
+		<!-- Header begin -->
+		<!-- Header end -->
+		</TD>
+	</TR>
+	<TR>
+		 <TD BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0">
+		 <!--Start all table-->
+<%@ include file="sitoolheader.jspf"%>
+
+<body bgcolor="#cccc99" link="#006633" alink="#008833" vlink="#003333" text="#000000">
+
+<p> <FONT FACE="Arial" SIZE="2" COLOR="#000000">

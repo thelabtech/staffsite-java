@@ -1,0 +1,40 @@
+<%
+	String fontAttention = "<FONT FACE=\"Arial\" SIZE=\"2\" COLOR=\"#FF0000\">";
+
+	String fontHeader = "<FONT FACE=\"Arial\" SIZE=\"5\" COLOR=\"#336699\">";
+
+	String bgcolor = "#cccc99";
+	String fgcolor = "#000000";
+	String textcolor = "#000000";
+	String linkcolor = "#006633";
+	String alinkcolor = "#008833";
+	String vlinkcolor = "#003333";
+	String tintcolor = "#bb7744";
+
+	String bordercolor = "#bbbb88";
+	String bordercolorlight = "#cccc99";
+
+//	String hr = "<hr color='#336699' size=1>";
+	
+	String bannerImage ="<img src='/wsnsp/images/banner1.gif' align='middle' border='0'>";
+	String wsnLogo = "<img src='/wsnsp/images/wsn.gif' border='0'>";
+	String wsnLogoS = "<img src='/wsnsp/images/smallwsn.gif' border='0'>";
+	String okUp = "<img src='/wsnsp/images/ok-up.gif' border='0'>";
+	String okSubmit = "<input type='submit' value='OK'>";
+	String addSubmit = "<input type='submit'value='Add'>";
+	String saveSubmit = "<input type='submit' value='Save'>";
+	String searchSubmit = "<input type='submit' value='Search'>";
+
+	String addUp = "<img src='/wsnsp/images/addnew.gif' border='0'>";
+	String saveUp = "<img src='/wsnsp/images/save.gif' border='0'>";
+	String cancelUp = "<img src='/wsnsp/images/cancel.gif' border='0'>";
+	String relistUp = "<img src='/wsnsp/images/relist.gif' border='0'>";
+	String homeUp = "<img src='/wsnsp/images/homepage.gif' border='0'>";
+	String filterUp = "<img src='/wsnsp/images/filter.gif' border='0'>";
+	String refreshUp = "<img src='/wsnsp/images/refresh.gif' border='0'>";
+	String viewAllUp = "<img src='/wsnsp/images/viewall.gif' border='0'>";
+	String checkDone = "<img src='/wsnsp/images/check-done.gif' border=0>";
+	String checkNotDone = "<img src='/wsnsp/images/check-red.gif' border=0>";
+	String checkOptional = "<img src='/wsnsp/images/check-yellow.gif' border=0>";
+
+%>

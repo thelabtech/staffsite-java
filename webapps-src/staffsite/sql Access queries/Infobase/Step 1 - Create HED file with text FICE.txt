@@ -1,0 +1,2 @@
+SELECT Trim(Str([FICE])) AS [FICE TEXT], [HED Master File].* INTO [HED with text FICE]
+FROM [HED Master File];

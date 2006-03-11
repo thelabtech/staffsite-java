@@ -1,0 +1,29 @@
+WSN Summer Project Tool
+
+Verifying changes
+
+Check to see if each type of user gets the right custome links listed on the home page.
+(if you need to, add "Test Project", then add this user as the project director.)
+Check to make sure each person gets the correct role when they are added to the tool.
+
+check all links on index page
+Check to make sure all admin forms on the home page work properly.
+	...
+	...
+
+add/edit applicant
+add/edit project staff
+add/edit leader/user
+linking spouse
+adding kids
+add/edit project
+
+Search project: Do all fields work? Can you combine all fields together?
+Search person: Do all fields work? Can you combine all fields together?
+
+From "view projects", click all "available tools" links.  (the most appear at that link)
+email team
+
+
+
+- make sure the support balance updater bean is running each night and updating each student's balance correctly. (you could type in your account # for a student and check the next day to see if it matches your current balance.)

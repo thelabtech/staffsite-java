@@ -1,0 +1,70 @@
+package id3l5ydcumwwo1wcumwzvpx;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.ProfileAlreadyExistsException:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.ProfileNotFoundException:oiref><oihard>
+@__modelType reference 
+*/
+class reference1 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.MultipleProfilesFoundException:oiref><oihard>
+@__modelType reference 
+*/
+class reference2 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.NotAuthorizedException:oiref><oihard>
+@__modelType reference 
+*/
+class reference3 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.ProfileManagementException:oiref><oihard>
+@__modelType reference 
+*/
+class reference4 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.ProfileManager1:oiref><oihard>
+@__modelType reference 
+*/
+class reference5 {
+}/**
+@__ref <oiref:design#Class#id1gjvdcumwwo1wcun1tndr.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#org.alt60m.staffSite.profiles.test:oiref> 
+*/
+class reference8 {
+}/**
+@__ref <oiref:java#Class#org.alt60m.staffSite.profiles.ProfileValues:oiref><oihard>
+@__modelType reference 
+*/
+class reference6 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.NotAuthorizedException:oiref>=193,170,150,117,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.MultipleProfilesFoundException:oiref>=213,10,193,117,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.ProfileNotFoundException:oiref>=10,170,163,117,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.ProfileValues:oiref>=202,298,166,219,1:oigroup>
+<oigroup:<oiref:design#Class#id1gjvdcumwwo1wcun1tndr.diagram:oiref>=644,131,128,68,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.ProfileAlreadyExistsException:oiref>=10,10,183,117,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.ProfileManager1:oiref>=426,10,200,350,1:oigroup>
+<oigroup:<oiref:java#Class#org.alt60m.staffSite.profiles.ProfileManagementException:oiref>=10,330,181,117,1:oigroup>
+*/
+class __positions {
+}

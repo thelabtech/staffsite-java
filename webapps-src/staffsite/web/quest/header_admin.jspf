@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+<TITLE><%=pageTitle%></TITLE>
+</HEAD>
+<BODY BGCOLOR='#FFFFFF'>
+<table cellpadding='0' cellspacing='0' border='0' width='100%'>
+
+<tr valign='bottom' bgcolor='#ddddee'>
+	<td><font size='3' face='arial'><b>Research and Development<p>\n	</td>
+	<td align='right'><font size='2' face='arial'><b>Quest Tablespace admin tool (beta v0.75)<p></font></td>
+</tr>
+<tr align='center' valign='bottom' bgcolor='#ddddee'>
+	<td><font size='2' face='arial'><b><i><%=pageTitle%></td>
+	<td align='right'><a href='<%=pageName%>'><img src='images/refresh.gif' alt='refresh' border='0'></a> <a href='./admin.jsp'><img src='images/home.gif' alt='home' border='0'></a></td>
+</tr>
+</table>
+<!-- ---------------endofheader-------------- -->

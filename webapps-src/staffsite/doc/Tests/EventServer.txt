@@ -1,0 +1,15 @@
+The major areas to test are:
+
+
+First, I created a new event and went through the whole wizard, filling in all the blanks.
+
+I added at least one of each type of custom question.
+
+To test the online credit card payment feature, you have to put an existing merchant id 
+into your test event, preferably the merchant id of a past event. Then that merchant 
+account needs to be set to "test mode." For my test, I used Big Break's merchant id, 
+and asked Steve Ruffner to put their merchant account in test mode. I then payed $1 
+online with my own credit card. Check to see if the payment is approved, and if you 
+get the confirmation email. I did.
+
+Play around with the look and feel, including putting in a splash page URL and event logo id in CMS.

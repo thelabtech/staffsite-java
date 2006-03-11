@@ -1,0 +1,2 @@
+SELECT istprod_ministry_Address.AddressID, istprod_ministry_Staff.firstName, istprod_ministry_Staff.lastName, istprod_ministry_Address.address1, istprod_ministry_Address.address2, istprod_ministry_Address.city, istprod_ministry_Address.state, istprod_ministry_Address.zip, istprod_ministry_Address.country, istprod_ministry_Staff.homePhone, istprod_ministry_Staff.workPhone
+FROM istprod_ministry_Staff INNER JOIN istprod_ministry_Address ON istprod_ministry_Staff.fk_primaryAddress = istprod_ministry_Address.AddressID;
