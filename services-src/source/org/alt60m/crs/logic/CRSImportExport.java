@@ -202,7 +202,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 
 			file.write("Conference Info\n");
@@ -287,7 +287,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			if (!region.equals("NC")) {
 				exportTable(
