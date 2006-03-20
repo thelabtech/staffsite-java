@@ -1,12 +1,14 @@
 package org.alt60m.accounts.servlet.dbio;
 
 import java.util.*;
+
 import org.alt60m.servlet.*;
 import org.alt60m.staffSite.bean.PasswordValidator;
 import org.alt60m.security.dbio.manager.*;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.util.*;
 import org.apache.log4j.Priority;
+import org.alt60m.crs.model.Conference;
 
 public class AccountController extends org.alt60m.servlet.Controller {
 
@@ -106,7 +108,12 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				try
 				{
 					User user = manager.getUserObject(Integer.valueOf(userID).intValue());
-					sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+					if (isUserGeneric(ctx)) {
+						sendGenericThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+					}
+					else {
+						sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+					}
 				}
 				catch(Exception e)
 				{
@@ -195,7 +202,11 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			try
 			{
 				User user = manager.updateUsername(Integer.valueOf(userID).intValue(),newEmail);
-				sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+				if (isUserGeneric(ctx)) {
+					sendGenericThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+				} else {
+					sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+				}
 			}
 			catch(UserAlreadyExistsException e1) {
 				ar.putValue("errorMessage","A username with the email address you entered already exists.  " +
@@ -254,7 +265,11 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		try
 		{
 			User user = manager.getUserObject(Integer.valueOf(userID).intValue());
-			sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+			if (isUserGeneric(ctx)){
+				sendGenericThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+			} else {
+				sendThankYouEmail(user.getUserID(), user.getUsername(), "<HIDDEN>", user.getPasswordQuestion(), user.getPasswordAnswer(), loginPage, ctx);
+			}
 		}
 		catch(Exception e)
 		{
@@ -377,10 +392,21 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					else{
 						try {
 							int userid = manager.getUserID(username);
-							sendThankYouEmail(userid, username, password, passwordQuestion, passwordAnswer, loginPage, ctx);
-							ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences or apply for Summer Projects or STINT/Internships.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.<p>To verify that the email address associated with your account ("+email+") is correct, please also access your email and visit the verification url that we have provided. ");
+							if (isUserGeneric(ctx)) {
+								sendGenericThankYouEmail(userid, username, password, passwordQuestion, passwordAnswer, loginPage, ctx);
+								ar.putValue("errorMessage", "Thank you for creating a Conference Registration Tool personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.<p>To verify that the email address associated with your account ("+email+") is correct, please also access your email and visit the verification url that we have provided. ");
+							} else {
+								sendThankYouEmail(userid, username, password, passwordQuestion, passwordAnswer, loginPage, ctx);
+								ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences or apply for Summer Projects or STINT/Internships.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.<p>To verify that the email address associated with your account ("+email+") is correct, please also access your email and visit the verification url that we have provided. ");
+							}
+							
 						} catch(Exception e) {
-							ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Although your account was created successfully, we had trouble verifying the email address ("+email+"). Please send an email from that address to <a href=\"mailto:help@campuscrusadeforchrist.com\">help@campuscrusadeforchrist.com</a> so that we can confirm that we have your correct email address. You may log in and register for your conference by clicking \"Continue to Login\" below.");					
+							//Why are we doing this if it's in a catch block?
+							if (isUserGeneric(ctx)) {
+								ar.putValue("errorMessage", "Thank you for creating a Conference Registration Tool personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.<p>To verify that the email address associated with your account ("+email+") is correct, please also access your email and visit the verification url that we have provided. ");
+							} else {
+								ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Although your account was created successfully, we had trouble verifying the email address ("+email+"). Please send an email from that address to <a href=\"mailto:help@campuscrusadeforchrist.com\">help@campuscrusadeforchrist.com</a> so that we can confirm that we have your correct email address. You may log in and register for your conference by clicking \"Continue to Login\" below.");
+							}
 						}
 					}
 				ctx.setReturnValue(ar);
@@ -457,7 +483,11 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			manager.resetPasswordQA(username, passwordAnswer, newPassword);
 			String email = username;
 			try { // send email
-				sendPasswordEmail(username, email, newPassword, loginPage, ctx);
+				if (isUserGeneric(ctx)) {
+					sendGenericPasswordEmail(username, email, newPassword, loginPage, ctx);
+				} else {
+					sendPasswordEmail(username, email, newPassword, loginPage, ctx);
+				}
 				ar.putValue("errorMessage", "Your identity has been verified, and a new password has been emailed to you at " + email + ".");
 			} catch (Exception e) {
 				ar.putValue("errorMessage", "Your identity was verified, and your password was reset. Unfortunately, an error occured during processing, and we were unable to send your password via email. You should click <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">here</a></span> to <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">request a new password</a></span>. We apologize for the inconvenience.");
@@ -597,8 +627,8 @@ public class AccountController extends org.alt60m.servlet.Controller {
 
 	private void sendPasswordEmail(String username, String userEmail, String newPassword, String loginPage, ActionContext ctx) throws Exception {
 		try {
-			String subject = "New Campus Crusade for Christ User Account Change",
-				body = "This is a confirmation of your recent request to change your Campus Crusade for Christ password."+
+			String subject = "New Campus Crusade for Christ User Account Change";
+			String body = "This is a confirmation of your recent request to change your Campus Crusade for Christ user password."+
 					"\n\nYou recently requested that your password be changed."+
 					"\n\nYour username is: "+username+
 					"\nYour new password is: "+newPassword+
@@ -613,6 +643,23 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		}
 	}
 
+	private void sendGenericPasswordEmail(String username, String userEmail, String newPassword, String loginPage, ActionContext ctx) throws Exception {
+		try {
+			String subject = "New Conference Registration Tool Account Change";
+			String body = "This is a confirmation of your recent request to change your password."+
+					"\n\nYou recently requested that your password be changed."+
+					"\n\nYour username is: "+username+
+					"\nYour new password is: "+newPassword+
+				    "\n\nFor security reasons & ease of remembering, we encourage you to login and change the above password to a new one of your choice."+
+				    "\n\nIf you have any questions please contact the administrator for the conference you are registering for."+
+				    "\n\nThe Conference Registration Tool Team";
+			sendEmail(userEmail, "info@conferenceregistrationtool.com", subject, body, "text/plain");
+		} catch(Exception e) {
+			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			throw e;
+		}
+	}
+	
 	// OLD HTML version...  Got blocked by iHateSpam
 /*	private void sendThankYouEmail(int userid, String username, String password, String passwordQuestion, String passwordAnswer, String loginPage, ActionContext ctx) throws Exception {
 		try {
@@ -660,6 +707,27 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		}
 	}
 
+	private void sendGenericThankYouEmail(int userid, String username, String password, String passwordQuestion, String passwordAnswer, String loginPage, ActionContext ctx) throws Exception {
+		try {
+			String subject = "Conference Registration Tool Account Info",
+				body = "This is a confirmation of your user account with the Conference Registration Tool."+
+					"\n\nPlease use following link to verify your email address. Since it is a very long address and may have been split up into more than one line, it might not work as a link. If not, you will need to copy the entire address(including both/all of the lines) into your web browser's address bar."+
+					"\n\nhttp://"+ctx.getRequest().getServerName()+"/servlet/AccountController?action=verifyEmail&auth="+encode(userid)+"&username="+username+"&url="+loginPage+
+					"\n\nYour username is:\t"+username+
+					// "\nYour password is:\t"+password+"<BR>"+
+					"\nYour secret question is:\t"+passwordQuestion+
+					"\nThe answer you provided was:\t"+passwordAnswer+
+					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above."+
+					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above."+
+					"\n\nIf you have any questions please contact the administrator for the conference you are registering for.";
+			log(Priority.INFO,body);
+			sendEmail(username, "info@conferenceregistrationtool.com", subject, body, "text/plain");
+		} catch(Exception e) {
+			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			throw e;
+		}
+	}
+	
 	private void sendEmail(String toAddress, String fromAddress, String subject, String body, String mimeType) throws Exception {
 		try {
 			SendMessage msg = new SendMessage();
@@ -694,5 +762,17 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	// Repairs the damage done to our poor little int by encode()
 	public String decode(String bigBadEncodedMonster) {
 		return new Long (Long.valueOf(bigBadEncodedMonster).longValue()/ coefficient).toString();
+	}
+	
+	private boolean isUserGeneric(ActionContext ctx) {
+		Conference cloakConference = new Conference();
+		String event = (String) ctx.getSession().getAttribute("selectedEvent");
+		if (event != null) {
+			cloakConference.setConferenceID(Integer.parseInt(event));
+			cloakConference.select();
+		}
+
+		boolean cloaked = cloakConference.getIsCloaked();
+		return cloaked || ctx.getRequest().getServerName().contains("conferenceregistrationtool");
 	}
 }

@@ -68,7 +68,7 @@
 		}
 %>
 			<%
-		if(ar.getValue("errorMessage").startsWith("Thank you for creating a new Campus Crusade for Christ personal login account.")) {
+		if(ar.getValue("errorMessage").startsWith("Thank you for creating a ")) {
 %>
 			<TR>
 				<TD
