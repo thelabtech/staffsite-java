@@ -43,7 +43,7 @@ public class Review360Controller extends Controller
     private Hashtable usersRoles = new Hashtable();
 
 	private final String VIEWS_FILE = "/WEB-INF/R360views.xml";
-	private final String USERS_FILE = "/WEB-INF/R360Lusers.xml";
+//	private final String USERS_FILE = "/WEB-INF/R360Lusers.xml";
 
 	private final String DEFAULT_ACTION = "showIndex";
 	
@@ -59,7 +59,7 @@ public class Review360Controller extends Controller
 		try {
 			super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
 			super.setDefaultAction(DEFAULT_ACTION);
-			initUsers(false);
+			//initUsers(false);
 
 		}
 		catch (Exception e)
@@ -69,7 +69,7 @@ public class Review360Controller extends Controller
 
    }
 
-
+/* all staff are now authorized to admin 360Ls
     private void initUsers(boolean verbose) {
 		usersRoles = UsersProcessor.parse( getServletContext().getRealPath(USERS_FILE) );
 		if (verbose) {
@@ -80,7 +80,7 @@ public class Review360Controller extends Controller
 			log("finished loading users.");
 		}
     }
-
+*/
 
    
 	/**
@@ -133,11 +133,11 @@ public class Review360Controller extends Controller
 			size2session(session);
 			
 			Hashtable profile = (Hashtable)session.getAttribute("profile");
-			if (profile != null && usersRoles.containsKey(((String)profile.get("UserName")).toLowerCase())) {
+//			if (profile != null && usersRoles.containsKey(((String)profile.get("UserName")).toLowerCase())) {
 				result.putValue("LightAdmin", "true");
-			} else {
-				result.putValue("LightAdmin", "false");
-			}
+//			} else {
+//				result.putValue("LightAdmin", "false");
+//			}
 
 			ctx.setReturnValue(result);
 			ctx.goToView("showIndex");
@@ -723,11 +723,11 @@ public class Review360Controller extends Controller
 			HttpSession session = ctx.getSession();
 			Hashtable profile = (Hashtable)session.getAttribute("profile");
 
-			if (usersRoles.containsKey(((String)profile.get("UserName")).toLowerCase())) {
+//			if (usersRoles.containsKey(((String)profile.get("UserName")).toLowerCase())) {
 				result.putValue("LightAdmin", "true");
-			} else {
-				result.putValue("LightAdmin", "false");
-			}
+//			} else {
+//				result.putValue("LightAdmin", "false");
+//			}
 
 			result.addCollection("AdminList", createAdminList(accountNo, true));
 			result.addCollection("AdminListLight", createLightAdminList(accountNo, true));
