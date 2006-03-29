@@ -22,7 +22,7 @@
 
 
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		class="org.apache.commons.dbcp.BasicDataSource">
 		
 		<property name="driverClassName">
 			<value>net.sourceforge.jtds.jdbc.Driver</value>
