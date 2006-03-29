@@ -1,0 +1,8 @@
+<decorators defaultdir="/decorators">
+    <excludes>
+        <!-- <pattern>/demos/*</pattern> -->
+    </excludes> 
+    <decorator name="default" page="/fsk2/default.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

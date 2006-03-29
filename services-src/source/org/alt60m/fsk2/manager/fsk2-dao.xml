@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+<!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" 
+    	class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+ 		<property name="configLocation">
+			<value>WEB-INF/hibernate.cfg.xml</value>
+		</property>
+		<property name="configurationClass">
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
+		</property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+            </props>
+        </property>
+    </bean>
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/SQLServ</value>
+		</property>
+    </bean>
+    
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="txProxyTemplate" abstract="true"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributeSource">
+			<bean class="org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource"/>
+        </property>
+    </bean>
+    
+    <bean id="fsk2Manager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="org.alt60m.fsk2.manager.Fsk2Manager" init-method="initialize" autowire="byName"/>
+        </property>
+    </bean>
+    
+</beans>
