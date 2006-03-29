@@ -1,13 +1,12 @@
 package org.alt60m.fsk2.model;
 
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.util.Date;
 
 import javax.persistence.*;
 
 import org.hibernate.CallbackException;
 import org.hibernate.HibernateException;
-import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Lifecycle;
@@ -15,30 +14,32 @@ import org.hibernate.classic.Validatable;
 import org.hibernate.classic.ValidationFailure;
 
 @MappedSuperclass
-public abstract class Persistent implements Lifecycle, Validatable, Serializable {
+public abstract class Persistent<T extends Persistent> implements Lifecycle, Validatable, Serializable {
 
+	
 	private static SessionFactory sessionFactory;
+			
+	private Class<T> persistentClass;
 	
 	private Integer id;
 	private Integer version;
+	private Date createdAt;
+	private Date updatedAt;
 
-	@Id
-	public Integer getId() {
-		return id;
+	public Persistent(Class<T> persistentClass)
+	{
+		this.persistentClass = persistentClass; 
 	}
+	
 
-	public void setId(Integer id) {
-		this.id = id;
+	@SuppressWarnings("unchecked")
+	public T findById(Integer id)
+	{
+		return (T) sessionFactory.getCurrentSession().load(getPersistentClass(), id);
 	}
-
-	@Version
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
+	
+	
+	
 
 	public Integer persist() throws HibernateException {
 		sessionFactory.getCurrentSession().saveOrUpdate(this);
@@ -50,9 +51,19 @@ public abstract class Persistent implements Lifecycle, Validatable, Serializable
 	}
 
 	public void load() throws HibernateException {
-		sessionFactory.getCurrentSession().load(this, id);
+		Session session = sessionFactory.getCurrentSession();
+		if (!session.contains(this)) {
+			session.load(this, id);
+		}
+		else {
+			T persisted = findById(id);
+			session.evict(persisted);
+			session.save(this);
+			session.merge(persisted);
+		}
 	}
 
+	
 	public boolean onSave(Session s) throws CallbackException {
 		return NO_VETO;
 	}
@@ -78,4 +89,60 @@ public abstract class Persistent implements Lifecycle, Validatable, Serializable
 	public static void setSessionFactory(SessionFactory sessionFactory) {
 		Persistent.sessionFactory = sessionFactory;
 	}
+	
+	protected void copy(Persistent p)
+	{
+		setId(p.getId());
+		setVersion(p.getVersion());
+	}
+
+	@Transient
+	public Class<T> getPersistentClass() {
+		return persistentClass;
+	}
+
+	public void setPersistentClass(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
+	}
+	
+
+	@Id
+	@GeneratedValue
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Version
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	@Column(name="created_at")
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	@Column(name="updated_at")
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
+	
 }

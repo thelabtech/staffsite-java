@@ -16,19 +16,24 @@ import org.hibernate.Session;
  */
 @Entity
 @Table(name="fsk_Products")
-public class Product extends Persistent {
+public class Product extends Persistent<Product> {
 
+	
 	private String name;
 	private String description;
 	private String imageFilename;
 	private Double price;
 	private Integer quantity;
+	private int kitCategory_id;
 	//private Category category;
 	
-	public Product() {}
+	public Product() {
+		super(Product.class);
+	}
 	
 	public Product(int id)
 	{
+		super(Product.class);
 		setId(id);
 	}
 		
@@ -68,9 +73,19 @@ public class Product extends Persistent {
 		this.quantity = quantity;
 	}
 	
+	public int getKitCategory_id() {
+		return kitCategory_id;
+	}
+
+	public void setKitCategory_id(int kitCategory_id) {
+		this.kitCategory_id = kitCategory_id;
+	}
+
 	public String toString()
 	{
 		return "Name: " + getName() + "\n" 
 		+ "price:" + getPrice();
 	}
+	
+	
 }

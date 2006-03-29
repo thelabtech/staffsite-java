@@ -13,13 +13,8 @@ public class Fsk2Manager {
 
 	public Product getProduct(int id)
 	{
-		Product product = new Product(id);
-		product.load();
-		return product;
+		return new Product().findById(id);
 	}
-	
-	
-	
 	
 	
 	
