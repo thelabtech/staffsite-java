@@ -26,16 +26,22 @@ public abstract class Persistent<T extends Persistent> implements Lifecycle, Val
 	private Date createdAt;
 	private Date updatedAt;
 
+		
 	public Persistent(Class<T> persistentClass)
 	{
 		this.persistentClass = persistentClass; 
 	}
 	
+	public Persistent(Class<T> persistentClass, Integer id)
+	{
+		this.persistentClass = persistentClass; 
+		setId(id);
+	}
 
 	@SuppressWarnings("unchecked")
 	public T findById(Integer id)
 	{
-		return (T) sessionFactory.getCurrentSession().load(getPersistentClass(), id);
+		return (T) sessionFactory.getCurrentSession().load(persistentClass, id);
 	}
 	
 	
@@ -95,16 +101,6 @@ public abstract class Persistent<T extends Persistent> implements Lifecycle, Val
 		setId(p.getId());
 		setVersion(p.getVersion());
 	}
-
-	@Transient
-	public Class<T> getPersistentClass() {
-		return persistentClass;
-	}
-
-	public void setPersistentClass(Class<T> persistentClass) {
-		this.persistentClass = persistentClass;
-	}
-	
 
 	@Id
 	@GeneratedValue
