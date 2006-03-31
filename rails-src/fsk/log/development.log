@@ -1,0 +1,1085 @@
+Rails::InfoController: missing default helper path rails/info_helper
+
+
+Processing InfoController#properties (for 127.0.0.1 at 2006-03-30 22:07:19) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"properties", "controller"=>"rails/info"}
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.schema_info' doesn't exist: SELECT version FROM schema_info[0m
+Completed in 0.25000 (4 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/rails/info/properties]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:08:11) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"login", "controller"=>"login"}
+  [4;35;1mAuth Columns (0.265000)[0m   [0mSHOW FIELDS FROM simplesecuritymanager_user[0m
+Rendering login/login
+Completed in 0.28100 (3 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.26500 (94%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#forgot_password (for 127.0.0.1 at 2006-03-30 22:08:53) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"forgot_password", "controller"=>"login"}
+Rendering login/forgot_password
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/forgot_password]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:08:59) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.016000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.062000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.09400 (10 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.07800 (82%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:09:01) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.01500 (48%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+Rails::InfoController: missing default helper path rails/info_helper
+
+
+Processing InfoController#properties (for 127.0.0.1 at 2006-03-30 22:09:06) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"properties", "controller"=>"rails/info"}
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/rails/info/properties]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:10:04) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:10:22) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.015000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.01500 (66 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01500 (100%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:14:25) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03200 (31 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:14:29) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03200 (31 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:14:43) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.09400 (10 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:14:47) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'Mj8GPjh9/385IEU4WQDtvQ==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03200 (31 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:15:38) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03200 (31 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:15:39) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03200 (31 reqs/sec) | Rendering: 0.01600 (50%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:15:40) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:16:18) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering layoutfalseactionlogin within layouts/login
+Rendering login/login
+
+
+ActionView::TemplateError (No rhtml, rxml, rjs or delegate template found for shared/_footer) on line #23 of app/views/layouts/login.rhtml:
+20:     		<h1><span><%= @page_title || "Login to Cru Commons" %></span></h1>
+21:         <p class="notice"><%= flash[:notice] %></p>
+22:         <%= @content_for_layout %>        
+23:         <%= render :partial => 'shared/footer' %>
+24:         </div>
+25:       </div>
+26:     </div>
+
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:322:in `pick_template_extension'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:233:in `render_file'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:259:in `render'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/partials.rb:59:in `render_partial'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/partials.rb:58:in `benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:29:in `measure'
+    c:/ruby/lib/ruby/1.8/benchmark.rb:307:in `realtime'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:29:in `benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/partials.rb:58:in `render_partial'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:271:in `render'
+    #{RAILS_ROOT}/app/views/layouts/login.rhtml:23:in `_run_rhtml_layouts_login'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:309:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:309:in `compile_and_render_template'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:285:in `render_template'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_view/base.rb:244:in `render_file'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/layout.rb:249:in `render_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:53:in `render'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:53:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:53:in `render'
+    #{RAILS_ROOT}/vendor/plugins/common_engine/app/controllers/login_controller.rb:33:in `login'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:355:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:364:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:20:56) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering layoutfalseactionlogin within layouts/login
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+
+
+Processing Base#index (for 127.0.0.1 at 2006-03-30 22:20:57) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {}
+
+
+ActionController::RoutingError (Recognition failed for "/images/favicon.ico"):
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:488:in `recognition_failed'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:478:in `recognize!'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (404 Page Not Found)
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:21:01) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.016000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering layoutfalseactionlogin within layouts/login
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01600 (51%) | 200 OK [http://localhost/login/login]
+
+
+Processing Base#index (for 127.0.0.1 at 2006-03-30 22:21:01) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {}
+
+
+ActionController::RoutingError (Recognition failed for "/images/favicon.ico"):
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:488:in `recognition_failed'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:478:in `recognize!'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (404 Page Not Found)
+LoginController: missing default helper path login_helper
+
+
+Processing LoginController#login (for 127.0.0.1 at 2006-03-30 22:21:18) [POST]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"commit"=>"Login", "auth"=>{"username"=>"josh.starcher@uscm.org", "plain_password"=>"Anaconda1?a"}, "action"=>"login", "controller"=>"login"}
+  [4;36;1mAuth Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;35;1mAuth Load (0.000000)[0m   [0mSELECT * FROM simplesecuritymanager_user WHERE (username = 'josh.starcher@uscm.org' AND password = 'vybEansG/YCHsbHTl2KGfg==') LIMIT 1[0m
+Rendering layoutfalseactionlogin within layouts/login
+Rendering login/login
+Completed in 0.03100 (32 reqs/sec) | Rendering: 0.01500 (48%) | DB: 0.00000 (0%) | 200 OK [http://localhost/login/login]
+
+
+Processing Base#index (for 127.0.0.1 at 2006-03-30 22:21:19) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {}
+
+
+ActionController::RoutingError (Recognition failed for "/images/favicon.ico"):
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:488:in `recognition_failed'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/routing.rb:478:in `recognize!'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (404 Page Not Found)
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.schema_info' doesn't exist: SELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_buddies_people[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_buddies_people[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_group_links[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_group_links[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_groups[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_groups[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_groups_people[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_groups_people[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_personal_links[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_personal_links[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_personal_messages[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_personal_messages[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_pictures[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_pictures[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM ap_personurls[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_personurls[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ap_projecturls[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_projecturls[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ap_signup[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_signup[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM cms_assoc_filecategory[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM cms_cmscategory[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM cms_cmscategory[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM cms_cmsfile[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM cms_cmsfile[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM crs_answer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_answer[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_childregistration[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_childregistration[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM crs_conference[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_conference[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_customitem[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_customitem[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM crs_merchandise[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_merchandise[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_merchandisechoice[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_merchandisechoice[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_payment[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_payment[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM crs_question[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_question[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_questiontext[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_questiontext[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_registration[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_registration[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM crs_registrationtype[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_registrationtype[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_report[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_report[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM dtproperties[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM dtproperties[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_assoceventsspeakers[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_assoceventsspeakers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventcustomanswer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomanswer[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM event_eventcustomitem[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomitem[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventcustomquestion[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomquestion[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventinfo[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM event_eventinfo[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventperson[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventperson[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventregistration[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventregistration[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM event_eventspeaker[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventspeaker[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM fsk_allocation[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM fsk_allocation[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM fsk_distribution[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM fsk_distribution[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM fsk_fskorder[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM fsk_fskorder[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM hr_ms_payment[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_review360[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_review360[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_review360light[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_review360light[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_reviewsession[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM hr_review360_reviewsession[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_reviewsessionlight[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_reviewsessionlight[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2003[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_application_2003_bad[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2004[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_application_2004_bad[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2005[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_application_2006[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_payment[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_si_payment[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_si_person_2003[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM hr_si_person_2004[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_person_2005[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM hr_si_project[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_si_project_archive2003[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_si_project_archive2003[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_reference_2003[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_reference_2004[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_reference_2005[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_reference_2006[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_users[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_si_users[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM import_staffacctbal[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM import_staffacctbal[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM linczone_contacts[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM linczone_contacts[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationanswers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationanswers[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationgroups[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationgroups[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM migrationgroupslist[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationgroupslist[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsendto[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsendto[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent2[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent2[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationvpn[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationvpn[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_activity[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ministry_activity[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM ministry_address[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ministry_address[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_activitycontact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assoc_dependents[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_intlcontact[0m
+  [4;35;1mSQL (0.078000)[0m   [0mSHOW KEYS FROM ministry_assoc_intlcontact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_otherministries[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assoc_partcoord[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM ministry_assoc_partcoord[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assocteamstaff[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_assocteamstaff[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_authorization[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_authorization[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_changerequest[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_changerequest[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_dependent[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_dependent[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_fieldchange[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_fieldchange[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ministry_locallevel[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_locallevel[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_newaddress[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_newaddress[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_newaddress_backup20050215[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_newaddress_backup20050215[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_noncccmin[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_noncccmin[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_note[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_note[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_person[0m
+  [4;36;1mSQL (0.031000)[0m   [0;1mSHOW FIELDS FROM ministry_person_backup20050215[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_regionalstat[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM ministry_regionalstat[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_regionalteam[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_regionalteam[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_rolodex[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_rolodex[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_staff[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staff[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_staffchangerequest[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staffchangerequest[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_staffsnapshot[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staffsnapshot[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_statistic[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_statistic[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_targetarea[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_targetarea[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_wsnpartnership[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM ministry_wsnpartnership[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_assoc_contact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_assoc_contact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_assoc_ministry_contact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_assoc_ministry_contact[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ministrylocator_campus[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM ministrylocator_campus[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_contact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_contact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_ministry[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_ministry[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ministryproximity_zipcode[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministryproximity_zipcode[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM moralesurvey[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM moralesurvey[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ms_msapplication[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM ms_msapplication[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ms_msreference[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ms_msreference[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM objectbroker_objectwrapper[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM objectbroker_objectwrapper[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM questionnaireacts6[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM questionnaireacts6[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM response[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM response[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM sitrack_address_types[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM sitrack_address_types[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM sitrack_application_all[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_children[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_children[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM sitrack_children_seq[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_children_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_columns[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_columns[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_downloadrecords[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_downloadrecords[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM sitrack_feeds[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_feeds[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_mpd[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_mpd[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_mpdfiles[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM sitrack_mpdfiles[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_queries[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_queries[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_queries_seq[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_queries_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_savedcriteria[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM sitrack_savedcriteria[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_session[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_session[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_tracking[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_tracking[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_users[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_users[0m
+  [4;35;1mSQL (0.079000)[0m   [0mSHOW FIELDS FROM sitrack_view_columns[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_view_columns[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_views[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM sitrack_views[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_views_seq[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_views_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM staffsite_staffsitepref[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM staffsite_staffsitepref[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM staffsite_staffsiteprofile[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_campus[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_campus[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_placement[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM ussp_placement00[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement00[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_placement01[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM ussp_placement01[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_placement99[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement99[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_project[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_project[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM ussp_student[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ussp_student01[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM ussp_student01b[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ussp_student02[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_user[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM ussp_user[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_answer[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_answer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_question[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_question[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_questiontext[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM wsn_sp_questiontext[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_reference[0m
+  [4;35;1mSQL (0.031000)[0m   [0mSHOW FIELDS FROM wsn_sp_wsnapplication[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsndonations[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_wsndonations[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsnevaluation[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM wsn_sp_wsnproject[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsnusers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_wsnusers[0m
+  [4;36;1mOrder Columns (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.orders' doesn't exist: SHOW FIELDS FROM orders[0m
+  [4;36;1mOrder Columns (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.orders' doesn't exist: SHOW FIELDS FROM orders[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.schema_info' doesn't exist: SELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_buddies_people[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_buddies_people[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_group_links[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_group_links[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_groups[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM am_groups[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_groups_people[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_groups_people[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_personal_links[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_personal_links[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM am_personal_messages[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_personal_messages[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM am_pictures[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM am_pictures[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ap_personurls[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_personurls[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ap_projecturls[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_projecturls[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM ap_signup[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ap_signup[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM cms_assoc_filecategory[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM cms_cmscategory[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM cms_cmscategory[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM cms_cmsfile[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM cms_cmsfile[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_answer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_answer[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_childregistration[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_childregistration[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM crs_conference[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_conference[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_customitem[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM crs_customitem[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_merchandise[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_merchandise[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_merchandisechoice[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_merchandisechoice[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_payment[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM crs_payment[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_question[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_question[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_questiontext[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_questiontext[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_registration[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM crs_registration[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_registrationtype[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_registrationtype[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM crs_report[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM crs_report[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM dtproperties[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM dtproperties[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_assoceventsspeakers[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_assoceventsspeakers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventcustomanswer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomanswer[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM event_eventcustomitem[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomitem[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventcustomquestion[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventcustomquestion[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventinfo[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM event_eventinfo[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventperson[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventperson[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventregistration[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventregistration[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM event_eventspeaker[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM event_eventspeaker[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM fsk_allocation[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM fsk_allocation[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM fsk_distribution[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM fsk_distribution[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM fsk_orders[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM fsk_orders[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM hr_ms_payment[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_review360[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_review360[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM hr_review360_review360light[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_review360light[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_reviewsession[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_reviewsession[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_review360_reviewsessionlight[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_review360_reviewsessionlight[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2003[0m
+  [4;35;1mSQL (0.031000)[0m   [0mSHOW FIELDS FROM hr_si_application_2003_bad[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2004[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_application_2004_bad[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_application_2005[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_application_2006[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_si_payment[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_si_payment[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM hr_si_person_2003[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM hr_si_person_2004[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_person_2005[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM hr_si_project[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_si_project_archive2003[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM hr_si_project_archive2003[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM hr_si_reference_2003[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM hr_si_reference_2004[0m
+  [4;36;1mSQL (0.031000)[0m   [0;1mSHOW FIELDS FROM hr_si_reference_2005[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM hr_si_reference_2006[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM hr_si_users[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM hr_si_users[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM import_staffacctbal[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM import_staffacctbal[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM linczone_contacts[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM linczone_contacts[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM migrationanswers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationanswers[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationgroups[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationgroups[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationgroupslist[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationgroupslist[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM migrationsendto[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsendto[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM migrationsent2[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationsent2[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM migrationvpn[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM migrationvpn[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_activity[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ministry_activity[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_address[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW KEYS FROM ministry_address[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_activitycontact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assoc_dependents[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_intlcontact[0m
+  [4;35;1mSQL (0.078000)[0m   [0mSHOW KEYS FROM ministry_assoc_intlcontact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_assoc_otherministries[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assoc_partcoord[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_assoc_partcoord[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_assocteamstaff[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM ministry_assocteamstaff[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_authorization[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_authorization[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_changerequest[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_changerequest[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_dependent[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_dependent[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_fieldchange[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_fieldchange[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_locallevel[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM ministry_locallevel[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_newaddress[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_newaddress[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_newaddress_backup20050215[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM ministry_newaddress_backup20050215[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_noncccmin[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_noncccmin[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_note[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_note[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_person[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ministry_person_backup20050215[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_regionalstat[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_regionalstat[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_regionalteam[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_regionalteam[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ministry_rolodex[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_rolodex[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_staff[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staff[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_staffchangerequest[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staffchangerequest[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ministry_staffsnapshot[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_staffsnapshot[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_statistic[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_statistic[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ministry_targetarea[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_targetarea[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministry_wsnpartnership[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministry_wsnpartnership[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_assoc_contact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_assoc_contact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_assoc_ministry_contact[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_assoc_ministry_contact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_campus[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_campus[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_contact[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW KEYS FROM ministrylocator_contact[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministrylocator_ministry[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministrylocator_ministry[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ministryproximity_zipcode[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ministryproximity_zipcode[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM moralesurvey[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM moralesurvey[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ms_msapplication[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ms_msapplication[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM ms_msreference[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM ms_msreference[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM objectbroker_objectwrapper[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM objectbroker_objectwrapper[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM questionnaireacts6[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM questionnaireacts6[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM response[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM response[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM simplesecuritymanager_user[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM sitrack_address_types[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM sitrack_address_types[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM sitrack_application_all[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_children[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_children[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_children_seq[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM sitrack_children_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_columns[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_columns[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_downloadrecords[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_downloadrecords[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_feeds[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_feeds[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM sitrack_mpd[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_mpd[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_mpdfiles[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_mpdfiles[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_queries[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW KEYS FROM sitrack_queries[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_queries_seq[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_queries_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_savedcriteria[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_savedcriteria[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_session[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_session[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM sitrack_tracking[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_tracking[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM sitrack_users[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_users[0m
+  [4;35;1mSQL (0.078000)[0m   [0mSHOW FIELDS FROM sitrack_view_columns[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_view_columns[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_views[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_views[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM sitrack_views_seq[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM sitrack_views_seq[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM staffsite_staffsitepref[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW KEYS FROM staffsite_staffsitepref[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM staffsite_staffsiteprofile[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_campus[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_campus[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM ussp_placement[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_placement00[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement00[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM ussp_placement01[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement01[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_placement99[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_placement99[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_project[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_project[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_student[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSHOW FIELDS FROM ussp_student01[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_student01b[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM ussp_student02[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM ussp_user[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM ussp_user[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_answer[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_answer[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_question[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_question[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_questiontext[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_questiontext[0m
+  [4;36;1mSQL (0.015000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_reference[0m
+  [4;35;1mSQL (0.016000)[0m   [0mSHOW FIELDS FROM wsn_sp_wsnapplication[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsndonations[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_wsndonations[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsnevaluation[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW FIELDS FROM wsn_sp_wsnproject[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mSHOW FIELDS FROM wsn_sp_wsnusers[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSHOW KEYS FROM wsn_sp_wsnusers[0m
+  [4;36;1mOrder Columns (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'prod.orders' doesn't exist: SHOW FIELDS FROM orders[0m
+  [4;36;1mOrder Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM orders[0m
+
+
+Processing OrdersController#index (for 127.0.0.1 at 2006-03-30 22:42:15) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"index", "controller"=>"orders"}
+  [4;36;1mOrder Columns (0.016000)[0m   [0;1mSHOW FIELDS FROM fsk_Orders[0m
+  [4;35;1mSQL (0.046000)[0m   [0mSELECT count(*) AS count_all FROM fsk_Orders [0m
+  [4;36;1mOrder Load (0.016000)[0m   [0;1mSELECT * FROM fsk_Orders LIMIT 0, 10[0m
+Rendering layoutfalseactionlist within layouts/orders
+Rendering orders/list
+Completed in 0.10900 (9 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.07800 (71%) | 200 OK [http://localhost/orders]
+
+
+Processing OrdersController#new (for 127.0.0.1 at 2006-03-30 22:42:18) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"new", "controller"=>"orders"}
+  [4;35;1mOrder Columns (0.000000)[0m   [0mSHOW FIELDS FROM fsk_Orders[0m
+Rendering  within layouts/orders
+Rendering orders/new
+Rendered orders/_form (0.04700)
+Completed in 0.07900 (12 reqs/sec) | Rendering: 0.04700 (59%) | DB: 0.00000 (0%) | 200 OK [http://localhost/orders/new]
+
+
+Processing OrdersController#index (for 127.0.0.1 at 2006-03-30 23:00:57) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"index", "controller"=>"orders"}
+  [4;36;1mOrder Columns (0.079000)[0m   [0;1mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('fsk_Orders', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('fsk_Orders'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'fsk_Orders'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('fsk_Orders', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('fsk_Orders'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'fsk_Orders'[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mDBI::DatabaseError: Execute
+ OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+ Invalid object name 'fsk_Orders'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT count(*) AS count_all FROM fsk_Orders [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+      Invalid object name 'fsk_Orders'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT count(*) AS count_all FROM fsk_Orders ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/sqlserver_adapter.rb:238:in `select_one'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/abstract/database_statements.rb:16:in `select_value'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:160:in `execute_simple_calculation'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:141:in `calculate'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:64:in `count'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:172:in `count_collection_for_pagination'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:196:in `paginator_and_collection_for'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:129:in `paginate'
+    /app/controllers/orders_controller.rb:12:in `list'
+    /app/controllers/orders_controller.rb:3:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:355:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:364:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing OrdersController#index (for 127.0.0.1 at 2006-03-30 23:01:18) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"index", "controller"=>"orders"}
+  [4;35;1mOrder Columns (0.000000)[0m   [0mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('fsk_Orders', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('fsk_Orders'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'fsk_Orders'[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mDBI::DatabaseError: Execute
+ OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+ Invalid object name 'fsk_Orders'.
+ HRESULT error code:0x80020009
+ Exception occurred.: SELECT count(*) AS count_all FROM fsk_Orders [0m
+
+
+ActiveRecord::StatementInvalid (DBI::DatabaseError: Execute
+    OLE error code:80040E37 in Microsoft OLE DB Provider for SQL Server
+      Invalid object name 'fsk_Orders'.
+    HRESULT error code:0x80020009
+      Exception occurred.: SELECT count(*) AS count_all FROM fsk_Orders ):
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/abstract_adapter.rb:120:in `log'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/sqlserver_adapter.rb:485:in `select'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/sqlserver_adapter.rb:238:in `select_one'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/connection_adapters/abstract/database_statements.rb:16:in `select_value'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:160:in `execute_simple_calculation'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:141:in `calculate'
+    c:/ruby/lib/ruby/gems/1.8/gems/activerecord-1.14.0/lib/active_record/calculations.rb:64:in `count'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:172:in `count_collection_for_pagination'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:196:in `paginator_and_collection_for'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/pagination.rb:129:in `paginate'
+    /app/controllers/orders_controller.rb:12:in `list'
+    /app/controllers/orders_controller.rb:3:in `index'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:908:in `perform_action_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:355:in `perform_action_without_benchmark'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `measure'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/benchmarking.rb:69:in `perform_action_without_rescue'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/rescue.rb:82:in `perform_action'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `send'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/base.rb:379:in `process_without_filters'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/filters.rb:364:in `process_without_session_management_support'
+    c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/session_management.rb:117:in `process'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/dispatcher.rb:38:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:115:in `handle_dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:81:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    c:/ruby/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:155:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:144:in `start_thread'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:94:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `each'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:89:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/1.8/webrick/server.rb:79:in `start'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/webrick_server.rb:67:in `dispatch'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/servers/webrick.rb:59
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/rails-1.1.0/lib/commands/server.rb:30
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require__'
+    c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'
+    c:/ruby/lib/ruby/gems/1.8/gems/activesupport-1.3.0/lib/active_support/dependencies.rb:136:in `require'
+    ./script/server:3
+    -e:3:in `load'
+    -e:3
+
+
+Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-1.12.0/lib/action_controller/templates/rescues/layout.rhtml (500 Internal Error)
+
+
+Processing OrdersController#index (for 127.0.0.1 at 2006-03-30 23:04:38) [GET]
+  Session ID: cbb753b9e236fb1765c82e238b1ea1f7
+  Parameters: {"action"=>"index", "controller"=>"orders"}
+  [4;36;1mOrder Columns (0.031000)[0m   [0;1mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('fsk_Orders', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('fsk_Orders'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'fsk_Orders'[0m
+  [4;35;1mSQL (0.032000)[0m   [0mSELECT COLUMN_NAME as ColName, COLUMN_DEFAULT as DefaultValue, DATA_TYPE as ColType, IS_NULLABLE As IsNullable, COL_LENGTH('fsk_Orders', COLUMN_NAME) as Length, COLUMNPROPERTY(OBJECT_ID('fsk_Orders'), COLUMN_NAME, 'IsIdentity') as IsIdentity, NUMERIC_SCALE as Scale FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'fsk_Orders'[0m
+  [4;36;1mSQL (0.031000)[0m   [0;1mSELECT count(*) AS count_all FROM fsk_Orders [0m
+  [4;35;1mOrder Load (0.000000)[0m   [0mSELECT * FROM (SELECT TOP 10 * FROM (SELECT TOP 10 * FROM fsk_Orders ) AS tmp1 ) AS tmp2[0m
+Rendering layoutfalseactionlist within layouts/orders
+Rendering orders/list
+Completed in 0.25000 (4 reqs/sec) | Rendering: 0.03100 (12%) | DB: 0.09400 (37%) | 200 OK [http://localhost/orders]
