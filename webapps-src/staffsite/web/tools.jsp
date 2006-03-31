@@ -29,7 +29,7 @@ int curr_tab = 3; %>
 	<% box.reset();%>
 	<% box.setStyle("classic");%>
 	<% box.setColor(color2);%>
-
+<!--
 	<% box.setTitle("Current Highlights");	%>
 	<%=box.printTop()%>
 			<table width='100%'>
@@ -43,7 +43,7 @@ int curr_tab = 3; %>
 			</tr>
 			</table>
 	<%=box.printBottom()%>
-
+-->
 </td>
 <!--
 <td valign=top>
