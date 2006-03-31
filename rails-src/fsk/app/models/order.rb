@@ -3,4 +3,5 @@ class Order < ActiveRecord::Base
 	
 	belongs_to :user, :foreign_key => "ssm_id"
 	has_many :line_items
+	
 end
