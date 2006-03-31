@@ -48,3 +48,4 @@ end
 # end
 
 # Include your application configuration below
+Engines.start :common_engine
