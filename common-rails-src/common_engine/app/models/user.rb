@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'base64'
 	
-class Auth < ActiveRecord::Base
+class User < ActiveRecord::Base
 
 	set_table_name 			"simplesecuritymanager_user"
 	set_primary_key 		"userID"

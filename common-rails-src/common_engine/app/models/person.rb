@@ -3,7 +3,7 @@ class Person < ActiveRecord::Base
 	set_table_name			"ministry_Person"
 	set_primary_key 		"personID"
 	
-	belongs_to :auth, :foreign_key => "fk_ssmUserId"  #Link it to SSM
+	belongs_to :user, :foreign_key => "fk_ssmUserId"  #Link it to SSM
 
 	has_many :personal_links
 	has_many :pictures
