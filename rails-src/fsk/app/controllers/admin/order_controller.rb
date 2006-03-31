@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class Admin::OrderController < ApplicationController
   def index
     list
     render :action => 'list'
