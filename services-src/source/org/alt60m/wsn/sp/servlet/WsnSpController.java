@@ -2076,8 +2076,7 @@ public class WsnSpController extends Controller
 		Hashtable h = new Hashtable();
 		try {
 			Staff staffList = new Staff();
-			staffList.setLastName(ctx.getInputString("LegalLastName"));
-			Iterator profiles = staffList.selectList().iterator();
+			Iterator profiles = staffList.selectList("lastName LIKE '"+ctx.getInputString("LegalLastName").replaceAll("'","''")+"%'").iterator();
 			
 			for (int i = 0; profiles.hasNext(); i++) {
 				Staff staff = (Staff) profiles.next();
