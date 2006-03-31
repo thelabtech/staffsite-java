@@ -1,0 +1,27 @@
+<h1>Listing kit_categories</h1>
+
+<table>
+  <tr>
+  <% for column in KitCategory.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for kit_category in @kit_categories %>
+  <tr>
+  <% for column in KitCategory.content_columns %>
+    <td><%=h kit_category.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => kit_category %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => kit_category %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => kit_category }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @kit_category_pages.current.previous } if @kit_category_pages.current.previous %>
+<%= link_to 'Next page', { :page => @kit_category_pages.current.next } if @kit_category_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New kit_category', :action => 'new' %>
