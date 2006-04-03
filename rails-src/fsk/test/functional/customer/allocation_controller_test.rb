@@ -5,14 +5,84 @@ require 'customer/allocation_controller'
 class Customer::AllocationController; def rescue_action(e) raise e end; end
 
 class Customer::AllocationControllerTest < Test::Unit::TestCase
+  fixtures :allocations
+
   def setup
     @controller = Customer::AllocationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_index
+    get :index
+    assert_response :success
+    assert_template 'list'
+  end
+
+  def test_list
+    get :list
+
+    assert_response :success
+    assert_template 'list'
+
+    assert_not_nil assigns(:allocations)
+  end
+
+  def test_show
+    get :show, :id => 1
+
+    assert_response :success
+    assert_template 'show'
+
+    assert_not_nil assigns(:allocation)
+    assert assigns(:allocation).valid?
+  end
+
+  def test_new
+    get :new
+
+    assert_response :success
+    assert_template 'new'
+
+    assert_not_nil assigns(:allocation)
+  end
+
+  def test_create
+    num_allocations = Allocation.count
+
+    post :create, :allocation => {}
+
+    assert_response :redirect
+    assert_redirected_to :action => 'list'
+
+    assert_equal num_allocations + 1, Allocation.count
+  end
+
+  def test_edit
+    get :edit, :id => 1
+
+    assert_response :success
+    assert_template 'edit'
+
+    assert_not_nil assigns(:allocation)
+    assert assigns(:allocation).valid?
+  end
+
+  def test_update
+    post :update, :id => 1
+    assert_response :redirect
+    assert_redirected_to :action => 'show', :id => 1
+  end
+
+  def test_destroy
+    assert_not_nil Allocation.find(1)
+
+    post :destroy, :id => 1
+    assert_response :redirect
+    assert_redirected_to :action => 'list'
+
+    assert_raise(ActiveRecord::RecordNotFound) {
+      Allocation.find(1)
+    }
   end
 end
