@@ -1,0 +1,26 @@
+josh: 
+  userID: 1
+  lastLogin: 2004/04/12 00:00:00
+  lastFailure: 
+  lastFailureCnt: 0
+  username: josh.starcher@uscm.org
+  passwordQuestion: "why?"
+  createdOn: 2003/11/18 00:00:00
+  passwordAnswer: "42"
+  emailVerified: true
+  password: or287kSFOQl+OfT55iwtQA==
+  email: josh.starcher@uscm.org
+  globallyUniqueID: 
+jeff: 
+  userID: 2
+  lastLogin: 2006/02/23 00:00:00
+  lastFailure: 
+  lastFailureCnt: 0
+  username: jeff.west@ccci.org
+  passwordQuestion: "City of Joshua's birth?"
+  createdOn: 2005/03/31 00:00:00
+  passwordAnswer: abidjan
+  emailVerified: false
+  password: or287kSFOQl+OfT55iwtQA==
+  email: 
+  globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F6
