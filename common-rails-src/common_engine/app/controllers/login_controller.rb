@@ -19,9 +19,9 @@ class LoginController < ApplicationController
   def login
     if request.get?
       session[:user_id] = nil
-      @auth = Auth.new
+      @auth = User.new
   	else
-      @auth = Auth.new(params[:auth])
+      @auth = User.new(params[:auth])
       logged_in_auth = @auth.try_to_login
 	  if logged_in_auth
         session[:user_id] = logged_in_auth.id
@@ -42,9 +42,9 @@ class LoginController < ApplicationController
 
   def add_user
 	if request.get?
-      @auth = Auth.new
+      @auth = User.new
 	else  	
-      @auth = Auth.new(params[:auth])
+      @auth = User.new(params[:auth])
 	  if not @auth.unique_auth? then
 	  	flash[:notice] = "That email address is already in our system. Please try to sign in."
 	  	render(:layout=>false, :action => 'login')
@@ -148,7 +148,7 @@ class LoginController < ApplicationController
   end
   
   def get_user_hash(email)
-    @auth = Auth.find(:first, :conditions => ["username = ?", email])
+    @auth = User.find(:first, :conditions => ["username = ?", email])
     if (@auth)
       @hash = Digest::MD5.hexdigest(@auth.username + @auth.userID.to_s)
     else
