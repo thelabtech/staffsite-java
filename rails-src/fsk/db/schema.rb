@@ -2,7 +2,60 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define() do
+ActiveRecord::Schema.define(:version => 0) do
+
+  create_table "am_buddies_people", :id => false, :force => true do |t|
+    t.column "buddy_id", :integer
+    t.column "person_id", :integer
+  end
+
+  create_table "am_group_links", :force => true do |t|
+    t.column "api", :string, :limit => 50
+    t.column "url", :binary
+    t.column "title", :binary, :default => "", :null => false
+    t.column "description", :text, :default => "", :null => false
+    t.column "group_id", :integer
+  end
+
+  create_table "am_groups", :force => true do |t|
+    t.column "name", :string
+    t.column "url_safe_name", :string
+    t.column "description", :text, :default => "", :null => false
+    t.column "group_type", :string, :limit => 50, :default => "", :null => false
+    t.column "lookup_id", :integer, :default => 0, :null => false
+  end
+
+  create_table "am_groups_people", :id => false, :force => true do |t|
+    t.column "person_id", :integer
+    t.column "group_id", :integer
+    t.column "created_on", :datetime, :null => false
+  end
+
+  create_table "am_personal_links", :force => true do |t|
+    t.column "api", :string, :limit => 50
+    t.column "url", :binary
+    t.column "title", :binary, :default => "", :null => false
+    t.column "description", :text, :default => "", :null => false
+    t.column "person_id", :integer
+  end
+
+  create_table "am_personal_messages", :force => true do |t|
+    t.column "person_id", :integer
+    t.column "sender_id", :integer
+    t.column "subject", :string
+    t.column "body", :text, :default => "", :null => false
+    t.column "time_created_at", :timestamp
+    t.column "parent_id", :integer, :default => 0, :null => false
+  end
+
+  create_table "am_pictures", :force => true do |t|
+    t.column "comment", :string, :default => "", :null => false
+    t.column "name", :string, :limit => 200, :default => "", :null => false
+    t.column "content_type", :string, :limit => 100, :default => "", :null => false
+    t.column "data", :binary, :default => "", :null => false
+    t.column "person_id", :integer
+    t.column "updated_at", :timestamp
+  end
 
   create_table "ap_personurls", :id => false, :force => true do |t|
     t.column "personURLID", :integer, :default => 0, :null => false
@@ -26,6 +79,9 @@ ActiveRecord::Schema.define() do
     t.column "fk_PersonID", :integer, :default => 0, :null => false
   end
 
+# Could not dump table "cms_assoc_filecategory" because of following StandardError
+#   Unknown type 'bit(1)' for column 'dbioDummy'
+
   create_table "cms_cmscategory", :id => false, :force => true do |t|
     t.column "CmsCategoryID", :integer, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
@@ -34,6 +90,31 @@ ActiveRecord::Schema.define() do
     t.column "catDesc", :string, :limit => 2000
     t.column "path", :string, :limit => 2000
     t.column "pathid", :string, :limit => 2000
+  end
+
+  create_table "cms_cmsfile", :id => false, :force => true do |t|
+    t.column "CmsFileID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "mime", :string, :limit => 128, :default => "", :null => false
+    t.column "title", :binary, :default => "", :null => false
+    t.column "accessCount", :integer, :default => 0, :null => false
+    t.column "dateAdded", :datetime, :null => false
+    t.column "dateModified", :datetime, :null => false
+    t.column "moderatedYet", :string, :limit => 1, :default => "", :null => false
+    t.column "summary", :binary, :default => "", :null => false
+    t.column "quality", :binary, :default => "", :null => false
+    t.column "expDate", :datetime, :null => false
+    t.column "lastAccessed", :datetime, :null => false
+    t.column "modMsg", :binary, :default => "", :null => false
+    t.column "keywords", :binary, :default => "", :null => false
+    t.column "url", :string, :limit => 128, :default => "", :null => false
+    t.column "detail", :binary, :default => "", :null => false
+    t.column "language", :string, :limit => 128, :default => "", :null => false
+    t.column "version", :string, :limit => 128, :default => "", :null => false
+    t.column "author", :binary, :default => "", :null => false
+    t.column "submitter", :binary, :default => "", :null => false
+    t.column "contact", :binary, :default => "", :null => false
+    t.column "rating", :integer, :default => 0, :null => false
   end
 
   create_table "crs_answer", :id => false, :force => true do |t|
@@ -153,6 +234,11 @@ ActiveRecord::Schema.define() do
     t.column "fk_RegistrationTypeID", :integer
   end
 
+  create_table "crs_merchandisechoice", :id => false, :force => true do |t|
+    t.column "fk_MerchandiseID", :integer, :default => 0, :null => false
+    t.column "fk_RegistrationID", :integer, :default => 0, :null => false
+  end
+
   create_table "crs_payment", :id => false, :force => true do |t|
     t.column "paymentID", :integer, :default => 0, :null => false
     t.column "paymentDate", :datetime
@@ -255,6 +341,144 @@ ActiveRecord::Schema.define() do
     t.column "sortNames", :string, :limit => 1000
   end
 
+  create_table "dtproperties", :force => true do |t|
+    t.column "objectid", :integer, :default => 0, :null => false
+    t.column "property", :string, :limit => 64, :default => "", :null => false
+    t.column "value", :string, :default => "", :null => false
+    t.column "uvalue", :string, :default => "", :null => false
+    t.column "lvalue", :binary, :default => "", :null => false
+    t.column "version", :integer, :default => 0
+  end
+
+  create_table "engine_schema_info", :id => false, :force => true do |t|
+    t.column "engine_name", :string
+    t.column "version", :integer
+  end
+
+  create_table "event_assoceventsspeakers", :id => false, :force => true do |t|
+    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
+    t.column "eventInfoID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventcustomanswer", :id => false, :force => true do |t|
+    t.column "eventCustomAnswerID", :string, :limit => 64, :default => "", :null => false
+    t.column "answerNumber", :integer, :default => 0, :null => false
+    t.column "answer", :binary, :default => "", :null => false
+    t.column "fk_EventRegistration", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventcustomitem", :id => false, :force => true do |t|
+    t.column "eventCustomItemID", :string, :limit => 64, :default => "", :null => false
+    t.column "title", :string, :limit => 128, :default => "", :null => false
+    t.column "text", :binary, :default => "", :null => false
+    t.column "itemNumber", :integer, :default => 0, :null => false
+    t.column "fk_EventInfo", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventcustomquestion", :id => false, :force => true do |t|
+    t.column "questionNumber", :integer, :default => 0, :null => false
+    t.column "question", :string, :limit => 128, :default => "", :null => false
+    t.column "answerType", :string, :limit => 8, :default => "", :null => false
+    t.column "eventCustomQuestionID", :string, :limit => 64, :default => "", :null => false
+    t.column "fk_EventInfo", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventinfo", :id => false, :force => true do |t|
+    t.column "name", :string, :limit => 64, :default => "", :null => false
+    t.column "theme", :string, :limit => 128, :default => "", :null => false
+    t.column "password", :string, :limit => 20, :default => "", :null => false
+    t.column "region", :string, :limit => 3, :default => "", :null => false
+    t.column "beginDate", :string, :limit => 10, :default => "", :null => false
+    t.column "endDate", :string, :limit => 10, :default => "", :null => false
+    t.column "briefDescription", :binary, :default => "", :null => false
+    t.column "preRegCost", :string, :limit => 8, :default => "", :null => false
+    t.column "fullCost", :string, :limit => 8, :default => "", :null => false
+    t.column "checkPayableTo", :string, :limit => 40, :default => "", :null => false
+    t.column "acceptCreditCards", :string, :limit => 1, :default => "", :null => false
+    t.column "merchantAcctNum", :string, :limit => 64, :default => "", :null => false
+    t.column "contactName", :string, :limit => 60, :default => "", :null => false
+    t.column "contactEmail", :string, :limit => 50, :default => "", :null => false
+    t.column "contactPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "contactAddress1", :string, :limit => 35, :default => "", :null => false
+    t.column "contactAddress2", :string, :limit => 35, :default => "", :null => false
+    t.column "contactCity", :string, :limit => 30, :default => "", :null => false
+    t.column "contactState", :string, :limit => 6, :default => "", :null => false
+    t.column "contactZip", :string, :limit => 10, :default => "", :null => false
+    t.column "splashPageURL", :string, :limit => 128, :default => "", :null => false
+    t.column "confImageId", :string, :limit => 64, :default => "", :null => false
+    t.column "fontFace", :string, :limit => 32, :default => "", :null => false
+    t.column "backgroundColor", :string, :limit => 6, :default => "", :null => false
+    t.column "foregroundColor", :string, :limit => 6, :default => "", :null => false
+    t.column "highlightColor", :string, :limit => 6, :default => "", :null => false
+    t.column "eventInfoID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventperson", :id => false, :force => true do |t|
+    t.column "firstName", :string, :limit => 30, :default => "", :null => false
+    t.column "lastName", :string, :limit => 30, :default => "", :null => false
+    t.column "middleInitial", :string, :limit => 1, :default => "", :null => false
+    t.column "birthDate", :string, :limit => 10, :default => "", :null => false
+    t.column "campus", :string, :limit => 128, :default => "", :null => false
+    t.column "gender", :string, :limit => 1, :default => "", :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 30, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "homePhone", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "ssn", :string, :limit => 9, :default => "", :null => false
+    t.column "maritalStatus", :string, :limit => 1, :default => "", :null => false
+    t.column "spouseName", :string, :limit => 30, :default => "", :null => false
+    t.column "numberOfKids", :string, :limit => 2, :default => "", :null => false
+    t.column "isSpeaker", :string, :limit => 1, :default => "", :null => false
+    t.column "isStaff", :string, :limit => 1, :default => "", :null => false
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "password", :string, :limit => 32, :default => "", :null => false
+    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventregistration", :id => false, :force => true do |t|
+    t.column "preRegistered", :string, :limit => 1, :default => "", :null => false
+    t.column "amountPaid", :string, :limit => 4, :default => "", :null => false
+    t.column "amountScholarship", :string, :limit => 4, :default => "", :null => false
+    t.column "eventRegistrationID", :string, :limit => 64, :default => "", :null => false
+    t.column "fk_EventRegInfo", :string, :limit => 64, :default => "", :null => false
+    t.column "fk_EventRegPerson", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "event_eventspeaker", :id => false, :force => true do |t|
+    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
+    t.column "talkTitle", :string, :limit => 128, :default => "", :null => false
+    t.column "talkBrief", :binary, :default => "", :null => false
+    t.column "speakerBlurb", :binary, :default => "", :null => false
+    t.column "textId", :string, :default => "", :null => false
+  end
+
+  create_table "fsk_allocation", :id => false, :force => true do |t|
+    t.column "AllocationID", :integer, :default => 0, :null => false
+    t.column "accountNo", :string, :limit => 12, :default => "", :null => false
+    t.column "region", :string, :limit => 2, :default => "", :null => false
+    t.column "natlDonation", :string, :limit => 12, :default => "", :null => false
+    t.column "impactAllotment", :string, :limit => 12, :default => "", :null => false
+    t.column "forerunnerAllotment", :string, :limit => 12, :default => "", :null => false
+    t.column "regionalAllotment", :string, :limit => 12, :default => "", :null => false
+    t.column "regionallyRaised", :string, :limit => 12, :default => "", :null => false
+    t.column "locallyRaised", :string, :limit => 12, :default => "", :null => false
+    t.column "pastOrderedKits", :string, :limit => 12, :default => "", :null => false
+    t.column "natlNotes", :binary, :default => "", :null => false
+    t.column "impactNotes", :binary, :default => "", :null => false
+    t.column "forerunnerNotes", :binary, :default => "", :null => false
+    t.column "regNotes", :binary, :default => "", :null => false
+    t.column "localNotes", :binary, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30, :default => "", :null => false
+    t.column "lastName", :string, :limit => 30, :default => "", :null => false
+    t.column "localAcctNo1", :string, :limit => 20, :default => "", :null => false
+    t.column "localAcctNo2", :string, :limit => 20, :default => "", :null => false
+    t.column "localAcctNo3", :string, :limit => 20, :default => "", :null => false
+    t.column "localAcctNo4", :string, :limit => 20, :default => "", :null => false
+  end
+
   create_table "fsk_allocations", :force => true do |t|
     t.column "ssm_id", :integer
     t.column "region_id", :string, :limit => 2
@@ -274,6 +498,14 @@ ActiveRecord::Schema.define() do
     t.column "updated_at", :datetime
   end
 
+  create_table "fsk_distribution", :id => false, :force => true do |t|
+    t.column "distributionID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "campusName", :string, :limit => 128, :default => "", :null => false
+    t.column "totalKits", :integer, :default => 0, :null => false
+    t.column "fk_Allocation", :integer, :default => 0, :null => false
+  end
+
   create_table "fsk_distributions", :id => false, :force => true do |t|
     t.column "distributionID", :integer, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
@@ -283,6 +515,92 @@ ActiveRecord::Schema.define() do
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "fk_Allocation", :integer
+  end
+
+  create_table "fsk_fields", :force => true do |t|
+    t.column "name", :string, :limit => 50
+  end
+
+  create_table "fsk_fields_roles", :id => false, :force => true do |t|
+    t.column "role_id", :integer
+    t.column "field_id", :integer
+  end
+
+  create_table "fsk_fskorder", :id => false, :force => true do |t|
+    t.column "fskOrderID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "campusName", :string, :limit => 128, :default => "", :null => false
+    t.column "region", :string, :limit => 6, :default => "", :null => false
+    t.column "staffFirstName", :string, :limit => 30, :default => "", :null => false
+    t.column "staffLastName", :string, :limit => 30, :default => "", :null => false
+    t.column "staffPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "staffEmail", :string, :limit => 50, :default => "", :null => false
+    t.column "dateCreated", :datetime, :null => false
+    t.column "dateUpdated", :datetime, :null => false
+    t.column "contactFirstName", :string, :limit => 30, :default => "", :null => false
+    t.column "contactLastName", :string, :limit => 30, :default => "", :null => false
+    t.column "contactPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "contactPager", :string, :limit => 24, :default => "", :null => false
+    t.column "contactCell", :string, :limit => 24, :default => "", :null => false
+    t.column "contactEmail", :string, :limit => 50, :default => "", :null => false
+    t.column "kitShipName", :string, :limit => 30, :default => "", :null => false
+    t.column "kitShipAddress1", :string, :limit => 35, :default => "", :null => false
+    t.column "kitShipAddress2", :string, :limit => 35, :default => "", :null => false
+    t.column "kitShipCity", :string, :limit => 30, :default => "", :null => false
+    t.column "kitShipState", :string, :limit => 6, :default => "", :null => false
+    t.column "kitShipZip", :string, :limit => 10, :default => "", :null => false
+    t.column "kitShipPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "totalKits", :integer, :default => 0, :null => false
+    t.column "bagToyImp", :string, :limit => 7, :default => "", :null => false
+    t.column "bagToyWay", :string, :limit => 7, :default => "", :null => false
+    t.column "bagToyDes", :string, :limit => 7, :default => "", :null => false
+    t.column "bagToyEp", :string, :limit => 7, :default => "", :null => false
+    t.column "bagToyESC", :string, :limit => 7, :default => "", :null => false
+    t.column "bagToyMisc", :string, :limit => 7, :default => "", :null => false
+    t.column "bibleIsiNT", :string, :limit => 7, :default => "", :null => false
+    t.column "bibleTwo", :string, :limit => 7, :default => "", :null => false
+    t.column "bibleThree", :string, :limit => 7, :default => "", :null => false
+    t.column "bibleMisc", :string, :limit => 7, :default => "", :null => false
+    t.column "bibleBilingual", :string, :limit => 7, :default => "", :null => false
+    t.column "videoRel", :string, :limit => 7, :default => "", :null => false
+    t.column "videoRelCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoDrinkRelDVD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoThirsty", :string, :limit => 7, :default => "", :null => false
+    t.column "videoThirstyCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoChang", :string, :limit => 7, :default => "", :null => false
+    t.column "videoChangCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoSurfer", :string, :limit => 7, :default => "", :null => false
+    t.column "videoSurferCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoClimbing", :string, :limit => 7, :default => "", :null => false
+    t.column "videoClimbingCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoImpact", :string, :limit => 7, :default => "", :null => false
+    t.column "videoImpactCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoImpactDVD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoTestimonyCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoJfpCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoJesusVCD", :string, :limit => 7, :default => "", :null => false
+    t.column "videoMisc", :string, :limit => 7, :default => "", :null => false
+    t.column "bookMTAC", :string, :limit => 7, :default => "", :null => false
+    t.column "bookMTACSpan", :string, :limit => 7, :default => "", :null => false
+    t.column "bookMTACLoJ", :string, :limit => 7, :default => "", :null => false
+    t.column "bookCaseForC", :string, :limit => 7, :default => "", :null => false
+    t.column "bookCaseForF", :string, :limit => 7, :default => "", :null => false
+    t.column "bookBeyond", :string, :limit => 7, :default => "", :null => false
+    t.column "bookRelevant", :string, :limit => 7, :default => "", :null => false
+    t.column "bookSurvUS", :string, :limit => 7, :default => "", :null => false
+    t.column "bookLatino", :string, :limit => 7, :default => "", :null => false
+    t.column "bookBlueJazz", :string, :limit => 7, :default => "", :null => false
+    t.column "bookMisc", :string, :limit => 7, :default => "", :null => false
+    t.column "cdHipHop", :string, :limit => 7, :default => "", :null => false
+    t.column "cdSetApart", :string, :limit => 7, :default => "", :null => false
+    t.column "cdMisc", :string, :limit => 7, :default => "", :null => false
+    t.column "cdHispanic", :string, :limit => 7, :default => "", :null => false
+    t.column "cardReg", :string, :limit => 7, :default => "", :null => false
+    t.column "cardAfAm", :string, :limit => 7, :default => "", :null => false
+    t.column "cardHispanic", :string, :limit => 7, :default => "", :null => false
+    t.column "cardAsian", :string, :limit => 7, :default => "", :null => false
+    t.column "planner", :string, :limit => 7, :default => "", :null => false
+    t.column "fk_Allocation", :integer, :default => 0, :null => false
   end
 
   create_table "fsk_kitcategories", :force => true do |t|
@@ -347,6 +665,10 @@ ActiveRecord::Schema.define() do
   end
 
   add_index "fsk_products", ["kitCategory_id"], :name => "FK_fsk_products_1"
+
+  create_table "fsk_roles", :force => true do |t|
+    t.column "name", :string, :limit => 50
+  end
 
   create_table "hr_ms_payment", :id => false, :force => true do |t|
     t.column "paymentID", :integer, :default => 0, :null => false
@@ -819,6 +1141,9 @@ ActiveRecord::Schema.define() do
     t.column "previousMinistryExperience", :text
   end
 
+# Could not dump table "hr_si_application_2003_bad" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isPaid'
+
   create_table "hr_si_application_2004", :id => false, :force => true do |t|
     t.column "applicationID", :integer, :default => 0, :null => false
     t.column "locationA", :string, :limit => 50
@@ -987,6 +1312,9 @@ ActiveRecord::Schema.define() do
     t.column "language2Fluency", :integer
     t.column "previousMinistryExperience", :text
   end
+
+# Could not dump table "hr_si_application_2004_bad" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isPaid'
 
   create_table "hr_si_application_2005", :id => false, :force => true do |t|
     t.column "applicationID", :integer, :default => 0, :null => false
@@ -1345,6 +1673,1476 @@ ActiveRecord::Schema.define() do
     t.column "postedDate", :datetime
     t.column "fk_ApplicationID", :string, :limit => 64
     t.column "paymentFor", :string, :limit => 50
+  end
+
+# Could not dump table "hr_si_person_2003" because of following StandardError
+#   Unknown type 'bit(1)' for column 'workInUS'
+
+# Could not dump table "hr_si_person_2004" because of following StandardError
+#   Unknown type 'bit(1)' for column 'workInUS'
+
+# Could not dump table "hr_si_person_2005" because of following StandardError
+#   Unknown type 'bit(1)' for column 'workInUS'
+
+# Could not dump table "hr_si_project" because of following StandardError
+#   Unknown type 'bit(1)' for column 'insuranceFormsReceived'
+
+  create_table "hr_si_project_archive2003", :id => false, :force => true do |t|
+    t.column "SIProjectID", :integer, :default => 0, :null => false
+    t.column "name", :string, :default => "", :null => false
+    t.column "partnershipRegion", :string, :limit => 50, :default => "", :null => false
+    t.column "history", :binary, :default => "", :null => false
+    t.column "city", :string, :default => "", :null => false
+    t.column "country", :string, :default => "", :null => false
+    t.column "details", :binary, :default => "", :null => false
+    t.column "status", :string, :default => "", :null => false
+    t.column "destinationGatewayCity", :string, :default => "", :null => false
+    t.column "departDateFromGateCity", :datetime, :null => false
+    t.column "arrivalDateAtLocation", :datetime, :null => false
+    t.column "locationGatewayCity", :string, :default => "", :null => false
+    t.column "departDateFromLocation", :datetime, :null => false
+    t.column "arrivalDateAtGatewayCity", :datetime, :null => false
+    t.column "flightBudget", :integer, :default => 0, :null => false
+    t.column "gatewayCitytoLocationFlightNo", :string, :default => "", :null => false
+    t.column "locationToGatewayCityFlightNo", :string, :default => "", :null => false
+    t.column "inCountryContact", :string, :default => "", :null => false
+    t.column "scholarshipAccountNo", :string, :default => "", :null => false
+    t.column "operatingAccountNo", :string, :default => "", :null => false
+    t.column "AOA", :string, :default => "", :null => false
+    t.column "MPTA", :string, :default => "", :null => false
+    t.column "staffCost", :integer, :default => 0, :null => false
+    t.column "studentCost", :integer, :default => 0, :null => false
+    t.column "studentCostExplaination", :string, :default => "", :null => false
+    t.column "insuranceFormsReceived", :string, :limit => 1, :default => "", :null => false
+    t.column "CAPSFeePaid", :string, :limit => 1, :default => "", :null => false
+    t.column "adminFeePaid", :string, :limit => 1, :default => "", :null => false
+    t.column "storiesXX", :string, :default => "", :null => false
+    t.column "stats", :string, :default => "", :null => false
+    t.column "secure", :string, :limit => 1, :default => "", :null => false
+    t.column "projEvalCompleted", :string, :limit => 1, :default => "", :null => false
+    t.column "evangelisticExposures", :integer, :default => 0, :null => false
+    t.column "receivedChrist", :integer, :default => 0, :null => false
+    t.column "jesusFilmExposures", :integer, :default => 0, :null => false
+    t.column "jesusFilmReveivedChrist", :integer, :default => 0, :null => false
+    t.column "coverageActivitiesExposures", :integer, :default => 0, :null => false
+    t.column "coverageActivitiesDecisions", :integer, :default => 0, :null => false
+    t.column "holySpiritDecisions", :integer, :default => 0, :null => false
+    t.column "website", :string, :default => "", :null => false
+    t.column "destinationAddress", :string, :default => "", :null => false
+    t.column "destinationPhone", :string, :default => "", :null => false
+    t.column "siYear", :string, :default => "", :null => false
+    t.column "fk_isCoord", :string, :default => "", :null => false
+    t.column "fk_isAPD", :string, :default => "", :null => false
+    t.column "fk_isPD", :string, :default => "", :null => false
+    t.column "projectType", :string, :limit => 1, :default => "", :null => false
+    t.column "studentStartDate", :datetime, :null => false
+    t.column "studentEndDate", :datetime, :null => false
+    t.column "staffStartDate", :datetime, :null => false
+    t.column "staffEndDate", :datetime, :null => false
+    t.column "leadershipStartDate", :datetime, :null => false
+    t.column "leadershipEndDate", :datetime, :null => false
+    t.column "createDate", :datetime, :null => false
+    t.column "lastChangedDate", :integer, :limit => 8, :default => 0, :null => false
+    t.column "lastChangedBy", :string, :limit => 50, :default => "", :null => false
+    t.column "displayLocation", :string, :default => "", :null => false
+    t.column "partnershipRegionOnly", :string, :limit => 1, :default => "", :null => false
+    t.column "internCost", :integer, :default => 0, :null => false
+    t.column "onHold", :string, :limit => 1, :default => "", :null => false
+    t.column "maxNoStaffPMale", :integer, :default => 0, :null => false
+    t.column "maxNoStaffPFemale", :integer, :default => 0, :null => false
+    t.column "maxNoStaffPCouples", :integer, :default => 0, :null => false
+    t.column "maxNoStaffPFamilies", :integer, :default => 0, :null => false
+    t.column "maxNoStaffP", :integer, :default => 0, :null => false
+    t.column "maxNoInternAMale", :integer, :default => 0, :null => false
+    t.column "maxNoInternAFemale", :integer, :default => 0, :null => false
+    t.column "maxNoInternACouples", :integer, :default => 0, :null => false
+    t.column "maxNoInternAFamilies", :integer, :default => 0, :null => false
+    t.column "maxNoInternA", :integer, :default => 0, :null => false
+    t.column "maxNoInternPMale", :integer, :default => 0, :null => false
+    t.column "maxNoInternPFemale", :integer, :default => 0, :null => false
+    t.column "maxNoInternPCouples", :integer, :default => 0, :null => false
+    t.column "maxNoInternPFamilies", :integer, :default => 0, :null => false
+    t.column "maxNoInternP", :integer, :default => 0, :null => false
+    t.column "maxNoStudentAMale", :integer, :default => 0, :null => false
+    t.column "maxNoStudentAFemale", :integer, :default => 0, :null => false
+    t.column "maxNoStudentACouples", :integer, :default => 0, :null => false
+    t.column "maxNoStudentAFamilies", :integer, :default => 0, :null => false
+    t.column "maxNoStudentA", :integer, :default => 0, :null => false
+    t.column "maxNoStudentPMale", :integer, :default => 0, :null => false
+    t.column "maxNoStudentPFemale", :integer, :default => 0, :null => false
+    t.column "maxNoStudentPCouples", :integer, :default => 0, :null => false
+    t.column "maxNoStudentPFamilies", :integer, :default => 0, :null => false
+    t.column "maxNoStudentP", :integer, :default => 0, :null => false
+  end
+
+# Could not dump table "hr_si_reference_2003" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isFormSubmitted'
+
+# Could not dump table "hr_si_reference_2004" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isFormSubmitted'
+
+# Could not dump table "hr_si_reference_2005" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isFormSubmitted'
+
+# Could not dump table "hr_si_reference_2006" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isFormSubmitted'
+
+  create_table "hr_si_users", :id => false, :force => true do |t|
+    t.column "siUserID", :integer, :default => 0, :null => false
+    t.column "fk_ssmUserID", :integer, :default => 0, :null => false
+    t.column "role", :string, :limit => 50, :default => "", :null => false
+    t.column "expirationDate", :datetime, :null => false
+  end
+
+  create_table "import_staffacctbal", :id => false, :force => true do |t|
+    t.column "EMPLID", :string, :limit => 11, :default => "", :null => false
+    t.column "CUR_BAL", :float, :limit => 28, :default => 0.0, :null => false
+  end
+
+  create_table "linczone_contacts", :id => false, :force => true do |t|
+    t.column "ContactID", :integer, :default => 0, :null => false
+    t.column "EntryDate", :datetime
+    t.column "FirstName", :string, :limit => 120, :default => "", :null => false
+    t.column "LastName", :string, :limit => 120, :default => "", :null => false
+    t.column "HomeAddress", :string, :limit => 200, :default => "", :null => false
+    t.column "City", :string, :limit => 20, :default => "", :null => false
+    t.column "State", :string, :limit => 20, :default => "", :null => false
+    t.column "Zip", :string, :limit => 80, :default => "", :null => false
+    t.column "Email", :string, :limit => 120, :default => "", :null => false
+    t.column "HighSchool", :string, :limit => 120, :default => "", :null => false
+    t.column "CampusName", :string, :limit => 200, :default => "", :null => false
+    t.column "CampusID", :string, :limit => 80, :default => "", :null => false
+    t.column "ReferrerFirstName", :string, :limit => 120, :default => "", :null => false
+    t.column "ReferrerLastName", :string, :limit => 120, :default => "", :null => false
+    t.column "ReferrerRelationship", :string, :limit => 100, :default => "", :null => false
+    t.column "ReferrerEmail", :string, :limit => 200, :default => "", :null => false
+    t.column "InfoCCC", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoNav", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoIV", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoFCA", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoBSU", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoCACM", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoEFCA", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoGCM", :string, :limit => 1, :default => "F", :null => false
+    t.column "InfoWesley", :string, :limit => 1, :default => "F", :null => false
+  end
+
+  create_table "migrationanswers", :id => false, :force => true do |t|
+    t.column "email", :string, :limit => 100, :default => "", :null => false
+    t.column "client", :string, :limit => 100, :default => "", :null => false
+    t.column "exchange", :string, :limit => 100, :default => "", :null => false
+    t.column "vpn", :string, :limit => 100, :default => "", :null => false
+    t.column "region", :string, :limit => 100, :default => "", :null => false
+    t.column "ip", :string, :limit => 100, :default => "", :null => false
+    t.column "http", :binary, :default => "", :null => false
+    t.column "beta", :string, :limit => 100, :default => "", :null => false
+  end
+
+  create_table "migrationgroups", :id => false, :force => true do |t|
+    t.column "Col001", :string, :limit => 100, :default => "", :null => false
+    t.column "Col002", :string, :limit => 100, :default => "", :null => false
+    t.column "Col003", :string, :limit => 100, :default => "", :null => false
+    t.column "Col004", :string, :limit => 100, :default => "", :null => false
+    t.column "Col005", :string, :limit => 100, :default => "", :null => false
+    t.column "Col006", :string, :limit => 100, :default => "", :null => false
+    t.column "Col007", :string, :limit => 100, :default => "", :null => false
+    t.column "Col008", :string, :limit => 100, :default => "", :null => false
+    t.column "Col009", :string, :limit => 100, :default => "", :null => false
+    t.column "Col010", :string, :limit => 100, :default => "", :null => false
+    t.column "Col011", :string, :limit => 100, :default => "", :null => false
+    t.column "Col012", :string, :limit => 100, :default => "", :null => false
+    t.column "Col013", :string, :limit => 100, :default => "", :null => false
+    t.column "Col014", :string, :limit => 100, :default => "", :null => false
+  end
+
+  create_table "migrationgroupslist", :id => false, :force => true do |t|
+    t.column "gname", :string, :limit => 100, :default => "", :null => false
+  end
+
+  create_table "migrationsendto", :id => false, :force => true do |t|
+    t.column "email", :string, :default => "", :null => false
+  end
+
+  create_table "migrationsent", :id => false, :force => true do |t|
+    t.column "email", :string, :limit => 100, :default => "", :null => false
+  end
+
+  create_table "migrationsent1", :id => false, :force => true do |t|
+    t.column "email", :string, :limit => 100
+  end
+
+  create_table "migrationsent2", :id => false, :force => true do |t|
+    t.column "email", :string, :limit => 100
+  end
+
+  create_table "migrationvpn", :id => false, :force => true do |t|
+    t.column "username", :string, :default => "", :null => false
+    t.column "logins", :float, :default => 0.0, :null => false
+  end
+
+  create_table "ministry_activity", :id => false, :force => true do |t|
+    t.column "ActivityID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "status", :string, :limit => 2, :default => "", :null => false
+    t.column "periodBegin", :datetime, :null => false
+    t.column "periodEnd", :datetime, :null => false
+    t.column "strategy", :string, :limit => 2, :default => "", :null => false
+    t.column "transUsername", :string, :limit => 50, :default => "", :null => false
+    t.column "fk_targetAreaID", :integer, :default => 0, :null => false
+    t.column "fk_teamID", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_address", :id => false, :force => true do |t|
+    t.column "AddressID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "startdate", :datetime, :null => false
+    t.column "enddate", :datetime, :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "address3", :string, :limit => 35, :default => "", :null => false
+    t.column "address4", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 35, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+  end
+
+# Could not dump table "ministry_assoc_activitycontact" because of following StandardError
+#   Unknown type 'bit(1)' for column 'dbioDummy'
+
+# Could not dump table "ministry_assoc_dependents" because of following StandardError
+#   Unknown type 'bit(1)' for column 'dbioDummy'
+
+  create_table "ministry_assoc_intlcontact", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "WsnPartnershipID", :string, :limit => 64, :default => "", :null => false
+  end
+
+# Could not dump table "ministry_assoc_otherministries" because of following StandardError
+#   Unknown type 'bit(1)' for column 'dbioDummy'
+
+  create_table "ministry_assoc_partcoord", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "WsnPartnershipID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "ministry_assocteamstaff", :id => false, :force => true do |t|
+    t.column "fk_accountNo", :string, :limit => 64, :default => "", :null => false
+    t.column "fk_teamID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "ministry_authorization", :id => false, :force => true do |t|
+    t.column "AuthorizationID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "authdate", :datetime, :null => false
+    t.column "role", :string, :limit => 30, :default => "", :null => false
+    t.column "authorized", :string, :limit => 1, :default => "", :null => false
+    t.column "sequence", :integer, :default => 0, :null => false
+    t.column "fk_AuthorizedBy", :string, :limit => 11, :default => "", :null => false
+    t.column "fk_AuthorizationNote", :string, :limit => 64, :default => "", :null => false
+    t.column "fk_changeRequestID", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_changerequest", :id => false, :force => true do |t|
+    t.column "ChangeRequestID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "requestdate", :datetime, :null => false
+    t.column "effectivedate", :datetime, :null => false
+    t.column "applieddate", :datetime, :null => false
+    t.column "type", :string, :limit => 30, :default => "", :null => false
+    t.column "fk_requestedBy", :string, :limit => 11, :default => "", :null => false
+    t.column "updateStaff", :string, :limit => 11, :default => "", :null => false
+    t.column "region", :string, :limit => 10, :default => "", :null => false
+  end
+
+  create_table "ministry_dependent", :id => false, :force => true do |t|
+    t.column "DependentID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "firstName", :string, :limit => 80, :default => "", :null => false
+    t.column "middleName", :string, :limit => 80, :default => "", :null => false
+    t.column "lastName", :string, :limit => 80, :default => "", :null => false
+    t.column "birthdate", :datetime, :null => false
+    t.column "gender", :string, :limit => 1, :default => "", :null => false
+  end
+
+  create_table "ministry_fieldchange", :id => false, :force => true do |t|
+    t.column "FieldChangeID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "field", :string, :limit => 30, :default => "", :null => false
+    t.column "oldValue", :string, :default => "", :null => false
+    t.column "newValue", :string, :default => "", :null => false
+    t.column "Fk_hasFieldChanges", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_locallevel", :id => false, :force => true do |t|
+    t.column "teamID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "name", :string, :limit => 100, :default => "", :null => false
+    t.column "lane", :string, :limit => 10, :default => "", :null => false
+    t.column "note", :string, :default => "", :null => false
+    t.column "region", :string, :limit => 2, :default => "", :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 30, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "phone", :string, :limit => 24, :default => "", :null => false
+    t.column "fax", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "url", :string, :default => "", :null => false
+    t.column "isActive", :string, :limit => 1, :default => "", :null => false
+    t.column "startdate", :datetime, :null => false
+    t.column "stopdate", :datetime, :null => false
+    t.column "Fk_OrgRel", :string, :limit => 64, :default => "", :null => false
+    t.column "no", :string, :limit => 2, :default => "", :null => false
+    t.column "abbrv", :string, :limit => 2, :default => "", :null => false
+  end
+
+  create_table "ministry_newaddress", :id => false, :force => true do |t|
+    t.column "AddressID", :integer, :default => 0, :null => false
+    t.column "startdate", :string, :limit => 25, :default => "", :null => false
+    t.column "enddate", :string, :limit => 25, :default => "", :null => false
+    t.column "address1", :string, :limit => 55, :default => "", :null => false
+    t.column "address2", :string, :limit => 55, :default => "", :null => false
+    t.column "address3", :string, :limit => 55, :default => "", :null => false
+    t.column "address4", :string, :limit => 55, :default => "", :null => false
+    t.column "city", :string, :limit => 50, :default => "", :null => false
+    t.column "state", :string, :limit => 50, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "homePhone", :string, :limit => 25, :default => "", :null => false
+    t.column "workPhone", :string, :limit => 25, :default => "", :null => false
+    t.column "cellPhone", :string, :limit => 25, :default => "", :null => false
+    t.column "fax", :string, :limit => 25, :default => "", :null => false
+    t.column "email", :string, :limit => 200, :default => "", :null => false
+    t.column "url", :string, :limit => 100, :default => "", :null => false
+    t.column "contactName", :string, :limit => 50, :default => "", :null => false
+    t.column "contactRelationship", :string, :limit => 50, :default => "", :null => false
+    t.column "addressType", :string, :limit => 20, :default => "", :null => false
+    t.column "dateCreated", :datetime, :null => false
+    t.column "dateChanged", :datetime, :null => false
+    t.column "createdBy", :string, :limit => 50, :default => "", :null => false
+    t.column "changedBy", :string, :limit => 50, :default => "", :null => false
+    t.column "fk_PersonID", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_newaddress_backup20050215", :id => false, :force => true do |t|
+    t.column "AddressID", :integer
+    t.column "startdate", :datetime, :null => false
+    t.column "enddate", :datetime, :null => false
+    t.column "address1", :string, :limit => 50, :default => "", :null => false
+    t.column "address2", :string, :limit => 50, :default => "", :null => false
+    t.column "address3", :string, :limit => 50, :default => "", :null => false
+    t.column "address4", :string, :limit => 50, :default => "", :null => false
+    t.column "city", :string, :limit => 50, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "homePhone", :string, :limit => 25, :default => "", :null => false
+    t.column "workPhone", :string, :limit => 25, :default => "", :null => false
+    t.column "cellPhone", :string, :limit => 25, :default => "", :null => false
+    t.column "fax", :string, :limit => 25, :default => "", :null => false
+    t.column "email", :string, :limit => 70, :default => "", :null => false
+    t.column "url", :string, :limit => 100, :default => "", :null => false
+    t.column "contactName", :string, :limit => 50, :default => "", :null => false
+    t.column "contactRelationship", :string, :limit => 50, :default => "", :null => false
+    t.column "addressType", :string, :limit => 20, :default => "", :null => false
+    t.column "fk_PersonID", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_noncccmin", :id => false, :force => true do |t|
+    t.column "NonCccMinID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "ministry", :string, :limit => 50, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30, :default => "", :null => false
+    t.column "lastName", :string, :limit => 30, :default => "", :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 30, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "homePhone", :string, :limit => 24, :default => "", :null => false
+    t.column "workPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "mobilePhone", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 24, :default => "", :null => false
+    t.column "url", :string, :limit => 50, :default => "", :null => false
+    t.column "pager", :string, :limit => 24, :default => "", :null => false
+    t.column "fax", :string, :limit => 24, :default => "", :null => false
+    t.column "note", :string, :default => "", :null => false
+  end
+
+  create_table "ministry_note", :id => false, :force => true do |t|
+    t.column "NoteID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "dateEntered", :datetime, :null => false
+    t.column "title", :string, :limit => 80, :default => "", :null => false
+    t.column "note", :binary, :default => "", :null => false
+    t.column "Fk_loaNote", :string, :limit => 64, :default => "", :null => false
+    t.column "Fk_resignationLetter", :string, :limit => 64, :default => "", :null => false
+    t.column "Fk_authorizationNote", :string, :limit => 64, :default => "", :null => false
+  end
+
+# Could not dump table "ministry_person" because of following StandardError
+#   Unknown type 'bit(1)' for column 'workInUS'
+
+# Could not dump table "ministry_person_backup20050215" because of following StandardError
+#   Unknown type 'bit(1)' for column 'workInUS'
+
+  create_table "ministry_regionalstat", :id => false, :force => true do |t|
+    t.column "RegionalStatID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "periodBegin", :datetime, :null => false
+    t.column "periodEnd", :datetime, :null => false
+    t.column "nsSc", :integer, :default => 0, :null => false
+    t.column "nsWsn", :integer, :default => 0, :null => false
+    t.column "nsCat", :integer, :default => 0, :null => false
+    t.column "nsIcrD", :integer, :default => 0, :null => false
+    t.column "nsIcrI", :integer, :default => 0, :null => false
+    t.column "nsIcrE", :integer, :default => 0, :null => false
+    t.column "niSc", :integer, :default => 0, :null => false
+    t.column "niWsn", :integer, :default => 0, :null => false
+    t.column "niCat", :integer, :default => 0, :null => false
+    t.column "niIcrD", :integer, :default => 0, :null => false
+    t.column "niIcrI", :integer, :default => 0, :null => false
+    t.column "niIcrE", :integer, :default => 0, :null => false
+    t.column "fk_regionalTeamID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "ministry_regionalteam", :id => false, :force => true do |t|
+    t.column "teamID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "name", :string, :limit => 100, :default => "", :null => false
+    t.column "note", :string, :default => "", :null => false
+    t.column "region", :string, :limit => 2, :default => "", :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 30, :default => "", :null => false
+    t.column "state", :string, :limit => 6, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "phone", :string, :limit => 24, :default => "", :null => false
+    t.column "fax", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "url", :string, :default => "", :null => false
+    t.column "isActive", :string, :limit => 1, :default => "", :null => false
+    t.column "startdate", :datetime, :null => false
+    t.column "stopdate", :datetime, :null => false
+    t.column "no", :string, :limit => 80, :default => "", :null => false
+    t.column "abbrv", :string, :limit => 80, :default => "", :null => false
+    t.column "hrd", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "ministry_rolodex", :id => false, :force => true do |t|
+    t.column "rolodexid", :integer, :default => 0, :null => false
+    t.column "firstname", :string, :limit => 50, :default => "", :null => false
+    t.column "middleinitial", :string, :limit => 1, :default => "", :null => false
+    t.column "lastname", :string, :limit => 50, :default => "", :null => false
+    t.column "address", :string, :limit => 50, :default => "", :null => false
+    t.column "address2", :string, :limit => 50, :default => "", :null => false
+    t.column "city", :string, :limit => 50, :default => "", :null => false
+    t.column "state", :string, :limit => 50, :default => "", :null => false
+    t.column "zip", :string, :limit => 50, :default => "", :null => false
+    t.column "gender", :string, :limit => 1, :default => "", :null => false
+    t.column "phone", :string, :limit => 50, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "maritalstatus", :string, :limit => 50, :default => "", :null => false
+    t.column "birthdate", :datetime, :null => false
+    t.column "campus", :string, :limit => 100, :default => "", :null => false
+    t.column "sourcetable", :string, :limit => 50, :default => "", :null => false
+    t.column "sourcekey", :string, :limit => 50, :default => "", :null => false
+    t.column "dateinserted", :datetime, :null => false
+    t.column "crspersonid", :string, :limit => 50, :default => "", :null => false
+    t.column "eventpersonid", :string, :limit => 50, :default => "", :null => false
+    t.column "sipersonid", :string, :limit => 50, :default => "", :null => false
+    t.column "linczonecontactid", :string, :limit => 50, :default => "", :null => false
+    t.column "staffaccountno", :string, :limit => 50, :default => "", :null => false
+    t.column "usspstudentid", :string, :limit => 50, :default => "", :null => false
+    t.column "ussp01studentid", :string, :limit => 50, :default => "", :null => false
+    t.column "wsnsppersonid", :string, :limit => 50, :default => "", :null => false
+    t.column "note", :string, :limit => 200, :default => "", :null => false
+  end
+
+  create_table "ministry_staff", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30, :default => "", :null => false
+    t.column "middleInitial", :string, :limit => 1, :default => "", :null => false
+    t.column "lastName", :string, :limit => 30, :default => "", :null => false
+    t.column "isMale", :string, :limit => 1, :default => "", :null => false
+    t.column "position", :string, :limit => 30, :default => "", :null => false
+    t.column "countryStatus", :string, :limit => 10, :default => "", :null => false
+    t.column "jobStatus", :string, :limit => 30, :default => "", :null => false
+    t.column "ministry", :string, :limit => 35, :default => "", :null => false
+    t.column "strategy", :string, :limit => 20, :default => "", :null => false
+    t.column "isNewStaff", :string, :limit => 1, :default => "", :null => false
+    t.column "primaryEmpLocState", :string, :limit => 6, :default => "", :null => false
+    t.column "primaryEmpLocCountry", :string, :limit => 64, :default => "", :null => false
+    t.column "primaryEmpLocCity", :string, :limit => 35, :default => "", :null => false
+    t.column "primaryEmpLocDesc", :string, :limit => 128, :default => "", :null => false
+    t.column "spouseFirstName", :string, :limit => 22, :default => "", :null => false
+    t.column "spouseMiddleName", :string, :limit => 15, :default => "", :null => false
+    t.column "spouseLastName", :string, :limit => 30, :default => "", :null => false
+    t.column "spouseAccountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "spouseEmail", :string, :limit => 50, :default => "", :null => false
+    t.column "fianceeFirstName", :string, :limit => 15, :default => "", :null => false
+    t.column "fianceeMiddleName", :string, :limit => 15, :default => "", :null => false
+    t.column "fianceeLastName", :string, :limit => 30, :default => "", :null => false
+    t.column "fianceeAccountno", :string, :limit => 11, :default => "", :null => false
+    t.column "isFianceeStaff", :string, :limit => 1, :default => "", :null => false
+    t.column "fianceeJoinStaffDate", :datetime, :null => false
+    t.column "isFianceeJoiningNS", :string, :limit => 1, :default => "", :null => false
+    t.column "joiningNS", :string, :limit => 1, :default => "", :null => false
+    t.column "homePhone", :string, :limit => 24, :default => "", :null => false
+    t.column "workPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "mobilePhone", :string, :limit => 24, :default => "", :null => false
+    t.column "pager", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "isEmailSecure", :string, :limit => 1, :default => "", :null => false
+    t.column "url", :string, :default => "", :null => false
+    t.column "newStaffTrainingdate", :datetime, :null => false
+    t.column "fax", :string, :limit => 24, :default => "", :null => false
+    t.column "note", :binary, :default => "", :null => false
+    t.column "region", :string, :limit => 10, :default => "", :null => false
+    t.column "countryCode", :string, :limit => 3, :default => "", :null => false
+    t.column "ssn", :string, :limit => 9, :default => "", :null => false
+    t.column "maritalStatus", :string, :limit => 1, :default => "", :null => false
+    t.column "deptId", :string, :limit => 10, :default => "", :null => false
+    t.column "jobCode", :string, :limit => 6, :default => "", :null => false
+    t.column "accountCode", :string, :limit => 25, :default => "", :null => false
+    t.column "compFreq", :string, :limit => 1, :default => "", :null => false
+    t.column "compRate", :string, :limit => 20, :default => "", :null => false
+    t.column "compChngAmt", :string, :limit => 21, :default => "", :null => false
+    t.column "jobTitle", :string, :limit => 80, :default => "", :null => false
+    t.column "deptName", :string, :limit => 30, :default => "", :null => false
+    t.column "coupleTitle", :string, :limit => 12, :default => "", :null => false
+    t.column "otherPhone", :string, :limit => 24, :default => "", :null => false
+    t.column "preferredName", :string, :limit => 50, :default => "", :null => false
+    t.column "namePrefix", :string, :limit => 4, :default => "", :null => false
+    t.column "origHiredate", :datetime, :null => false
+    t.column "birthDate", :datetime, :null => false
+    t.column "marriageDate", :datetime, :null => false
+    t.column "hireDate", :datetime, :null => false
+    t.column "rehireDate", :datetime, :null => false
+    t.column "loaStartDate", :datetime, :null => false
+    t.column "loaEndDate", :datetime, :null => false
+    t.column "loaReason", :string, :limit => 80, :default => "", :null => false
+    t.column "severancePayMonthsReq", :integer, :default => 0, :null => false
+    t.column "serviceDate", :datetime, :null => false
+    t.column "lastIncDate", :datetime, :null => false
+    t.column "jobEntryDate", :datetime, :null => false
+    t.column "deptEntryDate", :datetime, :null => false
+    t.column "reportingDate", :datetime, :null => false
+    t.column "employmentType", :string, :limit => 20, :default => "", :null => false
+    t.column "resignationReason", :string, :limit => 80, :default => "", :null => false
+    t.column "resignationDate", :datetime, :null => false
+    t.column "contributionsToOtherAcct", :string, :limit => 1, :default => "", :null => false
+    t.column "contributionsToAcntName", :string, :limit => 80, :default => "", :null => false
+    t.column "contributionsToAcntNo", :string, :limit => 11, :default => "", :null => false
+    t.column "fk_primaryAddress", :integer, :default => 0, :null => false
+    t.column "fk_secondaryAddress", :integer, :default => 0, :null => false
+    t.column "fk_teamID", :integer, :default => 0, :null => false
+    t.column "isSecure", :string, :limit => 1, :default => "", :null => false
+    t.column "isSupported", :string, :limit => 1, :default => "", :null => false
+    t.column "removedFromPeopleSoft", :string, :limit => 1, :default => "N", :null => false
+    t.column "isNonUSStaff", :string, :limit => 1, :default => "", :null => false
+  end
+
+  create_table "ministry_staffchangerequest", :id => false, :force => true do |t|
+    t.column "ChangeRequestID", :string, :limit => 64, :default => "", :null => false
+    t.column "updateStaff", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "ministry_staffsnapshot", :id => false, :force => true do |t|
+    t.column "snapshotID", :integer, :default => 0, :null => false
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30, :default => "", :null => false
+    t.column "middleName", :string, :limit => 30, :default => "", :null => false
+    t.column "lastName", :string, :limit => 30, :default => "", :null => false
+    t.column "addressType", :string, :limit => 3, :default => "", :null => false
+    t.column "address1", :string, :limit => 100, :default => "", :null => false
+    t.column "address2", :string, :limit => 100, :default => "", :null => false
+    t.column "city", :string, :limit => 40, :default => "", :null => false
+    t.column "state", :string, :limit => 50, :default => "", :null => false
+    t.column "zip", :string, :limit => 9, :default => "", :null => false
+    t.column "country", :string, :limit => 4, :default => "", :null => false
+    t.column "intAddress", :binary, :default => "", :null => false
+    t.column "workPhone", :string, :limit => 20, :default => "", :null => false
+    t.column "mobilePhone", :string, :limit => 20, :default => "", :null => false
+    t.column "ministry", :string, :limit => 50, :default => "", :null => false
+    t.column "department", :string, :limit => 50, :default => "", :null => false
+    t.column "subMinistry", :string, :limit => 50, :default => "", :null => false
+    t.column "position", :string, :limit => 80, :default => "", :null => false
+    t.column "positionDescr", :string, :limit => 200, :default => "", :null => false
+    t.column "strategy", :string, :limit => 20, :default => "", :null => false
+    t.column "intStatus", :string, :limit => 50, :default => "", :null => false
+    t.column "intRole", :string, :limit => 50, :default => "", :null => false
+    t.column "role", :string, :limit => 50, :default => "", :null => false
+    t.column "isMarried", :string, :limit => 1, :default => "", :null => false
+    t.column "spouseFirstName", :string, :limit => 30, :default => "", :null => false
+    t.column "spouseMiddleName", :string, :limit => 30, :default => "", :null => false
+    t.column "spouseLastName", :string, :limit => 30, :default => "", :null => false
+    t.column "numChildren", :integer, :default => 0, :null => false
+    t.column "dateChanged", :datetime, :null => false
+  end
+
+  create_table "ministry_statistic", :id => false, :force => true do |t|
+    t.column "StatisticID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "periodBegin", :datetime, :null => false
+    t.column "periodEnd", :datetime, :null => false
+    t.column "exposures", :integer, :default => 0, :null => false
+    t.column "exposuresViaMedia", :integer, :default => 0, :null => false
+    t.column "evangelisticOneOnOne", :integer, :default => 0, :null => false
+    t.column "evangelisticGroup", :integer, :default => 0, :null => false
+    t.column "ongoingEvangReln", :integer, :default => 0, :null => false
+    t.column "decisions", :integer, :default => 0, :null => false
+    t.column "decisionsHelpedByMedia", :integer, :default => 0, :null => false
+    t.column "decisionsHelpedByOneOnOne", :integer, :default => 0, :null => false
+    t.column "decisionsHelpedByGroup", :integer, :default => 0, :null => false
+    t.column "decisionsHelpedByOngoingReln", :integer, :default => 0, :null => false
+    t.column "attendedLastConf", :integer, :default => 0, :null => false
+    t.column "invldNewBlvrs", :integer, :default => 0, :null => false
+    t.column "invldStudents", :integer, :default => 0, :null => false
+    t.column "invldFreshmen", :integer, :default => 0, :null => false
+    t.column "invldSophomores", :integer, :default => 0, :null => false
+    t.column "invldJuniors", :integer, :default => 0, :null => false
+    t.column "invldSeniors", :integer, :default => 0, :null => false
+    t.column "invldGrads", :integer, :default => 0, :null => false
+    t.column "studentLeaders", :integer, :default => 0, :null => false
+    t.column "volunteers", :integer, :default => 0, :null => false
+    t.column "staff", :integer, :default => 0, :null => false
+    t.column "nonStaffStint", :integer, :default => 0, :null => false
+    t.column "staffStint", :integer, :default => 0, :null => false
+    t.column "fk_Activity", :integer, :default => 0, :null => false
+  end
+
+  create_table "ministry_targetarea", :id => false, :force => true do |t|
+    t.column "TargetAreaID", :integer, :default => 0, :null => false
+    t.column "name", :string, :limit => 100, :default => "", :null => false
+    t.column "address1", :string, :limit => 35, :default => "", :null => false
+    t.column "address2", :string, :limit => 35, :default => "", :null => false
+    t.column "city", :string, :limit => 30, :default => "", :null => false
+    t.column "state", :string, :limit => 32, :default => "", :null => false
+    t.column "zip", :string, :limit => 10, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+    t.column "phone", :string, :limit => 24, :default => "", :null => false
+    t.column "fax", :string, :limit => 24, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "url", :string, :default => "", :null => false
+    t.column "abbrv", :string, :limit => 32, :default => "", :null => false
+    t.column "fice", :string, :limit => 32, :default => "", :null => false
+    t.column "mainCampusFice", :string, :limit => 32, :default => "", :null => false
+    t.column "isNoFiceOK", :string, :limit => 1, :default => "", :null => false
+    t.column "note", :string, :default => "", :null => false
+    t.column "altName", :string, :limit => 100, :default => "", :null => false
+    t.column "isSecure", :string, :limit => 1, :default => "", :null => false
+    t.column "isClosed", :string, :limit => 1, :default => "", :null => false
+    t.column "region", :string, :limit => 2, :default => "", :null => false
+    t.column "mpta", :string, :limit => 30, :default => "", :null => false
+    t.column "urlToLogo", :string, :default => "", :null => false
+    t.column "enrollment", :string, :limit => 10, :default => "", :null => false
+    t.column "monthSchoolStarts", :string, :limit => 10, :default => "", :null => false
+    t.column "monthSchoolStops", :string, :limit => 10, :default => "", :null => false
+    t.column "isSemester", :string, :limit => 1, :default => "", :null => false
+    t.column "isApproved", :string, :limit => 1, :default => "", :null => false
+    t.column "aoaPriority", :string, :limit => 10, :default => "", :null => false
+    t.column "aoa", :string, :limit => 100, :default => "", :null => false
+    t.column "ciaUrl", :string, :default => "", :null => false
+    t.column "infoUrl", :string, :default => "", :null => false
+    t.column "calendar", :string, :limit => 50, :default => "", :null => false
+    t.column "program1", :string, :limit => 50, :default => "", :null => false
+    t.column "program2", :string, :limit => 50, :default => "", :null => false
+    t.column "program3", :string, :limit => 50, :default => "", :null => false
+    t.column "program4", :string, :limit => 50, :default => "", :null => false
+    t.column "program5", :string, :limit => 50, :default => "", :null => false
+    t.column "emphasis", :string, :limit => 50, :default => "", :null => false
+    t.column "sex", :string, :limit => 50, :default => "", :null => false
+    t.column "institutionType", :string, :limit => 50, :default => "", :null => false
+    t.column "highestOffering", :string, :limit => 65, :default => "", :null => false
+    t.column "affiliation", :string, :limit => 50, :default => "", :null => false
+    t.column "carnegieClassification", :string, :limit => 100, :default => "", :null => false
+    t.column "irsStatus", :string, :limit => 50, :default => "", :null => false
+    t.column "establishedDate", :integer, :default => 0, :null => false
+    t.column "tuition", :integer, :default => 0, :null => false
+    t.column "modified", :datetime, :null => false
+    t.column "eventType", :string, :limit => 2, :default => "", :null => false
+    t.column "eventKeyID", :integer, :default => 0, :null => false
+    t.column "type", :string, :limit => 20, :default => "", :null => false
+  end
+
+  create_table "ministry_wsnpartnership", :id => false, :force => true do |t|
+    t.column "WsnPartnershipID", :string, :limit => 64, :default => "", :null => false
+    t.column "status", :string, :limit => 2, :default => "", :null => false
+    t.column "periodBegin", :datetime, :null => false
+    t.column "periodEnd", :datetime, :null => false
+    t.column "strategy", :string, :limit => 2, :default => "", :null => false
+    t.column "name", :string, :limit => 100, :default => "", :null => false
+    t.column "isApproved", :string, :limit => 1, :default => "", :null => false
+    t.column "wsnStatus", :string, :limit => 10, :default => "", :null => false
+    t.column "accountingUnit", :string, :limit => 10, :default => "", :null => false
+    t.column "annualBudget", :string, :limit => 13, :default => "", :null => false
+    t.column "notes", :string, :default => "", :null => false
+    t.column "transUsername", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "ministrylocator_assoc_contact", :id => false, :force => true do |t|
+    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
+    t.column "contactID", :string, :limit => 16, :default => "", :null => false
+  end
+
+  create_table "ministrylocator_assoc_ministry_contact", :id => false, :force => true do |t|
+    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
+    t.column "contactID", :string, :limit => 16, :default => "", :null => false
+  end
+
+  create_table "ministrylocator_campus", :id => false, :force => true do |t|
+    t.column "campusID", :string, :limit => 16, :default => "", :null => false
+    t.column "name", :string, :limit => 80, :default => "", :null => false
+    t.column "city", :string, :limit => 80, :default => "", :null => false
+    t.column "state", :string, :limit => 2, :default => "", :null => false
+    t.column "country", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "ministrylocator_contact", :id => false, :force => true do |t|
+    t.column "contactID", :string, :limit => 16, :default => "", :null => false
+    t.column "firstName", :string, :limit => 80, :default => "", :null => false
+    t.column "lastName", :string, :limit => 80, :default => "", :null => false
+    t.column "phone", :string, :limit => 80, :default => "", :null => false
+    t.column "email", :string, :limit => 80, :default => "", :null => false
+  end
+
+  create_table "ministrylocator_ministry", :id => false, :force => true do |t|
+    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
+    t.column "strategy", :string, :limit => 2, :default => "", :null => false
+    t.column "url", :string, :limit => 120, :default => "", :null => false
+    t.column "fk_campusID", :string, :limit => 16, :default => "", :null => false
+  end
+
+  create_table "ministryproximity_zipcode", :id => false, :force => true do |t|
+    t.column "zip", :integer, :default => 0, :null => false
+    t.column "city", :string, :limit => 80, :default => "", :null => false
+    t.column "state", :string, :limit => 2, :default => "", :null => false
+    t.column "latitude", :float, :default => 0.0, :null => false
+    t.column "longitude", :float, :default => 0.0, :null => false
+  end
+
+  create_table "moralesurvey", :force => true do |t|
+    t.column "region", :string, :limit => 50, :default => "", :null => false
+    t.column "lane", :string, :limit => 50, :default => "", :null => false
+    t.column "family", :string, :limit => 50, :default => "", :null => false
+    t.column "gender", :string, :limit => 50, :default => "", :null => false
+    t.column "years", :string, :limit => 50, :default => "", :null => false
+    t.column "q1", :integer, :default => 0, :null => false
+    t.column "q2", :integer, :default => 0, :null => false
+    t.column "q3", :integer, :default => 0, :null => false
+    t.column "q4", :integer, :default => 0, :null => false
+    t.column "q5", :integer, :default => 0, :null => false
+    t.column "q6", :integer, :default => 0, :null => false
+    t.column "q7", :integer, :default => 0, :null => false
+    t.column "q8", :integer, :default => 0, :null => false
+    t.column "q9", :integer, :default => 0, :null => false
+    t.column "q10", :integer, :default => 0, :null => false
+    t.column "q11", :integer, :default => 0, :null => false
+    t.column "q12", :integer, :default => 0, :null => false
+    t.column "q13", :integer, :default => 0, :null => false
+    t.column "q14", :integer, :default => 0, :null => false
+    t.column "q15", :integer, :default => 0, :null => false
+    t.column "q16", :integer, :default => 0, :null => false
+    t.column "q17", :integer, :default => 0, :null => false
+    t.column "q18", :integer, :default => 0, :null => false
+    t.column "q19", :integer, :default => 0, :null => false
+    t.column "q20", :integer, :default => 0, :null => false
+    t.column "q21", :integer, :default => 0, :null => false
+    t.column "comments", :binary, :default => "", :null => false
+  end
+
+  create_table "ms_msapplication", :id => false, :force => true do |t|
+    t.column "applicationID", :integer, :default => 0, :null => false
+    t.column "createDate", :datetime, :null => false
+    t.column "name", :string, :limit => 64, :default => "", :null => false
+    t.column "ssn", :string, :limit => 9, :default => "", :null => false
+    t.column "street", :string, :limit => 64, :default => "", :null => false
+    t.column "city", :string, :limit => 16, :default => "", :null => false
+    t.column "state", :string, :limit => 2, :default => "", :null => false
+    t.column "zip", :string, :limit => 5, :default => "", :null => false
+    t.column "leaveDate", :string, :limit => 8, :default => "", :null => false
+    t.column "tele", :string, :limit => 10, :default => "", :null => false
+    t.column "cell", :string, :limit => 10, :default => "", :null => false
+    t.column "email", :string, :limit => 32, :default => "", :null => false
+    t.column "checkEmail", :string, :limit => 3, :default => "", :null => false
+    t.column "eName", :string, :limit => 64, :default => "", :null => false
+    t.column "eStreet", :string, :limit => 64, :default => "", :null => false
+    t.column "eCity", :string, :limit => 16, :default => "", :null => false
+    t.column "eState", :string, :limit => 2, :default => "", :null => false
+    t.column "eZip", :string, :limit => 5, :default => "", :null => false
+    t.column "eTele", :string, :limit => 10, :default => "", :null => false
+    t.column "eCell", :string, :limit => 10, :default => "", :null => false
+    t.column "university", :string, :limit => 64, :default => "", :null => false
+    t.column "staffType", :string, :limit => 16, :default => "", :null => false
+    t.column "project1", :string, :limit => 32, :default => "", :null => false
+    t.column "project2", :string, :limit => 32, :default => "", :null => false
+    t.column "project3", :string, :limit => 32, :default => "", :null => false
+    t.column "project4", :string, :limit => 32, :default => "", :null => false
+    t.column "project5", :string, :limit => 32, :default => "", :null => false
+    t.column "sBreakDate", :string, :limit => 8, :default => "", :null => false
+    t.column "fBreakDate", :string, :limit => 8, :default => "", :null => false
+    t.column "finalDate", :string, :limit => 8, :default => "", :null => false
+    t.column "fall", :string, :limit => 3, :default => "", :null => false
+    t.column "anotherProject", :string, :limit => 3, :default => "", :null => false
+    t.column "birthDate", :string, :limit => 8, :default => "", :null => false
+    t.column "decisionDate", :string, :limit => 8, :default => "", :null => false
+    t.column "graduationDate", :string, :limit => 8, :default => "", :null => false
+    t.column "major", :string, :limit => 32, :default => "", :null => false
+    t.column "year", :string, :limit => 16, :default => "", :null => false
+    t.column "marital", :string, :limit => 9, :default => "", :null => false
+    t.column "height", :string, :limit => 5, :default => "", :null => false
+    t.column "weight", :string, :limit => 3, :default => "", :null => false
+    t.column "_1a", :string, :limit => 128, :default => "", :null => false
+    t.column "_1b", :string, :limit => 3, :default => "", :null => false
+    t.column "_1c", :string, :limit => 32, :default => "", :null => false
+    t.column "_2a", :string, :limit => 3, :default => "", :null => false
+    t.column "_2b", :string, :limit => 32, :default => "", :null => false
+    t.column "_2c", :string, :limit => 3, :default => "", :null => false
+    t.column "_3a", :string, :limit => 128, :default => "", :null => false
+    t.column "_3b", :string, :limit => 32, :default => "", :null => false
+    t.column "_4a", :string, :limit => 128, :default => "", :null => false
+    t.column "_4b", :string, :limit => 32, :default => "", :null => false
+    t.column "_5a", :string, :limit => 128, :default => "", :null => false
+    t.column "_5b", :string, :limit => 32, :default => "", :null => false
+    t.column "_5c", :string, :limit => 32, :default => "", :null => false
+    t.column "_5d", :string, :limit => 3, :default => "", :null => false
+    t.column "_6a", :binary, :default => "", :null => false
+    t.column "_7a", :binary, :default => "", :null => false
+    t.column "_8a", :string, :limit => 32, :default => "", :null => false
+    t.column "_8b", :string, :limit => 32, :default => "", :null => false
+    t.column "_9a", :binary, :default => "", :null => false
+    t.column "_10a", :binary, :default => "", :null => false
+    t.column "_11a", :string, :limit => 3, :default => "", :null => false
+    t.column "_11b", :binary, :default => "", :null => false
+    t.column "_12a", :string, :limit => 3, :default => "", :null => false
+    t.column "_12b", :string, :limit => 32, :default => "", :null => false
+    t.column "_13a", :string, :limit => 3, :default => "", :null => false
+    t.column "_13b", :string, :limit => 3, :default => "", :null => false
+    t.column "_13c", :string, :limit => 3, :default => "", :null => false
+    t.column "_14a", :binary, :default => "", :null => false
+    t.column "_15a", :string, :limit => 3, :default => "", :null => false
+    t.column "_16a", :string, :limit => 32, :default => "", :null => false
+    t.column "_17a", :string, :limit => 16, :default => "", :null => false
+    t.column "_18a", :string, :limit => 32, :default => "", :null => false
+    t.column "_19a", :string, :limit => 128, :default => "", :null => false
+    t.column "_19b", :string, :limit => 32, :default => "", :null => false
+    t.column "_20a", :binary, :default => "", :null => false
+    t.column "_20b", :binary, :default => "", :null => false
+    t.column "_20c", :binary, :default => "", :null => false
+    t.column "_21a", :string, :limit => 3, :default => "", :null => false
+    t.column "_21b", :string, :limit => 128, :default => "", :null => false
+    t.column "_22a", :string, :limit => 3, :default => "", :null => false
+    t.column "_22b", :binary, :default => "", :null => false
+    t.column "_23a", :string, :limit => 3, :default => "", :null => false
+    t.column "_23b", :binary, :default => "", :null => false
+    t.column "_24a", :string, :limit => 3, :default => "", :null => false
+    t.column "_24b", :binary, :default => "", :null => false
+    t.column "_25a", :binary, :default => "", :null => false
+    t.column "_26a", :string, :limit => 3, :default => "", :null => false
+    t.column "_26b", :binary, :default => "", :null => false
+    t.column "_27a", :string, :limit => 3, :default => "", :null => false
+    t.column "_27b", :binary, :default => "", :null => false
+    t.column "_28a", :string, :limit => 3, :default => "", :null => false
+    t.column "_28b", :binary, :default => "", :null => false
+    t.column "_29a", :string, :limit => 3, :default => "", :null => false
+    t.column "_29b", :binary, :default => "", :null => false
+    t.column "_29c", :string, :limit => 3, :default => "", :null => false
+    t.column "_29d", :string, :limit => 3, :default => "", :null => false
+    t.column "_29e", :binary, :default => "", :null => false
+    t.column "_30a", :binary, :default => "", :null => false
+    t.column "_31a", :binary, :default => "", :null => false
+    t.column "_32a", :binary, :default => "", :null => false
+    t.column "_33a", :binary, :default => "", :null => false
+    t.column "_34a", :binary, :default => "", :null => false
+    t.column "_35a", :binary, :default => "", :null => false
+  end
+
+  create_table "ms_msreference", :id => false, :force => true do |t|
+    t.column "referenceID", :integer, :default => 0, :null => false
+    t.column "createDate", :datetime, :null => false
+    t.column "name", :string, :limit => 64, :default => "", :null => false
+    t.column "staff", :string, :limit => 3, :default => "", :null => false
+    t.column "street", :string, :limit => 64, :default => "", :null => false
+    t.column "city", :string, :limit => 16, :default => "", :null => false
+    t.column "state", :string, :limit => 2, :default => "", :null => false
+    t.column "zip", :string, :limit => 5, :default => "", :null => false
+    t.column "tele", :string, :limit => 10, :default => "", :null => false
+    t.column "cell", :string, :limit => 10, :default => "", :null => false
+    t.column "email", :string, :limit => 32, :default => "", :null => false
+    t.column "relation", :string, :limit => 64, :default => "", :null => false
+    t.column "howLong", :string, :limit => 64, :default => "", :null => false
+    t.column "howWell", :string, :limit => 64, :default => "", :null => false
+    t.column "midEval", :string, :limit => 3, :default => "", :null => false
+    t.column "_1a", :string, :limit => 1, :default => "", :null => false
+    t.column "_2a", :string, :limit => 1, :default => "", :null => false
+    t.column "_3a", :string, :limit => 1, :default => "", :null => false
+    t.column "_4a", :string, :limit => 1, :default => "", :null => false
+    t.column "_5a", :string, :limit => 1, :default => "", :null => false
+    t.column "_6a", :string, :limit => 1, :default => "", :null => false
+    t.column "_7a", :string, :limit => 1, :default => "", :null => false
+    t.column "_8a", :string, :limit => 1, :default => "", :null => false
+    t.column "_9a", :string, :limit => 1, :default => "", :null => false
+    t.column "_10a", :string, :limit => 1, :default => "", :null => false
+    t.column "_11a", :string, :limit => 1, :default => "", :null => false
+    t.column "_12a", :string, :limit => 1, :default => "", :null => false
+    t.column "_13a", :string, :limit => 1, :default => "", :null => false
+    t.column "_14a", :string, :limit => 1, :default => "", :null => false
+    t.column "_15a", :string, :limit => 1, :default => "", :null => false
+    t.column "_16a", :string, :limit => 1, :default => "", :null => false
+    t.column "_17a", :string, :limit => 1, :default => "", :null => false
+    t.column "_18a", :string, :limit => 1, :default => "", :null => false
+    t.column "_19a", :string, :limit => 1, :default => "", :null => false
+    t.column "_20a", :string, :limit => 1, :default => "", :null => false
+    t.column "_21a", :string, :limit => 1, :default => "", :null => false
+    t.column "_21b", :string, :limit => 128, :default => "", :null => false
+    t.column "_22a", :binary, :default => "", :null => false
+    t.column "_23a", :binary, :default => "", :null => false
+    t.column "_24a", :binary, :default => "", :null => false
+    t.column "_25a", :binary, :default => "", :null => false
+    t.column "_26a", :binary, :default => "", :null => false
+    t.column "_26b", :string, :limit => 3, :default => "", :null => false
+    t.column "_26c", :binary, :default => "", :null => false
+    t.column "_27a", :binary, :default => "", :null => false
+    t.column "_28a", :binary, :default => "", :null => false
+    t.column "_29a", :binary, :default => "", :null => false
+    t.column "_30a", :binary, :default => "", :null => false
+  end
+
+  create_table "objectbroker_objectwrapper", :id => false, :force => true do |t|
+    t.column "objectWrapperID", :string, :limit => 40, :default => "", :null => false
+    t.column "type", :string, :limit => 80, :default => "", :null => false
+    t.column "bytes", :text, :default => "", :null => false
+  end
+
+  create_table "questionnaireacts6", :force => true do |t|
+    t.column "firstname", :string, :limit => 30, :default => "", :null => false
+    t.column "lastname", :string, :limit => 30, :default => "", :null => false
+    t.column "region", :string, :limit => 30, :default => "", :null => false
+    t.column "jobtitle", :string, :limit => 50, :default => "", :null => false
+    t.column "lane", :string, :limit => 30, :default => "", :null => false
+    t.column "phone", :string, :limit => 30, :default => "", :null => false
+    t.column "textarea1a", :text, :default => "", :null => false
+    t.column "textarea1b", :text, :default => "", :null => false
+    t.column "textarea1c", :text, :default => "", :null => false
+    t.column "textarea2a", :text, :default => "", :null => false
+    t.column "textarea2b", :text, :default => "", :null => false
+    t.column "textarea2c", :text, :default => "", :null => false
+    t.column "textarea3a", :text, :default => "", :null => false
+    t.column "textarea3b", :text, :default => "", :null => false
+    t.column "textarea3c", :text, :default => "", :null => false
+    t.column "textarea4a", :text, :default => "", :null => false
+    t.column "textarea4b", :text, :default => "", :null => false
+    t.column "textarea4c", :text, :default => "", :null => false
+    t.column "textarea5a", :text, :default => "", :null => false
+    t.column "textarea5b", :text, :default => "", :null => false
+    t.column "textarea5c", :text, :default => "", :null => false
+    t.column "textarea6a", :text, :default => "", :null => false
+    t.column "textarea6b", :text, :default => "", :null => false
+    t.column "textarea6c", :text, :default => "", :null => false
+    t.column "textarea7a", :text, :default => "", :null => false
+    t.column "textarea7b", :text, :default => "", :null => false
+    t.column "textarea7c", :text, :default => "", :null => false
+    t.column "textarea8a", :text, :default => "", :null => false
+    t.column "textarea8b", :text, :default => "", :null => false
+    t.column "textarea8c", :text, :default => "", :null => false
+    t.column "textarea9a", :text, :default => "", :null => false
+    t.column "textarea9b", :text, :default => "", :null => false
+    t.column "textarea9c", :text, :default => "", :null => false
+    t.column "textarea10a", :text, :default => "", :null => false
+    t.column "textarea10b", :text, :default => "", :null => false
+    t.column "textarea10c", :text, :default => "", :null => false
+    t.column "textarea11a", :text, :default => "", :null => false
+    t.column "textarea11b", :text, :default => "", :null => false
+    t.column "textarea11c", :text, :default => "", :null => false
+    t.column "textarea12a", :text, :default => "", :null => false
+    t.column "textarea12b", :text, :default => "", :null => false
+    t.column "textarea12c", :text, :default => "", :null => false
+    t.column "textarea13a", :text, :default => "", :null => false
+    t.column "textarea13b", :text, :default => "", :null => false
+    t.column "textarea13c", :text, :default => "", :null => false
+    t.column "textarea14a", :text, :default => "", :null => false
+    t.column "textarea14b", :text, :default => "", :null => false
+    t.column "textarea14c", :text, :default => "", :null => false
+    t.column "textarea15a", :text, :default => "", :null => false
+    t.column "textarea15b", :text, :default => "", :null => false
+    t.column "textarea15c", :text, :default => "", :null => false
+    t.column "textarea16a", :text, :default => "", :null => false
+    t.column "textarea16b", :text, :default => "", :null => false
+    t.column "textarea16c", :text, :default => "", :null => false
+    t.column "textarea17a", :text, :default => "", :null => false
+    t.column "textarea17b", :text, :default => "", :null => false
+    t.column "textarea17c", :text, :default => "", :null => false
+    t.column "comments", :text, :default => "", :null => false
+  end
+
+  create_table "response", :id => false, :force => true do |t|
+    t.column "responseno", :integer, :default => 0, :null => false
+    t.column "region", :string, :limit => 20, :default => "", :null => false
+    t.column "enterdate", :datetime, :null => false
+    t.column "years", :string, :limit => 3, :default => "", :null => false
+    t.column "family", :string, :limit => 6, :default => "", :null => false
+    t.column "gender", :string, :limit => 6, :default => "", :null => false
+    t.column "strategy", :string, :limit => 15, :default => "", :null => false
+    t.column "q01", :integer, :default => 0, :null => false
+    t.column "q02", :integer, :default => 0, :null => false
+    t.column "q03", :integer, :default => 0, :null => false
+    t.column "q04", :integer, :default => 0, :null => false
+    t.column "q05", :integer, :default => 0, :null => false
+    t.column "q06", :integer, :default => 0, :null => false
+    t.column "q07", :integer, :default => 0, :null => false
+    t.column "q08", :integer, :default => 0, :null => false
+    t.column "q09", :integer, :default => 0, :null => false
+    t.column "q10", :integer, :default => 0, :null => false
+    t.column "q11", :integer, :default => 0, :null => false
+    t.column "q12", :integer, :default => 0, :null => false
+    t.column "q13", :integer, :default => 0, :null => false
+    t.column "q14", :integer, :default => 0, :null => false
+    t.column "q15", :integer, :default => 0, :null => false
+    t.column "q16", :integer, :default => 0, :null => false
+    t.column "q17", :integer, :default => 0, :null => false
+    t.column "q18", :integer, :default => 0, :null => false
+    t.column "q19", :integer, :default => 0, :null => false
+    t.column "q20", :integer, :default => 0, :null => false
+    t.column "q21", :integer, :default => 0, :null => false
+    t.column "q22", :integer, :default => 0, :null => false
+    t.column "q23", :integer, :default => 0, :null => false
+    t.column "q24", :integer, :default => 0, :null => false
+    t.column "comments", :text, :default => "", :null => false
+    t.column "upsize_ts", :timestamp
+  end
+
+# Could not dump table "simplesecuritymanager_user" because of following StandardError
+#   Unknown type 'bit(1)' for column 'emailVerified'
+
+  create_table "sitrack_address_types", :id => false, :force => true do |t|
+    t.column "addressType", :string, :limit => 20
+  end
+
+# Could not dump table "sitrack_application_all" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isPaid'
+
+  create_table "sitrack_children", :id => false, :force => true do |t|
+    t.column "childID", :integer, :default => 0, :null => false
+    t.column "name", :string, :limit => 50, :default => "", :null => false
+    t.column "birthday", :datetime, :null => false
+    t.column "passportNo", :string, :limit => 50, :default => "", :null => false
+    t.column "fk_personID", :integer
+  end
+
+  create_table "sitrack_children_seq", :force => true do |t|
+    t.column "vapor", :integer, :default => 0, :null => false
+  end
+
+  create_table "sitrack_columns", :id => false, :force => true do |t|
+    t.column "colID", :integer, :default => 0, :null => false
+    t.column "colName", :string, :limit => 30
+    t.column "colType", :string, :limit => 20
+    t.column "selectClause", :text
+    t.column "whereClause", :string, :default => "", :null => false
+    t.column "updateClause", :string, :default => "", :null => false
+    t.column "tableClause", :string, :limit => 100, :default => "", :null => false
+    t.column "directory", :integer, :limit => 3, :default => 1
+    t.column "writeable", :integer, :limit => 3, :default => 1
+    t.column "createdDate", :integer, :limit => 8, :default => 0, :null => false
+  end
+
+  create_table "sitrack_downloadrecords", :id => false, :force => true do |t|
+    t.column "uuid", :integer
+    t.column "dateDownloaded", :datetime
+    t.column "fileID", :string, :limit => 10
+  end
+
+  create_table "sitrack_feeds", :id => false, :force => true do |t|
+    t.column "feed", :string, :limit => 50
+    t.column "lastRun", :datetime
+    t.column "numImported", :integer, :default => 0, :null => false
+  end
+
+  create_table "sitrack_mpd", :id => false, :force => true do |t|
+    t.column "mpdID", :integer, :default => 0, :null => false
+    t.column "fk_applicationID", :integer, :default => 0, :null => false
+    t.column "fk_personID", :integer, :default => 0, :null => false
+    t.column "coachName", :string, :limit => 50, :default => "", :null => false
+    t.column "coachPhone", :string, :limit => 20, :default => "", :null => false
+    t.column "coachCell", :string, :limit => 20, :default => "", :null => false
+    t.column "coachEmail", :string, :limit => 50, :default => "", :null => false
+    t.column "monthlyGoal", :integer, :default => 0, :null => false
+    t.column "oneTimeGoal", :integer, :default => 0, :null => false
+    t.column "monthlyRaised", :integer, :default => 0, :null => false
+    t.column "oneTimeRaised", :integer, :default => 0, :null => false
+    t.column "totalGoal", :integer, :default => 0, :null => false
+    t.column "totalRaised", :integer, :default => 0, :null => false
+    t.column "percentRaised", :integer, :default => 0, :null => false
+    t.column "dateUpdated", :datetime, :null => false
+    t.column "goalYear", :string, :limit => 4, :default => "", :null => false
+    t.column "salary", :integer, :default => 0, :null => false
+  end
+
+  create_table "sitrack_mpdfiles", :id => false, :force => true do |t|
+    t.column "fileID", :integer, :default => 0, :null => false
+    t.column "filename", :string
+    t.column "region", :string, :limit => 10, :default => "", :null => false
+    t.column "fileLocation", :string
+    t.column "type", :string, :limit => 10
+    t.column "personID", :integer, :default => 0, :null => false
+    t.column "lastDownUser", :integer, :default => 0, :null => false
+    t.column "lastDownDate", :datetime, :null => false
+    t.column "lastUpUser", :integer
+    t.column "lastUpDate", :datetime
+  end
+
+  create_table "sitrack_queries", :id => false, :force => true do |t|
+    t.column "queryID", :integer, :default => 0, :null => false
+    t.column "queryName", :string, :limit => 50
+    t.column "owner", :integer
+    t.column "persons", :text
+    t.column "createdDate", :datetime
+    t.column "modifyDate", :integer, :limit => 8, :default => 0, :null => false
+  end
+
+  create_table "sitrack_queries_seq", :force => true do |t|
+    t.column "vapor", :integer, :default => 0, :null => false
+  end
+
+  create_table "sitrack_savedcriteria", :id => false, :force => true do |t|
+    t.column "criteriaID", :integer, :default => 0, :null => false
+    t.column "criteriaName", :string, :limit => 50, :default => "", :null => false
+    t.column "owner", :integer
+    t.column "criteria", :text
+    t.column "saved", :integer, :limit => 3, :default => 0
+    t.column "options", :string
+    t.column "createdDate", :datetime
+  end
+
+  create_table "sitrack_session", :id => false, :force => true do |t|
+    t.column "uuid", :integer, :default => 0, :null => false
+    t.column "attribute", :string, :limit => 50, :default => "", :null => false
+    t.column "value", :string
+  end
+
+  create_table "sitrack_tracking", :id => false, :force => true do |t|
+    t.column "trackingID", :integer, :default => 0, :null => false
+    t.column "fk_applicationID", :integer, :default => 0, :null => false
+    t.column "fk_personID", :integer, :default => 0, :null => false
+    t.column "status", :string, :limit => 20, :default => "", :null => false
+    t.column "internType", :string, :limit => 20, :default => "", :null => false
+    t.column "tenure", :string, :limit => 50, :default => "", :null => false
+    t.column "ssn", :string, :limit => 50, :default => "", :null => false
+    t.column "teamLeader", :integer, :limit => 3, :default => 0, :null => false
+    t.column "caringRegion", :string, :limit => 50, :default => "", :null => false
+    t.column "passportNo", :string, :limit => 20, :default => "", :null => false
+    t.column "asgYear", :string, :limit => 9, :default => "", :null => false
+    t.column "asgTeam", :string, :limit => 50, :default => "", :null => false
+    t.column "asgCity", :string, :limit => 50, :default => "", :null => false
+    t.column "asgState", :string, :limit => 50, :default => "", :null => false
+    t.column "asgCountry", :string, :limit => 50, :default => "", :null => false
+    t.column "asgContinent", :string, :limit => 50, :default => "", :null => false
+    t.column "asgSchool", :string, :limit => 90, :default => "", :null => false
+    t.column "spouseName", :string, :limit => 50, :default => "", :null => false
+    t.column "departureDate", :datetime, :null => false
+    t.column "terminationDate", :datetime, :null => false
+    t.column "notes", :text, :default => "", :null => false
+    t.column "changedByPerson", :integer, :default => 0, :null => false
+    t.column "appReadyDate", :datetime, :null => false
+    t.column "evaluator", :string, :limit => 50, :default => "", :null => false
+    t.column "evalStartDate", :datetime, :null => false
+    t.column "preADate", :datetime, :null => false
+    t.column "medPsychDate", :datetime, :null => false
+    t.column "finalADate", :datetime, :null => false
+    t.column "placementComments", :text, :default => "", :null => false
+    t.column "expectReturnDate", :datetime, :null => false
+    t.column "confirmReturnDate", :datetime, :null => false
+    t.column "maidenName", :string, :limit => 50, :default => "", :null => false
+    t.column "sendLane", :string, :limit => 20, :default => "", :null => false
+    t.column "mpdEmailSent", :datetime, :null => false
+    t.column "kickoffNotes", :text, :default => "", :null => false
+    t.column "addFormSent", :datetime, :null => false
+    t.column "updateFormSent", :datetime, :null => false
+    t.column "picture", :string, :default => "", :null => false
+    t.column "fieldCoach", :string, :limit => 50, :default => "", :null => false
+    t.column "medPsychSent", :datetime, :null => false
+    t.column "needsDebtCheck", :integer, :limit => 3, :default => 0, :null => false
+    t.column "acceptanceLetter", :datetime, :null => false
+    t.column "evalDocsRec", :datetime, :null => false
+    t.column "oneCard", :integer, :limit => 3, :default => 0, :null => false
+    t.column "playbookSent", :datetime, :null => false
+    t.column "kickoffRoomate", :string, :limit => 50, :default => "", :null => false
+    t.column "futurePlan", :string, :limit => 50, :default => "", :null => false
+    t.column "mpReceived", :datetime, :null => false
+    t.column "physicalSent", :datetime, :null => false
+    t.column "physicalReceived", :datetime, :null => false
+    t.column "evalType", :string, :limit => 10, :default => "", :null => false
+    t.column "preIKWSent", :datetime, :null => false
+    t.column "debt", :string, :limit => 50, :default => "", :null => false
+    t.column "restint", :text, :default => "", :null => false
+    t.column "evalSummary", :datetime, :null => false
+    t.column "returnDate", :datetime, :null => false
+    t.column "effectiveChange", :datetime, :null => false
+    t.column "addForm", :datetime, :null => false
+    t.column "salaryForm", :datetime, :null => false
+    t.column "acosForm", :datetime, :null => false
+    t.column "joinStaffForm", :datetime, :null => false
+    t.column "readyDate", :datetime, :null => false
+    t.column "additionalSalaryForm", :datetime, :null => false
+    t.column "miniPref", :string, :limit => 50, :default => "", :null => false
+    t.column "birthCity", :string, :limit => 50, :default => "", :null => false
+    t.column "birthState", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "sitrack_users", :id => false, :force => true do |t|
+    t.column "uuid", :integer, :default => 0, :null => false
+    t.column "username", :string, :limit => 50
+    t.column "password", :string, :limit => 20
+    t.column "firstName", :string, :limit => 50
+    t.column "lastName", :string, :limit => 50
+    t.column "region", :string, :limit => 10, :default => "", :null => false
+    t.column "accountNo", :string, :limit => 10, :default => "", :null => false
+    t.column "email", :string, :limit => 100, :default => "", :null => false
+    t.column "lastLogin", :datetime, :null => false
+    t.column "createdDate", :datetime
+    t.column "createdBy", :integer
+    t.column "modifyDate", :datetime, :null => false
+    t.column "modifyBy", :integer, :default => 0, :null => false
+  end
+
+  create_table "sitrack_view_columns", :id => false, :force => true do |t|
+    t.column "viewID", :integer, :default => 0, :null => false
+    t.column "colID", :integer, :default => 0, :null => false
+    t.column "orderBy", :integer, :limit => 3
+    t.column "position", :integer
+  end
+
+  create_table "sitrack_views", :id => false, :force => true do |t|
+    t.column "viewID", :integer, :default => 0, :null => false
+    t.column "uuid", :integer
+    t.column "viewName", :string
+  end
+
+  create_table "sitrack_views_seq", :force => true do |t|
+    t.column "vapor", :integer, :default => 0, :null => false
+  end
+
+  create_table "staffsite_staffsitepref", :id => false, :force => true do |t|
+    t.column "StaffSitePrefID", :integer, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
+    t.column "name", :string, :limit => 64, :default => "", :null => false
+    t.column "displayName", :string, :default => "", :null => false
+    t.column "value", :string, :default => "", :null => false
+    t.column "fk_StaffSiteProfile", :string, :limit => 64, :default => "", :null => false
+  end
+
+# Could not dump table "staffsite_staffsiteprofile" because of following StandardError
+#   Unknown type 'bit(1)' for column 'changePassword'
+
+  create_table "ussp_campus", :id => false, :force => true do |t|
+    t.column "CampusNumber", :integer, :default => 0, :null => false
+    t.column "AreaNumber", :float, :default => 0.0, :null => false
+    t.column "CampusName", :string, :default => "", :null => false
+    t.column "AreaName", :string, :default => "", :null => false
+  end
+
+  create_table "ussp_placement", :id => false, :force => true do |t|
+    t.column "ID", :integer, :default => 0, :null => false
+    t.column "Region", :string, :default => "", :null => false
+    t.column "LastName", :string, :default => "", :null => false
+    t.column "FirstName", :string, :default => "", :null => false
+    t.column "nickname", :string, :default => "", :null => false
+    t.column "SpouseName", :string, :default => "", :null => false
+    t.column "spousenickname", :string, :default => "", :null => false
+    t.column "FamilyUnit", :string, :default => "", :null => false
+    t.column "Venue", :string, :limit => 50, :default => "", :null => false
+    t.column "Project", :string, :default => "", :null => false
+    t.column "NumofKids", :string, :default => "", :null => false
+    t.column "ageofchildren", :string, :default => "", :null => false
+    t.column "accountno", :string, :default => "", :null => false
+    t.column "address1", :string, :default => "", :null => false
+    t.column "address2", :string, :default => "", :null => false
+    t.column "city", :string, :default => "", :null => false
+    t.column "state", :string, :default => "", :null => false
+    t.column "zip", :string, :default => "", :null => false
+    t.column "country", :string, :default => "", :null => false
+    t.column "phone", :string, :default => "", :null => false
+    t.column "email", :string, :default => "", :null => false
+    t.column "maritailstatus", :string, :default => "", :null => false
+    t.column "ismale", :string, :default => "", :null => false
+    t.column "campus", :string, :default => "", :null => false
+    t.column "schoolenddate", :string, :default => "", :null => false
+    t.column "schoolbegindate", :string, :default => "", :null => false
+    t.column "mpdaddress1", :string, :default => "", :null => false
+    t.column "mpdaddress2", :string, :default => "", :null => false
+    t.column "mpdcity", :string, :default => "", :null => false
+    t.column "mpdstate", :string, :default => "", :null => false
+    t.column "mpdzip", :string, :default => "", :null => false
+    t.column "mpdcountry", :string, :default => "", :null => false
+    t.column "mpdphone", :string, :default => "", :null => false
+    t.column "mpdbegindate", :string, :default => "", :null => false
+    t.column "mpdenddate", :string, :default => "", :null => false
+  end
+
+  create_table "ussp_placement00", :id => false, :force => true do |t|
+    t.column "ID", :integer
+    t.column "Region", :integer, :default => 0, :null => false
+    t.column "LastName", :string, :limit => 50, :default => "", :null => false
+    t.column "FirstName", :string, :limit => 50, :default => "", :null => false
+    t.column "nickname", :string, :limit => 50, :default => "", :null => false
+    t.column "SpouseName", :string, :limit => 50, :default => "", :null => false
+    t.column "spousenickname", :string, :limit => 50, :default => "", :null => false
+    t.column "FamilyUnit", :string, :limit => 50, :default => "", :null => false
+    t.column "Project", :string, :limit => 50, :default => "", :null => false
+    t.column "NumofKids", :string, :limit => 50, :default => "", :null => false
+    t.column "ageofchildren", :string, :limit => 50, :default => "", :null => false
+    t.column "accountno", :string, :limit => 50, :default => "", :null => false
+    t.column "address1", :string, :limit => 50, :default => "", :null => false
+    t.column "address2", :string, :limit => 50, :default => "", :null => false
+    t.column "city", :string, :limit => 50, :default => "", :null => false
+    t.column "state", :string, :limit => 50, :default => "", :null => false
+    t.column "zip", :string, :limit => 50, :default => "", :null => false
+    t.column "country", :string, :limit => 50, :default => "", :null => false
+    t.column "phone", :string, :limit => 50, :default => "", :null => false
+    t.column "email", :string, :limit => 50, :default => "", :null => false
+    t.column "maritalstatus", :string, :limit => 50, :default => "", :null => false
+    t.column "ismale", :string, :limit => 50, :default => "", :null => false
+    t.column "campus", :string, :limit => 50, :default => "", :null => false
+    t.column "schoolenddate", :string, :limit => 50, :default => "", :null => false
+    t.column "schoolbegindate", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdaddress1", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdaddress2", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdcity", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdstate", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdzip", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdcountry", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdphone", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdbegindate", :string, :limit => 50, :default => "", :null => false
+    t.column "mpdenddate", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "ussp_placement01", :id => false, :force => true do |t|
+    t.column "ID", :float, :default => 0.0, :null => false
+    t.column "Region", :string, :default => "", :null => false
+    t.column "LastName", :string, :default => "", :null => false
+    t.column "FirstName", :string, :default => "", :null => false
+    t.column "nickname", :string, :default => "", :null => false
+    t.column "SpouseName", :string, :default => "", :null => false
+    t.column "spousenickname", :string, :default => "", :null => false
+    t.column "FamilyUnit", :string, :default => "", :null => false
+    t.column "Venue", :string, :limit => 50, :default => "", :null => false
+    t.column "Project", :string, :default => "", :null => false
+    t.column "NumofKids", :string, :default => "", :null => false
+    t.column "ageofchildren", :string, :default => "", :null => false
+    t.column "accountno", :string, :default => "", :null => false
+    t.column "address1", :string, :default => "", :null => false
+    t.column "address2", :string, :default => "", :null => false
+    t.column "city", :string, :default => "", :null => false
+    t.column "state", :string, :default => "", :null => false
+    t.column "zip", :string, :default => "", :null => false
+    t.column "country", :string, :default => "", :null => false
+    t.column "phone", :string, :default => "", :null => false
+    t.column "email", :string, :default => "", :null => false
+    t.column "maritailstatus", :string, :default => "", :null => false
+    t.column "ismale", :string, :default => "", :null => false
+    t.column "campus", :string, :default => "", :null => false
+    t.column "schoolenddate", :string, :default => "", :null => false
+    t.column "schoolbegindate", :string, :default => "", :null => false
+    t.column "mpdaddress1", :string, :default => "", :null => false
+    t.column "mpdaddress2", :string, :default => "", :null => false
+    t.column "mpdcity", :string, :default => "", :null => false
+    t.column "mpdstate", :string, :default => "", :null => false
+    t.column "mpdzip", :string, :default => "", :null => false
+    t.column "mpdcountry", :string, :default => "", :null => false
+    t.column "mpdphone", :string, :default => "", :null => false
+    t.column "mpdbegindate", :string, :default => "", :null => false
+    t.column "mpdenddate", :string, :default => "", :null => false
+  end
+
+  create_table "ussp_placement99", :id => false, :force => true do |t|
+    t.column "ID", :integer
+    t.column "Region", :integer, :default => 0, :null => false
+    t.column "FirstName", :string, :limit => 50, :default => "", :null => false
+    t.column "SpouseName", :string, :limit => 50, :default => "", :null => false
+    t.column "LastName", :string, :limit => 50, :default => "", :null => false
+    t.column "FamilyUnit", :string, :limit => 50, :default => "", :null => false
+    t.column "Project", :string, :limit => 50, :default => "", :null => false
+    t.column "NumofKids", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "ussp_project", :id => false, :force => true do |t|
+    t.column "ProjectCode", :string, :limit => 3, :default => "", :null => false
+    t.column "ProjectName", :string, :default => "", :null => false
+    t.column "CampusPlacement", :string, :limit => 1, :default => "", :null => false
+    t.column "ScholarshipAccountNo", :string, :limit => 50, :default => "", :null => false
+    t.column "OperatingAccountNo", :string, :limit => 50, :default => "", :null => false
+  end
+
+# Could not dump table "ussp_student" because of following StandardError
+#   Unknown type 'bit(1)' for column 'Jan10'
+
+# Could not dump table "ussp_student01" because of following StandardError
+#   Unknown type 'bit(1)' for column 'Jan10'
+
+# Could not dump table "ussp_student01b" because of following StandardError
+#   Unknown type 'bit(1)' for column 'Jan10'
+
+# Could not dump table "ussp_student02" because of following StandardError
+#   Unknown type 'bit(1)' for column 'Jan10'
+
+  create_table "ussp_user", :id => false, :force => true do |t|
+    t.column "userindexkey", :integer
+    t.column "userid", :string, :limit => 50, :default => "", :null => false
+    t.column "password", :string, :limit => 50, :default => "", :null => false
+    t.column "projectcode", :string, :limit => 50, :default => "", :null => false
+  end
+
+  create_table "wsn_sp_answer", :id => false, :force => true do |t|
+    t.column "answerID", :integer, :default => 0, :null => false
+    t.column "body", :binary, :default => "", :null => false
+    t.column "fk_QuestionID", :integer, :default => 0, :null => false
+    t.column "fk_WsnApplicationID", :integer, :default => 0, :null => false
+  end
+
+  create_table "wsn_sp_question", :id => false, :force => true do |t|
+    t.column "questionID", :integer, :default => 0, :null => false
+    t.column "required", :string, :limit => 1, :default => "", :null => false
+    t.column "displayOrder", :integer, :default => 0, :null => false
+    t.column "fk_WsnProjectID", :integer, :default => 0, :null => false
+    t.column "fk_QuestionTextID", :integer, :default => 0, :null => false
+  end
+
+  create_table "wsn_sp_questiontext", :id => false, :force => true do |t|
+    t.column "questionTextID", :integer, :default => 0, :null => false
+    t.column "body", :string, :limit => 250, :default => "", :null => false
+    t.column "answerType", :string, :limit => 50, :default => "", :null => false
+    t.column "status", :string, :limit => 50, :default => "", :null => false
+  end
+
+# Could not dump table "wsn_sp_reference" because of following StandardError
+#   Unknown type 'bit(1)' for column 'isFormSubmitted'
+
+# Could not dump table "wsn_sp_wsnapplication" because of following StandardError
+#   Unknown type 'bit(1)' for column 'willingForDifferentProject'
+
+  create_table "wsn_sp_wsndonations", :id => false, :force => true do |t|
+    t.column "WsnDonationsID", :integer
+    t.column "accountno", :string, :limit => 11, :default => "", :null => false
+    t.column "monetary_amount", :float
+  end
+
+# Could not dump table "wsn_sp_wsnevaluation" because of following StandardError
+#   Unknown type 'bit(1)' for column 'applicantNotified'
+
+# Could not dump table "wsn_sp_wsnproject" because of following StandardError
+#   Unknown type 'bit(1)' for column 'insuranceFormsReceived'
+
+  create_table "wsn_sp_wsnusers", :id => false, :force => true do |t|
+    t.column "wsnUserID", :integer, :default => 0, :null => false
+    t.column "ssmUserName", :string, :limit => 200, :default => "", :null => false
+    t.column "role", :string, :limit => 50, :default => "", :null => false
+    t.column "expirationDate", :datetime, :null => false
   end
 
 end
