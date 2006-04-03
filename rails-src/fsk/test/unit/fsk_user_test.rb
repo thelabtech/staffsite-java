@@ -1,10 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class FskUserTest < Test::Unit::TestCase
-  fixtures :fsk_users
+  fixtures :fsk_users, :simplesecuritymanager_user
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_method_missing
+    assert fsk_users(:national).emailVerified
   end
 end
