@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+josh_allocation:
+  id: 1
+  ssm_id: 1
+  region_id: NC
+  regionalAllotment: 600
+  regionalNotes: "Be careful with these, Starcher"
+jeff_allocation:
+  id: 2
+  ssm_id: 2
+  region_id: GP
+  regionalAllotment: 600
+  impactAllotment: 200
+joe_allocation:
+  id: 3
+  ssm_id: 3
+  region_id: GL
+  regionalAllotment: 800

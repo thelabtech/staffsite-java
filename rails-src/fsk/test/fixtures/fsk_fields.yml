@@ -1,0 +1,14 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+impact:
+  id: 1
+  name: "impactAllotment"
+forerunner:
+  id: 2
+  name: "forerunnerAllotment"
+regional:
+  id: 3
+  name: "regionalAllotment"
+local:
+  id: 4
+  name: "locallyRaised"
+  

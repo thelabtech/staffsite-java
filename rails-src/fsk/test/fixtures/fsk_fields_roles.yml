@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+national_impact:
+  role_id: 1
+  field_id: 1
+national_forerunner:
+  role_id: 1
+  field_id: 2
+national_regional:
+  role_id: 1
+  field_id: 3
+national_local:
+  role_id: 1
+  field_id: 4
+regional_regional:
+  role_id: 2
+  field_id: 3
+regional_local:
+  role_id: 2
+  field_id: 4
+local_local:
+  role_id: 3
+  field_id: 4

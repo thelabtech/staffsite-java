@@ -1,13 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 national:
   id: 1
-  role_id: 1
-  ssm_id: 1
+  name: national
 regional:
   id: 2
-  role_id: 2
-  ssm_id: 2
+  name: regional
 local:
   id: 3
-  role_id: 3
-  ssm_id: 3
+  name: local
