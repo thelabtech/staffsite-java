@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "sender_id", :integer
     t.column "subject", :string
     t.column "body", :text, :default => "", :null => false
-    t.column "time_created_at", :timestamp
+    t.column "time_created_at", :datetime
     t.column "parent_id", :integer, :default => 0, :null => false
   end
 
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "content_type", :string, :limit => 100, :default => "", :null => false
     t.column "data", :binary, :default => "", :null => false
     t.column "person_id", :integer
-    t.column "updated_at", :timestamp
+    t.column "updated_at", :datetime
   end
 
   create_table "ap_personurls", :id => false, :force => true do |t|
@@ -78,9 +78,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "pledgeDate", :datetime
     t.column "fk_PersonID", :integer, :default => 0, :null => false
   end
-
-# Could not dump table "cms_assoc_filecategory" because of following StandardError
-#   Unknown type 'bit(1)' for column 'dbioDummy'
 
   create_table "cms_cmscategory", :id => false, :force => true do |t|
     t.column "CmsCategoryID", :integer, :default => 0, :null => false
@@ -455,30 +452,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "textId", :string, :default => "", :null => false
   end
 
-  create_table "fsk_allocation", :id => false, :force => true do |t|
-    t.column "AllocationID", :integer, :default => 0, :null => false
-    t.column "accountNo", :string, :limit => 12, :default => "", :null => false
-    t.column "region", :string, :limit => 2, :default => "", :null => false
-    t.column "natlDonation", :string, :limit => 12, :default => "", :null => false
-    t.column "impactAllotment", :string, :limit => 12, :default => "", :null => false
-    t.column "forerunnerAllotment", :string, :limit => 12, :default => "", :null => false
-    t.column "regionalAllotment", :string, :limit => 12, :default => "", :null => false
-    t.column "regionallyRaised", :string, :limit => 12, :default => "", :null => false
-    t.column "locallyRaised", :string, :limit => 12, :default => "", :null => false
-    t.column "pastOrderedKits", :string, :limit => 12, :default => "", :null => false
-    t.column "natlNotes", :binary, :default => "", :null => false
-    t.column "impactNotes", :binary, :default => "", :null => false
-    t.column "forerunnerNotes", :binary, :default => "", :null => false
-    t.column "regNotes", :binary, :default => "", :null => false
-    t.column "localNotes", :binary, :default => "", :null => false
-    t.column "firstName", :string, :limit => 30, :default => "", :null => false
-    t.column "lastName", :string, :limit => 30, :default => "", :null => false
-    t.column "localAcctNo1", :string, :limit => 20, :default => "", :null => false
-    t.column "localAcctNo2", :string, :limit => 20, :default => "", :null => false
-    t.column "localAcctNo3", :string, :limit => 20, :default => "", :null => false
-    t.column "localAcctNo4", :string, :limit => 20, :default => "", :null => false
-  end
-
   create_table "fsk_allocations", :force => true do |t|
     t.column "ssm_id", :integer
     t.column "region_id", :string, :limit => 2
@@ -498,14 +471,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "updated_at", :datetime
   end
 
-  create_table "fsk_distribution", :id => false, :force => true do |t|
-    t.column "distributionID", :integer, :default => 0, :null => false
-    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
-    t.column "campusName", :string, :limit => 128, :default => "", :null => false
-    t.column "totalKits", :integer, :default => 0, :null => false
-    t.column "fk_Allocation", :integer, :default => 0, :null => false
-  end
-
   create_table "fsk_distributions", :id => false, :force => true do |t|
     t.column "distributionID", :integer, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
@@ -522,85 +487,8 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "fsk_fields_roles", :id => false, :force => true do |t|
-    t.column "role_id", :integer
-    t.column "field_id", :integer
-  end
-
-  create_table "fsk_fskorder", :id => false, :force => true do |t|
-    t.column "fskOrderID", :integer, :default => 0, :null => false
-    t.column "oldPrimaryKey", :string, :limit => 64, :default => "", :null => false
-    t.column "campusName", :string, :limit => 128, :default => "", :null => false
-    t.column "region", :string, :limit => 6, :default => "", :null => false
-    t.column "staffFirstName", :string, :limit => 30, :default => "", :null => false
-    t.column "staffLastName", :string, :limit => 30, :default => "", :null => false
-    t.column "staffPhone", :string, :limit => 24, :default => "", :null => false
-    t.column "staffEmail", :string, :limit => 50, :default => "", :null => false
-    t.column "dateCreated", :datetime, :null => false
-    t.column "dateUpdated", :datetime, :null => false
-    t.column "contactFirstName", :string, :limit => 30, :default => "", :null => false
-    t.column "contactLastName", :string, :limit => 30, :default => "", :null => false
-    t.column "contactPhone", :string, :limit => 24, :default => "", :null => false
-    t.column "contactPager", :string, :limit => 24, :default => "", :null => false
-    t.column "contactCell", :string, :limit => 24, :default => "", :null => false
-    t.column "contactEmail", :string, :limit => 50, :default => "", :null => false
-    t.column "kitShipName", :string, :limit => 30, :default => "", :null => false
-    t.column "kitShipAddress1", :string, :limit => 35, :default => "", :null => false
-    t.column "kitShipAddress2", :string, :limit => 35, :default => "", :null => false
-    t.column "kitShipCity", :string, :limit => 30, :default => "", :null => false
-    t.column "kitShipState", :string, :limit => 6, :default => "", :null => false
-    t.column "kitShipZip", :string, :limit => 10, :default => "", :null => false
-    t.column "kitShipPhone", :string, :limit => 24, :default => "", :null => false
-    t.column "totalKits", :integer, :default => 0, :null => false
-    t.column "bagToyImp", :string, :limit => 7, :default => "", :null => false
-    t.column "bagToyWay", :string, :limit => 7, :default => "", :null => false
-    t.column "bagToyDes", :string, :limit => 7, :default => "", :null => false
-    t.column "bagToyEp", :string, :limit => 7, :default => "", :null => false
-    t.column "bagToyESC", :string, :limit => 7, :default => "", :null => false
-    t.column "bagToyMisc", :string, :limit => 7, :default => "", :null => false
-    t.column "bibleIsiNT", :string, :limit => 7, :default => "", :null => false
-    t.column "bibleTwo", :string, :limit => 7, :default => "", :null => false
-    t.column "bibleThree", :string, :limit => 7, :default => "", :null => false
-    t.column "bibleMisc", :string, :limit => 7, :default => "", :null => false
-    t.column "bibleBilingual", :string, :limit => 7, :default => "", :null => false
-    t.column "videoRel", :string, :limit => 7, :default => "", :null => false
-    t.column "videoRelCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoDrinkRelDVD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoThirsty", :string, :limit => 7, :default => "", :null => false
-    t.column "videoThirstyCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoChang", :string, :limit => 7, :default => "", :null => false
-    t.column "videoChangCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoSurfer", :string, :limit => 7, :default => "", :null => false
-    t.column "videoSurferCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoClimbing", :string, :limit => 7, :default => "", :null => false
-    t.column "videoClimbingCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoImpact", :string, :limit => 7, :default => "", :null => false
-    t.column "videoImpactCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoImpactDVD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoTestimonyCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoJfpCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoJesusVCD", :string, :limit => 7, :default => "", :null => false
-    t.column "videoMisc", :string, :limit => 7, :default => "", :null => false
-    t.column "bookMTAC", :string, :limit => 7, :default => "", :null => false
-    t.column "bookMTACSpan", :string, :limit => 7, :default => "", :null => false
-    t.column "bookMTACLoJ", :string, :limit => 7, :default => "", :null => false
-    t.column "bookCaseForC", :string, :limit => 7, :default => "", :null => false
-    t.column "bookCaseForF", :string, :limit => 7, :default => "", :null => false
-    t.column "bookBeyond", :string, :limit => 7, :default => "", :null => false
-    t.column "bookRelevant", :string, :limit => 7, :default => "", :null => false
-    t.column "bookSurvUS", :string, :limit => 7, :default => "", :null => false
-    t.column "bookLatino", :string, :limit => 7, :default => "", :null => false
-    t.column "bookBlueJazz", :string, :limit => 7, :default => "", :null => false
-    t.column "bookMisc", :string, :limit => 7, :default => "", :null => false
-    t.column "cdHipHop", :string, :limit => 7, :default => "", :null => false
-    t.column "cdSetApart", :string, :limit => 7, :default => "", :null => false
-    t.column "cdMisc", :string, :limit => 7, :default => "", :null => false
-    t.column "cdHispanic", :string, :limit => 7, :default => "", :null => false
-    t.column "cardReg", :string, :limit => 7, :default => "", :null => false
-    t.column "cardAfAm", :string, :limit => 7, :default => "", :null => false
-    t.column "cardHispanic", :string, :limit => 7, :default => "", :null => false
-    t.column "cardAsian", :string, :limit => 7, :default => "", :null => false
-    t.column "planner", :string, :limit => 7, :default => "", :null => false
-    t.column "fk_Allocation", :integer, :default => 0, :null => false
+    t.column "role_id", :integer, :default => 0, :null => false
+    t.column "field_id", :integer, :default => 0, :null => false
   end
 
   create_table "fsk_kitcategories", :force => true do |t|
@@ -668,6 +556,11 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "fsk_roles", :force => true do |t|
     t.column "name", :string, :limit => 50
+  end
+
+  create_table "fsk_users", :force => true do |t|
+    t.column "role_id", :integer, :limit => 10, :default => 0, :null => false
+    t.column "ssm_id", :integer, :limit => 10, :default => 0, :null => false
   end
 
   create_table "hr_ms_payment", :id => false, :force => true do |t|
@@ -1141,9 +1034,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "previousMinistryExperience", :text
   end
 
-# Could not dump table "hr_si_application_2003_bad" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isPaid'
-
   create_table "hr_si_application_2004", :id => false, :force => true do |t|
     t.column "applicationID", :integer, :default => 0, :null => false
     t.column "locationA", :string, :limit => 50
@@ -1312,9 +1202,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "language2Fluency", :integer
     t.column "previousMinistryExperience", :text
   end
-
-# Could not dump table "hr_si_application_2004_bad" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isPaid'
 
   create_table "hr_si_application_2005", :id => false, :force => true do |t|
     t.column "applicationID", :integer, :default => 0, :null => false
@@ -1675,18 +1562,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "paymentFor", :string, :limit => 50
   end
 
-# Could not dump table "hr_si_person_2003" because of following StandardError
-#   Unknown type 'bit(1)' for column 'workInUS'
-
-# Could not dump table "hr_si_person_2004" because of following StandardError
-#   Unknown type 'bit(1)' for column 'workInUS'
-
-# Could not dump table "hr_si_person_2005" because of following StandardError
-#   Unknown type 'bit(1)' for column 'workInUS'
-
-# Could not dump table "hr_si_project" because of following StandardError
-#   Unknown type 'bit(1)' for column 'insuranceFormsReceived'
-
   create_table "hr_si_project_archive2003", :id => false, :force => true do |t|
     t.column "SIProjectID", :integer, :default => 0, :null => false
     t.column "name", :string, :default => "", :null => false
@@ -1775,18 +1650,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "maxNoStudentP", :integer, :default => 0, :null => false
   end
 
-# Could not dump table "hr_si_reference_2003" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isFormSubmitted'
-
-# Could not dump table "hr_si_reference_2004" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isFormSubmitted'
-
-# Could not dump table "hr_si_reference_2005" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isFormSubmitted'
-
-# Could not dump table "hr_si_reference_2006" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isFormSubmitted'
-
   create_table "hr_si_users", :id => false, :force => true do |t|
     t.column "siUserID", :integer, :default => 0, :null => false
     t.column "fk_ssmUserID", :integer, :default => 0, :null => false
@@ -1796,7 +1659,7 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "import_staffacctbal", :id => false, :force => true do |t|
     t.column "EMPLID", :string, :limit => 11, :default => "", :null => false
-    t.column "CUR_BAL", :float, :limit => 28, :default => 0.0, :null => false
+    t.column "CUR_BAL", :float, :default => 0.0, :null => false
   end
 
   create_table "linczone_contacts", :id => false, :force => true do |t|
@@ -1907,19 +1770,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "country", :string, :limit => 64, :default => "", :null => false
   end
 
-# Could not dump table "ministry_assoc_activitycontact" because of following StandardError
-#   Unknown type 'bit(1)' for column 'dbioDummy'
-
-# Could not dump table "ministry_assoc_dependents" because of following StandardError
-#   Unknown type 'bit(1)' for column 'dbioDummy'
-
   create_table "ministry_assoc_intlcontact", :id => false, :force => true do |t|
     t.column "accountNo", :string, :limit => 11, :default => "", :null => false
     t.column "WsnPartnershipID", :string, :limit => 64, :default => "", :null => false
   end
-
-# Could not dump table "ministry_assoc_otherministries" because of following StandardError
-#   Unknown type 'bit(1)' for column 'dbioDummy'
 
   create_table "ministry_assoc_partcoord", :id => false, :force => true do |t|
     t.column "accountNo", :string, :limit => 11, :default => "", :null => false
@@ -2083,12 +1937,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "Fk_resignationLetter", :string, :limit => 64, :default => "", :null => false
     t.column "Fk_authorizationNote", :string, :limit => 64, :default => "", :null => false
   end
-
-# Could not dump table "ministry_person" because of following StandardError
-#   Unknown type 'bit(1)' for column 'workInUS'
-
-# Could not dump table "ministry_person_backup20050215" because of following StandardError
-#   Unknown type 'bit(1)' for column 'workInUS'
 
   create_table "ministry_regionalstat", :id => false, :force => true do |t|
     t.column "RegionalStatID", :integer, :default => 0, :null => false
@@ -2714,18 +2562,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "q23", :integer, :default => 0, :null => false
     t.column "q24", :integer, :default => 0, :null => false
     t.column "comments", :text, :default => "", :null => false
-    t.column "upsize_ts", :timestamp
+    t.column "upsize_ts", :datetime
   end
-
-# Could not dump table "simplesecuritymanager_user" because of following StandardError
-#   Unknown type 'bit(1)' for column 'emailVerified'
 
   create_table "sitrack_address_types", :id => false, :force => true do |t|
     t.column "addressType", :string, :limit => 20
   end
-
-# Could not dump table "sitrack_application_all" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isPaid'
 
   create_table "sitrack_children", :id => false, :force => true do |t|
     t.column "childID", :integer, :default => 0, :null => false
@@ -2937,9 +2779,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "fk_StaffSiteProfile", :string, :limit => 64, :default => "", :null => false
   end
 
-# Could not dump table "staffsite_staffsiteprofile" because of following StandardError
-#   Unknown type 'bit(1)' for column 'changePassword'
-
   create_table "ussp_campus", :id => false, :force => true do |t|
     t.column "CampusNumber", :integer, :default => 0, :null => false
     t.column "AreaNumber", :float, :default => 0.0, :null => false
@@ -3079,18 +2918,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "OperatingAccountNo", :string, :limit => 50, :default => "", :null => false
   end
 
-# Could not dump table "ussp_student" because of following StandardError
-#   Unknown type 'bit(1)' for column 'Jan10'
-
-# Could not dump table "ussp_student01" because of following StandardError
-#   Unknown type 'bit(1)' for column 'Jan10'
-
-# Could not dump table "ussp_student01b" because of following StandardError
-#   Unknown type 'bit(1)' for column 'Jan10'
-
-# Could not dump table "ussp_student02" because of following StandardError
-#   Unknown type 'bit(1)' for column 'Jan10'
-
   create_table "ussp_user", :id => false, :force => true do |t|
     t.column "userindexkey", :integer
     t.column "userid", :string, :limit => 50, :default => "", :null => false
@@ -3120,23 +2947,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column "status", :string, :limit => 50, :default => "", :null => false
   end
 
-# Could not dump table "wsn_sp_reference" because of following StandardError
-#   Unknown type 'bit(1)' for column 'isFormSubmitted'
-
-# Could not dump table "wsn_sp_wsnapplication" because of following StandardError
-#   Unknown type 'bit(1)' for column 'willingForDifferentProject'
-
   create_table "wsn_sp_wsndonations", :id => false, :force => true do |t|
     t.column "WsnDonationsID", :integer
     t.column "accountno", :string, :limit => 11, :default => "", :null => false
     t.column "monetary_amount", :float
   end
-
-# Could not dump table "wsn_sp_wsnevaluation" because of following StandardError
-#   Unknown type 'bit(1)' for column 'applicantNotified'
-
-# Could not dump table "wsn_sp_wsnproject" because of following StandardError
-#   Unknown type 'bit(1)' for column 'insuranceFormsReceived'
 
   create_table "wsn_sp_wsnusers", :id => false, :force => true do |t|
     t.column "wsnUserID", :integer, :default => 0, :null => false
