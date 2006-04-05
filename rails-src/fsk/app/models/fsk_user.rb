@@ -18,9 +18,9 @@ class FskUser < ActiveRecord::Base
     return false
   end
   
-  def can_modify_field(field)
-    fieldNames = role.fields.map {|field_obj| field_obj.name }
-    fieldNames.include?(field)
+  def can_modify_field?(field)
+    field_names = role.fields.map {|field_obj| field_obj.name }
+    field_names.include?(field)
   end
   
 end

@@ -1,46 +1,107 @@
 <%= error_messages_for 'allocation' %>
 
 <!--[form:allocation]-->
-<p><label for="allocation_impactAllotment">Impactallotment</label><br/>
-<%= text_field 'allocation', 'impactAllotment'  %></p>
 
-<p><label for="allocation_forerunnerAllotment">Forerunnerallotment</label><br/>
-<%= text_field 'allocation', 'forerunnerAllotment'  %></p>
+<p><label for="allocation_regional_id">Region</label><br/>
+<%= if @user.can_modify_field?("region_id") 
+        text_area 'allocation', 'region_id'
+    else
+        @allocation.region_id
+    end 
+    %></p>
 
-<p><label for="allocation_regionalAllotment">Regionalallotment</label><br/>
-<%= text_field 'allocation', 'regionalAllotment'  %></p>
+<p><label for="allocation_nationalNotes">National Notes</label><br/>
+<%= if @user.can_modify_field?("nationalNotes") 
+        text_area 'allocation', 'nationalNotes'
+    else
+        @allocation.nationalNotes
+    end 
+    %></p>
 
-<p><label for="allocation_regionallyRaised">Regionallyraised</label><br/>
-<%= text_field 'allocation', 'regionallyRaised'  %></p>
 
-<p><label for="allocation_locallyRaised">Locallyraised</label><br/>
-<%= text_field 'allocation', 'locallyRaised'  %></p>
+<p><label for="allocation_impactAllotment">Impact Allotment</label><br/>
+<%= if @user.can_modify_field?("impactAllotment") 
+        text_field 'allocation', 'impactAllotment'
+    else
+        @allocation.impactAllotment 
+    end 
+    %></p>
+    
 
-<p><label for="allocation_allocationYear">Allocationyear</label><br/>
-<%= text_field 'allocation', 'allocationYear'  %></p>
+<p><label for="allocation_impactNotes">Impact Notes</label><br/>
+<%= if @user.can_modify_field?("impactNotes") 
+        text_area 'allocation', 'impactNotes'
+    else
+        @allocation.impactNotes 
+    end 
+    %></p>
 
-<p><label for="allocation_nationalNotes">Nationalnotes</label><br/>
-<%= text_field 'allocation', 'nationalNotes'  %></p>
+<p><label for="allocation_forerunnerAllotment">Forerunner Allotment</label><br/>
+<%= if @user.can_modify_field?("forerunnerAllotment") 
+        text_field 'allocation', 'forerunnerAllotment'
+    else
+        @allocation.impactNotes 
+    end 
+    %></p>
+    
+    
+<p><label for="allocation_regionalAllotment">Regional Allotment</label><br/>
+<%= if @user.can_modify_field?("regionalAllotment") 
+        text_field 'allocation', 'regionalAllotment'
+    else
+        @allocation.regionalAllotment
+    end 
+    %></p>
 
-<p><label for="allocation_impactNotes">Impactnotes</label><br/>
-<%= text_field 'allocation', 'impactNotes'  %></p>
 
-<p><label for="allocation_forerunnerNotes">Forerunnernotes</label><br/>
-<%= text_field 'allocation', 'forerunnerNotes'  %></p>
+<p><label for="allocation_regionallyRaised">Regionally Raised</label><br/>
+<%= if @user.can_modify_field?("regionallyRaised") 
+        text_field 'allocation', 'regionallyRaised'
+    else
+        @allocation.regionallyRaised
+    end 
+    %></p>
 
-<p><label for="allocation_regionalNotes">Regionalnotes</label><br/>
-<%= text_field 'allocation', 'regionalNotes'  %></p>
+<p><label for="allocation_locallyRaised">Locally Raised</label><br/>
+<%= if @user.can_modify_field?("locallyRaised") 
+        text_field 'allocation', 'locallyRaised'
+    else
+        @allocation.locallyRaised
+    end 
+    %></p>
+
+<p><label for="allocation_forerunnerNotes">Forerunner Notes</label><br/>
+<%= if @user.can_modify_field?("forerunnerNotes") 
+        text_area 'allocation', 'forerunnerNotes'
+    else
+        @allocation.forerunnerNotes
+    end 
+    %></p>
+
+<p><label for="allocation_regionalNotes">Regional Notes</label><br/>
+<%= if @user.can_modify_field?("regionalNotes") 
+        text_area 'allocation', 'regionalNotes'
+    else
+        @allocation.regionalNotes
+    end 
+    %></p>
 
 <p><label for="allocation_localNotes">Localnotes</label><br/>
-<%= text_field 'allocation', 'localNotes'  %></p>
+<%= if @user.can_modify_field?("localNotes") 
+        text_area 'allocation', 'localNotes'
+    else
+        @allocation.localNotes
+    end 
+    %></p>
 
-<p><label for="allocation_version">Version</label><br/>
-<%= text_field 'allocation', 'version'  %></p>
+<p><label for="allocation_ssm_id">SSM ID</label><br/>
+<%= @allocation.ssm_id %>
+<%= hidden_field 'allocation', 'ssm_id' %></p>
 
 <p><label for="allocation_created_at">Created at</label><br/>
-<%= datetime_select 'allocation', 'created_at'  %></p>
+<%= @allocation.created_at %></p>
 
 <p><label for="allocation_updated_at">Updated at</label><br/>
-<%= datetime_select 'allocation', 'updated_at'  %></p>
+<%= @allocation.updated_at  %></p>
 <!--[eoform:allocation]-->
 

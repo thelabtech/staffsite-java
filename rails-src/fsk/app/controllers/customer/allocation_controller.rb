@@ -18,11 +18,13 @@ class Customer::AllocationController < ApplicationController
 
   def new
     @allocation = Allocation.new
+    @user = get_user
   end
 
   def create
-  @allocation = Allocation.new(check_params(params[:allocation]))
-    if get_user.can_modify_allocation(@allocation) and @allocation.save
+    @allocation = Allocation.new(check_params(params[:allocation]))
+    @allocation.allocationYear = get_year
+    if (get_user.can_modify_allocation?(@allocation) and @allocation.save)
       flash[:notice] = 'Allocation was successfully created.'
       redirect_to :action => 'list'
     else
@@ -32,11 +34,12 @@ class Customer::AllocationController < ApplicationController
 
   def edit
     @allocation = Allocation.find(params[:id])
+    @user = get_user
   end
   
   def update
     @allocation = Allocation.find(params[:id])
-    if (get_user.can_modify_allocation(@allocation) and 
+    if (get_user.can_modify_allocation?(@allocation) and 
         @allocation.update_attributes(check_params(params[:allocation])))
       flash[:notice] = 'Allocation was successfully updated.'
       redirect_to :action => 'show', :id => @allocation.id
@@ -56,8 +59,9 @@ class Customer::AllocationController < ApplicationController
   def check_params(input)
     checked_params = Hash.new
     input.each do |key, value|
-      if user_can_modify_field(allocation, key)
-      checked_params[key] = value
+      if get_user.can_modify_field?(key)
+        checked_params[key] = value
+      end
     end
     return checked_params
   end

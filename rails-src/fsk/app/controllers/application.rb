@@ -25,4 +25,13 @@ class ApplicationController < ActionController::Base
 	redirect_to(:controller => "/login", :action => "login")
 	return false
   end
+  
+  
+  def get_user
+    return FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
+  end
+
+  def get_user_id
+    return session[:user_id]
+  end
 end
