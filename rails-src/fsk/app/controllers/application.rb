@@ -28,7 +28,13 @@ class ApplicationController < ActionController::Base
   
   
   def get_user
-    return FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
+    user = FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
+    if (user.nil?)
+      ssm_user = User.find(:first, :conditions => ["userID = ?", get_user_id])
+      user = FskUser.new({:user => ssm_user})
+      user.role = Role.find(:first, :conditions => ["name = ?", "local"])
+    end
+    return user
   end
 
   def get_user_id

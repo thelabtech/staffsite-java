@@ -12,7 +12,7 @@ class FskUser < ActiveRecord::Base
   end
   
   def can_modify_allocation?(allocation)
-    return true if role.name == "local" and allocation.user.id == id
+    return true if role.name == "local" and allocation.user.id == user.id
     return true if role.name == "national" or role.name == "regional"
     # if they aren't one of these, we don't know them
     return false

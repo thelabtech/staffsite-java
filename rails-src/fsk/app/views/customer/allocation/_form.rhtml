@@ -4,7 +4,7 @@
 
 <p><label for="allocation_regional_id">Region</label><br/>
 <%= if @user.can_modify_field?("region_id") 
-        text_area 'allocation', 'region_id'
+        text_field 'allocation', 'region_id'
     else
         @allocation.region_id
     end 

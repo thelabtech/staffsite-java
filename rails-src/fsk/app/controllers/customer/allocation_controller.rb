@@ -14,16 +14,23 @@ class Customer::AllocationController < ApplicationController
 
   def show
     @allocation = Allocation.find(params[:id])
+    @user = get_user
   end
 
   def new
     @allocation = Allocation.new
+    #set defaults for region, ssm_id; for non-local users
+    @allocation.region_id = get_region_for_user(get_user)
+    @allocation.ssm_id = get_user.user.id
     @user = get_user
   end
 
   def create
-    @allocation = Allocation.new(check_params(params[:allocation]))
+    @allocation = Allocation.new()
     @allocation.allocationYear = get_year
+    @allocation.region_id = get_region_for_user(get_user)
+    @allocation.ssm_id = get_user.user.id
+    @allocation.attributes = check_params(params[:allocation])
     if (get_user.can_modify_allocation?(@allocation) and @allocation.save)
       flash[:notice] = 'Allocation was successfully created.'
       redirect_to :action => 'list'
@@ -35,16 +42,26 @@ class Customer::AllocationController < ApplicationController
   def edit
     @allocation = Allocation.find(params[:id])
     @user = get_user
+    logger.info("user:")
+    logger.info(@user)
   end
   
+  #note: technically, a local user can change the ssm_id from their own to another,
+  #using this permission scheme.  The problem is that a user needs to be able to
+  #create allocations for themseleves (so they need to be able to modify ssm_id), but
+  #we don't have a way of restricting the value they set it to.  Same for region_id.
   def update
     @allocation = Allocation.find(params[:id])
-    if (get_user.can_modify_allocation?(@allocation) and 
-        @allocation.update_attributes(check_params(params[:allocation])))
+    if (not get_user.can_modify_allocation?(@allocation))
+      flash[:notice] = 'You may not modify this allocation'
+      @user = get_user
+      render :action => 'edit'
+    elsif (not @allocation.update_attributes(check_params(params[:allocation])))
+      @user = get_user
+      render :action => 'edit'
+    else
       flash[:notice] = 'Allocation was successfully updated.'
       redirect_to :action => 'show', :id => @allocation.id
-    else
-      render :action => 'edit'
     end
   end
 
@@ -64,5 +81,10 @@ class Customer::AllocationController < ApplicationController
       end
     end
     return checked_params
+  end
+  
+  #TODO: implement
+  def get_region_for_user(user)
+    return "NC"
   end
 end
