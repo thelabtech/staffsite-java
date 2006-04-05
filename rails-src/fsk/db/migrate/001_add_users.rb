@@ -1,6 +1,6 @@
 class AddUsers < ActiveRecord::Migration
   def self.up
-    #rename_column("simplesecuritymanager_user", "email", "email_deprecated")
+    rename_column("simplesecuritymanager_user", "email", "email_deprecated")
     change_column("simplesecuritymanager_user", "lastFailure", :datetime, :null => true)
     execute "INSERT INTO simplesecuritymanager_user (userID, globallyUniqueID, username, password, "+
                                                     "passwordQuestion, passwordAnswer, lastFailure, lastFailureCnt, "+
