@@ -69,7 +69,7 @@ public class CRSImportExport {
 				"Replace me with a real path for me to work");
 
 		//        test.exportToAccess("18","SW","Blank.mdb");
-		System.out.println(test.importFromAccess("Conference18.mdb", "18"));
+		//System.out.println(test.importFromAccess("Conference18.mdb", "18"));
 
 		System.out.println("----End of of Import/Export Text----");
 	}
@@ -107,7 +107,10 @@ public class CRSImportExport {
 	//        sqlUser = username;
 	//        sqlPassword = password;
 	//    }
-
+	
+	/*  Since we don't use this, I didn't take the time to fix the queries it uses
+	 * to grab email and phone.  It used to get them from person, but they don't exist there
+	 * anymore.
 	public Hashtable importFromAccess(String fileName, String conferenceId)
 			throws Exception {
 		int newPeople = 0;
@@ -130,7 +133,7 @@ public class CRSImportExport {
 				+ " new people inserted into the master database.");
 		return returnVal;
 	}
-
+	*/
 	public synchronized Hashtable exportToCSV(String conferenceID) throws Exception {
 		returnVal = new Hashtable();
 		String fileName = "Conference" + conferenceID + ".csv";
@@ -626,6 +629,8 @@ public class CRSImportExport {
 	}
 
 	//********************************************************************************//
+
+	/*
 	private int importNewPeople(String sourceTable, String destTable,
 			String primaryKey, String conferenceId) throws Exception {
 		int peopleImported = 0;
@@ -907,7 +912,7 @@ public class CRSImportExport {
 		stmt2.close();
 		accessStatement2.close();
 	}
-
+	*/
 	//********************************************************************************//
 	private void openDatabases(String accessFileName) throws Exception {
 		writeOutput(5, "Opening up the access Database: " + accessFileName);

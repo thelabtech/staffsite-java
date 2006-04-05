@@ -3680,6 +3680,7 @@ public void newQuestion(ActionContext ctx) {
 		}
 	}
 
+	/*
 	public void uploadDB(ActionContext ctx) {
 		ActionResults ar = new ActionResults("adminUpload");
 		String eventId = (String) ctx.getSessionValue("eventLoggedIn");
@@ -3704,5 +3705,5 @@ public void newQuestion(ActionContext ctx) {
 			goToErrorPage(ctx, e, "adminUpload");
 		}
 	}
-
+	*/
 }
