@@ -25,7 +25,7 @@ class LoginController < ApplicationController
       logged_in_auth = @auth.try_to_login
 	  if logged_in_auth
         session[:user_id] = logged_in_auth.id
-  		jumpto = session[:jumpto] || { :controller => "customer/orders", :action => "list" }
+  		jumpto = session[:jumpto] || { :controller => "customer/summary", :action => "index" }
         session[:jumpto] = nil
     	redirect_to(jumpto)
   	  else

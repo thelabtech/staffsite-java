@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>National Summary | FSK Ordering Tool</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<%= stylesheet_link_tag 'fsk'%>
+	<%= stylesheet_link_tag 'scaffold' %>
+</head>
+<body>
+<div id="wrapper-summary"> <!-- begin wrapper -->
+<div id="header">This is a pretend connexion bar</div>
+
+<div id ="top-pane"> <!-- begin top-pane -->
+	<div id="logo"><img src="/images/header_noshield_01.gif"></div>
+	<div id="navbar">
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showHome">Home</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showMPD">MPD</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showTools">Tools</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/CmsController">Resources</a>
+
+		<a href="https://staff.campuscrusadeforchrist.com/links.jsp">Links</a>
+		<a href="javascript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help</a>
+	</div>
+
+</div> <!-- end top-pane-->		
+
+<h1>FSK Choice</h1>
+<h2>National Summary</h2>
+	
+	<div id="help">
+
+		<a href="#" onclick="window.open('/fsk/help.htm', 'Help', 'height=525,width=500,dependent=yes,scrollbars=yes,resizable')">FSK Help?</a><a href="https://staff.campuscrusadeforchrist.com/servlet/FskController?action=showIndex">FSK Choice Home</a>
+	</div>
+
+<div id="spacer"></div>
+        <p class="notice"><%= flash[:notice] %></p>
+        <%= @content_for_layout %>    
+        </div>
+      </div>
+    </div>
+	</div>
+</body>
+</html>
