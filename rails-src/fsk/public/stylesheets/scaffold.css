@@ -72,22 +72,3 @@ div.progressBar div.background {
   width: 0%;
 }
 
-.ListTitle {
-  color: #244;
-  font-weight: bold;
-  font-size: larger;
-}
-
-.ListActions {
-  font-size: x-small;
-  text-align: right;
-  padding-left: lem;
-}
-
-.ListLine0 {
-  background: lightgrey;
-}
-
-.ListLine1 {
-  background: white;
-}

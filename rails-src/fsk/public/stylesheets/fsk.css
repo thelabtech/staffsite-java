@@ -1,0 +1,158 @@
+/* CSS for FSK */
+
+/* HTML tags */
+body { text-align: center; /* for centering body in IE */ }
+
+p {
+	font-size: 10pt; 
+	text-align: justify; 
+	color: black; }
+
+h1 { /* "FSK Choice" */
+	width: auto;
+	font-size: 18pt;
+	font-weight: bold;
+	text-align: left;
+	color: white;
+	padding: 2px 0px 2px 5px;
+	background-color: #336699; 
+	margin: 0px 0px; }
+
+h2 { /* subtitle */
+	width: auto; 
+	font-size: 16pt;
+	font-weight: bold;
+	text-align: left;
+	color: #336699;
+	background-color: #D0DDEA;
+	padding: 2px 0px 2px 16px;
+	margin: 0px; }
+
+td { 
+	padding: 2px 2px;
+	vertical-align: center; }
+
+/* hyperlink declarations */
+a:link { text-decoration: none;	color: #336699; }
+a:visited { text-decoration: none; color: #336699; }
+a:hover { text-decoration: underline; color: #336699; }
+a:active { text-decoration: none; }
+
+/* classes */
+td.lbl { text-align: right; }
+
+td.input { text-align: left; }
+
+.bold { 
+	font-weight: bold; }
+
+/* descendants */
+tr.header {
+	font-weight: bold;
+	color: #D0DDEA; 
+	background-color: #336699; 
+	text-align: center; }
+
+table#normal {	
+	width: 100%; 
+	font-size: 10pt; 
+	border: 1px solid #336699;
+	border-top: 10px solid #336699; 
+	background-color: #D0DDEA; 
+	color: #336699; }
+
+table#summary {	
+	width: 100%; 
+	font-size: 8pt; 
+	border: 1px solid #336699;
+	background-color: #D0DDEA; 
+	color: #336699; 
+	margin-top: 1em; }
+
+table#summary td {
+	text-align: center; 
+	margin: 0px; }
+
+/* Page id's */
+
+#wrapper {
+	width: 760px;
+	overflow: auto;
+	margin: 0px auto;
+	background-color: white;
+	font-family: Arial, Times New Roman, Verdana, sans-serif; 
+	text-align: left; 
+	padding: 0px; }
+
+#wrapper-summary { /* to be used on the FSK summary page */
+	width: 860px;
+	overflow: auto;
+	margin: 0px auto;
+	background-color: white;
+	font-family: Arial, Times New Roman, Verdana, sans-serif; 
+	padding: 0px; }
+
+#top-pane {
+	width: inherit;
+	height: 80px;
+	margin-top: 20px;
+	margin-bottom: 15px; }
+
+#footer {
+	width: 100%;
+	margin-top: 20px;
+	font-size: 8pt;
+	text-align: center; }
+
+#help {
+	width: 125px;
+	text-align: right; 
+	float: right;
+	margin: -1px 0px 15px 15px; 
+	border-left: 1px solid #D0DDEA; 
+	clear: both;}
+
+#help a {
+	font-size: 10pt; 
+	display: block;
+	padding: 5px 2px 2px 0px; }
+
+#help a:hover {
+	text-decoration: none; 
+	background-color: #D0DDEA; } 
+
+#logo {
+	width: 153px;
+	height: 75px;
+	float: left;
+	margin-top: 5px; }
+
+#spacer {
+	width: 760px; 
+	height: 10px;
+	background-color: white; 
+	margin: 5px 0px 5px 0px; 
+	clear: both; }
+
+/* navbar */
+#navbar {
+	width: 600px; 
+	height: auto;
+	font-weight: bold;
+	float: right;
+	background-color: #336699; 
+	text-align: right;
+	margin-top: 60px; }
+
+#navbar a {
+	padding-left: 12px;
+	padding-right: 6px;
+	font-size: 10pt; 
+	display: inline; 
+	color: white;
+	border-left: 1px solid white; 
+	vertical-align: middle;  }
+
+#navbar a:hover {
+	text-decoration: none;
+	color: #CCCC99; } 
