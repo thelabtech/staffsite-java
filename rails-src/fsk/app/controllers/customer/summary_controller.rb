@@ -19,19 +19,21 @@ class Customer::SummaryController < ApplicationController
   private
   def national_summary
     #assert get_user.role.name == "national"
-    
   end
   
   def regional_summary
     #assert get_user.role.name == "regional"
+    region = get_user_region
+    @allocations = get_allocations_for_region(user)
     
   end
   
   def local_summary
-    #assert get_user_role == "regional"
+    #assert get_user.role.name == "local"
+    #todo: handle multiple allocations
+    @allocation = Allocation.find(:first, :conditions => ["ssm_id = ?", get_user.user.id])
     
   end
   
-  
-  
+
 end

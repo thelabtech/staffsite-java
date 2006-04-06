@@ -1,1 +1,9 @@
 <%= link_to "Place an order", {:controller => "order"} %>
+<br/>
+<%= link_to "Create an allocation", {:controller => "allocation", :action => "new"}%>
+<br/>
+<%= 
+    if ( not @allocation.nil?)
+        link_to "Edit your allocation", {:controller => "allocation", :action => "edit", :id => @allocation.id} 
+    end
+%>

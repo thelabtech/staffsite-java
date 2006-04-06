@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
 	return false
   end
   
+  def get_user_region
+    username = get_user.user.username
+    profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])
+    accountNo = profile.accountNo
+    staff = Staff.find(:first, :conditions => ["accountNo = ?", accountNo])
+    staff.region
+  end
   
   def get_user
     user = FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
