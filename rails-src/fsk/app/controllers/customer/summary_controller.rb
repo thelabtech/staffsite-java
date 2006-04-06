@@ -17,27 +17,31 @@ class Customer::SummaryController < ApplicationController
   end
   
   private
+  def get_allocations_for_region(region)
+    @allocations = Allocation.find(:all, :conditions => ["region_id = ?", region])
+  end
+  
   def national_summary
+    @title = "National Summary"
     #assert get_user.role.name == "national"
   end
   
   def regional_summary
+    @title = "Regional Summary"
     #assert get_user.role.name == "regional"
     region = get_user_region
     @allocations = get_allocations_for_region(region)
-    
   end
   
   def local_summary
+    @title = "Local Summary"
+    session[:victim_id] = session[:user_id]
+    if (get_user.role.name == "regional" or get_user.role.name == "national")
+      session[:victim_id] ||= params[:user_id]
+    end
     #assert get_user.role.name == "local"
     #todo: handle multiple allocations
-    @allocations = Allocation.find(:all, :conditions => ["ssm_id = ?", get_user.user.id])
-    
+    @allocations = Allocation.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
+    @kit_orders = Order.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
   end
-  
-  private
-  def get_allocations_for_region(region)
-    @allocations = Allocation.find(:all, :conditions => ["region_id = ?", region])
-  end
-
 end
