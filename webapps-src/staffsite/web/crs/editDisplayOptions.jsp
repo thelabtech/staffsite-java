@@ -31,6 +31,13 @@ try{
 <!--
 	function goNext(action, buttonname){
 		var form = document.theForm;
+		var BGcolor, FGcolor, HLcolor, HLcolor2, Rcolor;
+		BGcolor = form.BackgroundColor.value.toLowerCase() + '';
+		FGcolor = form.ForegroundColor.value.toLowerCase() + '';
+		HLcolor = form.HighlightColor.value.toLowerCase() + '';
+		HLcolor2 = form.HighlightColor2.value.toLowerCase() + '';
+		Rcolor = form.RequiredColor.value.toLowerCase() + '';
+		
 		if(!requiredFilled(form)){
 			alert("You must fill out all of the yellow fields to continue. If you don't want to choose a color scheme click \"Default Colors\" and one will be provided for you.");
 		} 
@@ -60,6 +67,15 @@ try{
 		} else if(!validHex(form.RequiredColor.value)){
 			alert("You must enter 6 characters for a color, 0-9 or a-f");
 			form.RequiredColor.focus();
+		} else if(BGcolor==FGcolor){
+			alert("You must choose 2 different colors for the Background Color and Title Color.");
+			form.BackgroundColor.focus();
+		} else if(HLcolor==HLcolor2) {
+			alert("You must choose 2 different colors for the Title Color and Title Box Text.");
+			form.ForegroundColor.focus();
+		} else if(HLcolor2==Rcolor){
+			alert("You must choose 2 different colors for the Title Box Text and Required Color.");
+			form.HighlightColor2.focus();
 		} else{
 			if(submitOnce(buttonname)) {
 				form.action.value = action;
