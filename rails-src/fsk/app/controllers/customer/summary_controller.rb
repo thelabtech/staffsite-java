@@ -1,18 +1,22 @@
 class Customer::SummaryController < ApplicationController
   
   def index
-    if get_user.role.name == "national"
-      return national_summary
+    case get_user.role.name
+    when "national"
+      national_summary
+      render :action => "national_summary"
+    when "regional"
+      regional_summary
+      render :action => "regional_summary"
+    when "local"
+      local_summary
+      render :action => "local_summary"
+    else
+      raise "Bad User Type"
     end
-    if get_user.role.name == "regional"
-      return regional_summary
-    end
-    if get_user.role.name == "local"
-      return local_summary
-    end
-    #error
   end
   
+  private
   def national_summary
     #assert get_user.role.name == "national"
     
