@@ -1,10 +1,11 @@
 #!c:/ruby/bin/ruby
 # == Synopsis
-# Convert MySQL sql into migration syntax.
+# Convert MySQL sql into migration syntax. Run this from the root of your rails application, then run rake migrate
 #
 # == Usage
-#    
-#    ruby sql_to_migration.rb input_file next_migration_number
+# This script requires an input file, and a number that corresponds to what you want your next migration number to be.
+#
+#    Usage: ruby sql_to_migration.rb INPUT_FILE number
 #
 
 require 'optparse'
@@ -15,19 +16,16 @@ def pad(string)
   end
   return string
 end
-def camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
-  if first_letter_in_uppercase
+def camelize(lower_case_and_underscored_word)
     lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::" + $1.upcase }.gsub(/(^|_)(.)/) { $2.upcase }
-  else
-    lower_case_and_underscored_word.first + camelize(lower_case_and_underscored_word)[1..-1]
-  end
 end
+#parse comments into "usage doc"
 opts = OptionParser.new
 opts.on("-h", "--help") { RDoc::usage }
 opts.parse(ARGV) rescue RDoc::usage('usage')
 if ARGV.size < 2
   puts "\nError: You must provide an input file, and what you'd like the migration number to be.\n"
-  RDoc::usage
+  RDoc::usage('usage')
 end
 s = "    "
 filename = ARGV[0]
@@ -46,22 +44,22 @@ File.open(filename, "r") do |file|
       down += "#{s}rename_column(\"#$table\", \"#$2\", \"#$1\")\n"
     when /DROP COLUMN `(.*)`/
       up += "#{s}remove_column(\"#$table\", \"#$1\")\n"
-    when /MODIFY COLUMN `(.*)` (VARCHAR\(\d+\)|INTEGER)\s?(NOT NULL)?\s+(DEFAULT ['\w]+)?/
+    when /MODIFY COLUMN `(.*)` (VARCHAR\(\d+\)|INTEGER)\s?(CHARACTER SET latin1 COLLATE latin1_swedish_ci )?(NOT NULL)?\s+(DEFAULT ['\w]+)?/
       up += "#{s}change_column(\"#$table\", \"#$1\""
       type = $2
-      up += ", :null => false" if $3 == "NOT NULL"
-      default = /DEFAULT (['\w]+)/
-      if $4 =~ default
-        up += ", :default => #$1"
-      end
+      not_null = $4
+      default = $5
       case type
       when "INTEGER"
         up += ", :integer"
       when /VARCHAR\((\d+)\)/
         up += ", :string, :limit => #$1"   
       end
+      up += ", :null => false" if not_null == "NOT NULL"
+      if default =~ /DEFAULT (['\w]+)/
+        up += ", :default => #$1"
+      end
       up += ")\n"
-      #t.column "api", :string, :limit => 50, :default => "", :null => false
     end
   end
   # create the output file
@@ -79,6 +77,6 @@ File.open(filename, "r") do |file|
   out.close
   #turn this on for debug
   File.open(out_filename,"r") do |file|
-    #file.each {|line| puts line}
+	#file.each {|line| puts line}
   end
 end
