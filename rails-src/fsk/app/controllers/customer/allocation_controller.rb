@@ -19,9 +19,10 @@ class Customer::AllocationController < ApplicationController
 
   def new
     @allocation = Allocation.new
-    #set defaults for region, ssm_id; for non-local users
+    #for local users:
     @allocation.region_id = get_user_region
     @allocation.ssm_id = get_user.user.id
+    #for rest:
     @allocation.attributes = check_params(params[:allocation])
     @user = get_user
   end

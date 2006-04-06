@@ -1,0 +1,86 @@
+<br>
+<font color="#336699" face="Arial" size="3">&nbsp;<b>Allocation Options:</b></font>
+<table border="0" width="100%">
+
+
+<form action="/servlet/FskController" method="post">
+	<input name="action" value="listStaff" type="hidden">
+	<p>Allocate kits to person - search by LAST name: <input name="lastname" type="text">
+	<input value="Search" type="submit"></p>
+</form>
+
+2. To choose from a list of all staff in your region, click <a href="/servlet/FskController?action=listStaff&amp;region=NC&amp;frompage=regionallist">HERE.</a>&nbsp;&nbsp;(takes about 1 minute)
+
+<br><table id="summary">
+	<tr class="header">
+    <td>Local Leader</td>
+    <td>Impact Allocation</td>
+
+    <td>Forerunner Allocation</td>
+    <td>Regional Allocation</td>
+    <td>Regional Raised</td>
+    <td>Locally 
+						Raised</td>
+    <td>Total Kits</td>
+    <td>Kit Orders Pending</td>
+
+    <td>Kits Not Yet Ordered</td>
+    <td>Kits Previously Ordered (already processed)</td>
+    <td></td>
+    <td></td>
+  </tr>
+<%
+    for allocation in @allocations do
+%>
+					  <tr>
+						<td>Baker, Stephen</td>
+
+						<td><%= allocation.impactAllotment || 0 %></td>
+						<td><%= allocation.forerunnerAllotment || 0 %></td>
+						<td><%= allocation.regionalAllotment || 0 %></td>
+						<td><%= allocation.regionallyRaised || 0 %></td>
+						<td><%= allocation.locallyRaised || 0 %></td>
+
+						<td>500</td>
+						<td>500</td>
+						<td>0</td>
+						<td>0</td>
+						<td><a href="http://localhost/servlet/FskController?action=allocKits&amp;id=487&amp;accountno=000388446&amp;fname=Stephen&amp;lname=Baker&amp;region=MA">[view allocation]</a></td>
+						<td><a href="http://localhost/servlet/FskController?action=viewOrders&amp;accountno=000388446&amp;AllocationID=487">[view order]</a></td>
+
+					  </tr>
+
+<%
+    end
+%>
+
+<tr class="header">
+		<td>Regional Total:</td>
+
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td></td>
+		<td></td>
+</tr>	 
+
+</tbody></table>
+			
+<br><br>*If someone you have allocated kits to does not show up in this list,
+please <a href="mailto:dan.hardaway@uscm.org?subject=FSK%20Choice%20-%20Region%20not%20set%20%28include%20name%20and%20region%29">email us</a> with 
+their name and region and we'll fix it. Don't worry, their allocation has been saved. The problem is that they aren't associated 
+with your region yet.
+
+
+<br><br>**If you haven't emailed your regional account number for ongoing ministry money to Jonathan Haight yet, 
+please do so by clicking <a href="mailto:Jonathan.Haight@uscm.org?subject=FSK%20Site%20-%20regional%20account%20#">Jonathan.Haight@uscm.org</a>. 
+Be sure to include your region name. Thank you.
+<br>
+
