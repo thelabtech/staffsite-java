@@ -1,0 +1,12 @@
+<%= error_messages_for 'order' %>
+<%= render :partial => 'contact' %>
+<hr />
+<p>All quantities must be in multiples of 100.</p>
+<% Product.find(:all).each do |product| %>
+	<p><label for="product_<%=product.id%>"><%=product.name%>:</label><br/>
+	<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" value="<%=@products[product.id]%>">
+	</p>
+<% end %>
+<%= render :partial => 'chartfield' %>
+<!--[eoform:order]-->
+

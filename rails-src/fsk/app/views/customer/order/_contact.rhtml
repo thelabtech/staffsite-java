@@ -1,0 +1,50 @@
+<!--[form:order]-->
+<p>Order Number: <%= @order.id %></p>
+<p>Date Added: <%= @order.created_at %></p>
+<p>Dated Last Updated: <%= @order.updated_at %></p>
+<hr />
+<p><label for="order_location_name">Location (campus name, metro name, etc.):</label><br/>
+<%= text_field 'order', 'location_name' %></p>
+<hr />
+<p>Contact: (who can we reach in August if there is a problem?)</p>
+<p><label for="order_contact_first_name">First Name:</label><br/>
+<%= text_field 'order', 'contact_first_name' %></p>
+
+<p><label for="order_contact_last_name">Last Name:</label><br/>
+<%= text_field 'order', 'contact_last_name' %></p>
+
+<p><label for="order_contact_phone">Phone:</label><br/>
+<%= text_field 'order', 'contact_phone' %></p>
+
+<p><label for="order_contact_cell">Cell:</label><br/>
+<%= text_field 'order', 'contact_cell' %></p>
+
+<p><label for="order_contact_email">Email (Please enter your full e-mail address):</label><br/>
+<%= text_field 'order', 'contact_email' %></p>
+<hr />
+<p>Order Shipping Information: (where do you want the stuff to go?)<br />
+In an effort to trim our costs and provide you with quality materials, large 
+orders (over 800 kits or 4000 individual items) may be shipped by freight line using wooden pallets about 
+4 feet by 4 feet with multiple boxes stacked on top. Please take this into 
+consideration when entering your "ship to" address.<br />
+Note: The Shipping dates for kits are August 8-11.</p>
+<p><label for="order_ship_name">Name:</label><br/>
+<%= text_field 'order', 'ship_name' %></p>
+
+<p><label for="order_ship_address1">Address 1:</label><br/>
+<%= text_field 'order', 'ship_address1' %></p>
+
+<p><label for="order_ship_address2">Address 2:</label><br/>
+<%= text_field 'order', 'ship_address2' %></p>
+
+<p><label for="order_ship_city">City:</label><br/>
+<%= text_field 'order', 'ship_city' %></p>
+
+<p><label for="order_ship_state">State:</label><br/>
+<%=select('order', 'ship_state', State::NAMES, {:include_blank => true}) %></p>
+
+<p><label for="order_ship_zip">Zip:</label><br/>
+<%= text_field 'order', 'ship_zip' %></p>
+
+<p><label for="order_ship_phone">Phone:</label><br/>
+<%= text_field 'order', 'ship_phone' %></p>

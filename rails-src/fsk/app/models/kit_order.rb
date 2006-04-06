@@ -1,0 +1,2 @@
+class KitOrder < Order
+end

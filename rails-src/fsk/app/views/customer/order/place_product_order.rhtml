@@ -1,0 +1,8 @@
+<h1>New order</h1>
+
+<%= start_form_tag :action => 'create_product_order' %>
+  <%= render :partial => 'product_form' %>
+  <%= submit_tag "Place Order" %>
+<%= end_form_tag %>
+
+<%= link_to 'Back', :action => 'list' %>
