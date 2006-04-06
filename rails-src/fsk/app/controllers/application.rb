@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
 	return false
   end
   
+  def get_year
+    year = DateTime::now.year.to_s
+  end
+  
   def get_user_region
     username = get_user.user.username
     profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])
