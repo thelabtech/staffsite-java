@@ -11,7 +11,12 @@ jeff_allocation:
   region_id: GP
   regionalAllotment: 600
   impactAllotment: 200
-joe_allocation:
+joe_first_allocation:
+  id: 3
+  ssm_id: 3
+  region_id: GL
+  regionalAllotment: 800
+joe_second_allocation:
   id: 3
   ssm_id: 3
   region_id: GL
