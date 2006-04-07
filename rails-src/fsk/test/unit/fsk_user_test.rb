@@ -8,10 +8,10 @@ class FskUserTest < Test::Unit::TestCase
   end
   
   def test_can_modify_field
-    assert fsk_users(:national).can_modify_field("impactAllotment")
-    assert fsk_users(:national).can_modify_field("regionalAllotment")
-    assert fsk_users(:regional).can_modify_field("regionalAllotment")
-    assert (not fsk_users(:regional).can_modify_field("impactAllotment"))
+    assert fsk_users(:national).can_modify_field("impact_allotment")
+    assert fsk_users(:national).can_modify_field("regional_allotment")
+    assert fsk_users(:regional).can_modify_field("regional_allotment")
+    assert (not fsk_users(:regional).can_modify_field("impact_allotment"))
   end
   
   def test_relationship
