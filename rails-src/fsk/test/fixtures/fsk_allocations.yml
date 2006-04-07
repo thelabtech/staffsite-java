@@ -2,22 +2,22 @@
 josh_allocation:
   id: 1
   ssm_id: 1
-  region_id: NC
-  regionalAllotment: 600
-  regionalNotes: "Be careful with these, Starcher"
+  region_id: 11
+  regional_allotment: 600
+  regional_notes: "Be careful with these, Starcher"
 jeff_allocation:
   id: 2
   ssm_id: 2
-  region_id: GP
-  regionalAllotment: 600
-  impactAllotment: 200
+  region_id: 7
+  regional_allotment: 600
+  impact_allotment: 200
 joe_first_allocation:
   id: 3
   ssm_id: 3
-  region_id: GL
-  regionalAllotment: 800
+  region_id: 5
+  regional_allotment: 800
 joe_second_allocation:
-  id: 3
+  id: 4
   ssm_id: 3
-  region_id: GL
-  regionalAllotment: 800
+  region_id: 6
+  regional_allotment: 800

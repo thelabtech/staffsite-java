@@ -1,10 +1,10 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-national:
-  id: 1
+--- 
+fsk_roles_001: 
   name: national
-regional:
-  id: 2
+  id: "1"
+fsk_roles_002: 
   name: regional
-local:
-  id: 3
+  id: "2"
+fsk_roles_003: 
   name: local
+  id: "3"

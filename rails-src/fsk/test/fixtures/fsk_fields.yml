@@ -1,14 +1,37 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-impact:
-  id: 1
-  name: "impactAllotment"
-forerunner:
-  id: 2
-  name: "forerunnerAllotment"
-regional:
-  id: 3
-  name: "regionalAllotment"
-local:
-  id: 4
-  name: "locallyRaised"
-  
+--- 
+fsk_fields_007: 
+  name: impact_notes
+  id: "7"
+fsk_fields_008: 
+  name: forerunner_notes
+  id: "8"
+fsk_fields_009: 
+  name: regional_notes
+  id: "9"
+fsk_fields_010: 
+  name: local_notes
+  id: "10"
+fsk_fields_011: 
+  name: ssm_id
+  id: "11"
+fsk_fields_012: 
+  name: region_id
+  id: "12"
+fsk_fields_001: 
+  name: impact_allotment
+  id: "1"
+fsk_fields_002: 
+  name: forerunner_allotment
+  id: "2"
+fsk_fields_003: 
+  name: regional_allotment
+  id: "3"
+fsk_fields_004: 
+  name: regionally_raised
+  id: "4"
+fsk_fields_005: 
+  name: locally_raised
+  id: "5"
+fsk_fields_006: 
+  name: national_notes
+  id: "6"
