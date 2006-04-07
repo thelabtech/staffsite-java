@@ -10,87 +10,78 @@
     end 
     %></p>
 
-<p><label for="allocation_nationalNotes">National Notes</label><br/>
-<%= if @user.can_modify_field?("nationalNotes") 
-        text_area 'allocation', 'nationalNotes'
+<p><label for="allocation_impact_allotment">Impact Allotment</label><br/>
+<%= if @user.can_modify_field?("impact_allotment") 
+        text_field 'allocation', 'impact_allotment'
     else
-        @allocation.nationalNotes
-    end 
-    %></p>
-
-
-<p><label for="allocation_impactAllotment">Impact Allotment</label><br/>
-<%= if @user.can_modify_field?("impactAllotment") 
-        text_field 'allocation', 'impactAllotment'
-    else
-        @allocation.impactAllotment 
+        @allocation.impact_allotment 
     end 
     %></p>
     
 
-<p><label for="allocation_impactNotes">Impact Notes</label><br/>
-<%= if @user.can_modify_field?("impactNotes") 
-        text_area 'allocation', 'impactNotes'
+<p><label for="allocation_impact_notes">Impact Notes</label><br/>
+<%= if @user.can_modify_field?("impact_notes") 
+        text_area 'allocation', 'impact_notes'
     else
-        @allocation.impactNotes 
+        @allocation.impact_notes 
     end 
     %></p>
 
-<p><label for="allocation_forerunnerAllotment">Forerunner Allotment</label><br/>
-<%= if @user.can_modify_field?("forerunnerAllotment") 
-        text_field 'allocation', 'forerunnerAllotment'
+<p><label for="allocation_forerunner_allotment">Forerunner Allotment</label><br/>
+<%= if @user.can_modify_field?("forerunner_allotment") 
+        text_field 'allocation', 'forerunner_allotment'
     else
-        @allocation.impactNotes 
+        @allocation.impact_notes 
     end 
     %></p>
     
     
-<p><label for="allocation_regionalAllotment">Regional Allotment</label><br/>
-<%= if @user.can_modify_field?("regionalAllotment") 
-        text_field 'allocation', 'regionalAllotment'
+<p><label for="allocation_regional_allotment">Regional Allotment</label><br/>
+<%= if @user.can_modify_field?("regional_allotment") 
+        text_field 'allocation', 'regional_allotment'
     else
-        @allocation.regionalAllotment
+        @allocation.regional_allotment
     end 
     %></p>
 
 
-<p><label for="allocation_regionallyRaised">Regionally Raised</label><br/>
-<%= if @user.can_modify_field?("regionallyRaised") 
-        text_field 'allocation', 'regionallyRaised'
+<p><label for="allocation_regionally_raised">Regionally Raised</label><br/>
+<%= if @user.can_modify_field?("regionally_raised") 
+        text_field 'allocation', 'regionally_raised'
     else
-        @allocation.regionallyRaised
+        @allocation.regionally_raised
     end 
     %></p>
 
-<p><label for="allocation_locallyRaised">Locally Raised</label><br/>
-<%= if @user.can_modify_field?("locallyRaised") 
-        text_field 'allocation', 'locallyRaised'
+<p><label for="allocation_locally_raised">Locally Raised</label><br/>
+<%= if @user.can_modify_field?("locally_raised") 
+        text_field 'allocation', 'locally_raised'
     else
-        @allocation.locallyRaised
+        @allocation.locally_raised
     end 
     %></p>
 
-<p><label for="allocation_forerunnerNotes">Forerunner Notes</label><br/>
-<%= if @user.can_modify_field?("forerunnerNotes") 
-        text_area 'allocation', 'forerunnerNotes'
+<p><label for="allocation_forerunner_notes">Forerunner Notes</label><br/>
+<%= if @user.can_modify_field?("forerunner_notes") 
+        text_area 'allocation', 'forerunner_notes'
     else
-        @allocation.forerunnerNotes
+        @allocation.forerunner_notes
     end 
     %></p>
 
-<p><label for="allocation_regionalNotes">Regional Notes</label><br/>
-<%= if @user.can_modify_field?("regionalNotes") 
-        text_area 'allocation', 'regionalNotes'
+<p><label for="allocation_regional_notes">Regional Notes</label><br/>
+<%= if @user.can_modify_field?("regional_notes") 
+        text_area 'allocation', 'regional_notes'
     else
-        @allocation.regionalNotes
+        @allocation.regional_notes
     end 
     %></p>
 
-<p><label for="allocation_localNotes">Localnotes</label><br/>
-<%= if @user.can_modify_field?("localNotes") 
-        text_area 'allocation', 'localNotes'
+<p><label for="allocation_local_notes">local_notes</label><br/>
+<%= if @user.can_modify_field?("local_notes") 
+        text_area 'allocation', 'local_notes'
     else
-        @allocation.localNotes
+        @allocation.local_notes
     end 
     %></p>
 

@@ -4,10 +4,10 @@ class Allocation < ActiveRecord::Base
   belongs_to :user, :foreign_key => "ssm_id"
 
   def total_kits
-    (impactAllotment || 0) + 
-    (forerunnerAllotment || 0) +
-    (regionalAllotment || 0) +
-    (regionallyRaised || 0) +
-    (locallyRaised || 0)
+    (impact_allotment || 0) + 
+    (forerunner_allotment || 0) +
+    (regional_allotment || 0) +
+    (regionally_raised || 0) +
+    (locally_raised || 0)
   end
 end
