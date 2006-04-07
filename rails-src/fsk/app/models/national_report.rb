@@ -1,0 +1,3 @@
+class NationalReport 
+
+end
