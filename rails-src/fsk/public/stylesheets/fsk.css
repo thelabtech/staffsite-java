@@ -85,7 +85,7 @@ table#summary td {
 	padding: 0px; }
 
 #wrapper-summary { /* to be used on the FSK summary page */
-	width: 860px;
+	width: 845px;
 	overflow: auto;
 	margin: 0px auto;
 	background-color: white;
@@ -115,7 +115,7 @@ table#summary td {
 #help a {
 	font-size: 10pt; 
 	display: inline;
-	padding: 5px 2px 2px 10px; 
+	padding: 5px 2px 0px 10px; 
 	border-left: 1px solid #D0DDEA; }
 
 #help a:hover {
