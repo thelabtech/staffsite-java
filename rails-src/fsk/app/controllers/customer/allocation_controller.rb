@@ -29,7 +29,7 @@ class Customer::AllocationController < ApplicationController
 
   def create
     @allocation = Allocation.new()
-    @allocation.allocationYear = get_year
+    @allocation.allocation_year = get_year
     @allocation.region_id = get_user_region
     @allocation.ssm_id = get_user.user.id
     @allocation.attributes = check_params(params[:allocation])
