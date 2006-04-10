@@ -32,7 +32,8 @@ try{
 	function goNext(action, buttonname){
 		var form = document.theForm;
 		var BGcolor, FGcolor, HLcolor, HLcolor2, Rcolor;
-		BGcolor = form.BackgroundColor.value.toLowerCase() + '';
+		/* Addition function plus blank string acts as concatenate, which changes each variables into a string */ 
+		BGcolor = form.BackgroundColor.value.toLowerCase() + ''; 
 		FGcolor = form.ForegroundColor.value.toLowerCase() + '';
 		HLcolor = form.HighlightColor.value.toLowerCase() + '';
 		HLcolor2 = form.HighlightColor2.value.toLowerCase() + '';
