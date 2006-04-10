@@ -1,4 +1,5 @@
 class Customer::OrderController < ApplicationController
+
   def index
 
   end
@@ -22,6 +23,7 @@ class Customer::OrderController < ApplicationController
     place_order
   end
   def place_order  
+    @title = "New Order"
     @order = Order.new
     # create an empty array of products
     @products = Array.new
@@ -36,7 +38,7 @@ class Customer::OrderController < ApplicationController
   end
   def create_product_order
     @order = ProductOrder.new(params[:order])
-    create(product_order)
+    create("product_order")
   end
   def create(type)
     @order.ssm_id = session[:victim_id]
@@ -57,7 +59,7 @@ class Customer::OrderController < ApplicationController
     edit
   end
   def edit
-    @order = Order.find(params[:id])
+    @order ||= Order.find(params[:id])
     # create an array of products and quantities
     @products = Array.new
     Product.find(:all).each do |product|
@@ -74,14 +76,13 @@ class Customer::OrderController < ApplicationController
   
   def update(type)
     @order = Order.find(params[:id])
-    if @order.update_attributes(params[:order])
-      save_line_items
+    if save_line_items && @order.update_attributes(params[:order])
       flash[:notice] = 'Order was successfully updated.'
       redirect_to :controller => 'summary'
       return
     else
-      redirect_to :action => 'edit_'+type
-      return
+      send('edit_'+type)
+      render :action => 'edit_'+type
     end
   end
 
@@ -92,9 +93,15 @@ class Customer::OrderController < ApplicationController
   
   private
   def save_line_items
-    #breakpoint
+    @line_errors = []
     params[:products].each do |key,value|
-      LineItem.create(:product_id => key, :quantity => value, :order_id => @order.id)
+      # see if the line item is already a part of this order
+      if !(item = @order.line_items.detect {|i| i.product_id == key.to_i})
+        item = LineItem.new(:product_id => key, :quantity => value.to_i, :order_id => @order.id)
+      end
+      item.quantity = value.to_i
+      item.errors.each{|e| @line_errors << e} unless item.save
     end
+    return @line_errors.size == 0
   end
 end

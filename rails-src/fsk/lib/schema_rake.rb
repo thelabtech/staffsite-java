@@ -245,9 +245,8 @@ module ActiveRecord
       tbl.print ", :id => true " if table.options[:id]
       tbl.print ", :force => true " if table.options[:force]
       tbl.puts " do |t|"
-      table.columns.each do |name, column|
+      table.columns.each do |column|
         tbl.print "      t.column" + column(column)
-        tbl.puts
       end
       tbl.puts "    end"
       tbl.puts

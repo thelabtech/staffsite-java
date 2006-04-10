@@ -37,7 +37,8 @@ class Customer::SummaryController < ApplicationController
       session[:victim_id] ||= params[:user_id]
     end
     @allocations = Allocation.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
-    @kit_orders = Order.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
+    @kit_orders = KitOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
+    @product_orders = ProductOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
   end
   
   

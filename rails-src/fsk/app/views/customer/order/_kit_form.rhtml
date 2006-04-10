@@ -1,4 +1,5 @@
 <%= error_messages_for 'order' %>
+<%= error_messages_for_line_items %>
 <%= render :partial => 'contact' %>
 
 <p>Kit Contents (Select the products for your kit)<br>
@@ -11,9 +12,10 @@ kits for this order.</p><br>
 <% KitCategory.find(:all).each_with_index do |category, i| %>
 <p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
 	<em><%= category.description %></em></p>
-	<% category.products.each do |product| %>
+	<% category.products.find_by_sql(category.product_sql).each do |product| %>
 		<p><label for="product_<%=product.id%>"><%=product.name%>:</label><br>
 		<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" value="<%=@products[product.id]%>">
+		<%=product.remaining%> Remaining
 		</p>
 	<% end %>
 <% end %>

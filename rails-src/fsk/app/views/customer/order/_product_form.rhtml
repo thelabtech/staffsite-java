@@ -1,10 +1,17 @@
 <%= error_messages_for 'order' %>
+<%= error_messages_for_line_items %>
 <%= render :partial => 'contact' %>
 <hr />
 <p>All quantities must be in multiples of 100.</p>
-<% Product.find(:all).each do |product| %>
+<% Product.find_by_sql(Product.product_sql).each do |product| %>
 	<p><label for="product_<%=product.id%>"><%=product.name%>:</label><br/>
-	<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" value="<%=@products[product.id]%>">
+	<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" 
+		value="<%=@products[product.id]%>" 
+		<%if @products[product.id] == 0 and product.remaining.to_i  == 0%>
+			disabled="disabled"
+		<%end%>
+	>
+	<%=product.remaining%> Remaining
 	</p>
 <% end %>
 <%= render :partial => 'chartfield' %>

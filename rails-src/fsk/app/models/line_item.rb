@@ -4,4 +4,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :product
   
+  def validate
+    errors.add(product.name, "you tried to order more than the quantity remaining") if product.too_many(self)
+  end
 end
