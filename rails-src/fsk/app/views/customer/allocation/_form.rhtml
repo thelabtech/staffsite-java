@@ -35,6 +35,14 @@
     end 
     %></p>
     
+<p><label for="allocation_forerunner_notes">Forerunner Notes</label><br/>
+<%= if @user.can_modify_field?("forerunner_notes") 
+        text_area 'allocation', 'forerunner_notes'
+    else
+        @allocation.forerunner_notes
+    end 
+    %></p>
+    
     
 <p><label for="allocation_regional_allotment">Regional Allotment</label><br/>
 <%= if @user.can_modify_field?("regional_allotment") 
@@ -44,7 +52,6 @@
     end 
     %></p>
 
-
 <p><label for="allocation_regionally_raised">Regionally Raised</label><br/>
 <%= if @user.can_modify_field?("regionally_raised") 
         text_field 'allocation', 'regionally_raised'
@@ -52,28 +59,21 @@
         @allocation.regionally_raised
     end 
     %></p>
+    
+<p><label for="allocation_regional_notes">Regional Notes</label><br/>
+<%= if @user.can_modify_field?("regional_notes") 
+        text_area 'allocation', 'regional_notes'
+    else
+        @allocation.regional_notes
+    end 
+    %></p>
+
 
 <p><label for="allocation_locally_raised">Locally Raised</label><br/>
 <%= if @user.can_modify_field?("locally_raised") 
         text_field 'allocation', 'locally_raised'
     else
         @allocation.locally_raised
-    end 
-    %></p>
-
-<p><label for="allocation_forerunner_notes">Forerunner Notes</label><br/>
-<%= if @user.can_modify_field?("forerunner_notes") 
-        text_area 'allocation', 'forerunner_notes'
-    else
-        @allocation.forerunner_notes
-    end 
-    %></p>
-
-<p><label for="allocation_regional_notes">Regional Notes</label><br/>
-<%= if @user.can_modify_field?("regional_notes") 
-        text_area 'allocation', 'regional_notes'
-    else
-        @allocation.regional_notes
     end 
     %></p>
 
@@ -85,14 +85,10 @@
     end 
     %></p>
 
+<!--
 <p><label for="allocation_ssm_id">SSM ID</label><br/>
 <%= @allocation.ssm_id %>
 <%= hidden_field 'allocation', 'ssm_id' %></p>
-
-<p><label for="allocation_created_at">Created at</label><br/>
-<%= @allocation.created_at %></p>
-
-<p><label for="allocation_updated_at">Updated at</label><br/>
-<%= @allocation.updated_at  %></p>
+-->
 <!--[eoform:allocation]-->
 
