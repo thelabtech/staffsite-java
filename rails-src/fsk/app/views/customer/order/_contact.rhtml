@@ -2,11 +2,12 @@
 <p>Order Number: <%= @order.id %></p>
 <p>Date Added: <%= @order.created_at %></p>
 <p>Dated Last Updated: <%= @order.updated_at %></p>
-<hr />
-<p><label for="order_location_name">Location (campus name, metro name, etc.):</label><br/>
+
+<h3>Location (campus name, metro name, etc.):</h3>
+<p><label for="order_location_name">Location:</label><br/>
 <%= text_field 'order', 'location_name' %></p>
-<hr />
-<p>Contact: (who can we reach in August if there is a problem?)</p>
+
+<h3>Contact: (who can we reach in August if there is a problem?)</h3>
 <p><label for="order_contact_first_name">First Name:</label><br/>
 <%= text_field 'order', 'contact_first_name' %></p>
 
@@ -21,13 +22,14 @@
 
 <p><label for="order_contact_email">Email (Please enter your full e-mail address):</label><br/>
 <%= text_field 'order', 'contact_email' %></p>
-<hr />
-<p>Order Shipping Information: (where do you want the stuff to go?)<br />
-In an effort to trim our costs and provide you with quality materials, large 
+
+<h3>Order Shipping Information: (where do you want the stuff to go?)</h3>
+
+<p>In an effort to trim our costs and provide you with quality materials, large 
 orders (over 800 kits or 4000 individual items) may be shipped by freight line using wooden pallets about 
 4 feet by 4 feet with multiple boxes stacked on top. Please take this into 
-consideration when entering your "ship to" address.<br />
-Note: The Shipping dates for kits are August 8-11.</p>
+consideration when entering your "ship to" address.</p>
+<p><b>Note:</b> The Shipping dates for kits are August 8-11.</p>
 <p><label for="order_ship_name">Name:</label><br/>
 <%= text_field 'order', 'ship_name' %></p>
 
