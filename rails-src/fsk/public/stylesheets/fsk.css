@@ -20,14 +20,22 @@ h1 { /* "FSK Choice" */
 
 h2 { /* subtitle */
 	width: auto; 
-	font-size: 16pt;
+	font-size: 14pt;
 	font-weight: bold;
 	text-align: left;
 	color: #336699;
 	background-color: #D0DDEA;
-	padding: 2px 0px 2px 16px;
+	padding: 2px 0px 2px 5px;
 	margin: 0px; }
-
+	
+h3 { /* page sections */
+    font-size: 14pt;
+    font-weight: normal;
+    text-align: left;
+    color: #336699;
+    border-bottom: 1px solid #336699;
+    padding: 0px 0px 2px 0px; }
+    
 td { 
 	padding: 2px 2px;
 	vertical-align: center; }
