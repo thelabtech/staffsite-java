@@ -10,6 +10,8 @@
 </form>
 
 2. To choose from a list of all staff in your region, click <a href="/servlet/FskController?action=listStaff&amp;region=NC&amp;frompage=regionallist">HERE.</a>&nbsp;&nbsp;(takes about 1 minute)
+<br>
+Region: <%= @report.region_code %>
 
 <br><table id="summary">
 	<tr class="header">
@@ -25,28 +27,26 @@
     <td>Kit Orders Pending</td>
 
     <td>Kits Not Yet Ordered</td>
-    <td>Kits Previously Ordered (already processed)</td>
     <td></td>
     <td></td>
   </tr>
 <%
-    for allocation in @allocations do
+    @report.report_records.each do |record| 
 %>
 					  <tr>
-						<td>Baker, Stephen</td>
+						<td><%= record.lastName %>, <%= record.firstName %></td>
 
-						<td><%= allocation.impact_allotment || 0 %></td>
-						<td><%= allocation.forerunner_allotment || 0 %></td>
-						<td><%= allocation.regional_allotment || 0 %></td>
-						<td><%= allocation.regionally_raised || 0 %></td>
-						<td><%= allocation.locally_raised || 0 %></td>
+						<td><%= record.impact_allotment || 0 %></td>
+						<td><%= record.forerunner_allotment || 0 %></td>
+						<td><%= record.regional_allotment || 0 %></td>
+						<td><%= record.regionally_raised || 0 %></td>
+						<td><%= record.locally_raised || 0 %></td>
 
-						<td>500</td>
-						<td>500</td>
-						<td>0</td>
-						<td>0</td>
-						<td><a href="http://localhost/servlet/FskController?action=allocKits&amp;id=487&amp;accountno=000388446&amp;fname=Stephen&amp;lname=Baker&amp;region=MA">[view allocation]</a></td>
-						<td><a href="http://localhost/servlet/FskController?action=viewOrders&amp;accountno=000388446&amp;AllocationID=487">[view order]</a></td>
+						<td><%= record.total_kits || 0 %></td>
+						<td><%= record.kit_orders_pending || 0 %></td>
+						<td><%= record.kits_not_yet_ordered || 0 %></td>
+						<td><%= link_to "[view allocation]", {:controller => "allocation", :action => "edit", :id => record.id}%></td>
+						<td><%= link_to "[view summary]", {:controller => "summary", :action => "local_summary", :user_id => record.id}%></td>
 
 					  </tr>
 
@@ -63,7 +63,6 @@
 		<td>0</td>
 		<td>0</td>
 
-		<td>0</td>
 		<td>0</td>
 		<td>0</td>
 		<td>0</td>
