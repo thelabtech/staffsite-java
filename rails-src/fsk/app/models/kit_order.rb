@@ -4,9 +4,8 @@ class KitOrder < Order
   
   protected
   def validate
-    # make sure that the items in each category add up to total kits
-    if total_kits > 0
-      
+    if (total_kits % 100) != 0
+      errors.add(:total_kits, "You must order kits in multiples of 100.")      
     end
     super
   end

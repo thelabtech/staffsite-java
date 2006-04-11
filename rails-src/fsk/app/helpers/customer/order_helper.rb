@@ -1,7 +1,7 @@
 module Customer::OrderHelper
   def error_messages_for_line_items(options = {})
     options = options.symbolize_keys
-    object = instance_variable_get("@line_errors")
+    object = session[:line_errors]
     if object && !object.empty?
      content_tag("div",
        content_tag(

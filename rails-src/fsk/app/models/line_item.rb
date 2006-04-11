@@ -5,6 +5,9 @@ class LineItem < ActiveRecord::Base
   belongs_to :product
   
   def validate
-    errors.add(product.name, "you tried to order more than the quantity remaining") if product.too_many(self)
+    errors.add(product.name, "You tried to order more than the quantity remaining") if product.too_many(self)
+    if (quantity % 100) != 0
+      errors.add(product.name, "You must order products in multiples of 100.")      
+    end
   end
 end

@@ -23,31 +23,53 @@ class Customer::OrderController < ApplicationController
     place_order
   end
   def place_order  
+    session[:line_errors] = nil
+    session[:bad_items] = nil
     @title = "New Order"
-    @order = Order.new
+    @order ||= Order.new
     # create an empty array of products
     @products = Array.new
-    Product.find(:all).each do |product|
-      @products[product.id] = 0
+    if (params[:products])
+      params[:products].each do |key,value|
+        @products[key.to_i] = value.to_i
+      end
+    else
+      Product.find(:all).each do |product|
+        @products[product.id] = 0
+      end
     end
   end
 
   def create_kit_order
-    @order = KitOrder.new(params[:order])
-    create(kit_order)
+    if params
+      @order = KitOrder.new(params[:order])
+      create('kit_order')
+    else
+      #go back to creating an order
+      redirect_to :action => 'place_kit_order'
+    end
   end
   def create_product_order
     @order = ProductOrder.new(params[:order])
-    create("product_order")
+    create('product_order')
   end
   def create(type)
     @order.ssm_id = session[:victim_id]
     @order.order_year = get_year
-    if @order.save
-      save_line_items
-      flash[:notice] = 'Order was successfully created.'
-      redirect_to :action => 'list'
+    if @order.save 
+      if save_line_items
+        session[:line_errors] = nil
+        session[:bad_items] = nil
+        flash[:notice] = 'Order was successfully created.'
+        redirect_to :controller => 'summary'
+        return
+      else
+        session[:products] = params[:products]
+        redirect_to :action => 'edit_kit_order', :id => @order.id
+        return
+      end
     else
+      send('place_'+type)
       render :action => 'place_'+type
     end
   end
@@ -62,8 +84,15 @@ class Customer::OrderController < ApplicationController
     @order ||= Order.find(params[:id])
     # create an array of products and quantities
     @products = Array.new
-    Product.find(:all).each do |product|
-      @products[product.id] = @order.product_quantity(product.id)
+    if posted = session[:products] || params[:products]
+      posted.each do |key,value|
+        @products[key.to_i] = value.to_i
+      end
+      session[:products] = nil
+    else
+      Product.find(:all).each do |product|
+        @products[product.id] = @order.product_quantity(product.id)
+      end
     end
   end
 
@@ -77,7 +106,9 @@ class Customer::OrderController < ApplicationController
   def update(type)
     @order = Order.find(params[:id])
     if save_line_items && @order.update_attributes(params[:order])
-      flash[:notice] = 'Order was successfully updated.'
+      flash[:notice] = 'Order was successfully saved.'
+      session[:line_errors] = nil
+      session[:bad_items] = nil
       redirect_to :controller => 'summary'
       return
     else
@@ -93,15 +124,21 @@ class Customer::OrderController < ApplicationController
   
   private
   def save_line_items
-    @line_errors = []
+    line_errors = []
+    bad_items = []
     params[:products].each do |key,value|
       # see if the line item is already a part of this order
       if !(item = @order.line_items.detect {|i| i.product_id == key.to_i})
         item = LineItem.new(:product_id => key, :quantity => value.to_i, :order_id => @order.id)
       end
       item.quantity = value.to_i
-      item.errors.each{|e| @line_errors << e} unless item.save
+      unless item.save
+        item.errors.each{|e| line_errors << e} 
+        bad_items << item.product_id
+      end
     end
-    return @line_errors.size == 0
+    session[:line_errors] = line_errors
+    session[:bad_items] = bad_items
+    return line_errors.size == 0
   end
 end

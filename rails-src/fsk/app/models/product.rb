@@ -27,23 +27,26 @@ class Product < ActiveRecord::Base
           "where    l.order_id = o.id "+
           "and	    l.product_id = p.id "+
           "and      p.id = #{id}"
-    ActiveRecord::Base.connection.select_one(sql)['remaining']
+    remaining = ActiveRecord::Base.connection.select_one(sql)['remaining']
+    # if this result returns nil, there are no line items for this product
+    if remaining.nil?
+      quantity
+    else
+      remaining
+    end
   end
   
   def too_many(item)
-    return false
+    sql = "select	p.quantity - SUM(l.quantity) as remaining "+
+          "from	    fsk_lineitems l, fsk_orders o, fsk_products p "+
+          "where    l.order_id = o.id "+
+          "and	    l.product_id = p.id "+
+          "and      p.id = #{id} "
     if (item.id)
-      sql = "select	p.quantity - SUM(l.quantity) as remaining "+
-            "from	    fsk_lineitems l, fsk_orders o, fsk_products p "+
-            "where    l.order_id = o.id "+
-            "and	    l.product_id = p.id "+
-            "and      p.id = #{id} "+
-            "and      l.id <> #{item.id}"
-      remaining = ActiveRecord::Base.connection.select_one(sql)['remaining']
-      return quantity < item.quantity + remaining.to_i
-    else 
-      return false
+          sql << "and      l.id <> #{item.id}"
     end
+    remaining = ActiveRecord::Base.connection.select_one(sql)['remaining']
+    return quantity < item.quantity + remaining.to_i
   end
   
   protected
