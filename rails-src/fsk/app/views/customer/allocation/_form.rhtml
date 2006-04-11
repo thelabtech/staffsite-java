@@ -77,7 +77,7 @@
     end 
     %></p>
 
-<p><label for="allocation_local_notes">local_notes</label><br/>
+<p><label for="allocation_local_notes">Local Notes</label><br/>
 <%= if @user.can_modify_field?("local_notes") 
         text_area 'allocation', 'local_notes'
     else
@@ -85,10 +85,6 @@
     end 
     %></p>
 
-<!--
-<p><label for="allocation_ssm_id">SSM ID</label><br/>
-<%= @allocation.ssm_id %>
 <%= hidden_field 'allocation', 'ssm_id' %></p>
--->
 <!--[eoform:allocation]-->
 
