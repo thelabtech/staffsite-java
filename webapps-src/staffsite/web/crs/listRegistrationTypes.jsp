@@ -69,22 +69,8 @@ try{
 			WIDTH="100%"
 			CLASS="box">
 			<TR>
-				<TD
-					CLASS="boxheader"
-					COLSPAN="4">Manage Registrant Types, Questions & Financial Details</TD>
+				<TD	CLASS="boxheader" COLSPAN="4">Manage Registrant Types, Questions & Financial Details</TD>
 			</TR>
-			<TR>
-				<TD
-					CLASS="cell"
-					COLSPAN="2">NOTE: This is a new feature! Please read the
-				instructions at the bottom of the page before proceeding.</TD>
-			</TR>
-			
-			</TABLE>
-			
-			<P>
-			
-			<TABLE BORDER="0" CELLSPACING="0" WIDTH="100%" CLASS="box">
 			<TR>
 			<TD  COLSPAN="4" CLASS="subboxheader">Existing Registrant Types (Includes Questions & Financial Details)</TD>
 			</TR>
