@@ -615,8 +615,11 @@ try{
 				<TD CLASS="cell">
 				<p><b>NEW!</b> Several new features have been added to the CRS. The 
 				first is called Cloaked Conference. By selecting "Yes", any mention
-				of Campus Crusade for Christ will be removed. This option can be used
-				in conferences  
+				of Campus Crusade for Christ will be removed. This can be very useful 
+				where you have to be sensitive to the Christian nature of our 
+				organization. Another new feature is that you can label your conference
+				according to the branch of your ministry. Currently, we only have 
+				labels for "Student	Venture" and "Bridges". </p> 
 				
 				<p>Complete all required (<FONT CLASS="required">yellow</FONT>)
 				fields. The CRS will use the information entered to generate a home
