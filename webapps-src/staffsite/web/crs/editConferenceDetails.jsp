@@ -628,7 +628,7 @@ try{
 				form from your website), but it will be there for you if you need
 				it.</p>
 				<p><a
-					href="JavaScript: popupWindow('/crs/images/pic.jsp?pic=sampleUserView.gif', 'UserManual', 'height=777,width=777,dependent=yes,scrollbars=no,resizable')"
+					href="JavaScript: popupWindow('/crs/images/pic.jsp?pic=sampleUserView.gif', 'UserManual', 'height=870,width=772,dependent=yes,scrollbars=no,resizable')"
 					CLASS="button">View a Sample Home Page</a></p>
 				<p>
 				If you will be accepting credit card payments for this event,
