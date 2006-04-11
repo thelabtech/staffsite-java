@@ -31,11 +31,16 @@ class ApplicationController < ActionController::Base
   end
   
   def get_user_region
-    username = get_user.user.username
+    staff = get_staff(session[:user_id])
+    staff.region
+  end
+
+  def get_staff(ssm_id)
+    ssm_user = User.find(:first, :conditions => ["userID = ?", ssm_id])
+    username = ssm_user.username
     profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])
     accountNo = profile.accountNo
     staff = Staff.find(:first, :conditions => ["accountNo = ?", accountNo])
-    staff.region
   end
   
   def get_user
