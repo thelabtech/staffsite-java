@@ -20,8 +20,9 @@ class Customer::AllocationController < ApplicationController
   def new
     @allocation = Allocation.new
     #for local users:
-    @allocation.region_id = get_user_region
-    @allocation.ssm_id = get_user.user.id
+    user_region_code = get_user_region
+    @allocation.region_id = Region.find(:first, :conditions => ["region = ?", user_region_code]).teamID
+    @allocation.ssm_id = session[:victim_id] || get_user.user.id
     #for rest:
     @allocation.attributes = check_params(params[:allocation])
     @user = get_user
@@ -30,12 +31,13 @@ class Customer::AllocationController < ApplicationController
   def create
     @allocation = Allocation.new()
     @allocation.allocation_year = get_year
-    @allocation.region_id = get_user_region
+    user_region_code = get_user_region
+    @allocation.region_id = Region.find(:first, :conditions => ["region = ?", user_region_code]).teamID
     @allocation.ssm_id = get_user.user.id
     @allocation.attributes = check_params(params[:allocation])
     if (get_user.can_modify_allocation?(@allocation) and @allocation.save)
       flash[:notice] = 'Allocation was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :controller => "summary", :action => "local_summary"
     else
       render :action => 'new'
     end
@@ -59,7 +61,7 @@ class Customer::AllocationController < ApplicationController
       render :action => 'edit'
     else
       flash[:notice] = 'Allocation was successfully updated.'
-      redirect_to :action => 'show', :id => @allocation.id
+      redirect_to :controller => "summary", :action => "local_summary"
     end
   end
 
