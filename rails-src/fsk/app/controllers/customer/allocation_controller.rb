@@ -19,13 +19,13 @@ class Customer::AllocationController < ApplicationController
 
   def new
     @allocation = Allocation.new
-    #for local users:
+    #region_id and ssm_id really only useful for local users:
     user_region_code = get_user_region
     @allocation.region_id = Region.find(:first, :conditions => ["region = ?", user_region_code]).teamID
     @allocation.ssm_id = session[:victim_id] || get_user.user.id
-    #for rest:
     @allocation.attributes = check_params(params[:allocation])
     @user = get_user
+    @regions = Region.standard_regions
   end
 
   def create
@@ -46,8 +46,7 @@ class Customer::AllocationController < ApplicationController
   def edit
     @allocation = Allocation.find(params[:id])
     @user = get_user
-    logger.info("user:")
-    logger.info(@user)
+    @regions = Region.standard_regions
   end
   
   def update
