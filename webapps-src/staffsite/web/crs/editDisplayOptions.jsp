@@ -69,10 +69,13 @@ try{
 			alert("You must enter 6 characters for a color, 0-9 or a-f");
 			form.RequiredColor.focus();
 		} else if(BGcolor==FGcolor){
-			alert("You must choose 2 different colors for the Background Color and Title Color.");
+			alert("You must choose 2 different colors for the Background Color and Text Color.");
 			form.BackgroundColor.focus();
+		} else if(FGcolor==HLcolor2){
+			alert("You must choose 2 different colors for the Text Color and Title Box Text.");
+			form.ForegroundColor.focus();
 		} else if(HLcolor==HLcolor2) {
-			alert("You must choose 2 different colors for the Title Color and Title Box Text.");
+			alert("You must choose 2 different colors for the Title Box and Title Box Text.");
 			form.ForegroundColor.focus();
 		} else if(HLcolor2==Rcolor){
 			alert("You must choose 2 different colors for the Title Box Text and Required Color.");
