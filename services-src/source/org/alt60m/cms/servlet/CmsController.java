@@ -209,7 +209,7 @@ public class CmsController extends Controller {
 				}
 
 				// set moderator permissions
-				if (usersRoles.containsKey((String) profile.get("UserName"))) {
+				if (usersRoles.containsKey(profile.get("UserName").toString().toLowerCase())) {
 					tub.put("Moderator", "true");
 				} else {
 					tub.put("Moderator", "false");
@@ -757,7 +757,7 @@ public class CmsController extends Controller {
 			//			HttpSession session = ctx.getSession();
 			Hashtable profile = (Hashtable) ctx.getSessionValue("profile");
 			String submitter = (String) profile.get("FirstName") + " " + (String) profile.get("LastName");
-			if (submitter.equals((String) f.get("Submitter")) & !usersRoles.containsKey((String) profile.get("UserName"))) {
+			if (submitter.equals((String) f.get("Submitter")) & !usersRoles.containsKey(profile.get("UserName").toString().toLowerCase())) {
 				ar.putValue("Submitter", "true");
 			} else {
 				ar.putValue("Submitter", "false");
@@ -863,7 +863,7 @@ public class CmsController extends Controller {
 			// set moderator permissions
 			Hashtable profile = (Hashtable) ctx.getSessionValue("profile");
 			String submitter = (String) profile.get("FirstName") + " " + (String) profile.get("LastName");
-			if (usersRoles.containsKey((String) profile.get("UserName")) || submitter.equals((String) f.get("Submitter"))) {
+			if (usersRoles.containsKey(profile.get("UserName").toString().toLowerCase()) || submitter.equals((String) f.get("Submitter"))) {
 				ar.putValue("Moderator", "true");
 			} else {
 				ar.putValue("Moderator", "false");
