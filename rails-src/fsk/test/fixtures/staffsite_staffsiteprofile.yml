@@ -1,0 +1,16 @@
+Josh_profile:
+  StaffSiteProfileID: 1
+  username: josh.starcher@uscm.org
+  accountNo: 000000123
+Jeff_profile:
+  StaffSiteProfileID: 2
+  username: jeff.west@ccci.org
+  accountNo: 000000124
+Joe_profile:
+  StaffSiteProfileID: 3
+  username: joe.staffguy@uscm.org
+  accountNo: 000000125
+Matt_profile:
+  StaffSiteProfileID: 4
+  username: matthew.drees@uscm.org
+  accountNo: 000575620

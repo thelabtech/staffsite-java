@@ -1,0 +1,37 @@
+
+
+<%= render :partial => 'regional_table', :collection => @report.regional_reports %>
+
+<h3>National</h3>
+
+<br><table id="summary">
+<%= render :partial => 'regional_table_header'   %>
+  
+<tr class="header">
+    <td width="9%">National Total:</td>
+
+    <td width="9%"><%= @report.totals["impact_allotment"]%></td>
+    <td width="9%"><%= @report.totals["forerunner_allotment"]%></td>
+    <td width="9%"><%= @report.totals["regional_allotment"]%></td>
+    <td width="9%"><%= @report.totals["regionally_raised"]%></td>
+    <td width="9%"><%= @report.totals["locally_raised"]%></td>
+
+    <td width="9%"><%= @report.totals["total_kits"]%></td>
+    <td width="9%"><%= @report.totals["kit_orders_pending"]%></td>
+    <td width="9%"><%= @report.totals["kits_not_yet_ordered"]%></td>
+    <td width="9%"></td>
+    <td width="9%"></td>
+</tr>	 
+
+</table>
+            
+<br><br>*If someone you have allocated kits to does not show up in this list,
+please <a href="mailto:dan.hardaway@uscm.org?subject=FSK%20Choice%20-%20Region%20not%20set%20%28include%20name%20and%20region%29">email us</a> with 
+their name and region and we'll fix it. Don't worry, their allocation has been saved. The problem is that they aren't associated 
+with your region yet.
+
+
+<br><br>**If you haven't emailed your regional account number for ongoing ministry money to Jonathan Haight yet, 
+please do so by emailing <a href="mailto:Jonathan.Haight@uscm.org?subject=FSK%20Site%20-%20regional%20account%20#">Jonathan.Haight@uscm.org</a>. 
+Be sure to include your region name. Thank you.
+<br>

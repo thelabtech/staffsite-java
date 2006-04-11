@@ -1,0 +1,46 @@
+
+<h3> <%= regional_table.region_name %> </h3>
+
+<br><table id="summary">
+<%= render :partial => 'regional_table_header' %>
+<%
+    regional_table.report_records.each do |record| 
+%>
+					  <tr>
+						<td><%= record.lastName %>, <%= record.firstName %></td>
+
+						<td><%= record.impact_allotment || 0 %></td>
+						<td><%= record.forerunner_allotment || 0 %></td>
+						<td><%= record.regional_allotment || 0 %></td>
+						<td><%= record.regionally_raised || 0 %></td>
+						<td><%= record.locally_raised || 0 %></td>
+
+						<td><%= record.total_kits || 0 %></td>
+						<td><%= record.kit_orders_pending || 0 %></td>
+						<td><%= record.kits_not_yet_ordered || 0 %></td>
+						<td><%= link_to "[view allocation]", {:controller => "allocation", :action => "edit", :id => record.id}%></td>
+						<td><%= link_to "[view summary]", {:controller => "summary", :action => "local_summary", :user_id => record.ssm_id}%></td>
+
+					  </tr>
+
+<%
+    end
+%>
+
+<tr class="header">
+		<td><%= regional_table.region_code %> Total:</td>
+
+		<td><%= regional_table.totals["impact_allotment"] || 0%></td>
+		<td><%= regional_table.totals["forerunner_allotment"] || 0%></td>
+		<td><%= regional_table.totals["regional_allotment"] || 0%></td>
+		<td><%= regional_table.totals["regionally_raised"] || 0%></td>
+		<td><%= regional_table.totals["locally_raised"] || 0%></td>
+
+		<td><%= regional_table.totals["total_kits"] || 0%></td>
+		<td><%= regional_table.totals["kit_orders_pending"] || 0%></td>
+		<td><%= regional_table.totals["kits_not_yet_ordered"] || 0%></td>
+		<td></td>
+		<td></td>
+</tr>
+
+</tbody></table>

@@ -24,23 +24,22 @@ class ReportRecord < ActiveRecord::Base
   
   
   @@all_records_sql = 
-"SELECT     staffPerson.firstName, staffPerson.lastName, alloc.*, " +
+"SELECT     staffPerson.firstName, staffPerson.lastName, region.region, alloc.*, " +
 "  (SELECT     SUM(fsk_orders.total_kits) " +
 "  FROM          fsk_orders " +
 "  WHERE      alloc.ssm_id = fsk_orders.ssm_id and fsk_orders.type = 'kit' ) AS kit_orders_pending " +
-"FROM         fsk_allocations alloc, simplesecuritymanager_user ssm, staffsite_staffsiteprofile profile, ministry_staff staffPerson " +
-"Where  alloc.ssm_id = ssm.userId and ssm.username = profile.username and profile.accountNo = staffPerson.accountNo"
+"FROM         fsk_allocations alloc, simplesecuritymanager_user ssm, staffsite_staffsiteprofile profile, ministry_staff staffPerson, ministry_regionalteam region " +
+"Where  alloc.ssm_id = ssm.userId and ssm.username = profile.username and profile.accountNo = staffPerson.accountNo and alloc.region_id = region.teamId"
 
   @@regional_records_sql = 
-"SELECT     staffPerson.firstName, staffPerson.lastName, alloc.*, " +
+"SELECT     staffPerson.firstName, staffPerson.lastName, region.region, alloc.*, " +
 "  (SELECT     SUM(fsk_orders.total_kits) " +
 "  FROM          fsk_orders " +
 "  WHERE      alloc.ssm_id = fsk_orders.ssm_id and fsk_orders.type = 'kit' ) AS kit_orders_pending " +
 "FROM         fsk_allocations alloc, simplesecuritymanager_user ssm, staffsite_staffsiteprofile profile, ministry_staff staffPerson, ministry_RegionalTeam region " +
 "Where  alloc.ssm_id = ssm.userId and ssm.username = profile.username and profile.accountNo = staffPerson.accountNo and alloc.region_id = region.teamID and region.region = "
-
   def self.records_for_region(region)
-    find_by_sql(@@regional_records_sql + "'#{region}'")
+    find_by_sql(@@all_records_sql + " and region.region = '#{region}'")
   end
   
   def self.all_records()

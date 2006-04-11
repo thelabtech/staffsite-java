@@ -34,3 +34,15 @@ joe:
   emailVerified: false
   password: or287kSFOQl+OfT55iwtQA==
   globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F7
+matt:
+  userID: 4
+  lastLogin: 2006/02/23 00:00:00
+  lastFailure: 
+  lastFailureCnt: 0
+  username: matthew.drees@uscm.org
+  passwordQuestion: "City of Joshua's birth?"
+  createdOn: 2005/03/31 00:00:00
+  passwordAnswer: abidjan
+  emailVerified: false
+  password: or287kSFOQl+OfT55iwtQA==
+  globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F9

@@ -1,3 +1,5 @@
+<h3> Summary for <%= @staff.firstName + " " + @staff.lastName%> </h3>
+<br/>
 <%= link_to "Place an order", {:controller => "order"} %>
 <br/>
 <%= link_to "Create an allocation", {:controller => "allocation", :action => "new"}%>
@@ -9,7 +11,7 @@
 <table>
 	<tbody><tr><td>
 		<table border="1" cellpadding="5" cellspacing="0">
-			<tbody><tr><td colspan="2" align="left" bgcolor="#336699"><font color="#ffffff" face="Arial" size="2"><b>Kit Allotment Summary(<%= allocation.region_id%>):</b></font></td></tr>
+			<tbody><tr><td colspan="2" align="left" bgcolor="#336699"><font color="#ffffff" face="Arial" size="2"><b>Kit Allotment Summary (<%= allocation.region.region%>):</b></font></td></tr>
 			<tr><td bgcolor="#d0ddea">Locally Raised <%= link_to "(Edit)", {:controller => "allocation", :action => "edit", :id => allocation.id} %></a></td>
 
 				<td><%= allocation.locally_raised || 0 %></td></tr>
