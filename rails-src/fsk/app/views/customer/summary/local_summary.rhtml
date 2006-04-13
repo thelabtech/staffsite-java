@@ -4,9 +4,7 @@
 <br/>
 <%= link_to "Create an allocation", {:controller => "allocation", :action => "new"}%>
 <br/>
-<%
-    for allocation in @allocations do
-%>
+<%@allocations.each do |allocation| %>
 
 <table>
 <<<<<<< .mine
@@ -47,9 +45,7 @@
 	
 </tr></table>
 
-<%
-    end
-%>
+<% end %>
 
 <table>
 	<tbody><tr><td>

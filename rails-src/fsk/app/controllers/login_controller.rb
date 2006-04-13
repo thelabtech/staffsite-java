@@ -9,7 +9,7 @@ class LoginController < ApplicationController
   end
 
   def index
-  	if session[:user_id]
+  	if session[:user].userID
       redirect_to(:action => 'index', :controller => 'person' )
   	else
       redirect_to(:action => 'login')
@@ -18,13 +18,13 @@ class LoginController < ApplicationController
 
   def login
     if request.get?
-      session[:user_id] = nil
+      session[:user].userID = nil
       @auth = User.new
   	else
       @auth = User.new(params[:auth])
       logged_in_auth = @auth.try_to_login
 	  if logged_in_auth
-        session[:user_id] = logged_in_auth.id
+        session[:user].userID = logged_in_auth.id
   		jumpto = session[:jumpto] || { :controller => "customer/summary", :action => "index" }
         session[:jumpto] = nil
     	redirect_to(jumpto)
@@ -36,7 +36,7 @@ class LoginController < ApplicationController
   end
   
   def logout
-  	session[:user_id] = nil
+  	session[:user].userID = nil
  	redirect_to(:action => 'index', :controller => 'login')
   end
 

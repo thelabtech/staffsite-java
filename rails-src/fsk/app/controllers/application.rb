@@ -2,16 +2,16 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'cas'
 class ApplicationController < ActionController::Base
-  before_filter CAS::CASFilter
-  before_filter :authorize
+  before_filter CAS::CASFilter, :authenticate, :authorize
 	
   def authenticate 
-    unless session[:user_id]
-      session[:jumpto] = request.parameters
-      return redirect_to_login("Please log in")
-    else
-      @person = @me = @my = User.find(session[:user_id]).person
-      @my_entry = true
+    unless session[:user]
+      if session[:cas_receipt][:user]
+        session[:user] = User.find_by_username(session[:cas_receipt][:user])
+      else 
+        #we've got a problem
+        raise "Cas Authentication Failure"
+      end
 	end
   end
   
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_user_region
-    staff = get_staff(session[:user_id])
+    staff = get_staff(session[:user].userID)
     staff.region
   end
 
@@ -55,6 +55,6 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user_id
-    return session[:user_id]
+    return session[:user].userID
   end
 end

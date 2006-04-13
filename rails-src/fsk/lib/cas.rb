@@ -69,7 +69,10 @@ module CAS
             end
 
             cas_receipt = validate_ticket(service, ticket)
-            return false if cas_receipt.nil?
+            if cas_receipt.nil?
+              controller.redirect_to "https://#{CAS_SERVER_URL}/cas/login?service=#{service}"
+              return false 
+            end
 			# put the information cas gave back into the session
 			controller.session[:cas_receipt] = cas_receipt
             return true
@@ -87,8 +90,8 @@ module CAS
         def self.validate_ticket(service, ticket)
             http = Net::HTTP.new(CAS_SERVER_URL, PORT)
             http.use_ssl = true
-            breakpoint
-            page = http.get("/cas/serviceValidate?service=#{service}&ticket=#{ticket}")
+            response = http.get("/cas/serviceValidate?service=#{service}&ticket=#{ticket}")
+            page = response.body
 
             # Parse XML document returned by CAS server
             doc = REXML::Document.new(page)
@@ -97,32 +100,17 @@ module CAS
             return if REXML::XPath.first(doc, 'cas:serviceResponse/cas:authenticationSuccess',
                 'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').nil?
 
-            # Parse text values for NetID and UIN
+            # Parse text values 
             cas_receipt = Hash.new
             cas_receipt[:user] = REXML::XPath.first(doc,
                 'cas:serviceResponse/cas:authenticationSuccess/cas:user',
                 'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-            cas_receipt[:designation] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/designation',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:peopleid] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/peopleid',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:authnRealm] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/authnRealm',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:emplid] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/emplid',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:firstName] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/firstName',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:lastName] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/lastName',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
-			cas_receipt[:ssoGuid] = REXML::XPath.first(doc,
-                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes/',
-                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas').get_text.value
+            attributes = REXML::XPath.first(doc,
+                'cas:serviceResponse/cas:authenticationSuccess/cas:attributes',
+                'cas:serviceResponse' => 'http://www.yale.edu/tp/cas')
+            attributes.elements.each do |element|
+              cas_receipt[element.name.to_sym] = element.has_text? ? element.get_text.value : nil
+            end
             return cas_receipt
         end
     end

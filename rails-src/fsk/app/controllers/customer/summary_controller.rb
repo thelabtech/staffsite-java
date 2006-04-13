@@ -36,10 +36,10 @@ class Customer::SummaryController < ApplicationController
     if (get_user.role.name == "regional" or get_user.role.name == "national")
       session[:victim_id] = params[:user_id] || session[:victim_id]
     else
-      session[:victim_id] = session[:user_id]
+      session[:victim_id] = session[:user].userID
     end
     @allocations = Allocation.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
-    @staff = get_staff(session[:user_id])
+    @staff = get_staff(session[:user].userID)
     puts "victim id: " + session[:victim_id].to_s
     puts "allocations: " + @allocations.size.to_s
     @kit_orders = KitOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])

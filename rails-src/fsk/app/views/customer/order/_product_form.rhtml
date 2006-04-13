@@ -5,7 +5,7 @@
 <p>All quantities must be in multiples of 100.</p>
 <% Product.find_by_sql(Product.product_sql).each do |product| %>
 	<p><label for="product_<%=product.id%>"><%=product.name%> (<%=product.price%> each):</label><br/>
-	<% if @bad_items.include?(product.id) %>
+	<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 		<div class="fieldWithErrors">
 	<% end %>
 	<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" 
@@ -14,10 +14,10 @@
 			disabled="disabled"
 		<%end%>
 	>
-	<% if @bad_items.include?(product.id) %>
+	<%=product.remaining%> Remaining
+	<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 		</div>
 	<% end %>
-	<%=product.remaining%> Remaining
 	</p>
 <% end %>
 <%= render :partial => 'chartfield' %>
