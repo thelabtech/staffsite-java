@@ -1,7 +1,8 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'cas'
 class ApplicationController < ActionController::Base
-  before_filter :authenticate, :except => :login
+  before_filter CAS::CASFilter
   before_filter :authorize
 	
   def authenticate 
