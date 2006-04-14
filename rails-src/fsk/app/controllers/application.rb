@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 	
   def authenticate 
     unless session[:user]
-      if session[:cas_receipt][:user]
+      if session[:cas_receipt] && session[:cas_receipt][:user]
         session[:user] = User.find_by_username(session[:cas_receipt][:user])
       else 
         #we've got a problem
@@ -40,10 +40,16 @@ class ApplicationController < ActionController::Base
     ssm_user = User.find(:first, :conditions => ["userID = ?", ssm_id])
     username = ssm_user.username
     profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])
-    accountNo = profile.accountNo
-    staff = Staff.find(:first, :conditions => ["accountNo = ?", accountNo])
+    account_no = profile.accountNo
+    staff = Staff.find(:first, :conditions => ["accountNo = ?", account_no])
   end
   
+  def get_user_by_account_no(account_no)
+    profile = StaffsiteProfile.find(:first, :conditions => ["accountNo = ?", account_no])
+    username = profile.userName
+    ssm_user = User.find(:first, :conditions => ["username = ?", username])
+  end
+
   def get_user
     user = FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
     if (user.nil?)
