@@ -36,7 +36,7 @@ class LoginController < ApplicationController
   end
   
   def logout
-  	session[:user].userID = nil
+  	session[:user] = nil
  	redirect_to(:action => 'index', :controller => 'login')
   end
 
