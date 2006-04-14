@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "am_friends_people", :id => false, :force => true do |t|
     t.column "friend_id", :integer, :limit => 10, :default => 0, :null => false
@@ -575,6 +575,7 @@ ActiveRecord::Schema.define(:version => 9) do
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "kit_category_id", :integer
+    t.column "availability", :string, :limit => 20, :default => "both", :null => false
   end
 
   add_index "fsk_products", ["kit_category_id"], :name => "FK_fsk_products_1"
@@ -2325,30 +2326,6 @@ ActiveRecord::Schema.define(:version => 9) do
 
   add_index "ministry_newaddress", ["fk_PersonID"], :name => "IX_ministry_NewAddress"
 
-  create_table "ministry_newaddress_backup20050215", :id => false, :force => true do |t|
-    t.column "AddressID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "startdate", :datetime
-    t.column "enddate", :datetime
-    t.column "address1", :string, :limit => 50
-    t.column "address2", :string, :limit => 50
-    t.column "address3", :string, :limit => 50
-    t.column "address4", :string, :limit => 50
-    t.column "city", :string, :limit => 50
-    t.column "state", :string, :limit => 6
-    t.column "zip", :string, :limit => 10
-    t.column "country", :string, :limit => 64
-    t.column "homePhone", :string, :limit => 25
-    t.column "workPhone", :string, :limit => 25
-    t.column "cellPhone", :string, :limit => 25
-    t.column "fax", :string, :limit => 25
-    t.column "email", :string, :limit => 70
-    t.column "url", :string, :limit => 100
-    t.column "contactName", :string, :limit => 50
-    t.column "contactRelationship", :string, :limit => 50
-    t.column "addressType", :string, :limit => 20
-    t.column "fk_PersonID", :integer, :limit => 10
-  end
-
   create_table "ministry_noncccmin", :id => false, :force => true do |t|
     t.column "NonCccMinID", :integer, :limit => 10, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
@@ -2420,47 +2397,6 @@ ActiveRecord::Schema.define(:version => 9) do
     t.column "fk_StaffSiteProfileID", :integer
     t.column "fk_spouseID", :integer
     t.column "fk_childOf", :integer
-  end
-
-  create_table "ministry_person_backup20050215", :id => false, :force => true do |t|
-    t.column "personID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "accountNo", :string, :limit => 11
-    t.column "username", :string, :limit => 200
-    t.column "lastName", :string, :limit => 50
-    t.column "firstName", :string, :limit => 50
-    t.column "middleName", :string, :limit => 50
-    t.column "preferredName", :string, :limit => 50
-    t.column "phone", :string, :limit => 25
-    t.column "email", :string, :limit => 70
-    t.column "gender", :string, :limit => 1
-    t.column "birthDate", :datetime
-    t.column "dateBecameChristian", :datetime
-    t.column "region", :string, :limit => 5
-    t.column "workInUS", :boolean, :default => false, :null => false
-    t.column "usCitizen", :boolean, :default => false, :null => false
-    t.column "citizenship", :string, :limit => 50
-    t.column "isStaff", :boolean, :default => false, :null => false
-    t.column "title", :string, :limit => 5
-    t.column "campus", :string, :limit => 128
-    t.column "universityState", :string, :limit => 5
-    t.column "yearInSchool", :string, :limit => 20
-    t.column "graduationDate", :datetime
-    t.column "major", :string, :limit => 70
-    t.column "greekAffiliation", :string, :limit => 50
-    t.column "maritalStatus", :string, :limit => 20
-    t.column "marriageDate", :datetime
-    t.column "spouseVerified", :string, :limit => 1
-    t.column "numberChildren", :string, :limit => 2
-    t.column "isChild", :boolean, :default => false, :null => false
-    t.column "isInPeopleSoft", :boolean, :default => false, :null => false
-    t.column "dateCreated", :datetime
-    t.column "dateChanged", :datetime
-    t.column "changedBy", :string, :limit => 50
-    t.column "fk_ssmUserId", :integer, :limit => 10
-    t.column "fk_StaffSiteProfileID", :integer, :limit => 10
-    t.column "fk_spouseID", :integer, :limit => 10
-    t.column "fk_childOf", :integer, :limit => 10
-    t.column "fk_infobaseID", :integer, :limit => 10
   end
 
   create_table "ministry_regionalstat", :id => false, :force => true do |t|
@@ -3535,7 +3471,7 @@ ActiveRecord::Schema.define(:version => 9) do
   add_index "staffsite_staffsitepref", ["name"], :name => "index2"
 
   create_table "staffsite_staffsiteprofile", :id => false, :force => true do |t|
-    t.column "StaffSiteProfileID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "StaffSiteProfileID", :integer, :limit => 10, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
     t.column "firstName", :string, :limit => 64
     t.column "lastName", :string, :limit => 64

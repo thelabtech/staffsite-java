@@ -19,7 +19,7 @@
 		<a href="https://staff.campuscrusadeforchrist.com/servlet/CmsController">Resources</a>
 
 		<a href="https://staff.campuscrusadeforchrist.com/links.jsp">Links</a>
-		<a href="javascript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help</a>
+		<a href="#" onclick="javascript:window.open('https://staff.campuscrusadeforchrist.com/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable');return false">Help</a>
 	</div>
 
 </div> <!-- end top-pane-->		
@@ -28,7 +28,7 @@
 <%= "<h2>#@title</h2>" if @title%>
 	
 	<div id="help">
-		<a href="#" onclick="window.open('/fsk/help.htm', 'Help', 'height=525,width=500,dependent=yes,scrollbars=yes,resizable')">FSK Help?</a>
+		<a href="#" onclick="window.open('/help.html', 'Help', 'height=525,width=500,dependent=yes,scrollbars=yes,resizable')">FSK Help?</a>
 		<a href="/customer/summary">FSK Choice Home</a>
 	</div>
 

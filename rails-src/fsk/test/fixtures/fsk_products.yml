@@ -1,5 +1,35 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+fsk_products_001: 
+  name: Bags
+  updated_at: 0000-00-00 00:00:00
+  price: "0.64"
+  quantity: "20000"
+  image_filename: ''
+  id: "1"
+  version: "0"
+  description: Laundry Bag
+  kit_category_id: "1"
+  created_at: 0000-00-00 00:00:00
+fsk_products_002: 
+  name: NIV New Testament
+  updated_at: 0000-00-00 00:00:00
+  price: "0.33"
+  quantity: "50000"
+  image_filename: ''
+  id: "2"
+  version: "0"
+  description: "With a new cover for 2004, this light weight NIV New Testament has life@large on
+    the inside of the front cover. The perfect campus Bible."
+  kit_category_id: "2"
+  created_at: 0000-00-00 00:00:00
+fsk_products_003: 
+  name: "My City, My God"
+  updated_at: 0000-00-00 00:00:00
+  price: "0.33"
+  quantity: "90000"
+  image_filename: ''
+  id: "3"
+  version: "0"
+  description: "My City, My God New Testament..."
+  kit_category_id: "2"
+  created_at: 0000-00-00 00:00:00

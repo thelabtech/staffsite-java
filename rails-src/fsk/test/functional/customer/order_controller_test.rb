@@ -11,8 +11,28 @@ class Customer::OrderControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_place_kit_order
+    get :place_kit_order
+  end
+  
+  def test_place_product_order
+  end
+  
+  def test_create_kit_order
+  end
+  
+  def test_create_product_order
+  end
+  
+  def test_edit_kit_order
+  end
+  
+  def test_edit_product_order
+  end
+  
+  def test_update_kit_order
+  end
+  
+  def test_update_product_order
   end
 end

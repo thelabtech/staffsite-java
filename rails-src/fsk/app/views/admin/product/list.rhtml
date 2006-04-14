@@ -9,15 +9,17 @@ for product in @products
 %>
   <tr valign="top" class="ListLine<%= odd_or_even%>">
     <td>
-      <img width="70" height="70" src="<%= product.image_filename %>">
+			<img src="<%=url_for_file_column(product, "image_filename")%>" />
     </td>
-    <td width = "60%">
-      <span class="ListTitle"><%= h product.name %></span><br/>
-      <%= h truncate(product.description, 80) %>
+    <td width = "50%">
+      <strong>Name: </strong><%= h product.name %><br/>
+      <strong>Category: </strong><%= h product.kit_category.name %><br/>
+      <strong>Discription: </strong><%= h truncate(product.description, 80) %>
     </td>
     <td align="right">
-      Quantity: <%= product.quantity %><br/>
-      <strong>$<%= sprintf("%0.2f", product.price)%></strong>
+      <strong>Quantity: </strong><%= product.quantity %><br/>
+      <strong>Price: </strong>$<%= sprintf("%0.2f", product.price)%>
+      <strong>Availability: </strong><%=product.availability%>
     </td>
     <td class="ListActions">
       <%= link_to 'Show', :action => 'show', :id => product %><br/>

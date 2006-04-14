@@ -5,10 +5,25 @@
 <%= text_field 'product', 'name'  %></p>
 
 <p><label for="product_description">Description</label><br/>
-<%= text_field 'product', 'description'  %></p>
+<%= text_area 'product', 'description', "rows" => 10  %></p>
 
-<p><label for="product_image_filename">Image filename</label><br/>
-<%= text_field 'product', 'image_filename'  %></p>
+<p><label for="product_kit_category_id">Category</label><br/>
+<%= 
+	@categories = KitCategory.find(:all, :order => "name")
+	collection_select('product', 'kit_category_id', @categories, :id, :name)
+%></p>
+
+<p><label for="product_availability">Availability</label><br/>
+<%= 
+	@availabilities = [ ['Both', 'both'],
+											['Kit Only', 'kit'],
+											['Individual Only', 'individual'],
+											['Not Available', 'neither'] ]
+	select('product', 'availability', @availabilities)
+%></p>
+
+<p><label for="product_image_filename">Image</label><br/>
+<%= file_column_field "product", "image_filename" %></p>
 
 <p><label for="product_price">Price</label><br/>
 <%= text_field 'product', 'price'  %></p>
@@ -16,13 +31,8 @@
 <p><label for="product_quantity">Quantity</label><br/>
 <%= text_field 'product', 'quantity'  %></p>
 
-<p><label for="product_version">Version</label><br/>
-<%= text_field 'product', 'version'  %></p>
+<p>Created at: <%=@product.created_at%></p>
 
-<p><label for="product_created_at">Created at</label><br/>
-<%= datetime_select 'product', 'created_at'  %></p>
-
-<p><label for="product_updated_at">Updated at</label><br/>
-<%= datetime_select 'product', 'updated_at'  %></p>
+<p>Updated at: <%=@product.updated_at%></p>
 <!--[eoform:product]-->
 

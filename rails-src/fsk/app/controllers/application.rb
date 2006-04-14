@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     unless session[:user]
       if session[:cas_receipt] && session[:cas_receipt][:user]
         session[:user] = User.find_by_username(session[:cas_receipt][:user])
+        if session[:user].nil? then raise session[:cas_receipt].inspect end
       else 
         #we've got a problem
         raise "Cas Authentication Failure"
@@ -37,6 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_staff(ssm_id)
+    if ssm_id.nil? then raise session[:user].inspect end
     ssm_user = User.find(:first, :conditions => ["userID = ?", ssm_id])
     username = ssm_user.username
     profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])

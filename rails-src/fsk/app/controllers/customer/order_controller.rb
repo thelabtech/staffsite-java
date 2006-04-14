@@ -5,24 +5,16 @@ class Customer::OrderController < ApplicationController
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @order_pages, @orders = paginate :orders, :per_page => 10
-  end
-
-  def show
-    @order = Order.find(params[:id])
-  end
+  verify :method => :post, :only => [ :create_kit_order, :create_product_order, :update_kit_order, :update_product_order ],
+         :redirect_to => { :action => :place_kit_order }
 
   def place_kit_order
-    place_order
+    place_order('kit')
   end
   def place_product_order
-    place_order
+    place_order('individual')
   end
-  def place_order  
+  def place_order(type)
     session[:line_errors] = nil
     session[:bad_items] = nil
     @title = "New Order"
@@ -34,7 +26,7 @@ class Customer::OrderController < ApplicationController
         @products[key.to_i] = value.to_i
       end
     else
-      Product.find(:all).each do |product|
+      Product.find(:all, :conditions => ["availability = ? OR availability = 'both'", type]).each do |product|
         @products[product.id] = 0
       end
     end
@@ -57,7 +49,7 @@ class Customer::OrderController < ApplicationController
     @order.ssm_id = session[:victim_id]
     @order.order_year = get_year
     if @order.save 
-      if save_line_items
+      if save_line_items && @order.valid?
         session[:line_errors] = nil
         session[:bad_items] = nil
         flash[:notice] = 'Order was successfully created.'
@@ -105,7 +97,8 @@ class Customer::OrderController < ApplicationController
   
   def update(type)
     @order = Order.find(params[:id])
-    if save_line_items && @order.update_attributes(params[:order])
+    if save_line_items && @order.update_attributes(params[:order]) && @order.valid?
+      breakpoint
       flash[:notice] = 'Order was successfully saved.'
       session[:line_errors] = nil
       session[:bad_items] = nil

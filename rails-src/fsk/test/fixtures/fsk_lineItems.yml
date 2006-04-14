@@ -1,5 +1,49 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+fsk_lineitems_004: 
+  updated_at: 2006-04-12 10:15:01
+  order_id: "39"
+  quantity: "1200"
+  product_id: "1"
+  id: "122"
+  version: 
+  created_at: 2006-04-12 10:15:01
+fsk_lineitems_005: 
+  updated_at: 2006-04-12 10:15:01
+  order_id: "39"
+  quantity: "500"
+  product_id: "2"
+  id: "123"
+  version: 
+  created_at: 2006-04-12 10:15:01
+fsk_lineitems_006: 
+  updated_at: 2006-04-12 10:15:01
+  order_id: "39"
+  quantity: "2000"
+  product_id: "3"
+  id: "124"
+  version: 
+  created_at: 2006-04-12 10:15:01
+fsk_lineitems_001: 
+  updated_at: 2006-04-12 10:13:51
+  order_id: "38"
+  quantity: "1000"
+  product_id: "1"
+  id: "119"
+  version: 
+  created_at: 2006-04-12 10:13:51
+fsk_lineitems_002: 
+  updated_at: 2006-04-12 10:13:51
+  order_id: "38"
+  quantity: "400"
+  product_id: "2"
+  id: "120"
+  version: 
+  created_at: 2006-04-12 10:13:51
+fsk_lineitems_003: 
+  updated_at: 2006-04-12 10:13:51
+  order_id: "38"
+  quantity: "600"
+  product_id: "3"
+  id: "121"
+  version: 
+  created_at: 2006-04-12 10:13:51

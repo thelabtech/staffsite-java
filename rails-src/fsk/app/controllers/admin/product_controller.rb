@@ -38,7 +38,7 @@ class Admin::ProductController < ApplicationController
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
       flash[:notice] = 'Product was successfully updated.'
-      redirect_to :action => 'show', :id => @product
+      redirect_to :action => 'list'
     else
       render :action => 'edit'
     end

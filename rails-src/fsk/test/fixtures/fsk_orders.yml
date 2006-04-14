@@ -1,5 +1,57 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+--- 
+kit: 
+  ship_phone: 666-666-6666
+  ship_address1: 123 Somewhere St
+  asdsdaf: 
+  project_id: "4"
+  ship_zip: "12231"
+  ship_address2: "#3304"
+  contact_cell: 554-545-4454
+  updated_at: 2006-04-12 10:13:51
+  ssm_id: "42655"
+  operating_unit: "2"
+  total_kits: "1000"
+  order_year: "2006"
+  business_unit: "1"
+  ship_state: FL
+  ship_city: Orlando
+  ship_name: Matt Drees
+  contact_last_name: Starcher
+  type: KitOrder
+  contact_phone: 555-555-5555
+  allocation_id: 
+  id: "38"
+  version: 
+  contact_email: josh.starcher@uscm.org
+  contact_first_name: Josh
+  created_at: 2006-04-12 10:13:51
+  dept_id: "3"
+  location_name: UC Davis
+product: 
+  ship_phone: 32423-1
+  ship_address1: 789 Nowhere Pl
+  asdsdaf: 
+  project_id: ''
+  ship_zip: "31244"
+  ship_address2: "876"
+  contact_cell: 888-888-8888
+  updated_at: 2006-04-12 10:15:01
+  ssm_id: "42655"
+  operating_unit: chart
+  total_kits: 
+  order_year: "2006"
+  business_unit: my
+  ship_state: AL
+  ship_city: Jupiter
+  ship_name: Freddy Jr
+  contact_last_name: Franklin
+  type: ProductOrder
+  contact_phone: 777-777-7777
+  allocation_id: 
+  id: "39"
+  version: 
+  contact_email: bob.franklin@yeahright.com
+  contact_first_name: Bob
+  created_at: 2006-04-12 10:15:01
+  dept_id: field
+  location_name: Orlando Metro

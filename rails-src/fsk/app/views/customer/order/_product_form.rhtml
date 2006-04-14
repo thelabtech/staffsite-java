@@ -10,11 +10,11 @@
 	<% end %>
 	<input type="text" name="products[<%=product.id%>]" id="product_<%=product.id%>" 
 		value="<%=@products[product.id]%>" 
-		<%if @products[product.id].to_i == 0 && product.remaining.to_i  <= 0%>
+		<%if @products[product.id].to_i == 0 && !product.remaining.nil? && product.remaining.to_i  <= 0 %>
 			disabled="disabled"
 		<%end%>
 	>
-	<%=product.remaining%> Remaining
+	<%=product.remaining.nil? ? product.total : product.remaining %> Remaining
 	<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 		</div>
 	<% end %>
