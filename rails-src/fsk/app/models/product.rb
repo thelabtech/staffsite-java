@@ -43,6 +43,26 @@ class Product < ActiveRecord::Base
     return quantity_remaining(item) - item.quantity < 0
   end
   
+  def <=>(product)
+    self.name <=> product.name
+  end
+  
+  def human_availability
+    if quantity_remaining == 0
+      return 'This product is sold out.'
+    end
+    case availability
+    when 'both'
+      'This product can be ordered individually, or as part of a kit.'
+    when 'kit'
+      'This product can only be ordered as part of a kit.'
+    when 'individual'
+      'This product cannot be ordered as part of a kit. You must order it seperately.'
+    when 'neither'
+      'This product is currently unavailable.'
+    end
+  end
+  
   protected
   def validate
     if price && price < 0.01

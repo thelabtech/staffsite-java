@@ -13,4 +13,8 @@ class KitCategory < ActiveRecord::Base
     "and p.kit_category_id = k.id "+
     "group by p.id"
   end
+  
+  def <=>(category)
+    self.name <=> category.name
+  end
 end
