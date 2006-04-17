@@ -1,8 +1,7 @@
 <h3>Editing allocation</h3>
-
 <%= start_form_tag :action => 'update', :id => @allocation %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag 'Save Changes' %>
 <%= end_form_tag %>
 
-<%= link_to 'Back', {:controller => "summary", :action => "local_summary"} %>
+<%= link_to 'Back to Summary', {:controller => "summary", :action => "local_summary"} %>
