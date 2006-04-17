@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     unless session[:user]
       if session[:cas_receipt] && session[:cas_receipt][:user]
         session[:user] = User.find_by_username(session[:cas_receipt][:user])
-        if session[:user].nil? then raise session[:cas_receipt].inspect end
+        if session[:user].nil? then raise session.inspect end
       else 
         #we've got a problem
         raise "Cas Authentication Failure"
