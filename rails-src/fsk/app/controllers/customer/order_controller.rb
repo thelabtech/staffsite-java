@@ -98,7 +98,6 @@ class Customer::OrderController < ApplicationController
   def update(type)
     @order = Order.find(params[:id])
     if save_line_items && @order.update_attributes(params[:order]) && @order.valid?
-      breakpoint
       flash[:notice] = 'Order was successfully saved.'
       session[:line_errors] = nil
       session[:bad_items] = nil
