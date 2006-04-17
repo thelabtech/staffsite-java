@@ -9,8 +9,8 @@ class LoginController < ApplicationController
   end
 
   def index
-  	if session[:user].userID
-      redirect_to(:action => 'index', :controller => 'person' )
+  	if session[:user]
+      redirect_to(:action => 'index', :controller => 'customer/summary')
   	else
       redirect_to(:action => 'login')
   	end
