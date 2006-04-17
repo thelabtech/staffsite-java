@@ -5,36 +5,35 @@
 <%= link_to "Create an allocation", {:controller => "allocation", :action => "new"}%>
 <br/>
 <%@allocations.each do |allocation| %>
-
+    <p>
+    Please click <%= link_to "here", {:controller => "allocation", :action => "edit", :id => allocation.id} %> to specify the number of kits being paid for with locally raised funds.<br>
+    </p>
 	<table class="normal">
 		<tr><th colspan="2"><b>Kit Allotment Summary (<%= allocation.region.region%>):</b></th></tr>
-		<tr><td>Locally Raised <%= link_to "[Edit]", {:controller => "allocation", :action => "edit", :id => allocation.id} %></a></td>
+		<tr><td width="150">Locally Raised</a></td>
 
-			<td><%= allocation.locally_raised || 0 %></td></tr>
+			<td width="200"><%= allocation.locally_raised || 0 %></td></tr>
 		<tr><td>Regional Allotment</td><td><%= allocation.regional_allotment || 0 %></td></tr>
 		<tr><td>Regionally Raised</td><td><%= allocation.regionally_raised || 0 %></td></tr>
 		<tr><td>Impact Allocation</td><td><%= allocation.impact_allotment || 0 %></td></tr>
 		<tr><td>Forerunner Allocation</td><td><%= allocation.forerunner_allotment || 0 %></td></tr>
 
-		<tr><td class="subhead">Total Kits Available</td><td class="subhead"><%= allocation.total_kits %></td></tr>
+		<tr><td><b>Total Kits Available</b></td><td><b><%= allocation.total_kits %></b></td></tr>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
 	</table>
-
-<p>Please enter any kits being paid for with locally raised funds.<br>
-	        Do this by clicking on "Edit". </p>
 <% end %>
-
+<br/>
 <table class="normal">
 	<tr>
-		<th colspan="4">Kit Orders:</th>
+		<td colspan="4"><b>Kit Orders:</b></td>
 	</tr>
 	<tr>
-		<td class="subhead">Order#</td>
-		<td class="subhead">Target Location</td>
-		<td class="subhead">Kits</td>
-		<td class="subhead"></td>
+		<th>Order#</th>
+		<th>Target Location</th>
+		<th>Kits</th>
+		<th></th>
 	</tr>
 			<% if @kit_orders.size 
 					@kit_orders.each do |order| -%>
@@ -51,8 +50,8 @@
 					</tr>
 			<% end -%>
 	<tr>
-        <td colspan="3" class="subhead">Total Kits Ordered</td>
-        <td class="subhead"><%= total=0; @kit_orders.each{|o| total+=o.total_kits}; total%></td>
+        <td colspan=2><b>Total Kits Ordered</b></td>
+        <td><b><%= total=0; @kit_orders.each{|o| total+=o.total_kits}; total%></b></td><td></td>
     </tr>
 </table>
 		
@@ -60,17 +59,21 @@
         and click the submit button at the bottom of the page.
 		The changes will not register if you do not click the "submit" button.)</p>
 
-<table class="normal">
-	<tr>
-		<th colspan="4">Individual Product Orders:</th>
-	</tr>
-	
-	<tr>
-	   <td class="subhead">Order#</td>
-	   <td class="subhead">Target Location</td>
-	   <td class="subhead">Cost</td>
-	   <td class="subhead"></td>
-	</tr>
+<table>
+	<tr><td>
+			<table cellspacing="0" cellpadding="5" border="1">
+
+				<tr>
+					<td colspan="4" align="left"  BGCOLOR="#336699">
+						<font color="#ffffff" face="Arial" size="2"><b>Individual Product Orders:</b></font>
+					</td>
+				</tr>
+					<tr>
+						<th width="100">Order#</th>
+						<th width="175">Target Location</th>
+						<th width="50">Cost</th>
+						<th width="100"></th>
+					</tr>
 			<% if @product_orders.size 
 					@product_orders.each do |order| -%>
 					<tr>
@@ -85,13 +88,16 @@
 						<td colspan="4">There are currently no orders of this type.</td>
 					</tr>
 			<% end -%>
-	<tr>
-          <td colspan="3" class="subhead">Total Cost:</td>
-          <td class="subhead"><%= total=0; @product_orders.each{|o| total+=o.cost}; total%></td>
-    </tr>
-			</table>
+				<tr >
+          <td colspan=2><b>Total Cost</b></td>
 
-	<p>(To edit the order, click the [view/edit] link, then just change the fields and click the submit button at the 
-	bottom of the page.	The changes will not register if you do not click the "submit" button.)</p>
+          <td><b><%= total=0; @product_orders.each{|o| total+=o.cost}; total%></b></td><td></td></tr>
+			</table>
+		</td>
+		<td width=200>
+			<small>(To edit the order, click the [view/edit] link, then just change the fields and click the submit button at the bottom of the page.
+				The changes will not register if you do not click the "submit" button.)</small>
+		</td>
+	</tr>
 	
 </table>
