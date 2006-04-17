@@ -8,6 +8,16 @@ class Customer::AllocationController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
+  before_filter :standard_info
+  
+  private
+  def standard_info
+    @user = get_user
+    @regions = Region.standard_regions
+  end
+
+  public
+  
   def list
     @allocation_pages, @allocations = paginate :allocations, :per_page => 10
   end
@@ -24,8 +34,6 @@ class Customer::AllocationController < ApplicationController
     @allocation.region_id = Region.find(:first, :conditions => ["region = ?", user_region_code]).teamID
     @allocation.ssm_id = session[:victim_id] || get_user.user.id
     @allocation.attributes = check_params(params[:allocation])
-    @user = get_user
-    @regions = Region.standard_regions
   end
 
   def create
@@ -43,10 +51,10 @@ class Customer::AllocationController < ApplicationController
     end
   end
 
+
+
   def edit
     @allocation = Allocation.find(params[:id])
-    @user = get_user
-    @regions = Region.standard_regions
   end
   
   def update
@@ -56,7 +64,6 @@ class Customer::AllocationController < ApplicationController
       @user = get_user
       render :action => 'edit'
     elsif (not @allocation.update_attributes(check_params(params[:allocation])))
-      @user = get_user
       render :action => 'edit'
     else
       flash[:notice] = 'Allocation was successfully updated.'
