@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "am_friends_people", :id => false, :force => true do |t|
     t.column "friend_id", :integer, :limit => 10, :default => 0, :null => false
@@ -503,7 +503,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "forerunner_notes", :string, :limit => 1024
     t.column "regional_notes", :string, :limit => 1024
     t.column "local_notes", :string, :limit => 1024
-    t.column "version", :integer
+    t.column "lock_version", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
@@ -520,7 +520,7 @@ ActiveRecord::Schema.define(:version => 11) do
   create_table "fsk_kit_categories", :force => true do |t|
     t.column "name", :string, :limit => 50, :default => "", :null => false
     t.column "description", :string, :limit => 2000
-    t.column "version", :integer
+    t.column "lock_version", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
@@ -529,7 +529,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "product_id", :integer, :default => 0, :null => false
     t.column "order_id", :integer, :default => 0, :null => false
     t.column "quantity", :integer, :default => 0, :null => false
-    t.column "version", :integer
+    t.column "lock_version", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
@@ -560,7 +560,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "type", :string, :limit => 20
     t.column "order_year", :string, :limit => 10
     t.column "ssm_id", :integer
-    t.column "version", :integer
+    t.column "lock_version", :integer
     t.column "created_at", :datetime
     t.column "asdsdaf", :integer
   end
@@ -571,7 +571,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "image_filename", :string, :limit => 1000
     t.column "price", :float
     t.column "quantity", :integer, :default => 0, :null => false
-    t.column "version", :integer
+    t.column "lock_version", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
     t.column "kit_category_id", :integer
@@ -2420,7 +2420,7 @@ ActiveRecord::Schema.define(:version => 11) do
   end
 
   create_table "ministry_regionalteam", :id => false, :force => true do |t|
-    t.column "teamID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "teamID", :integer, :limit => 10, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
     t.column "name", :string, :limit => 100
     t.column "note", :string
