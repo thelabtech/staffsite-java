@@ -33,12 +33,12 @@ class ApplicationController < ActionController::Base
   end
   
   def get_user_region
-    staff = get_staff(session[:user].userID)
+    staff = get_staff(get_user_id)
     staff.region
   end
 
   def get_staff(ssm_id)
-    if ssm_id.nil? then raise session[:user].inspect end
+    if ssm_id.nil? then raise "nil ssm_id!" end
     ssm_user = User.find(:first, :conditions => ["userID = ?", ssm_id])
     username = ssm_user.username
     profile = StaffsiteProfile.find(:first, :conditions => ["userName = ?", username])
@@ -52,10 +52,11 @@ class ApplicationController < ActionController::Base
     ssm_user = User.find(:first, :conditions => ["username = ?", username])
   end
 
+  # the FskUser associated with the currently logged in user
   def get_user
     user = FskUser.find(:first, :conditions => ["ssm_id = ?", get_user_id], :include => :role)
     if (user.nil?)
-      ssm_user = User.find(:first, :conditions => ["userID = ?", get_user_id])
+      ssm_user = session[:user]
       user = FskUser.new({:user => ssm_user})
       user.role = Role.find(:first, :conditions => ["name = ?", "local"])
     end
