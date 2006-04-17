@@ -1,7 +1,7 @@
 
 <h3> <%= regional_table.region_name %> </h3>
 
-<br><table id="summary">
+<table class="summary">
 <%= render :partial => 'regional_table_header' %>
 <%
     regional_table.report_records.each do |record| 
@@ -20,7 +20,6 @@
 						<td><%= record.kits_not_yet_ordered || 0 %></td>
 						<td><%= link_to "[view allocation]", {:controller => "allocation", :action => "edit", :id => record.id}%></td>
 						<td><%= link_to "[view summary]", {:controller => "summary", :action => "local_summary", :user_id => record.ssm_id}%></td>
-
 					  </tr>
 
 <%
@@ -42,5 +41,4 @@
 		<td></td>
 		<td></td>
 </tr>
-
-</tbody></table>
+</table>
