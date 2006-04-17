@@ -1,0 +1,23 @@
+<% if @staff.size == 0 %>
+<p>
+No results were found.
+<% else %>
+<table>
+<tbody>
+    <tr>
+        <td>
+        <font color="#000000" face="Arial" size="2"><b>Click on the name to go to their summary page.</b></font>
+        <br><br>
+			  
+					
+		</td>
+	</tr>
+<% for staff in @staff do %>
+	<tr>
+		<td align="left"><font color="#336699" face="Arial" size="2"><%= link_to (staff.firstName + " " + staff.lastName), {:controller => "summary", :action => "local_summary", :account_no => staff.accountNo} %></font></td>
+	</tr>
+<% end %>
+<% end %>
+</table> 
+<p>
+If the person you're looking for is not listed above, click the "back" button on your browser and search by their last name again, making sure the spelling is correct. If you're not sure of the spelling, try just typing in the first few letters of their last name. If their name is still not listed, please email help@campuscrusadeforchrist.com with the person's name and any other pertinent information.
