@@ -36,9 +36,7 @@ h3 { /* page sections */
     border-bottom: 1px solid #336699;
     margin: 1.5em 0px 0.5em 0px; }
     
-td { 
-	padding: 2px 2px;
-	vertical-align: center; }
+td { padding: 2px 2px; vertical-align: center; }
 
 /* hyperlink declarations */
 a:link { text-decoration: none;	color: #336699; }
@@ -61,12 +59,22 @@ tr.header {
 table.normal {	
 	width: auto; 
 	font-size: 10pt; 
-	border: 1px solid #336699;
-	border-top: 10px solid #336699; 
+	border: 1px solid #336699; 
 	background-color: #D0DDEA; 
-	color: #336699; }
+	color: #336699; 
+	padding: 0px; 
+	margin: 0px; 
+	border-spacing: 0px; }
 	
-table.normal td { border: 1px solid #336699; empty-cells: show; }
+table.normal td { empty-cells: show; }
+
+table.normal th { 
+    font-size: 12pt;
+    background-color: #336699; 
+    color: white; 
+    text-align: left; }
+    
+table.normal .subhead { font-weight: bold; border-top: 1px solid #336699; }
 
 table.summary {	
 	width: 100%; 
@@ -78,7 +86,8 @@ table.summary {
 
 table.summary td {
 	text-align: center; 
-	margin: 0px; }
+	margin: 0px; 
+	empty-cells: show; }
 
 /* Page id's */
 
