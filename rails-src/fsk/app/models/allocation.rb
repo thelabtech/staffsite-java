@@ -11,8 +11,11 @@ class Allocation < ActiveRecord::Base
   validates_numericality_of :regionally_raised
   validates_numericality_of :locally_raised
  
-  
   def after_initialize
+    remove_nulls
+  end
+  
+  def remove_nulls
     self.impact_allotment ||= 0
     self.forerunner_allotment ||= 0
     self.regional_allotment ||= 0
@@ -28,10 +31,14 @@ class Allocation < ActiveRecord::Base
     (locally_raised || 0)
   end
   
+  def before_validation
+    remove_nulls
+  end
+  
   protected
   def validate
     message = "must be multiples of 100."
-    if (impact_allotment % 100) != 0
+    if (impact_allotment % 100 != 0)
       errors.add(:impact_allotment, message)
     end
     if (forerunner_allotment % 100) != 0
