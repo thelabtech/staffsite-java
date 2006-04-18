@@ -4,19 +4,6 @@
 <table>
 <tr>
 <td class="lbl">
-<label for="allocation_regional_id">Region:</label>
-</td>
-<td class="input">
-<%= if @user.can_modify_field?("region_id") 
-        collection_select 'allocation', 'region_id', @regions, "teamID", "region"
-    else
-        collection_select 'allocation', 'region_id', @regions, "teamID", "region", {}, {:disabled => true}
-    end 
-    %>
-</td>
-</tr>
-<tr>
-<td class="lbl">
 <label for="allocation_locally_raised">Locally Raised:</label>
 </td>
 <td class="input">
@@ -44,6 +31,19 @@
 </tr>
 
 
+<tr>
+<td class="lbl">
+<label for="allocation_regional_id">Region:</label>
+</td>
+<td class="input">
+<%= if @user.can_modify_field?("region_id") 
+        collection_select 'allocation', 'region_id', @regions, "teamID", "region"
+    else
+        collection_select 'allocation', 'region_id', @regions, "teamID", "region", {}, {:disabled => true}
+    end 
+    %>
+</td>
+</tr>
 <tr>
 <td class="lbl">
 <label for="allocation_regional_allotment">Regional Allotment:</label>
