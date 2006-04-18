@@ -26,9 +26,9 @@ class Customer::SummaryController < ApplicationController
   def regional_summary
     @title = "Regional Summary"
     #assert get_user.role.name == "regional"
-    region = get_user_region
+    @region = get_user_region
     #@allocations = get_allocations_for_region(region)
-    @report = RegionalReport.new(region)
+    @report = RegionalReport.new(@region)
   end
   
   def local_summary
@@ -42,9 +42,15 @@ class Customer::SummaryController < ApplicationController
       session[:victim_id] = get_user_id
     end
     @allocations = Allocation.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
-    @staff = get_staff(get_user_id)
+    @staff = get_staff(session[:victim_id])
+    
     @kit_orders = KitOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
+    @total_ordered = 0 
+    @kit_orders.each{|o| @total_ordered += o.total_kits}
+    @total_allocated = 0 
+    @allocations.each {|allocation| @total_allocated += allocation.total_kits}
     @product_orders = ProductOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
+    
   end
   
   
@@ -52,6 +58,7 @@ class Customer::SummaryController < ApplicationController
     @title = "Staff List"
     region = params[:region]
     @staff = Staff.find(:all, :conditions => ["region = ?", region])
+    render :action => "staff_search"
   end
   
   def staff_search

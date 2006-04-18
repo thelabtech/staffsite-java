@@ -51,7 +51,11 @@
 			<% end -%>
 	<tr>
         <td colspan="3" class="subhead">Total Kits Ordered</td>
-        <td class="subhead"><%= total=0; @kit_orders.each{|o| total+=o.total_kits}; total%></td>
+        <td class="subhead"><%= @total_ordered%></td>
+    </tr>
+    </tr>
+        <td colspan="3" class="subhead">Kits Left To Order</td>
+        <td class="subhead"><%= @total_allocated - @total_ordered%></td>
     </tr>
 </table>
 		

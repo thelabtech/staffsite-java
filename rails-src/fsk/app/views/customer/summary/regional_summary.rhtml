@@ -1,16 +1,17 @@
 <br>
-<font color="#336699" face="Arial" size="3">&nbsp;<b>Allocation Options:</b></font>
-<table border="0" width="100%">
+<h3>Allocation Options:</h3>
+<%= start_form_tag :action => 'staff_search' %>
+<p>1. Allocate kits to person - Search staff by LAST name:
+  <%=  text_field 'search', 'last_name'%>
+  <%= submit_tag 'Search' %>
+</p>
+<%= end_form_tag %>
+
+<p>
+2. To choose from a list of all staff in your region, click <%= link_to "here", {:controller => "summary", :action => "list_regional_staff", :region => @region}%>
+</p>
 
 
-<form action="/servlet/FskController" method="post">
-	<input name="action" value="listStaff" type="hidden">
-	<p>Allocate kits to person - search by LAST name: <input name="last_name" type="text">
-	<input value="Search" type="submit"></p>
-</form>
-
-2. To choose from a list of all staff in your region, click <a href="/servlet/FskController?action=listStaff&amp;region=NC&amp;frompage=regionallist">HERE.</a>
-<br>
 <br>
 
 <%= render :partial => 'regional_table', :object => @report %>
@@ -19,10 +20,3 @@
 please <a href="mailto:dan.hardaway@uscm.org?subject=FSK%20Choice%20-%20Region%20not%20set%20%28include%20name%20and%20region%29">email us</a> with 
 their name and region and we'll fix it. Don't worry, their allocation has been saved. The problem is that they aren't associated 
 with your region yet.
-
-
-<br><br>**If you haven't emailed your regional account number for ongoing ministry money to Jonathan Haight yet, 
-please do so by emailing <a href="mailto:Jonathan.Haight@uscm.org?subject=FSK%20Site%20-%20regional%20account%20#">Jonathan.Haight@uscm.org</a>. 
-Be sure to include your region name. Thank you.
-<br>
-
