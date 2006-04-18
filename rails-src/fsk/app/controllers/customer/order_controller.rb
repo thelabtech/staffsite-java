@@ -53,7 +53,7 @@ class Customer::OrderController < ApplicationController
         session[:line_errors] = nil
         session[:bad_items] = nil
         flash[:notice] = 'Order was successfully created.'
-        redirect_to :controller => 'summary'
+        redirect_to :controller => 'summary', :action => 'local_summary'
         return
       else
         session[:products] = params[:products]
@@ -101,7 +101,7 @@ class Customer::OrderController < ApplicationController
       flash[:notice] = 'Order was successfully saved.'
       session[:line_errors] = nil
       session[:bad_items] = nil
-      redirect_to :controller => 'summary'
+      redirect_to :controller => 'summary', :action => 'local_summary'
       return
     else
       send('edit_'+type)
