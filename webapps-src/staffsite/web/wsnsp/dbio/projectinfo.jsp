@@ -198,10 +198,29 @@ if (h.get("StaffEndDate") != null) h.put("StaffEndDate",new SimpleDateFormat("MM
 <TR><td><%=font%><b>&nbsp;&nbsp;CAPS fee paid</b></FONT></TD><td><%=font%><% selBoolean.setLabels("Yes","No"); selBoolean.setName("CAPSFeePaid");  if (h.get("CAPSFeePaid")!=null){selBoolean.setCurrentValue(h.get("CAPSFeePaid").toString().equals("true"));}%><%=selBoolean.printBoolean()%></FONT></TD></tr> -->
 <TR><td><%=font%><b>&nbsp;&nbsp;Admin fee paid</b></FONT></TD><td><%=font%><% selBoolean.setLabels("Yes","No"); selBoolean.setName("AdminFeePaid");  if (h.get("AdminFeePaid")!=null){selBoolean.setCurrentValue(h.get("AdminFeePaid").toString().equals("true"));}%><%=selBoolean.printBoolean()%></FONT></TD></tr>
 
-<TR><td colspan='2'><%=fontText%><b>Size Requirements</b><br /><%=fontTextS%><nobr>&nbsp;&nbsp;&nbsp;(You must enter some number, unless you want none allowed)</nobr></font></td></tr>
+<br>
+<TR><td colspan='2'><%=fontText%><b>Contact Info During Project</b></td></tr>
+<tr><TD colspan='2'>&nbsp;&nbsp;<%=fontTextS%>This person must be available in the states to field calls during the project duration</TD></tr>
+<TR><td><%=font%><b>&nbsp;&nbsp;Name</b></FONT></TD><td><%=font%><INPUT TYPE=Text NAME="StatesideContactName" SIZE=20 MAXLENGTH=45 VALUE="<%=formHelp.value((String)h.get("StatesideContactName"))%>"></FONT></TD></tr>
+<TR><td><%=font%><b>&nbsp;&nbsp;Project Role</b></FONT> <%=fontTextS%></TD>
+		<td><%=font%><select name="StatesideContactProjectRole">
+		<option value=""></option>
+		<option value="Project Director" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"Project Director")%>>Project Director</option>
+		<option value="Associate Project Director" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"Associate Project Director")%>>Associate Project Director</option>
+		<option value="Operations Project Director" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"Operations Project Director")%>>Operational Project Director</option>
+		<option value="International Project Coordinator" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"International Project Coordinator")%>>International Project Coordinator</option>
+		<option value="WSN Staff" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"WSN Staff")%>>WSN Staff</option>
+		<option value="Other" <%=formHelp.select((String)h.get("StatesideContactProjectRole"),"Other")%>>Other</option>
+		</select></FONT></TD></tr>
+<TR><td><%=font%><b>&nbsp;&nbsp;Phone</b></FONT></TD><td><%=font%><INPUT TYPE=Text NAME="StatesideContactPhone" SIZE=20 MAXLENGTH=20 VALUE="<%=formHelp.value((String)h.get("StatesideContactPhone"))%>"></FONT></TD></tr>
+<TR><td><%=font%><b>&nbsp;&nbsp;Email</b></FONT></TD><td><%=font%><INPUT TYPE=Text NAME="StatesideContactEmail" SIZE=20 MAXLENGTH=75 VALUE="<%=formHelp.value((String)h.get("StatesideContactEmail"))%>" ></FONT></TD></tr>
+
 </TABLE>
+
 <div style="text-align: center;">
 <table cellpadding="2" cellspacing="0" border="1">
+<TR><td colspan='6'><%=fontText%><b>Size Requirements</b><br /><%=fontTextS%><nobr>&nbsp;&nbsp;&nbsp;(You must enter some number, unless you want none allowed)</nobr></font></td></tr>
+
 <tr>
 	<td>&nbsp;</td>
 	<td>Single<br />Men</td>
