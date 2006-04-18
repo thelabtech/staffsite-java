@@ -40,7 +40,6 @@ fsk_products_004:
   name: "More Than a Carpenter / The Life of Jesus - flip book"
   updated_at: 2006-04-17 09:28:56
   price: "0.5"
-  lock_version: 
   quantity: "50000"
   image_filename: Life-of-Jesus.jpg
   availability: both
@@ -61,7 +60,6 @@ fsk_products_005:
   name: Bilingual Bible with Psalms and Proverbs
   updated_at: 2006-04-17 09:30:07
   price: "0.75"
-  lock_version: 
   quantity: "63000"
   image_filename: Spanish-NT.jpg
   availability: both
