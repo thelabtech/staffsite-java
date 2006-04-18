@@ -51,6 +51,10 @@ class Customer::SummaryController < ApplicationController
     @allocations.each {|allocation| @total_allocated += allocation.total_kits}
     @product_orders = ProductOrder.find(:all, :conditions => ["ssm_id = ?", session[:victim_id]])
     
+    @show_create_allocation_link = true
+    if get_user.role.name == "local" && @allocations.size > 0
+      @show_create_allocation_link = false
+    end
   end
   
   

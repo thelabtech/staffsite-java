@@ -2,7 +2,9 @@
 <br/>
 <%= link_to "Place an order", {:controller => "order"} %>
 <br/>
-<%= link_to "Create an allocation", {:controller => "allocation", :action => "new"}%>
+<%= if @show_create_allocation_link 
+    link_to "Create an allocation", {:controller => "allocation", :action => "new"}
+end%>
 <br/>
 <%@allocations.each do |allocation| %>
     <p>
