@@ -1,8 +1,7 @@
 --- 
-kit: 
+fsk_orders_001: 
   ship_phone: 666-666-6666
   ship_address1: 123 Somewhere St
-  asdsdaf: 
   project_id: "4"
   ship_zip: "12231"
   ship_address2: "#3304"
@@ -17,20 +16,19 @@ kit:
   ship_city: Orlando
   ship_name: Matt Drees
   contact_last_name: Starcher
+  lock_version: 0
   type: KitOrder
   contact_phone: 555-555-5555
   allocation_id: 
   id: "38"
-  version: 
   contact_email: josh.starcher@uscm.org
   contact_first_name: Josh
   created_at: 2006-04-12 10:13:51
   dept_id: "3"
   location_name: UC Davis
-product: 
+fsk_orders_002: 
   ship_phone: 32423-1
   ship_address1: 789 Nowhere Pl
-  asdsdaf: 
   project_id: ''
   ship_zip: "31244"
   ship_address2: "876"
@@ -45,11 +43,11 @@ product:
   ship_city: Jupiter
   ship_name: Freddy Jr
   contact_last_name: Franklin
+  lock_version: 0
   type: ProductOrder
   contact_phone: 777-777-7777
   allocation_id: 
   id: "39"
-  version: 
   contact_email: bob.franklin@yeahright.com
   contact_first_name: Bob
   created_at: 2006-04-12 10:15:01

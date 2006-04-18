@@ -1,48 +1,27 @@
-josh: 
-  userID: 1
-  lastLogin: 2004/04/12 00:00:00
+--- 
+simplesecuritymanager_user_001: 
+  email_deprecated: 
+  lastLogin: 2006-04-04 00:00:00
   lastFailure: 
-  lastFailureCnt: 0
+  lastFailureCnt: "0"
   username: josh.starcher@uscm.org
   passwordQuestion: "why?"
-  createdOn: 2003/11/18 00:00:00
+  userID: "42655"
+  createdOn: 2004-04-09 00:00:00
   passwordAnswer: "42"
-  emailVerified: true
-  password: or287kSFOQl+OfT55iwtQA==
-  globallyUniqueID: 
-jeff: 
-  userID: 2
-  lastLogin: 2006/02/23 00:00:00
+  emailVerified: "1"
+  password: DomB6DfPieMK1vx6Tt6Vpw==
+  globallyUniqueID: F167605D-94A4-7121-2A58-8D0F2CA6E026
+simplesecuritymanager_user_002: 
+  email_deprecated: 
+  lastLogin: 2006-04-05 00:00:00
   lastFailure: 
-  lastFailureCnt: 0
-  username: jeff.west@ccci.org
-  passwordQuestion: "City of Joshua's birth?"
-  createdOn: 2005/03/31 00:00:00
-  passwordAnswer: abidjan
-  emailVerified: false
-  password: or287kSFOQl+OfT55iwtQA==
-  globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F6
-joe: 
-  userID: 3
-  lastLogin: 2006/02/23 00:00:00
-  lastFailure: 
-  lastFailureCnt: 0
-  username: joe.staffguy@uscm.org
-  passwordQuestion: "City of Joshua's birth?"
-  createdOn: 2005/03/31 00:00:00
-  passwordAnswer: abidjan
-  emailVerified: false
-  password: or287kSFOQl+OfT55iwtQA==
-  globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F7
-matt:
-  userID: 4
-  lastLogin: 2006/02/23 00:00:00
-  lastFailure: 
-  lastFailureCnt: 0
+  lastFailureCnt: "0"
   username: matthew.drees@uscm.org
-  passwordQuestion: "City of Joshua's birth?"
-  createdOn: 2005/03/31 00:00:00
-  passwordAnswer: abidjan
-  emailVerified: false
-  password: or287kSFOQl+OfT55iwtQA==
-  globallyUniqueID: BA8F3E76-6E4C-7EB0-957F-4C43C6D264F9
+  passwordQuestion: "stupid?"
+  userID: "58616"
+  createdOn: 2005-05-09 00:00:00
+  passwordAnswer: "yes"
+  emailVerified: "1"
+  password: P+vaORoZmwI2wP29FLvcyw==
+  globallyUniqueID: F167605D-94A4-7121-2A58-8D0F2CA6E026

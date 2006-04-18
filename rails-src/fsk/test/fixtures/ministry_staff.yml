@@ -1,16 +1,83 @@
-Josh:
-  accountNo: 000000123
-  firstName: Josh
+--- 
+ministry_staff_001: 
+  isNewStaff: ''
+  spouseMiddleName: ''
+  url: ''
+  otherPhone: ''
+  loaEndDate: 0000-00-00 00:00:00
+  isSecure: ''
+  contributionsToAcntNo: ''
+  resignationDate: 0000-00-00 00:00:00
+  marriageDate: 0000-00-00 00:00:00
+  loaReason: ''
+  birthDate: 0000-00-00 00:00:00
+  isNonUSStaff: ''
+  reportingDate: 0000-00-00 00:00:00
+  mobilePhone: ''
   lastName: Starcher
-Jeff:
-  accountNo: 000000124
-  firstName: Jeff
-  lastName: West
-Joe:
-  accountNo: 000000125
-  firstName: Joe
-  lastName: Staffguy
-Matt:
-  accountNo: 000575620
-  firstName: Matthew
-  lastName: Drees
+  employmentType: ''
+  origHiredate: 0000-00-00 00:00:00
+  deptName: ''
+  workPhone: ''
+  contributionsToOtherAcct: ''
+  deptEntryDate: 0000-00-00 00:00:00
+  isFianceeJoiningNS: ''
+  fianceeMiddleName: ''
+  serviceDate: 0000-00-00 00:00:00
+  region: ''
+  namePrefix: ''
+  removedFromPeopleSoft: N
+  isSupported: ''
+  fianceeJoinStaffDate: 0000-00-00 00:00:00
+  email: ''
+  isEmailSecure: ''
+  newStaffTrainingdate: 0000-00-00 00:00:00
+  coupleTitle: ''
+  pager: ''
+  maritalStatus: ''
+  primaryEmpLocState: ''
+  fianceeLastName: ''
+  isFianceeStaff: ''
+  spouseLastName: ''
+  jobStatus: ''
+  primaryEmpLocCity: ''
+  joiningNS: ''
+  primaryEmpLocCountry: ''
+  middleInitial: ''
+  ssn: ''
+  preferredName: ''
+  accountNo: 000559826
+  note: ''
+  severancePayMonthsReq: "0"
+  hireDate: 0000-00-00 00:00:00
+  position: ''
+  homePhone: ''
+  ministry: ''
+  contributionsToAcntName: ''
+  resignationReason: ''
+  compChngAmt: ''
+  strategy: ''
+  firstName: Josh
+  jobTitle: ''
+  compRate: ''
+  spouseAccountNo: ''
+  deptId: ''
+  isMale: ''
+  lastIncDate: 0000-00-00 00:00:00
+  fk_primaryAddress: "0"
+  countryStatus: ''
+  countryCode: ''
+  jobCode: ''
+  spouseEmail: ''
+  fk_secondaryAddress: "0"
+  fax: ''
+  rehireDate: 0000-00-00 00:00:00
+  fk_teamID: "0"
+  spouseFirstName: ''
+  jobEntryDate: 0000-00-00 00:00:00
+  primaryEmpLocDesc: ''
+  loaStartDate: 0000-00-00 00:00:00
+  fianceeAccountno: ''
+  compFreq: ''
+  accountCode: ''
+  fianceeFirstName: ''

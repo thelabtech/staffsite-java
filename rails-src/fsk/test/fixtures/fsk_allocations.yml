@@ -1,23 +1,91 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-josh_allocation:
-  id: 1
-  ssm_id: 1
-  region_id: 11
-  regional_allotment: 600
+--- 
+fsk_allocations_001: 
+  regionally_raised: 
+  updated_at: 
+  impact_notes: 
+  ssm_id: "1"
+  forerunner_notes: 
+  lock_version: "0"
+  regional_allotment: "600"
+  impact_allotment: 
   regional_notes: "Be careful with these, Starcher"
-jeff_allocation:
-  id: 2
-  ssm_id: 2
-  region_id: 7
-  regional_allotment: 600
-  impact_allotment: 200
-joe_first_allocation:
-  id: 3
-  ssm_id: 3
-  region_id: 5
-  regional_allotment: 800
-joe_second_allocation:
-  id: 4
-  ssm_id: 3
-  region_id: 6
-  regional_allotment: 800
+  id: "1"
+  local_notes: 
+  allocation_year: 
+  forerunner_allotment: 
+  region_id: "11"
+  national_notes: 
+  locally_raised: 
+  created_at: 
+fsk_allocations_002: 
+  regionally_raised: 
+  updated_at: 
+  impact_notes: 
+  ssm_id: "2"
+  forerunner_notes: 
+  lock_version: "0"
+  regional_allotment: "600"
+  impact_allotment: "200"
+  regional_notes: 
+  id: "2"
+  local_notes: 
+  allocation_year: 
+  forerunner_allotment: 
+  region_id: "7"
+  national_notes: 
+  locally_raised: 
+  created_at: 
+fsk_allocations_003: 
+  regionally_raised: 
+  updated_at: 
+  impact_notes: 
+  ssm_id: "3"
+  forerunner_notes: 
+  lock_version: "0"
+  regional_allotment: "800"
+  impact_allotment: 
+  regional_notes: 
+  id: "3"
+  local_notes: 
+  allocation_year: 
+  forerunner_allotment: 
+  region_id: "5"
+  national_notes: 
+  locally_raised: 
+  created_at: 
+fsk_allocations_004: 
+  regionally_raised: 
+  updated_at: 
+  impact_notes: 
+  ssm_id: "3"
+  forerunner_notes: 
+  lock_version: "0"
+  regional_allotment: "800"
+  impact_allotment: 
+  regional_notes: 
+  id: "4"
+  local_notes: 
+  allocation_year: 
+  forerunner_allotment: 
+  region_id: "6"
+  national_notes: 
+  locally_raised: 
+  created_at: 
+fsk_allocations_005: 
+  regionally_raised: 
+  updated_at: 2006-04-17 12:19:08
+  impact_notes: 
+  ssm_id: "42655"
+  forerunner_notes: 
+  lock_version: "1"
+  regional_allotment: 
+  impact_allotment: 
+  regional_notes: 
+  id: "5"
+  local_notes: sadf
+  allocation_year: "2006"
+  forerunner_allotment: 
+  region_id: "12"
+  national_notes: 
+  locally_raised: "1000"
+  created_at: 2006-04-17 12:17:31

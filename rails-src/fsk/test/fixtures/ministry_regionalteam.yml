@@ -46,7 +46,7 @@ ministry_regionalteam_010:
 ministry_regionalteam_011: 
   city: ''
   address1: ''
-  name: "National Campus Office - Donations"
+  name: National Campus Office
   "no": ''
   zip: ''
   address2: ''
@@ -178,7 +178,7 @@ ministry_regionalteam_004:
 ministry_regionalteam_005: 
   city: ''
   address1: ''
-  name: Great Lakes Regional Office
+  name: Great Lakes Region
   "no": ''
   zip: ''
   address2: ''
@@ -244,7 +244,7 @@ ministry_regionalteam_007:
 ministry_regionalteam_008: 
   city: ''
   address1: ''
-  name: Red River Regional Team
+  name: Red River Regional
   "no": ''
   zip: ''
   address2: ''
