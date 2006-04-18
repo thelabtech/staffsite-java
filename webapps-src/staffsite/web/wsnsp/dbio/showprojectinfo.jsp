@@ -214,6 +214,26 @@ if (h.get("StaffEndDate") != null) h.put("StaffEndDate",new SimpleDateFormat("MM
 
 <p>
 
+<table width="100%" border="0">
+	<tr>
+		<td colspan="2"><%=fontTextL%><b>State-Side Contact Information</b></font></td>
+	</tr>
+	<tr> 
+		<td><%=font%>Name</font></td><td><%=font%><%=h.get("StatesideContactName")%></font></td>
+	</tr>
+	<tr>
+		<td><%=font%>Project Role</font></td><td><%=font%><%=h.get("StatesideContactProjectRole")%></font></td>
+	</tr>
+	<tr>
+		<td><%=font%>Phone</font></td><td><%=font%><%=h.get("StatesideContactPhone")%></font></td>
+	</tr>
+	<tr>
+		<td><%=font%>Email</font></td><td><%=font%><%=h.get("StatesideContactEmail")%></font></td>
+	</tr>
+</table>
+
+<p>
+
 <center>
 <A HREF="/servlet/WsnSpController?view=team&action=showTeam&id=<%=h.get("WsnProjectID")%>"">View Team Roster and Tools</A><br>
 <A HREF="/servlet/WsnSpController?view=showtravelinfo&action=defaultShowProj&id=<%=h.get("WsnProjectID")%>">Go to Travel Page</A><br>
