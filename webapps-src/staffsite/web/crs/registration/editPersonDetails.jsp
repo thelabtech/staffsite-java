@@ -122,12 +122,11 @@ try{
 			}
 <%}%>
 <%			if(regType.decodeProfile(11) >= 1){	/* asking for account number */%>
-			else if (
+			else if ( form.AccountNo.value.length != 0 && 
 				(form.AccountNo.value.length<9)	|| 
 				(!isInteger(form.AccountNo.value.substring(0,9))) ||
 				( (form.AccountNo.value.length==10) && 
-					( (isInteger(form.AccountNo.value)) || !((form.AccountNo.value.charAt(9)=="s") || (form.AccountNo.value.charAt(9)=="S")) ) ) )	&& form.AccountNo.value != '' {
-				
+					( (isInteger(form.AccountNo.value)) || !((form.AccountNo.value.charAt(9)=="s") || (form.AccountNo.value.charAt(9)=="S")) ) ) ) {
 				alert("Please be sure to enter your staff account number as a 9-digit number.\nYou may need to add zeroes at the beginning of the number.\nWives, if you are adding an \"S\" be sure to put it at the end, AFTER the 9 digits.");
 				form.AccountNo.focus();
 			}
