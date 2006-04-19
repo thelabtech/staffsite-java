@@ -31,7 +31,12 @@ class Customer::AllocationController < ApplicationController
     @allocation = Allocation.new
     #region_id and ssm_id really only useful for local users:
     user_region_code = get_user_region
-    @allocation.region_id = Region.find(:first, :conditions => ["region = ?", user_region_code]).teamID
+    region = Region.find(:first, :conditions => ["region = ?", user_region_code])
+    if region
+      @allocation.region_id = region.teamID
+    else
+      @allocation.region_id = Region.find(:first, :conditions => "region = 'NC'").teamID
+    end
     @allocation.ssm_id = session[:victim_id] || get_user.user.id
     @allocation.attributes = check_params(params[:allocation])
   end
