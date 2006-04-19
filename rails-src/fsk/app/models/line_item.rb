@@ -1,5 +1,5 @@
 class LineItem < ActiveRecord::Base
-  set_table_name	"fsk_LineItems"
+  set_table_name	"fsk_line_items"
   
   belongs_to :order
   belongs_to :product

@@ -11,7 +11,7 @@ class KitOrder < Order
       unless new_record?
         # make sure that totals from each category == total_kits
         sql = "select	SUM(l.quantity) as total "+
-              "from	fsk_lineitems l, fsk_products p, fsk_kit_categories k "+
+              "from	fsk_line_items l, fsk_products p, fsk_kit_categories k "+
               "where	l.product_id = p.id "+
               "and	p.kit_category_id = k.id "+
               "and	l.order_id = #{id} "+
