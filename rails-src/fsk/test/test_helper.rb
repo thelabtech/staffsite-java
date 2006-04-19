@@ -25,4 +25,9 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
+  def successful_order
+    assert_not_nil assigns["order"]
+    assert_response :redirect
+    assert_redirected_to '/customer/summary/local_summary'
+  end
 end

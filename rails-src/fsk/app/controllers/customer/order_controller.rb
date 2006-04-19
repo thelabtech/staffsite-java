@@ -1,7 +1,6 @@
 class Customer::OrderController < ApplicationController
 
   def index
-
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -125,7 +124,7 @@ class Customer::OrderController < ApplicationController
       end
       item.quantity = value.to_i
       unless item.save
-        item.errors.each{|e| line_errors << e} 
+        item.errors.each{|itm,msg| line_errors << [itm,msg]} 
         bad_items << item.product_id
       end
     end
