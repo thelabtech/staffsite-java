@@ -1,8 +1,6 @@
 require 'net/https'
 require 'rexml/document'
 
-require 'user'
-
 require 'rubygems'
 require_gem 'actionpack'
 
