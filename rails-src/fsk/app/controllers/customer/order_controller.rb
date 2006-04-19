@@ -8,15 +8,16 @@ class Customer::OrderController < ApplicationController
          :redirect_to => { :action => :place_kit_order }
 
   def place_kit_order
+    @title = "New Kit Order"
     place_order('kit')
   end
   def place_product_order
+    @title = "New Individual Product Order"
     place_order('individual')
   end
   def place_order(type)
     session[:line_errors] = nil
     session[:bad_items] = nil
-    @title = "New Order"
     @order ||= Order.new
     # create an empty array of products
     @products = Array.new
