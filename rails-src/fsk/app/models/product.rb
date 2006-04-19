@@ -23,7 +23,7 @@ class Product < ActiveRecord::Base
   
   def quantity_remaining(item = nil)
     sql = "select	p.quantity - SUM(l.quantity) as remaining "+
-          "from	    fsk_lineIitems l, fsk_orders o, fsk_products p "+
+          "from	    fsk_line_items l, fsk_orders o, fsk_products p "+
           "where    l.order_id = o.id "+
           "and	    l.product_id = p.id "+
           "and      p.id = #{id} "
