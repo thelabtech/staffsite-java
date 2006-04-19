@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
   def self.product_sql
     "select	p.*, SUM(l.quantity) as ordered, p.quantity as total, "+
     "       p.quantity - SUM(l.quantity) as remaining "+
-    "from	fsk_products p left join (fsk_lineitems l, fsk_orders o) "+
+    "from	fsk_products p left join (fsk_line_items l, fsk_orders o) "+
 	"on     (l.order_id = o.id and l.product_id = p.id )"+
     "where    (p.availability = 'individual' OR p.availability = 'both') "+
     "group by p.id"
@@ -23,7 +23,7 @@ class Product < ActiveRecord::Base
   
   def quantity_remaining(item = nil)
     sql = "select	p.quantity - SUM(l.quantity) as remaining "+
-          "from	    fsk_lineitems l, fsk_orders o, fsk_products p "+
+          "from	    fsk_lineIitems l, fsk_orders o, fsk_products p "+
           "where    l.order_id = o.id "+
           "and	    l.product_id = p.id "+
           "and      p.id = #{id} "
