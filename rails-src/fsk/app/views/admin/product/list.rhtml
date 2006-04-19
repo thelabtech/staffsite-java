@@ -18,11 +18,10 @@ for product in @products
     </td>
     <td align="right">
       <strong>Quantity: </strong><%= product.quantity %><br/>
-      <strong>Price: </strong>$<%= sprintf("%0.2f", product.price)%>
+      <strong>Price: </strong>$<%= sprintf("%0.2f", product.price)%><br />
       <strong>Availability: </strong><%=product.availability%>
     </td>
     <td class="ListActions">
-      <%= link_to 'Show', :action => 'show', :id => product %><br/>
       <%= link_to 'Edit', :action => 'edit', :id => product %><br/>
       <%= link_to 'Destroy', { :action => 'destroy', :id => product }, 
       :confirm => 'Are you sure?', :post => true %>

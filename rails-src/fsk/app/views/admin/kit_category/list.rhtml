@@ -2,17 +2,14 @@
 
 <table>
   <tr>
-  <% for column in KitCategory.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <th>Name</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
   </tr>
   
 <% for kit_category in @kit_categories %>
   <tr>
-  <% for column in KitCategory.content_columns %>
-    <td><%=h kit_category.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => kit_category %></td>
+    <td><%=h kit_category.name %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => kit_category %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => kit_category }, :confirm => 'Are you sure?', :post => true %></td>
   </tr>
