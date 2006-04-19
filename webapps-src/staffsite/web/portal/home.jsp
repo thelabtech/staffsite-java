@@ -225,22 +225,31 @@
 			<% box.setTitle("I want to...");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_chart.gif" border='0'>&nbsp;Go&nbsp;to&nbsp;Success&nbsp;Criteria</a><br>
-			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0'>&nbsp;Work&nbsp;on&nbsp;a&nbsp;360&nbsp;review</a><br>
+			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_chart.gif" border='0'>Go to Success Criteria</a><br>
+			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0'>Work on a 360 review</a><br>
 			<%// if (isStudent.equals("false")) { %>
-				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0'>&nbsp;Get&nbsp;forms</a><br>
-				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0'>&nbsp;See&nbsp;my&nbsp;staff&nbsp;account</a><br>
-				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>&nbsp;Find/submit&nbsp;a&nbsp;resource</a><br>
-				<a href='http://www.lxonline.org' target="_blank"><img src="/images/small_lx.gif" border='0'>&nbsp;Read&nbsp;LX</a><br>
-				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>&nbsp;Reimburse&nbsp;Expenses</A><BR>
-				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>&nbsp;Get&nbsp;Help</a><br>
-				<a href='http://staff.ccci.org' target='_blank'><img src="/images/small_chart.gif" border='0'>&nbsp;Go&nbsp;to&nbsp;StaffWeb</a><br>
-				<a href="http://www.CampusStories.org" target='_blank'><img src="/images/lightbulb.gif" border='0'>&nbsp;Find&nbsp;a&nbsp;Ministry&nbsp;Story</a><br>
-				<a href="https://c000100.concursolutions.com/ces00130pcam/expense/?entity=p00499exhs" target='_blank'><img src="/images/logo_onecard.gif" border='0'>&nbsp;Log&nbsp;on&nbsp;to&nbsp;OneCard</a><br>
-				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0'>&nbsp;See&nbsp;National&nbsp;Discount&nbsp;Programs</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0'>Get forms</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0'>See my staff account</a><br>
+				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>Find/submit a resource</a><br>
+				<a href='http://www.lxonline.org' target="_blank"><img src="/images/small_lx.gif" border='0'>Read LX</a><br>
+				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>Reimburse Expenses</A><BR>
+				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
+				<a href='http://staff.ccci.org' target='_blank'><img src="/images/small_chart.gif" border='0'>Go to StaffWeb</a><br>
+				<a href="http://www.CampusStories.org" target='_blank'><img src="/images/lightbulb.gif" border='0'>Find a Ministry Story</a><br>
+				<a href="https://c000100.concursolutions.com/ces00130pcam/expense/?entity=p00499exhs" target='_blank'><img src="/images/logo_onecard.gif" border='0'>Log on to OneCard</a><br>
+				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0'>See National Discount Programs</a><br>
 			<%// } %>			
 			</font>
 			<%=box.printBottom()%>
+			<br>
+			
+			<% box.setTitle("SLICE Results"); %>
+			<%=box.printTop()%>
+			<center>
+			<a TARGET="_blank" href="https://staff.campuscrusadeforchrist.com/cms/content/5137.html">National Results<br><br></A>
+			<a TARGET="_blank" href="https://staff.campuscrusadeforchrist.com/servlet/CmsController?action=browse&catId=1000259">View Results in Different Breakdowns<br></A>
+			<%=box.printBottom()%>
+			</center>
 			<br>
 			
 			<!-- start 'Staff Opportunities' module -->
