@@ -39,68 +39,70 @@ class Customer::OrderControllerTest < Test::Unit::TestCase
                       }
     @product_order = @kit_order
     @product_order["order"]["type"] = "ProductOrder"
+    
+    @request.session[:cas_receipt] = {:user => 'josh.starcher@uscm.org'}
   end
 
   def test_place_kit_order
-    get :place_kit_order, {}, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    get :place_kit_order
     assert_response :success
   end
   
   def test_place_product_order
-    get :place_product_order, {}, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    get :place_product_order
     assert_response :success
   end
   
   def test_create_kit_order
-    post :create_kit_order, @kit_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :create_kit_order, @kit_order
     successful_order
   end
   
   def test_create_kit_order_with_bad_order
-    post :create_kit_order, {}, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :create_kit_order
     assert_response :success
     assert assigns["order"].errors.count == 13
   end
   
   def test_create_product_order
-    post :create_kit_order, @product_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :create_kit_order, @product_order
     successful_order
   end
   
   def test_edit_kit_order
-    get :edit_kit_order, {:id => 38}, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    get :edit_kit_order, {:id => 38}
     assert_response :success
   end
   
   def test_edit_product_order
-    get :edit_product_order, {:id => 39}, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    get :edit_product_order, {:id => 39}
     assert_response :success
   end
   
   def test_update_kit_order
     @kit_order["id"] = 38
-    post :update_kit_order, @kit_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :update_kit_order, @kit_order
     successful_order
   end
     
   def test_update_kit_order_with_too_many_of_an_item_in_a_category
     @kit_order["products"]["5"] = 500
     @kit_order["id"] = 38
-    post :update_kit_order, @kit_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :update_kit_order, @kit_order
     assert_response :success
     assert assigns["order"].errors.count == 1
   end
   
   def test_update_product_order
     @product_order["id"] = 39
-    post :update_kit_order, @product_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :update_kit_order, @product_order
     successful_order
   end
   
   def test_update_product_order_quantity_not_mod_100
     @product_order["id"] = 39
     @product_order["products"]["5"] = 1    
-    post :update_product_order, @product_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :update_product_order, @product_order
     assert_response :success
     assert session[:line_errors].size == 1
   end
@@ -108,7 +110,7 @@ class Customer::OrderControllerTest < Test::Unit::TestCase
   def test_update_product_order_quantity_too_large
     @product_order["id"] = 39
     @product_order["products"]["5"] = 100000   
-    post :update_product_order, @product_order, {:cas_receipt => {:user => 'josh.starcher@uscm.org'}}
+    post :update_product_order, @product_order
     assert_response :success
     assert session[:line_errors].size == 1
   end
