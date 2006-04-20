@@ -130,7 +130,7 @@ class Customer::OrderController < ApplicationController
         item.errors.each{|itm,msg| line_errors << [itm,msg]} 
         bad_items << item.product_id
       end
-    end
+    end unless params[:products].nil?
     session[:line_errors] = line_errors
     session[:bad_items] = bad_items
     return line_errors.size == 0
