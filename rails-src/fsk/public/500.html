@@ -1,13 +1,48 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title><%= @title || "Welcome"%> | FSK Ordering Tool</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<%= stylesheet_link_tag 'fsk'%>
+	<%= stylesheet_link_tag 'scaffold' %>
+</head>
 <body>
-<p>
+<div id="wrapper-summary"> <!-- begin wrapper -->
+
+<div id ="top-pane"> <!-- begin top-pane -->
+	<div id="logo"><img src="/images/header_noshield_01.gif"></div>
+	<div id="navbar">
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showHome">Home</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showMPD">MPD</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/StaffController?action=showTools">Tools</a>
+		<a href="https://staff.campuscrusadeforchrist.com/servlet/CmsController">Resources</a>
+
+		<a href="https://staff.campuscrusadeforchrist.com/links.jsp">Links</a>
+		<a href="#" onclick="javascript:window.open('https://staff.campuscrusadeforchrist.com/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable');return false">Help</a>
+	</div>
+
+</div> <!-- end top-pane-->		
+
+<h1>FSK Choice</h1>
+<%= "<h2>#@title</h2>" if @title%>
+	
+	<div id="help">
+		<a href="#" onclick="window.open('/help.html', 'Help', 'height=525,width=500,dependent=yes,scrollbars=yes,resizable')">FSK Help?</a>
+		<a href="/customer/summary">FSK Choice Home</a>
+	</div>
+
+
+        <p>
 An error has occured, and has been logged. <br/> 
 We're sorry for the inconvenience, and ask for your patience.
 </p>
 <p>
 If this error is repeatable, please contact <%= link_to("help@campuscrusadeforchrist.com", "mailto:help@campuscrusadeforchrist.com") %> to report it.
-</p>
+</p>   
+        </div>
+      </div>
+    </div>
+	</div>
 </body>
 </html>
