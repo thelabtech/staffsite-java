@@ -1,4 +1,8 @@
+<% if @staff %>
 <h3> Summary for <%= @staff.firstName + " " + @staff.lastName%> </h3>
+<% else #local_user doesn't have a staff record %>
+<h3> Your Summary </h3>
+<% end%>
 <br/>
 <%= link_to "Place an order for individual items", {:controller => "order", :action => "place_product_order"} %>
 <br/>
