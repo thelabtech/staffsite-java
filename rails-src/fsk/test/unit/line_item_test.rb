@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class LineItemTest < Test::Unit::TestCase
-  fixtures :fsk_lineItems
+  fixtures :fsk_line_items
 
   # Replace this with your real tests.
   def test_truth
