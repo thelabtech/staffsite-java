@@ -35,7 +35,17 @@ class Customer::SummaryController < ApplicationController
     @title = "Local Summary"
     if (get_user.role.name == "regional" or get_user.role.name == "national")
       if (account_no = params[:account_no])
-        session[:victim_id] = get_user_by_account_no(account_no).userID
+        found_user = get_user_by_account_no(account_no)
+        if found_user
+          session[:victim_id] = found_user.userID
+        else
+          @note = 
+            "That user does not have a staffsite account.  " + 
+            "If they will need to distribute kits, ask them to contact " +
+            "help@campuscrusadeforchrist.com in order to set up an account."
+          render :template => "note"
+          return
+        end
       end
       session[:victim_id] = params[:user_id] || session[:victim_id]
     else
@@ -67,7 +77,11 @@ class Customer::SummaryController < ApplicationController
   
   def staff_search
     @title = "Staff List"
-    last_name = params[:search][:last_name]
+    if params[:search]
+      last_name = params[:search][:last_name]
+    else
+      last_name = ""
+    end
     @staff = Staff.find(:all, :conditions => ["lastName like ?", last_name + '%'], :order => "lastName ASC")
   end
   
