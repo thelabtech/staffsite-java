@@ -24,6 +24,7 @@ end%>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
+		</tr><td colspan="3" class="subhead"><%=link_to("Place an order with this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td>
 	</table>
 	<br>
 <% end %>
