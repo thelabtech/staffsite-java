@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>Product Catalog</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<%= stylesheet_link_tag 'fsk'%>
+	<%= stylesheet_link_tag 'scaffold' %>
+</head>
+	
+<body>
+<h1>Product Listing</h1>
+
+<% @categories.sort.each do |category| %>
+	<h2><%=category.name%></h2>
+	<table cellpadding="5" cellspacing="0">
+	<% category.products.sort.each do |product| %>
+  <tr valign="top">
+    <td align="left">
+			<img src="<%=url_for_file_column(product, "image_filename")%>" />
+    </td>
+    <td align="left">
+      <strong>Name: </strong><%= h product.name %><br/>
+      <strong>Price (if purchased seperately from a kit): </strong>$<%= sprintf("%0.2f", product.price)%><br/>
+      <strong>Availability: </strong><%= product.human_availability%><br/>
+      <strong>Discription: </strong><%= h product.description %>
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+	<% end %>
+	</table>
+<% end %>
+</body>
+</html>
