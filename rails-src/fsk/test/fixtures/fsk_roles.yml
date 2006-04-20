@@ -1,10 +1,10 @@
---- 
-fsk_roles_001: 
+---
+national:
+  id: 1
   name: national
-  id: "1"
-fsk_roles_002: 
+regional:
+  id: 2
   name: regional
-  id: "2"
-fsk_roles_003: 
+local:
+  id: 3
   name: local
-  id: "3"

@@ -1,4 +1,4 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+---
 national:
   id: 1
   role_id: 1
