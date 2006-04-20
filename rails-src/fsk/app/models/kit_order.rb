@@ -1,4 +1,5 @@
 class KitOrder < Order
+  belongs_to :allocation
   validates_presence_of :total_kits
   validates_numericality_of :total_kits
   

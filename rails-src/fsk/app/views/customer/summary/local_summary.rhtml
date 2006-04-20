@@ -34,12 +34,13 @@ end%>
 <br/>
 <table class="normal">
 	<tr>
-		<th colspan="4">Kit Orders:</th>
+		<th colspan="5">Kit Orders:</th>
 	</tr>
 	<tr>
 		<td class="subhead">Order#</td>
 		<td class="subhead">Target Location</td>
 		<td class="subhead">Kits</td>
+		<td class="subhead">Region</td>
 		<td class="subhead"></td>
 	</tr>
 			<% if @kit_orders.size 
@@ -48,21 +49,22 @@ end%>
 						<td><%=order.id%></td>
 						<td><%=order.location_name%></td>
 						<td><%=order.total_kits%></td>
+						<td><%=order.allocation.region.name%></td>
 						<td><%= link_to "[view/edit]", :controller => "order", :action => "edit_kit_order", :id => order.id %></td>
 					</tr>
 					<% end -%>
 			<% else -%>
 					<tr>
-						<td colspan="4">There are currently no orders of this type.</td>
+						<td colspan="5">There are currently no orders of this type.</td>
 					</tr>
 			<% end -%>
 	<tr>
-        <td colspan="3" class="subhead">Total Kits Ordered</td>
-        <td class="subhead"><%= @total_ordered%></td>
+        <td colspan="2" class="subhead">Total Kits Ordered</td>
+        <td colspan="3" class="subhead"><%= @total_ordered%></td>
     </tr>
     </tr>
-        <td colspan="3" class="subhead">Kits Left To Order</td>
-        <td class="subhead"><%= @total_allocated - @total_ordered%></td>
+        <td colspan="2" class="subhead">Kits Left To Order</td>
+        <td colspan="3" class="subhead"><%= @total_allocated - @total_ordered%></td>
     </tr>
 </table>
 		
