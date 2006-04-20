@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
     staff = Staff.find(:first, :conditions => ["accountNo = ?", account_no])
   end
   
+  #ssm user, not FskUser
   def get_user_by_account_no(account_no)
     profile = StaffsiteProfile.find(:first, :conditions => ["accountNo = ?", account_no])
     username = profile.userName
@@ -65,5 +66,9 @@ class ApplicationController < ActionController::Base
 
   def get_user_id
     return session[:user].userID
+  end
+  
+  def rescue_action_in_public(exception)
+      render :template => "error"
   end
 end

@@ -6,24 +6,23 @@
     link_to "Create an allocation", {:controller => "allocation", :action => "new"}
 end%>
 <br/>
+<br/>
 <%@allocations.each do |allocation| %>
-    <p>
-    Please click <%= link_to "here", {:controller => "allocation", :action => "edit", :id => allocation.id} %> to specify the number of kits being paid for with locally raised funds.<br>
-    </p>
 	<table class="normal">
-		<tr><th colspan="2"><b>Kit Allotment Summary (<%= allocation.region.name%>):</b></th></tr>
+		<tr><th colspan="2"><b>Kit Allocation Summary (<%= allocation.region.name%>):</b></th></tr>
 		<tr><td width="150">Locally Raised</a></td> 
 
 			<td width="200"><%= allocation.locally_raised || 0 %></td></tr>
-		<tr><td>Regional Allotment</td><td><%= allocation.regional_allotment || 0 %></td></tr>
+		<tr><td>Regional Allocation</td><td><%= allocation.regional_allotment || 0 %></td></tr>
 		<tr><td>Regionally Raised</td><td><%= allocation.regionally_raised || 0 %></td></tr>
-		<tr><td>Impact Allotment</td><td><%= allocation.impact_allotment || 0 %></td></tr>
-		<tr><td>Forerunner Allotment</td><td><%= allocation.forerunner_allotment || 0 %></td></tr>
+		<tr><td>Impact Allocation</td><td><%= allocation.impact_allotment || 0 %></td></tr>
+		<tr><td>Forerunner Allocation</td><td><%= allocation.forerunner_allotment || 0 %></td></tr>
 
 		<tr><td><b>Total Kits Available</b></td><td><b><%= allocation.total_kits %></b></td></tr>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
+        </tr><td colspan="3" class="subhead"><%= link_to "Edit this allocation", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td>
 		</tr><td colspan="3" class="subhead"><%=link_to("Place an order with this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td>
 	</table>
 	<br>
