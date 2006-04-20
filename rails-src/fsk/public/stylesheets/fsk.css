@@ -85,6 +85,7 @@ table.summary {
 	margin-top: 0.5em; }
 
 table.summary td {
+    width: 9%;
 	text-align: center; 
 	margin: 0px; 
 	empty-cells: show; }
