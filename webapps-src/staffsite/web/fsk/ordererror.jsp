@@ -7,7 +7,7 @@ Hashtable h = (Hashtable) session.getValue("tub");
 <html>
 <head>
 <title>FSK Order Error</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </head>
 <% 
 String pageTitle = new String();

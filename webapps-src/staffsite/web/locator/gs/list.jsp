@@ -7,7 +7,7 @@ links and images need to be absolute URL's because this page resides on the appl
 <!-- end jsp code section 1 --><html>
 <head>
 <title>Connect With Other Students</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <style type="text/css">
 <!--
 p {

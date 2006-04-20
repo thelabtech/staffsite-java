@@ -4,7 +4,7 @@
 <!-- saved from url=(0022)http://internet.e-mail -->
 <head>
 <title>Conference Campus Selector</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <SCRIPT LANGUAGE=JAVASCRIPT TYPE="TEXT/JAVASCRIPT">
 <!--
 

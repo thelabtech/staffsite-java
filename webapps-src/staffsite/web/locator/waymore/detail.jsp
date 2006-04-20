@@ -6,7 +6,7 @@
 <head>
 <title>[ w a y m o r e . o r g ]</title>
  
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="robots" content="noindex, nofollow">
 <link href="http://www.waymore.org/include/waymore.css" rel="stylesheet" type="text/css">
  

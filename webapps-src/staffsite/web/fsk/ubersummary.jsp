@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>National Summary</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </head>
 <% String pageTitle = "National User View"; %>
 <%@ include file="/fsk/fskheader.jspf"%>

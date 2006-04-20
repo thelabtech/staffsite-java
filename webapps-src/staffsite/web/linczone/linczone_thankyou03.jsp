@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>LINCZone</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <script language="JavaScript" type="text/JavaScript">
 <!--
 

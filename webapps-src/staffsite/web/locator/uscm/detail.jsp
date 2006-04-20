@@ -9,7 +9,7 @@ links and images need to be absolute URL's because this page resides on the appl
 <head>
 <title>Ministry Locations</title>
  
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <style>
 p {
 	font-family: Arial, Helvetica, sans-serif;

@@ -11,7 +11,7 @@ Hashtable distributions = (Hashtable) session.getValue("distributions");
 <html>
 <head>
 <title><%=session.getValue("fskUserRegion")%></title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </head>
 <% 
 String pageTitle = new String();

@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>Regional UserView</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 </head>
 <% String pageTitle = "Regional User View"; %>
 <%@ include file="/fsk/fskheader.jspf"%>

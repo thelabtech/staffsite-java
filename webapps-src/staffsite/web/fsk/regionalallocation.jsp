@@ -19,7 +19,7 @@
 <html>
 <head>
 <title>Enter Regional Allocation</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <%@ include file="/validate.js"%>
 		<SCRIPT LANGUAGE="JavaScript">
 		<!--

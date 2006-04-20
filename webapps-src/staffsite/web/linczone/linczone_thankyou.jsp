@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>Thank You for Registering</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <style type="text/css">
 <!--
 body {

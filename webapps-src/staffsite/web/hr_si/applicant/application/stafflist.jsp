@@ -39,7 +39,7 @@ System.out.println("stafflist.jsp: reftype="+refType+"WsnApplicationID="+WsnAppl
 <html>
 <head>
 <title>Staff Selector</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="<%=ssurl%>" type="text/css"> <!--NN4 Compatible sheet -->
 <style type="text/css">
 @import url(<%=ssurl%>); /*IE and NN6x styles*/
