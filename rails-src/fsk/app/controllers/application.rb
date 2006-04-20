@@ -2,8 +2,17 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'cas'
 class ApplicationController < ActionController::Base
+  include ExceptionNotifiable	#Automatically generates emails of errors
   before_filter CAS::CASFilter, :authenticate, :authorize
-	
+	def local_request?
+false
+end
+  def boom
+    raise "boom!"
+  end
+  
+  private
+  
   def authenticate 
     unless session[:user]
       if session[:cas_receipt] && session[:cas_receipt][:user]
@@ -13,7 +22,7 @@ class ApplicationController < ActionController::Base
         #we've got a problem
         raise "Cas Authentication Failure"
       end
-	end
+    end
   end
   
   def authorize
@@ -21,7 +30,6 @@ class ApplicationController < ActionController::Base
     #session[:role] = role
   end
   
-  private
   def redirect_to_login(msg = nil)
 	flash[:notice] = msg if msg
 	redirect_to(:controller => "/login", :action => "login")
@@ -66,9 +74,5 @@ class ApplicationController < ActionController::Base
 
   def get_user_id
     return session[:user].userID
-  end
-  
-  def rescue_action_in_public(exception)
-      render :template => "error"
   end
 end
