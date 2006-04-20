@@ -16,7 +16,7 @@ class ReportRecord < ActiveRecord::Base
   end
  
   def kits_not_yet_ordered
-    return total_kits - (kit_orders_pending || 0)
+    return total_kits - (kit_orders_pending || 0).to_i
   end
   
   @@reported_fields = ["impact_allotment", "forerunner_allotment", "regional_allotment", "regionally_raised", "locally_raised", "total_kits", "kit_orders_pending", "kits_not_yet_ordered"]
@@ -27,19 +27,13 @@ class ReportRecord < ActiveRecord::Base
 "SELECT     staffPerson.firstName, staffPerson.lastName, region.region, alloc.*, " +
 "  (SELECT     SUM(fsk_orders.total_kits) " +
 "  FROM          fsk_orders " +
-"  WHERE      alloc.ssm_id = fsk_orders.ssm_id and fsk_orders.type = 'kit' ) AS kit_orders_pending " +
+"  WHERE      alloc.id = fsk_orders.allocation_id and fsk_orders.type = 'KitOrder' ) AS kit_orders_pending " +
 "FROM         fsk_allocations alloc, simplesecuritymanager_user ssm, staffsite_staffsiteprofile profile, ministry_staff staffPerson, ministry_regionalteam region " +
 "Where  alloc.ssm_id = ssm.userId and ssm.username = profile.username and profile.accountNo = staffPerson.accountNo and alloc.region_id = region.teamId"
 
-  @@regional_records_sql = 
-"SELECT     staffPerson.firstName, staffPerson.lastName, region.region, alloc.*, " +
-"  (SELECT     SUM(fsk_orders.total_kits) " +
-"  FROM          fsk_orders " +
-"  WHERE      alloc.ssm_id = fsk_orders.ssm_id and fsk_orders.type = 'kit' ) AS kit_orders_pending " +
-"FROM         fsk_allocations alloc, simplesecuritymanager_user ssm, staffsite_staffsiteprofile profile, ministry_staff staffPerson, ministry_RegionalTeam region " +
-"Where  alloc.ssm_id = ssm.userId and ssm.username = profile.username and profile.accountNo = staffPerson.accountNo and alloc.region_id = region.teamID and region.region = "
   def self.records_for_region(region)
-    find_by_sql(@@all_records_sql + " and region.region = '#{region}'")
+    query = @@all_records_sql + " and region.region = '#{region}'"
+    find_by_sql(query)
   end
   
   def self.all_records()
