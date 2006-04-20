@@ -71,6 +71,10 @@ class Customer::SummaryController < ApplicationController
     @staff = Staff.find(:all, :conditions => ["lastName like ?", last_name + '%'], :order => "lastName ASC")
   end
   
+  def boom
+    raise "boom!"
+  end
+  
   private
   def get_allocations_for_region(region)
     @allocations = Allocation.find(:all, :conditions => ["region_id = ?", region])

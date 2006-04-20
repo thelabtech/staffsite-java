@@ -4,12 +4,6 @@ require 'cas'
 class ApplicationController < ActionController::Base
   include ExceptionNotifiable	#Automatically generates emails of errors
   before_filter CAS::CASFilter, :authenticate, :authorize
-	def local_request?
-false
-end
-  def boom
-    raise "boom!"
-  end
   
   private
   
