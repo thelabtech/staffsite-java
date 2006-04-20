@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   
   def authenticate 
     unless session[:user]
+    #todo: lookup by guid
       if session[:cas_receipt] && session[:cas_receipt][:user]
         session[:user] = User.find_by_username(session[:cas_receipt][:user])
         if session[:user].nil? then raise session.inspect end
@@ -49,9 +50,13 @@ class ApplicationController < ActionController::Base
   
   #ssm user, not FskUser
   def get_user_by_account_no(account_no)
+    if account_no.nil? then raise "nil account_no!" end
     profile = StaffsiteProfile.find(:first, :conditions => ["accountNo = ?", account_no])
-    username = profile.userName
-    ssm_user = User.find(:first, :conditions => ["username = ?", username])
+    if profile
+      username = profile.userName
+      return User.find(:first, :conditions => ["username = ?", username])
+    end
+    return nil
   end
 
   # the FskUser associated with the currently logged in user
