@@ -11,6 +11,8 @@ class Customer::AllocationControllerTest < Test::Unit::TestCase
     @controller = Customer::AllocationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    
+    @request.session[:cas_receipt] = {:user => 'josh.starcher@uscm.org'}
   end
 
   def test_index
@@ -29,7 +31,7 @@ class Customer::AllocationControllerTest < Test::Unit::TestCase
   end
 
   def test_show
-    get :show, :id => 1
+    get :show, {:id => 1}
 
     assert_response :success
     assert_template 'show'
@@ -39,7 +41,7 @@ class Customer::AllocationControllerTest < Test::Unit::TestCase
   end
 
   def test_new
-    get :new
+    get :new, {}
 
     assert_response :success
     assert_template 'new'
@@ -50,16 +52,16 @@ class Customer::AllocationControllerTest < Test::Unit::TestCase
   def test_create
     num_allocations = Allocation.count
 
-    post :create, :allocation => {}
+    @alloc = {:ssm_id => 1, :impact_allotment => 100}
+    post :create, @alloc
 
-    assert_response :redirect
-    assert_redirected_to :action => 'list'
+    successful_allocation_crud
 
     assert_equal num_allocations + 1, Allocation.count
   end
 
   def test_edit
-    get :edit, :id => 1
+    get :edit, {:id => 1}
 
     assert_response :success
     assert_template 'edit'
@@ -69,9 +71,9 @@ class Customer::AllocationControllerTest < Test::Unit::TestCase
   end
 
   def test_update
-    post :update, :id => 1
-    assert_response :redirect
-    assert_redirected_to :action => 'show', :id => 1
+    @alloc = {:id => 1, :ssm_id => 1, :impact_allotment => 200}
+    post :update, @alloc
+    successful_allocation_crud
   end
 
   def test_destroy
