@@ -7,7 +7,7 @@ fsk_orders_001:
   ship_address2: "#3304"
   contact_cell: 554-545-4454
   updated_at: 2006-04-12 10:13:51
-  ssm_id: "42655"
+  ssm_id: "1"
   operating_unit: "2"
   total_kits: "1000"
   order_year: "2006"
@@ -19,7 +19,7 @@ fsk_orders_001:
   lock_version: 0
   type: KitOrder
   contact_phone: 555-555-5555
-  allocation_id: 
+  allocation_id: 1
   id: "38"
   contact_email: josh.starcher@uscm.org
   contact_first_name: Josh
@@ -34,7 +34,7 @@ fsk_orders_002:
   ship_address2: "876"
   contact_cell: 888-888-8888
   updated_at: 2006-04-12 10:15:01
-  ssm_id: "42655"
+  ssm_id: "1"
   operating_unit: chart
   total_kits: 
   order_year: "2006"
@@ -46,7 +46,7 @@ fsk_orders_002:
   lock_version: 0
   type: ProductOrder
   contact_phone: 777-777-7777
-  allocation_id: 
+  allocation_id: 5
   id: "39"
   contact_email: bob.franklin@yeahright.com
   contact_first_name: Bob

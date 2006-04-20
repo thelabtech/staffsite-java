@@ -12,3 +12,15 @@ staffsite_staffsiteprofile_001:
   captureHRinfo: "1"
   oldPrimaryKey: ''
   email: josh.starcher@uscm.org
+Jeff_profile:
+  StaffSiteProfileID: 2
+  username: jeff.west@ccci.org
+  accountNo: 000000124
+Joe_profile:
+  StaffSiteProfileID: 3
+  username: joe.staffguy@uscm.org
+  accountNo: 000000125
+Matt_profile:
+  StaffSiteProfileID: 4
+  username: matthew.drees@uscm.org
+  accountNo: 000575620
