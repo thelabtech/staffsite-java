@@ -5,6 +5,6 @@ class ProductOrderTest < Test::Unit::TestCase
    
   def test_total_cost
     order = Order.find(39)
-    assert order.cost == 1593
+    assert_equal 1533, order.cost 
   end
 end
