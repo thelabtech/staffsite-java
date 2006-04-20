@@ -67,9 +67,11 @@ class Customer::OrderController < ApplicationController
   end
 
   def edit_kit_order
+    @title = "Editing Kit Order"
     edit
   end
   def edit_product_order
+    @title = "Editing Individual Product Order"
     edit
   end
   def edit

@@ -1,11 +1,11 @@
 /* CSS for FSK */
 
 /* HTML tags */
-body { text-align: center; /* for centering body in IE */ }
+/* for centering body in IE  body { text-align: center;  }*/
 
 p {
 	font-size: 10pt; 
-	text-align: justify; 
+	text-align: left; 
 	color: black; }
 
 h1 { /* "FSK Choice" */
@@ -110,8 +110,8 @@ table.summary td {
 
 #top-pane {
 	width: inherit;
-	height: 80px;
-	margin-top: 20px;
+	height: 20px;
+	margin-top: 0px;
 	margin-bottom: 15px; 
 	padding: 0px; }
 
@@ -126,7 +126,7 @@ table.summary td {
 	width: 225px;
 	text-align: right; 
 	float: right;
-	margin: -1px 0px 15px 15px; 
+	margin: -1px 0px 0px 15px; 
 	/*border-left: 1px solid #D0DDEA; */
 	clear: both; 
 	padding: 0px; }
@@ -142,8 +142,7 @@ table.summary td {
 	background-color: #D0DDEA; } 
 
 #logo {
-	width: 153px;
-	height: 75px;
+
 	float: left;
 	margin-top: 5px; }
 
@@ -157,13 +156,13 @@ table.summary td {
 
 /* navbar */
 #navbar {
-	width: 600px; 
+	width: 680px; 
 	height: auto;
 	font-weight: bold;
 	float: right;
 	background-color: #336699; 
 	text-align: right;
-	margin-top: 60px; 
+	margin-top: 5px; 
 	padding: 0px; }
 
 #navbar a {

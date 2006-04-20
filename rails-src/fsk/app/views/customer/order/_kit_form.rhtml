@@ -10,7 +10,6 @@ kits for this order.</p><br>
 <%= text_field 'order', 'total_kits' %></p>
 <% KitCategory.find(:all).each_with_index do |category, i| %>
 <p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
-	<em><%= category.description %></em></p>
 	<% category.products.find(:all, :conditions => "availability = 'kit' OR availability = 'both'").each do |product| %>
 		<p><label for="product_<%=product.id%>"><%=product.name%>:</label><br>
 		<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
