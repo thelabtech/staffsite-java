@@ -30,4 +30,9 @@ class Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to '/customer/summary/local_summary'
   end
+  
+  def successful_allocation_crud
+    assert_response :redirect
+    assert_redirected_to '/customer/summary/local_summary'  
+  end
 end

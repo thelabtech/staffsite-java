@@ -12,3 +12,6 @@ require 'unit/national_report_test.rb'
 require 'unit/report_record_test.rb'
 
 #Functional tests.
+require 'functional/customer/allocation_controller_test.rb'
+require 'functional/customer/order_controller_test.rb'
+require 'functional/customer/summary_controller_test.rb'
