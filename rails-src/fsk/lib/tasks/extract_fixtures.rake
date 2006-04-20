@@ -17,6 +17,16 @@ task :extract_all_fixtures => :environment do
   end
 end
 
+task :count_rows => :environment do
+  sql = "SELECT count(*) as rows FROM %s"
+  skip_tables = ["schema_info"]
+  ActiveRecord::Base.establish_connection
+  (ActiveRecord::Base.connection.tables - skip_tables).each do |table_name|
+    print table_name+': '
+    puts ActiveRecord::Base.connection.select_value(sql % table_name)
+  end
+end
+
 #usage: rake extract_fixtures table=fsk_fields
 #only extracts one table at a time; maybe worth expanding
 task :extract_fixtures => :environment do

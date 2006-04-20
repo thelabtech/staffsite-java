@@ -5,7 +5,7 @@ require 'customer/allocation_controller'
 class Customer::AllocationController; def rescue_action(e) raise e end; end
 
 class Customer::AllocationControllerTest < Test::Unit::TestCase
-  fixtures :allocations
+  fixtures :fsk_allocations
 
   def setup
     @controller = Customer::AllocationController.new
