@@ -33,6 +33,7 @@ class Customer::AllocationController < ApplicationController
     @allocation.region_id = get_region_id
     @allocation.ssm_id = session[:victim_id] || get_user.user.id
     @allocation.attributes = check_params(params[:allocation])
+    @title = "New Allocation"
   end
 
   def create
@@ -45,21 +46,24 @@ class Customer::AllocationController < ApplicationController
       flash[:notice] = 'Allocation was successfully created.'
       redirect_to :controller => "summary", :action => "local_summary"
     else
+      @title = "New Allocation"
       render :action => 'new'
     end
   end
 
   def edit
     @allocation = Allocation.find(params[:id])
+    @title = "Editing Allocation"
   end
   
   def update
     @allocation = Allocation.find(params[:id])
     if (not get_user.can_modify_allocation?(@allocation))
       flash[:notice] = 'You may not modify this allocation'
-      @user = get_user
+      @title = "Editing Allocation"
       render :action => 'edit'
     elsif (not @allocation.update_attributes(check_params(params[:allocation])))
+      @title = "Editing Allocation"
       render :action => 'edit'
     else
       flash[:notice] = 'Allocation was successfully updated.'
