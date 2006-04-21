@@ -22,12 +22,12 @@ class Product < ActiveRecord::Base
           sql << "and      l.id <> #{item.id} "
     end
     sql << "GROUP BY p.quantity "
-    remaining = ActiveRecord::Base.connection.select_one(sql)['remaining']
     # if this result returns nil, there are no line items for this product
-    if remaining.nil?
+    result = ActiveRecord::Base.connection.select_one(sql)
+    if result.nil?
       quantity
     else
-      remaining.to_i
+      result['remaining'].to_i
     end
   end
   
