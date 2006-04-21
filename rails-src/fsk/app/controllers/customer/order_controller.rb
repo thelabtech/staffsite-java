@@ -53,6 +53,8 @@ class Customer::OrderController < ApplicationController
         session[:line_errors] = nil
         session[:bad_items] = nil
         flash[:notice] = 'Order was successfully created.'
+        # send confirmation email
+        email = OrderMailer.deliver_placed(@order)
         redirect_to :controller => 'summary', :action => 'local_summary'
         return
       else
