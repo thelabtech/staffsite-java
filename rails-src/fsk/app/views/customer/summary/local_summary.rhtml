@@ -4,7 +4,46 @@
 <h3> Your Summary </h3>
 <% end%>
 <br/>
-<%= link_to "Place an order for individual items", {:controller => "order", :action => "place_product_order"} %>
+Welcome to the Freshman Survival Kit ordering site.  We are praying for you and trusting that this strategy will help you launch new movements and
+connect with lost students and see God change them into Christ centered laborers.
+
+
+<br/>
+<br/>
+This page is your summary page. Here you can 
+
+<br/>
+
+<br/>
+(1) see how many kits were allocated to you for launching new movements
+
+<br/>
+<br/>
+(2) add Locally Raised kits to your allocation; these will be paid for from your campus account.  
+Locally Raised kits can be used any way you like.
+
+<br/>
+<br/>
+
+(3) order individual products to be given away for free on campus
+<br/>
+<br/>
+(4) change change an existing kit order or individual product order 
+
+<br/>
+<br/>
+On Monday, May 15, 2006, we will begin ordering the material.  After that date, we cannot guarantee that all items will be available.
+You can change your shipping and order information until Monday, July 10, 2006.  At that time we will pull the data offline to prepare for 
+fulfillment.
+
+
+<br/>
+<br/>
+To choose the products that will go in your FSK's, click on the "Place a kit order using this allocation" link. To order individual items,
+click on the "Place an order for individual items" link.  
+You can have your products sent to multiple addresses by creating an individual order for each address.
+
+<br/>
 <br/>
 <%= if @show_create_allocation_link 
     link_to "Create an allocation", {:controller => "allocation", :action => "new"}
@@ -17,7 +56,7 @@ end%>
 		<tr><td width="150">Locally Raised</a></td> 
 
 			<td><%= allocation.locally_raised || 0 %></td></tr>
-		<tr><td>Regional Allocation</td><td><%= allocation.regional_allotment || 0 %></td></tr>
+		<tr><td>Regional Allocation</td><td><%= allocation.regional_allotment || 0 %> (for launching new movements only)</td></tr>
 		<tr><td>Regionally Raised</td><td><%= allocation.regionally_raised || 0 %></td></tr>
 		<tr><td>Impact Allocation</td><td><%= allocation.impact_allotment || 0 %></td></tr>
 		<tr><td>Forerunner Allocation</td><td><%= allocation.forerunner_allotment || 0 %></td></tr>
@@ -26,7 +65,7 @@ end%>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
-        </tr><td colspan="3" class="subhead"><%= link_to "Edit this allocation", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td>
+        </tr><td colspan="3" class="subhead"><%= link_to "Edit this allocation or add locally raised kits", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td>
 		</tr><td colspan="3" class="subhead"><%=link_to("Place a kit order using this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td>
 	</table>
 	<br>
@@ -72,6 +111,10 @@ end%>
         and click the submit button at the bottom of the page.
 		The changes will not register if you do not click the "submit" button.)</p>
 
+<br/>
+<%= link_to "Place an order for individual items", {:controller => "order", :action => "place_product_order"} %>
+<br/>
+<br/>
 <table class="normal">
 	<tr>
 		<th colspan="4">Individual Product Orders:</th>
