@@ -1,5 +1,16 @@
 <%= error_messages_for 'allocation' %>
 
+<% if @user.role.name == "regional"%>
+<p>
+Please choose your region from dropdown.
+
+</p>
+<p>
+Regional Allocation kits are for launching new movements.  
+Please list the campuses where the kits will be distributed in the Regional Notes box, if you know them.  Thanks.
+<br/>
+</p>
+<% end%>
 <!--[form:allocation]-->
 <table>
 <tr>
