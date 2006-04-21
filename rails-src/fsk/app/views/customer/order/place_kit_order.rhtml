@@ -1,7 +1,7 @@
 <%= start_form_tag :action => 'create_kit_order' %>
 	<%= hidden_field("order","allocation_id",{:value => params[:allocation_id]})%>
   <%= render :partial => 'kit_form' %>
-  <%= submit_tag "Place Order" %>
+  <%= submit_tag "Place Order", :class => "btn" %>
 <%= end_form_tag %>
 
 <br>
