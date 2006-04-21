@@ -19,8 +19,9 @@ class Product < ActiveRecord::Base
           "and	    l.product_id = p.id "+
           "and      p.id = #{id} "
     if (item && item.id)
-          sql << "and      l.id <> #{item.id}"
+          sql << "and      l.id <> #{item.id} "
     end
+    sql << "GROUP BY p.quantity "
     remaining = ActiveRecord::Base.connection.select_one(sql)['remaining']
     # if this result returns nil, there are no line items for this product
     if remaining.nil?
