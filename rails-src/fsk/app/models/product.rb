@@ -13,7 +13,7 @@ class Product < ActiveRecord::Base
     :message => "must be a gif or jpeg file"
   
   def quantity_remaining(item = nil)
-    sql = "select	p.quantity - SUM(l.quantity) as remaining "+
+    sql = "select	(p.quantity - SUM(l.quantity)) as remaining "+
           "from	    fsk_line_items l, fsk_orders o, fsk_products p "+
           "where    l.order_id = o.id "+
           "and	    l.product_id = p.id "+
