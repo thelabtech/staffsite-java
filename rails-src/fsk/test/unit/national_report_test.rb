@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class NationalReportTest < Test::Unit::TestCase
-  fixtures :fsk_allocations, :fsk_orders, :ministry_regionalteam
+  fixtures :fsk_allocations, :fsk_orders, :ministry_RegionalTeam
 
   # Replace this with your real tests.
   def test_national_report
