@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 require 'cas'
 class ApplicationController < ActionController::Base
-  before_filter CAS::CASFilter, :authenticate, :authorize
+  before_filter CAS::CASFilter, :authenticate, :authorize, :except => 'list'
   include ExceptionNotifiable	#Automatically generates emails of errors
   private
   
