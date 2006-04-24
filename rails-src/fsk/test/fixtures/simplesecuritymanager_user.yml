@@ -1,6 +1,5 @@
 --- 
 josh: 
-  email_deprecated: 
   lastLogin: 2006-04-04 00:00:00
   lastFailure: 
   lastFailureCnt: "0"
@@ -13,7 +12,6 @@ josh:
   password: DomB6DfPieMK1vx6Tt6Vpw==
   globallyUniqueID: F167605D-94A4-7121-2A58-8D0F2CA6E026
 matt: 
-  email_deprecated: 
   lastLogin: 2006-04-05 00:00:00
   lastFailure: 
   lastFailureCnt: "0"
