@@ -46,7 +46,7 @@ class Customer::OrderController < ApplicationController
     create('product_order')
   end
   def create(type)
-    @order.ssm_id = session[:victim_id]
+    @order.ssm_id = session[:victim_id] || get_user.user.id
     @order.order_year = get_year
     if @order.save 
       if save_line_items && @order.valid?
