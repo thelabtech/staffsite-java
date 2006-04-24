@@ -10,7 +10,6 @@ staffsite_staffsiteprofile_001:
   passwordAnswer: ''
   accountNo: "000559826"
   captureHRinfo: "1"
-  oldPrimaryKey: ''
   email: josh.starcher@uscm.org
 Jeff_profile:
   StaffSiteProfileID: 2

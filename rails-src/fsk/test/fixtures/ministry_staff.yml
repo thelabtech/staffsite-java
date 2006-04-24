@@ -4,34 +4,34 @@ ministry_staff_001:
   spouseMiddleName: ''
   url: ''
   otherPhone: ''
-  loaEndDate: 0000-00-00 00:00:00
+  loaEndDate: 
   isSecure: ''
   contributionsToAcntNo: ''
-  resignationDate: 0000-00-00 00:00:00
-  marriageDate: 0000-00-00 00:00:00
+  resignationDate:
+  marriageDate: 
   loaReason: ''
-  birthDate: 0000-00-00 00:00:00
+  birthDate: 
   isNonUSStaff: ''
-  reportingDate: 0000-00-00 00:00:00
+  reportingDate:
   mobilePhone: ''
   lastName: Starcher
   employmentType: ''
-  origHiredate: 0000-00-00 00:00:00
+  origHiredate: 
   deptName: ''
   workPhone: ''
   contributionsToOtherAcct: ''
-  deptEntryDate: 0000-00-00 00:00:00
+  deptEntryDate: 
   isFianceeJoiningNS: ''
   fianceeMiddleName: ''
-  serviceDate: 0000-00-00 00:00:00
+  serviceDate: 
   region: ''
   namePrefix: ''
   removedFromPeopleSoft: N
   isSupported: ''
-  fianceeJoinStaffDate: 0000-00-00 00:00:00
+  fianceeJoinStaffDate:
   email: ''
   isEmailSecure: ''
-  newStaffTrainingdate: 0000-00-00 00:00:00
+  newStaffTrainingdate:
   coupleTitle: ''
   pager: ''
   maritalStatus: ''
@@ -49,7 +49,7 @@ ministry_staff_001:
   accountNo: 000559826
   note: ''
   severancePayMonthsReq: "0"
-  hireDate: 0000-00-00 00:00:00
+  hireDate:
   position: ''
   homePhone: ''
   ministry: ''
@@ -63,7 +63,7 @@ ministry_staff_001:
   spouseAccountNo: ''
   deptId: ''
   isMale: ''
-  lastIncDate: 0000-00-00 00:00:00
+  lastIncDate: 
   fk_primaryAddress: "0"
   countryStatus: ''
   countryCode: ''
@@ -71,12 +71,12 @@ ministry_staff_001:
   spouseEmail: ''
   fk_secondaryAddress: "0"
   fax: ''
-  rehireDate: 0000-00-00 00:00:00
+  rehireDate:
   fk_teamID: "0"
   spouseFirstName: ''
-  jobEntryDate: 0000-00-00 00:00:00
+  jobEntryDate:
   primaryEmpLocDesc: ''
-  loaStartDate: 0000-00-00 00:00:00
+  loaStartDate:
   fianceeAccountno: ''
   compFreq: ''
   accountCode: ''

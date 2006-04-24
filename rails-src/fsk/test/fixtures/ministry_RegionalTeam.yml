@@ -17,8 +17,8 @@ ministry_regionalteam_009:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_010: 
@@ -39,8 +39,8 @@ ministry_regionalteam_010:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_011: 
@@ -61,8 +61,8 @@ ministry_regionalteam_011:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_012: 
@@ -83,8 +83,8 @@ ministry_regionalteam_012:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_001: 
@@ -105,8 +105,8 @@ ministry_regionalteam_001:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_002: 
@@ -127,8 +127,8 @@ ministry_regionalteam_002:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_003: 
@@ -149,8 +149,8 @@ ministry_regionalteam_003:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_004: 
@@ -171,8 +171,8 @@ ministry_regionalteam_004:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate:
+  startdate:
   email: ''
   state: ''
 ministry_regionalteam_005: 
@@ -193,8 +193,8 @@ ministry_regionalteam_005:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_006: 
@@ -215,8 +215,8 @@ ministry_regionalteam_006:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_007: 
@@ -237,8 +237,8 @@ ministry_regionalteam_007:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
 ministry_regionalteam_008: 
@@ -259,7 +259,7 @@ ministry_regionalteam_008:
   note: ''
   oldPrimaryKey: ''
   abbrv: ''
-  stopdate: 0000-00-00 00:00:00
-  startdate: 0000-00-00 00:00:00
+  stopdate: 
+  startdate: 
   email: ''
   state: ''
