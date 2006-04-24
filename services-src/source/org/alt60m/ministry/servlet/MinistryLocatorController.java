@@ -43,7 +43,7 @@ public class MinistryLocatorController extends Controller {
    }
 	
 
-	public void outputCampusList (HttpServletResponse res, String searchBy, String searchText, boolean showAllCampuses) throws Exception {
+	public void outputCampusList (HttpServletResponse res, String searchBy, String searchText, String searchState, boolean showAllCampuses) throws Exception {
 		MinistryLocatorInfo mlInfo = new MinistryLocatorInfo();
 
 		Collection campuses;
@@ -89,8 +89,10 @@ public class MinistryLocatorController extends Controller {
 				campuses = mlInfo.getTargetAreasByState(searchText);
 			}
 			
-		} else {
+		} else if(searchBy.equalsIgnoreCase("country"))  {
 			campuses = mlInfo.getTargetAreasByCountry(searchText);
+		} else {
+			campuses = mlInfo.getTargetAreasByStrategy(searchText, searchState);
 		}
 
 		Iterator campusList = campuses.iterator();
@@ -148,10 +150,11 @@ public class MinistryLocatorController extends Controller {
 	 */
 	public void campusLocate (ActionContext ctx) {
         try {
-			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country"});
+			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country", "strategy"});
        		String searchText = ctx.getInputString("searchtext", true);
+       		String searchState = ctx.getInputString("state", false);
 
-			outputCampusList(ctx.getResponse(), searchBy, searchText, true);						
+			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
 
         } catch (Exception e) {
 			log(Priority.ERROR, "Failed to perform ministryLocate().", e);
@@ -166,10 +169,11 @@ public class MinistryLocatorController extends Controller {
 	 */
 	public void ministryLocate (ActionContext ctx) {
         try {
-			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country"});
+			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country", "strategy"});
        		String searchText = ctx.getInputString("searchtext", true);
+       		String searchState = ctx.getInputString("state", false);
 
-			outputCampusList(ctx.getResponse(), searchBy, searchText, true);						
+			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
 			
         } catch (Exception e) {
 			log(Priority.ERROR, "Failed to perform ministryLocate().", e);
