@@ -11,6 +11,6 @@ class Customer::ProductController < ApplicationController
   
   def show_description
     @item = Product.find(params[:product_id])
-    @all_items = Product.find(:all)
+    @all_items = Product.find(:all, :conditions => ["availability = ? OR availability = 'both'", params[:type]])
   end
 end

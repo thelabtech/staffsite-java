@@ -27,7 +27,9 @@ kits for this order.</p><br>
 <% KitCategory.find(:all).each_with_index do |category, i| %>
 <p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
 	<% category.products.find(:all, :conditions => "availability = 'kit' OR availability = 'both'").each do |product| %>
-		<p><label for="product_<%=product.id%>"><%=product.name%>:</label><br>
+		<div id="description<%=product.id%>" class="description"></div>
+		<p><label for="product_<%=product.id%>"><%=link_to_remote(product.name, 
+																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id, :type => 'kit'})%>:</label><br>
 		<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 			<div class="fieldWithErrors">
 		<% end %>
