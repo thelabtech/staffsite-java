@@ -21,13 +21,11 @@
 
 <p>All quantities must be in multiples of 100.</p>
 <% KitCategory.find(:all).each_with_index do |category, i| %>
-<div style="float:right; clear:both">
-</div>
 <p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
 	<% category.products.find(:all, :conditions => "availability = 'individual' OR availability = 'both'").each do |product| %>
 		<div id="description<%=product.id%>" class="description"></div>
 		<p><label for="product_<%=product.id%>"><%=link_to_remote(product.name, 
-																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id}, :type => 'individual')%> ($<%= sprintf("%0.2f", product.price)%> each):</label><br/>
+																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id, :type => 'individual'})%> ($<%= sprintf("%0.2f", product.price)%> each):</label><br/>
 		<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 			<div class="fieldWithErrors">
 		<% end %>
