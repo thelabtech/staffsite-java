@@ -93,7 +93,7 @@ table.summary td {
 /* Page id's */
 
 #wrapper {
-	width: 780px;
+/*	width: 780px; */
 	overflow: hidden;
 	margin: 0px;
 	background-color: white;
@@ -102,7 +102,7 @@ table.summary td {
 	padding: 0px; }
 
 #wrapper-summary { /* to be used on the FSK summary page */
-	width: 845px;
+	/*width: 845px;*/
 	overflow: hidden;
 	margin: 0px;
 	padding: 0px;
@@ -157,7 +157,7 @@ table.summary td {
 
 /* navbar */
 #navbar {
-	width: 680px; 
+	width: 600px; 
 	height: auto;
 	font-weight: bold;
 	float: right;
@@ -179,7 +179,8 @@ table.summary td {
 	text-decoration: none;
 	color: #CCCC99; } 
 
-#description {
+.description {
   width: 400px;
   float: right;
+  margin-top: -30px;
 }
