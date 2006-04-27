@@ -112,7 +112,13 @@ public class WsnProject extends DBIOEntity {
 		setMetadata("ScholarshipOperatingUnit", "scholarshipOperatingUnit", table);
 		setMetadata("ScholarshipDeptID", "scholarshipDeptID", table);
 		setMetadata("ScholarshipProjectID", "scholarshipProjectID", table);
-		setMetadata("ScholarshipDesignation", "scholarshipDesignation", table);		
+		setMetadata("ScholarshipDesignation", "scholarshipDesignation", table);
+		
+		/*Added 4/18/06 SRW */
+		setMetadata("StatesideContactName", "statesideContactName", table); 
+		setMetadata("StatesideContactProjectRole", "statesideContactProjectRole", table);
+		setMetadata("StatesideContactPhone", "statesideContactPhone", table);
+		setMetadata("StatesideContactEmail", "statesideContactEmail", table);
 		
 		setAutodetectProperties(false);
 	}
@@ -184,6 +190,13 @@ public class WsnProject extends DBIOEntity {
 	private String destinationAddress = "";
 	private String destinationPhone = "";
 	private String wsnYear = "";
+	
+	/*Added 4/18/06 SRW	 */
+
+	private String statesideContactName = "";
+	private String statesideContactProjectRole = "";
+	private String statesideContactPhone = "";
+	private String statesideContactEmail = "";
 
 	private int fk_isCoord = 0;
 	private int fk_isAPD = 0;
@@ -768,5 +781,41 @@ public class WsnProject extends DBIOEntity {
 	}
 
 	/* end PS 8 FIN update additions */
+	
+	/* 4/16/06 Added 4 new fields to Wsn_Project table. Here are the get/set methods for the data
+	 * to be entered in those fields.
+	 */
+	
+	public String getStatesideContactName() {
+		return statesideContactName;
+	}
+	
+	public void setStatesideContactName(String statesideContactName) {
+		this.statesideContactName = statesideContactName;
+	}
+	
+	public String getStatesideContactProjectRole() {
+		return statesideContactProjectRole;
+	}
+	
+	public void setStatesideContactProjectRole(String statesideContactProjectRole) {
+		this.statesideContactProjectRole = statesideContactProjectRole;
+	}
+	
+	public String getStatesideContactPhone () {
+		return statesideContactPhone;
+	}
+	
+	public void setStatesideContactPhone(String statesideContactPhone) {
+		this.statesideContactPhone = statesideContactPhone;
+	}
 
+	public String getStatesideContactEmail() {
+		return statesideContactEmail;
+	}
+	
+	public void setStatesideContactEmail(String statesideContactEmail) {
+		this.statesideContactEmail = statesideContactEmail; 
+	}
+	
 }
