@@ -57,7 +57,7 @@ class Product < ActiveRecord::Base
   
   protected
   def validate
-    if price && price < 0.01
+    if price && price < 0
       errors.add(:price, "should be positive") 
     end
   end
