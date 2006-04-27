@@ -8,4 +8,9 @@ class Customer::ProductController < ApplicationController
     @categories = KitCategory.find(:all)
     render(:action => 'list', :layout => false)
   end
+  
+  def show_description
+    @item = Product.find(params[:product_id])
+    render(:partial => 'item', :object => @item)
+  end
 end

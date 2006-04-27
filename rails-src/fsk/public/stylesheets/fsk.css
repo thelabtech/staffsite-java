@@ -178,3 +178,8 @@ table.summary td {
 #navbar a:hover {
 	text-decoration: none;
 	color: #CCCC99; } 
+
+#description {
+  width: 400px;
+  float: right;
+}
