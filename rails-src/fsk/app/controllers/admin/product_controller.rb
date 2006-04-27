@@ -9,7 +9,7 @@ class Admin::ProductController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @product_pages, @products = paginate :products, :per_page => 10
+    @products = Product.find(:all)
   end
 
   def show

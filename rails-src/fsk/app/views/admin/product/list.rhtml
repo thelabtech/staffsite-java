@@ -31,10 +31,6 @@ for product in @products
 end
 %>
 </table>
-
-<%= link_to 'Previous page', { :page => @product_pages.current.previous } if @product_pages.current.previous %>
-<%= link_to 'Next page', { :page => @product_pages.current.next } if @product_pages.current.next %> 
-
 <br />
 
 <%= link_to 'New product', :action => 'new' %>
