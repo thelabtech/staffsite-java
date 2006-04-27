@@ -566,17 +566,7 @@ public class StaffController extends Controller {
 		log("!!!!" + requestedURL);
 
 		ctx.getResponse().addCookie(mainCookie);
-		boolean changePassword = ((Boolean) profileHash.get("ChangePassword"))
-				.booleanValue();
-		if (changePassword) {
-			Hashtable tub = new Hashtable();
-			tub.put("firstLogin", "true");
-			tub.put("userName", userName);
-			tub.put("ErrorMsg", "");
-			tub.put("ResultMsg", "");
-			ctx.setSessionValue("passwordChange", tub);
-			ctx.goToView("userChangePassword");
-		} else if (requestedURL != null) {
+		if (requestedURL != null) {
 			log("Going to : " + requestedURL);
 			try {
 				ctx.getResponse().sendRedirect(requestedURL);
