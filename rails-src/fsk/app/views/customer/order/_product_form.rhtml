@@ -27,7 +27,7 @@
 	<% category.products.find(:all, :conditions => "availability = 'individual' OR availability = 'both'").each do |product| %>
 		<div id="description<%=product.id%>" class="description"></div>
 		<p><label for="product_<%=product.id%>"><%=link_to_remote(product.name, 
-																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id}, :type => 'kit')%> ($<%= sprintf("%0.2f", product.price)%> each):</label><br/>
+																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id}, :type => 'individual')%> ($<%= sprintf("%0.2f", product.price)%> each):</label><br/>
 		<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 			<div class="fieldWithErrors">
 		<% end %>
