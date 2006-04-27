@@ -5,8 +5,7 @@
 <%= text_field 'product', 'name'  %></p>
 
 <p><label for="product_description">Description</label><br/>
-<%= text_area 'product', 'description', "rows" => 10  %></p>
-
+<textarea cols="40" id="product_description" name="product[description]" rows="10"><%=@product.description%></textarea>
 <p><label for="product_kit_category_id">Category</label><br/>
 <%= 
 	@categories = KitCategory.find(:all, :order => "name")

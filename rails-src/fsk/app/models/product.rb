@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   set_table_name	"fsk_Products"
 
   has_many :line_items
+  has_many :product_text
   belongs_to :kit_category
 
   validates_presence_of :name
@@ -52,6 +53,28 @@ class Product < ActiveRecord::Base
       'This product cannot be ordered as part of a kit. You must order it seperately.'
     when 'neither'
       'This product is currently unavailable.'
+    end
+  end
+  
+  def description
+    # glue together description
+    desc = ''
+    product_text.each do |t|
+      desc += t.description
+    end
+    return desc
+  end
+  
+  def description=(value)
+    # clear out old description text
+    ProductText.destroy_all(["product_id = ?", id])
+    # break up the new description
+    length = value.length
+    piece_count = (length/254).ceil
+    (0..piece_count).each do |i|
+      ProductText.create(
+        :description => value[(254*i)..(254*(i+1))],
+        :product_id => id)
     end
   end
   
