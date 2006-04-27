@@ -23,7 +23,7 @@
 <p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
 	<% category.products.find(:all, :conditions => "availability = 'individual' OR availability = 'both'").each do |product| %>
 
-		<p><label for="product_<%=product.id%>"><%=product.name%> (<%=product.price%> each):</label><br/>
+		<p><label for="product_<%=product.id%>"><%=product.name%> ($<%= sprintf("%0.2f", product.price)%> each):</label><br/>
 		<% if session[:bad_items] && session[:bad_items].include?(product.id) %>
 			<div class="fieldWithErrors">
 		<% end %>
