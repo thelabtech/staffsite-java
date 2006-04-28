@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 15) do
 
   create_table "am_friends_people", :id => false, :force => true do |t|
     t.column "friend_id", :integer, :limit => 10, :default => 0, :null => false
@@ -45,31 +45,6 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "title", :string, :limit => 500
     t.column "description", :text
     t.column "person_id", :integer, :limit => 10, :default => 0, :null => false
-  end
-
-  create_table "am_personal_messages", :force => true do |t|
-    t.column "person_id", :integer, :limit => 10, :default => 0, :null => false
-    t.column "sender_id", :integer, :limit => 10, :default => 0, :null => false
-    t.column "subject", :string, :default => "", :null => false
-    t.column "body", :text
-    t.column "time_created_at", :datetime
-    t.column "parent_id", :integer, :limit => 10
-  end
-
-  create_table "ap_personurls", :id => false, :force => true do |t|
-    t.column "personURLID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "URL", :string, :limit => 500
-    t.column "description", :string
-    t.column "serviceAPI", :string
-    t.column "fk_PersonID", :integer, :limit => 10, :default => 0, :null => false
-  end
-
-  create_table "ap_projecturls", :id => false, :force => true do |t|
-    t.column "projectURLID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "URL", :string, :limit => 500
-    t.column "description", :string
-    t.column "serviceAPI", :string
-    t.column "fk_WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
   end
 
   create_table "ap_signup", :id => false, :force => true do |t|
@@ -123,6 +98,74 @@ ActiveRecord::Schema.define(:version => 12) do
 
   add_index "cms_cmsfile", ["accessCount"], :name => "index1"
 
+  create_table "cms_viewcategoryidfiles", :id => false, :force => true do |t|
+    t.column "CmsFileID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64
+    t.column "mime", :string, :limit => 128
+    t.column "title", :string, :limit => 256
+    t.column "accessCount", :integer, :limit => 10
+    t.column "dateAdded", :datetime
+    t.column "dateModified", :datetime
+    t.column "moderatedYet", :string, :limit => 1
+    t.column "summary", :string, :limit => 4000
+    t.column "quality", :string, :limit => 256
+    t.column "expDate", :datetime
+    t.column "lastAccessed", :datetime
+    t.column "modMsg", :string, :limit => 4000
+    t.column "keywords", :string, :limit => 4000
+    t.column "url", :string, :limit => 128
+    t.column "detail", :string, :limit => 4000
+    t.column "language", :string, :limit => 128
+    t.column "version", :string, :limit => 128
+    t.column "author", :string, :limit => 256
+    t.column "submitter", :string, :limit => 256
+    t.column "contact", :string, :limit => 256
+    t.column "rating", :integer, :limit => 10
+    t.column "CmsCategoryID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "cms_viewfileidcategories", :id => false, :force => true do |t|
+    t.column "CmsCategoryID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64
+    t.column "parentCategory", :integer, :limit => 10
+    t.column "catName", :string, :limit => 256
+    t.column "catDesc", :string, :limit => 2000
+    t.column "path", :string, :limit => 2000
+    t.column "pathid", :string, :limit => 2000
+    t.column "CmsFileID", :string, :limit => 64, :default => "", :null => false
+  end
+
+  create_table "cms_viewfilesandcategories", :id => false, :force => true do |t|
+    t.column "CmsFileID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64
+    t.column "mime", :string, :limit => 128
+    t.column "title", :string, :limit => 256
+    t.column "accessCount", :integer, :limit => 10
+    t.column "dateAdded", :datetime
+    t.column "dateModified", :datetime
+    t.column "moderatedYet", :string, :limit => 1
+    t.column "summary", :string, :limit => 4000
+    t.column "quality", :string, :limit => 256
+    t.column "expDate", :datetime
+    t.column "lastAccessed", :datetime
+    t.column "modMsg", :string, :limit => 4000
+    t.column "keywords", :string, :limit => 4000
+    t.column "url", :string, :limit => 128
+    t.column "detail", :string, :limit => 4000
+    t.column "language", :string, :limit => 128
+    t.column "version", :string, :limit => 128
+    t.column "author", :string, :limit => 256
+    t.column "submitter", :string, :limit => 256
+    t.column "contact", :string, :limit => 256
+    t.column "rating", :integer, :limit => 10
+    t.column "CmsCategoryID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "parentCategory", :integer, :limit => 10
+    t.column "catName", :string, :limit => 256
+    t.column "catDesc", :string, :limit => 2000
+    t.column "path", :string, :limit => 2000
+    t.column "pathid", :string, :limit => 2000
+  end
+
   create_table "crs_answer", :id => false, :force => true do |t|
     t.column "answerID", :integer, :limit => 10, :default => 0, :null => false
     t.column "body", :string, :limit => 7000
@@ -131,7 +174,7 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "crs_childregistration", :id => false, :force => true do |t|
-    t.column "childRegistrationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "childRegistrationID", :integer, :limit => 10, :null => false
     t.column "firstName", :string, :limit => 80
     t.column "lastName", :string, :limit => 80
     t.column "gender", :string, :limit => 1
@@ -347,122 +390,201 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "sortNames", :string, :limit => 1000
   end
 
-  create_table "dtproperties", :force => true do |t|
-    t.column "objectid", :integer, :limit => 10
-    t.column "property", :string, :limit => 64, :default => "", :null => false
-    t.column "value", :string
-    t.column "uvalue", :string
-    t.column "lvalue", :binary
-    t.column "version", :integer, :limit => 10, :default => 0, :null => false
+  create_table "crs_viewanswer", :id => false, :force => true do |t|
+    t.column "questionTextID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "questionBody", :string, :limit => 7000
+    t.column "answerType", :string, :limit => 50
+    t.column "status", :string, :limit => 50
+    t.column "displayOrder", :integer, :limit => 10
+    t.column "required", :string, :limit => 1
+    t.column "registrationType", :string, :limit => 50
+    t.column "questionID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_QuestionTextID", :integer, :limit => 10
+    t.column "fk_QuestionID", :integer, :limit => 10
+    t.column "answerID", :integer, :limit => 10
+    t.column "answerBody", :string, :limit => 7000
+    t.column "fk_RegistrationID", :integer, :limit => 10
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
   end
 
-  create_table "event_assoceventsspeakers", :id => false, :force => true do |t|
-    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
-    t.column "eventInfoID", :string, :limit => 64, :default => "", :null => false
-  end
-
-  create_table "event_eventcustomanswer", :id => false, :force => true do |t|
-    t.column "eventCustomAnswerID", :string, :limit => 64, :default => "", :null => false
-    t.column "answerNumber", :integer, :limit => 10
-    t.column "answer", :string, :limit => 512
-    t.column "fk_EventRegistration", :string, :limit => 64
-  end
-
-  add_index "event_eventcustomanswer", ["fk_EventRegistration"], :name => "index1"
-
-  create_table "event_eventcustomitem", :id => false, :force => true do |t|
-    t.column "eventCustomItemID", :string, :limit => 64, :default => "", :null => false
-    t.column "title", :string, :limit => 128
-    t.column "text", :string, :limit => 1024
-    t.column "itemNumber", :integer, :limit => 10
-    t.column "fk_EventInfo", :string, :limit => 64
-  end
-
-  add_index "event_eventcustomitem", ["fk_EventInfo"], :name => "index1"
-
-  create_table "event_eventcustomquestion", :id => false, :force => true do |t|
-    t.column "questionNumber", :integer, :limit => 10
-    t.column "question", :string, :limit => 128
-    t.column "answerType", :string, :limit => 8
-    t.column "eventCustomQuestionID", :string, :limit => 64, :default => "", :null => false
-    t.column "fk_EventInfo", :string, :limit => 64
-  end
-
-  add_index "event_eventcustomquestion", ["fk_EventInfo"], :name => "index1"
-
-  create_table "event_eventinfo", :id => false, :force => true do |t|
-    t.column "name", :string, :limit => 64
-    t.column "theme", :string, :limit => 128
-    t.column "password", :string, :limit => 20
-    t.column "region", :string, :limit => 3
-    t.column "beginDate", :string, :limit => 10
-    t.column "endDate", :string, :limit => 10
-    t.column "briefDescription", :string, :limit => 1024
-    t.column "preRegCost", :string, :limit => 8
-    t.column "fullCost", :string, :limit => 8
-    t.column "checkPayableTo", :string, :limit => 40
-    t.column "acceptCreditCards", :string, :limit => 1
-    t.column "merchantAcctNum", :string, :limit => 64
-    t.column "contactName", :string, :limit => 60
-    t.column "contactEmail", :string, :limit => 50
-    t.column "contactPhone", :string, :limit => 24
-    t.column "contactAddress1", :string, :limit => 35
-    t.column "contactAddress2", :string, :limit => 35
-    t.column "contactCity", :string, :limit => 30
-    t.column "contactState", :string, :limit => 6
-    t.column "contactZip", :string, :limit => 10
-    t.column "splashPageURL", :string, :limit => 128
-    t.column "confImageId", :string, :limit => 64
-    t.column "fontFace", :string, :limit => 32
-    t.column "backgroundColor", :string, :limit => 6
-    t.column "foregroundColor", :string, :limit => 6
-    t.column "highlightColor", :string, :limit => 6
-    t.column "eventInfoID", :string, :limit => 64, :default => "", :null => false
-  end
-
-  create_table "event_eventperson", :id => false, :force => true do |t|
-    t.column "firstName", :string, :limit => 30
-    t.column "lastName", :string, :limit => 30
-    t.column "middleInitial", :string, :limit => 1
-    t.column "birthDate", :string, :limit => 10
-    t.column "campus", :string, :limit => 128
-    t.column "gender", :string, :limit => 1
-    t.column "address1", :string, :limit => 35
-    t.column "address2", :string, :limit => 35
-    t.column "city", :string, :limit => 30
-    t.column "state", :string, :limit => 6
-    t.column "zip", :string, :limit => 10
-    t.column "homePhone", :string, :limit => 24
-    t.column "email", :string, :limit => 50
-    t.column "ssn", :string, :limit => 9
-    t.column "maritalStatus", :string, :limit => 1
-    t.column "spouseName", :string, :limit => 30
-    t.column "numberOfKids", :string, :limit => 2
-    t.column "isSpeaker", :string, :limit => 1
-    t.column "isStaff", :string, :limit => 1
-    t.column "accountNo", :string, :limit => 11
-    t.column "password", :string, :limit => 32
-    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
-  end
-
-  create_table "event_eventregistration", :id => false, :force => true do |t|
+  create_table "crs_viewmerchandisechoice", :id => false, :force => true do |t|
+    t.column "registrationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "registrationDate", :datetime
     t.column "preRegistered", :string, :limit => 1
-    t.column "amountPaid", :string, :limit => 4
-    t.column "amountScholarship", :string, :limit => 4
-    t.column "eventRegistrationID", :string, :limit => 64, :default => "", :null => false
-    t.column "fk_EventRegInfo", :string, :limit => 64
-    t.column "fk_EventRegPerson", :string, :limit => 64
+    t.column "fk_PersonID", :integer, :limit => 10
+    t.column "displayOrder", :integer, :limit => 10
+    t.column "registrationType", :string, :limit => 50
+    t.column "required", :string, :limit => 1
+    t.column "amount", :float
+    t.column "note", :string
+    t.column "name", :string, :limit => 128
+    t.column "merchandiseID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
   end
 
-  add_index "event_eventregistration", ["fk_EventRegInfo"], :name => "index1"
-  add_index "event_eventregistration", ["fk_EventRegPerson"], :name => "index2"
+  create_table "crs_viewquestion", :id => false, :force => true do |t|
+    t.column "registrationType", :string, :limit => 50
+    t.column "required", :string, :limit => 1
+    t.column "displayOrder", :integer, :limit => 10
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "body", :string, :limit => 7000
+    t.column "answerType", :string, :limit => 50
+    t.column "status", :string, :limit => 50
+    t.column "questionID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_QuestionTextID", :integer, :limit => 10
+    t.column "questionTextID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
+  end
 
-  create_table "event_eventspeaker", :id => false, :force => true do |t|
-    t.column "eventPersonID", :string, :limit => 64, :default => "", :null => false
-    t.column "talkTitle", :string, :limit => 128
-    t.column "talkBrief", :string, :limit => 1024
-    t.column "speakerBlurb", :string, :limit => 1024
-    t.column "textId", :string
+  create_table "crs_viewregistration", :id => false, :force => true do |t|
+    t.column "preRegistered", :string, :limit => 1
+    t.column "registrationDate", :datetime
+    t.column "registrationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "createdDate", :datetime
+    t.column "firstName", :string, :limit => 50
+    t.column "lastName", :string, :limit => 50
+    t.column "middleInitial", :string, :limit => 50
+    t.column "birthDate", :string, :limit => 25
+    t.column "campus", :string, :limit => 128
+    t.column "yearInSchool", :string, :limit => 20
+    t.column "graduationDate", :string, :limit => 25
+    t.column "greekAffiliation", :string, :limit => 50
+    t.column "personID", :integer, :limit => 10
+    t.column "gender", :string, :limit => 1
+    t.column "address1", :string, :limit => 55
+    t.column "address2", :string, :limit => 55
+    t.column "city", :string, :limit => 50
+    t.column "state", :string, :limit => 50
+    t.column "zip", :string, :limit => 10
+    t.column "homePhone", :string, :limit => 25
+    t.column "country", :string, :limit => 64
+    t.column "email", :string, :limit => 200
+    t.column "permanentAddress1", :string, :limit => 55
+    t.column "permanentAddress2", :string, :limit => 55
+    t.column "permanentCity", :string, :limit => 50
+    t.column "permanentState", :string, :limit => 50
+    t.column "permanentZip", :string, :limit => 10
+    t.column "permanentPhone", :string, :limit => 25
+    t.column "permanentCountry", :string, :limit => 64
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "numberOfKids", :string, :limit => 2
+    t.column "fk_PersonID", :integer, :limit => 10
+    t.column "accountNo", :string, :limit => 11
+    t.column "additionalRooms", :integer, :limit => 10
+    t.column "leaveDate", :datetime
+    t.column "arriveDate", :datetime
+    t.column "spouseID", :integer, :limit => 10
+    t.column "spouseComing", :integer, :limit => 10
+    t.column "spouseRegistrationID", :integer, :limit => 10
+    t.column "registeredFirst", :string, :limit => 1
+    t.column "isOnsite", :string, :limit => 1
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
+    t.column "registrationType", :string, :limit => 64
+    t.column "newPersonID", :integer, :limit => 10
+  end
+
+  create_table "crs_viewregistrationlocallevel", :id => false, :force => true do |t|
+    t.column "registrationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "registrationDate", :datetime
+    t.column "registrationType", :string, :limit => 80
+    t.column "preRegistered", :string, :limit => 1
+    t.column "fk_PersonID", :integer, :limit => 10
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "lastName", :string, :limit => 50
+    t.column "personID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "createdDate", :datetime
+    t.column "firstName", :string, :limit => 50
+    t.column "middleInitial", :string, :limit => 50
+    t.column "birthDate", :string, :limit => 25
+    t.column "campus", :string, :limit => 128
+    t.column "yearInSchool", :string, :limit => 20
+    t.column "graduationDate", :string, :limit => 25
+    t.column "greekAffiliation", :string, :limit => 50
+    t.column "gender", :string, :limit => 1
+    t.column "address1", :string, :limit => 55
+    t.column "address2", :string, :limit => 55
+    t.column "city", :string, :limit => 50
+    t.column "state", :string, :limit => 50
+    t.column "zip", :string, :limit => 10
+    t.column "homePhone", :string, :limit => 25
+    t.column "country", :string, :limit => 64
+    t.column "email", :string, :limit => 200
+    t.column "permanentAddress1", :string, :limit => 55
+    t.column "permanentAddress2", :string, :limit => 55
+    t.column "permanentCity", :string, :limit => 50
+    t.column "permanentState", :string, :limit => 50
+    t.column "permanentZip", :string, :limit => 10
+    t.column "permanentPhone", :string, :limit => 25
+    t.column "permanentCountry", :string, :limit => 64
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "numberOfKids", :string, :limit => 2
+    t.column "localLevelId", :integer, :limit => 10, :default => 0, :null => false
+    t.column "region", :string, :limit => 2
+    t.column "llstate", :string, :limit => 6
+    t.column "accountNo", :string, :limit => 11
+    t.column "additionalRooms", :integer, :limit => 10
+    t.column "leaveDate", :datetime
+    t.column "arriveDate", :datetime
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
+    t.column "spouseComing", :integer, :limit => 10
+    t.column "spouseRegistrationID", :integer, :limit => 10
+    t.column "registeredFirst", :string, :limit => 1
+    t.column "isOnsite", :string, :limit => 1
+    t.column "spouseID", :integer, :limit => 10
+    t.column "newPersonID", :integer, :limit => 10
+  end
+
+  create_table "crs_viewregistrationtargetarea", :id => false, :force => true do |t|
+    t.column "registrationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "registrationDate", :datetime
+    t.column "registrationType", :string, :limit => 80
+    t.column "preRegistered", :string, :limit => 1
+    t.column "fk_PersonID", :integer, :limit => 10
+    t.column "fk_ConferenceID", :integer, :limit => 10
+    t.column "lastName", :string, :limit => 50
+    t.column "personID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "createdDate", :datetime
+    t.column "firstName", :string, :limit => 50
+    t.column "middleInitial", :string, :limit => 50
+    t.column "birthDate", :string, :limit => 25
+    t.column "campus", :string, :limit => 128
+    t.column "yearInSchool", :string, :limit => 20
+    t.column "graduationDate", :string, :limit => 25
+    t.column "greekAffiliation", :string, :limit => 50
+    t.column "gender", :string, :limit => 1
+    t.column "address1", :string, :limit => 55
+    t.column "address2", :string, :limit => 55
+    t.column "city", :string, :limit => 50
+    t.column "state", :string, :limit => 50
+    t.column "zip", :string, :limit => 10
+    t.column "homePhone", :string, :limit => 25
+    t.column "country", :string, :limit => 64
+    t.column "email", :string, :limit => 200
+    t.column "permanentAddress1", :string, :limit => 55
+    t.column "permanentAddress2", :string, :limit => 55
+    t.column "permanentCity", :string, :limit => 50
+    t.column "permanentState", :string, :limit => 50
+    t.column "permanentZip", :string, :limit => 10
+    t.column "permanentPhone", :string, :limit => 25
+    t.column "permanentCountry", :string, :limit => 64
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "numberOfKids", :string, :limit => 2
+    t.column "campusName", :string, :limit => 100
+    t.column "tastate", :string, :limit => 32
+    t.column "additionalRooms", :integer, :limit => 10
+    t.column "leaveDate", :datetime
+    t.column "arriveDate", :datetime
+    t.column "accountNo", :string, :limit => 11
+    t.column "fk_RegistrationTypeID", :integer, :limit => 10
+    t.column "spouseComing", :integer, :limit => 10
+    t.column "spouseRegistrationID", :integer, :limit => 10
+    t.column "registeredFirst", :string, :limit => 1
+    t.column "isOnsite", :string, :limit => 1
+    t.column "spouseID", :integer, :limit => 10
+    t.column "newPersonID", :integer, :limit => 10
   end
 
   create_table "fsk_allocation", :id => false, :force => true do |t|
@@ -489,104 +611,141 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "localAcctNo4", :string, :limit => 20
   end
 
-  create_table "fsk_allocations", :force => true do |t|
-    t.column "ssm_id", :integer
-    t.column "region_id", :integer
-    t.column "impact_allotment", :integer
-    t.column "forerunner_allotment", :integer
-    t.column "regional_allotment", :integer
-    t.column "regionally_raised", :integer
-    t.column "locally_raised", :integer
-    t.column "allocation_year", :string, :limit => 10
-    t.column "national_notes", :string, :limit => 1024
-    t.column "impact_notes", :string, :limit => 1024
-    t.column "forerunner_notes", :string, :limit => 1024
-    t.column "regional_notes", :string, :limit => 1024
-    t.column "local_notes", :string, :limit => 1024
-    t.column "lock_version", :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
+  create_table "fsk_dist_summary", :id => false, :force => true do |t|
+    t.column "natlDonation", :string, :limit => 12
+    t.column "regionalAllotment", :string, :limit => 12
+    t.column "impactAllotment", :string, :limit => 12
+    t.column "forerunnerAllotment", :string, :limit => 12
+    t.column "regionallyRaised", :string, :limit => 12
+    t.column "locallyRaised", :string, :limit => 12
+    t.column "AllocationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "accountNo", :string, :limit => 12
+    t.column "region", :string, :limit => 2
+    t.column "natlNotes", :string, :limit => 1024
+    t.column "impactNotes", :string, :limit => 1024
+    t.column "forerunnerNotes", :string, :limit => 1024
+    t.column "regNotes", :string, :limit => 1024
+    t.column "localNotes", :string, :limit => 1024
+    t.column "firstName", :string, :limit => 30
+    t.column "lastName", :string, :limit => 30
+    t.column "DistributedKits", :float, :limit => 32
+    t.column "localAcctNo1", :string, :limit => 20
+    t.column "localAcctNo2", :string, :limit => 20
+    t.column "localAcctNo3", :string, :limit => 20
+    t.column "localAcctNo4", :string, :limit => 20
+    t.column "pastOrderedKits", :string, :limit => 12
   end
 
-  create_table "fsk_fields", :force => true do |t|
-    t.column "name", :string, :limit => 50
+  create_table "fsk_distribution", :id => false, :force => true do |t|
+    t.column "distributionID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64
+    t.column "campusName", :string, :limit => 128
+    t.column "totalKits", :integer, :limit => 10
+    t.column "fk_Allocation", :integer, :limit => 10
   end
 
-  create_table "fsk_fields_roles", :id => false, :force => true do |t|
-    t.column "role_id", :integer, :default => 0, :null => false
-    t.column "field_id", :integer, :default => 0, :null => false
+  create_table "fsk_fskorder", :id => false, :force => true do |t|
+    t.column "fskOrderID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 64
+    t.column "campusName", :string, :limit => 128
+    t.column "region", :string, :limit => 6
+    t.column "staffFirstName", :string, :limit => 30
+    t.column "staffLastName", :string, :limit => 30
+    t.column "staffPhone", :string, :limit => 24
+    t.column "staffEmail", :string, :limit => 50
+    t.column "dateCreated", :datetime
+    t.column "dateUpdated", :datetime
+    t.column "contactFirstName", :string, :limit => 30
+    t.column "contactLastName", :string, :limit => 30
+    t.column "contactPhone", :string, :limit => 24
+    t.column "contactPager", :string, :limit => 24
+    t.column "contactCell", :string, :limit => 24
+    t.column "contactEmail", :string, :limit => 50
+    t.column "kitShipName", :string, :limit => 30
+    t.column "kitShipAddress1", :string, :limit => 35
+    t.column "kitShipAddress2", :string, :limit => 35
+    t.column "kitShipCity", :string, :limit => 30
+    t.column "kitShipState", :string, :limit => 6
+    t.column "kitShipZip", :string, :limit => 10
+    t.column "kitShipPhone", :string, :limit => 24
+    t.column "totalKits", :integer, :limit => 10
+    t.column "bagToyImp", :string, :limit => 7
+    t.column "bagToyWay", :string, :limit => 7
+    t.column "bagToyDes", :string, :limit => 7
+    t.column "bagToyEp", :string, :limit => 7
+    t.column "bagToyESC", :string, :limit => 7
+    t.column "bagToyMisc", :string, :limit => 7
+    t.column "bibleIsiNT", :string, :limit => 7
+    t.column "bibleTwo", :string, :limit => 7
+    t.column "bibleThree", :string, :limit => 7
+    t.column "bibleMisc", :string, :limit => 7
+    t.column "bibleBilingual", :string, :limit => 7
+    t.column "videoRel", :string, :limit => 7
+    t.column "videoRelCD", :string, :limit => 7
+    t.column "videoDrinkRelDVD", :string, :limit => 7
+    t.column "videoThirsty", :string, :limit => 7
+    t.column "videoThirstyCD", :string, :limit => 7
+    t.column "videoChang", :string, :limit => 7
+    t.column "videoChangCD", :string, :limit => 7
+    t.column "videoSurfer", :string, :limit => 7
+    t.column "videoSurferCD", :string, :limit => 7
+    t.column "videoClimbing", :string, :limit => 7
+    t.column "videoClimbingCD", :string, :limit => 7
+    t.column "videoImpact", :string, :limit => 7
+    t.column "videoImpactCD", :string, :limit => 7
+    t.column "videoImpactDVD", :string, :limit => 7
+    t.column "videoTestimonyCD", :string, :limit => 7
+    t.column "videoJfpCD", :string, :limit => 7
+    t.column "videoJesusVCD", :string, :limit => 7
+    t.column "videoMisc", :string, :limit => 7
+    t.column "bookMTAC", :string, :limit => 7
+    t.column "bookMTACSpan", :string, :limit => 7
+    t.column "bookMTACLoJ", :string, :limit => 7
+    t.column "bookCaseForC", :string, :limit => 7
+    t.column "bookCaseForF", :string, :limit => 7
+    t.column "bookBeyond", :string, :limit => 7
+    t.column "bookRelevant", :string, :limit => 7
+    t.column "bookSurvUS", :string, :limit => 7
+    t.column "bookLatino", :string, :limit => 7
+    t.column "bookBlueJazz", :string, :limit => 7
+    t.column "bookMisc", :string, :limit => 7
+    t.column "cdHipHop", :string, :limit => 7
+    t.column "cdSetApart", :string, :limit => 7
+    t.column "cdMisc", :string, :limit => 7
+    t.column "cdHispanic", :string, :limit => 7
+    t.column "cardReg", :string, :limit => 7
+    t.column "cardAfAm", :string, :limit => 7
+    t.column "cardHispanic", :string, :limit => 7
+    t.column "cardAsian", :string, :limit => 7
+    t.column "planner", :string, :limit => 7
+    t.column "fk_Allocation", :integer, :limit => 10
   end
 
-  create_table "fsk_kit_categories", :force => true do |t|
-    t.column "name", :string, :limit => 50, :default => "", :null => false
-    t.column "description", :string, :limit => 2000
-    t.column "lock_version", :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-  end
+  add_index "fsk_fskorder", ["fk_Allocation"], :name => "IDX_fsk_FskOrder_fk_Allocation"
 
-  create_table "fsk_lineitems", :force => true do |t|
-    t.column "product_id", :integer, :default => 0, :null => false
-    t.column "order_id", :integer, :default => 0, :null => false
-    t.column "quantity", :integer, :default => 0, :null => false
-    t.column "lock_version", :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-  end
-
-  add_index "fsk_lineitems", ["product_id"], :name => "IX_fsk_LineItems"
-
-  create_table "fsk_orders", :force => true do |t|
-    t.column "location_name", :string, :limit => 128
-    t.column "updated_at", :datetime
-    t.column "allocation_id", :integer
-    t.column "contact_first_name", :string, :limit => 30
-    t.column "contact_last_name", :string, :limit => 30
-    t.column "contact_phone", :string, :limit => 24
-    t.column "contact_cell", :string, :limit => 24
-    t.column "contact_email", :string, :limit => 50
-    t.column "ship_name", :string, :limit => 30
-    t.column "ship_address1", :string, :limit => 35
-    t.column "ship_address2", :string, :limit => 35
-    t.column "ship_city", :string, :limit => 30
-    t.column "ship_state", :string, :limit => 60
-    t.column "ship_zip", :string, :limit => 10
-    t.column "ship_phone", :string, :limit => 24
-    t.column "total_kits", :integer
-    t.column "business_unit", :string, :limit => 10
-    t.column "operating_unit", :string, :limit => 10
-    t.column "dept_id", :string, :limit => 10
-    t.column "project_id", :string, :limit => 10
-    t.column "type", :string, :limit => 20
-    t.column "order_year", :string, :limit => 10
-    t.column "ssm_id", :integer
-    t.column "lock_version", :integer
-    t.column "created_at", :datetime
-    t.column "asdsdaf", :integer
-  end
-
-  create_table "fsk_products", :force => true do |t|
-    t.column "name", :string, :limit => 50, :default => "", :null => false
-    t.column "description", :string, :limit => 4000, :default => "", :null => false
-    t.column "image_filename", :string, :limit => 1000
-    t.column "price", :float
-    t.column "quantity", :integer, :default => 0, :null => false
-    t.column "lock_version", :integer
-    t.column "created_at", :datetime
-    t.column "updated_at", :datetime
-    t.column "kit_category_id", :integer
-    t.column "availability", :string, :limit => 20, :default => "both", :null => false
-  end
-
-  add_index "fsk_products", ["kit_category_id"], :name => "FK_fsk_products_1"
-
-  create_table "fsk_roles", :force => true do |t|
-    t.column "name", :string, :limit => 50
-  end
-
-  create_table "fsk_users", :force => true do |t|
-    t.column "role_id", :integer, :limit => 10, :default => 0, :null => false
-    t.column "ssm_id", :integer, :limit => 10, :default => 0, :null => false
+  create_table "fsk_order_summary", :id => false, :force => true do |t|
+    t.column "natlDonation", :string, :limit => 12
+    t.column "regionalAllotment", :string, :limit => 12
+    t.column "impactAllotment", :string, :limit => 12
+    t.column "forerunnerAllotment", :string, :limit => 12
+    t.column "regionallyRaised", :string, :limit => 12
+    t.column "locallyRaised", :string, :limit => 12
+    t.column "AllocationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "accountNo", :string, :limit => 12
+    t.column "region", :string, :limit => 2
+    t.column "natlNotes", :string, :limit => 1024
+    t.column "impactNotes", :string, :limit => 1024
+    t.column "forerunnerNotes", :string, :limit => 1024
+    t.column "regNotes", :string, :limit => 1024
+    t.column "localNotes", :string, :limit => 1024
+    t.column "firstName", :string, :limit => 30
+    t.column "lastName", :string, :limit => 30
+    t.column "OrderedKits", :float, :limit => 32
+    t.column "localAcctNo1", :string, :limit => 20
+    t.column "localAcctNo2", :string, :limit => 20
+    t.column "localAcctNo3", :string, :limit => 20
+    t.column "localAcctNo4", :string, :limit => 20
+    t.column "pastOrderedKits", :string, :limit => 12
   end
 
   create_table "hr_ms_payment", :id => false, :force => true do |t|
@@ -881,14 +1040,14 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "fk_ssmUserID", :integer, :limit => 10
     t.column "fk_SIPersonID", :string, :limit => 64
     t.column "isPaid", :boolean
-    t.column "appFee", :float
+    t.column "appFee", :float, :limit => 18
     t.column "dateAppLastChanged", :datetime
     t.column "dateAppStarted", :datetime
     t.column "dateSubmitted", :datetime
     t.column "isSubmitted", :boolean
     t.column "appStatus", :string, :limit => 15
-    t.column "assignedToProject", :float
-    t.column "finalProject", :float
+    t.column "assignedToProject", :float, :limit => 18
+    t.column "finalProject", :float, :limit => 18
     t.column "siYear", :string, :limit => 50
     t.column "submitDate", :datetime
     t.column "status", :string, :limit => 22
@@ -1051,14 +1210,14 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "fk_ssmUserID", :integer, :limit => 10
     t.column "fk_SIPersonID", :string, :limit => 64
     t.column "isPaid", :boolean
-    t.column "appFee", :float
+    t.column "appFee", :float, :limit => 18
     t.column "dateAppLastChanged", :datetime
     t.column "dateAppStarted", :datetime
     t.column "dateSubmitted", :datetime
     t.column "isSubmitted", :boolean
     t.column "appStatus", :string, :limit => 15
-    t.column "assignedToProject", :float
-    t.column "finalProject", :float
+    t.column "assignedToProject", :float, :limit => 18
+    t.column "finalProject", :float, :limit => 18
     t.column "siYear", :string, :limit => 50
     t.column "submitDate", :datetime
     t.column "status", :string, :limit => 22
@@ -1220,14 +1379,14 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "fk_ssmUserID", :integer, :limit => 10
     t.column "fk_SIPersonID", :string, :limit => 64
     t.column "isPaid", :boolean
-    t.column "appFee", :float
+    t.column "appFee", :float, :limit => 18
     t.column "dateAppLastChanged", :datetime
     t.column "dateAppStarted", :datetime
     t.column "dateSubmitted", :datetime
     t.column "isSubmitted", :boolean
     t.column "appStatus", :string, :limit => 15
     t.column "assignedToProject", :integer, :limit => 10
-    t.column "finalProject", :float
+    t.column "finalProject", :float, :limit => 10
     t.column "siYear", :string, :limit => 50
     t.column "submitDate", :datetime
     t.column "status", :string, :limit => 22
@@ -1390,14 +1549,14 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "fk_ssmUserID", :integer, :limit => 10
     t.column "fk_SIPersonID", :string, :limit => 50
     t.column "isPaid", :boolean
-    t.column "appFee", :float
+    t.column "appFee", :float, :limit => 18
     t.column "dateAppLastChanged", :datetime
     t.column "dateAppStarted", :datetime
     t.column "dateSubmitted", :datetime
     t.column "isSubmitted", :boolean
     t.column "appStatus", :string, :limit => 15
     t.column "assignedToProject", :integer, :limit => 10
-    t.column "finalProject", :float
+    t.column "finalProject", :float, :limit => 10
     t.column "siYear", :string, :limit => 50
     t.column "submitDate", :datetime
     t.column "status", :string, :limit => 22
@@ -1425,6 +1584,204 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "postedDate", :datetime
     t.column "fk_ApplicationID", :string, :limit => 64
     t.column "paymentFor", :string, :limit => 50
+  end
+
+  create_table "hr_si_person_2003", :id => false, :force => true do |t|
+    t.column "SIPersonID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 50
+    t.column "surferID", :string, :limit => 50
+    t.column "role", :string, :limit => 50
+    t.column "region", :string, :limit => 50
+    t.column "lastName", :string, :limit => 50
+    t.column "firstName", :string, :limit => 50
+    t.column "middleName", :string, :limit => 50
+    t.column "currentAddress1", :string, :limit => 50
+    t.column "currentAddress2", :string, :limit => 50
+    t.column "currentCity", :string, :limit => 50
+    t.column "currentState", :string, :limit => 20
+    t.column "currentZip", :string, :limit => 11
+    t.column "currentWorkPhone", :string, :limit => 20
+    t.column "currentHomePhone", :string, :limit => 20
+    t.column "currentCellPhone", :string, :limit => 20
+    t.column "currentEmail", :string, :limit => 70
+    t.column "lastDateAtAddress", :datetime
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "workInUS", :boolean
+    t.column "accountNo", :string, :limit => 10
+    t.column "gender", :string, :limit => 1
+    t.column "isStaff", :boolean
+    t.column "permAddress1", :string, :limit => 50
+    t.column "permAddress2", :string, :limit => 50
+    t.column "permCity", :string, :limit => 50
+    t.column "permState", :string, :limit => 20
+    t.column "permZip", :string, :limit => 11
+    t.column "permHomePhone", :string, :limit => 20
+    t.column "permWorkPhone", :string, :limit => 20
+    t.column "permCellPhone", :string, :limit => 20
+    t.column "permEmail", :string, :limit => 70
+    t.column "emerAddress1", :string, :limit => 50
+    t.column "emerAddress2", :string, :limit => 50
+    t.column "emerCity", :string, :limit => 50
+    t.column "emerState", :string, :limit => 20
+    t.column "emerZip", :string, :limit => 11
+    t.column "emerHomePhone", :string, :limit => 20
+    t.column "emerWorkPhone", :string, :limit => 20
+    t.column "emerCellPhone", :string, :limit => 20
+    t.column "emerEmail", :string, :limit => 70
+    t.column "emer2Address1", :string, :limit => 50
+    t.column "emer2Address2", :string, :limit => 50
+    t.column "emer2City", :string, :limit => 50
+    t.column "emer2State", :string, :limit => 20
+    t.column "emer2Zip", :string, :limit => 11
+    t.column "emer2HomePhone", :string, :limit => 20
+    t.column "emer2WorkPhone", :string, :limit => 20
+    t.column "emer2CellPhone", :string, :limit => 20
+    t.column "emer2Email", :string, :limit => 70
+    t.column "emerContactName", :string, :limit => 50
+    t.column "emerContactRelationship", :string, :limit => 50
+    t.column "emer2ContactName", :string, :limit => 50
+    t.column "emer2ContactRelationship", :string, :limit => 50
+    t.column "fk_ssmUserId", :float, :limit => 18
+    t.column "title", :string, :limit => 5
+    t.column "preferredName", :string, :limit => 50
+    t.column "numberChildren", :string, :limit => 2
+    t.column "recentSchools", :string, :limit => 100
+    t.column "graduationDate", :datetime
+    t.column "majors", :string, :limit => 70
+    t.column "fk_StaffSiteProfileID", :string, :limit => 64
+    t.column "universityState", :string, :limit => 50
+  end
+
+  create_table "hr_si_person_2004", :id => false, :force => true do |t|
+    t.column "SIPersonID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 50
+    t.column "surferID", :string, :limit => 50
+    t.column "role", :string, :limit => 50
+    t.column "region", :string, :limit => 50
+    t.column "lastName", :string, :limit => 50
+    t.column "firstName", :string, :limit => 50
+    t.column "middleName", :string, :limit => 50
+    t.column "currentAddress1", :string, :limit => 50
+    t.column "currentAddress2", :string, :limit => 50
+    t.column "currentCity", :string, :limit => 50
+    t.column "currentState", :string, :limit => 20
+    t.column "currentZip", :string, :limit => 11
+    t.column "currentWorkPhone", :string, :limit => 20
+    t.column "currentHomePhone", :string, :limit => 20
+    t.column "currentCellPhone", :string, :limit => 20
+    t.column "currentEmail", :string, :limit => 70
+    t.column "lastDateAtAddress", :datetime
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "workInUS", :boolean
+    t.column "accountNo", :string, :limit => 10
+    t.column "gender", :string, :limit => 1
+    t.column "isStaff", :boolean
+    t.column "permAddress1", :string, :limit => 50
+    t.column "permAddress2", :string, :limit => 50
+    t.column "permCity", :string, :limit => 50
+    t.column "permState", :string, :limit => 20
+    t.column "permZip", :string, :limit => 11
+    t.column "permHomePhone", :string, :limit => 20
+    t.column "permWorkPhone", :string, :limit => 20
+    t.column "permCellPhone", :string, :limit => 20
+    t.column "permEmail", :string, :limit => 70
+    t.column "emerAddress1", :string, :limit => 50
+    t.column "emerAddress2", :string, :limit => 50
+    t.column "emerCity", :string, :limit => 50
+    t.column "emerState", :string, :limit => 20
+    t.column "emerZip", :string, :limit => 11
+    t.column "emerHomePhone", :string, :limit => 20
+    t.column "emerWorkPhone", :string, :limit => 20
+    t.column "emerCellPhone", :string, :limit => 20
+    t.column "emerEmail", :string, :limit => 70
+    t.column "emer2Address1", :string, :limit => 50
+    t.column "emer2Address2", :string, :limit => 50
+    t.column "emer2City", :string, :limit => 50
+    t.column "emer2State", :string, :limit => 20
+    t.column "emer2Zip", :string, :limit => 11
+    t.column "emer2HomePhone", :string, :limit => 20
+    t.column "emer2WorkPhone", :string, :limit => 20
+    t.column "emer2CellPhone", :string, :limit => 20
+    t.column "emer2Email", :string, :limit => 70
+    t.column "emerContactName", :string, :limit => 50
+    t.column "emerContactRelationship", :string, :limit => 50
+    t.column "emer2ContactName", :string, :limit => 50
+    t.column "emer2ContactRelationship", :string, :limit => 50
+    t.column "fk_ssmUserId", :float, :limit => 18
+    t.column "title", :string, :limit => 5
+    t.column "preferredName", :string, :limit => 50
+    t.column "numberChildren", :string, :limit => 2
+    t.column "recentSchools", :string, :limit => 100
+    t.column "graduationDate", :datetime
+    t.column "majors", :string, :limit => 70
+    t.column "fk_StaffSiteProfileID", :string, :limit => 64
+    t.column "universityState", :string, :limit => 50
+  end
+
+  create_table "hr_si_person_2005", :id => false, :force => true do |t|
+    t.column "SIPersonID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "oldPrimaryKey", :string, :limit => 50
+    t.column "surferID", :string, :limit => 50
+    t.column "role", :string, :limit => 50
+    t.column "region", :string, :limit => 50
+    t.column "lastName", :string, :limit => 50
+    t.column "firstName", :string, :limit => 50
+    t.column "middleName", :string, :limit => 50
+    t.column "currentAddress1", :string, :limit => 50
+    t.column "currentAddress2", :string, :limit => 50
+    t.column "currentCity", :string, :limit => 50
+    t.column "currentState", :string, :limit => 20
+    t.column "currentZip", :string, :limit => 11
+    t.column "currentWorkPhone", :string, :limit => 20
+    t.column "currentHomePhone", :string, :limit => 20
+    t.column "currentCellPhone", :string, :limit => 20
+    t.column "currentEmail", :string, :limit => 70
+    t.column "lastDateAtAddress", :datetime
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "workInUS", :boolean
+    t.column "accountNo", :string, :limit => 10
+    t.column "gender", :string, :limit => 1
+    t.column "isStaff", :boolean
+    t.column "permAddress1", :string, :limit => 50
+    t.column "permAddress2", :string, :limit => 50
+    t.column "permCity", :string, :limit => 50
+    t.column "permState", :string, :limit => 20
+    t.column "permZip", :string, :limit => 11
+    t.column "permHomePhone", :string, :limit => 20
+    t.column "permWorkPhone", :string, :limit => 20
+    t.column "permCellPhone", :string, :limit => 20
+    t.column "permEmail", :string, :limit => 70
+    t.column "emerAddress1", :string, :limit => 50
+    t.column "emerAddress2", :string, :limit => 50
+    t.column "emerCity", :string, :limit => 50
+    t.column "emerState", :string, :limit => 20
+    t.column "emerZip", :string, :limit => 11
+    t.column "emerHomePhone", :string, :limit => 20
+    t.column "emerWorkPhone", :string, :limit => 20
+    t.column "emerCellPhone", :string, :limit => 20
+    t.column "emerEmail", :string, :limit => 70
+    t.column "emer2Address1", :string, :limit => 50
+    t.column "emer2Address2", :string, :limit => 50
+    t.column "emer2City", :string, :limit => 50
+    t.column "emer2State", :string, :limit => 20
+    t.column "emer2Zip", :string, :limit => 11
+    t.column "emer2HomePhone", :string, :limit => 20
+    t.column "emer2WorkPhone", :string, :limit => 20
+    t.column "emer2CellPhone", :string, :limit => 20
+    t.column "emer2Email", :string, :limit => 70
+    t.column "emerContactName", :string, :limit => 50
+    t.column "emerContactRelationship", :string, :limit => 50
+    t.column "emer2ContactName", :string, :limit => 50
+    t.column "emer2ContactRelationship", :string, :limit => 50
+    t.column "fk_ssmUserId", :float, :limit => 18
+    t.column "title", :string, :limit => 5
+    t.column "preferredName", :string, :limit => 50
+    t.column "numberChildren", :string, :limit => 2
+    t.column "recentSchools", :string, :limit => 100
+    t.column "graduationDate", :datetime
+    t.column "majors", :string, :limit => 70
+    t.column "fk_StaffSiteProfileID", :string, :limit => 64
+    t.column "universityState", :string, :limit => 50
   end
 
   create_table "hr_si_project", :id => false, :force => true do |t|
@@ -1482,7 +1839,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "leadershipStartDate", :datetime
     t.column "leadershipEndDate", :datetime
     t.column "createDate", :datetime
-    t.column "lastChangedDate", :binary
+    t.column "lastChangedDate", :binary, :limit => 8
     t.column "lastChangedBy", :string, :limit => 50
     t.column "displayLocation", :string
     t.column "partnershipRegionOnly", :boolean
@@ -2072,12 +2429,12 @@ ActiveRecord::Schema.define(:version => 12) do
 
   create_table "import_staffacctbal", :id => false, :force => true do |t|
     t.column "EMPLID", :string, :limit => 11, :default => "", :null => false
-    t.column "CUR_BAL", :float
+    t.column "CUR_BAL", :float, :limit => 28
   end
 
   create_table "linczone_contacts", :id => false, :force => true do |t|
     t.column "ContactID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "EntryDate", :datetime
+    t.column "EntryDate", :timestamp
     t.column "FirstName", :string, :limit => 120
     t.column "LastName", :string, :limit => 120
     t.column "HomeAddress", :string, :limit => 200
@@ -2101,59 +2458,6 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "InfoEFCA", :string, :limit => 1, :default => "F"
     t.column "InfoGCM", :string, :limit => 1, :default => "F"
     t.column "InfoWesley", :string, :limit => 1, :default => "F"
-  end
-
-  create_table "migrationanswers", :id => false, :force => true do |t|
-    t.column "email", :string, :limit => 100, :default => "", :null => false
-    t.column "client", :string, :limit => 100
-    t.column "exchange", :string, :limit => 100
-    t.column "vpn", :string, :limit => 100
-    t.column "region", :string, :limit => 100
-    t.column "ip", :string, :limit => 100
-    t.column "http", :string, :limit => 4000
-    t.column "beta", :string, :limit => 100
-  end
-
-  create_table "migrationgroups", :id => false, :force => true do |t|
-    t.column "Col001", :string, :limit => 100
-    t.column "Col002", :string, :limit => 100
-    t.column "Col003", :string, :limit => 100
-    t.column "Col004", :string, :limit => 100
-    t.column "Col005", :string, :limit => 100
-    t.column "Col006", :string, :limit => 100
-    t.column "Col007", :string, :limit => 100
-    t.column "Col008", :string, :limit => 100
-    t.column "Col009", :string, :limit => 100
-    t.column "Col010", :string, :limit => 100
-    t.column "Col011", :string, :limit => 100
-    t.column "Col012", :string, :limit => 100
-    t.column "Col013", :string, :limit => 100
-    t.column "Col014", :string, :limit => 100
-  end
-
-  create_table "migrationgroupslist", :id => false, :force => true do |t|
-    t.column "gname", :string, :limit => 100
-  end
-
-  create_table "migrationsendto", :id => false, :force => true do |t|
-    t.column "email", :string
-  end
-
-  create_table "migrationsent", :id => false, :force => true do |t|
-    t.column "email", :string, :limit => 100
-  end
-
-  create_table "migrationsent1", :id => false, :force => true do |t|
-    t.column "email", :string, :limit => 100, :default => "", :null => false
-  end
-
-  create_table "migrationsent2", :id => false, :force => true do |t|
-    t.column "email", :string, :limit => 100, :default => "", :null => false
-  end
-
-  create_table "migrationvpn", :id => false, :force => true do |t|
-    t.column "username", :string
-    t.column "logins", :float
   end
 
   create_table "ministry_activity", :id => false, :force => true do |t|
@@ -2237,6 +2541,89 @@ ActiveRecord::Schema.define(:version => 12) do
   add_index "ministry_authorization", ["fk_AuthorizedBy"], :name => "index1"
   add_index "ministry_authorization", ["fk_changeRequestID"], :name => "index2"
   add_index "ministry_authorization", ["fk_AuthorizationNote"], :name => "index3"
+
+  create_table "ministry_campusstaff", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30
+    t.column "lastName", :string, :limit => 30
+    t.column "middleInitial", :string, :limit => 1
+    t.column "isMale", :string, :limit => 1
+    t.column "position", :string, :limit => 30
+    t.column "countryStatus", :string, :limit => 10
+    t.column "jobStatus", :string, :limit => 30
+    t.column "ministry", :string, :limit => 35
+    t.column "strategy", :string, :limit => 20
+    t.column "isNewStaff", :string, :limit => 1
+    t.column "primaryEmpLocState", :string, :limit => 6
+    t.column "primaryEmpLocCountry", :string, :limit => 64
+    t.column "primaryEmpLocCity", :string, :limit => 35
+    t.column "spouseFirstName", :string, :limit => 22
+    t.column "spouseMiddleName", :string, :limit => 15
+    t.column "spouseLastName", :string, :limit => 30
+    t.column "spouseAccountNo", :string, :limit => 11
+    t.column "spouseEmail", :string, :limit => 50
+    t.column "fianceeFirstName", :string, :limit => 15
+    t.column "fianceeMiddleName", :string, :limit => 15
+    t.column "fianceeLastName", :string, :limit => 30
+    t.column "fianceeAccountno", :string, :limit => 11
+    t.column "isFianceeStaff", :string, :limit => 1
+    t.column "fianceeJoinStaffDate", :datetime
+    t.column "isFianceeJoiningNS", :string, :limit => 1
+    t.column "joiningNS", :string, :limit => 1
+    t.column "homePhone", :string, :limit => 24
+    t.column "workPhone", :string, :limit => 24
+    t.column "mobilePhone", :string, :limit => 24
+    t.column "pager", :string, :limit => 24
+    t.column "email", :string, :limit => 50
+    t.column "isEmailSecure", :string, :limit => 1
+    t.column "url", :string
+    t.column "newStaffTrainingdate", :datetime
+    t.column "fax", :string, :limit => 24
+    t.column "note", :string, :limit => 2048
+    t.column "region", :string, :limit => 10
+    t.column "countryCode", :string, :limit => 3
+    t.column "ssn", :string, :limit => 9
+    t.column "maritalStatus", :string, :limit => 1
+    t.column "deptId", :string, :limit => 10
+    t.column "jobCode", :string, :limit => 6
+    t.column "accountCode", :string, :limit => 25
+    t.column "compFreq", :string, :limit => 1
+    t.column "compRate", :string, :limit => 20
+    t.column "compChngAmt", :string, :limit => 21
+    t.column "jobTitle", :string, :limit => 80
+    t.column "deptName", :string, :limit => 30
+    t.column "coupleTitle", :string, :limit => 12
+    t.column "otherPhone", :string, :limit => 24
+    t.column "preferredName", :string, :limit => 50
+    t.column "namePrefix", :string, :limit => 4
+    t.column "origHiredate", :datetime
+    t.column "birthDate", :datetime
+    t.column "marriageDate", :datetime
+    t.column "hireDate", :datetime
+    t.column "rehireDate", :datetime
+    t.column "loaStartDate", :datetime
+    t.column "loaEndDate", :datetime
+    t.column "loaReason", :string, :limit => 80
+    t.column "severancePayMonthsReq", :integer, :limit => 10
+    t.column "serviceDate", :datetime
+    t.column "lastIncDate", :datetime
+    t.column "jobEntryDate", :datetime
+    t.column "deptEntryDate", :datetime
+    t.column "reportingDate", :datetime
+    t.column "employmentType", :string, :limit => 20
+    t.column "resignationReason", :string, :limit => 80
+    t.column "resignationDate", :datetime
+    t.column "contributionsToOtherAcct", :string, :limit => 1
+    t.column "contributionsToAcntName", :string, :limit => 80
+    t.column "contributionsToAcntNo", :string, :limit => 11
+    t.column "fk_primaryAddress", :integer, :limit => 10
+    t.column "fk_secondaryAddress", :integer, :limit => 10
+    t.column "fk_teamID", :integer, :limit => 10
+    t.column "isSecure", :string, :limit => 1
+    t.column "isSupported", :string, :limit => 1
+    t.column "removedFromPeopleSoft", :string, :limit => 1
+    t.column "primaryEmpLocDesc", :string, :limit => 128
+  end
 
   create_table "ministry_changerequest", :id => false, :force => true do |t|
     t.column "ChangeRequestID", :integer, :limit => 10, :default => 0, :null => false
@@ -2360,20 +2747,23 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "ministry_person", :id => false, :force => true do |t|
-    t.column "personID", :integer, :default => 0, :null => false
+    t.column "personID", :integer, :limit => 10, :default => 0, :null => false
     t.column "accountNo", :string, :limit => 11
+    t.column "deprecated_username", :string, :limit => 200
     t.column "lastName", :string, :limit => 50
     t.column "firstName", :string, :limit => 50
     t.column "middleName", :string, :limit => 50
     t.column "preferredName", :string, :limit => 50
+    t.column "deprecated_phone", :string, :limit => 25
+    t.column "deprecated_email", :string, :limit => 200
     t.column "gender", :string, :limit => 1
     t.column "birthDate", :string, :limit => 25
     t.column "dateBecameChristian", :string, :limit => 35
     t.column "region", :string, :limit => 5
-    t.column "workInUS", :integer, :default => 0, :null => false
-    t.column "usCitizen", :integer, :default => 0, :null => false
+    t.column "workInUS", :boolean, :default => true, :null => false
+    t.column "usCitizen", :boolean, :default => true, :null => false
     t.column "citizenship", :string, :limit => 50
-    t.column "isStaff", :integer, :default => 0, :null => false
+    t.column "isStaff", :boolean, :default => false, :null => false
     t.column "title", :string, :limit => 5
     t.column "campus", :string, :limit => 128
     t.column "universityState", :string, :limit => 5
@@ -2383,21 +2773,33 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "minor", :string, :limit => 70
     t.column "greekAffiliation", :string, :limit => 50
     t.column "maritalStatus", :string, :limit => 20
+    t.column "deprecated_marriageDate", :datetime
+    t.column "deprecated_spouseVerified", :string, :limit => 1
     t.column "numberChildren", :string, :limit => 2
-    t.column "isChild", :integer, :default => 0, :null => false
+    t.column "isChild", :boolean, :default => false, :null => false
+    t.column "deprecated_isInPeopleSoft", :boolean, :default => false, :null => false
     t.column "bio", :text
     t.column "image", :string, :limit => 100
     t.column "occupation", :string, :limit => 50
     t.column "blogfeed", :string, :limit => 200
+    t.column "cruCommonsInvite", :datetime
+    t.column "cruCommonsLastLogin", :datetime
     t.column "dateCreated", :datetime
     t.column "dateChanged", :datetime
     t.column "createdBy", :string, :limit => 50
     t.column "changedBy", :string, :limit => 50
-    t.column "fk_ssmUserId", :integer
-    t.column "fk_StaffSiteProfileID", :integer
-    t.column "fk_spouseID", :integer
-    t.column "fk_childOf", :integer
+    t.column "fk_ssmUserId", :integer, :limit => 10
+    t.column "fk_StaffSiteProfileID", :integer, :limit => 10
+    t.column "fk_spouseID", :integer, :limit => 10
+    t.column "fk_childOf", :integer, :limit => 10
+    t.column "deprecated_fk_infobaseID", :integer, :limit => 10
+    t.column "deprecated_CrsSpouseID", :integer, :limit => 10
   end
+
+  add_index "ministry_person", ["accountNo"], :name => "accountNo_ministry_Person"
+  add_index "ministry_person", ["firstName"], :name => "firstname_ministry_Person"
+  add_index "ministry_person", ["lastName"], :name => "lastname_ministry_Person"
+  add_index "ministry_person", ["region"], :name => "region_ministry_Person"
 
   create_table "ministry_regionalstat", :id => false, :force => true do |t|
     t.column "RegionalStatID", :integer, :limit => 10, :default => 0, :null => false
@@ -2420,7 +2822,7 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "ministry_regionalteam", :id => false, :force => true do |t|
-    t.column "teamID", :integer, :limit => 10, :null => false
+    t.column "teamID", :integer, :limit => 10, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
     t.column "name", :string, :limit => 100
     t.column "note", :string
@@ -2430,9 +2832,9 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "city", :string, :limit => 30
     t.column "state", :string, :limit => 6
     t.column "zip", :string, :limit => 10
-    t.column "country", :string, :limit => 64, :default => ""
-    t.column "phone", :string, :limit => 24, :default => ""
-    t.column "fax", :string, :limit => 24, :default => ""
+    t.column "country", :string, :limit => 64
+    t.column "phone", :string, :limit => 24
+    t.column "fax", :string, :limit => 24
     t.column "email", :string, :limit => 50
     t.column "url", :string
     t.column "isActive", :string, :limit => 1
@@ -2697,6 +3099,302 @@ ActiveRecord::Schema.define(:version => 12) do
   add_index "ministry_targetarea", ["isSecure"], :name => "index5"
   add_index "ministry_targetarea", ["region"], :name => "index6"
 
+  create_table "ministry_viewactivitycontacts", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30
+    t.column "middleInitial", :string, :limit => 1
+    t.column "lastName", :string, :limit => 30
+    t.column "isMale", :string, :limit => 1
+    t.column "position", :string, :limit => 30
+    t.column "countryStatus", :string, :limit => 10
+    t.column "jobStatus", :string, :limit => 30
+    t.column "ministry", :string, :limit => 35
+    t.column "strategy", :string, :limit => 20
+    t.column "isNewStaff", :string, :limit => 1
+    t.column "primaryEmpLocState", :string, :limit => 6
+    t.column "primaryEmpLocCountry", :string, :limit => 64
+    t.column "primaryEmpLocCity", :string, :limit => 35
+    t.column "spouseFirstName", :string, :limit => 22
+    t.column "spouseMiddleName", :string, :limit => 15
+    t.column "spouseLastName", :string, :limit => 30
+    t.column "spouseAccountNo", :string, :limit => 11
+    t.column "spouseEmail", :string, :limit => 50
+    t.column "fianceeFirstName", :string, :limit => 15
+    t.column "fianceeMiddleName", :string, :limit => 15
+    t.column "fianceeLastName", :string, :limit => 30
+    t.column "isFianceeStaff", :string, :limit => 1
+    t.column "fianceeJoinStaffDate", :datetime
+    t.column "isFianceeJoiningNS", :string, :limit => 1
+    t.column "joiningNS", :string, :limit => 1
+    t.column "homePhone", :string, :limit => 24
+    t.column "workPhone", :string, :limit => 24
+    t.column "mobilePhone", :string, :limit => 24
+    t.column "pager", :string, :limit => 24
+    t.column "email", :string, :limit => 50
+    t.column "isEmailSecure", :string, :limit => 1
+    t.column "url", :string
+    t.column "newStaffTrainingdate", :datetime
+    t.column "fax", :string, :limit => 24
+    t.column "note", :string, :limit => 2048
+    t.column "region", :string, :limit => 10
+    t.column "countryCode", :string, :limit => 3
+    t.column "ssn", :string, :limit => 9
+    t.column "maritalStatus", :string, :limit => 1
+    t.column "deptId", :string, :limit => 10
+    t.column "jobCode", :string, :limit => 6
+    t.column "accountCode", :string, :limit => 25
+    t.column "compFreq", :string, :limit => 1
+    t.column "compRate", :string, :limit => 20
+    t.column "compChngAmt", :string, :limit => 21
+    t.column "jobTitle", :string, :limit => 80
+    t.column "deptName", :string, :limit => 30
+    t.column "coupleTitle", :string, :limit => 12
+    t.column "otherPhone", :string, :limit => 24
+    t.column "preferredName", :string, :limit => 50
+    t.column "namePrefix", :string, :limit => 4
+    t.column "origHiredate", :datetime
+    t.column "birthDate", :datetime
+    t.column "marriageDate", :datetime
+    t.column "hireDate", :datetime
+    t.column "rehireDate", :datetime
+    t.column "loaStartDate", :datetime
+    t.column "loaEndDate", :datetime
+    t.column "loaReason", :string, :limit => 80
+    t.column "severancePayMonthsReq", :integer, :limit => 10
+    t.column "serviceDate", :datetime
+    t.column "lastIncDate", :datetime
+    t.column "jobEntryDate", :datetime
+    t.column "deptEntryDate", :datetime
+    t.column "reportingDate", :datetime
+    t.column "employmentType", :string, :limit => 20
+    t.column "resignationReason", :string, :limit => 80
+    t.column "resignationDate", :datetime
+    t.column "contributionsToOtherAcct", :string, :limit => 1
+    t.column "contributionsToAcntName", :string, :limit => 80
+    t.column "contributionsToAcntNo", :string, :limit => 11
+    t.column "fk_primaryAddress", :integer, :limit => 10
+    t.column "fk_secondaryAddress", :integer, :limit => 10
+    t.column "fk_teamID", :integer, :limit => 10
+    t.column "isSecure", :string, :limit => 1
+    t.column "isSupported", :string, :limit => 1
+    t.column "ActivityID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fianceeAccountno", :string, :limit => 11
+    t.column "removedFromPeopleSoft", :string, :limit => 1
+    t.column "isNonUSStaff", :string, :limit => 1
+    t.column "primaryEmpLocDesc", :string, :limit => 128
+  end
+
+  create_table "ministry_viewdependentsstaff", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30
+    t.column "middleInitial", :string, :limit => 1
+    t.column "lastName", :string, :limit => 30
+    t.column "isMale", :string, :limit => 1
+    t.column "position", :string, :limit => 30
+    t.column "countryStatus", :string, :limit => 10
+    t.column "jobStatus", :string, :limit => 30
+    t.column "ministry", :string, :limit => 35
+    t.column "strategy", :string, :limit => 20
+    t.column "isNewStaff", :string, :limit => 1
+    t.column "primaryEmpLocState", :string, :limit => 6
+    t.column "primaryEmpLocCountry", :string, :limit => 64
+    t.column "primaryEmpLocCity", :string, :limit => 35
+    t.column "spouseFirstName", :string, :limit => 22
+    t.column "spouseMiddleName", :string, :limit => 15
+    t.column "spouseLastName", :string, :limit => 30
+    t.column "spouseAccountNo", :string, :limit => 11
+    t.column "spouseEmail", :string, :limit => 50
+    t.column "fianceeFirstName", :string, :limit => 15
+    t.column "fianceeMiddleName", :string, :limit => 15
+    t.column "fianceeLastName", :string, :limit => 30
+    t.column "isFianceeStaff", :string, :limit => 1
+    t.column "fianceeJoinStaffDate", :datetime
+    t.column "isFianceeJoiningNS", :string, :limit => 1
+    t.column "joiningNS", :string, :limit => 1
+    t.column "homePhone", :string, :limit => 24
+    t.column "workPhone", :string, :limit => 24
+    t.column "mobilePhone", :string, :limit => 24
+    t.column "pager", :string, :limit => 24
+    t.column "email", :string, :limit => 50
+    t.column "isEmailSecure", :string, :limit => 1
+    t.column "url", :string
+    t.column "newStaffTrainingdate", :datetime
+    t.column "fax", :string, :limit => 24
+    t.column "note", :string, :limit => 2048
+    t.column "region", :string, :limit => 10
+    t.column "countryCode", :string, :limit => 3
+    t.column "ssn", :string, :limit => 9
+    t.column "maritalStatus", :string, :limit => 1
+    t.column "deptId", :string, :limit => 10
+    t.column "jobCode", :string, :limit => 6
+    t.column "accountCode", :string, :limit => 25
+    t.column "compFreq", :string, :limit => 1
+    t.column "compRate", :string, :limit => 20
+    t.column "compChngAmt", :string, :limit => 21
+    t.column "jobTitle", :string, :limit => 80
+    t.column "deptName", :string, :limit => 30
+    t.column "coupleTitle", :string, :limit => 12
+    t.column "otherPhone", :string, :limit => 24
+    t.column "preferredName", :string, :limit => 50
+    t.column "namePrefix", :string, :limit => 4
+    t.column "origHiredate", :datetime
+    t.column "birthDate", :datetime
+    t.column "marriageDate", :datetime
+    t.column "hireDate", :datetime
+    t.column "rehireDate", :datetime
+    t.column "loaStartDate", :datetime
+    t.column "loaEndDate", :datetime
+    t.column "loaReason", :string, :limit => 80
+    t.column "severancePayMonthsReq", :integer, :limit => 10
+    t.column "serviceDate", :datetime
+    t.column "lastIncDate", :datetime
+    t.column "jobEntryDate", :datetime
+    t.column "deptEntryDate", :datetime
+    t.column "reportingDate", :datetime
+    t.column "employmentType", :string, :limit => 20
+    t.column "resignationReason", :string, :limit => 80
+    t.column "resignationDate", :datetime
+    t.column "contributionsToOtherAcct", :string, :limit => 1
+    t.column "contributionsToAcntName", :string, :limit => 80
+    t.column "contributionsToAcntNo", :string, :limit => 11
+    t.column "fk_primaryAddress", :integer, :limit => 10
+    t.column "fk_secondaryAddress", :integer, :limit => 10
+    t.column "fk_teamID", :integer, :limit => 10
+    t.column "isSecure", :string, :limit => 1
+    t.column "isSupported", :string, :limit => 1
+    t.column "DependentID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fianceeAccountno", :string, :limit => 11
+    t.column "removedFromPeopleSoft", :string, :limit => 1
+    t.column "primaryEmpLocDesc", :string, :limit => 128
+  end
+
+  create_table "ministry_viewnoncccmintargetarea", :id => false, :force => true do |t|
+    t.column "NonCccMinID", :string, :limit => 64, :default => "", :null => false
+    t.column "TargetAreaID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string, :limit => 100
+    t.column "address1", :string, :limit => 35
+    t.column "address2", :string, :limit => 35
+    t.column "city", :string, :limit => 30
+    t.column "state", :string, :limit => 32
+    t.column "zip", :string, :limit => 10
+    t.column "country", :string, :limit => 64
+    t.column "phone", :string, :limit => 24
+    t.column "fax", :string, :limit => 24
+    t.column "email", :string, :limit => 50
+    t.column "url", :string
+    t.column "abbrv", :string, :limit => 32
+    t.column "fice", :string, :limit => 32
+    t.column "note", :string
+    t.column "altName", :string, :limit => 100
+    t.column "isSecure", :string, :limit => 1
+    t.column "region", :string, :limit => 2
+    t.column "mpta", :string, :limit => 30
+    t.column "urlToLogo", :string
+    t.column "enrollment", :string, :limit => 10
+    t.column "monthSchoolStarts", :string, :limit => 10
+    t.column "monthSchoolStops", :string, :limit => 10
+    t.column "isSemester", :string, :limit => 1
+    t.column "isApproved", :string, :limit => 1
+    t.column "aoaPriority", :string, :limit => 10
+    t.column "aoa", :string, :limit => 100
+    t.column "ciaUrl", :string
+    t.column "infoUrl", :string
+  end
+
+  create_table "ministry_viewsortedactivities", :id => false, :force => true do |t|
+    t.column "name", :string, :limit => 100
+    t.column "ActivityID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "status", :string, :limit => 2
+    t.column "periodBegin", :datetime
+    t.column "periodEnd", :datetime
+    t.column "strategy", :string, :limit => 2
+    t.column "transUsername", :string, :limit => 50
+    t.column "fk_teamID", :integer, :limit => 10
+    t.column "fk_targetAreaID", :integer, :limit => 10
+  end
+
+  create_table "ministry_viewstaffdependents", :id => false, :force => true do |t|
+    t.column "DependentID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "firstName", :string, :limit => 80
+    t.column "middleName", :string, :limit => 80
+    t.column "lastName", :string, :limit => 80
+    t.column "birthdate", :datetime
+    t.column "gender", :string, :limit => 1
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+  end
+
+  create_table "ministry_viewtargetareaactivity", :id => false, :force => true do |t|
+    t.column "TargetAreaID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string, :limit => 100
+    t.column "address2", :string, :limit => 35
+    t.column "address1", :string, :limit => 35
+    t.column "city", :string, :limit => 30
+    t.column "state", :string, :limit => 32
+    t.column "zip", :string, :limit => 10
+    t.column "country", :string, :limit => 64
+    t.column "fax", :string, :limit => 24
+    t.column "phone", :string, :limit => 24
+    t.column "email", :string, :limit => 50
+    t.column "url", :string
+    t.column "abbrv", :string, :limit => 32
+    t.column "fice", :string, :limit => 32
+    t.column "altName", :string, :limit => 100
+    t.column "note", :string
+    t.column "isSecure", :string, :limit => 1
+    t.column "region", :string, :limit => 2
+    t.column "mpta", :string, :limit => 30
+    t.column "urlToLogo", :string
+    t.column "enrollment", :string, :limit => 10
+    t.column "monthSchoolStarts", :string, :limit => 10
+    t.column "monthSchoolStops", :string, :limit => 10
+    t.column "isSemester", :string, :limit => 1
+    t.column "isApproved", :string, :limit => 1
+    t.column "aoaPriority", :string, :limit => 10
+    t.column "aoa", :string, :limit => 100
+    t.column "ciaUrl", :string
+    t.column "infoUrl", :string
+    t.column "calendar", :string, :limit => 50
+    t.column "program1", :string, :limit => 50
+    t.column "program2", :string, :limit => 50
+    t.column "program3", :string, :limit => 50
+    t.column "program4", :string, :limit => 50
+    t.column "program5", :string, :limit => 50
+    t.column "emphasis", :string, :limit => 50
+    t.column "sex", :string, :limit => 50
+    t.column "institutionType", :string, :limit => 50
+    t.column "highestOffering", :string, :limit => 65
+    t.column "affiliation", :string, :limit => 50
+    t.column "carnegieClassification", :string, :limit => 100
+    t.column "irsStatus", :string, :limit => 50
+    t.column "establishedDate", :integer, :limit => 10
+    t.column "tuition", :integer, :limit => 10
+    t.column "modified", :datetime
+    t.column "strategy", :string, :limit => 2
+    t.column "status", :string, :limit => 2
+  end
+
+  create_table "ministry_viewtargetareanoncccmin", :id => false, :force => true do |t|
+    t.column "NonCccMinID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "ministry", :string, :limit => 50
+    t.column "firstName", :string, :limit => 30
+    t.column "lastName", :string, :limit => 30
+    t.column "address1", :string, :limit => 35
+    t.column "address2", :string, :limit => 35
+    t.column "city", :string, :limit => 30
+    t.column "state", :string, :limit => 6
+    t.column "zip", :string, :limit => 10
+    t.column "country", :string, :limit => 64
+    t.column "homePhone", :string, :limit => 24
+    t.column "workPhone", :string, :limit => 24
+    t.column "mobilePhone", :string, :limit => 24
+    t.column "email", :string, :limit => 24
+    t.column "url", :string, :limit => 50
+    t.column "pager", :string, :limit => 24
+    t.column "fax", :string, :limit => 24
+    t.column "note", :string
+    t.column "TargetAreaID", :string, :limit => 64, :default => "", :null => false
+  end
+
   create_table "ministry_wsnpartnership", :id => false, :force => true do |t|
     t.column "WsnPartnershipID", :string, :limit => 64, :default => "", :null => false
     t.column "status", :string, :limit => 2
@@ -2712,350 +3410,48 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "transUsername", :string, :limit => 50
   end
 
-  create_table "ministrylocator_assoc_contact", :id => false, :force => true do |t|
-    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
-    t.column "contactID", :string, :limit => 16, :default => "", :null => false
+  create_table "nag_emails", :force => true do |t|
+    t.column "query", :text, :default => "", :null => false
+    t.column "from", :string, :default => "", :null => false
+    t.column "subject", :string, :default => "", :null => false
+    t.column "body", :text, :default => "", :null => false
+    t.column "rails_cron_id", :integer, :default => 0, :null => false
+    t.column "created_at", :datetime, :null => false
+    t.column "updated_at", :datetime, :null => false
   end
 
-  create_table "ministrylocator_assoc_ministry_contact", :id => false, :force => true do |t|
-    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
-    t.column "contactID", :string, :limit => 16, :default => "", :null => false
+  create_table "query_staffchangerequestfieldchangeauthorization", :id => false, :force => true do |t|
+    t.column "accountNo", :string, :limit => 11, :default => "", :null => false
+    t.column "firstName", :string, :limit => 30
+    t.column "lastName", :string, :limit => 30
+    t.column "ChangeRequestID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "requestdate", :datetime
+    t.column "effectivedate", :datetime
+    t.column "applieddate", :datetime
+    t.column "type", :string, :limit => 30
+    t.column "fk_requestedBy", :string, :limit => 11
+    t.column "field", :string, :limit => 30
+    t.column "oldValue", :string
+    t.column "newValue", :string
+    t.column "authdate", :datetime
+    t.column "role", :string, :limit => 30
+    t.column "authorized", :string, :limit => 1
+    t.column "sequence", :integer, :limit => 10
   end
 
-  create_table "ministrylocator_campus", :id => false, :force => true do |t|
-    t.column "campusID", :string, :limit => 16, :default => "", :null => false
-    t.column "name", :string, :limit => 80
-    t.column "city", :string, :limit => 80
-    t.column "state", :string, :limit => 2
-    t.column "country", :string, :limit => 64
-  end
-
-  add_index "ministrylocator_campus", ["state"], :name => "ministrylocator_campus_idx_1"
-  add_index "ministrylocator_campus", ["country"], :name => "ministrylocator_campus_idx_2"
-
-  create_table "ministrylocator_contact", :id => false, :force => true do |t|
-    t.column "contactID", :string, :limit => 16, :default => "", :null => false
-    t.column "firstName", :string, :limit => 80
-    t.column "lastName", :string, :limit => 80
-    t.column "phone", :string, :limit => 80
-    t.column "email", :string, :limit => 80
-  end
-
-  create_table "ministrylocator_ministry", :id => false, :force => true do |t|
-    t.column "ministryID", :string, :limit => 16, :default => "", :null => false
-    t.column "strategy", :string, :limit => 2
-    t.column "url", :string, :limit => 120
-    t.column "fk_campusID", :string, :limit => 16
-  end
-
-  add_index "ministrylocator_ministry", ["fk_campusID"], :name => "ministrylocator_ministry_idx_1"
-
-  create_table "ministryproximity_zipcode", :id => false, :force => true do |t|
-    t.column "zip", :integer, :limit => 10, :default => 0, :null => false
-    t.column "city", :string, :limit => 80
-    t.column "state", :string, :limit => 2
-    t.column "latitude", :float
-    t.column "longitude", :float
-  end
-
-  add_index "ministryproximity_zipcode", ["city"], :name => "ministryproximity_zipcode_idx_1"
-  add_index "ministryproximity_zipcode", ["state"], :name => "ministryproximity_zipcode_idx_2"
-
-  create_table "moralesurvey", :force => true do |t|
-    t.column "region", :string, :limit => 50
-    t.column "lane", :string, :limit => 50
-    t.column "family", :string, :limit => 50
-    t.column "gender", :string, :limit => 50
-    t.column "years", :string, :limit => 50
-    t.column "q1", :integer, :limit => 10
-    t.column "q2", :integer, :limit => 10
-    t.column "q3", :integer, :limit => 10
-    t.column "q4", :integer, :limit => 10
-    t.column "q5", :integer, :limit => 10
-    t.column "q6", :integer, :limit => 10
-    t.column "q7", :integer, :limit => 10
-    t.column "q8", :integer, :limit => 10
-    t.column "q9", :integer, :limit => 10
-    t.column "q10", :integer, :limit => 10
-    t.column "q11", :integer, :limit => 10
-    t.column "q12", :integer, :limit => 10
-    t.column "q13", :integer, :limit => 10
-    t.column "q14", :integer, :limit => 10
-    t.column "q15", :integer, :limit => 10
-    t.column "q16", :integer, :limit => 10
-    t.column "q17", :integer, :limit => 10
-    t.column "q18", :integer, :limit => 10
-    t.column "q19", :integer, :limit => 10
-    t.column "q20", :integer, :limit => 10
-    t.column "q21", :integer, :limit => 10
-    t.column "comments", :string, :limit => 4000
-  end
-
-  create_table "ms_msapplication", :id => false, :force => true do |t|
-    t.column "applicationID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "createDate", :datetime
-    t.column "name", :string, :limit => 64
-    t.column "ssn", :string, :limit => 9
-    t.column "street", :string, :limit => 64
-    t.column "city", :string, :limit => 16
-    t.column "state", :string, :limit => 2
-    t.column "zip", :string, :limit => 5
-    t.column "leaveDate", :string, :limit => 8
-    t.column "tele", :string, :limit => 10
-    t.column "cell", :string, :limit => 10
-    t.column "email", :string, :limit => 32
-    t.column "checkEmail", :string, :limit => 3
-    t.column "eName", :string, :limit => 64
-    t.column "eStreet", :string, :limit => 64
-    t.column "eCity", :string, :limit => 16
-    t.column "eState", :string, :limit => 2
-    t.column "eZip", :string, :limit => 5
-    t.column "eTele", :string, :limit => 10
-    t.column "eCell", :string, :limit => 10
-    t.column "university", :string, :limit => 64
-    t.column "staffType", :string, :limit => 16
-    t.column "project1", :string, :limit => 32
-    t.column "project2", :string, :limit => 32
-    t.column "project3", :string, :limit => 32
-    t.column "project4", :string, :limit => 32
-    t.column "project5", :string, :limit => 32
-    t.column "sBreakDate", :string, :limit => 8
-    t.column "fBreakDate", :string, :limit => 8
-    t.column "finalDate", :string, :limit => 8
-    t.column "fall", :string, :limit => 3
-    t.column "anotherProject", :string, :limit => 3
-    t.column "birthDate", :string, :limit => 8
-    t.column "decisionDate", :string, :limit => 8
-    t.column "graduationDate", :string, :limit => 8
-    t.column "major", :string, :limit => 32
-    t.column "year", :string, :limit => 16
-    t.column "marital", :string, :limit => 9
-    t.column "height", :string, :limit => 5
-    t.column "weight", :string, :limit => 3
-    t.column "_1a", :string, :limit => 128
-    t.column "_1b", :string, :limit => 3
-    t.column "_1c", :string, :limit => 32
-    t.column "_2a", :string, :limit => 3
-    t.column "_2b", :string, :limit => 32
-    t.column "_2c", :string, :limit => 3
-    t.column "_3a", :string, :limit => 128
-    t.column "_3b", :string, :limit => 32
-    t.column "_4a", :string, :limit => 128
-    t.column "_4b", :string, :limit => 32
-    t.column "_5a", :string, :limit => 128
-    t.column "_5b", :string, :limit => 32
-    t.column "_5c", :string, :limit => 32
-    t.column "_5d", :string, :limit => 3
-    t.column "_6a", :text
-    t.column "_7a", :text
-    t.column "_8a", :string, :limit => 32
-    t.column "_8b", :string, :limit => 32
-    t.column "_9a", :text
-    t.column "_10a", :text
-    t.column "_11a", :string, :limit => 3
-    t.column "_11b", :text
-    t.column "_12a", :string, :limit => 3
-    t.column "_12b", :string, :limit => 32
-    t.column "_13a", :string, :limit => 3
-    t.column "_13b", :string, :limit => 3
-    t.column "_13c", :string, :limit => 3
-    t.column "_14a", :text
-    t.column "_15a", :string, :limit => 3
-    t.column "_16a", :string, :limit => 32
-    t.column "_17a", :string, :limit => 16
-    t.column "_18a", :string, :limit => 32
-    t.column "_19a", :string, :limit => 128
-    t.column "_19b", :string, :limit => 32
-    t.column "_20a", :text
-    t.column "_20b", :text
-    t.column "_20c", :text
-    t.column "_21a", :string, :limit => 3
-    t.column "_21b", :string, :limit => 128
-    t.column "_22a", :string, :limit => 3
-    t.column "_22b", :text
-    t.column "_23a", :string, :limit => 3
-    t.column "_23b", :text
-    t.column "_24a", :string, :limit => 3
-    t.column "_24b", :text
-    t.column "_25a", :text
-    t.column "_26a", :string, :limit => 3
-    t.column "_26b", :text
-    t.column "_27a", :string, :limit => 3
-    t.column "_27b", :text
-    t.column "_28a", :string, :limit => 3
-    t.column "_28b", :text
-    t.column "_29a", :string, :limit => 3
-    t.column "_29b", :text
-    t.column "_29c", :string, :limit => 3
-    t.column "_29d", :string, :limit => 3
-    t.column "_29e", :text
-    t.column "_30a", :text
-    t.column "_31a", :text
-    t.column "_32a", :text
-    t.column "_33a", :text
-    t.column "_34a", :text
-    t.column "_35a", :text
-  end
-
-  create_table "ms_msreference", :id => false, :force => true do |t|
-    t.column "referenceID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "createDate", :datetime
-    t.column "name", :string, :limit => 64
-    t.column "staff", :string, :limit => 3
-    t.column "street", :string, :limit => 64
-    t.column "city", :string, :limit => 16
-    t.column "state", :string, :limit => 2
-    t.column "zip", :string, :limit => 5
-    t.column "tele", :string, :limit => 10
-    t.column "cell", :string, :limit => 10
-    t.column "email", :string, :limit => 32
-    t.column "relation", :string, :limit => 64
-    t.column "howLong", :string, :limit => 64
-    t.column "howWell", :string, :limit => 64
-    t.column "midEval", :string, :limit => 3
-    t.column "_1a", :string, :limit => 1
-    t.column "_2a", :string, :limit => 1
-    t.column "_3a", :string, :limit => 1
-    t.column "_4a", :string, :limit => 1
-    t.column "_5a", :string, :limit => 1
-    t.column "_6a", :string, :limit => 1
-    t.column "_7a", :string, :limit => 1
-    t.column "_8a", :string, :limit => 1
-    t.column "_9a", :string, :limit => 1
-    t.column "_10a", :string, :limit => 1
-    t.column "_11a", :string, :limit => 1
-    t.column "_12a", :string, :limit => 1
-    t.column "_13a", :string, :limit => 1
-    t.column "_14a", :string, :limit => 1
-    t.column "_15a", :string, :limit => 1
-    t.column "_16a", :string, :limit => 1
-    t.column "_17a", :string, :limit => 1
-    t.column "_18a", :string, :limit => 1
-    t.column "_19a", :string, :limit => 1
-    t.column "_20a", :string, :limit => 1
-    t.column "_21a", :string, :limit => 1
-    t.column "_21b", :string, :limit => 128
-    t.column "_22a", :text
-    t.column "_23a", :text
-    t.column "_24a", :text
-    t.column "_25a", :text
-    t.column "_26a", :text
-    t.column "_26b", :string, :limit => 3
-    t.column "_26c", :text
-    t.column "_27a", :text
-    t.column "_28a", :text
-    t.column "_29a", :text
-    t.column "_30a", :text
-  end
-
-  create_table "objectbroker_objectwrapper", :id => false, :force => true do |t|
-    t.column "objectWrapperID", :string, :limit => 40, :default => "", :null => false
-    t.column "type", :string, :limit => 80
-    t.column "bytes", :text
-  end
-
-  create_table "questionnaireacts6", :force => true do |t|
-    t.column "firstname", :string, :limit => 30
-    t.column "lastname", :string, :limit => 30
-    t.column "region", :string, :limit => 30
-    t.column "jobtitle", :string, :limit => 50
-    t.column "lane", :string, :limit => 30
-    t.column "phone", :string, :limit => 30
-    t.column "textarea1a", :text
-    t.column "textarea1b", :text
-    t.column "textarea1c", :text
-    t.column "textarea2a", :text
-    t.column "textarea2b", :text
-    t.column "textarea2c", :text
-    t.column "textarea3a", :text
-    t.column "textarea3b", :text
-    t.column "textarea3c", :text
-    t.column "textarea4a", :text
-    t.column "textarea4b", :text
-    t.column "textarea4c", :text
-    t.column "textarea5a", :text
-    t.column "textarea5b", :text
-    t.column "textarea5c", :text
-    t.column "textarea6a", :text
-    t.column "textarea6b", :text
-    t.column "textarea6c", :text
-    t.column "textarea7a", :text
-    t.column "textarea7b", :text
-    t.column "textarea7c", :text
-    t.column "textarea8a", :text
-    t.column "textarea8b", :text
-    t.column "textarea8c", :text
-    t.column "textarea9a", :text
-    t.column "textarea9b", :text
-    t.column "textarea9c", :text
-    t.column "textarea10a", :text
-    t.column "textarea10b", :text
-    t.column "textarea10c", :text
-    t.column "textarea11a", :text
-    t.column "textarea11b", :text
-    t.column "textarea11c", :text
-    t.column "textarea12a", :text
-    t.column "textarea12b", :text
-    t.column "textarea12c", :text
-    t.column "textarea13a", :text
-    t.column "textarea13b", :text
-    t.column "textarea13c", :text
-    t.column "textarea14a", :text
-    t.column "textarea14b", :text
-    t.column "textarea14c", :text
-    t.column "textarea15a", :text
-    t.column "textarea15b", :text
-    t.column "textarea15c", :text
-    t.column "textarea16a", :text
-    t.column "textarea16b", :text
-    t.column "textarea16c", :text
-    t.column "textarea17a", :text
-    t.column "textarea17b", :text
-    t.column "textarea17c", :text
-    t.column "comments", :text
-  end
-
-  create_table "response", :id => false, :force => true do |t|
-    t.column "responseno", :integer, :limit => 10, :default => 0, :null => false
-    t.column "region", :string, :limit => 20
-    t.column "enterdate", :datetime
-    t.column "years", :string, :limit => 3
-    t.column "family", :string, :limit => 6
-    t.column "gender", :string, :limit => 6
-    t.column "strategy", :string, :limit => 15
-    t.column "q01", :integer, :limit => 10, :default => 0
-    t.column "q02", :integer, :limit => 10, :default => 0
-    t.column "q03", :integer, :limit => 10, :default => 0
-    t.column "q04", :integer, :limit => 10, :default => 0
-    t.column "q05", :integer, :limit => 10, :default => 0
-    t.column "q06", :integer, :limit => 10, :default => 0
-    t.column "q07", :integer, :limit => 10, :default => 0
-    t.column "q08", :integer, :limit => 10, :default => 0
-    t.column "q09", :integer, :limit => 10, :default => 0
-    t.column "q10", :integer, :limit => 10, :default => 0
-    t.column "q11", :integer, :limit => 10, :default => 0
-    t.column "q12", :integer, :limit => 10, :default => 0
-    t.column "q13", :integer, :limit => 10, :default => 0
-    t.column "q14", :integer, :limit => 10, :default => 0
-    t.column "q15", :integer, :limit => 10, :default => 0
-    t.column "q16", :integer, :limit => 10, :default => 0
-    t.column "q17", :integer, :limit => 10, :default => 0
-    t.column "q18", :integer, :limit => 10, :default => 0
-    t.column "q19", :integer, :limit => 10, :default => 0
-    t.column "q20", :integer, :limit => 10, :default => 0
-    t.column "q21", :integer, :limit => 10, :default => 0
-    t.column "q22", :integer, :limit => 10, :default => 0
-    t.column "q23", :integer, :limit => 10, :default => 0
-    t.column "q24", :integer, :limit => 10, :default => 0
-    t.column "comments", :text
-    t.column "upsize_ts", :timestamp
+  create_table "rails_crons", :force => true do |t|
+    t.column "command", :text
+    t.column "start", :integer
+    t.column "finish", :integer
+    t.column "every", :integer
+    t.column "concurrent", :boolean
   end
 
   create_table "simplesecuritymanager_user", :id => false, :force => true do |t|
     t.column "userID", :integer, :limit => 10, :default => 0, :null => false
     t.column "globallyUniqueID", :string, :limit => 80
     t.column "username", :string, :limit => 80, :default => "", :null => false
-    t.column "email_deprecated", :string, :limit => 64
+    t.column "email", :string, :limit => 64
     t.column "password", :string, :limit => 80
     t.column "passwordQuestion", :string, :limit => 200
     t.column "passwordAnswer", :string, :limit => 200
@@ -3067,10 +3463,6 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   add_index "simplesecuritymanager_user", ["username"], :name => "CK_simplesecuritymanager_user_username", :unique => true
-
-  create_table "sitrack_address_types", :id => false, :force => true do |t|
-    t.column "addressType", :string, :limit => 20, :default => "", :null => false
-  end
 
   create_table "sitrack_application_all", :id => false, :force => true do |t|
     t.column "applicationID", :integer, :limit => 10, :default => 0, :null => false
@@ -3228,14 +3620,14 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "fk_ssmUserID", :integer, :limit => 10
     t.column "fk_SIPersonID", :integer, :limit => 10
     t.column "isPaid", :boolean
-    t.column "appFee", :float
+    t.column "appFee", :float, :limit => 18
     t.column "dateAppLastChanged", :datetime
     t.column "dateAppStarted", :datetime
     t.column "dateSubmitted", :datetime
     t.column "isSubmitted", :boolean
     t.column "appStatus", :string, :limit => 15
     t.column "assignedToProject", :integer, :limit => 10
-    t.column "finalProject", :float
+    t.column "finalProject", :float, :limit => 10
     t.column "siYear", :string, :limit => 50
     t.column "submitDate", :datetime
     t.column "status", :string, :limit => 22
@@ -3268,13 +3660,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "tableClause", :string, :limit => 100
     t.column "directory", :integer, :limit => 3, :default => 1, :null => false
     t.column "writeable", :integer, :limit => 3, :default => 1, :null => false
-    t.column "createdDate", :binary
-  end
-
-  create_table "sitrack_downloadrecords", :id => false, :force => true do |t|
-    t.column "uuid", :integer, :limit => 10, :default => 0, :null => false
-    t.column "dateDownloaded", :datetime, :null => false
-    t.column "fileID", :string, :limit => 10, :default => "", :null => false
+    t.column "createdDate", :binary, :limit => 8
   end
 
   create_table "sitrack_feeds", :id => false, :force => true do |t|
@@ -3305,26 +3691,13 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "salary", :integer, :limit => 10
   end
 
-  create_table "sitrack_mpdfiles", :id => false, :force => true do |t|
-    t.column "fileID", :integer, :limit => 10, :default => 0, :null => false
-    t.column "filename", :string, :default => "", :null => false
-    t.column "region", :string, :limit => 10
-    t.column "fileLocation", :string, :default => "", :null => false
-    t.column "type", :string, :limit => 10, :default => "", :null => false
-    t.column "personID", :integer, :limit => 10
-    t.column "lastDownUser", :integer, :limit => 10
-    t.column "lastDownDate", :datetime
-    t.column "lastUpUser", :integer, :limit => 10, :default => 0, :null => false
-    t.column "lastUpDate", :datetime, :null => false
-  end
-
   create_table "sitrack_queries", :id => false, :force => true do |t|
     t.column "queryID", :integer, :limit => 10, :default => 0, :null => false
     t.column "queryName", :string, :limit => 50, :default => "", :null => false
     t.column "owner", :integer, :limit => 10, :default => 0, :null => false
     t.column "persons", :text, :default => "", :null => false
     t.column "createdDate", :datetime, :null => false
-    t.column "modifyDate", :binary
+    t.column "modifyDate", :binary, :limit => 8
   end
 
   create_table "sitrack_queries_seq", :force => true do |t|
@@ -3471,7 +3844,7 @@ ActiveRecord::Schema.define(:version => 12) do
   add_index "staffsite_staffsitepref", ["name"], :name => "index2"
 
   create_table "staffsite_staffsiteprofile", :id => false, :force => true do |t|
-    t.column "StaffSiteProfileID", :integer, :limit => 10, :null => false
+    t.column "StaffSiteProfileID", :integer, :limit => 10, :default => 0, :null => false
     t.column "oldPrimaryKey", :string, :limit => 64
     t.column "firstName", :string, :limit => 64
     t.column "lastName", :string, :limit => 64
@@ -3486,6 +3859,36 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   add_index "staffsite_staffsiteprofile", ["userName"], :name => "index1"
+
+  create_table "view_cmscategoryfiles", :id => false, :force => true do |t|
+    t.column "CmsCategoryID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "parentCategory", :integer, :limit => 10
+    t.column "catName", :string, :limit => 256
+    t.column "catDesc", :string, :limit => 2000
+    t.column "path", :string, :limit => 2000
+    t.column "pathid", :string, :limit => 2000
+    t.column "CmsFileID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "mime", :string, :limit => 128
+    t.column "title", :string, :limit => 256
+    t.column "accessCount", :integer, :limit => 10
+    t.column "dateAdded", :datetime
+    t.column "dateModified", :datetime
+    t.column "moderatedYet", :string, :limit => 1
+    t.column "summary", :string, :limit => 4000
+    t.column "quality", :string, :limit => 256
+    t.column "expDate", :datetime
+    t.column "lastAccessed", :datetime
+    t.column "modMsg", :string, :limit => 4000
+    t.column "keywords", :string, :limit => 4000
+    t.column "url", :string, :limit => 128
+    t.column "detail", :string, :limit => 4000
+    t.column "language", :string, :limit => 128
+    t.column "version", :string, :limit => 128
+    t.column "author", :string, :limit => 256
+    t.column "submitter", :string, :limit => 256
+    t.column "contact", :string, :limit => 256
+    t.column "rating", :integer, :limit => 10
+  end
 
   create_table "wsn_sp_answer", :id => false, :force => true do |t|
     t.column "answerID", :integer, :limit => 10, :default => 0, :null => false
@@ -3569,6 +3972,522 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "_8sa", :text
     t.column "closingRemarks", :text
     t.column "fk_WsnApplicationID", :integer, :limit => 10
+  end
+
+  create_table "wsn_sp_viewapplication", :id => false, :force => true do |t|
+    t.column "personID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "region", :string, :limit => 5
+    t.column "legalFirstName", :string, :limit => 50
+    t.column "legalLastName", :string, :limit => 50
+    t.column "birthDate", :string, :limit => 25
+    t.column "dateBecameChristian", :string, :limit => 35
+    t.column "maritalStatus", :string, :limit => 20
+    t.column "universityFullName", :string, :limit => 128
+    t.column "major", :string, :limit => 70
+    t.column "yearInSchool", :string, :limit => 20
+    t.column "graduationDate", :string, :limit => 25
+    t.column "usCitizen", :boolean, :default => false, :null => false
+    t.column "citizenship", :string, :limit => 50
+    t.column "accountNo", :string, :limit => 11
+    t.column "gender", :string, :limit => 1
+    t.column "isStaff", :boolean, :default => false, :null => false
+    t.column "child", :boolean, :default => false, :null => false
+    t.column "fk_wsnSpouse", :integer, :limit => 10
+    t.column "fk_childOf", :integer, :limit => 10
+    t.column "fk_ssmUserId", :integer, :limit => 10
+    t.column "fk_StaffSiteProfileID", :integer, :limit => 10
+    t.column "surferID", :integer, :limit => 10
+    t.column "dateCreated", :datetime
+    t.column "dateChanged", :datetime
+    t.column "changedBy", :string, :limit => 50
+    t.column "legalMiddleName", :string, :limit => 50
+    t.column "title", :string, :limit => 5
+    t.column "universityState", :string, :limit => 5
+    t.column "WsnApplicationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "role", :string, :limit => 1
+    t.column "earliestAvailableDate", :string, :limit => 22
+    t.column "dateMustReturn", :string, :limit => 22
+    t.column "willingForDifferentProject", :boolean
+    t.column "isApplicationComplete", :boolean
+    t.column "applicationCompleteNote", :boolean
+    t.column "projectPref1", :string, :limit => 64
+    t.column "projectPref2", :string, :limit => 64
+    t.column "projectPref3", :string, :limit => 64
+    t.column "projectPref4", :string, :limit => 64
+    t.column "projectPref5", :string, :limit => 64
+    t.column "supportGoal", :integer, :limit => 10
+    t.column "supportReceived", :integer, :limit => 10
+    t.column "supportBalance", :float
+    t.column "insuranceReceived", :boolean
+    t.column "waiverReceived", :boolean
+    t.column "didGo", :boolean
+    t.column "participantEvaluation", :boolean
+    t.column "destinationGatewayCity", :string, :limit => 50
+    t.column "gatewayCityToLocationFlightNo", :string, :limit => 50
+    t.column "departGatewayCityToLocation", :string, :limit => 22
+    t.column "arrivalGatewayCityToLocation", :string, :limit => 22
+    t.column "locationToGatewayCityFlightNo", :string, :limit => 50
+    t.column "departLocationToGatewayCity", :string, :limit => 22
+    t.column "arrrivalLocationToGatewayCity", :string, :limit => 22
+    t.column "domesticOrigin", :string, :limit => 50
+    t.column "domesticOriginToGCFlightNo", :string, :limit => 50
+    t.column "departDomesticToGatewayCity", :string, :limit => 22
+    t.column "arrivalDomesticToGatewayCity", :string, :limit => 22
+    t.column "arrivalAtDomesticOrigin", :string, :limit => 22
+    t.column "travelPlans", :boolean
+    t.column "travelDeviation", :boolean
+    t.column "passportCountry", :string, :limit => 50
+    t.column "passportNo", :string, :limit => 25
+    t.column "passportIssueDate", :string, :limit => 22
+    t.column "passportExpirationDate", :string, :limit => 22
+    t.column "visaCountry", :string, :limit => 50
+    t.column "visaNo", :string, :limit => 50
+    t.column "visaType", :string, :limit => 50
+    t.column "visaIsMultipleEntry", :boolean
+    t.column "visaExpirationDate", :string, :limit => 22
+    t.column "visaIssueDate", :string, :limit => 22
+    t.column "dateUpdated", :string, :limit => 22
+    t.column "prevIsp", :boolean
+    t.column "status", :string, :limit => 22
+    t.column "wsnYear", :string, :limit => 4
+    t.column "fk_isMember", :string, :limit => 64
+    t.column "inSchool", :boolean
+    t.column "springBreakStart", :datetime
+    t.column "springBreakEnd", :datetime
+    t.column "participateEpic", :boolean
+    t.column "participateDestino", :boolean
+    t.column "participateImpact", :boolean
+    t.column "isIntern", :boolean
+    t.column "_1a", :boolean
+    t.column "_1b", :boolean
+    t.column "_1c", :boolean
+    t.column "_1d", :boolean
+    t.column "_1e", :boolean
+    t.column "_1f", :text
+    t.column "_2a", :boolean
+    t.column "_2b", :text
+    t.column "_2c", :boolean
+    t.column "_3a", :boolean
+    t.column "_3b", :boolean
+    t.column "_3c", :boolean
+    t.column "_3d", :boolean
+    t.column "_3e", :boolean
+    t.column "_3f", :boolean
+    t.column "_3g", :boolean
+    t.column "_3h", :text
+    t.column "_4a", :boolean
+    t.column "_4b", :boolean
+    t.column "_4c", :boolean
+    t.column "_4d", :boolean
+    t.column "_4e", :boolean
+    t.column "_4f", :boolean
+    t.column "_4g", :boolean
+    t.column "_4h", :boolean
+    t.column "_4i", :text
+    t.column "_5a", :boolean
+    t.column "_5b", :boolean
+    t.column "_5c", :boolean
+    t.column "_5d", :boolean
+    t.column "_5e", :text
+    t.column "_5f", :boolean
+    t.column "_5g", :text
+    t.column "_5h", :boolean
+    t.column "_6", :text
+    t.column "_7", :text
+    t.column "_8a", :text
+    t.column "_8b", :text
+    t.column "_9", :text
+    t.column "_10", :text
+    t.column "_11a", :boolean
+    t.column "_11b", :text
+    t.column "_12a", :boolean
+    t.column "_12b", :text
+    t.column "_13a", :boolean
+    t.column "_13b", :boolean
+    t.column "_13c", :boolean
+    t.column "_14", :text
+    t.column "_15", :boolean
+    t.column "_16", :integer, :limit => 10
+    t.column "_17", :integer, :limit => 10
+    t.column "_18", :integer, :limit => 10
+    t.column "_19a", :boolean
+    t.column "_19b", :boolean
+    t.column "_19c", :boolean
+    t.column "_19d", :boolean
+    t.column "_19e", :boolean
+    t.column "_19f", :string
+    t.column "_20a", :text
+    t.column "_20b", :text
+    t.column "_20c", :text
+    t.column "_21a", :boolean
+    t.column "_21b", :boolean
+    t.column "_21c", :boolean
+    t.column "_21d", :boolean
+    t.column "_21e", :boolean
+    t.column "_21f", :boolean
+    t.column "_21g", :boolean
+    t.column "_21h", :boolean
+    t.column "_21i", :text
+    t.column "_21j", :string, :limit => 1
+    t.column "_22a", :boolean
+    t.column "_22b", :text
+    t.column "_23a", :boolean
+    t.column "_23b", :text
+    t.column "_24a", :boolean
+    t.column "_24b", :text
+    t.column "_25", :text
+    t.column "_26a", :boolean
+    t.column "_26b", :text
+    t.column "_27a", :boolean
+    t.column "_27b", :text
+    t.column "_28a", :boolean
+    t.column "_28b", :text
+    t.column "_29a", :boolean
+    t.column "_29b", :text
+    t.column "_29c", :boolean
+    t.column "_29d", :boolean
+    t.column "_29e", :text
+    t.column "_29f", :text
+    t.column "_30", :text
+    t.column "_31", :text
+    t.column "_32", :text
+    t.column "_33", :text
+    t.column "_34", :text
+    t.column "_35", :text
+    t.column "isPaid", :boolean
+    t.column "applicationStatus", :string, :limit => 50
+    t.column "isApplyingForStaffInternship", :boolean
+    t.column "createDate", :datetime
+    t.column "lastChangedDate", :datetime
+    t.column "lastChangedBy", :string, :limit => 30
+    t.column "isRecruited", :boolean
+    t.column "assignedToProject", :string, :limit => 64
+    t.column "datePaymentRecieved", :datetime
+    t.column "evaluationStatus", :string, :limit => 50
+    t.column "electronicSignature", :string, :limit => 50
+    t.column "submittedDate", :datetime
+    t.column "assignedDate", :datetime
+    t.column "dateReferencesDone", :datetime
+    t.column "acceptedDate", :datetime
+    t.column "notAcceptedDate", :datetime
+    t.column "withdrawnDate", :datetime
+    t.column "finalWsnProjectID", :string, :limit => 64
+    t.column "preferredContactMethod", :string, :limit => 1
+    t.column "howOftenCheckEmail", :string, :limit => 30
+    t.column "otherClassDetails", :string, :limit => 30
+    t.column "participateOtherProjects", :boolean
+    t.column "campusHasStaffTeam", :boolean
+    t.column "campusHasStaffCoach", :boolean
+    t.column "campusHasMetroTeam", :boolean
+    t.column "campusHasOther", :boolean
+    t.column "campusHasOtherDetails", :string, :limit => 30
+    t.column "inSchoolNextFall", :boolean
+    t.column "participateCCC", :boolean
+    t.column "participateNone", :boolean
+    t.column "ciPhoneCallRequested", :boolean
+    t.column "ciPhoneNumber", :string, :limit => 24
+    t.column "ciBestTimeToCall", :string, :limit => 10
+    t.column "ciTimeZone", :string, :limit => 10
+    t.column "_26date", :string, :limit => 10
+    t.column "appType", :string, :limit => 64
+    t.column "fk_personID", :integer, :limit => 10
+    t.column "ssn", :string, :limit => 11
+    t.column "currentAddressID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "currentStartDate", :string, :limit => 25
+    t.column "dateAddressGoodUntil", :string, :limit => 25
+    t.column "currentAddress", :string, :limit => 55
+    t.column "currentAddress2", :string, :limit => 55
+    t.column "currentAddress3", :string, :limit => 55
+    t.column "currentAddress4", :string, :limit => 55
+    t.column "currentCity", :string, :limit => 50
+    t.column "currentState", :string, :limit => 50
+    t.column "currentZip", :string, :limit => 10
+    t.column "currentCountry", :string, :limit => 64
+    t.column "currentPhone", :string, :limit => 25
+    t.column "currentWorkPhone", :string, :limit => 25
+    t.column "currentCellPhone", :string, :limit => 25
+    t.column "currentFax", :string, :limit => 25
+    t.column "currentEmail", :string, :limit => 200
+    t.column "currentUrl", :string, :limit => 100
+    t.column "currentContactName", :string, :limit => 50
+    t.column "currentContactRelation", :string, :limit => 50
+    t.column "currentAddressType", :string, :limit => 20
+    t.column "currentFk_PersonID", :integer, :limit => 10
+    t.column "emergAddressID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "emergStartDate", :string, :limit => 25
+    t.column "emergEndDate", :string, :limit => 25
+    t.column "emergAddress", :string, :limit => 55
+    t.column "emergAddress2", :string, :limit => 55
+    t.column "emergAddress3", :string, :limit => 55
+    t.column "emergAddress4", :string, :limit => 55
+    t.column "emergCity", :string, :limit => 50
+    t.column "emergState", :string, :limit => 50
+    t.column "emergZip", :string, :limit => 10
+    t.column "emergCountry", :string, :limit => 64
+    t.column "emergPhone", :string, :limit => 25
+    t.column "emergWorkPhone", :string, :limit => 25
+    t.column "emergCellPhone", :string, :limit => 25
+    t.column "emergFax", :string, :limit => 25
+    t.column "emergEmail", :string, :limit => 200
+    t.column "emergUrl", :string, :limit => 100
+    t.column "emergName", :string, :limit => 50
+    t.column "emergContactRelation", :string, :limit => 50
+    t.column "emergAddressType", :string, :limit => 20
+    t.column "emergFk_PersonID", :integer, :limit => 10
+    t.column "applAccountNo", :string, :limit => 11
+    t.column "createdBy", :string, :limit => 50
+    t.column "projectName", :string
+    t.column "scholarshipBusinessUnit", :string
+    t.column "scholarshipOperatingUnit", :string
+    t.column "scholarshipDeptID", :string
+    t.column "scholarshipProjectID", :string
+    t.column "scholarshipDesignation", :string
+  end
+
+  create_table "wsn_sp_viewapplicationlight", :id => false, :force => true do |t|
+    t.column "WsnApplicationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "surferID", :integer, :limit => 10
+    t.column "legalLastName", :string, :limit => 50
+    t.column "legalFirstName", :string, :limit => 50
+    t.column "wsnYear", :string, :limit => 4
+    t.column "role", :string, :limit => 1
+    t.column "gender", :string, :limit => 1
+    t.column "currentEmail", :string, :limit => 200
+    t.column "fk_isMember", :string, :limit => 64
+    t.column "assignedToProject", :string, :limit => 64
+    t.column "status", :string, :limit => 22
+    t.column "isStaff", :boolean, :default => false, :null => false
+    t.column "isApplyingForStaffInternship", :boolean
+  end
+
+  create_table "wsn_sp_viewapplicationlightest", :id => false, :force => true do |t|
+    t.column "WsnApplicationID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_isMember", :string, :limit => 64
+    t.column "status", :string, :limit => 22
+    t.column "isStaff", :boolean, :default => false, :null => false
+    t.column "isApplyingForStaffInternship", :boolean
+    t.column "role", :string, :limit => 1
+    t.column "gender", :string, :limit => 1
+  end
+
+  create_table "wsn_sp_viewcurrentaddress", :id => false, :force => true do |t|
+    t.column "AddressID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "startdate", :string, :limit => 25
+    t.column "enddate", :string, :limit => 25
+    t.column "address1", :string, :limit => 55
+    t.column "address2", :string, :limit => 55
+    t.column "address3", :string, :limit => 55
+    t.column "address4", :string, :limit => 55
+    t.column "city", :string, :limit => 50
+    t.column "state", :string, :limit => 50
+    t.column "zip", :string, :limit => 10
+    t.column "country", :string, :limit => 64
+    t.column "homePhone", :string, :limit => 25
+    t.column "workPhone", :string, :limit => 25
+    t.column "cellPhone", :string, :limit => 25
+    t.column "fax", :string, :limit => 25
+    t.column "email", :string, :limit => 200
+    t.column "url", :string, :limit => 100
+    t.column "contactName", :string, :limit => 50
+    t.column "contactRelationship", :string, :limit => 50
+    t.column "addressType", :string, :limit => 20
+    t.column "fk_PersonID", :integer, :limit => 10
+  end
+
+  create_table "wsn_sp_viewcurrentprojects", :id => false, :force => true do |t|
+    t.column "WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string
+    t.column "studentStartDate", :datetime
+    t.column "studentEndDate", :datetime
+    t.column "projectType", :string, :limit => 1
+    t.column "onHold", :boolean
+    t.column "wsnYear", :string
+    t.column "partnershipRegion", :string, :limit => 50
+    t.column "partnershipRegionOnly", :boolean
+  end
+
+  create_table "wsn_sp_viewcurrentprojects_maxsfcheck", :id => false, :force => true do |t|
+    t.column "WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string
+    t.column "studentStartDate", :datetime
+    t.column "onHold", :boolean
+    t.column "wsnYear", :string
+    t.column "projectType", :string, :limit => 1
+    t.column "partnershipRegionOnly", :boolean
+    t.column "partnershipRegion", :string, :limit => 50
+    t.column "studentEndDate", :datetime
+  end
+
+  create_table "wsn_sp_viewcurrentprojects_maxsmcheck", :id => false, :force => true do |t|
+    t.column "WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string
+    t.column "partnershipRegion", :string, :limit => 50
+    t.column "wsnYear", :string
+    t.column "projectType", :string, :limit => 1
+    t.column "studentStartDate", :datetime
+    t.column "partnershipRegionOnly", :boolean
+    t.column "onHold", :boolean
+    t.column "studentEndDate", :datetime
+  end
+
+  create_table "wsn_sp_viewemergencyaddress", :id => false, :force => true do |t|
+    t.column "AddressID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "startdate", :string, :limit => 25
+    t.column "enddate", :string, :limit => 25
+    t.column "address1", :string, :limit => 55
+    t.column "address2", :string, :limit => 55
+    t.column "address3", :string, :limit => 55
+    t.column "address4", :string, :limit => 55
+    t.column "city", :string, :limit => 50
+    t.column "state", :string, :limit => 50
+    t.column "zip", :string, :limit => 10
+    t.column "country", :string, :limit => 64
+    t.column "homePhone", :string, :limit => 25
+    t.column "workPhone", :string, :limit => 25
+    t.column "cellPhone", :string, :limit => 25
+    t.column "fax", :string, :limit => 25
+    t.column "email", :string, :limit => 200
+    t.column "url", :string, :limit => 100
+    t.column "contactName", :string, :limit => 50
+    t.column "contactRelationship", :string, :limit => 50
+    t.column "addressType", :string, :limit => 20
+    t.column "fk_PersonID", :integer, :limit => 10
+  end
+
+  create_table "wsn_sp_viewopenprojects", :id => false, :force => true do |t|
+    t.column "WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string
+    t.column "partnershipRegion", :string, :limit => 50
+    t.column "studentStartDate", :datetime
+    t.column "projectType", :string, :limit => 1
+    t.column "onHold", :boolean
+    t.column "maxNoStudents", :integer, :limit => 10
+    t.column "history", :string, :limit => 8000
+    t.column "stopDate", :string
+    t.column "startDate", :string
+    t.column "city", :string
+    t.column "country", :string
+    t.column "details", :string, :limit => 8000
+    t.column "status", :string
+    t.column "destinationGatewayCity", :string
+    t.column "departDateFromGateCity", :string
+    t.column "arrivalDateAtLocation", :string
+    t.column "locationGatewayCity", :string
+    t.column "departureDateFromLocation", :string
+    t.column "arrivalDateAtGatewayCity", :string
+    t.column "flightBudget", :string
+    t.column "locationToGatewayCityFlightNo", :string
+    t.column "GatewayCitytoLocationFlightNo", :string
+    t.column "inCountryContact", :string
+    t.column "scholarshipAccountNo", :string
+    t.column "operatingAccountNo", :string
+    t.column "AOA", :string
+    t.column "MPTA", :string
+    t.column "staffCost", :string
+    t.column "studentCost", :string
+    t.column "insuranceFormsReceived", :boolean
+    t.column "CAPSFeePaid", :boolean
+    t.column "adminFeePaid", :boolean
+    t.column "storiesXX", :string
+    t.column "stats", :string
+    t.column "secure", :boolean
+    t.column "dateCreated", :string
+    t.column "lastUpdate", :string
+    t.column "maxNoStaff", :integer, :limit => 10
+    t.column "projEvalCompleted", :boolean
+    t.column "evangelisticExposures", :integer, :limit => 10
+    t.column "receivedChrist", :integer, :limit => 10
+    t.column "jesusFilmExposures", :integer, :limit => 10
+    t.column "jesusFilmReveivedChrist", :integer, :limit => 10
+    t.column "coverageActivitiesExposures", :integer, :limit => 10
+    t.column "coverageActivitiesDecisions", :integer, :limit => 10
+    t.column "holySpiritDecisions", :integer, :limit => 10
+    t.column "website", :string
+    t.column "destinationAddress", :string
+    t.column "destinationPhone", :string
+    t.column "wsnYear", :string
+    t.column "fk_IsCoord", :integer, :limit => 10
+    t.column "fk_IsPD", :integer, :limit => 10
+    t.column "fk_IsAPD", :integer, :limit => 10
+    t.column "studentEndDate", :datetime
+    t.column "staffStartDate", :datetime
+    t.column "staffEndDate", :datetime
+    t.column "leadershipStartDate", :datetime
+    t.column "leadershipEndDate", :datetime
+    t.column "createDate", :datetime
+    t.column "lastChangedDate", :datetime
+    t.column "lastChangedBy", :string, :limit => 50
+    t.column "displayLocation", :string, :limit => 50
+    t.column "partnershipRegionOnly", :boolean
+    t.column "internCost", :string, :limit => 50
+    t.column "maxNoStaffMale", :integer, :limit => 10
+    t.column "maxNoStaffFemale", :integer, :limit => 10
+    t.column "maxNoStaffCouples", :integer, :limit => 10
+    t.column "maxNoStaffFamilies", :integer, :limit => 10
+    t.column "maxNoInternAMale", :integer, :limit => 10
+    t.column "maxNoInternAFemale", :integer, :limit => 10
+    t.column "maxNoInternACouples", :integer, :limit => 10
+    t.column "maxNoInternAFamilies", :integer, :limit => 10
+    t.column "maxNoInternA", :integer, :limit => 10
+    t.column "maxNoInternPMale", :integer, :limit => 10
+    t.column "maxNoInternPFemale", :integer, :limit => 10
+    t.column "maxNoInternPCouples", :integer, :limit => 10
+    t.column "maxNoInternPFamilies", :integer, :limit => 10
+    t.column "maxNoInternP", :integer, :limit => 10
+    t.column "maxNoStudentAMale", :integer, :limit => 10
+    t.column "maxNoStudentAFemale", :integer, :limit => 10
+    t.column "maxNoStudentACouples", :integer, :limit => 10
+    t.column "maxNoStudentAFamilies", :integer, :limit => 10
+    t.column "maxNoStudentA", :integer, :limit => 10
+    t.column "maxNoStudentPMale", :integer, :limit => 10
+    t.column "maxNoStudentPFemale", :integer, :limit => 10
+    t.column "maxNoStudentPCouples", :integer, :limit => 10
+    t.column "maxNoStudentPFamilies", :integer, :limit => 10
+    t.column "operatingBusinessUnit", :string
+    t.column "operatingOperatingUnit", :string
+    t.column "operatingDeptID", :string
+    t.column "operatingProjectID", :string
+    t.column "operatingDesignation", :string
+    t.column "scholarshipBusinessUnit", :string
+    t.column "scholarshipOperatingUnit", :string
+    t.column "scholarshipDeptID", :string
+    t.column "scholarshipDesignation", :string
+    t.column "scholarshipProjectID", :string
+  end
+
+  create_table "wsn_sp_viewprojectleaders", :id => false, :force => true do |t|
+    t.column "WsnProjectID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "name", :string
+    t.column "country", :string
+    t.column "wsnYear", :string
+    t.column "partnershipRegion", :string, :limit => 50
+    t.column "PDWsnApplicationID", :integer, :limit => 10
+    t.column "PDLastName", :string, :limit => 50
+    t.column "PDFirstName", :string, :limit => 50
+    t.column "PDCurrentEmail", :string, :limit => 200
+    t.column "APDWsnApplicationID", :integer, :limit => 10
+    t.column "APDFirstName", :string, :limit => 50
+    t.column "APDLastName", :string, :limit => 50
+    t.column "APDCurrentEmail", :string, :limit => 200
+    t.column "CoordWsnApplicationID", :integer, :limit => 10
+    t.column "CoordLastName", :string, :limit => 50
+    t.column "CoordFirstName", :string, :limit => 50
+    t.column "CoordCurrentEmail", :string, :limit => 200
+    t.column "fk_IsPD", :integer, :limit => 10
+    t.column "fk_IsAPD", :integer, :limit => 10
+    t.column "fk_IsCoord", :integer, :limit => 10
+  end
+
+  create_table "wsn_sp_viewquestion", :id => false, :force => true do |t|
+    t.column "required", :string, :limit => 1
+    t.column "displayOrder", :integer, :limit => 10
+    t.column "fk_WsnProjectID", :integer, :limit => 10
+    t.column "body", :string, :limit => 250
+    t.column "answerType", :string, :limit => 50
+    t.column "status", :string, :limit => 50
+    t.column "questionID", :integer, :limit => 10, :default => 0, :null => false
+    t.column "fk_QuestionTextID", :integer, :limit => 10
+    t.column "questionTextID", :integer, :limit => 10, :default => 0, :null => false
   end
 
   create_table "wsn_sp_wsnapplication", :id => false, :force => true do |t|
