@@ -303,28 +303,28 @@ public class WsnSpController extends Controller
 	}
 
 	public void adminEditApp (ActionContext ctx) {
-		Hashtable h = new Hashtable();
+		Hashtable appHash = new Hashtable();
 		FormHelper helper = new FormHelper();
 		
 		try {
 			Hashtable old = (Hashtable) ctx.getSessionValue("tub");
 			String unassignedID = "none";
 
-			WsnApplication person = null;
+			WsnApplication application = null;
 			if (ctx.getInputString("id").equals("new")){ //new person so the ID was put in the session
-				person = new WsnApplication((String)ctx.getSessionValue("newID"));
+				application = new WsnApplication((String)ctx.getSessionValue("newID"));
 			}
 			else{	//hope they exist!
-				person = new WsnApplication(ctx.getInputString("id"));
+				application = new WsnApplication(ctx.getInputString("id"));
 			}
 
-			h = ObjectHashUtil.obj2hash(person);
+			appHash = ObjectHashUtil.obj2hash(application);
 
 //				if (m !=null){  // no longer works with dbio
 			String strM = "true";
-			if (person.getIsMemberId() != null) {
-				WsnProject m = person.getIsMember();
-				h.put("M",m.getWsnProjectID());
+			if (application.getIsMemberId() != null) {
+				WsnProject m = application.getIsMember();
+				appHash.put("M",m.getWsnProjectID());
 				ctx.setSessionValue("teamID",(m.getWsnProjectID()));  //for the back to team roster links on evaluator pages.
 			} else {
 				ctx.setSessionValue("teamID","notAssigned");  //for the back to team roster links on evaluator pages.
@@ -339,59 +339,59 @@ public class WsnSpController extends Controller
 			unassignedID = unassignedProject.getWsnProjectID();
 
 			if (ctx.getInputString("M") != null) {
-				h.put("M", helper.value(ctx.getInputString("M")));
-			} else if (person.getRole().equals("4") && (strM == null) && (ctx.getInputString("M") == null)) {
-				person.setIsMember(unassignedProject);
-				h.put("M",unassignedID);
+				appHash.put("M", helper.value(ctx.getInputString("M")));
+			} else if (application.getRole().equals("4") && (strM == null) && (ctx.getInputString("M") == null)) {
+				application.setIsMember(unassignedProject);
+				appHash.put("M",unassignedID);
 			}
 
 			String unassignedCoord = "no";
 
-			if (person.getRole().equals("4") && (person.getIsMemberId().equals(unassignedID))) {
+			if (application.getRole().equals("4") && (application.getIsMemberId().equals(unassignedID))) {
 				unassignedCoord = "yes";
 			}
-			if (person.getRole().equals("4") && (strM == null) && (ctx.getInputString("M") == null)) {
+			if (application.getRole().equals("4") && (strM == null) && (ctx.getInputString("M") == null)) {
 				unassignedCoord = "yes";
 			}
 
-			h.put("unassignedCoord", unassignedCoord);
+			appHash.put("unassignedCoord", unassignedCoord);
 
 			if ((old!=null)&&(old.get("frompage")!=null)) {
-				h.put("frompage",helper.value((String)old.get("frompage")));
+				appHash.put("frompage",helper.value((String)old.get("frompage")));
 			}
 
-			if(person.getSubmittedDate() != null)
+			if(application.getSubmittedDate() != null)
 			{
-				h.put("SubmittedDate",helper.value((new SimpleDateFormat("MM/dd/yyyy")).format( person.getSubmittedDate())));
+				appHash.put("SubmittedDate",helper.value((new SimpleDateFormat("MM/dd/yyyy")).format( application.getSubmittedDate())));
 			}
 
-			if (person.getMaritalStatus().equals("M")) {	//get the spouse to display!
-				if (person.getWsnSpouseId() != null && !person.getWsnSpouseId().equals("0")) {
-					WsnApplication spouse = person.getWsnSpouse();
-					h.put("Spouse", spouse.getLegalFirstName() + " " + spouse.getLegalLastName());
-					h.put("SpouseID", spouse.getWsnApplicationID());
+			if (application.getMaritalStatus().equals("M")) {	//get the spouse to display!
+				if (application.getWsnSpouseId() != null && !application.getWsnSpouseId().equals("0")) {
+					WsnApplication spouse = application.getWsnSpouse();
+					appHash.put("Spouse", spouse.getLegalFirstName() + " " + spouse.getLegalLastName());
+					appHash.put("SpouseID", spouse.getWsnApplicationID());
 				}
 				else {
-					h.put("Spouse", "Unassigned");
-					h.put("SpouseID", person.getWsnApplicationID());
+					appHash.put("Spouse", "Unassigned");
+					appHash.put("SpouseID", application.getWsnApplicationID());
 				}
 			}
 			else {
-				h.put("Spouse","none");
+				appHash.put("Spouse","none");
 			}
 
 			boolean femaleWithChildrenButNoSpouse = false;
 
-			if (person.getChild()) {		//children are going also!
+			if (application.getChild()) {		//children are going also!
 				java.util.Iterator children = null;
-				if (person.getGender().equals("1")) {
-					h.put("ShowKidsID", person.getWsnApplicationID());
-					children = person.getWsnChild().iterator();
+				if (application.getGender().equals("1")) {
+					appHash.put("ShowKidsID", application.getWsnApplicationID());
+					children = application.getWsnChild().iterator();
 				}
 				else {		//the wife will reference the father's children because of model limitations
-					if (person.getWsnSpouse()!=null){
-						WsnApplication spouse = person.getWsnSpouse();
-						h.put("ShowKidsID", h.get("SpouseID"));
+					if (application.getWsnSpouse()!=null){
+						WsnApplication spouse = application.getWsnSpouse();
+						appHash.put("ShowKidsID", spouse.getWsnApplicationID());
 						children = spouse.getWsnChild().iterator();
 					}
 					else{	//supposedly married, but no spouse, but their children are coming??
@@ -405,24 +405,24 @@ public class WsnSpController extends Controller
 							Hashtable temp = new Hashtable();
 							temp.put("Name",child.getLegalFirstName());
 							temp.put("WsnApplicationID",child.getWsnApplicationID());
-							h.put(String.valueOf(i), temp);
+							appHash.put(String.valueOf(i), temp);
 						}
 					}
-					h.put("Children", "true");
+					appHash.put("Children", "true");
 				}
 				else{
-					h.put("Children","false");
+					appHash.put("Children","false");
 				}
 			}
 			else{
-				h.put("Children", "false");
+				appHash.put("Children", "false");
 			}
 
-			if (person.getChildOfId()!=null) {		//they are a child
-				h.put("aChild", "true");
+			if (application.getChildOfId()!=null) {		//they are a child
+				appHash.put("aChild", "true");
 			}
 			else {									//they are not a child
-				h.put("aChild", "false");
+				appHash.put("aChild", "false");
 			}
 
             //Load up viewing permisions
@@ -439,16 +439,16 @@ public class WsnSpController extends Controller
             //h.put("ToolUser", (isUserAuthorized(userName,"ToolUser")?"Granted":"Denied"));
             //h.put("Evaluator", (isUserAuthorized(userName,"Evaluator")?"Granted":"Denied"));
 
-            h.put("Evaluator", "Granted");
+            appHash.put("Evaluator", "Granted");
             
-			ctx.setSessionValue("tub", h);
+			ctx.setSessionValue("tub", appHash);
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			h.put("LegalFirstName","<font color='#ff0000'>An Error Occurred.");
-			h.put("LegalLastName","<br>This record cannot be displayed because it contains an error. <br>Please press the 'MyWSNHome' and notify wsn@uscm.org of the problem.</font>");
+			appHash.put("LegalFirstName","<font color='#ff0000'>An Error Occurred.");
+			appHash.put("LegalLastName","<br>This record cannot be displayed because it contains an error. <br>Please press the 'MyWSNHome' and notify wsn@uscm.org of the problem.</font>");
 			ctx.goToView("error");
-			ctx.setSessionValue("tub", h);
+			ctx.setSessionValue("tub", appHash);
 			e.printStackTrace();
 		}
 	}
