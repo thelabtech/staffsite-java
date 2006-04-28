@@ -14,7 +14,7 @@ for product in @products
     <td width = "50%">
       <strong>Name: </strong><%= h product.name %><br/>
       <strong>Category: </strong><%= h product.kit_category.name %><br/>
-      <strong>Discription: </strong><%= h truncate(product.description, 80) %>
+      <strong>Discription: </strong><%= h product.description %>
     </td>
     <td align="right">
       <strong>Quantity: </strong><%= product.quantity %><br/>
