@@ -906,7 +906,7 @@ public class SIReference extends DBIOEntity {
 		try {
 			this.application = (SIApplication) SIUtil.getObject(String.valueOf(this.fk_SIApplicationID), "SIApplicationID", APPLICATIONCLASS);			
 			if (application != null) {
-				this.fk_SIPersonID = application.getFk_SIPersonID();
+				this.fk_SIPersonID = application.getFk_PersonIDString();
 				this.person = (SIPerson) SIUtil.getObject(String.valueOf(this.fk_SIPersonID), "SIPersonID", PERSONCLASS);
 			}
 		}

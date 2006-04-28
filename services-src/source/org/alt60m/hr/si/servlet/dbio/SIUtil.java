@@ -219,7 +219,7 @@ public class SIUtil {
 			throw new Exception("ERROR! Cannot create Application without sipersonid! (it was null)");
 		SIApplication a = new SIApplication();
 		a.setFk_ssmUserID(userId); //deprecated--TODO: remove 
-		a.setFk_SIPersonID(sipersonid);
+		a.setFk_PersonIDString(sipersonid);
 		Calendar cin = Calendar.getInstance();
 		Calendar cout = Calendar.getInstance();
 //		cin.setTime(periodBegin);
@@ -763,7 +763,7 @@ public class SIUtil {
 			r.changeYear(yearID);
 			sqlYear = yearID;
 
-			sql = "SELECT a.* FROM " + hr_si_Application + " as a INNER JOIN " + hr_si_Person + " as p ON a.fk_SIPersonID = p.PersonID and a.siYear = '" + sqlYear + "' WHERE ";
+			sql = "SELECT a.* FROM " + hr_si_Application + " as a INNER JOIN " + hr_si_Person + " as p ON a.fk_PersonID = p.PersonID and a.siYear = '" + sqlYear + "' WHERE ";
 
 			if ("".equals(regionID.trim()))
 				//sql += "p.region IS NULL ";  
@@ -896,7 +896,7 @@ public class SIUtil {
 		}
 		String appid = "";
 		try {
-			String whereClause = "fk_SIPersonID = '" + personid + "' AND siYear = '" + siYear + "'";
+			String whereClause = "fk_PersonID = '" + personid + "' AND siYear = '" + siYear + "'";
 			Collection c = ObjectHashUtil.list((new SIApplication()).selectList(whereClause));
 			for (Iterator i = c.iterator(); i.hasNext();) {
 				Hashtable h = (Hashtable) i.next();

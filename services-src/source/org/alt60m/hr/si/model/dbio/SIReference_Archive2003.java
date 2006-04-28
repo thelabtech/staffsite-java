@@ -895,7 +895,7 @@ public class SIReference_Archive2003 extends SIReference_Parent {
 		try {
 			this.application = (SIApplication) SIUtil.getObject(String.valueOf(this.fk_SIApplicationID), "SIApplicationID", APPLICATIONCLASS);			
 			if (application != null) {
-				this.fk_SIPersonID = application.getFk_SIPersonID();
+				this.fk_SIPersonID = application.getFk_PersonIDString();
 				this.person = (SIPerson) SIUtil.getObject(String.valueOf(this.fk_SIPersonID), "SIPersonID", PERSONCLASS);
 			}
 		}

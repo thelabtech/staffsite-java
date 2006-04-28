@@ -86,7 +86,7 @@ public class References implements java.io.Serializable {
 					String currYear = SIUtil.CURRENT_SI_YEAR;
 					strSQL = "SELECT r.referenceid, r.formworkflowstatus, p.firstname, p.lastname"+
 					" FROM hr_si_reference_" + currYear + " as r INNER JOIN hr_si_application_" + currYear + " as a ON r.fk_siapplicationid = a.applicationid" +
-					" INNER JOIN ministry_person as p ON a.fk_sipersonid = p.personid" +
+					" INNER JOIN ministry_person as p ON a.fk_personid = p.personid" +
 					" WHERE r.staffnumber='" + accountNo + "' and a.siYear='" + CURRENT_YEAR + "' ORDER BY p.lastname";
 
 					//Start new query

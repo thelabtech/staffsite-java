@@ -412,7 +412,7 @@ public class SIInfoBean implements Serializable {
 	private static String getApplicationIDByPersonID(String sipersonid) throws Exception {
 		String AppId = "";
 		SIApplication a = new SIApplication();
-		a.setFk_SIPersonID(sipersonid);
+		a.setFk_PersonIDString(sipersonid);
 		//IF THERE ARE MULTIPLE SIAPPLICATIONS WITH THIS SIPERSONID, THIS WILL NOT LIKE IT
 		if (a.select())
 			AppId = a.getApplicationID();

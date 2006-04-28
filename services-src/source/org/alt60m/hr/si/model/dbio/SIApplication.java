@@ -213,7 +213,8 @@ public class SIApplication extends DBIOEntity {
 		setMetadata("ElectronicSignature", "electronicSignature", table);
 		setMetadata("Ssn", "ssn", table);
 		setMetadata("Fk_ssmUserID", "fk_ssmUserID", table);
-		setMetadata("Fk_SIPersonID", "fk_SIPersonID", table);
+		//setMetadata("Fk_SIPersonID", "fk_SIPersonID", table);
+		setMetadata("Fk_PersonID", "fk_PersonID", table);
 		setMetadata("IsPaid", "isPaid", table);
 		setMetadata("AppFee", "appFee", table);
 		setMetadata("DateAppLastChanged", "dateAppLastChanged", table);
@@ -410,7 +411,7 @@ public class SIApplication extends DBIOEntity {
 	private String electronicSignature = "";
 	private String ssn = "";
 	private int fk_ssmUserID;
-	private String fk_SIPersonID = "";
+	private int fk_PersonID;
 
 	/** Admin fields */
 	private boolean isPaid;
@@ -2900,20 +2901,27 @@ public class SIApplication extends DBIOEntity {
 		this.fk_ssmUserID = fk_ssmUserID;
 	}
 
+	public int getFk_PersonID() {
+		return fk_PersonID;
+	}
+	public void setFk_PersonID(int fk_PersonID) {
+		this.fk_PersonID = fk_PersonID;
+	}
+
 	/**
 	 * Returns the fk_SIPersonID.
 	 * @return String
 	 */
-	public String getFk_SIPersonID() {
-		return fk_SIPersonID;
+	public String getFk_PersonIDString() {
+		return String.valueOf(getFk_PersonID());
 	}
 
 	/**
 	 * Sets the fk_SIPersonID.
 	 * @param fk_SIPersonID The fk_SIPersonID to set
 	 */
-	public void setFk_SIPersonID(String fk_SIPersonID) {
-		this.fk_SIPersonID = fk_SIPersonID;
+	public void setFk_PersonIDString(String fk_SIPersonID) {
+		setFk_PersonID(Integer.parseInt(fk_SIPersonID));
 	}
 
 	/**

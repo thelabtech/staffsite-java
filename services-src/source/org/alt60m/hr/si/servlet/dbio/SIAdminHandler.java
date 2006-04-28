@@ -289,7 +289,7 @@ System.out.println("In postMakeDownload()");
 				// get the corresponding person object of the applicant
 				SIPerson p = new SIPerson();
 				try {
-					p = siBean.getSIPerson(a.getFk_SIPersonID());
+					p = siBean.getSIPerson(a.getFk_PersonIDString());
 				} catch (Exception e) { /* should never happen, but might in test data */ }
 
 				s += "\""+p.getTitle()+"\",";
