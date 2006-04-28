@@ -18,7 +18,7 @@ h1 { /* "FSK Choice" */
 	background-color: #336699; 
 	margin: 0px 0px; }
 
-h2 { /* subtitle */
+h2 { /* page subtitle */
 	width: auto; 
 	font-size: 14pt;
 	font-weight: bold;
@@ -29,6 +29,7 @@ h2 { /* subtitle */
 	margin: 0px; }
 	
 h3 { /* page sections */
+    width: 100%; 
     font-size: 14pt;
     font-weight: normal;
     text-align: left;
@@ -39,11 +40,16 @@ h3 { /* page sections */
 td { padding: 2px 2px; vertical-align: center; }
 
 /* hyperlink declarations */
-a:link { text-decoration: none;	color: #336699; }
-a:visited { text-decoration: none; color: #336699; }
+a:link, a:visited, a:active { text-decoration: none; color: #336699; }
 a:hover { text-decoration: underline; color: #336699; }
-a:active { text-decoration: none; }
+a { font-size: 10pt; }
 
+.btn { 
+    background-color: #D0DDEA;
+    color: #336699;
+    padding: 1px 5px;
+    font-size: 10pt; }
+    
 /* classes */
 td.lbl { text-align: right; }
 
@@ -91,23 +97,15 @@ table.summary td {
 	empty-cells: show; }
 
 /* Page id's */
-
-#wrapper {
-/*	width: 780px; */
+#wrapper { 
+	width: 765px;
 	overflow: hidden;
 	margin: 0px;
 	background-color: white;
 	font-family: Arial, Times New Roman, Verdana, sans-serif; 
 	text-align: left; 
-	padding: 0px; }
-
-#wrapper-summary { /* to be used on the FSK summary page */
-	/*width: 845px;*/
-	overflow: hidden;
-	margin: 0px;
-	padding: 0px;
-	background-color: white;
-	font-family: Arial, Times New Roman, Verdana, sans-serif; }
+	padding: 0px; 
+	font-size: 10pt; }
 
 #top-pane {
 	width: inherit;
@@ -133,17 +131,17 @@ table.summary td {
 	padding: 0px; }
 
 #help a {
-	font-size: 10pt; 
+	/*font-size: 10pt; */
 	display: inline;
 	padding: 5px 2px 0px 10px; 
-	border-left: 1px solid #D0DDEA; }
+	border-left: 1px solid #D0DDEA; 
+	margin: 0px; }
 
 #help a:hover {
 	text-decoration: none; 
 	background-color: #D0DDEA; } 
 
 #logo {
-
 	float: left;
 	margin-top: 5px; }
 
@@ -154,6 +152,7 @@ table.summary td {
 	margin: 5px 0px 5px 0px; 
 	clear: both; 
 	padding: 0px; }
+/* end id's */
 
 /* navbar */
 #navbar {
@@ -178,9 +177,4 @@ table.summary td {
 #navbar a:hover {
 	text-decoration: none;
 	color: #CCCC99; } 
-
-.description {
-  width: 400px;
-  float: right;
-  margin-top: -30px;
-}
+/* end navbar */
