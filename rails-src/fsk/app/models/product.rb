@@ -69,15 +69,9 @@ class Product < ActiveRecord::Base
     # clear out old description text
     ProductText.destroy_all(["product_id = ?", id])
     # break up the new description
-    length = value.length
-    piece_count = (length/254).ceil
-    (0..piece_count).each do |i|
-      product_text << ProductText.new(:description => value[(254*i)..(254*(i+1))])
+    value.scan(/.{1,255}/).each do |part|
+      product_text << ProductText.new(:description => part)
     end
-    # alternate implementation:
-    # value.scan(\.{1,255}\).each do |part|
-    #   product_text << ProductText.new(:description => part)
-    # end
   end
   
   protected
