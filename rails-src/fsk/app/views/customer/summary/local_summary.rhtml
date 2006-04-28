@@ -62,14 +62,14 @@ end%>
 <br/>
 <table class="normal">
 	<tr>
-		<th colspan="5">Kit Orders:</th>
+		<th colspan="6">Kit Orders:</th>
 	</tr>
 	<tr>
 		<td class="subhead">Order#</td>
 		<td class="subhead">Target Location</td>
 		<td class="subhead">Kits</td>
 		<td class="subhead">Region</td>
-		<td class="subhead"></td>
+		<td colspan="2" class="subhead"></td>
 	</tr>
 			<% if @kit_orders.size 
 					@kit_orders.each do |order| -%>
@@ -79,6 +79,7 @@ end%>
 						<td><%=order.total_kits%></td>
 						<td><%=order.allocation.region.name%></td>
 						<td><%= link_to "[view/edit]", :controller => "order", :action => "edit_kit_order", :id => order.id %></td>
+						<td><%= link_to "[delete order]", {:controller => 'order', :action => 'destroy', :id => order.id }, :confirm => 'Are you sure?', :post => true %></td>
 					</tr>
 					<% end -%>
 			<% else -%>
@@ -86,13 +87,13 @@ end%>
 						<td colspan="5">There are currently no orders of this type.</td>
 					</tr>
 			<% end -%>
-	<tr>
+		<tr>
         <td colspan="2" class="subhead">Total Kits Ordered</td>
-        <td colspan="3" class="subhead"><%= @total_ordered%></td>
+        <td colspan="4" class="subhead"><%= @total_ordered%></td>
     </tr>
     </tr>
         <td colspan="2" class="subhead">Kits Left To Order</td>
-        <td colspan="3" class="subhead"><%= @total_allocated - @total_ordered%></td>
+        <td colspan="4" class="subhead"><%= @total_allocated - @total_ordered%></td>
     </tr>
 </table>
 		
@@ -106,14 +107,14 @@ end%>
 <br/>
 <table class="normal">
 	<tr>
-		<th colspan="4">Individual Product Orders:</th>
+		<th colspan="5">Individual Product Orders:</th>
 	</tr>
 	
 	<tr>
 	   <td class="subhead">Order#</td>
 	   <td class="subhead">Target Location</td>
 	   <td class="subhead">Cost</td>
-	   <td class="subhead"></td>
+	   <td colspan="2" class="subhead"></td>
 	</tr>
 			<% if @product_orders.size 
 					@product_orders.each do |order| -%>
@@ -121,20 +122,21 @@ end%>
 						<td><%=order.id%></td>
 						<td><%=order.location_name%></td>
 						<td>$<%=order.cost%></td>
-						<td><%= link_to "[view/edit]", :controller => "order", :action => "edit_product_order", :id => order.id %></td>
+						<td><%= link_to "[view/edit]", :controller => 'order', :action => 'edit_product_order', :id => order.id %></td>
+						<td><%= link_to "[delete order]", {:controller => 'order', :action => 'destroy', :id => order.id }, :confirm => 'Are you sure?', :post => true %></td>
 					</tr>
 					<% end -%>
 			<% else -%>
 					<tr>
-						<td colspan="4">There are currently no orders of this type.</td>
+						<td colspan="5">There are currently no orders of this type.</td>
 					</tr>
 			<% end -%>
 	<tr>
-          <td colspan="2" class="subhead">Total Cost:</td>
-          <td class="subhead">$<%= total=0; @product_orders.each{|o| total+=o.cost}; total%></td>
-          <td class="subhead">&nbsp;</td>
-    </tr>
-			</table>
+      <td colspan="2" class="subhead">Total Cost:</td>
+      <td class="subhead">$<%= total=0; @product_orders.each{|o| total+=o.cost}; total%></td>
+      <td colspan="2" class="subhead">&nbsp;</td>
+	</tr>
+</table>
 
 	<p>(To edit the order, click the [view/edit] link, then just change the fields and click the submit button at the 
 	bottom of the page.	The changes will not register if you do not click the "submit" button.)</p>

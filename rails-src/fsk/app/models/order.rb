@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   set_table_name	"fsk_Orders"
   
   belongs_to :user, :foreign_key => "ssm_id"
-  has_many :line_items
+  has_many :line_items, :dependent => :destroy
   
   validates_presence_of :location_name, :contact_first_name, :contact_last_name,
                         :contact_phone, :contact_email, :ship_name, :ship_address1,

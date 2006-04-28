@@ -115,7 +115,7 @@ class Customer::OrderController < ApplicationController
 
   def destroy
     Order.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :controller => 'customer/summary'
   end
   
   private
