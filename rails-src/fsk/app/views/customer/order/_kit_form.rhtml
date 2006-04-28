@@ -25,8 +25,11 @@ kits for this order.</p><br>
 <p><label for="order_total_kits">Total Quantity of Kits for this Order:</label><br>
 <%= text_field 'order', 'total_kits' %></p>
 <% KitCategory.find(:all).each_with_index do |category, i| %>
-<p>	<%= i+1 %>. <strong><%= category.name %></strong><br>
-	<% category.products.find(:all, :conditions => "availability = 'kit' OR availability = 'both'").each do |product| %>
+	<% products = category.products.find(:all, :conditions => "availability = 'kit' OR availability = 'both'") %>
+	<% if products.length != 0 %>
+		<p>	<%= i+1 %>. <strong><%= category.name %></strong> (Click on a product title for more information).<br>
+	<% end %>
+	<% products.each do |product| %>		
 		<div id="description<%=product.id%>" class="description"></div>
 		<p><label for="product_<%=product.id%>"><%=link_to_remote(product.name, 
 																														:url => {:controller => 'product', :action => :show_description, :product_id => product.id, :type => 'kit'})%>:</label><br>
