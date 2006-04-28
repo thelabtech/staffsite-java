@@ -49,7 +49,7 @@ Total cost: $<%=@order.cost%>
 <% category.products.each do |p| 
 	 product = @order.line_items.find(:first, :conditions => ["product_id = ?", p.id])
 	 if product && product.quantity != 0 -%>
-  <%=p.name%>: <%=product.quantity %>
+	<%=p.name%>: <%=product.quantity %>
 <% end -%>
 <% end -%>
 <% end -%>  
