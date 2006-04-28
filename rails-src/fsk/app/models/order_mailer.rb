@@ -18,10 +18,6 @@ class OrderMailer < ActionMailer::Base
   end
 
   def shipped(order)
-    @products = []
-    Product.find(:all).each do |product|
-      @products[product.id] = order.product_quantity(product.id)
-    end
     @subject    = 'FSK Order Shipped'
     @body       = {:order => order}
     @recipients = Staff.get_staff(order.user.id).email
