@@ -18,11 +18,11 @@ Please list the campuses where the kits will be distributed in the Regional Note
 <label for="allocation_locally_raised">Locally Raised:</label>
 </td>
 <td class="input">
-<%= if @user.can_modify_field?("locally_raised") 
-        text_field 'allocation', 'locally_raised'
+<%= if @user.can_modify_field?("locally_raised")
+        text_field 'allocation', 'locally_raised', :size => 10
     else
         @allocation.locally_raised
-    end 
+    end
     %>
 </td>
 </tr>
@@ -33,7 +33,8 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("local_notes") 
-        text_area 'allocation', 'local_notes', :rows => 5
+        #text_area 'allocation', 'local_notes', :rows => 5
+        text_field 'allocation', 'local_notes', :maxlength => 255, :size => 50
     else
         @allocation.local_notes
     end 
@@ -61,7 +62,7 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("regional_allotment") 
-        text_field 'allocation', 'regional_allotment'
+        text_field 'allocation', 'regional_allotment', :size => 10
     else
         @allocation.regional_allotment
     end 
@@ -75,7 +76,7 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("regionally_raised") 
-        text_field 'allocation', 'regionally_raised'
+        text_field 'allocation', 'regionally_raised', :size => 10
     else
         @allocation.regionally_raised
     end 
@@ -89,7 +90,8 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("regional_notes") 
-        text_area 'allocation', 'regional_notes', :rows => 5
+        #text_area 'allocation', 'regional_notes', :rows => 5
+        text_field 'allocation', 'regional_notes', :maxlength => 255, :size => 50
     else
         @allocation.regional_notes
     end 
@@ -103,7 +105,7 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("impact_allotment") 
-        text_field 'allocation', 'impact_allotment'
+        text_field 'allocation', 'impact_allotment', :size => 10
     else
         @allocation.impact_allotment 
     end 
@@ -117,7 +119,8 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("impact_notes") 
-        text_area 'allocation', 'impact_notes', :rows => 5
+        #text_area 'allocation', 'impact_notes', :rows => 5
+        text_field 'allocation', 'impact_notes', :maxlength => 255, :size => 50
     else
         @allocation.impact_notes 
     end 
@@ -131,7 +134,7 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("forerunner_allotment") 
-        text_field 'allocation', 'forerunner_allotment'
+        text_field 'allocation', 'forerunner_allotment', :size => 10
     else
         @allocation.impact_notes 
     end 
@@ -145,7 +148,8 @@ Please list the campuses where the kits will be distributed in the Regional Note
 </td>
 <td class="input">
 <%= if @user.can_modify_field?("forerunner_notes") 
-        text_area 'allocation', 'forerunner_notes', :rows => 5
+        #text_area 'allocation', 'forerunner_notes', :rows => 5
+        text_field 'allocation', 'forerunner_notes', :maxlength => 255, :size => 50
     else
         @allocation.forerunner_notes
     end 

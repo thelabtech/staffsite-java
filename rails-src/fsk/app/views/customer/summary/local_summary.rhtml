@@ -43,19 +43,17 @@ end%>
 <%@allocations.each do |allocation| %>
 	<table class="normal">
 		<tr><th colspan="2"><b>Kit Allocation Summary (<%= allocation.region.name%>):</b></th></tr>
-		<tr><td width="150">Locally Raised</a></td> 
-
-			<td><%= allocation.locally_raised || 0 %></td></tr>
+		<tr><td width="150">Locally Raised</a></td><td><%= allocation.locally_raised || 0 %></td></tr>
 		<tr><td>Regional Allocation</td><td><%= allocation.regional_allotment || 0 %> (for launching new movements only)</td></tr>
 		<tr><td>Regionally Raised</td><td><%= allocation.regionally_raised || 0 %></td></tr>
 		<tr><td>Impact Allocation</td><td><%= allocation.impact_allotment || 0 %></td></tr>
 		<tr><td>Forerunner Allocation</td><td><%= allocation.forerunner_allotment || 0 %></td></tr>
-
+		
+		<tr><td>Local Notes</td><td><%= allocation.local_notes %></td></tr>
 		<tr><td><b>Total Kits Available</b></td><td><b><%= allocation.total_kits %></b></td></tr>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
-		<tr><td>Local Notes</td><td><%= allocation.local_notes %></td></tr>
     <tr><td colspan="2" class="subhead"><%= link_to "Edit this allocation or add locally raised kits", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td></tr>
 		<tr><td colspan="2" class="subhead"><%=link_to("Place a kit order using this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td></tr>
 	</table>
