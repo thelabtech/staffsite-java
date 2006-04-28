@@ -1,7 +1,7 @@
 <!--[form:order]-->
 <p>Order Number: <%= @order.id %></p>
 <p>Date Added: <%= @order.created_at %></p>
-<p>Dated Last Updated: <%= @order.updated_at %></p>
+<p>Date Last Updated: <%= @order.updated_at %></p>
 
 <h3>Location (campus name, metro name, etc.):</h3>
 <p><label for="order_location_name">Location:</label><br/>
@@ -23,7 +23,7 @@
 <p><label for="order_contact_email">Email (Please enter your full e-mail address):</label><br/>
 <%= text_field 'order', 'contact_email' %></p>
 
-<h3>Order Shipping Information: (where do you want the stuff to go?)</h3>
+<h3>Order Shipping Information: (where do you want the stuff to go?) No P.O. Boxes.</h3>
 
 <p>In an effort to trim our costs and provide you with quality materials, large 
 orders (over 500 kits or 5000 individual items) may be shipped by freight line using wooden pallets about 

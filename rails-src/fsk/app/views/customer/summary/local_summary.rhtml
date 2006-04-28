@@ -55,8 +55,9 @@ end%>
 		<tr><td>Regional Notes</td><td><%= allocation.regional_notes %></td></tr>
 		<tr><td>Impact Notes</td><td><%= allocation.impact_notes %></td></tr>
 		<tr><td>Forerunner Notes</td><td><%= allocation.forerunner_notes %></td></tr>
-        </tr><td colspan="3" class="subhead"><%= link_to "Edit this allocation or add locally raised kits", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td>
-		</tr><td colspan="3" class="subhead"><%=link_to("Place a kit order using this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td>
+		<tr><td>Local Notes</td><td><%= allocation.local_notes %></td></tr>
+    <tr><td colspan="2" class="subhead"><%= link_to "Edit this allocation or add locally raised kits", {:controller => "allocation", :action => "edit", :id => allocation.id} %></td></tr>
+		<tr><td colspan="2" class="subhead"><%=link_to("Place a kit order using this allocation", :controller => "order", :action => "place_kit_order", :allocation_id => allocation.id)%></td></tr>
 	</table>
 	<br>
 <% end %>
