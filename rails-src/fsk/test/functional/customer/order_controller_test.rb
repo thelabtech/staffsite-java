@@ -22,7 +22,8 @@ class Customer::OrderControllerTest < Test::Unit::TestCase
                            "business_unit"=>"1", 
                            "ship_state"=>"AK", 
                            "contact_last_name"=>"You", 
-                           "ship_name"=>"Matt Drees", 
+                           "ship_first_name"=>"Matt", 
+                           "ship_last_name"=>"Drees", 
                            "ship_city"=>"Jupiter", 
                            "type"=>"KitOrder", 
                            "contact_phone"=>"555-LOVE", 
@@ -61,7 +62,7 @@ class Customer::OrderControllerTest < Test::Unit::TestCase
   def test_create_kit_order_with_bad_order
     post :create_kit_order
     assert_response :success
-    assert assigns["order"].errors.count == 13
+    assert assigns["order"].errors.count == 14
   end
   
   def test_create_product_order

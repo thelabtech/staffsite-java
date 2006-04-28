@@ -14,7 +14,7 @@ fsk_orders_001:
   business_unit: "1"
   ship_state: FL
   ship_city: Orlando
-  ship_name: Matt Drees
+  ship_first_name: Matt Drees
   contact_last_name: Starcher
   lock_version: 0
   type: KitOrder
@@ -41,7 +41,7 @@ fsk_orders_002:
   business_unit: my
   ship_state: AL
   ship_city: Jupiter
-  ship_name: Freddy Jr
+  ship_first_name: Freddy Jr
   contact_last_name: Franklin
   lock_version: 0
   type: ProductOrder

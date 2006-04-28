@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
   
   validates_presence_of :location_name, :contact_first_name, :contact_last_name,
-                        :contact_phone, :contact_email, :ship_name, :ship_address1,
+                        :contact_phone, :contact_email, :ship_first_name, :ship_last_name, :ship_address1,
                         :ship_city, :ship_state, :ship_zip, :ship_phone
   
   # Return the order quantity for a product
