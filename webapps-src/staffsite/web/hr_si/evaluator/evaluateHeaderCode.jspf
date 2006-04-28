@@ -195,7 +195,7 @@ try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
 		app = new SIApplication_Archive2003();
 		app = infoBean.getSIApplication_Archive(ApplicationID);
 		p = new SIPerson_Archive2003();
-		p = infoBean.getSIPerson_Archive(app.getFk_SIPersonID());
+		p = infoBean.getSIPerson_Archive(app.getFk_PersonIDString());
 		refS = new SIReference_Archive2003();
 		refD = new SIReference_Archive2003();
 		refR = new SIReference_Archive2003();
@@ -209,7 +209,7 @@ try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
 		app = new SIApplication();
 		app = infoBean.getSIApplication(ApplicationID, yearID);
 		p = new SIPerson();
-		p = infoBean.getSIPerson(app.getFk_SIPersonID());
+		p = infoBean.getSIPerson(app.getFk_PersonIDString());
 		refS = new SIReference();
 		refD = new SIReference();
 		refR = new SIReference();
@@ -221,7 +221,7 @@ try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
 //	}
 
 // 	SIApplication app = infoBean.getSIApplication(ApplicationID);
-//  SIPerson p = infoBean.getSIPerson(app.getFk_SIPersonID());
+//  SIPerson p = infoBean.getSIPerson(app.getFk_PersonIDString());
 
     String projectName[] = new String[3];
     projectName[0] = hasAValue(app.getLocationA())?infoBean.getSIProject(Integer.parseInt(app.getLocationA())).getDisplayLocation():"-";
