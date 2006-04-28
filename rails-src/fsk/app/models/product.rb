@@ -72,9 +72,7 @@ class Product < ActiveRecord::Base
     length = value.length
     piece_count = (length/254).ceil
     (0..piece_count).each do |i|
-      ProductText.create(
-        :description => value[(254*i)..(254*(i+1))],
-        :product_id => id)
+      product_text << ProductText.new(:description => value[(254*i)..(254*(i+1))])
     end
   end
   
