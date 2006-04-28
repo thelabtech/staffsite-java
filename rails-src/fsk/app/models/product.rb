@@ -74,6 +74,10 @@ class Product < ActiveRecord::Base
     (0..piece_count).each do |i|
       product_text << ProductText.new(:description => value[(254*i)..(254*(i+1))])
     end
+    # alternate implementation:
+    # value.scan(\.{1,255}\).each do |part|
+    #   product_text << ProductText.new(:description => part)
+    # end
   end
   
   protected
