@@ -9,4 +9,9 @@ class ProductOrder < Order
     end
     @order_cost.to_i
   end
+  
+  # Return the total items for this order
+  def total_items
+    @total_items ||= line_items.inject {|sum, item| sum + item.quantity}
+  end
 end
