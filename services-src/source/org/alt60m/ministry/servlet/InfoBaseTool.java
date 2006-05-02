@@ -360,9 +360,9 @@ public class InfoBaseTool {
 			}
 			
 			//TODO: exclude closed target areas from this search query
-			query = "SELECT TOP 100 PERCENT ta.TargetAreaID, ta.name, ta.city, ta.state, ta.zip, ta.region, taId.strategy, taId.status, taId.teamID, taId.teamName, ta.isClosed " +
+			query = "SELECT ta.TargetAreaID, ta.name, ta.city, ta.state, ta.zip, ta.region, taId.strategy, taId.status, taId.teamID, taId.teamName, ta.isClosed " +
 						   "FROM ministry_TargetArea ta LEFT OUTER JOIN "+
-									  "(SELECT TOP 100 PERCENT act.strategy, act.status, team.teamID, team.name AS teamName, act.fk_targetAreaID "+
+									  "(SELECT act.strategy, act.status, team.teamID, team.name AS teamName, act.fk_targetAreaID "+
 									  "FROM ministry_Activity act INNER JOIN ministry_LocalLevel team ON act.fk_teamID = team.teamID "+
 									  "WHERE (act.status <> 'IN' "+		// only show activities whose status  is not INACTIVE
 									  //"AND act.periodEnd IS null)) "+	// only show activities with no end date

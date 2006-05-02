@@ -170,13 +170,13 @@ public class SimpleSecurityManager implements SecurityManager {
 			// username, email, password, passwordQuestion, passwordAnswer,
 			// lastFailure, lastFailureCnt, lastLogin, createdOn, emailVerified,
 			// userID
-			// Vector results = ob.doQuery("CALL SQL SELECT * FROM (SELECT TOP
-			// 100 PERCENT SSM.username FROM simplesecuritymanager_user SSM
+			// Vector results = ob.doQuery("CALL SQL SELECT * FROM (SELECT 
+			//  SSM.username FROM simplesecuritymanager_user SSM
 			// INNER JOIN staffsite_staffsiteprofile SSP ON SSM.username =
 			// SSP.userName ORDER BY SSM.username) tempTable AS
 			// org.alt60m.persistence.castor.util.SingleField");
 			List results = new User()
-					.selectSQLList("SELECT * FROM (SELECT TOP 100 PERCENT SSM.* FROM simplesecuritymanager_user SSM INNER JOIN staffsite_staffsiteprofile SSP ON SSM.username = SSP.userName ORDER BY SSM.username) tempTable");
+					.selectSQLList("SELECT * FROM (SELECT SSM.* FROM simplesecuritymanager_user SSM INNER JOIN staffsite_staffsiteprofile SSP ON SSM.username = SSP.userName ORDER BY SSM.username) tempTable");
 			for (Iterator iUsers = results.iterator(); iUsers.hasNext();) {
 				User user = (User) iUsers.next();
 				users.add(user.getUsername());

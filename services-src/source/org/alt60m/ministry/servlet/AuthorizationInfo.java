@@ -97,10 +97,10 @@ public class AuthorizationInfo {
 	public Collection getNationalPendingApprovals() throws Exception {
 
 		String subQuery =
-			"SELECT TOP 100 PERCENT scro.ChangeRequestID FROM ministry_ChangeRequest scro LEFT OUTER JOIN ministry_Authorization auth ON scro.ChangeRequestID = auth.fk_changeRequestID "
+			"SELECT scro.ChangeRequestID FROM ministry_ChangeRequest scro LEFT OUTER JOIN ministry_Authorization auth ON scro.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE auth.authorized = '' AND (auth.role='HRNC' OR auth.role='HRRD') AND auth.sequence = '1'";
 		String query =
-			"SELECT TOP 100 PERCENT ChangeRequestID, requestdate, effectivedate, applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr LEFT OUTER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+			"SELECT ChangeRequestID, requestdate, effectivedate, applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr LEFT OUTER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE auth.authorized = '' AND auth.role='HRND' AND scr.applieddate is null AND scr.ChangeRequestID not in("+subQuery+")";
 
 		return getRequests(query);
