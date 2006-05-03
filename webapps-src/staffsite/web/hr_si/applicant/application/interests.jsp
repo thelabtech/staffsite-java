@@ -152,12 +152,12 @@ if ((appType == null) || (!appType.equals("impact"))) {
 		} else { 
 %>
 		<input type="hidden" name="showAll" value="true">
-		<div style="text-align:right"><A CLASS="menuactive" HREF="javascript: doPostForm('interests')"><span class="reallysmall">Show me other regional internships.</span></a></div>
+		<div style="text-align:right"><A CLASS="menuactive" HREF="javascript: doPostForm('interests')"><span class="reallysmall" style="padding: 1px 5px; background-color: #336699; color: white; font-size: 8pt; font-weight: normal;">Show me other regional internships.</span></a></div>
 <% 
 		} 
 	} else { 
 %>
-		<div style="text-align:right"><A CLASS="menuactive" HREF="javascript: doPostForm('interests')"><span class="reallysmall">Only show me internships sponsored near me.</span></a></div>
+		<div style="text-align:right"><A CLASS="menuactive" HREF="javascript: doPostForm('interests')"><span class="reallysmall" style="padding: 1px 5px; background-color: #336699; color: white; font-size: 8pt; font-weight: normal;">Only show me internships sponsored near me.</span></a></div>
 <% 
 	}
 }
