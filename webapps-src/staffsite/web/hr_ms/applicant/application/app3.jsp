@@ -49,12 +49,12 @@
 				} else {
 %>
 					<input type="hidden" name="showAll" value="true">
-					<a href="javascript:doPostFormNextAction('appFormSave', 'goToView', 'app3')">Click here to see projects in other regions too.</a>
+					<a href="javascript:doPostFormNextAction('appFormSave', 'goToView', 'app3')" style="padding: 1px 5px; background-color: #336699; color: white;">Click here to see projects in other regions too.</a>
 <%		
 				} 
 			} else {
 %>
-				<a href="javascript:doPostFormNextAction('appFormSave', 'goToView', 'app3')">Click here to only see projects near you.</a>
+				<a href="javascript:doPostFormNextAction('appFormSave', 'goToView', 'app3')" style="padding: 1px 5px; background-color: #336699; color: white;">Click here to only see projects near you.</a>
 <%
 			}
 		}
