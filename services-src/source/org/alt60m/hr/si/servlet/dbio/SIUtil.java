@@ -613,7 +613,7 @@ public class SIUtil {
 		}
 		try {
 			SIReference ref = new SIReference();
-			String qry = "select count (*) as refcount from hr_si_Reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = '" + appid + "'";
+			String qry = "select count(*) as refcount from hr_si_Reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = '" + appid + "'";
 			numrefs = ObjectHashUtil.countIt(ref, qry);
 
 			System.out.println("getNumberOfReferences found(int): " + numrefs);
