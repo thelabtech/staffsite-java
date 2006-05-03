@@ -1064,39 +1064,7 @@ public class SIReference extends DBIOEntity {
 				applicantEmailAddress = DEFAULT_FROM_EMAIL;
 			}
 
-			// send applicant email invitation
-			
-			
-/*			String text = "Dear " + refFullName + ":\n\n"+"<BR><BR>";
-			text += applicantFullName + " has just applied for an exciting internship opportunity with Campus Crusade for Christ and has suggested that we contact you as a reference. If you could take a minute and fill out a recommendation for this applicant, we can continue with the application process.  The application materials will then be reviewed and a decision will be given as soon as possible.\n\n"+"<BR><BR>";
-			text += "The reference form will only take a few short minutes and just in case you don't have time to finish it, we allow you to save and come back whenever it is convenient for you to finish.\n\n"+"<BR><BR>";
-			text += "The reference form is on our secure web site.  Just click on the link below to go directly to the reference form for " + applicantFullName + ".  Your reference will be kept confidential, and the applicant will not be able to read the information you share with us.  The insight that you provide will be very helpful in determining a decision about this applicant's internship!\n\n"+"<BR><BR>";
-			text += "You may contact the applicant " + emailContactText + "by phone at " + applicantPhone + ".\n\n"+"<BR><BR>";
-			text += "If you would prefer not to participate, please notify the applicant yourself so that they can take you off of their reference list.  If you would prefer to fill out a paper reference form, please ask the applicant to provide you one.\n\n"+"<BR><BR>";
-			text += "Please do not forward this email to the applicant, so that they do not receive the link to editing their own reference form.\n\n"+"<BR><BR>";
-			text += "Thank you very much.\n\n"+"<BR><BR>";
-			text += "Sincerely,\n"+"<BR>";
-			text += "Campus Crusade for Christ\n\n\n"+"<BR><BR>";
-
-			if (this.isStaff) {
-				text += "Login to the staff site at <a href=" + staffsiteLink + ">" + staffsiteLink + "</a>, and click on the applicant's name ('" + applicantFullName + "') in the list of references on your home page.\n\n"+"<BR><BR>";
-			}
-			else {
-				text += "<a href=" + referenceLink + ">Click here to access reference form for " + applicantFullName + "</a>.\n\n"+"<BR><BR>";
-			}
-			text += "If the above link does not work.  Please use the following link.  The link should be all in one line, so if it is split up into more than one line, you may need to copy and paste the link into a web browser.\n\n"+"<BR><BR>";
-
-			text += "<a href=" + referenceLink + ">" + referenceLink + "</a>\n\n"+"<BR><BR>";
-
-			text += "You do not have to fill out the entire form at one time.  After you start filling out the form, you may exit at any time and return later to finish.  Just click on the same link to return to finishing the form.\n"+"<BR>";
-			SendMessage msg = new SendMessage();
-			msg.setTo(this.getCurrentEmail());
-			msg.setFrom(applicantEmailAddress);
-			msg.setSubject("Project Reference for " + applicantFullName);
-			msg.setBody(text, "text/html");
-			msg.send();
-*/
-			// New text version... passes iHateSpam
+			// send applicant email invitation. New text version... passes iHateSpam
 			String text = "Dear " + refFullName + ":\n\n";
 			text += applicantFullName + " has just applied for an exciting internship opportunity with Campus Crusade for Christ and has suggested that we contact you as a reference. If you could take some time and fill out a recommendation for this applicant, we can continue with the application process.  The application materials will then be reviewed and a decision will be given as soon as possible.\n\n";
 			text += "In case you don't have time to finish the reference form in one sitting, we allow you to save and come back to it whenever it is convenient for you to finish.\n\n";
