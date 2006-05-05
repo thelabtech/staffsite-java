@@ -1604,8 +1604,8 @@ public class WsnSpController extends Controller
 			String viewing = "";
 			int orderCol = 0;
 			String order = "";
-			String[] orderFields = { "displayOrder", "wsn_sp_QuestionText.body", "QuestionText.answerType",
-					"required", "wsn_sp_QuestionText.status" };
+			String[] orderFields = { "displayOrder", "body", "answerType",
+					"required", "status" };
 
 			if (ctx.getInputString("orderCol") != null)
 				orderCol = Integer.parseInt(ctx.getInputString("orderCol"));
