@@ -970,14 +970,14 @@ public class CmsController extends Controller {
 				coChild.setCatName(ctx.getInputString("CatName"));
 
 				String parentId = ctx.getInputString("catId");
-				coChild.setParentCategory(parentId);
+				coChild.setParentCategory(new Integer(parentId));
 				if (!parentId.equals("1")) {
 					Category coParent = new Category(parentId);
 					coChild.setPath(coParent.getPath() + ":" + ctx.getInputString("CatName"));
 					coChild.setPathId(coParent.getPathId() + ":" + coChild.getCategoryId());
 				} else {
 					coChild.setPath(ctx.getInputString("CatName"));
-					coChild.setPathId(coChild.getCategoryId());
+					coChild.setPathId(coChild.getCategoryId().toString());
 				}
 				coChild.persist();
 
@@ -1012,9 +1012,9 @@ public class CmsController extends Controller {
 			Hashtable tub = new Hashtable();
 
 			Category coChild = new Category(ctx.fetchId());
-			Category coParent = new Category(coChild.getParentCategory());
+			Category coParent = new Category(coChild.getParentCategory().toString());
 			coChild.delete();
-			String parentId = coParent.getCategoryId();
+			String parentId = coParent.getCategoryId().toString();
 
 			tub.put("View", "/servlet/CmsController?action=browse&catId=" + parentId);
 			ctx.setReturnValue(tub);
@@ -1162,16 +1162,16 @@ public class CmsController extends Controller {
 
 	public String generatePath(Category co) throws java.rmi.RemoteException {
 		boolean doLoop = true;
-		Category current = new Category(co.getParentCategory());
+		Category current = new Category(co.getParentCategory().toString());
 		String path = co.getCatName();
-		if ("1".equals(co.getParentCategory()))
+		if ("1".equals(co.getParentCategory().toString()))
 			doLoop = false;
 		while (doLoop) {
 			path = current.getCatName() + ":" + path;
-			if ("1".equals(current.getParentCategory()))
+			if ("1".equals(current.getParentCategory().toString()))
 				doLoop = false;
 			else
-				current = new Category(current.getParentCategory());
+				current = new Category(current.getParentCategory().toString());
 		}
 		return path;
 	}

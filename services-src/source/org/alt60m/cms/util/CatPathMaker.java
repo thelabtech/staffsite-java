@@ -27,7 +27,7 @@ public class CatPathMaker {
 				while(!temp.getCategoryId().equals("0")){
 					path = temp.getCatName() + ":" + path;
 					pathid = temp.getCategoryId() + ":" + pathid;
-					temp = cmsInfo.getCategoryObject(temp.getParentCategory());
+					temp = cmsInfo.getCategoryObject(temp.getParentCategory().toString());
 				}
 				path = path.substring(0,path.lastIndexOf(":"));
 				pathid = pathid.substring(0,pathid.lastIndexOf(":"));

@@ -6,19 +6,19 @@ import com.kenburcham.framework.dbio.DBIOEntityException;
 public class Category extends DBIOEntity {
 	
 	public Category(String id) {
-		CategoryId = id;
+		CategoryId = new Integer(id);
 		select();
 	}
 	public Category() { }
 	
-    private String CategoryId = "";
-    private String parentCategory = "";
+    private Integer CategoryId = 0;
+    private Integer parentCategory = 0;
     private String catName = "";
     private String catDesc = "";
     private String path = "";
     private String pathId = "";
 
-    public boolean isPKEmpty() { return CategoryId.equals(""); }
+    public boolean isPKEmpty() { return CategoryId == null || CategoryId.equals(0); }
     public boolean persist() { return isPKEmpty() ? insert() : update(); }
     
     public void localinit() throws DBIOEntityException {
@@ -34,11 +34,11 @@ public class Category extends DBIOEntity {
     	setAutodetectProperties(false);
     }
 
-	public String getCategoryId() { return CategoryId; }
-	public void setCategoryId(String CategoryId) { this.CategoryId = CategoryId; }
+	public Integer getCategoryId() { return CategoryId; }
+	public void setCategoryId(Integer CategoryId) { this.CategoryId = CategoryId; }
 
-	public String getParentCategory() { return parentCategory; }
-	public void setParentCategory(String parentCategory) { this.parentCategory = parentCategory; }
+	public Integer getParentCategory() { return parentCategory; }
+	public void setParentCategory(Integer parentCategory) { this.parentCategory = parentCategory; }
 	
 	public String getCatName() { return catName; }
 	public void setCatName(String catName) { this.catName = catName; }
@@ -55,13 +55,13 @@ public class Category extends DBIOEntity {
 	public void assocFile(String fildId) {
 		FileCategoryLink newFc = new FileCategoryLink();
 		newFc.setFileId(fildId);
-		newFc.setCategoryId(this.getCategoryId());
+		newFc.setCategoryId(this.getCategoryId().toString());
 		newFc.insert();
 	}
 	public void dissocFile(String fileId) {
 		FileCategoryLink nfc = new FileCategoryLink();
 		nfc.setFileId(fileId);
-		nfc.setCategoryId(this.getCategoryId());
+		nfc.setCategoryId(this.getCategoryId().toString());
 		nfc.delete();
 	}
 }

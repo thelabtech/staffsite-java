@@ -41,29 +41,18 @@ public class TestCmsInfo extends PrivateTestCase {
     public void testAll() {
 
         try {
-            //ObjectMapping.setConfigPath("D:/ade/controlled-src/services-src/config/mapping");
-			//ObjectMapping mapping = new ObjectMapping("cmsbroker.properties");
-            //mapping.setLogWriter(new java.io.PrintWriter(System.out));
-
-//            ObjectBroker broker = org.alt60m.factory.ServiceFactory.getCmsBroker();//new ObjectBroker(mapping);
-//            broker.begin();
-
 			Category cat1 = new Category();
             cat1.setCatName("Category1");
 	        cat1.persist();
-//            broker.createObject(cat1);
 
             Category cat2 = new Category();
 			cat2.setCatName("Category2");
 	        cat2.persist();
-//            broker.createObject(cat2);
 
             for(int i =0; i<10;i++) {
             	File file = new File();
 				file.setTitle("File" + i);
 	            file.persist();
-//            	broker.createObject(file);
-
                 //cat1.getFiles().add(file);
                 //cat2.getFiles().add(file);
                 file.getCategories().add(cat1);
@@ -73,19 +62,6 @@ public class TestCmsInfo extends PrivateTestCase {
 
             Category cat;
 
-/*
-            broker.begin();
-
-
-
-            cat = (CmsCategory) broker.getObject(CmsCategory.class, cat1.getCmsCategoryID());
-			//log(Priority.INFO,cat);
-			assert("Should have 10 files: "+cat.getFiles().size(), cat.getFiles().size() == 10);
-            cat = (CmsCategory) broker.getObject(CmsCategory.class, cat2.getCmsCategoryID());
-			assert("Should have 10 files: "+cat.getFiles().size(), cat.getFiles().size() == 10);
-
-            broker.rollback();
-*/
 			CmsInfo info = new CmsInfo();
             Collection cats = info.getTopLevelCategories();
 			for(Iterator iCats = cats.iterator();iCats.hasNext();) {
@@ -100,7 +76,7 @@ public class TestCmsInfo extends PrivateTestCase {
 	}
 	private void showAllCategories(CmsInfo info, Category parent, int level) throws Exception {
 		int newLevel = level+1;
-        Collection cats = info.getSubCategories(parent.getCategoryId());
+        Collection cats = info.getSubCategories(parent.getCategoryId().toString());
 		for(Iterator iCats = cats.iterator();iCats.hasNext();) {
        		Category cat = (Category) iCats.next();
             StringBuffer buf = new StringBuffer();
@@ -117,13 +93,4 @@ public class TestCmsInfo extends PrivateTestCase {
 		}
 
     }
-    /**
-     * @link
-     * @shapeType PatternLink
-     * @pattern <{TestCase}>
-     * @clientRole tests
-     * @supplierRole tested
-     * @hidden 
-     */
-    /*# private CmsInfo _cmsInfo; */
 }
