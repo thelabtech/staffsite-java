@@ -13,7 +13,7 @@ public class Staff extends DBIOEntity {
 	private String fk_currentAddressId = "";
 	private String fk_primaryAddressId = "";
     private String fk_secondaryAddressId = "";
-	private String fk_localLevelId = "";
+	private int teamId = 0;
 	
 	private String firstName = "";
     private String middleInitial = "";
@@ -190,7 +190,7 @@ public class Staff extends DBIOEntity {
 		setMetadata("RemovedFromPeopleSoft","removedFromPeopleSoft",table);
 		setMetadata("IsNonUSStaff","isNonUSStaff",table);  // Currently used so Review360 can see people not in PS
 		
-		setMetadata("LocalLevelId","fk_teamID",table);
+		setMetadata("TeamId","fk_teamID",table);
 		setMetadata("PrimaryAddressId","fk_primaryAddress",table);
 		setMetadata("SecondaryAddressId","fk_secondaryAddress",table);
 
@@ -447,10 +447,20 @@ public class Staff extends DBIOEntity {
 	public void setIsNonUSStaff(String isNonUSStaff) { this.isNonUSStaff = isNonUSStaff; }
 	
 	
-    public String getLocalLevelId(){ return this.fk_localLevelId; }
-    public void setLocalLevelId(String id){ this.fk_localLevelId = id; }
-	public LocalLevel getLocalLevel(){ return new LocalLevel(this.fk_localLevelId); }
-	public void setLocalLevel(LocalLevel ll){ this.fk_localLevelId = ll.getLocalLevelId(); }
+	
+	
+    public int getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(int fk_localLevelId) {
+		this.teamId = fk_localLevelId;
+	}
+	
+	public String getLocalLevelId(){ return String.valueOf(getTeamId()); }
+    public void setLocalLevelId(String id){ setTeamId(Integer.parseInt(id)); }
+	
+	public LocalLevel getLocalLevel(){ return new LocalLevel(getLocalLevelId()); }
+	public void setLocalLevel(LocalLevel ll){ setLocalLevelId(ll.getLocalLevelId()); }
 	public LocalLevel getMembership(){ return getLocalLevel(); }
 	public void setMembership(LocalLevel membership){ setLocalLevel(membership); }
 	public void assocLocalLevel(LocalLevel t) { setLocalLevel(t); }
