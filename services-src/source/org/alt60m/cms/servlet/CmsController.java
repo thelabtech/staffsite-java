@@ -854,7 +854,7 @@ public class CmsController extends Controller {
 			String catReturnTo;
 			if (ctx.getInputString("catReturnTo").equals("searchResults")) {
 				Hashtable cat = (Hashtable) cats.iterator().next();
-				catReturnTo = (String) cat.get("CategoryId");
+				catReturnTo = cat.get("CategoryId").toString();
 			} else {
 				catReturnTo = ctx.getInputString("catReturnTo");
 			}
