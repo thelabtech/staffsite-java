@@ -76,7 +76,7 @@ public class TestCmsInfo extends PrivateTestCase {
 	}
 	private void showAllCategories(CmsInfo info, Category parent, int level) throws Exception {
 		int newLevel = level+1;
-        Collection cats = info.getSubCategories(parent.getCategoryId().toString());
+        Collection cats = info.getSubCategories(String.valueOf(parent.getCategoryId()));
 		for(Iterator iCats = cats.iterator();iCats.hasNext();) {
        		Category cat = (Category) iCats.next();
             StringBuffer buf = new StringBuffer();

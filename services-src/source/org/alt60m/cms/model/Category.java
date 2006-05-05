@@ -34,8 +34,8 @@ public class Category extends DBIOEntity {
     	setAutodetectProperties(false);
     }
 
-	public Integer getCategoryId() { return CategoryId; }
-	public void setCategoryId(Integer CategoryId) { this.CategoryId = CategoryId; }
+	public int getCategoryId() { return CategoryId; }
+	public void setCategoryId(int CategoryId) { this.CategoryId = CategoryId; }
 
 	public Integer getParentCategory() { return parentCategory; }
 	public void setParentCategory(Integer parentCategory) { this.parentCategory = parentCategory; }
@@ -55,13 +55,13 @@ public class Category extends DBIOEntity {
 	public void assocFile(String fildId) {
 		FileCategoryLink newFc = new FileCategoryLink();
 		newFc.setFileId(fildId);
-		newFc.setCategoryId(this.getCategoryId().toString());
+		newFc.setCategoryId(String.valueOf(this.getCategoryId()));
 		newFc.insert();
 	}
 	public void dissocFile(String fileId) {
 		FileCategoryLink nfc = new FileCategoryLink();
 		nfc.setFileId(fileId);
-		nfc.setCategoryId(this.getCategoryId().toString());
+		nfc.setCategoryId(String.valueOf(this.getCategoryId()));
 		nfc.delete();
 	}
 }

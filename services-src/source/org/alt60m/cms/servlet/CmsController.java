@@ -977,7 +977,7 @@ public class CmsController extends Controller {
 					coChild.setPathId(coParent.getPathId() + ":" + coChild.getCategoryId());
 				} else {
 					coChild.setPath(ctx.getInputString("CatName"));
-					coChild.setPathId(coChild.getCategoryId().toString());
+					coChild.setPathId(String.valueOf(coChild.getCategoryId()));
 				}
 				coChild.persist();
 
@@ -1014,7 +1014,7 @@ public class CmsController extends Controller {
 			Category coChild = new Category(ctx.fetchId());
 			Category coParent = new Category(coChild.getParentCategory().toString());
 			coChild.delete();
-			String parentId = coParent.getCategoryId().toString();
+			String parentId = String.valueOf(coParent.getCategoryId());
 
 			tub.put("View", "/servlet/CmsController?action=browse&catId=" + parentId);
 			ctx.setReturnValue(tub);

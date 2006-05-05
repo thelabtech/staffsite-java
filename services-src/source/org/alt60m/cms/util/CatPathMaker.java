@@ -20,11 +20,11 @@ public class CatPathMaker {
 				Category temp = cat;
 				String path = "";
 				String pathid = "";
-				if (temp.getCategoryId().equals("0")) {
+				if (temp.getCategoryId() == 0) {
 					path = ":";
 					pathid = ":";
 				}
-				while(!temp.getCategoryId().equals("0")){
+				while(temp.getCategoryId() != 0){
 					path = temp.getCatName() + ":" + path;
 					pathid = temp.getCategoryId() + ":" + pathid;
 					temp = cmsInfo.getCategoryObject(temp.getParentCategory().toString());

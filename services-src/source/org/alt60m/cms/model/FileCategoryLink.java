@@ -34,5 +34,5 @@ public class FileCategoryLink extends DBIOEntity {
 	public String getCategoryId() { return CategoryId; }
 	public void setCategoryId(String CategoryId) { this.CategoryId = CategoryId; }
 	public Category getCategory(){ return new Category(this.CategoryId); }
-	public void setCategory(Category cat){ this.CategoryId = cat.getCategoryId().toString(); }
+	public void setCategory(Category cat){ this.CategoryId = String.valueOf(cat.getCategoryId()); }
 }
