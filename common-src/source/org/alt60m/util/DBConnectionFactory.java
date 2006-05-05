@@ -21,10 +21,20 @@ public class DBConnectionFactory {
 
 	private static final String MSSQL_DRIVER = "com.microsoft.jdbc.sqlserver.SQLServerDriver";
     private static String MSSQL_A022_URL = "jdbc:microsoft:sqlserver://hart-a051:1433";
+    
     private static final String MSSQL_JTDS_DRIVER = "net.sourceforge.jtds.jdbc.Driver";
     private static String MSSQL_JTDS_URL = "jdbc:jtds:sqlserver://Hart-A051:1433;tds=8.0";
-	private static String MSSQL_DEFAULT_USER;
-	private static String MSSQL_DEFAULT_PW;
+	
+	private static String MYSQL_URL = "jdbc:mysql://Hart-A051:3306";
+	private static String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
+	
+	
+	private static String DEFAULT_URL = MYSQL_URL;
+	private static String DEFAULT_DRIVER = MYSQL_DRIVER;
+	private static String DEFAULT_DB;
+	private static String DEFAULT_USER;
+	private static String DEFAULT_PW;
+
 	private static final String POOL_NAME = Constants.DBPOOL;
 	
 	private static DataSource ds;
@@ -43,13 +53,13 @@ public class DBConnectionFactory {
 			ds = (DataSource) ctx.lookup(POOL_NAME);
 			ConnectionManager.getInstance().addDataSource(POOL_NAME, ds);
 		} catch (NamingException e) {
-			System.out.println("JDNI lookup failed; using default jtds datasource");
+			System.out.println("JDNI lookup failed; using default datasource");
 			getConfigProperties();
 			BasicDataSource bds = new BasicDataSource();
-			bds.setUsername(MSSQL_DEFAULT_USER);
-			bds.setPassword(MSSQL_DEFAULT_PW);
-			bds.setUrl(MSSQL_JTDS_URL);
-			bds.setDriverClassName(MSSQL_JTDS_DRIVER);
+			bds.setUsername(DEFAULT_USER);
+			bds.setPassword(DEFAULT_PW);
+			bds.setUrl(DEFAULT_URL);
+			bds.setDriverClassName(DEFAULT_DRIVER);
 			ds = bds;
 			ConnectionManager.getInstance().addDataSource(POOL_NAME, ds);
 		}
@@ -70,7 +80,7 @@ public class DBConnectionFactory {
     
     static public Connection getDatabaseConn(String username, String password) throws ClassNotFoundException, SQLException {
 		//return _getDatabaseConn(MSSQL_DRIVER, MSSQL_A022_URL, username, password);
-		return _getDatabaseConn(MSSQL_JTDS_DRIVER, MSSQL_JTDS_URL, username, password);
+		return _getDatabaseConn(DEFAULT_DRIVER , DEFAULT_URL, username, password);
 	}
 
     static public Connection getOracleDatabaseConn() throws ClassNotFoundException, SQLException {
@@ -89,8 +99,13 @@ public class DBConnectionFactory {
 		try {
 			Properties p = new Properties();
 			p.load(new FileInputStream(org.alt60m.servlet.ObjectMapping.getConfigPath() + "/database.properties"));
-			MSSQL_DEFAULT_USER = p.getProperty("username");
-			MSSQL_DEFAULT_PW = p.getProperty("password");
+			DEFAULT_USER = p.getProperty("username");
+			DEFAULT_PW = p.getProperty("password");
+			DEFAULT_DB = p.getProperty("database");
+			if (DEFAULT_DB != null)
+				DEFAULT_URL = DEFAULT_URL + "/" + DEFAULT_DB;
+			else
+				System.out.println("No Default database selected; continuing");
 			if(p.getProperty("server")!=null) MSSQL_A022_URL = "jdbc:microsoft:sqlserver://"+p.getProperty("server")+":1433";
 			System.out.println("getConfigProperties Succeeded");
 		} catch (Exception e) {
