@@ -205,7 +205,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT childRegistrationID, FLOOR(DATEDIFF(birthDate, NOW())/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 
 			file.write("Conference Info\n");
@@ -290,7 +290,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT childRegistrationID, FLOOR(DATEDIFF(birthDate, NOW())/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			if (!region.equals("NC")) {
 				exportTable(
@@ -352,8 +352,8 @@ public class CRSImportExport {
 			case -5: // bigint???
 			case 5: //smallint
 			case 4: //int, the first integer found becomes the primary key
-				System.out.println(rsmd.getTableName(i));
-				System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
+				//System.out.println(rsmd.getTableName(i));
+				//System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
 				// tables primary key
 				if (!identityFound) { //identity
 					identityFound = true;
@@ -414,6 +414,7 @@ public class CRSImportExport {
 
 			for (int i = 1; i <= colCount; i++) {
 				switch (rsmd.getColumnType(i)) {
+				case -5: // bigint
 				case 5: //smallint
 				case 4: //int
 					baseQuery += rsmd.getColumnName(i) + ", ";
