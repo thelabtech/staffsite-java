@@ -167,8 +167,8 @@ public class CRSImportExport {
 			exportTable(
 					"Registrants",
 					"SELECT person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo," +
-					" ISNULL(SUM(pmt.debit), 0.0) AS TotalCharge, ISNULL(SUM(pmt.credit), 0.0) AS TotalPaid," +
-					" ISNULL(SUM(pmt.debit), 0.0) - ISNULL(SUM(pmt.credit), 0.0) AS AmtDue, person.campus, curr.homePhone," +
+					" IF(SUM(pmt.debit),SUM(pmt.debit),0) AS TotalCharge, IF(SUM(pmt.credit),SUM(pmt.credit),0) AS TotalPaid," +
+					" IF(SUM(pmt.debit),SUM(pmt.debit),0) - IF(SUM(pmt.credit),SUM(pmt.credit), 0) AS AmtDue, person.campus, curr.homePhone," +
 					" reg.registrationDate," +
 					" regType.label," +
 					" reg.preRegistered," +
@@ -177,7 +177,7 @@ public class CRSImportExport {
 					" perm.address1 AS permanentAddress1, perm.address2 AS permanentAddress2," +
 					" perm.city AS permanentCity, perm.state AS permanentState, perm.zip AS permanentZip," +
 					" perm.homePhone AS permanentPhone, perm.country AS permanentCountry," +
-					" ISNULL(DERIVEDTBL.numberOfKids, 0) AS numberOfkids, ISNULL(person.maritalStatus, '') AS mStatus, reg.registrationID" +
+					" IF(DERIVEDTBL.numberOfKids,DERIVEDTBL.numberOfKids, 0) AS numberOfkids, IF(person.maritalStatus,person.maritalStatus, '') AS mStatus, reg.registrationID" +
 					" FROM  crs_RegistrationType regType, crs_Registration reg" +
 					" INNER JOIN ministry_Person person ON reg.fk_PersonID = person.personID" +
 					" INNER JOIN ministry_NewAddress curr ON person.personID = curr.fk_PersonID" +
@@ -205,7 +205,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(birthDate, NOW())/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 
 			file.write("Conference Info\n");
@@ -290,7 +290,7 @@ public class CRSImportExport {
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT DATEDIFF(yyyy, birthDate, GETDATE()) AS age, childRegistrationID, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(birthDate, NOW())/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			if (!region.equals("NC")) {
 				exportTable(
@@ -336,6 +336,7 @@ public class CRSImportExport {
 	//Given a query, createTable creates a new table to accommodate the data
 	private void createTable(String sourceQuery, String destinationTable)
 			throws Exception {
+		System.out.println(sourceQuery);
 		ResultSet rs = sqlStatement.executeQuery("SELECT * FROM ("
 				+ sourceQuery + ") A WHERE 1=2"); // WHERE 1=2 is always false,
 		// so no records are actualy
@@ -346,12 +347,15 @@ public class CRSImportExport {
 
 		String query = "CREATE TABLE " + destinationTable + " (";
 		for (int i = 1; i <= count; i++) {
-			switch (rsmd.getColumnType(i)) {
+			int type = rsmd.getColumnType(i);
+			switch (type) {
+			case -5: // bigint???
 			case 5: //smallint
-			case 4: //int, the first primary key found in the query becomes the
-				//System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
+			case 4: //int, the first integer found becomes the primary key
+				System.out.println(rsmd.getTableName(i));
+				System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
 				// tables primary key
-				if (!identityFound && rsmd.getColumnTypeName(i).length() == 12) { //identity
+				if (!identityFound) { //identity
 					identityFound = true;
 					query += rsmd.getColumnName(i) + " COUNTER("
 							+ (new Integer(baseNewId + 1)).toString()
@@ -393,6 +397,7 @@ public class CRSImportExport {
 								 * the table does not exsist
 								 */
 		}
+		System.out.println(query);
 		accessStatement.execute(query);
 	}
 

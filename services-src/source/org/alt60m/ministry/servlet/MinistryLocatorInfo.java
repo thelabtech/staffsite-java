@@ -27,7 +27,7 @@ public class MinistryLocatorInfo {
 	}
 	public Collection getTargetAreasByStrategy(String strategy, String state) throws Exception {
 		TargetArea ta = new TargetArea();
-		return ta.selectSQLList("SELECT * FROM  istprod.ministry_Activity INNER JOIN ministry_TargetArea ON ministry_Activity.fk_targetAreaID = ministry_TargetArea.TargetAreaID WHERE (ministry_Activity.strategy = '"+strategy.toUpperCase()+"') AND UPPER(state) LIKE '%"+state.toUpperCase()+"%' ORDER BY name");
+		return ta.selectSQLList("SELECT * FROM  istprod.ministry_TargetArea, ministry_Activity WHERE ministry_Activity.fk_targetAreaID = ministry_TargetArea.TargetAreaID AND (ministry_Activity.strategy = '"+strategy.toUpperCase()+"') AND UPPER(state) LIKE '%"+state.toUpperCase()+"%' AND status = 'AC' ORDER BY name");
 	}
 	
 	public Collection getTargetAreasByStateAndZip(String state, int number) {
