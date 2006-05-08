@@ -42,9 +42,12 @@ public class References implements java.io.Serializable {
  					// many staff login accounts do not have an AccountNo.  So don't pull up matching references; it would be all references without a staffnumber!
  					refString = refString + "<i>None</i><BR>";
  				} else {
- 					strSQL = "SELECT r.referenceid, r.formworkflowstatus, p.legalfirstname, p.legallastname"+
- 					" FROM wsn_sp_reference as r INNER JOIN wsn_sp_viewApplication as p ON r.fk_WsnApplicationid = p.WsnApplicationid" +
- 					" WHERE r.staffnumber='" + accountNo + "' and p.wsnYear='" + CURRENT_YEAR + "' ORDER BY p.legallastname";
+ 					strSQL = "select r.referenceid, r.formworkflowstatus, p.firstname as legalfirstname, p.lastname as legallastname FROM wsn_sp_reference as r INNER JOIN wsn_sp_wsnapplication as a ON r.fk_WsnApplicationid = a.WsnApplicationid INNER JOIN ministry_person as p on a.fk_personID = p.personId WHERE r.staffnumber='" + accountNo + "' and a.wsnYear='" + CURRENT_YEAR + "' ORDER BY p.lastname;";
+ 
+ 						
+// 						"SELECT r.referenceid, r.formworkflowstatus, p.legalfirstname, p.legallastname"+
+// 					" FROM wsn_sp_reference as r INNER JOIN wsn_sp_viewApplication as p ON r.fk_WsnApplicationid = p.WsnApplicationid" +
+// 					" WHERE r.staffnumber='" + accountNo + "' and p.wsnYear='" + CURRENT_YEAR + "' ORDER BY p.legallastname";
 
  					//Start new query
  						log(Priority.INFO,"References.print(): strSQL=" + strSQL);
