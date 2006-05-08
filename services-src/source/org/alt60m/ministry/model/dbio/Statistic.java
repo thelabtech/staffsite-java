@@ -8,7 +8,7 @@ public class Statistic extends DBIOEntity {
 
 	private String statisticId = new String();
 
-	private String fk_activityId = new String();
+	private int fk_activityId = 0;
 
 	private Date periodBegin = null;
 	private Date periodEnd = null;
@@ -47,7 +47,7 @@ public class Statistic extends DBIOEntity {
 
 		setMetadata("StatisticId", "StatisticID", "IDENTITY");
 
-		setMetadata("ActivityId", "fk_Activity", table);
+		setMetadata("ActivityIdInternal", "fk_Activity", table);
 
 		setMetadata("PeriodBegin", "periodBegin", table);
 		setMetadata("PeriodEnd", "periodEnd", table);
@@ -163,9 +163,15 @@ public class Statistic extends DBIOEntity {
 	public int getStaffStint() { return staffStint; }
 	public void setStaffStint(int staffStint) { this.staffStint = staffStint; }
 	
-	public String getActivityId() { return fk_activityId; }
-	public void setActivityId(String activityId) { this.fk_activityId = activityId; }
-	public Activity getActivity() { return new Activity(fk_activityId); }
-	public void setActivity(Activity a) { this.fk_activityId = a.getActivityId(); }
+	public int getActivityIdInternal() {
+		return fk_activityId;
+	}
+	public void setActivityIdInternal(int fk_activityId) {
+		this.fk_activityId = fk_activityId;  
+	}
+	public String getActivityId() { return String.valueOf(getActivityIdInternal()); }
+	public void setActivityId(String activityId) { setActivityIdInternal(Integer.parseInt(activityId)); }
+	public Activity getActivity() { return new Activity(getActivityId()); }
+	public void setActivity(Activity a) { setActivityId(a.getActivityId()); }
 
 }
