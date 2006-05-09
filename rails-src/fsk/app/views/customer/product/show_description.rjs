@@ -1,6 +1,0 @@
-#hide all the elements
-@all_items.each do |i|
-  page.hide 'description'+i.id.to_s
-end 
-page.replace_html 'description'+@item.id.to_s, :partial => 'product', :object => @item
-page.show 'description'+@item.id.to_s

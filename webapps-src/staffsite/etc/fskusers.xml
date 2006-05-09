@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <users>
 <user name="mat.weiss@uscm.org" role="uberuser"></user>
-<user name="scott.paulis@uscm.org" role="uberuser"></user>
 <user name="todd.gross@uscm.org" role="uberuser"></user>
 <user name="justin.sabelko@uscm.org" role="uberuser"></user>
 <user name="dave.schlernitzauer@uscm.org" role="uberuser"></user>

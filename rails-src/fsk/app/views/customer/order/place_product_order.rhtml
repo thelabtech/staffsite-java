@@ -1,7 +1,0 @@
-<%= start_form_tag :action => 'create_product_order' %>
-  <%= render :partial => 'product_form' %>
-  <%= submit_tag "Place Order", :class => "btn" %>
-<%= end_form_tag %>
-
-<br>
-<%= link_to 'Back to Summary', {:controller => "summary", :action => 'local_summary'} %>
