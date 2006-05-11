@@ -98,7 +98,7 @@ public class RolodexUpdater {
 		try {
 			_query = "SELECT rolodexid, firstname, lastname, email, crspersonid, eventpersonid, sipersonid, linczonecontactid, staffaccountno, usspstudentid, ussp01studentid, wsnsppersonid " +
 						"FROM "+ROLODEX_TBL+" " +
-						"WHERE len(firstname)>0 OR len(lastname)>0 OR len(email)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 OR LENGTH(email)>0 " +
 						"ORDER BY lastname, firstname";
 			_rolodexresultset = _rolodexstatement.executeQuery(_query);
 			while (_rolodexresultset.next()) {
@@ -164,7 +164,7 @@ public class RolodexUpdater {
 							"birthDate as birthdate, " +
 							"campus as campus " +
 						"FROM "+CRS_TBL+" " +
-						"WHERE len(firstname)>0 OR len(lastname)>0 OR len(email)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 OR LENGTH(email)>0 " +
 						"ORDER BY lastname, firstname";
 			_resultset = _statement.executeQuery(_query);
 			
@@ -237,7 +237,7 @@ public class RolodexUpdater {
 							"maritalStatus as maritalstatus, " +
 							"campus as campus " +
 						"FROM "+EVENT_TBL+" "+
-						"WHERE len(firstname)>0 OR len(lastname)>0 OR len(email)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 OR LENGTH(email)>0 " +
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -316,7 +316,7 @@ public class RolodexUpdater {
 							"maritalStatus as maritalstatus, " +
 							"recentSchools as campus " +
 						"FROM "+STINT_TBL+" "+
-						"WHERE len(firstname)>0 OR len(lastname)>0 OR len(currentEmail)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 OR LENGTH(currentEmail)>0 " +
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -402,7 +402,7 @@ public class RolodexUpdater {
 							"Email as email, " +
 							"CampusName as campus " +
 						"FROM "+LINCZONE_TBL+" "+
-						"WHERE len(firstname)>0 OR len(lastname)>0 OR len(email)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 OR LENGTH(email)>0 " +
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -472,7 +472,7 @@ public class RolodexUpdater {
 						"FROM "+STAFF_TBL+" as staff " +
 							"LEFT JOIN ministry_Address as address " +
 							"ON (address.AddressID = staff.fk_primaryAddress)"+
-						"WHERE len(staff.firstname)>0 OR len(staff.lastname)>0 OR len(staff.email)>0 " +
+						"WHERE LENGTH(staff.firstname)>0 OR LENGTH(staff.lastname)>0 OR LENGTH(staff.email)>0 " +
 						"ORDER BY staff.lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -547,7 +547,7 @@ public class RolodexUpdater {
 							"OtherNotes as note, " +
 							"CampusName as campus " +
 						"FROM "+USSP_TBL+" "+
-						"WHERE len(firstname)>0 OR len(lastname)>0 " +
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 " +
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -631,7 +631,7 @@ public class RolodexUpdater {
 							"OtherNotes as note, " +
 							"CampusName as campus " +
 						"FROM "+USSP01_TBL+" "+
-						"WHERE len(firstname)>0 OR len(lastname)>0 "+
+						"WHERE LENGTH(firstname)>0 OR LENGTH(lastname)>0 "+
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
@@ -732,7 +732,7 @@ public class RolodexUpdater {
 							//"birthdate as birthdate, " +
 							"universityFullName as campus " +
 						"FROM "+WSN_TBL+" "+
-						"WHERE len(legalFirstName)>0 OR len(legalLastName)>0 OR len(currentEmail)>0 "+
+						"WHERE LENGTH(legalFirstName)>0 OR LENGTH(legalLastName)>0 OR LENGTH(currentEmail)>0 "+
 						"ORDER BY lastname";
 			_resultset = _statement.executeQuery(_query);
 			while (_resultset.next()) {
