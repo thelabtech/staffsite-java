@@ -17,28 +17,15 @@ import java.util.Date;
  * @key-generator UUID
  */
 public class Review360Light  extends DBIOEntity {
-	/**
-     * @field-type org.alt60m.hr.review360.model.ReviewSessionLight
-     * @sql-type varchar
-     * @sql-size 64
-     * @sql-name fk_ReviewSessionID
-     * @sql-index
-     * @set-method assocReviewSession
-     * @get-method getReviewSession
-     */
-    private String sessionLightId = "";
+
 
 	/**
-     * @sql-type varchar
-     * @sql-size 64
      * @primary-key
      */
     private String review360LightId = "";
+    
+    private int fkSessionLightId = 0;
 
-	/**
-     * @sql-type varchar
-     * @sql-size 64
-     */
 	private String reviewedById = "";
 	
 	private String reviewedByTitle = "";
@@ -97,7 +84,7 @@ public class Review360Light  extends DBIOEntity {
 			//setMetadata("ReviewedByIsStaff","reviewedByIsStaff",table);
 			//setMetadata("ReviewedByIsMale","reviewedByIsMale",table);
 			
-			setMetadata("ReviewSessionLightId","fk_ReviewSessionLightID",table);
+			setMetadata("FkSessionLightId","fk_ReviewSessionLightID",table);
 
 			setMetadata("DateStarted","dateStarted",table);
 			setMetadata("DateCompleted","dateCompleted",table);
@@ -217,13 +204,25 @@ public class Review360Light  extends DBIOEntity {
 	public String getQ9() { return q9; }
 	public void setQ9(String q9) { this.q9 = q9; }
 
-	public String getReviewSessionId(){ return sessionLightId; }
-	public void setReviewSessionId(String sessionLightId) { this.sessionLightId = sessionLightId; }
-	public String getReviewSessionLightId(){ return sessionLightId; }
-	public void setReviewSessionLightId(String sessionLightId) { this.sessionLightId = sessionLightId; }
-	public ReviewSessionLight getReviewSessionLight(){ return new ReviewSessionLight(sessionLightId); }
-	public void setReviewSessionLight(ReviewSessionLight session) { this.sessionLightId = session.getReviewSessionLightId(); }
-	public void dissocReviewSessionLight(){ this.sessionLightId = ""; }
+	
+	
+	
+	public int getFkSessionLightId() {
+		return fkSessionLightId;
+	}
+	public void setFkSessionLightId(int fkSessionLightId) {
+		this.fkSessionLightId = fkSessionLightId;
+	}
+	
+	public String getReviewSessionId(){ return String.valueOf(getFkSessionLightId()); }
+	public void setReviewSessionId(String sessionLightId) { setFkSessionLightId(Integer.parseInt(sessionLightId)); }
+	public String getReviewSessionLightId(){ return getReviewSessionId(); }
+	public void setReviewSessionLightId(String sessionLightId) { setReviewSessionId(sessionLightId); }
+	public ReviewSessionLight getReviewSessionLight(){ return new ReviewSessionLight(getReviewSessionId()); }
+	public void setReviewSessionLight(ReviewSessionLight session) { setReviewSessionLightId(session.getReviewSessionLightId()); }
+	
+	
+	public void dissocReviewSessionLight(){ setFkSessionLightId(0); }
 	public void assocReviewSessionLight(ReviewSessionLight session){ setReviewSessionLight(session); }
 
 }

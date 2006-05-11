@@ -18,22 +18,11 @@ import java.util.Date;
  */
 public class Review360 extends DBIOEntity {
 	/**
-     * @field-type org.alt60m.hr.review360.model.ReviewSession
-     * @sql-type varchar
-     * @sql-size 64
-     * @sql-name fk_ReviewSessionId
-     * @sql-index
-     * @set-method assocReviewSession
-     * @get-method getReviewSession
-     */
-    private String sessionId = "";
-
-	/**
-     * @sql-type varchar
-     * @sql-size 64
      * @primary-key
      */
     private String review360Id = "";
+
+    private int fkSessionId = 0;
 
 	/**
      * @sql-type varchar
@@ -520,11 +509,19 @@ public class Review360 extends DBIOEntity {
 	public String getQ34() { return q34; }
 	public void setQ34(String q34) { this.q34 = q34; }
 
-    public String getReviewSessionId(){ return sessionId; }
-    public void setReviewSessionId(String sessionId) { this.sessionId = sessionId; }
-    public ReviewSession getReviewSession(){ return new ReviewSession(sessionId); }
-    public void setReviewSession(ReviewSession session) { this.sessionId = session.getReviewSessionId(); }
-    public void dissocReviewSession(){ this.sessionId = ""; }
+	
+	
+    public int getFkSessionId() {
+		return fkSessionId;
+	}
+	public void setFkSessionId(int fkSessionId) {
+		this.fkSessionId = fkSessionId;
+	}
+	public String getReviewSessionId(){ return String.valueOf(getFkSessionId()); }
+    public void setReviewSessionId(String sessionId) { setFkSessionId(Integer.parseInt(sessionId)); }
+    public ReviewSession getReviewSession(){ return new ReviewSession(getReviewSessionId()); }
+    public void setReviewSession(ReviewSession session) { setReviewSessionId(session.getReviewSessionId()); }
+    public void dissocReviewSession(){ setFkSessionId(0); }
 	public void assocReviewSession(ReviewSession session){ setReviewSession(session); }
 
 	
