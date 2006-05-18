@@ -136,7 +136,7 @@ public class ReviewSessionLight  extends DBIOEntity {
 		r.update();
 	}
 	public void dissocReview360Light(Review360Light r) {
-		r.setReviewSessionLightId("");
+		r.setReviewSessionLightId("0");
 		r.update();
 	}
 	public Vector getReview360Lights(){ 
@@ -144,17 +144,5 @@ public class ReviewSessionLight  extends DBIOEntity {
 		r.setReviewSessionLightId(this.reviewSessionLightId);
 		return r.selectList(); 
 	}
-    
-    protected void _assocReview360Light(Review360Light review) {
-	//	this.reviews.add(review);
-    //    review.assocReviewSession(this);
-    }
-    protected void _dissocReview360Light(Review360Light review) {
-	//	if(this.reviews.contains(review)) {
-	//		review._dissocReviewSession();
-//			this.reviews.remove(review);
-  //      }
-
-    }
 
 }

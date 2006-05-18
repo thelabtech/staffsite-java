@@ -135,7 +135,7 @@ public class ReviewSession  extends DBIOEntity {
 		r.update();
 	}
 	public void dissocReview360(Review360 r) {
-		r.setReviewSessionId("");
+		r.setReviewSessionId("0");
 		r.update();
 	}
 	public Vector getReview360s(){ 
