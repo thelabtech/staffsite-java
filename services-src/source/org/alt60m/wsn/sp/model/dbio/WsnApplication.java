@@ -180,39 +180,24 @@ public class WsnApplication extends DBIOEntity{
 		
 		setMetadata("Fk_personID","fk_personID", table);
 		setMetadata("Role", "role", table);
-		setMetadata("Ssn", "ssn", table);
 		setMetadata("EarliestAvailableDate", "earliestAvailableDate", table);
 		setMetadata("DateMustReturn", "dateMustReturn", table);
 		setMetadata("WillingForDifferentProject", "willingForDifferentProject", table);
 		setMetadata("IsApplicationComplete", "isApplicationComplete", table);
-		setMetadata("ApplicationCompleteNote", "applicationCompleteNote", table);
 		setMetadata("ProjectPref1", "projectPref1", table);
 		setMetadata("ProjectPref2", "projectPref2", table);
 		setMetadata("ProjectPref3", "projectPref3", table);
 		setMetadata("ProjectPref4", "projectPref4", table);
 		setMetadata("ProjectPref5", "projectPref5", table);
 		setMetadata("ApplAccountNo", "applAccountNo", table);
-		setMetadata("SupportGoal", "supportGoal", table);
-		setMetadata("SupportReceived", "supportReceived", table);
 		setMetadata("SupportBalance", "supportBalance", table);
 		setMetadata("InsuranceReceived", "insuranceReceived", table);
 		setMetadata("WaiverReceived", "waiverReceived", table);
 		setMetadata("DidGo", "didGo", table);
 		setMetadata("ParticipantEvaluation", "participantEvaluation", table);
-		setMetadata("DestinationGatewayCity", "destinationGatewayCity", table);
-		setMetadata("GatewayCityToLocationFlightNo", "gatewayCityToLocationFlightNo", table);
-		setMetadata("DepartGatewayCityToLocation", "departGatewayCityToLocation", table);
 		setMetadata("ArrivalGatewayCityToLocation", "arrivalGatewayCityToLocation", table);
 		setMetadata("LocationToGatewayCityFlightNo", "locationToGatewayCityFlightNo", table);
 		setMetadata("DepartLocationToGatewayCity", "departLocationToGatewayCity", table);
-		setMetadata("ArrrivalLocationToGatewayCity", "arrrivalLocationToGatewayCity", table);
-		setMetadata("DomesticOrigin", "domesticOrigin", table);
-		setMetadata("DomesticOriginToGCFlightNo", "domesticOriginToGCFlightNo", table);
-		setMetadata("DepartDomesticToGatewayCity", "departDomesticToGatewayCity", table);
-		setMetadata("ArrivalDomesticToGatewayCity", "arrivalDomesticToGatewayCity", table);
-		setMetadata("ArrivalAtDomesticOrigin", "arrivalAtDomesticOrigin", table);
-		setMetadata("TravelPlans", "travelPlans", table);
-		setMetadata("TravelDeviation", "travelDeviation", table);
 		setMetadata("PassportNo", "passportNo", table);
 		setMetadata("PassportCountry", "passportCountry", table);
 		setMetadata("PassportIssueDate", "passportIssueDate", table);
@@ -228,7 +213,6 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("Status", "status", table);
 		setMetadata("WsnYear", "wsnYear", table);
 		setMetadata("IsMemberId", "fk_isMember", table);
-		setMetadata("InSchool", "inSchool", table);
 		setMetadata("ParticipateEpic", "participateEpic", table);
 		setMetadata("ParticipateImpact", "participateImpact", table);
 		setMetadata("ParticipateDestino", "participateDestino", table);
@@ -332,23 +316,15 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("_34", "_34", table);
 		setMetadata("_35", "_35", table);
 		setMetadata("IsPaid", "isPaid", table);
-		setMetadata("ApplicationStatus", "applicationStatus", table);
 		setMetadata("IsApplyingForStaffInternship", "isApplyingForStaffInternship", table);
 		setMetadata("CreateDate", "createDate", table);
 		setMetadata("LastChangedDate", "lastChangedDate", table);
 		setMetadata("LastChangedBy", "lastChangedBy", table);
 		setMetadata("IsRecruited", "isRecruited", table);
 		setMetadata("AssignedToProject", "assignedToProject", table);
-		setMetadata("DatePaymentRecieved", "datePaymentRecieved", table);
-		setMetadata("EvaluationStatus", "evaluationStatus", table);
 		setMetadata("ElectronicSignature", "electronicSignature", table);
 		setMetadata("SubmittedDate", "submittedDate", table);
-		setMetadata("AssignedDate", "assignedDate", table);
-		setMetadata("DateReferencesDone", "dateReferencesDone", table);
 		setMetadata("AcceptedDate", "acceptedDate", table);
-		setMetadata("NotAcceptedDate", "notAcceptedDate", table);
-		setMetadata("WithdrawnDate", "withdrawnDate", table);
-		setMetadata("FinalWsnProjectID", "finalWsnProjectID", table);
 		setMetadata("PreferredContactMethod", "preferredContactMethod", table);
 		setMetadata("HowOftenCheckEmail", "howOftenCheckEmail", table);
 		setMetadata("OtherClassDetails", "otherClassDetails", table);
@@ -366,7 +342,6 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("CiBestTimeToCall", "ciBestTimeToCall", table);
 		setMetadata("CiTimeZone", "ciTimeZone", table);
 		setMetadata("_26date", "_26date", table);
-		setMetadata("AppType", "appType", table);
 	}
 	private final MSInfo info = new MSInfo();
 
@@ -394,7 +369,6 @@ public class WsnApplication extends DBIOEntity{
 	private String dateMustReturn = "";
 	private boolean willingForDifferentProject;
 	private boolean isApplicationComplete;
-	private boolean applicationCompleteNote;
 	private String projectPref1 = "";
 	private String projectPref2 = "";
 	private String projectPref3 = "";
@@ -449,7 +423,6 @@ public class WsnApplication extends DBIOEntity{
 	private String _1f, _2b, _3h, _4i, _5e, _5g, _6, _7, _8a, _8b, _9, _10, _11b, _12b, _14, _19f, _20a, _20b, _20c,
 	_21i, _22b, _23b, _24b, _25, _26b, _27b, _28b, _29b, _29e, _29f, _30, _31, _32, _33, _34, _35,
 		lastChangedBy, assignedToProject;
-	private String applicationStatus, evaluationStatus;
 	private String electronicSignature = "";
 	private Date submittedDate;
 	private Date assignedDate;
@@ -675,12 +648,6 @@ public class WsnApplication extends DBIOEntity{
 	}
 	public void setIsApplicationComplete(boolean isApplicationComplete) {
 		this.isApplicationComplete = isApplicationComplete; 
-	}
-	public boolean getApplicationCompleteNote() {
-		return applicationCompleteNote; 
-	}
-	public void setApplicationCompleteNote(boolean applicationCompleteNote) {
-		this.applicationCompleteNote = applicationCompleteNote; 
 	}
 	public String getProjectPref(int projectPrefIndex) {
 		switch(projectPrefIndex){
@@ -1357,8 +1324,6 @@ public class WsnApplication extends DBIOEntity{
 	public void setParticipateDestino(boolean participateDestino) { this.participateDestino = participateDestino; }
 	public boolean getParticipateImpact() { return participateImpact; }
 	public void setParticipateImpact(boolean participateImpact) { this.participateImpact = participateImpact; }
-	public String getApplicationStatus() { return applicationStatus; }
-	public void setApplicationStatus(String applicationStatus) { this.applicationStatus = applicationStatus; }
 
 	public boolean getIsApplyingForStaffInternship() { return isApplyingForStaffInternship; }
 	public void setIsApplyingForStaffInternship(boolean isApplyingForStaffInternship) { this.isApplyingForStaffInternship = isApplyingForStaffInternship; }
@@ -1417,9 +1382,6 @@ public class WsnApplication extends DBIOEntity{
 	
 	public Date getDatePaymentRecieved() { return datePaymentRecieved; }
 	public void setDatePaymentRecieved(Date datePaymentRecieved) { this.datePaymentRecieved = org.alt60m.util.DateUtils.clearTimeFromDate(datePaymentRecieved); }
-
-	public String getEvaluationStatus() { return evaluationStatus; }
-	public void setEvaluationStatus(String evaluationStatus) { this.evaluationStatus = evaluationStatus; }
 
 	/* Strings */
 	public String get_1f() { return _1f; }
