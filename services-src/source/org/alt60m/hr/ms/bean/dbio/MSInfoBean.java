@@ -204,17 +204,6 @@ public class MSInfoBean implements java.io.Serializable
 		}
 	}
 
-/** 2003-02-12 dc: Deprecated 
-	public String getApplicationStatus(String WsnApplicationID) {
-		try {
-			return info.getApplicationStatus(WsnApplicationID);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-**/
-
 	public Collection getParticipants(String projectID) {
 		try {
 			return info.getParticipants(projectID);

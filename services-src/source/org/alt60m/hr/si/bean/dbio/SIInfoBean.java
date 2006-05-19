@@ -748,36 +748,6 @@ public class SIInfoBean implements Serializable {
 		}
 	}
 
-	/**
-	 * 
-	 * @param ssmuserid
-	 * @return String
-	 */
-	public String getApplicationStatus(String id) {
-		try {
-
-			//refactored kb 2/4/03 
-			// now we have to get the appid by way of the sipersonid ONLY
-			String personid = getPersonIDBySSM(id);
-			String appid = getApplicationIDByPersonID(personid);
-
-			SIApplication app = getSIApplication(appid);
-
-			if (app != null) {
-				System.out.println("getApplicationStatus returning:" + app.getAppStatus());
-				return app.getAppStatus();
-			} else {
-				System.out.println("getApplicationStatus returning null because app returned from getSIApplicationBySSM(" + id + ") was null");
-				return null;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("getApplicationStatus had an exception--returning null");
-			return null;
-		}
-	}
-
 public boolean checkPersonalInfoRequiredFields(SIPerson p) {
 		String temp = "";
 		
