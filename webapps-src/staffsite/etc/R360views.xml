@@ -19,8 +19,9 @@
 	<view name="composeEmail" url="/Review360dbio/ComposeEmail.jsp"></view>
 	<view name="confirmEmail" url="/Review360dbio/ConfirmEmail.jsp"></view>
 	<view name="confirmEmails" url="/Review360dbio/ConfirmEmails.jsp"></view>
+	<view name="thank" url="/Review360dbio/Thank.jsp"></view>
 	<view name="Q360_0" url="/Review360dbio/Question0.jsp"></view>
-	<view name="Q360_1" url="/Review360dbio/Question1.jsp"></view>
+	<view name="Q360_1" url="/Review360dbio/Question1.jsp"></view> 
 	<view name="Q360_2" url="/Review360dbio/Question2.jsp"></view>
 	<view name="Q360_3" url="/Review360dbio/Question3.jsp"></view>
 	<view name="Q360_4" url="/Review360dbio/Question4.jsp"></view>
