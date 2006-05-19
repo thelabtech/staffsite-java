@@ -152,6 +152,52 @@ public class Review360Controller extends Controller
 
    }
 
+   public void thank(ActionContext ctx) 
+   {
+	
+		String accountNo = "";
+		if (ctx.getSession().getAttribute("accountNo")!=null) {
+			accountNo = (String)ctx.getSession().getAttribute("accountNo");
+		} else if (ctx.getProfile() != null) {
+			accountNo = (String) ctx.getProfile().get("AccountNo");
+		}
+		
+		ActionResults result = new ActionResults();
+
+		log(Priority.DEBUG, "Current user accountNo: " + accountNo);
+
+		try
+		{
+			Collection test = new Vector();
+			Collection testLight = new Vector();
+			
+			if ( !accountNo.equals("") ) {
+				test = createAssignmentList(accountNo);
+				testLight = createLightAssignmentList(accountNo);
+			}
+
+			result.addCollection("AssignmentList", test);
+			result.addCollection("AssignmentListLight", testLight);
+			
+			HttpSession session = ctx.getSession();
+			
+			size2session(session);
+			
+			Hashtable profile = (Hashtable)session.getAttribute("profile");
+			result.putValue("LightAdmin", "true");
+
+			ctx.setReturnValue(result);
+			ctx.goToView("thank");
+
+		}
+		catch (Exception e)
+		{
+			log(Priority.ERROR, e.toString(), e);
+			ctx.setError();
+			ctx.goToErrorView();
+		}
+
+   }
 	/**
 	 * <B>Controller Action</B>
 	 * Expectatations:
@@ -646,8 +692,12 @@ public class Review360Controller extends Controller
 			ObjectHashUtil.hash2obj(ctx.getHashedRequest(),my360);
 			my360.setDateCompleted(new Date());
 			my360.persist();
-			showIndex(ctx);
-
+			if (!my360.getReviewedById().equals("")) {
+				thank(ctx);
+			}
+			else {
+				ctx.goToView("showIndexNonStaff");
+			}
 		}
 		catch (Exception e)
 		{

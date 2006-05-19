@@ -40,11 +40,11 @@ public class Review360LightController extends Controller
 	private static final String LAST_ACTION_TOKEN =			"lastAction";
 
 	private final String VIEWS_FILE = "/WEB-INF/R360Lviews.xml";
-	private final String USERS_FILE = "/WEB-INF/R360Lusers.xml";
+//	private final String USERS_FILE = "/WEB-INF/R360Lusers.xml";
 
     private final String DEFAULT_ACTION = "showIndex";
 
-    private Hashtable usersRoles = new Hashtable();
+//    private Hashtable usersRoles = new Hashtable();
 	
 	public Review360LightController()  {
 		
@@ -76,12 +76,11 @@ public class Review360LightController extends Controller
 		super.setDefaultAction(DEFAULT_ACTION);
 
 		// client = new secant.extreme.Client();
-		initUsers(false);
+//		initUsers(false);
 
    }
 
-	/**gets a list of the 360Light administrators from R360Lusers.xml */
-    private void initUsers(boolean verbose) {
+/*    private void initUsers(boolean verbose) {
 		usersRoles = UsersProcessor.parse( getServletContext().getRealPath(USERS_FILE) );
 		if (verbose) {
 			for (Enumeration e = usersRoles.keys(); e.hasMoreElements();) {
@@ -91,7 +90,7 @@ public class Review360LightController extends Controller
 			log("finished loading users.");
 		}
     }
-
+*/
    
 	/**
 	 * <B>Controller Action</B>
@@ -121,11 +120,11 @@ public class Review360LightController extends Controller
 		HttpSession session = ctx.getSession();
 		Hashtable profile = (Hashtable)session.getAttribute("profile");
 
-		if (usersRoles.containsKey((String)profile.get("UserName"))) {
+//		if (usersRoles.containsKey((String)profile.get("UserName"))) {
 			result.putValue("LightAdmin", "true");
-		} else {
-			result.putValue("LightAdmin", "false");
-		}
+//		} else {
+//			result.putValue("LightAdmin", "false");
+//		}
 
 		try
 		{
@@ -147,6 +146,55 @@ public class Review360LightController extends Controller
 
    }
 
+   public void thank(ActionContext ctx) 
+   {
+	
+		String accountNo = "";
+		if (ctx.getSession().getAttribute("accountNo")!=null) {
+			accountNo = (String)ctx.getSession().getAttribute("accountNo");
+		} else if (ctx.getProfile() != null) {
+			accountNo = (String) ctx.getProfile().get("AccountNo");
+		}
+		
+		ActionResults result = new ActionResults();
+
+		log(Priority.DEBUG, "Current user accountNo: " + accountNo);
+
+		try
+		{
+			Collection test = new Vector();
+			Collection testLight = new Vector();
+			
+			if ( !accountNo.equals("") ) {
+				test = createAssignmentList(accountNo);
+				testLight = createAssignmentList(accountNo);
+			}
+
+			result.addCollection("AssignmentList", test);
+			result.addCollection("AssignmentListLight", testLight);
+			
+			HttpSession session = ctx.getSession();
+			
+			size2session(session);
+			
+			Hashtable profile = (Hashtable)session.getAttribute("profile");
+			result.putValue("LightAdmin", "true");
+
+			ctx.setReturnValue(result);
+			ctx.goToView("thank");
+
+		}
+		catch (Exception e)
+		{
+			log(Priority.ERROR, e.toString(), e);
+			ctx.setError();
+			ctx.goToErrorView();
+		}
+
+   }
+
+   
+   
 	/**
 	 * <B>Controller Action</B>
 	 * Expectatations:
@@ -614,7 +662,12 @@ public class Review360LightController extends Controller
 			Date currentDate = new Date(new Date().getTime());
 			rl.setDateCompleted(currentDate);
 			rl.persist();
-			showIndex(ctx);
+			if (!rl.getReviewedById().equals("")) {
+				thank(ctx);
+			}
+			else {
+				ctx.goToView("showIndexNonStaff");
+			}
 
 		}
 		catch (Exception e)
@@ -691,11 +744,11 @@ public class Review360LightController extends Controller
 			HttpSession session = ctx.getSession();
 			Hashtable profile = (Hashtable)session.getAttribute("profile");
 
-			if (usersRoles.containsKey((String)profile.get("UserName"))) {
+//			if (usersRoles.containsKey((String)profile.get("UserName"))) {
 				result.putValue("LightAdmin", "true");
-			} else {
-				result.putValue("LightAdmin", "false");
-			}
+//			} else {
+//				result.putValue("LightAdmin", "false");
+//			}
 
 			result.addCollection("AdminList", createFullAdminList(accountNo, true));
 			result.addCollection("AdminListLight", createAdminList(accountNo, true));
