@@ -184,11 +184,11 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("DateMustReturn", "dateMustReturn", table);
 		setMetadata("WillingForDifferentProject", "willingForDifferentProject", table);
 		setMetadata("IsApplicationComplete", "isApplicationComplete", table);
-		setMetadata("ProjectPref1", "projectPref1", table);
-		setMetadata("ProjectPref2", "projectPref2", table);
-		setMetadata("ProjectPref3", "projectPref3", table);
-		setMetadata("ProjectPref4", "projectPref4", table);
-		setMetadata("ProjectPref5", "projectPref5", table);
+		setMetadata("ProjectPref1Int", "projectPref1", table);
+		setMetadata("ProjectPref2Int", "projectPref2", table);
+		setMetadata("ProjectPref3Int", "projectPref3", table);
+		setMetadata("ProjectPref4Int", "projectPref4", table);
+		setMetadata("ProjectPref5Int", "projectPref5", table);
 		setMetadata("ApplAccountNo", "applAccountNo", table);
 		setMetadata("SupportBalance", "supportBalance", table);
 		setMetadata("InsuranceReceived", "insuranceReceived", table);
@@ -212,7 +212,7 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("PrevIsp", "prevIsp", table);
 		setMetadata("Status", "status", table);
 		setMetadata("WsnYear", "wsnYear", table);
-		setMetadata("IsMemberId", "fk_isMember", table);
+		setMetadata("IsMemberIntId", "fk_isMember", table);
 		setMetadata("ParticipateEpic", "participateEpic", table);
 		setMetadata("ParticipateImpact", "participateImpact", table);
 		setMetadata("ParticipateDestino", "participateDestino", table);
@@ -319,9 +319,9 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("IsApplyingForStaffInternship", "isApplyingForStaffInternship", table);
 		setMetadata("CreateDate", "createDate", table);
 		setMetadata("LastChangedDate", "lastChangedDate", table);
-		setMetadata("LastChangedBy", "lastChangedBy", table);
+		setMetadata("LastChangedByInt", "lastChangedBy", table);
 		setMetadata("IsRecruited", "isRecruited", table);
-		setMetadata("AssignedToProject", "assignedToProject", table);
+		setMetadata("AssignedToProjectInt", "assignedToProject", table);
 		setMetadata("ElectronicSignature", "electronicSignature", table);
 		setMetadata("SubmittedDate", "submittedDate", table);
 		setMetadata("AcceptedDate", "acceptedDate", table);
@@ -369,11 +369,11 @@ public class WsnApplication extends DBIOEntity{
 	private String dateMustReturn = "";
 	private boolean willingForDifferentProject;
 	private boolean isApplicationComplete;
-	private String projectPref1 = "";
-	private String projectPref2 = "";
-	private String projectPref3 = "";
-	private String projectPref4 = "";
-	private String projectPref5 = "";
+	private int projectPref1;
+	private int projectPref2;
+	private int projectPref3;
+	private int projectPref4;
+	private int projectPref5;
 	private String accountNo = "";
 	private int supportGoal = 0;
 	private int supportReceived = 0;
@@ -411,7 +411,7 @@ public class WsnApplication extends DBIOEntity{
 	private String status = "";
 	private String appType = "";
 	private String wsnYear = "";
-	private String fk_isMember;
+	private int fk_isMember;
 	private boolean isPaid;
 
 	private int weight, heightFeet, heightInches, ethnicMinistry, _16, _17, _18;
@@ -421,8 +421,9 @@ public class WsnApplication extends DBIOEntity{
 		_21a, _21b, _21c, _21d, _21e, _21f, _21g, _21h, _21j, _22a, _23a, _24a, _26a, _27a, _28a, _29a,  _29c, _29d,
 		participateEpic, participateDestino, participateImpact, isApplyingForStaffInternship, isRecruited;
 	private String _1f, _2b, _3h, _4i, _5e, _5g, _6, _7, _8a, _8b, _9, _10, _11b, _12b, _14, _19f, _20a, _20b, _20c,
-	_21i, _22b, _23b, _24b, _25, _26b, _27b, _28b, _29b, _29e, _29f, _30, _31, _32, _33, _34, _35,
-		lastChangedBy, assignedToProject;
+	_21i, _22b, _23b, _24b, _25, _26b, _27b, _28b, _29b, _29e, _29f, _30, _31, _32, _33, _34, _35;
+	private int lastChangedBy;
+	private int	assignedToProject;
 	private String electronicSignature = "";
 	private Date submittedDate;
 	private Date assignedDate;
@@ -651,42 +652,72 @@ public class WsnApplication extends DBIOEntity{
 	}
 	public String getProjectPref(int projectPrefIndex) {
 		switch(projectPrefIndex){
-			case 1:return projectPref1;
-			case 2:return projectPref2;
-			case 3:return projectPref3;
-			case 4:return projectPref4;
-			case 5:return projectPref5;
+			case 1:return String.valueOf(projectPref1);
+			case 2:return String.valueOf(projectPref2);
+			case 3:return String.valueOf(projectPref3);
+			case 4:return String.valueOf(projectPref4);
+			case 5:return String.valueOf(projectPref5);
 			default: return "";
 		}
 	}
 	public String getProjectPref1() {
+		return String.valueOf(projectPref1);
+	}
+	public int getProjectPref1Int() {
 		return projectPref1; 
 	}
 	public void setProjectPref1(String projectPref1) {
+		this.projectPref1 = Integer.parseInt(projectPref1);
+	}
+	public void setProjectPref1Int(int projectPref1) {
 		this.projectPref1 = projectPref1; 
 	}
 	public String getProjectPref2() {
+		return String.valueOf(projectPref2);
+	}
+	public int getProjectPref2Int() {
 		return projectPref2; 
 	}
 	public void setProjectPref2(String projectPref2) {
+		this.projectPref2 = Integer.parseInt(projectPref2);
+	}
+	public void setProjectPref2Int(int projectPref2) {
 		this.projectPref2 = projectPref2; 
 	}
 	public String getProjectPref3() {
+		return String.valueOf(projectPref3);
+	}
+	public int getProjectPref3Int() {
 		return projectPref3; 
 	}
 	public void setProjectPref3(String projectPref3) {
+		this.projectPref3 = Integer.parseInt(projectPref3);
+	}
+	public void setProjectPref3Int(int projectPref3) {
 		this.projectPref3 = projectPref3; 
 	}
 	public String getProjectPref4() {
+		return String.valueOf(projectPref4);
+	}
+	public int getProjectPref4Int() {
 		return projectPref4; 
 	}
 	public void setProjectPref4(String projectPref4) {
+		this.projectPref4 = Integer.parseInt(projectPref4);
+	}
+	public void setProjectPref4Int(int projectPref4) {
 		this.projectPref4 = projectPref4; 
 	}
 	public String getProjectPref5() {
+		return String.valueOf(projectPref5);
+	}
+	public int getProjectPref5Int() {
 		return projectPref5; 
 	}
 	public void setProjectPref5(String projectPref5) {
+		this.projectPref5 = Integer.parseInt(projectPref5);
+	}
+	public void setProjectPref5Int(int projectPref5) {
 		this.projectPref5 = projectPref5; 
 	}
 	public String getAccountNo() {
@@ -1003,24 +1034,30 @@ public class WsnApplication extends DBIOEntity{
 		this.wsnYear = wsnYear; 
 	}
 	public String getIsMemberId() {
+		return String.valueOf(fk_isMember); 
+	}
+	public int getIsMemberIntId() {
 		return fk_isMember; 
 	}
 	public void setIsMemberId(String isMember) {
+		this.fk_isMember =Integer.parseInt(isMember); 
+	}
+	public void setIsMemberIntId(int isMember) {
 		this.fk_isMember = isMember; 
 	}
 	public WsnProject getIsMember() {
 		WsnProject result = null;
-		if (fk_isMember != null) {
+		if (fk_isMember != 0) {
 			result = new WsnProject(fk_isMember);
 		}
 		return result;
 	}
 	public void setIsMember(WsnProject isMember) {
 		if (isMember != null) {
-			this.fk_isMember = isMember.getWsnProjectID();
+			setIsMemberId(isMember.getWsnProjectID());
 		}
 		else {
-			this.fk_isMember = null; 
+			setIsMemberId("0"); 
 		}
 	}
 	public String getWsnSpouseId() {
@@ -1337,8 +1374,10 @@ public class WsnApplication extends DBIOEntity{
 	public Date getLastChangedDate() { return lastChangedDate; }
 	public void setLastChangedDate(Date lastChangedDate) { this.lastChangedDate = org.alt60m.util.DateUtils.clearTimeFromDate(lastChangedDate); }
 	
-	public String getLastChangedBy() { return lastChangedBy; }
-	public void setLastChangedBy(String lastChangedBy) { this.lastChangedBy = lastChangedBy; }
+	public String getLastChangedBy() { return String.valueOf(lastChangedBy); }
+	public int getLastChangedByInt() { return lastChangedBy; }
+	public void setLastChangedBy(String lastChangedBy) { this.lastChangedBy = Integer.parseInt(lastChangedBy); }
+	public void setLastChangedByInt(int lastChangedBy) { this.lastChangedBy = lastChangedBy; }
 	
 	public String getCurrentCellPhone() { return person.getCurrentCellPhone(); }
 	public void setCurrentCellPhone(String currentCellPhone) { person.setCurrentCellPhone(currentCellPhone); }
@@ -1377,8 +1416,10 @@ public class WsnApplication extends DBIOEntity{
 	public boolean getIsRecruited() { return isRecruited; }
 	public void setIsRecruited(boolean isRecruited) { this.isRecruited = isRecruited; }
 	
-	public String getAssignedToProject() { return assignedToProject; }
-	public void setAssignedToProject(String assignedToProject) { this.assignedToProject = assignedToProject; }
+	public String getAssignedToProject() { return String.valueOf(assignedToProject); }
+	public int getAssignedToProjectInt() { return assignedToProject; }
+	public void setAssignedToProject(String assignedToProject) { this.assignedToProject = Integer.parseInt(assignedToProject); }
+	public void setAssignedToProjectInt(int assignedToProject) { this.assignedToProject = assignedToProject; }
 	
 	public Date getDatePaymentRecieved() { return datePaymentRecieved; }
 	public void setDatePaymentRecieved(Date datePaymentRecieved) { this.datePaymentRecieved = org.alt60m.util.DateUtils.clearTimeFromDate(datePaymentRecieved); }
@@ -1835,16 +1876,16 @@ public class WsnApplication extends DBIOEntity{
 		Collection projects = info.getValidProjects(person.getRegion(), true, person.getGender(), "", "", "", "", "", false);
 		String foundProject = "";
 		if (projects != null) {
-			if (checkProject(this.projectPref1, projects))
-				foundProject = this.projectPref1;
-			else if (checkProject(this.projectPref2, projects))
-				foundProject = this.projectPref2;
-			else if (checkProject(this.projectPref3, projects))
-				foundProject = this.projectPref3;
-			else if (checkProject(this.projectPref4, projects))
-				foundProject = this.projectPref4;
-			else if (checkProject(this.projectPref5, projects))
-				foundProject = this.projectPref5;
+			if (checkProject(this.getProjectPref1(), projects))
+				foundProject = this.getProjectPref1();
+			else if (checkProject(this.getProjectPref2(), projects))
+				foundProject = this.getProjectPref2();
+			else if (checkProject(this.getProjectPref3(), projects))
+				foundProject = this.getProjectPref3();
+			else if (checkProject(this.getProjectPref4(), projects))
+				foundProject = this.getProjectPref4();
+			else if (checkProject(this.getProjectPref5(), projects))
+				foundProject = this.getProjectPref5();
 		}
 		if (foundProject.equals("")) {
 			ec++;
