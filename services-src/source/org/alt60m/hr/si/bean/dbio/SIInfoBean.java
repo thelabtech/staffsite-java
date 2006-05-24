@@ -149,8 +149,8 @@ public class SIInfoBean implements Serializable {
 	* Added 3 December 2002 RDH
 	*/
 	public SIProject getSIProject(int SIProjectID) {
-		if (SIProjectID == 0)
-			return null; //early return 
+		//if (SIProjectID == 0)
+		//	return null; //early return 
 		SIProject a = new SIProject();
 
 		try {

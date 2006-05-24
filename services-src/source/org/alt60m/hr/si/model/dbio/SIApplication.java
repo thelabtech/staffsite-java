@@ -62,11 +62,11 @@ public class SIApplication extends DBIOEntity {
 		String table = TABLENAME_BASE + SIUtil.CURRENT_SI_YEAR;
 
 		setMetadata("ApplicationIDInt", "applicationID", "IDENTITY");
-		setMetadata("LocationA", "locationA", table);
+		setMetadata("LocationAInt", "locationA", table);
 		setMetadata("LocationAExplanation", "locationAExplanation", table);
-		setMetadata("LocationB", "locationB", table);
+		setMetadata("LocationBInt", "locationB", table);
 		setMetadata("LocationBExplanation", "locationBExplanation", table);
-		setMetadata("LocationC", "locationC", table);
+		setMetadata("LocationCInt", "locationC", table);
 		setMetadata("LocationCExplanation", "locationCExplanation", table);
 		setMetadata("AvailableMonth", "availableMonth", table);
 		setMetadata("AvailableYear", "availableYear", table);
@@ -236,11 +236,11 @@ public class SIApplication extends DBIOEntity {
 	private String appType = "";
 
 	/**  Ministry Interests (interests.jsp) */
-	private String locationA = "";
+	private int locationA;
 	private String locationAExplanation = "";
-	private String locationB = "";
+	private int locationB;
 	private String locationBExplanation = "";
-	private String locationC = "";
+	private int locationC;
 	private String locationCExplanation = "";
 	private String availableMonth = "";
 	private String availableYear = "";
@@ -466,6 +466,9 @@ public class SIApplication extends DBIOEntity {
 	 * @return int
 	 */
 	public String getLocationA() {
+		return String.valueOf(this.locationA);
+	}
+	public int getLocationAInt() {
 		return this.locationA;
 	}
 
@@ -474,6 +477,9 @@ public class SIApplication extends DBIOEntity {
 	 * @param locationA  The locationA to set as a int.
 	 */
 	public void setLocationA(String locationA) {
+		this.locationA = Integer.parseInt(locationA);
+	}
+	public void setLocationAInt(int locationA) {
 		this.locationA = locationA;
 	}
 
@@ -498,6 +504,9 @@ public class SIApplication extends DBIOEntity {
 	 * @return int
 	 */
 	public String getLocationB() {
+		return String.valueOf(this.locationB);
+	}
+	public int getLocationBInt() {
 		return this.locationB;
 	}
 
@@ -506,6 +515,9 @@ public class SIApplication extends DBIOEntity {
 	 * @param locationB  The locationB to set as a String.
 	 */
 	public void setLocationB(String locationB) {
+		this.locationB = Integer.parseInt(locationB);
+	}
+	public void setLocationBInt(int locationB) {
 		this.locationB = locationB;
 	}
 
@@ -530,6 +542,9 @@ public class SIApplication extends DBIOEntity {
 	 * @return String
 	 */
 	public String getLocationC() {
+		return String.valueOf(this.locationC);
+	}
+	public int getLocationCInt() {
 		return this.locationC;
 	}
 
@@ -538,6 +553,9 @@ public class SIApplication extends DBIOEntity {
 	 * @param locationC  The locationC to set as a String.
 	 */
 	public void setLocationC(String locationC) {
+		this.locationC = Integer.parseInt(locationC);
+	}
+	public void setLocationCInt(int locationC) {
 		this.locationC = locationC;
 	}
 
