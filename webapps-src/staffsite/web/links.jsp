@@ -53,7 +53,6 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a HREF="http://www.impactmovement.com" target="_blank">Impact Movement</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.4greeks.org" target="_blank">4greeks.org</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.ugoglobal.com" target="_blank">Ugoglobal.com</a></td></tr>						
-					  <TR><td><%=fontB%><a HREF="http://www.aworldwithoutboundaries.com" target="_blank">A World Without Boundaries (Great Plains Int’l WSN)</a></td></tr>	
 					  <TR><td><%=fontB%><a HREF="http://startingwithgod.com" target="_blank">StartingwithGod.com</a></td></tr>
 					  <TR><td><%=fontB%><a HREF=" http://www.leaderu.com/" target="_blank">CLM's Leadership University Website</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.collegeprep.org/" target="_blank">College Prep Seminars</a></td></tr>
