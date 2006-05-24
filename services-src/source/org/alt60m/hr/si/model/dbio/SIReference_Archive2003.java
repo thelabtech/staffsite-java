@@ -178,7 +178,7 @@ public class SIReference_Archive2003 extends SIReference_Parent {
 		setMetadata("_re3", "_re3", table);
 		setMetadata("_re4", "_re4", table);
 		setMetadata("_re5", "_re5", table);
-		setMetadata("Fk_SIApplicationID", "fk_SIApplicationID", table);
+		setMetadata("Fk_SIApplicationIntID", "fk_SIApplicationID", table);
 		
 		setAutodetectProperties(false);		
 	}
@@ -453,7 +453,7 @@ public class SIReference_Archive2003 extends SIReference_Parent {
 	private int _re4;
 	private String _re5 = "";
 
-	private String fk_SIApplicationID = "";
+	private int fk_SIApplicationID;
 
 	// The following are not in the database, but can be in the object if someone loads them into the object using ref.loadRelated()
 	private SIApplication application;
@@ -876,10 +876,12 @@ public class SIReference_Archive2003 extends SIReference_Parent {
 	public String get_re5() { return _re5; }
 	public void set_re5(String _re5) {this._re5 = _re5; }
 
-	public String getFk_SIApplicationID() { return fk_SIApplicationID; }
-	public void setFk_SIApplicationID(String fk_SIApplicationID) {this.fk_SIApplicationID = fk_SIApplicationID; }
+	public String getFk_SIApplicationID() { return String.valueOf(fk_SIApplicationID); }
+	public int getFk_SIApplicationIntID() { return fk_SIApplicationID; }
+	public void setFk_SIApplicationID(String fk_SIApplicationID) {this.fk_SIApplicationID = Integer.parseInt(fk_SIApplicationID); }
+	public void setFk_SIApplicationIntID(int fk_SIApplicationID) {this.fk_SIApplicationID = fk_SIApplicationID; }
 	public SIApplication getSIApplication() { return new SIApplication(fk_SIApplicationID); }
-	public void setSIApplication(SIApplication application) {this.fk_SIApplicationID = application.getApplicationID(); }
+	public void setSIApplication(SIApplication application) {this.setFk_SIApplicationID(application.getApplicationID()); }
 
 	public String getFk_SIPersonID() { return fk_SIPersonID; }
 	public void setFk_SIPersonID(String fk_SIPersonID) {this.fk_SIPersonID = fk_SIPersonID; }

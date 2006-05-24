@@ -83,9 +83,9 @@ public class SIProject extends DBIOEntity {
 		setMetadata("DestinationAddress", "destinationAddress", table);
 		setMetadata("DestinationPhone", "destinationPhone", table);
 		setMetadata("SiYear", "siYear", table);
-		setMetadata("Fk_isCoord", "fk_isCoord", table);
-		setMetadata("Fk_isAPD", "fk_isAPD", table);
-		setMetadata("Fk_isPD", "fk_isPD", table);
+		setMetadata("Fk_isCoordInt", "fk_isCoord", table);
+		setMetadata("Fk_isAPDInt", "fk_isAPD", table);
+		setMetadata("Fk_isPDInt", "fk_isPD", table);
 		setMetadata("ProjectType", "projectType", table);
 		setMetadata("StudentStartDate", "studentStartDate", table);
 		setMetadata("StudentEndDate", "studentEndDate", table);
@@ -196,7 +196,7 @@ public class SIProject extends DBIOEntity {
 	/* The following are SI_Person keys. They may be changed to ints before we deploy this.
 	lastChangedBy may end up being the email address or staffSiteProfileID of whomever is
 	logged in and changing this. */
-	private String lastChangedBy, fk_isCoord, fk_isAPD, fk_isPD;
+	private int lastChangedBy, fk_isCoord, fk_isAPD, fk_isPD;
 
 	private Date departDateFromGateCity, arrivalDateAtLocation, departDateFromLocation, arrivalDateAtGatewayCity, studentStartDate, studentEndDate, staffStartDate, staffEndDate, leadershipStartDate, leadershipEndDate, createDate;
 
@@ -572,27 +572,51 @@ public class SIProject extends DBIOEntity {
 		this.displayLocation = displayLocation;
 	}
 	public String getLastChangedBy() {
+		return String.valueOf(lastChangedBy);
+	}
+	public int getLastChangedByInt() {
 		return lastChangedBy;
 	}
 	public void setLastChangedBy(String lastChangedBy) {
+		this.lastChangedBy = Integer.parseInt(lastChangedBy);
+	}
+	public void setLastChangedByInt(int lastChangedBy) {
 		this.lastChangedBy = lastChangedBy;
 	}
 	public String getFk_isCoord() {
+		return String.valueOf(fk_isCoord);
+	}
+	public int getFk_isCoordInt() {
 		return fk_isCoord;
 	}
 	public void setFk_isCoord(String fk_isCoord) {
+		this.fk_isCoord = Integer.parseInt(fk_isCoord);
+	}
+	public void setFk_isCoordInt(int fk_isCoord) {
 		this.fk_isCoord = fk_isCoord;
 	}
 	public String getFk_isAPD() {
+		return String.valueOf(fk_isAPD);
+	}
+	public int getFk_isAPDInt() {
 		return fk_isAPD;
 	}
 	public void setFk_isAPD(String fk_isAPD) {
+		this.fk_isAPD = Integer.parseInt(fk_isAPD);
+	}
+	public void setFk_isAPDInt(int fk_isAPD) {
 		this.fk_isAPD = fk_isAPD;
 	}
 	public String getFk_isPD() {
+		return String.valueOf(fk_isPD);
+	}
+	public int getFk_isPDInt() {
 		return fk_isPD;
 	}
 	public void setFk_isPD(String fk_isPD) {
+		this.fk_isPD = Integer.parseInt(fk_isPD);
+	}
+	public void setFk_isPDInt(int fk_isPD) {
 		this.fk_isPD = fk_isPD;
 	}
 	public String getProjectType() {
