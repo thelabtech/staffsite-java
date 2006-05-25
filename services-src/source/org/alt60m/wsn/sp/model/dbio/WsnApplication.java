@@ -1034,10 +1034,10 @@ public class WsnApplication extends DBIOEntity{
 		this.wsnYear = wsnYear; 
 	}
 	public String getIsMemberId() {
-		return String.valueOf(fk_isMember); 
+		return String.valueOf(this.fk_isMember); 
 	}
 	public int getIsMemberIntId() {
-		return fk_isMember; 
+		return this.fk_isMember; 
 	}
 	public void setIsMemberId(String isMember) {
 		this.fk_isMember =Integer.parseInt(isMember); 

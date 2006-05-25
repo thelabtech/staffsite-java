@@ -1517,7 +1517,7 @@ public class WsnSpController extends Controller
 					temp.put("CurrentState",helper.value((String)person.getCurrentState()));
 					temp.put("CurrentPhone",helper.value((String)person.getCurrentPhone()));
 //						WsnProject m = person.getIsMember();  // no longer works with dbio
-					if (person.getIsMemberId() != null) {
+					if (person.getIsMemberId() != null && !person.getIsMemberId().equals("0")) {
 						WsnProject m = person.getIsMember();
 						temp.put("Project",helper.value((String)m.getName()));
 					} else {
