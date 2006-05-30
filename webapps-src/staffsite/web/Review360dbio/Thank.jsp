@@ -11,7 +11,7 @@
 <% int curr_tab = 3; %>
 <% String pageTitle ="Review360"; %>
 <% java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy"); %>
-<%@ include file="/headersmall.jspf" %>
+<%@ include file="/headersmall_no_auth.jspf" %>
 <% 
 	ActionResults tub = ActionResults.getActionResults(session);
 	out.print("<!-- " + tub.toHTML() + "-->");
