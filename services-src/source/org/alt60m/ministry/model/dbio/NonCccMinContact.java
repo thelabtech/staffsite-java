@@ -19,7 +19,7 @@ public class NonCccMinContact extends DBIOEntity {
 
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Assoc_otherMinistries";
+		String table = "ministry_assoc_otherministries";
 		setMetadata("TargetAreaId","TargetAreaID","KEY");
 		setMetadata("NonCccMinId","NonCccMinID","KEY");
 		setMetadata("DbioDummy","dbioDummy",table);

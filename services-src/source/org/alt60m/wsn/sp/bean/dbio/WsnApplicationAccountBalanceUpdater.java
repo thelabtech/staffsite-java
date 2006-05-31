@@ -35,7 +35,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 			//ms sql connection for saving balance
 			java.sql.Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 			java.sql.Statement sqlstmt = sqlconn.createStatement();
-			java.sql.ResultSet accounts = sqlstmt.executeQuery("SELECT APPLACCOUNTNO, WsnApplicationID FROM wsn_sp_viewApplication WHERE wsnYear = '"+currentWsnYear+"' and isstaff = '0' and applaccountno IS NOT NULL");
+			java.sql.ResultSet accounts = sqlstmt.executeQuery("SELECT APPLACCOUNTNO, WsnApplicationID FROM wsn_sp_viewapplication WHERE wsnYear = '"+currentWsnYear+"' and isstaff = '0' and applaccountno IS NOT NULL");
 
 			while (accounts.next()) {
 				String accountNo = accounts.getString("applaccountno");
@@ -46,7 +46,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 					try {
 						double bal = fetchBalance(accountNo, sqlconn);
 						java.sql.Statement sqlstmt2 = sqlconn.createStatement();
-						sqlstmt2.executeUpdate("update wsn_sp_WsnApplication set supportbalance = " + bal + " where WsnApplicationID = '" + WsnApplicationID + "'");
+						sqlstmt2.executeUpdate("update wsn_sp_wsnapplication set supportbalance = " + bal + " where WsnApplicationID = '" + WsnApplicationID + "'");
 						System.out.println(" updated with " + bal);
 						sqlstmt2.close();
 					} catch (SQLException e) {
@@ -71,7 +71,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 		String AccountNo = acct;
 		
 		Statement statement = sqlconn.createStatement();
-		ResultSet rs2 = statement.executeQuery("select sum(monetary_amount) from wsn_sp_WsnDonations where accountno='" + AccountNo + "'");
+		ResultSet rs2 = statement.executeQuery("select sum(monetary_amount) from wsn_sp_wsndonations where accountno='" + AccountNo + "'");
 		
 		rs2.next();
 		v2 = rs2.getDouble(1)*-1;
@@ -91,13 +91,13 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 				Statement oracleStatement = oracleConnection.createStatement();
 				ResultSet oracleRS2 = oracleStatement.executeQuery("select ROWNUM, JRNL_LN_REF, MONETARY_AMOUNT from finprod.ps_jrnl_ln where business_unit='CAMPS' and journal_id like 'CN%' and journal_date > '1-Jan-"+currentWsnYear+"'");
 
-				deleteStatementText = "DELETE FROM wsn_sp_WsnDonations";
+				deleteStatementText = "DELETE FROM wsn_sp_wsndonations";
 				try {
 					System.out.println("Deleting wsn_sp_Donations....");
 					sqlstmtInsert.executeUpdate(deleteStatementText);
 					System.out.println("....wsn_sp_Donations Deleted!");
 				} catch (SQLException e) {
-					System.err.println("CANNOT delete wsn_sp_WsnDonations!");
+					System.err.println("CANNOT delete wsn_sp_wsndonations!");
 					System.err.println(e);
 				}
 				while (oracleRS2.next()) {
@@ -125,7 +125,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 					{
 						// Insert donation record into our SQL Server database
 						//ms sql connection for saving balance
-						insertStatementText = "INSERT INTO wsn_sp_WsnDonations values (" + rowNum + ", '" + jLineRef + "', " + monAmt + ")";
+						insertStatementText = "INSERT INTO wsn_sp_wsndonations values (" + rowNum + ", '" + jLineRef + "', " + monAmt + ")";
 						try
 						{
 							sqlstmtInsert.executeUpdate(insertStatementText);

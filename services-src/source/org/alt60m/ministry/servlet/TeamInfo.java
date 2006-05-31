@@ -16,6 +16,6 @@ public class TeamInfo {
 
     public Collection getLocalLevelTeams() throws Exception {
 		LocalLevel team = new LocalLevel();
-		return team.selectList("SELECT team FROM ministry_LocalLevel team ORDER BY team.name");
+		return team.selectList("SELECT team FROM ministry_locallevel team ORDER BY team.name");
     }
 }

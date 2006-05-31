@@ -28,7 +28,7 @@ public class Dependent extends DBIOEntity {
     }
     
     public void localinit() throws DBIOEntityException {
-    	String table = "ministry_Dependent";
+    	String table = "ministry_dependent";
     	
     	setMetadata("DependentId","DependentID","IDENTITY");
     	
@@ -61,13 +61,13 @@ public class Dependent extends DBIOEntity {
 
     public Vector getStaff() {
     	Staff s = new Staff();
-    	String table = "ministry_viewDependentsStaff";
+    	String table = "ministry_viewdependentsstaff";
     	s.changeTargetTable(table);
     	return s.selectList("DependentID = '" + this.dependentId + "'");
     }    
     public Vector getStaff(String orderField, boolean DESC) {
 		Staff s = new Staff();
-		String table = "ministry_viewDependentsStaff";
+		String table = "ministry_viewdependentsstaff";
 		s.changeTargetTable(table);
 		return s.selectList("DependentID = '" + this.dependentId + "' ORDER BY "
 				+ orderField + " " + (DESC ? "DESC" : "ASC"));

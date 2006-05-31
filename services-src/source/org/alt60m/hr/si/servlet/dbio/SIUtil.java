@@ -613,7 +613,7 @@ public class SIUtil {
 		}
 		try {
 			SIReference ref = new SIReference();
-			String qry = "select count(*) as refcount from hr_si_Reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = " + appid;
+			String qry = "select count(*) as refcount from hr_si_reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = " + appid;
 			numrefs = ObjectHashUtil.countIt(ref, qry);
 
 			System.out.println("getNumberOfReferences found(int): " + numrefs);
@@ -683,7 +683,7 @@ public class SIUtil {
 		return retvals;
 	}
 
-	// added dc 12/04/02 - retrieves the specific MINISTRY_STAFF record, and returns their info for loading into a reference
+	// added dc 12/04/02 - retrieves the specific ministry_staff record, and returns their info for loading into a reference
 	public static Hashtable getReferenceStaffMember(String staffNo) {
 		Hashtable retvals = new Hashtable();
 		try {
@@ -754,9 +754,9 @@ public class SIUtil {
 
 			String sql;
 
-			hr_si_Person = "ministry_Person";
-			hr_si_Application = "hr_si_Application_" + yearID;
-			hr_si_Reference = "hr_si_Reference_" + yearID;
+			hr_si_Person = "ministry_person";
+			hr_si_Application = "hr_si_application_" + yearID;
+			hr_si_Reference = "hr_si_reference_" + yearID;
 			a = new SIApplication();
 			a.changeYear(yearID);
 			r = new SIReference();

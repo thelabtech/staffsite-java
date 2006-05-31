@@ -31,7 +31,7 @@ public class RegionalTeam extends DBIOEntity {
 	public RegionalTeam() {}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_RegionalTeam";
+		String table = "ministry_regionalteam";
 
 		setMetadata("RegionalTeamId", "teamID", "IDENTITY");
 

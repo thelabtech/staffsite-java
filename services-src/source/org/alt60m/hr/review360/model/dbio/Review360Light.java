@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * @persistent 
- * @table hr_review360_Review360Light
+ * @table hr_review360_review360light
  * @cache-type none
  * @access shared
  * @key-generator UUID
@@ -71,7 +71,7 @@ public class Review360Light  extends DBIOEntity {
 	
 	public void localinit() throws DBIOEntityException {
 			
-			String table = "hr_review360_Review360Light";
+			String table = "hr_review360_review360light";
 
 			setMetadata("Review360LightId","Review360LightID","IDENTITY");
 

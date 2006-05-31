@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class StaffInfo {
     
-    private final String STAFF_TABLE = "ministry_Staff";
+    private final String STAFF_TABLE = "ministry_staff";
 
     public Collection listStaffByLastName(String subString) throws Exception {
 	    return InfoBaseQueries.listStaffByLastName(subString);

@@ -14,8 +14,8 @@ import com.kenburcham.framework.dbio.DBIOEntity;
 import com.kenburcham.framework.dbio.DBIOEntityException;
 
 public class WsnApplication extends DBIOEntity{
-	private static final String APPLICATION_TABLE = "wsn_sp_WsnApplication";
-	private static final String VIEWAPP_TABLE = "wsn_sp_viewApplication";
+	private static final String APPLICATION_TABLE = "wsn_sp_wsnapplication";
+	private static final String VIEWAPP_TABLE = "wsn_sp_viewapplication";
 
 	private WsnPerson person = new WsnPerson();
 	

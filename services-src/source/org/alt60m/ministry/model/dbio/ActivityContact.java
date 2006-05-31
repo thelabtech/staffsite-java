@@ -19,7 +19,7 @@ public class ActivityContact extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Assoc_activityContact";
+		String table = "ministry_assoc_activitycontact";
 		setMetadata("AccountNo","accountNo","KEY");
 		setMetadata("ActivityId","ActivityID","KEY");
 		setMetadata("DbioDummy","dbioDummy",table);

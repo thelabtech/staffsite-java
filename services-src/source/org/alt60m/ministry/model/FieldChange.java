@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @persistent 
- * @table ministry_FieldChange
+ * @table ministry_fieldchange
  * @key-generator UUID
  * @cache-type none
  * @access shared

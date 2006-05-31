@@ -31,7 +31,7 @@ public class Note extends DBIOEntity {
 	}
 
     public void localinit() throws DBIOEntityException {
-		String table ="ministry_Note";
+		String table ="ministry_note";
 
 		setMetadata("NoteId","NoteID","IDENTITY");
 	    setMetadata("DateEntered","dateEntered",table);

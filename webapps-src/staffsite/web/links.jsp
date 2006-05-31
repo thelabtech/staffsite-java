@@ -48,7 +48,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a HREF="http://www.waymore.org" target="_blank">Way More (FSK Site)</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.studentlinc.com" target="_blank">StudentLINC</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.destinomovement.com" target="_blank">Destino Movement</a></td></tr>
-  					  <TR><td><%=fontB%><a HREF="http://www.mydestino.com" target="_blank">My Destino</a></td></tr>
+  					<TR><td><%=fontB%><a HREF="http://www.mydestino.com" target="_blank">My Destino</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.epicmovement.com" target="_blank">Epic Movement</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.impactmovement.com" target="_blank">Impact Movement</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.4greeks.org" target="_blank">4greeks.org</a></td></tr>

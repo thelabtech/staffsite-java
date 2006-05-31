@@ -17,12 +17,12 @@ public class RolodexUpdater {
 	private static final String ROLODEX_TBL = "ministry_Rolodex";
 	private static final String CRS_TBL = "crs_CRSPerson";
 	private static final String EVENT_TBL = "event_EventPerson";
-	private static final String STINT_TBL = "ministry_Person";
-	private static final String LINCZONE_TBL = "linczone_Contacts";
-	private static final String STAFF_TBL = "ministry_Staff";
+	private static final String STINT_TBL = "ministry_person";
+	private static final String LINCZONE_TBL = "linczone_contacts";
+	private static final String STAFF_TBL = "ministry_staff";
 	private static final String USSP_TBL = "ussp_Student";
 	private static final String USSP01_TBL = "ussp_Student01";
-	private static final String WSN_TBL = "wsn_sp_viewApplication";
+	private static final String WSN_TBL = "wsn_sp_viewapplication";
     
 		//Log Helper Code//
 	private static LogHelper logHelper = new LogHelper();
@@ -470,7 +470,7 @@ public class RolodexUpdater {
 							"staff.maritalStatus as maritalstatus, " +
 							"staff.birthDate as birthdate " +
 						"FROM "+STAFF_TBL+" as staff " +
-							"LEFT JOIN ministry_Address as address " +
+							"LEFT JOIN ministry_address as address " +
 							"ON (address.AddressID = staff.fk_primaryAddress)"+
 						"WHERE LENGTH(staff.firstname)>0 OR LENGTH(staff.lastname)>0 OR LENGTH(staff.email)>0 " +
 						"ORDER BY staff.lastname";

@@ -7,7 +7,7 @@ import org.alt60m.hr.si.servlet.dbio.SIUtil;
 import org.alt60m.util.DateUtils;
 /**
  * @persistent 
- * @table wsn_sp_WsnProject
+ * @table wsn_sp_wsnproject
  * @cache-type none
  * @access shared
  * @key-generator UUID
@@ -38,7 +38,7 @@ public class SIProject extends DBIOEntity {
 	}
 
 	public void localinit() {
-		String table = "hr_si_Project";
+		String table = "hr_si_project";
 
 		setMetadata("SIProjectID", "SIProjectID", "IDENTITY");
 		setMetadata("Name", "name", table);

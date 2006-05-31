@@ -22,7 +22,7 @@ public class Category extends DBIOEntity {
     public boolean persist() { return isPKEmpty() ? insert() : update(); }
     
     public void localinit() throws DBIOEntityException {
-    	String table = "cms_CmsCategory";
+    	String table = "cms_cmscategory";
     	
     	setMetadata("CategoryId","CmsCategoryId","IDENTITY");
     	setMetadata("ParentCategory","parentCategory",table);

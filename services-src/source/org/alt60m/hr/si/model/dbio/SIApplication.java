@@ -23,7 +23,7 @@ import java.util.Hashtable;
  */
 public class SIApplication extends DBIOEntity {
 
-	private static final String TABLENAME_BASE = "hr_si_Application_";
+	private static final String TABLENAME_BASE = "hr_si_application_";
 
 	public SIApplication() {
 //		dc added 12-12-02: initialize some data fields when object is created

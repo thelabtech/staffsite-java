@@ -10,7 +10,7 @@ import org.alt60m.util.DateUtils;
 
 /**
  * @persistent 
- * @table cms_CmsFile
+ * @table cms_cmsfile
  * @cache-type none
  * @access shared
  * @key-generator UUID
@@ -105,7 +105,7 @@ public class CmsFile {
     /**
      * @field-name categories
      * @field-type org.alt60m.cms.model.CmsCategory
-	 * @many-table cms_assoc_FileCategory
+	 * @many-table cms_assoc_filecategory
      * @sql-name CmsCategoryID
      * @many-key CmsFileID
      * @get-method getCategories

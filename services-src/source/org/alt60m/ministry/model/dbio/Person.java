@@ -7,7 +7,7 @@ import com.kenburcham.framework.dbio.DBIOEntity;
 //import com.kenburcham.framework.dbio.DBIOEntityException;
 
 public class Person extends DBIOEntity {
-	private static final String TABLENAME = "ministry_Person";
+	private static final String TABLENAME = "ministry_person";
 
 
 	public boolean insert() {

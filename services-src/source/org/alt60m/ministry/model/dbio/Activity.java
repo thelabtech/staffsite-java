@@ -43,7 +43,7 @@ public class Activity extends DBIOEntity{
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Activity";
+		String table = "ministry_activity";
 
 		setMetadata("ActivityId","ActivityID","IDENTITY");
 
@@ -127,13 +127,13 @@ public class Activity extends DBIOEntity{
 
     public Vector getActivityContacts() {
 		Staff s = new Staff();
-		String table = "ministry_viewActivityContacts";
+		String table = "ministry_viewactivitycontacts";
 		s.changeTargetTable(table);
 		return s.selectList("ActivityID = '" + this.activityId + "'");
 	}
     public Vector getActivityContacts(String orderField, boolean DESC) {
 		Staff s = new Staff();
-		String table = "ministry_viewActivityContacts";
+		String table = "ministry_viewactivitycontacts";
 		s.changeTargetTable(table);
 		return s.selectList("ActivityID = '" + this.activityId + "' ORDER BY " + orderField + " " + (DESC ? "DESC" : "ASC"));
 	}

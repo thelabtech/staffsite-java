@@ -20,7 +20,7 @@ public class WsnUser extends DBIOEntity {
 	}
 	
 	public void localinit() {
-		String table = "wsn_sp_WsnUsers";
+		String table = "wsn_sp_wsnusers";
 		
 		setMetadata("WsnUserID", "wsnUserID", "IDENTITY");
 		setMetadata("SsmUserName", "ssmUserName", table);

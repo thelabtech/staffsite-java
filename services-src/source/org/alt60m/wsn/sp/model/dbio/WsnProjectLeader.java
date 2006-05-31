@@ -53,7 +53,7 @@ public class WsnProjectLeader extends DBIOEntity {
 	 * @see com.kenburcham.framework.dbio.DBIOEntity#localinit()
 	 */
 	public void localinit() throws DBIOEntityException {
-		String table = "wsn_sp_viewProjectLeaders";
+		String table = "wsn_sp_viewprojectleaders";
 		
 		setMetadata("WsnProjectID", "WsnProjectID", "IDENTITY");
 		setMetadata("WsnProjectID", "WsnProjectID", table);

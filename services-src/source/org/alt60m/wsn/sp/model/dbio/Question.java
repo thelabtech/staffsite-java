@@ -43,7 +43,7 @@ public class Question extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "wsn_sp_viewQuestion";
+		String table = "wsn_sp_viewquestion";
 		setMetadata("QuestionID", "questionID", "IDENTITY");
 
 //		 TODO: modify for project
@@ -187,7 +187,7 @@ public class Question extends DBIOEntity {
 	public boolean insert() {
 		try {
 			clearMetadata();
-			String table = "wsn_sp_Question";
+			String table = "wsn_sp_question";
 
 			setMetadata("QuestionID", "questionID", "IDENTITY");
 
@@ -212,7 +212,7 @@ public class Question extends DBIOEntity {
 	public boolean update() {
 		try {
 			clearMetadata();
-			String table = "wsn_sp_Question";
+			String table = "wsn_sp_question";
 
 			setMetadata("QuestionID", "questionID", "IDENTITY");
 
@@ -237,7 +237,7 @@ public class Question extends DBIOEntity {
 	public boolean delete() {
 		try {
 			clearMetadata();
-			String table = "wsn_sp_Question";
+			String table = "wsn_sp_question";
 
 			setMetadata("QuestionID", "questionID", "IDENTITY");
 

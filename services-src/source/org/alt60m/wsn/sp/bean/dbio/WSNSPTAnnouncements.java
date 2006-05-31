@@ -37,7 +37,7 @@ public class WSNSPTAnnouncements implements java.io.Serializable {
 		//grab the files
 		try {
 			File file = new File();
-			file.changeTargetTable("cms_viewCategoryIDFiles");
+			file.changeTargetTable("cms_viewcategoryidfiles");
 			Collection catFiles = ObjectHashUtil.list(file.selectList("CmsCategoryID = '"+categoryId +"' order by dateAdded DESC"));
 		
 			Iterator iter = catFiles.iterator();

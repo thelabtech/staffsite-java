@@ -13,7 +13,7 @@ public class WsnProject extends DBIOEntity {
 		return WsnProjectID == 0;
 	}
 	public void localinit() throws DBIOEntityException {
-		String table = "wsn_sp_WsnProject";
+		String table = "wsn_sp_wsnproject";
 		
 		setMetadata("WsnProjectIdInt", "WsnProjectID", "IDENTITY");
 		setMetadata("Name", "name", table);

@@ -17,7 +17,7 @@ public class Answer extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_Answer";
+		String table = "crs_answer";
 		setMetadata("AnswerID", "answerID", "IDENTITY");
 
 		setMetadata("QuestionID", "fk_QuestionID", "KEY");

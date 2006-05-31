@@ -22,7 +22,7 @@ public class OldAddress extends DBIOEntity {
     private String country = new String();
     
     public void localinit() throws DBIOEntityException {
-    	String table = "ministry_Address";
+    	String table = "ministry_address";
     	
     	setMetadata("AddressId","AddressID","IDENTITY");
             

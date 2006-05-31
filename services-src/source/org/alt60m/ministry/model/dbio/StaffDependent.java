@@ -18,7 +18,7 @@ public class StaffDependent extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Assoc_dependents";
+		String table = "ministry_assoc_dependents";
 		setMetadata("AccountNo","accountNo",table);
 		setMetadata("DependentId","DependentID",table);
 		setMetadata("DbioDummy","dbioDummy",table);

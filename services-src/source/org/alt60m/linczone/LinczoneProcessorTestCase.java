@@ -21,9 +21,9 @@ public class LinczoneProcessorTestCase {
 		Connection conn = DriverManager.getConnection(props.getProperty("url"));
 		
 		Statement stat = conn.createStatement();
-//	short test	ResultSet rs = stat.executeQuery("select TargetAreaID, name from dev.istdev.ministry_TargetArea where state like 'CA'");
+//	short test	ResultSet rs = stat.executeQuery("select TargetAreaID, name from dev.istdev.ministry_targetarea where state like 'CA'");
 // longer test
-		ResultSet rs = stat.executeQuery("select TargetAreaID, name from dev.istdev.ministry_TargetArea");
+		ResultSet rs = stat.executeQuery("select TargetAreaID, name from dev.istdev.ministry_targetarea");
 		while(rs.next()) {
 			String taID = rs.getString("TargetAreaID");
 			String taName = rs.getString("name");

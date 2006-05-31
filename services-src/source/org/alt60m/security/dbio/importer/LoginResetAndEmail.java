@@ -76,7 +76,7 @@ public class LoginResetAndEmail {
 				throw e;
 			}
 			Statement statement = m_connection.createStatement();
-			ResultSet rs1 = statement.executeQuery("select firstName, email from staffsite_staffSiteProfile where username='"+username+"'");
+			ResultSet rs1 = statement.executeQuery("select firstName, email from staffsite_staffsiteprofile where username='"+username+"'");
                         
 			if (!rs1.next()) {
                 throw new Exception("The username that you entered does not exist in our database. Please try again, or contact <a href=\"mailto:help@campuscrusadeforchrist.com\">help@campuscrusadeforchrist.com</a> for further assistance.");                           
@@ -93,7 +93,7 @@ public class LoginResetAndEmail {
                         Statement updateStatement = m_connection.createStatement();
                         updateStatement.executeUpdate(update);
 
-                        update = "update staffsite_staffSiteProfile set changePassword=1 where username='"+username+"'";
+                        update = "update staffsite_staffsiteprofile set changePassword=1 where username='"+username+"'";
                         System.out.println(update);
                         updateStatement = m_connection.createStatement();
                         updateStatement.executeUpdate(update);

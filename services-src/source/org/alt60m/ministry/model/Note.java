@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * @persistent 
- * @table ministry_Note
+ * @table ministry_note
  * @key-generator UUID
  * @cache-type none
  * @access shared

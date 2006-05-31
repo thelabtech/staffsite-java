@@ -13,9 +13,9 @@ public class AuthorizationInfo {
 	public Collection getRegionalPendingApprovals(String region) throws Exception {
 		String sql =
 			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff" +
-			" FROM ministry_ChangeRequest scr "
-				+ "INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo "
-				+ "INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+			" FROM ministry_changerequest scr "
+				+ "INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo "
+				+ "INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE staff.region= '"+region+"' AND "
 					+ "auth.authorized = '' AND "
 					+ "auth.role= 'HRRD' AND "
@@ -23,10 +23,10 @@ public class AuthorizationInfo {
 					+ "scr.appliedDate IS NULL";
 
 		String sql2 =
-			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr "
-				+ "INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo "
-				+ "INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
-				+ "INNER JOIN ministry_FieldChange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges "
+			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr "
+				+ "INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo "
+				+ "INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+				+ "INNER JOIN ministry_fieldchange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges "
 				+ "WHERE fc.field = 'region' "
 					+ "AND fc.newValue = '"+region+"' "
 					+ "AND auth.role= 'HRRD' "
@@ -35,10 +35,10 @@ public class AuthorizationInfo {
 					+ "AND scr.appliedDate IS NULL";
 		
 		String sql3 =
-			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr "
-				+ "INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo "
-				+ "INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
-				+ "INNER JOIN ministry_FieldChange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges "
+			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr "
+				+ "INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo "
+				+ "INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+				+ "INNER JOIN ministry_fieldchange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges "
 				+ "WHERE fc.field = 'region' "
 					+ "AND fc.newValue = '"+region+"' "
 					+ "AND auth.role= 'HRRD' "
@@ -47,19 +47,19 @@ public class AuthorizationInfo {
 					+ "AND scr.appliedDate IS NULL";
 
 		String sql4 =
-			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr " +
-				"INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo " +
-				"INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
+			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr " +
+				"INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo " +
+				"INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
 			"WHERE staff.region = '"+region+"' " +
 				"AND auth.role= 'HRRD' " +
 				"AND auth.authorized = '' " +
 				"AND auth.sequence= 3 " +
 				"AND scr.appliedDate IS NULL " +
 				"AND scr.ChangeRequestID NOT IN " +
-					"(SELECT scr.ChangeRequestID FROM ministry_ChangeRequest scr " +
-							"INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo " +
-							"INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
-							"INNER JOIN ministry_FieldChange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges " +
+					"(SELECT scr.ChangeRequestID FROM ministry_changerequest scr " +
+							"INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo " +
+							"INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
+							"INNER JOIN ministry_fieldchange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges " +
 							"WHERE fc.field = 'region' " +
 								"AND auth.role= 'HRRD' " +
 								"AND auth.authorized = '' " +
@@ -68,9 +68,9 @@ public class AuthorizationInfo {
 		
 		String sql5 =
 			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff" +
-			" FROM ministry_ChangeRequest scr "
-				+ "INNER JOIN ministry_Staff staff ON scr.updateStaff = staff.accountNo "
-				+ "INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+			" FROM ministry_changerequest scr "
+				+ "INNER JOIN ministry_staff staff ON scr.updateStaff = staff.accountNo "
+				+ "INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE scr.region= '"+region+"' AND "
 					+ "auth.authorized = '' AND "
 					+ "auth.role= 'HRRD' AND "
@@ -87,8 +87,8 @@ public class AuthorizationInfo {
 
 	public Collection getNonCampusPendingApprovals() throws Exception {
 		String sql =
-			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr " +
-				"INNER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
+			"SELECT scr.ChangeRequestID, scr.requestdate, scr.effectivedate, scr.applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr " +
+				"INNER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID " +
 				"WHERE scr.appliedDate IS NULL  " +
 				"AND auth.role = 'HRNC'";
 		return getRequests(sql);
@@ -97,10 +97,10 @@ public class AuthorizationInfo {
 	public Collection getNationalPendingApprovals() throws Exception {
 
 		String subQuery =
-			"SELECT scro.ChangeRequestID FROM ministry_ChangeRequest scro LEFT OUTER JOIN ministry_Authorization auth ON scro.ChangeRequestID = auth.fk_changeRequestID "
+			"SELECT scro.ChangeRequestID FROM ministry_changerequest scro LEFT OUTER JOIN ministry_authorization auth ON scro.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE auth.authorized = '' AND (auth.role='HRNC' OR auth.role='HRRD') AND auth.sequence = '1'";
 		String query =
-			"SELECT ChangeRequestID, requestdate, effectivedate, applieddate, type, fk_requestedBy, updateStaff FROM ministry_ChangeRequest scr LEFT OUTER JOIN ministry_Authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
+			"SELECT ChangeRequestID, requestdate, effectivedate, applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr LEFT OUTER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
 				+ "WHERE auth.authorized = '' AND auth.role='HRND' AND scr.applieddate is null AND scr.ChangeRequestID not in("+subQuery+")";
 
 		return getRequests(query);

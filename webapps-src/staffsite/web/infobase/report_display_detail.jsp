@@ -67,7 +67,7 @@
   targetAreaName = tars.getString(1);
   region = tars.getString(2);
 
-  String qry = "SELECT ministry_Statistic.*, ministry_activity.strategy ";
+  String qry = "SELECT ministry_statistic.*, ministry_activity.strategy ";
   qry += "FROM ministry_statistic INNER JOIN ministry_activity ON ministry_statistic.fk_activity = ministry_activity.activityid ";
   qry += "WHERE ministry_activity.strategy in (" + qStrategyList + ") ";
   qry += "AND ministry_statistic.periodend < '" + periodEnd + "' ";

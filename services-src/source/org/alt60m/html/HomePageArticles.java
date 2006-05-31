@@ -89,7 +89,7 @@ public class HomePageArticles implements java.io.Serializable {
 		try {
 			if (region.equals("")) {
 				File file = new File();
-				file.changeTargetTable("cms_viewCategoryIDFiles");
+				file.changeTargetTable("cms_viewcategoryidfiles");
 				Collection catFiles = file.selectList("CmsCategoryID='"+categoryId+"' AND quality='B' ORDER BY dateAdded DESC");
 
 				Iterator iter = catFiles.iterator();
@@ -128,7 +128,7 @@ public class HomePageArticles implements java.io.Serializable {
 				}
 			} else {
 				File file = new File();
-				file.changeTargetTable("cms_viewCategoryIDFiles");
+				file.changeTargetTable("cms_viewcategoryidfiles");
 				Collection catFiles = file.selectList("CmsCategoryID='"+categoryId+"' ORDER BY dateAdded DESC");
 
 				Iterator iter = catFiles.iterator();

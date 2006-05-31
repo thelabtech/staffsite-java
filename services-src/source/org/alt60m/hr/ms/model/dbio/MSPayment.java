@@ -19,7 +19,7 @@ public class MSPayment extends DBIOEntity {
 		select();
 	}
 	public void localinit() {
-		String table = "hr_ms_Payment";
+		String table = "hr_ms_payment";
 		
 		setMetadata("PaymentID", "paymentID", "IDENTITY");
 		setMetadata("PaymentFor", "paymentFor", table);

@@ -22,7 +22,7 @@ public class TargetArea extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_TargetArea";
+		String table = "ministry_targetarea";
 		setMetadata("TargetAreaId", "targetAreaId", "IDENTITY");
 
 		setMetadata("Name", "name", table);

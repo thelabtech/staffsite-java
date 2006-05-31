@@ -23,7 +23,7 @@ public class FileCategory extends File {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "cms_viewFilesAndCategories";
+		String table = "cms_viewfilesandcategories";
 
 		setMetadata("CategoryId","CmsCategoryId","IDENTITY");
 		setMetadata("ParentCategory","parentCategory",table);

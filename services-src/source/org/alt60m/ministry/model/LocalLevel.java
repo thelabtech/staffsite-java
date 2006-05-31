@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * @persistent 
- * @table ministry_LocalLevel
+ * @table ministry_locallevel
  * @key-generator UUID
  * @cache-type none
  * @access shared
@@ -28,7 +28,7 @@ public class LocalLevel {
     /**
      * @associates <{org.alt60m.ministry.model.Activity}>
      * @field-type org.alt60m.ministry.model.Activity
-     * @many-table ministry_Activity
+     * @many-table ministry_activity
      * @many-key fk_teamID
      */
   	private Collection activities = new Vector();

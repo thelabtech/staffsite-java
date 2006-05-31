@@ -33,7 +33,7 @@ public class CmsInfo {
     public Collection getCategoriesFromFileID(String fileID) {
 	    String qry = "CmsFileID = '"+fileID+"' order by path";
 	    Category cat = new Category();
-	    cat.changeTargetTable("cms_viewFileIDCategories");
+	    cat.changeTargetTable("cms_viewfileidcategories");
 	    return  cat.selectList(qry);
     }
     public Collection getParentCategories() throws Exception {

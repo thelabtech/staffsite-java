@@ -996,9 +996,9 @@ public class CRSApplication {
 		}
 
 		if (localLevel)
-			r.changeTargetTable("crs_viewRegistrationLocalLevel");
+			r.changeTargetTable("crs_viewregistrationlocallevel");
 		else
-			r.changeTargetTable("crs_viewRegistrationTargetArea");
+			r.changeTargetTable("crs_viewregistrationtargetarea");
 
 		if (type == -1)
 			regs = r.selectList("fk_ConferenceID = '" + conferenceID + "' "
@@ -2237,7 +2237,7 @@ public class CRSApplication {
 				Registration r = new Registration();
 
 				com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
-				tx.setSQL("SELECT SUM(credit) FROM crs_Payment WHERE fk_RegistrationID = '"
+				tx.setSQL("SELECT SUM(credit) FROM crs_payment WHERE fk_RegistrationID = '"
 						+ registrationID + "'");
 				if (tx.getRecords()) {
 					java.sql.ResultSet mine = tx.getResultSet();
@@ -2269,7 +2269,7 @@ public class CRSApplication {
 				Registration r = new Registration();
 
 				tx = r.getTransaction();
-				tx.setSQL("SELECT SUM(credit) FROM crs_Payment WHERE fk_RegistrationID = '"
+				tx.setSQL("SELECT SUM(credit) FROM crs_payment WHERE fk_RegistrationID = '"
 						+ registrationID
 						+ "' or fk_RegistrationID = '"
 						+ spouseRegistrationID + "'");
@@ -2300,7 +2300,7 @@ public class CRSApplication {
 		Registration r = new Registration();
 
 		com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
-		tx.setSQL("SELECT SUM(debit) FROM crs_Payment WHERE fk_RegistrationID = '"
+		tx.setSQL("SELECT SUM(debit) FROM crs_payment WHERE fk_RegistrationID = '"
 				+ registrationID + "'");
 		if (tx.getRecords()) {
 			java.sql.ResultSet mine = tx.getResultSet();
@@ -2320,7 +2320,7 @@ public class CRSApplication {
 		Registration r = new Registration();
 
 		com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
-		tx.setSQL("SELECT SUM(debit) FROM crs_Payment WHERE fk_RegistrationID = '"
+		tx.setSQL("SELECT SUM(debit) FROM crs_payment WHERE fk_RegistrationID = '"
 				+ registrationID
 				+ "' or fk_RegistrationID = '"
 				+ spouseRegistrationID + "'");

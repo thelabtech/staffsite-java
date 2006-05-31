@@ -45,7 +45,7 @@ public class Merchandise extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_Merchandise";
+		String table = "crs_merchandise";
 		setMetadata("MerchandiseID", "merchandiseID", "IDENTITY");
 
 		setMetadata("ConferenceID", "fk_ConferenceID", "KEY");
@@ -175,7 +175,7 @@ public class Merchandise extends DBIOEntity {
 
 		r.clearMetadata();
 
-		String table = "crs_viewMerchandiseChoice";
+		String table = "crs_viewmerchandisechoice";
 
 		r.setMetadata("RegistrationID", "registrationID", "IDENTITY");
 		r.setMetadata("RegistrationTypeID", "fk_RegistrationTypeID", table);
@@ -193,7 +193,7 @@ public class Merchandise extends DBIOEntity {
 
 		r.clearMetadata();
 
-		String table = "crs_viewMerchandiseChoice";
+		String table = "crs_viewmerchandisechoice";
 
 		r.setMetadata("RegistrationID", "registrationID", "IDENTITY");
 

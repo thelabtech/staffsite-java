@@ -20,7 +20,7 @@ public class WsnEvaluation extends DBIOEntity {
 	}
 	
 	public void localinit() {
-		String table = "wsn_sp_WsnEvaluation";
+		String table = "wsn_sp_wsnevaluation";
 		
 		setMetadata("EvalID", "evalID", "IDENTITY");
 		setMetadata("ApplicantNotified", "applicantNotified", table);

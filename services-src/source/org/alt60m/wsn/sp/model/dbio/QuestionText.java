@@ -37,7 +37,7 @@ public class QuestionText extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "wsn_sp_QuestionText";
+		String table = "wsn_sp_questiontext";
 		setMetadata("QuestionTextID", "questionTextID", "IDENTITY");
 
 		//For QuestionText

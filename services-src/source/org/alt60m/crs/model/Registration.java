@@ -51,7 +51,7 @@ public class Registration extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_viewRegistration";
+		String table = "crs_viewregistration";
 		setMetadata("RegistrationID", "registrationID", "IDENTITY");
 
 		setMetadata("ConferenceID", "fk_conferenceID", "KEY");
@@ -603,7 +603,7 @@ public class Registration extends DBIOEntity {
 		Merchandise m = new Merchandise();
 		m.clearMetadata();
 
-		String table = "crs_viewMerchandiseChoice";
+		String table = "crs_viewmerchandisechoice";
 		m.setMetadata("MerchandiseID", "merchandiseID", "IDENTITY");
 		m.setMetadata("ConferenceID", "fk_ConferenceID", "KEY");
 		m.setMetadata("Name", "name", table);
@@ -620,7 +620,7 @@ public class Registration extends DBIOEntity {
 		Merchandise m = new Merchandise();
 		m.clearMetadata();
 
-		String table = "crs_viewMerchandiseChoice";
+		String table = "crs_viewmerchandisechoice";
 		m.setMetadata("MerchandiseID", "merchandiseID", "IDENTITY");
 		m.setMetadata("ConferenceID", "fk_ConferenceID", "KEY");
 		m.setMetadata("Name", "name", table);
@@ -711,7 +711,7 @@ public class Registration extends DBIOEntity {
 	public boolean insert() {
 		clearMetadata();
 
-		String table = "crs_Registration";
+		String table = "crs_registration";
 
 		setMetadata("RegistrationID", "registrationID", "IDENTITY");
 		setMetadata("ConferenceID", "fk_ConferenceID", table);
@@ -734,7 +734,7 @@ public class Registration extends DBIOEntity {
 	public boolean delete() {
 		clearMetadata();
 
-		String table = "crs_Registration";
+		String table = "crs_registration";
 
 		setMetadata("RegistrationID", "registrationID", "IDENTITY");
 		setMetadata("ConferenceID", "fk_ConferenceID", table);
@@ -759,7 +759,7 @@ public class Registration extends DBIOEntity {
 	public boolean update() {
 		clearMetadata();
 
-		String table = "crs_Registration";
+		String table = "crs_registration";
 
 		setMetadata("RegistrationID", "registrationID", "IDENTITY");
 		setMetadata("ConferenceID", "fk_ConferenceID", table);

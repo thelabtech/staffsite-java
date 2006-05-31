@@ -19,7 +19,7 @@ public class SIUser extends DBIOEntity {
 		select();
 	}
 	public void localinit() {
-		String table = "hr_si_Users";
+		String table = "hr_si_users";
 
 		setMetadata("SiUserID", "siUserID", "IDENTITY");
 		setMetadata("Fk_ssmUserID", "fk_ssmUserID", table);

@@ -57,7 +57,7 @@ public class RegistrationType extends DBIOEntity {
 
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_RegistrationType";
+		String table = "crs_registrationtype";
 
 		setMetadata("RegistrationTypeID", "registrationTypeID", "IDENTITY");
 		setMetadata("ConferenceID", "fk_ConferenceID", "KEY");

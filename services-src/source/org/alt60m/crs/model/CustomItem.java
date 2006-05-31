@@ -26,7 +26,7 @@ public class CustomItem extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_CustomItem";
+		String table = "crs_customitem";
 		setMetadata("CustomItemID", "customItemID", "IDENTITY");
 
 		setMetadata("ConferenceID", "fk_ConferenceID", "KEY");

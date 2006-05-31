@@ -83,7 +83,7 @@ public class StaffSnapshot extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_StaffSnapshot";
+		String table = "ministry_staffSnapshot";
 
 		setMetadata("SnapshotID","snapshotID","IDENTITY");
 		

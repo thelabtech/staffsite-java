@@ -359,8 +359,8 @@ public class QueueChangeRequest {
 			String field = (String)valuesIter.next();
 			if ( fields.contains(field) ) {
 				String fieldChange = (String)newValues.get(field);
-				String sql = "SELECT scr.ChangeRequestID FROM ministry_ChangeRequest scr " +
-							"INNER JOIN istdev.ministry_FieldChange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges " +
+				String sql = "SELECT scr.ChangeRequestID FROM ministry_changerequest scr " +
+							"INNER JOIN istdev.ministry_fieldchange fc ON scr.ChangeRequestID = fc.Fk_hasFieldChanges " +
 							"WHERE scr.updateStaff = '"+staffId+"' " +
 								"AND (scr.applieddate = '' OR scr.applieddate IS NULL) " +
 								"AND fc.field = '"+field+"' " +

@@ -984,7 +984,7 @@ public class SIPaymentHandler {
 			}
 
 			SIApplication a = new SIApplication();
-			String query = "SELECT b.* FROM ministry_Person a, HR_SI_Application_" + SIUtil.CURRENT_SI_YEAR + " b where a.firstname like '" + firstname + "%' AND a.lastname like '" + lastname + "' AND b.isPaid='F' AND a.fk_ssmUserId = b.fk_ssmUserid";
+			String query = "SELECT b.* FROM ministry_person a, hr_si_application_" + SIUtil.CURRENT_SI_YEAR + " b where a.firstname like '" + firstname + "%' AND a.lastname like '" + lastname + "' AND b.isPaid='F' AND a.fk_ssmUserId = b.fk_ssmUserid";
 			Collection c = ObjectHashUtil.list(a.selectSQLList(query));
 			for (Iterator i = c.iterator(); i.hasNext();) {
 				Hashtable h = (Hashtable) i.next();

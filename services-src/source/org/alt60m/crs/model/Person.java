@@ -130,7 +130,7 @@ public class Person extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Person";
+		String table = "ministry_person";
 		setMetadata("PersonID", "personID", "IDENTITY");
 		setMetadata("DateCreated", "dateCreated", table);
 		setMetadata("DateChanged", "dateChanged", table);

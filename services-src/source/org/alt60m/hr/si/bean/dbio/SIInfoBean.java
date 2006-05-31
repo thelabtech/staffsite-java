@@ -638,7 +638,7 @@ public class SIInfoBean implements Serializable {
 			maxSACheck =
 				" AND (project.maxNoStudentA >"
 					+ " (SELECT Count(application0.assignedToProject) as numSA"
-					+ " FROM hr_si_Application_" + currYear + " as application0 "
+					+ " FROM hr_si_application_" + currYear + " as application0 "
 					+ " WHERE ((application0.assignedToProject = project.SIProjectID) AND (application0.appStatus <> \'"
 					+ SIApplication.STATUS_WITHDRAWN
 					+ "\') AND (application0.siYear = \'"
@@ -648,7 +648,7 @@ public class SIInfoBean implements Serializable {
 			maxSAMCheck =
 				" AND (project.maxNoStudentAMale >"
 					+ " (SELECT Count(application2.assignedToProject) as numSAM"
-					+ " FROM hr_si_Application_" + currYear + " as application2 INNER JOIN ministry_Person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
+					+ " FROM hr_si_application_" + currYear + " as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
 					+ " WHERE ((person2.gender = \'"
 					+ maleValue
 					+ "\') AND (application2.assignedToProject = project.SIProjectID) AND (application2.appStatus <> \'"
@@ -660,7 +660,7 @@ public class SIInfoBean implements Serializable {
 			maxSAFCheck =
 				" AND (project.maxNoStudentAFemale >"
 					+ " (SELECT Count(application2.assignedToProject) as numSAM"
-					+ " FROM hr_si_Application_" + currYear + " as application2 INNER JOIN ministry_Person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
+					+ " FROM hr_si_application_" + currYear + " as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
 					+ " WHERE ((person2.gender = \'"
 					+ femaleValue
 					+ "\') AND (application2.assignedToProject = project.SIProjectID) AND (application2.appStatus <> \'"
@@ -672,7 +672,7 @@ public class SIInfoBean implements Serializable {
 			maxSPCheck =
 				" AND (project.maxNoStudentP >"
 					+ " (SELECT Count(application3.finalProject) as numSP"
-					+ " FROM hr_si_Application_" + currYear + " as application3 "
+					+ " FROM hr_si_application_" + currYear + " as application3 "
 					+ " WHERE ((application3.finalProject=project.SIProjectID) AND (application3.appStatus <> \'"
 					+ SIApplication.STATUS_WITHDRAWN
 					+ "\') AND (application3.siYear = \'"
@@ -682,7 +682,7 @@ public class SIInfoBean implements Serializable {
 			maxSPMCheck =
 				" AND (project.maxNoStudentPMale >"
 					+ " (SELECT Count(application5.finalProject) as numSPF"
-					+ " FROM hr_si_Application_" + currYear + " as application5 INNER JOIN ministry_Person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
+					+ " FROM hr_si_application_" + currYear + " as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
 					+ " WHERE ( ( person5.gender = \'"
 					+ maleValue
 					+ "\') AND (application5.finalProject = project.SIProjectID) AND (application5.appStatus <> \'"
@@ -694,7 +694,7 @@ public class SIInfoBean implements Serializable {
 			maxSPFCheck =
 				" AND (project.maxNoStudentPFemale >"
 					+ " (SELECT Count(application5.finalProject) as numSPF"
-					+ " FROM hr_si_Application_" + currYear + " as application5 INNER JOIN ministry_Person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
+					+ " FROM hr_si_application_" + currYear + " as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
 					+ " WHERE ( ( person5.gender = \'"
 					+ femaleValue
 					+ "\') AND (application5.finalProject = project.SIProjectID) AND (application5.appStatus <> \'"
@@ -715,7 +715,7 @@ public class SIInfoBean implements Serializable {
 
 			query =
 				"SELECT project.SIProjectID, project.name, project.partnershipRegion, project.studentStartDate, project.studentEndDate, project.displayLocation"
-					+ " FROM hr_si_Project project"
+					+ " FROM hr_si_project project"
 					+ " WHERE"
 					+ locatoinChoices
 					+ dateCheck

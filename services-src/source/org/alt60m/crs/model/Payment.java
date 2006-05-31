@@ -13,7 +13,7 @@ public class Payment extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_Payment";
+		String table = "crs_payment";
 		setMetadata("PaymentID", "paymentID", "IDENTITY");
 
 		setMetadata("RegistrationID", "fk_RegistrationID", table);

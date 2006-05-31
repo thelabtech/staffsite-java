@@ -84,7 +84,7 @@ public class StaffChangeRequest extends ChangeRequest {
 	public StaffChangeRequest() { }
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_ChangeRequest";
+		String table = "ministry_changerequest";
 
 		super.localinit();
 		setMetadata("UpdateStaffId","updateStaff",table);

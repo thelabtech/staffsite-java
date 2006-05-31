@@ -8,7 +8,7 @@ import org.apache.log4j.Priority;
 
 /**
  * @persistent 
- * @table ministry_ChangeRequest
+ * @table ministry_changerequest
  * @key-generator UUID
  * @cache-type none
  * @access shared

@@ -58,7 +58,7 @@ NOT WORKING AS OF 11/2/04 SEP
 	</script>
 	
 	<%
-		boolean clk1 = conference.getIsCloaked(); //Added 1/16/2005 - Initalizes and grabs the value of IsCloaked from crs_Conference
+		boolean clk1 = conference.getIsCloaked(); //Added 1/16/2005 - Initalizes and grabs the value of IsCloaked from crs_conference
 		
 		registrationMenu.setTitle("Registration Steps");
 		registrationMenu.setHeaderClass("subboxheader");

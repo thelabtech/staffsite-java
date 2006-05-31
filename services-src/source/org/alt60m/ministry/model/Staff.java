@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * @persistent 
- * @table ministry_Staff
+ * @table ministry_staff
  * @cache-type none
  * @access shared
  */
@@ -135,7 +135,7 @@ public class Staff {
 
      /**
       * @field-type org.alt60m.ministry.model.Dependent
-      * @many-table ministry_Assoc_dependents
+      * @many-table ministry_assoc_dependents
       * @sql-name dependentID
       * @many-key accountNo
       */

@@ -17,7 +17,7 @@ public class MerchandiseChoice extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_MerchandiseChoice";
+		String table = "crs_merchandisechoice";
 		setMetadata("RegistrationID", "fk_RegistrationID", "KEY");
 		setMetadata("MerchandiseID", "fk_MerchandiseID", table);
 		setAutodetectProperties(false);

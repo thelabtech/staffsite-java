@@ -1893,8 +1893,8 @@ public class CRSAdmin extends Controller {
 				String view = "";
 				int orderCol = 0;
 				String order = "";
-				String[] orderFields = { "displayOrder", "crs_QuestionText.body", "QuestionText.answerType",
-						"required", "crs_QuestionText.status" };
+				String[] orderFields = { "displayOrder", "crs_questiontext.body", "QuestionText.answerType",
+						"required", "crs_questiontext.status" };
 
 				Vector regTypesVector = new Vector();
 				Iterator regTypes = crsApp.getConference(conferenceID).getRegistrationTypes().iterator();
@@ -1957,8 +1957,8 @@ public class CRSAdmin extends Controller {
 				RegistrationType rt = crsApp.getRegistrationType(registrationTypeID);
 				int orderCol = 0;
 				String order = "";
-				String[] orderFields = { "displayOrder", "crs_QuestionText.body", "QuestionText.answerType",
-						"required", "crs_QuestionText.status" };
+				String[] orderFields = { "displayOrder", "crs_questiontext.body", "QuestionText.answerType",
+						"required", "crs_questiontext.status" };
 						
 				ar.putObject("RegistrationType",rt);
 

@@ -165,7 +165,7 @@ public class Conference extends DBIOEntity {
 	private String ministryType = ""; //Added 2/22/2006 SRW
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_Conference";
+		String table = "crs_conference";
 
 		setMetadata("ConferenceID", "conferenceID", "IDENTITY");
 

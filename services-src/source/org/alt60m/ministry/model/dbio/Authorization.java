@@ -28,7 +28,7 @@ public class Authorization extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Authorization";
+		String table = "ministry_authorization";
 
 		setMetadata("AuthorizationId", "AuthorizationID", "IDENTITY");
 

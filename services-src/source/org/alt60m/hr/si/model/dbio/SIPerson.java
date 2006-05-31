@@ -10,7 +10,7 @@ public class SIPerson extends DBIOEntity {
 	private static Hashtable translateMaritalStatusToTable = null;
 	private static Hashtable translateMaritalStatusToCode = null;
 	
-	private static final String TABLENAME = "ministry_Person";
+	private static final String TABLENAME = "ministry_person";
 	
 	private Address currAdd = new Address();
 	private Address permAdd = new Address();

@@ -4,7 +4,7 @@ package org.alt60m.ministry.model;
 
 /**
  * @persistent 
- * @table ministry_RegionalTeam
+ * @table ministry_regionalteam
  * @key-generator UUID
  * @cache-type none
  * @access shared

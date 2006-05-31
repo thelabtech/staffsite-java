@@ -22,7 +22,7 @@ public class File extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "cms_CmsFile";
+		String table = "cms_cmsfile";
 
 		setMetadata("FileId", "CmsFileID", "IDENTITY");
 		setMetadata("Mime", "mime", table);
@@ -158,7 +158,7 @@ public class File extends DBIOEntity {
 
 	public Vector getCategories() {
 		Category cat = new Category();
-		String table = "cms_viewFileIdCategories";
+		String table = "cms_viewfileidcategories";
 		cat.changeTargetTable(table);
 		return cat.selectList("CmsFileID = '" + this.FileId + "'");
 	}

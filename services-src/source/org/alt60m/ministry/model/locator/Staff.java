@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * @persistent 
- * @table ministry_Staff
+ * @table ministry_staff
  * @cache-type none
  * @access shared
  */

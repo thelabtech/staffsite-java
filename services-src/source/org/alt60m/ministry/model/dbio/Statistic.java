@@ -43,7 +43,7 @@ public class Statistic extends DBIOEntity {
 	public Statistic() {}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Statistic";
+		String table = "ministry_statistic";
 
 		setMetadata("StatisticId", "StatisticID", "IDENTITY");
 

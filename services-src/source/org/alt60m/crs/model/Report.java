@@ -26,7 +26,7 @@ public class Report extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_Report";
+		String table = "crs_report";
 		setMetadata("ReportID", "reportID", "IDENTITY");
 
 		setMetadata("Name", "name", table);

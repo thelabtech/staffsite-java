@@ -32,7 +32,7 @@ public class WsnReference extends DBIOEntity {
 		return referenceID == 0;
 	}
 	public void localinit() {
-		String table = "wsn_sp_Reference";
+		String table = "wsn_sp_reference";
 		
 		setMetadata("ReferenceID", "referenceID", "IDENTITY");
 		setMetadata("FormWorkflowStatus", "formWorkflowStatus", table);

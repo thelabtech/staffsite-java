@@ -361,9 +361,9 @@ public class InfoBaseTool {
 			
 			//TODO: exclude closed target areas from this search query
 			query = "SELECT ta.TargetAreaID, ta.name, ta.city, ta.state, ta.zip, ta.region, taId.strategy, taId.status, taId.teamID, taId.teamName, ta.isClosed " +
-						   "FROM ministry_TargetArea ta LEFT OUTER JOIN "+
+						   "FROM ministry_targetarea ta LEFT OUTER JOIN "+
 									  "(SELECT act.strategy, act.status, team.teamID, team.name AS teamName, act.fk_targetAreaID "+
-									  "FROM ministry_Activity act INNER JOIN ministry_LocalLevel team ON act.fk_teamID = team.teamID "+
+									  "FROM ministry_activity act INNER JOIN ministry_locallevel team ON act.fk_teamID = team.teamID "+
 									  "WHERE (act.status <> 'IN' "+		// only show activities whose status  is not INACTIVE
 									  //"AND act.periodEnd IS null)) "+	// only show activities with no end date
 									  "))"+

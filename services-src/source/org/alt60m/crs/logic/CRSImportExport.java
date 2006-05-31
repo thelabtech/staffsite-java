@@ -117,7 +117,7 @@ public class CRSImportExport {
 		returnVal = new Hashtable();
 		try {
 			openDatabases(basePath + uploadPath + fileName);
-			newPeople = importNewPeople("Registrants", "ministry_Person",
+			newPeople = importNewPeople("Registrants", "ministry_person",
 					"personID", conferenceId);
 			closeDatabases();
 			new File(basePath + uploadPath + fileName).delete(); //Deletes the
@@ -152,7 +152,7 @@ public class CRSImportExport {
 					+" contactAddress1, contactAddress2, contactCity, contactState, contactZip, splashPageURL, confImageId,"
 					+" fontFace, backgroundColor, foregroundColor, highlightColor,"
 					+" acceptVisa, acceptMasterCard, acceptDiscover, acceptAmericanExpress, checkPayableTo, "
-					+" preRegStart, preRegEnd, masterDefaultDateArrive, masterDefaultDateLeave FROM crs_Conference WHERE conferenceID="
+					+" preRegStart, preRegEnd, masterDefaultDateArrive, masterDefaultDateLeave FROM crs_conference WHERE conferenceID="
 							+ conferenceID);
 			/* export the RegistrationType Table */
 			exportTable(
@@ -161,7 +161,7 @@ public class CRSImportExport {
 					"acceptCreditCards, acceptChecks, acceptEChecks, acceptMinistryAcctTransfer, acceptStaffAcctTransfer, acceptScholarships,"+
 					"singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment,singleDiscountEarlyReg, singleDiscountEarlyRegDate," +
 					"marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment,marriedDiscountEarlyReg, marriedDiscountEarlyRegDate,"+ 	
-					"askChildren, askSpouse registrationTypeID FROM crs_RegistrationType WHERE fk_conferenceID="
+					"askChildren, askSpouse registrationTypeID FROM crs_registrationtype WHERE fk_conferenceID="
 							+ conferenceID);
 			/* export all registrants */
 			exportTable(
@@ -178,14 +178,14 @@ public class CRSImportExport {
 					" perm.city AS permanentCity, perm.state AS permanentState, perm.zip AS permanentZip," +
 					" perm.homePhone AS permanentPhone, perm.country AS permanentCountry," +
 					" IF(DERIVEDTBL.numberOfKids,DERIVEDTBL.numberOfKids, 0) AS numberOfkids, IF(person.maritalStatus,person.maritalStatus, '') AS mStatus, reg.registrationID" +
-					" FROM  crs_RegistrationType regType, crs_Registration reg" +
-					" INNER JOIN ministry_Person person ON reg.fk_PersonID = person.personID" +
-					" INNER JOIN ministry_NewAddress curr ON person.personID = curr.fk_PersonID" +
-					" INNER JOIN ministry_NewAddress perm ON person.personID = perm.fk_PersonID" +
-					" LEFT OUTER JOIN crs_Payment pmt ON reg.registrationID = pmt.fk_RegistrationID" +
+					" FROM  crs_registrationtype regType, crs_registration reg" +
+					" INNER JOIN ministry_person person ON reg.fk_PersonID = person.personID" +
+					" INNER JOIN ministry_newaddress curr ON person.personID = curr.fk_PersonID" +
+					" INNER JOIN ministry_newaddress perm ON person.personID = perm.fk_PersonID" +
+					" LEFT OUTER JOIN crs_payment pmt ON reg.registrationID = pmt.fk_RegistrationID" +
 					" LEFT OUTER JOIN" +
-						" (SELECT COUNT(*) AS numberOfKids, reg.registrationID FROM crs_ChildRegistration creg" +
-						" INNER JOIN crs_Registration reg ON creg.fk_RegistrationID = reg.registrationID" +
+						" (SELECT COUNT(*) AS numberOfKids, reg.registrationID FROM crs_childregistration creg" +
+						" INNER JOIN crs_registration reg ON creg.fk_RegistrationID = reg.registrationID" +
 						" GROUP BY creg.fk_RegistrationID, reg.registrationID)" +
 					" DERIVEDTBL ON reg.registrationID = DERIVEDTBL.registrationID WHERE (reg.fk_ConferenceID = '"
 					+ conferenceID
@@ -201,11 +201,11 @@ public class CRSImportExport {
 
 			exportTable(
 					"Payments",
-					"SELECT paymentID, '' AS bagID, paymentDate, debit, credit, type, authCode, businessUnit, operatingUnit, dept AS departmentID, project AS projectID, accountNo, crs_Payment.comment, posted, postedDate, fk_RegistrationID, fk_PersonID FROM crs_Payment, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT paymentID, '' AS bagID, paymentDate, debit, credit, type, authCode, businessUnit, operatingUnit, dept AS departmentID, project AS projectID, accountNo, crs_payment.comment, posted, postedDate, fk_RegistrationID, fk_PersonID FROM crs_payment, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_registration.arriveDate, birthDate, crs_registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_childregistration, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 
 			file.write("Conference Info\n");
@@ -252,56 +252,56 @@ public class CRSImportExport {
 
 			exportTable(
 					"Conference",
-					"SELECT conferenceID, createDate, name, theme, region, contactName, contactEmail, contactPhone, contactAddress1, contactAddress2, contactCity, contactState, contactZip, splashPageURL, confImageId, fontFace, backgroundColor, foregroundColor, highlightColor, acceptCreditCards, acceptEChecks, acceptScholarships, preRegStart, preRegEnd, defaultDateStaffArrive, defaultDateStaffLeave, onsiteCost, commuterCost, preRegDeposit, discountFullPayment, discountEarlyReg, discountEarlyRegDate, checkPayableTo FROM crs_Conference WHERE conferenceID="
+					"SELECT conferenceID, createDate, name, theme, region, contactName, contactEmail, contactPhone, contactAddress1, contactAddress2, contactCity, contactState, contactZip, splashPageURL, confImageId, fontFace, backgroundColor, foregroundColor, highlightColor, acceptCreditCards, acceptEChecks, acceptScholarships, preRegStart, preRegEnd, defaultDateStaffArrive, defaultDateStaffLeave, onsiteCost, commuterCost, preRegDeposit, discountFullPayment, discountEarlyReg, discountEarlyRegDate, checkPayableTo FROM crs_conference WHERE conferenceID="
 							+ conferenceID);
 			exportTable(
 					"Registrants",
-					"SELECT ministry_Person.personID, crs_Registration.registrationID, crs_Registration.registrationDate, crs_RegistrationType.label AS registrationType," +
-					" crs_Registration.preRegistered, curr.email, ministry_Person.dateCreated," +
-					" ministry_Person.firstName, ministry_Person.lastName, ministry_Person.middleName, ministry_Person.birthDate, ministry_Person.graduationDate," +
-					" ministry_Person.greekAffiliation, ministry_Person.yearInSchool,  ministry_Person.campus, ministry_Person.gender, curr.address1," +
+					"SELECT ministry_person.personID, crs_registration.registrationID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType," +
+					" crs_registration.preRegistered, curr.email, ministry_person.dateCreated," +
+					" ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birthDate, ministry_person.graduationDate," +
+					" ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1," +
 					" curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country," +
-					" ministry_Person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip," +
+					" ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip," +
 					"  perm.city AS permanentCity, perm.address2 AS permanentAddress2, perm.address1 AS permanentAddress1,  perm.state AS permanentState," +
-					" perm.homePhone AS permanentPhone, ministry_Person.accountNo, crs_Registration.additionalRooms, crs_Registration.leaveDate," +
-					" crs_Registration.arriveDate, ministry_Person.fk_spouseID AS spouseID, crs_Registration.spouseComing," +
-					" crs_Registration.spouseRegistrationID, crs_Registration.registeredFirst, crs_Registration.isOnsite," +
+					" perm.homePhone AS permanentPhone, ministry_person.accountNo, crs_registration.additionalRooms, crs_registration.leaveDate," +
+					" crs_registration.arriveDate, ministry_person.fk_spouseID AS spouseID, crs_registration.spouseComing," +
+					" crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite," +
 					" DERIVEDTBL.numberOfKids" +
-					" FROM crs_Registration INNER JOIN ministry_Person ON crs_Registration.fk_PersonID = ministry_Person.personID" +
-					" INNER JOIN ministry_NewAddress curr ON ministry_Person.personID = curr.fk_PersonID" +
-					" INNER JOIN ministry_NewAddress perm ON ministry_Person.personID = perm.fk_PersonID" +
-					" INNER JOIN crs_RegistrationType ON crs_Registration.fk_RegistrationTypeID = crs_RegistrationType.registrationTypeID" +
-					" LEFT OUTER JOIN (SELECT COUNT(*) AS numberOfKids, crs_Registration.registrationID FROM crs_ChildRegistration" +
-					" INNER JOIN crs_Registration ON crs_ChildRegistration.fk_RegistrationID = crs_Registration.registrationID" +
-					" GROUP BY crs_ChildRegistration.fk_RegistrationID, crs_Registration.registrationID) DERIVEDTBL" +
-					" ON  crs_Registration.registrationID = DERIVEDTBL.registrationID" +
+					" FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID" +
+					" INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID" +
+					" INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID" +
+					" INNER JOIN crs_registrationtype ON crs_registration.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID" +
+					" LEFT OUTER JOIN (SELECT COUNT(*) AS numberOfKids, crs_registration.registrationID FROM crs_childregistration" +
+					" INNER JOIN crs_registration ON crs_childregistration.fk_RegistrationID = crs_registration.registrationID" +
+					" GROUP BY crs_childregistration.fk_RegistrationID, crs_registration.registrationID) DERIVEDTBL" +
+					" ON  crs_registration.registrationID = DERIVEDTBL.registrationID" +
 					" WHERE curr.addressType = 'current' AND perm.addressType = 'permanent'" +
-					" AND crs_Registration.fk_ConferenceID = "
+					" AND crs_registration.fk_ConferenceID = "
 							+ conferenceID);
 			
 			exportTable(
 					"RegistrationTypes",
-					"SELECT registrationTypeID, label, description, defaultDateArrive, defaultDateLeave, preRegStart, preRegEnd, singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment, singleDiscountEarlyReg, singleDiscountEarlyRegDate, marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment, marriedDiscountEarlyReg, marriedDiscountEarlyRegDate, acceptEChecks, acceptScholarships, acceptStaffAcctTransfer, acceptMinistryAcctTransfer, acceptCreditCards, askChildren, askSpouse, allowCommute, displayOrder, profileNumber, profileReqNumber, registrationType, fk_ConferenceID, acceptChecks from crs_RegistrationType WHERE fk_ConferenceID = "
+					"SELECT registrationTypeID, label, description, defaultDateArrive, defaultDateLeave, preRegStart, preRegEnd, singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment, singleDiscountEarlyReg, singleDiscountEarlyRegDate, marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment, marriedDiscountEarlyReg, marriedDiscountEarlyRegDate, acceptEChecks, acceptScholarships, acceptStaffAcctTransfer, acceptMinistryAcctTransfer, acceptCreditCards, askChildren, askSpouse, allowCommute, displayOrder, profileNumber, profileReqNumber, registrationType, fk_ConferenceID, acceptChecks from crs_registrationtype WHERE fk_ConferenceID = "
 							+ conferenceID);
 			
 			exportTable(
 					"Payments",
-					"SELECT paymentID, '' AS bagID, paymentDate, debit, credit, type, authCode, businessUnit, operatingUnit, dept AS departmentID, project AS projectID, accountNo, crs_Payment.comment, posted, postedDate, fk_RegistrationID, fk_PersonID FROM crs_Payment, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT paymentID, '' AS bagID, paymentDate, debit, credit, type, authCode, businessUnit, operatingUnit, dept AS departmentID, project AS projectID, accountNo, crs_payment.comment, posted, postedDate, fk_RegistrationID, fk_PersonID FROM crs_payment, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			exportTable(
 					"ChildRegistration",
-					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_Registration.arriveDate, birthDate, crs_Registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_ChildRegistration, crs_Registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
+					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_registration.arriveDate, birthDate, crs_registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_childregistration, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
 							+ conferenceID);
 			if (!region.equals("NC")) {
 				exportTable(
 						"Schools",
-						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_LocalLevel ml INNER JOIN ministry_Activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_TargetArea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE ta.region = '"
+						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_locallevel ml INNER JOIN ministry_activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_targetarea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE ta.region = '"
 								+ region
 								+ "' GROUP BY ta.name, ta.state, ml.lane, ml.name");
 			} else {
 				exportTable(
 						"Schools",
-						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_LocalLevel ml INNER JOIN ministry_Activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_TargetArea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE ta.region in ('GL','GP','MA','MS','NE','NW','RR','SE','SW','UM') GROUP BY ta.name, ta.state, ml.lane, ml.name");
+						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_locallevel ml INNER JOIN ministry_activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_targetarea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE ta.region in ('GL','GP','MA','MS','NE','NW','RR','SE','SW','UM') GROUP BY ta.name, ta.state, ml.lane, ml.name");
 			}
 
 			appendCustomTable();
@@ -471,13 +471,13 @@ public class CRSImportExport {
 
 		//Alter Registrants to include customAnswers
 		ResultSet rs = sqlStatement
-				.executeQuery("SELECT DISTINCT crs_QuestionText.body AS question, crs_Question.fk_QuestionTextID AS questionNumber, crs_RegistrationType.label as RegistrationType, crs_QuestionText.status "
-						+ "FROM crs_RegistrationType, crs_Question INNER JOIN crs_QuestionText ON "
-						+ "crs_Question.fk_QuestionTextID = crs_QuestionText.questionTextID "
-						+ "WHERE (crs_Question.fk_RegistrationTypeID=registrationTypeID) AND (crs_Question.fk_ConferenceID = "
+				.executeQuery("SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionNumber, crs_registrationtype.label as RegistrationType, crs_questiontext.status "
+						+ "FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON "
+						+ "crs_question.fk_QuestionTextID = crs_questiontext.questionTextID "
+						+ "WHERE (crs_question.fk_RegistrationTypeID=registrationTypeID) AND (crs_question.fk_ConferenceID = "
 						+ confID
-						+ ") AND (crs_QuestionText.answerType NOT LIKE 'Divider') AND (crs_QuestionText.answerType NOT LIKE 'Info')  "
-						+ " AND (crs_QuestionText.answerType NOT LIKE 'hide')");
+						+ ") AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  "
+						+ " AND (crs_questiontext.answerType NOT LIKE 'hide')");
 		String query = "ALTER TABLE Registrants ADD ";
 		int i = 0;
 		while (rs.next()) {
@@ -536,9 +536,9 @@ public class CRSImportExport {
 			//Insert customAnswers into Registrants
 			// don't include "info","divider","hide" question types (if answers exist for some reason) 
 			rs = sqlStatement
-					.executeQuery("SELECT crs_Registration.fk_PersonID, crs_Question.fk_QuestionTextID, crs_Answer.body FROM crs_Answer INNER JOIN crs_Registration ON crs_Answer.fk_RegistrationID = crs_Registration.registrationID INNER JOIN crs_Question ON crs_Answer.fk_QuestionID = crs_Question.questionID INNER JOIN crs_QuestionText ON crs_Question.fk_QuestionTextID = crs_QuestionText.questionTextID WHERE crs_Registration.fk_ConferenceID = "
+					.executeQuery("SELECT crs_registration.fk_PersonID, crs_question.fk_QuestionTextID, crs_answer.body FROM crs_answer INNER JOIN crs_registration ON crs_answer.fk_RegistrationID = crs_registration.registrationID INNER JOIN crs_question ON crs_answer.fk_QuestionID = crs_question.questionID INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE crs_registration.fk_ConferenceID = "
 							+ confID 
-							+" AND (crs_QuestionText.answerType NOT LIKE 'Divider') AND (crs_QuestionText.answerType NOT LIKE 'Info') AND (crs_QuestionText.answerType NOT LIKE 'hide')");
+							+" AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info') AND (crs_questiontext.answerType NOT LIKE 'hide')");
 			while (rs.next()) {
 				int personID = rs.getInt(1);
 				Integer questionTextID= new Integer(rs.getInt(2));
@@ -686,12 +686,12 @@ public class CRSImportExport {
 						+ " ORDER BY " + primaryKey + " DESC");
 				rsSQL.next();
 				personId = rsSQL.getString(primaryKey);
-				importNewRegistration(sourceTable, "crs_Registration",
+				importNewRegistration(sourceTable, "crs_registration",
 						primaryKey, key, personId, conferenceId);
 				peopleImported++;
 			} else {
 				personId = getPersonMatch(key);
-				importNewRegistration(sourceTable, "crs_Registration",
+				importNewRegistration(sourceTable, "crs_registration",
 						primaryKey, key, personId, conferenceId);
 				peopleImported++; //This really isn't inserting a new Person
 				// per se, however this counter is for the
@@ -741,7 +741,7 @@ public class CRSImportExport {
 					+ "') AND (deprecated_phone like '" + homePhone
 					+ "' OR birthDate like '" + birthDate + "'))";
 
-		query = "SELECT COUNT(*) FROM ministry_Person WHERE " + whereQuery;
+		query = "SELECT COUNT(*) FROM ministry_person WHERE " + whereQuery;
 		ResultSet rsCheck = sqlConn.createStatement().executeQuery(query);
 		rsCheck.next();
 		int recordCount = rsCheck.getInt(1);
@@ -784,7 +784,7 @@ public class CRSImportExport {
 					+ "') AND (deprecated_phone like '" + homePhone
 					+ "' OR birthDate like '" + birthDate + "'))";
 
-		query = "SELECT personID FROM ministry_Person WHERE " + whereQuery;
+		query = "SELECT personID FROM ministry_person WHERE " + whereQuery;
 		ResultSet rsCheck = sqlConn.createStatement().executeQuery(query);
 		rsCheck.next();
 		String personID = String.valueOf(rsCheck.getInt(1));
@@ -841,7 +841,7 @@ public class CRSImportExport {
 		rsAccess.close();
 		accessStatement2.close();
 		stmt.close();
-		importNewCustomAnswers(sourceTable, "crs_Answer", primaryKey,
+		importNewCustomAnswers(sourceTable, "crs_answer", primaryKey,
 				sourcePersonId, registrationId, conferenceId);
 	}
 
@@ -853,13 +853,13 @@ public class CRSImportExport {
 		Statement stmt2 = sqlConn.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		Statement accessStatement2 = accessConn.createStatement();
-		String query = "SELECT DISTINCT crs_QuestionText.body AS question, crs_Question.fk_QuestionTextID AS questionNumber, crs_Question.registrationType, crs_QuestionText.status, crs_Question.questionID AS questionID "
-				+ "FROM crs_Question INNER JOIN crs_QuestionText ON "
-				+ "crs_Question.fk_QuestionTextID = crs_QuestionText.questionTextID "
-				+ "WHERE (crs_Question.fk_ConferenceID = "
+		String query = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionNumber, crs_question.registrationType, crs_questiontext.status, crs_question.questionID AS questionID "
+				+ "FROM crs_question INNER JOIN crs_questiontext ON "
+				+ "crs_question.fk_QuestionTextID = crs_questiontext.questionTextID "
+				+ "WHERE (crs_question.fk_ConferenceID = "
 				+ conferenceId
-				+ ") AND (crs_QuestionText.answerType NOT LIKE 'Divider') AND (crs_QuestionText.answerType NOT LIKE 'Info')  "
-				+ " AND (crs_QuestionText.answerType NOT LIKE 'hide')";
+				+ ") AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  "
+				+ " AND (crs_questiontext.answerType NOT LIKE 'hide')";
 		ResultSet rsSQLQuestions = stmt.executeQuery(query);
 		ResultSet rsSQLAnswers = stmt2.executeQuery("SELECT * FROM "
 				+ destTable);

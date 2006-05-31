@@ -22,7 +22,7 @@ public class StaffUpdater {
     private static final String PS_EMPL_TBL = "sysadm.PS_EMPLOYEES";
     private static final String PS_TAX_TBL = "sysadm.PS_TAX_LOCATION1";
     private static final String PS_EMPL_ID  = "emplid";
-    private static final String STAFF_TBL = "ministry_Staff";
+    private static final String STAFF_TBL = "ministry_staff";
 
     Connection _connection;
     boolean _verbose = true;
@@ -261,7 +261,7 @@ public class StaffUpdater {
 			String staffID = (String) k.next();
 			try {
 				System.out.println("inserting : "+staffID);
-				String insertQuery = "insert into ministry_Staff (accountNo) values ('"+staffID+"')";
+				String insertQuery = "insert into ministry_staff (accountNo) values ('"+staffID+"')";
 				sqlstatement.executeUpdate(insertQuery);				
 				System.out.println("inserted successfully : "+staffID);
 			} catch (Exception e) {
@@ -275,7 +275,7 @@ public class StaffUpdater {
 			String staffID = (String) k.next();
 			try {
 				System.out.println("removing : "+staffID);
-				String removeQuery = "update ministry_Staff set removedFromPeopleSoft = 'Y', fk_teamID = 0 where accountNo = '"+staffID+"'";
+				String removeQuery = "update ministry_staff set removedFromPeopleSoft = 'Y', fk_teamID = 0 where accountNo = '"+staffID+"'";
 				sqlstatement.executeUpdate(removeQuery);				
 				System.out.println("removed successfully : "+staffID);
 			} catch (Exception e) {

@@ -20,7 +20,7 @@ public class SIReference extends DBIOEntity {
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
 	public static final String REFERENCECLASS = "org.alt60m.hr.si.model.dbio.SIReference";
-	private static final String TABLENAME_BASE = "hr_si_Reference_";
+	private static final String TABLENAME_BASE = "hr_si_reference_";
 	
 	public SIReference() {
 //      createDate = DateUtils.clearTimeFromDate(new Date());

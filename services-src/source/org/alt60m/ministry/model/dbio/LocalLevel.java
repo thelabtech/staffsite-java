@@ -19,7 +19,7 @@ public class LocalLevel extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_LocalLevel";
+		String table = "ministry_locallevel";
 		setMetadata("LocalLevelId","teamID","IDENTITY");
 
 		setMetadata("Name","name",table);

@@ -109,7 +109,7 @@ public class Staff extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_Staff";
+		String table = "ministry_staff";
 
 		setMetadata("AccountNo","accountNo","IDENTITY");
 		setMetadata("FirstName","firstName",table);

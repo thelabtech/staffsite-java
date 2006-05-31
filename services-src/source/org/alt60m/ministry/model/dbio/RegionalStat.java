@@ -24,7 +24,7 @@ public class RegionalStat extends DBIOEntity {
 	private String fk_regionalTeamId = new String();
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_RegionalStat";
+		String table = "ministry_regionalstat";
 
 		setMetadata("RegionalStatId", "RegionalStatID", "IDENTITY");
 		setMetadata("RegionalTeamId", "fk_regionalTeamID", table);

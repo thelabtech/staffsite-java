@@ -46,7 +46,7 @@ public class References implements java.io.Serializable {
  
  						
 // 						"SELECT r.referenceid, r.formworkflowstatus, p.legalfirstname, p.legallastname"+
-// 					" FROM wsn_sp_reference as r INNER JOIN wsn_sp_viewApplication as p ON r.fk_WsnApplicationid = p.WsnApplicationid" +
+// 					" FROM wsn_sp_reference as r INNER JOIN wsn_sp_viewapplication as p ON r.fk_WsnApplicationid = p.WsnApplicationid" +
 // 					" WHERE r.staffnumber='" + accountNo + "' and p.wsnYear='" + CURRENT_YEAR + "' ORDER BY p.legallastname";
 
  					//Start new query

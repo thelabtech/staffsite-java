@@ -21,7 +21,7 @@ public class FieldChange extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_FieldChange";
+		String table = "ministry_fieldchange";
 
 		setMetadata("FieldChangeId", "FieldChangeID", "IDENTITY");
 

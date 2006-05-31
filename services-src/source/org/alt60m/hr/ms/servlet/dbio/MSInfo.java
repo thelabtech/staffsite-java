@@ -362,7 +362,7 @@ public class MSInfo {
 	/* Created 30 October 2002 RDH */
 	public Collection getCurrentProjectsByType(char type) throws Exception {
 		WsnProjectLight project = new WsnProjectLight();
-		project.changeTargetTable("wsn_sp_viewCurrentProjects");  //only includes projects that aren't full for both men and women
+		project.changeTargetTable("wsn_sp_viewcurrentprojects");  //only includes projects that aren't full for both men and women
 		String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
 		String whereClause = "(projectType = '" + type + "')" + " AND (studentStartDate > '" + today + "')" + " AND (studentEndDate > '" + today + "')" + " AND (onHold <> \'1\')" + " AND (wsnYear = '" + CURRENT_WSN_YEAR + "')" + " ORDER BY name";
 		Collection projects = ObjectHashUtil.list((project).selectList(whereClause));
@@ -373,7 +373,7 @@ public class MSInfo {
 	/* This is to work with thisiswhereilive.info */
 	public Collection getCurrentWsnProjectsByRegion(String _region, String _type) throws Exception {
 		WsnProjectLight project = new WsnProjectLight();
-		project.changeTargetTable("wsn_sp_viewCurrentProjects");
+		project.changeTargetTable("wsn_sp_viewcurrentprojects");
 		String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
 		return project.selectList("(projectType = '" + _type + "')" + " AND (upper(partnershipRegion) = upper('" + _region + "'))" + " AND (studentStartDate > '" + today + "')" + " AND (studentEndDate > '" + today + "')" + " AND (onHold <> \'1\')" + " AND (wsnYear = '" + CURRENT_WSN_YEAR + "')" + " ORDER BY name");
 	}
@@ -492,7 +492,7 @@ public class MSInfo {
 			// To do 23 October 2002: This query needs the bility to check maxStudentAMale / maxStudentAFemale limits. (RDH)
 			// To do 23 October 2002: This query also needs the bility to check region criteria. (RDH)
 			WsnProject project = new WsnProject();
-			project.changeTargetTable("wsn_sp_viewOpenProjects");
+			project.changeTargetTable("wsn_sp_viewopenprojects");
 			return ObjectHashUtil.list(project.selectList("(projectType = '" + type + "')" + " AND (studentStartDate > " + today + ")" + " AND (onHold <> \'1\')" + " AND (wsnYear = '" + CURRENT_WSN_YEAR + "')" + " ORDER BY name"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -687,15 +687,15 @@ public class MSInfo {
 			WsnApplication person = new WsnApplication();
 			String qry = "";
 			
-			qry = "SELECT COUNT(*) FROM wsn_sp_viewApplication WHERE gender = '1' AND assignedToProject = '" + project.getWsnProjectID() + "'";
+			qry = "SELECT COUNT(*) FROM wsn_sp_viewapplication WHERE gender = '1' AND assignedToProject = '" + project.getWsnProjectID() + "'";
 			availability.put("MaleStudents", new Integer(ObjectHashUtil.countIt(person, qry)));
-			qry = "SELECT COUNT(*) FROM wsn_sp_viewApplication WHERE gender = '0' AND assignedToProject = '" + project.getWsnProjectID() + "'";
+			qry = "SELECT COUNT(*) FROM wsn_sp_viewapplication WHERE gender = '0' AND assignedToProject = '" + project.getWsnProjectID() + "'";
 			availability.put("FemaleStudents", new Integer(ObjectHashUtil.countIt(person, qry)));
 			
 			// instead of comparing # of applicants accepted to the project(is this even accurate?) and comparing to the max number, 
 			// just check the viewCurrentProjects_maxS(F/M)Check table to see if this project is in there
-			String m_table = "wsn_sp_viewCurrentProjects_maxSMCheck";
-			String f_table = "wsn_sp_viewCurrentProjects_maxSFCheck";
+			String m_table = "wsn_sp_viewcurrentprojects_maxsmcheck";
+			String f_table = "wsn_sp_viewcurrentprojects_maxsfcheck";
 			
 			String queryString= "WsnProjectID="+projectID+" ORDER BY name";
 			
@@ -994,9 +994,9 @@ public class MSInfo {
 
 			if (gender != null) {
 				if (gender.equals("1")) { // male
-					table = "wsn_sp_viewCurrentProjects_maxSMCheck";
+					table = "wsn_sp_viewcurrentprojects_maxsmcheck";
 				} else if (gender.equals("0")) { // female
-					table = "wsn_sp_viewCurrentProjects_maxSFCheck";
+					table = "wsn_sp_viewcurrentprojects_maxsfcheck";
 				}
 			}
 			

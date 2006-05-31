@@ -2583,7 +2583,7 @@ public class WsnSpController extends Controller
 		try {
 			WsnApplication person = new WsnApplication();
 			person.localinit();
-			Iterator peopleNeedingAcctNo = person.selectSQLList("SELECT person.WsnApplicationID, person.LegalFirstName, person.gender, person.title, person.fk_wsnspouse, person.LegalLastName, person.AccountNo, person.applAccountNo, person.CurrentAddress, person.CurrentCity, person.CurrentState, person.CurrentZip, person.dateCreated, person.fk_ismember, project.WsnProjectID, project.name, project.ScholarshipAccountNo, project.scholarshipBusinessUnit,  project.scholarshipOperatingUnit, project.scholarshipDeptID, project.scholarshipProjectID, project.scholarshipDesignation, person.wsnyear from wsn_sp_viewApplication as person, wsn_sp_WsnProject as project where person.fk_ismember = project.wsnprojectid and person.wsnYear=\'"+currentWsnYear+"\' and person.status='Accepted' and person.isStaff='0' and (LENGTH(rtrim(person.applAccountNo)) = 0 or person.applAccountNo is null) and (person.fk_childof = 0 or LENGTH(rtrim(person.fk_childof)) = 0 OR person.fk_childof is NULL) and project.scholarshipDesignation > '1000000' and project.scholarshipDesignation < '3000000' and (person.fk_wsnspouse = 0 OR person.fk_wsnspouse is NULL or (person.fk_wsnspouse <> 0 and person.gender = '1')) order by person.acceptedDate, person.LegalLastName, person.LegalFirstName").iterator();
+			Iterator peopleNeedingAcctNo = person.selectSQLList("SELECT person.WsnApplicationID, person.LegalFirstName, person.gender, person.title, person.fk_wsnspouse, person.LegalLastName, person.AccountNo, person.applAccountNo, person.CurrentAddress, person.CurrentCity, person.CurrentState, person.CurrentZip, person.dateCreated, person.fk_ismember, project.WsnProjectID, project.name, project.ScholarshipAccountNo, project.scholarshipBusinessUnit,  project.scholarshipOperatingUnit, project.scholarshipDeptID, project.scholarshipProjectID, project.scholarshipDesignation, person.wsnyear from wsn_sp_viewapplication as person, wsn_sp_wsnproject as project where person.fk_ismember = project.wsnprojectid and person.wsnYear=\'"+currentWsnYear+"\' and person.status='Accepted' and person.isStaff='0' and (LENGTH(rtrim(person.applAccountNo)) = 0 or person.applAccountNo is null) and (person.fk_childof = 0 or LENGTH(rtrim(person.fk_childof)) = 0 OR person.fk_childof is NULL) and project.scholarshipDesignation > '1000000' and project.scholarshipDesignation < '3000000' and (person.fk_wsnspouse = 0 OR person.fk_wsnspouse is NULL or (person.fk_wsnspouse <> 0 and person.gender = '1')) order by person.acceptedDate, person.LegalLastName, person.LegalFirstName").iterator();
 
 			//String tmpString = "";
 			String buf = "OPER_NAME\tKEYED_DATE\tPEOPLE_ID\tSTATUS\tORG_ID\t" +
@@ -3073,37 +3073,37 @@ public class WsnSpController extends Controller
 
 			// get # of men that have applied to the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '1') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (status='Accepted' OR status='Pending') AND (isStaff = 0) AND (isApplyingForStaffInternship = 0)";
 			mAppsNum1 = ObjectHashUtil.countIt((new WsnApplication()), sql);
 
 			// get # of females that have applied to the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '0') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (status='Accepted' OR status='Pending') AND (isStaff = 0) AND (isApplyingForStaffInternship = 0)";
 			fAppsNum2 = ObjectHashUtil.countIt((new WsnApplication()), sql);
 
 			// get # of males that are participants of the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '1') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (role = '1') AND (status = 'Accepted') AND (isStaff = 0) AND (isApplyingForStaffInternship = 0)";
 			mPartNum1 = ObjectHashUtil.countIt((new WsnApplication()), sql);
 
 			// get # of females that are participants of the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '0') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (role = '1') AND (status = 'Accepted') AND (isStaff = 0) AND (isApplyingForStaffInternship = 0)";
 			fPartNum2 = ObjectHashUtil.countIt((new WsnApplication()), sql);
 
 			// get # of males that are staff/interns of the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '1') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (isStaff = 1 OR isApplyingForStaffInternship = 1) AND (fk_childOf = 0)";
 			mStaffNum = ObjectHashUtil.countIt((new WsnApplication()), sql);
 
 			// get # of females that are staff/interns of the project:
 			sql = "SELECT COUNT(fk_isMember) "+
-				" FROM wsn_sp_viewApplication "+
+				" FROM wsn_sp_viewapplication "+
 				" WHERE (gender = '0') AND (fk_isMember = '" + project.getWsnProjectID() + "') AND (isStaff = 1 OR isApplyingForStaffInternship = 1) AND (fk_childOf = 0)";
 			fStaffNum = ObjectHashUtil.countIt((new WsnApplication()), sql);
 

@@ -232,7 +232,7 @@ public class ApplyStaffChanges {
 			
 			String columnNames = getColumnNames(statement);
 			
-			String qry = "insert into ministry_Staff (accountNo) values ('"+newAccountNo+"')";
+			String qry = "insert into ministry_staff (accountNo) values ('"+newAccountNo+"')";
 			
 			statement.executeUpdate(qry);
 			

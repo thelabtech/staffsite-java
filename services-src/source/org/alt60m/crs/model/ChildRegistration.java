@@ -38,7 +38,7 @@ public class ChildRegistration extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "crs_ChildRegistration";
+		String table = "crs_childregistration";
 		setMetadata("ChildRegistrationID", "childRegistrationID", "IDENTITY");
 
 		setMetadata("RegistrationID", "fk_RegistrationID", "KEY");

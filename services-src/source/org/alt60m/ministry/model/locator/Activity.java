@@ -9,7 +9,7 @@ import java.util.HashSet;
  * @rdbPhysicalName Activity
  * @rdbPhysicalPrimaryKeyName PK_Activity
  * @persistent
- * @table ministry_Activity
+ * @table ministry_activity
  * @key-generator UUID
  * @cache-type none
  * @access shared

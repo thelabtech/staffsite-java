@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  * @persistent 
- * @table hr_review360_ReviewSession
+ * @table hr_review360_reviewsession
  * @cache-type none
  * @access shared
  * @key-generator UUID

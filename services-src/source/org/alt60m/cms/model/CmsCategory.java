@@ -8,7 +8,7 @@ import java.util.Vector;
 
 /**
  * @persistent 
- * @table cms_CmsCategory
+ * @table cms_cmscategory
  * @cache-type none
  * @access shared
  * @key-generator UUID
@@ -49,7 +49,7 @@ public class CmsCategory {
      * @undirected
      * @field-name files
      * @field-type org.alt60m.cms.model.CmsFile
-	 * @many-table cms_assoc_FileCategory
+	 * @many-table cms_assoc_filecategory
      * @get-method getFiles
      * @set-method setFiles
      * @sql-name CmsFileID

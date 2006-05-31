@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * @persistent 
- * @table hr_review360_ReviewSession
+ * @table hr_review360_reviewsession
  * @cache-type none
  * @access shared
  * @key-generator UUID
@@ -77,7 +77,7 @@ public class ReviewSession  extends DBIOEntity {
 	public boolean isPKEmpty() { return this.reviewSessionId.equals(""); }
 	
 	public void localinit() throws DBIOEntityException {
-		String table = "hr_review360_ReviewSession";
+		String table = "hr_review360_reviewsession";
 
 		setMetadata("ReviewSessionId","ReviewSessionID","IDENTITY");
 

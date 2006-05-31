@@ -4,7 +4,7 @@ package org.alt60m.ministry.model;
 
 /**
  * @persistent 
- * @table ministry_StaffChangeRequest
+ * @table ministry_staffchangerequest
  * @key-generator UUID
  * @cache-type none
  * @access shared

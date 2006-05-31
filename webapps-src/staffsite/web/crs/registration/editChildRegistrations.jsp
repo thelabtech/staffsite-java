@@ -195,7 +195,7 @@ accountManagementMenu.setActives(new boolean[]{
 			</TD>
 		</TR>
 		<% } else { %>
-		<input type="hidden" name="AdditionalRooms" value=0><%-- additionalRooms in crs_Registration table needs
+		<input type="hidden" name="AdditionalRooms" value=0><%-- additionalRooms in crs_registration table needs
 		a value otherwise Null exception is thrown. This hidden input makes sure a value of 0 is placed in the table. --%>
 		<% } //end of Additional Room if statement %>
 		<TR>

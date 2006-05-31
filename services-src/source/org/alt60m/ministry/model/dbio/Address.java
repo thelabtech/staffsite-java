@@ -45,7 +45,7 @@ public class Address extends DBIOEntity {
     private String toolName = "NONE SPECIFIED";
     
     public void localinit() throws DBIOEntityException {
-    	String table = "ministry_NewAddress";
+    	String table = "ministry_newaddress";
     	
     	setMetadata("AddressId","addressID","IDENTITY");
             

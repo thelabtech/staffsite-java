@@ -27,9 +27,9 @@ public class InfoBaseQueries {
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
-		String qry = "SELECT name FROM ministry_TargetArea ta " +
-						"INNER JOIN ministry_Activity act ON act.fk_targetAreaID=ta.TargetAreaID " +
-						"INNER JOIN ministry_Staff staff ON staff.fk_teamID=act.fk_teamID " +
+		String qry = "SELECT name FROM ministry_targetarea ta " +
+						"INNER JOIN ministry_activity act ON act.fk_targetAreaID=ta.TargetAreaID " +
+						"INNER JOIN ministry_staff staff ON staff.fk_teamID=act.fk_teamID " +
 						"WHERE staff.accountNo='"+accountno+"'";
 						
 		ResultSet rs = stmt.executeQuery(qry);
@@ -136,7 +136,7 @@ public class InfoBaseQueries {
 	public static int getActivityCount() {
 		try{
 			Activity act = new Activity();
-			String qry = "SELECT count(*) from ministry_Activity WHERE status in ('AC', 'PI', 'KE', 'LA', 'TR')";
+			String qry = "SELECT count(*) from ministry_activity WHERE status in ('AC', 'PI', 'KE', 'LA', 'TR')";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -146,7 +146,7 @@ public class InfoBaseQueries {
 	public static int getActivityCountCurrent() {
 		try{
 			Activity act = new Activity();
-			String qry = "SELECT count(*) from ministry_Activity WHERE status in ('AC', 'LA', 'TR')";
+			String qry = "SELECT count(*) from ministry_activity WHERE status in ('AC', 'LA', 'TR')";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +156,7 @@ public class InfoBaseQueries {
 	public static int getReportedCnt(Date since) {
 		try{
 			Activity act = new Activity();
-			String qry = "SELECT count(*) from ministry_Activity WHERE periodBegin > '" + org.alt60m.util.DateUtils.toSQLDate(since) + "'";
+			String qry = "SELECT count(*) from ministry_activity WHERE periodBegin > '" + org.alt60m.util.DateUtils.toSQLDate(since) + "'";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
 			e.printStackTrace();

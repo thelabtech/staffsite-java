@@ -8,7 +8,7 @@ import java.util.Vector;
 
 /**
  * @persistent 
- * @table ministry_NonCccMin
+ * @table ministry_noncccmin
  * @key-generator UUID
  * @cache-type none
  * @access shared

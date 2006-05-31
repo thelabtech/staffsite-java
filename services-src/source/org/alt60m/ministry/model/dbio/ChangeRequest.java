@@ -24,7 +24,7 @@ public class ChangeRequest extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "ministry_ChangeRequest";
+		String table = "ministry_changerequest";
 
 		setMetadata("ChangeRequestId", "ChangeRequestID", "IDENTITY");
 

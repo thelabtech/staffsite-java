@@ -46,7 +46,7 @@ public class WsnApplicationLight extends DBIOEntity {
 	 * @see com.kenburcham.framework.dbio.DBIOEntity#localinit()
 	 */
 	public void localinit() throws DBIOEntityException {
-		String table = "wsn_sp_viewApplicationLight";
+		String table = "wsn_sp_viewapplicationlight";
 		
 		setMetadata("WsnApplicationID", "WsnApplicationID", "IDENTITY");
 		setMetadata("SurferID", "surferID", table);

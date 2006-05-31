@@ -137,8 +137,8 @@ public class CmsController extends Controller {
 			*/
 
 			//			String query = "select obj from org.alt60m.cms.model.CmsCategory as obj where obj.parentCategory = \"0\" order by obj.catName";
-			//			String query = "call sql select CmsCategoryId, catName from cms_CmsCategory as obj where obj.parentCategory = '0' order by obj.catName as org.alt60m.persistence.castor.util.TwoFields";
-			//String query = "CALL SQL SELECT * from cms_CmsCategory as obj where obj.parentCategory like \"0\" order by obj.catName";
+			//			String query = "call sql select CmsCategoryId, catName from cms_cmscategory as obj where obj.parentCategory = '0' order by obj.catName as org.alt60m.persistence.castor.util.TwoFields";
+			//String query = "CALL SQL SELECT * from cms_cmscategory as obj where obj.parentCategory like \"0\" order by obj.catName";
 			//			String[] fields = {"CmsCategoryId","CatName"};
 			CmsInfo ci = new CmsInfo();
 			//			Collection subCats = _cmsCategoryAdaptor.list(query,fields);
@@ -192,7 +192,7 @@ public class CmsController extends Controller {
 
 				String[] fields2 = { "FileId", "Title", "Url", "ModeratedYet" };
 				File file = new File();
-				file.changeTargetTable("cms_viewCategoryIdFiles");
+				file.changeTargetTable("cms_viewcategoryidfiles");
 				Collection catFiles = ObjectHashUtil.list(file.selectList(query), fields2);
 
 				//set the image icon for each file
@@ -713,7 +713,7 @@ public class CmsController extends Controller {
 			ar.addHashtable("f", ObjectHashUtil.obj2hash(new File(ctx.fetchId())));
 			String query = "cmsFileId = '" + ctx.fetchId() + "' order by path";
 			Category cat = new Category();
-			cat.changeTargetTable("cms_viewFileIdCategories");
+			cat.changeTargetTable("cms_viewfileidcategories");
 			Collection cats = ObjectHashUtil.list(cat.selectList(query));
 			ar.addCollection("cats", cats);
 			ctx.setReturnValue(ar);
@@ -766,7 +766,7 @@ public class CmsController extends Controller {
 			// add cats
 			String query = "cmsFileId = '" + ctx.fetchId() + "' order by path";
 			Category cat = new Category();
-			cat.changeTargetTable("cms_viewFileIdCategories");
+			cat.changeTargetTable("cms_viewfileidcategories");
 			Collection cats = ObjectHashUtil.list(cat.selectList(query)); // _cmsCategoryAdaptor.list(query);
 			ar.addCollection("cats", cats);
 

@@ -16,7 +16,7 @@ public class FileCategoryLink extends DBIOEntity {
 	}
 
 	public void localinit() throws DBIOEntityException {
-		String table = "cms_assoc_FileCategory";
+		String table = "cms_assoc_filecategory";
 		setMetadata("FileId","CmsFileID","KEY");
 		setMetadata("CategoryId","CmsCategoryId","KEY");
 		setMetadata("DbioDummy","dbioDummy",table);

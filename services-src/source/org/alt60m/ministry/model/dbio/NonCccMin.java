@@ -36,7 +36,7 @@ public class NonCccMin extends DBIOEntity {
     public boolean persist() { return isPKEmpty() ? insert() : update(); }
     
     public void localinit() throws DBIOEntityException {
-    	String table = "ministry_NonCccMin";
+    	String table = "ministry_noncccmin";
     	
     	setMetadata("NonCccMinId","NonCccMinID","IDENTITY");
     	
@@ -117,13 +117,13 @@ public class NonCccMin extends DBIOEntity {
     
     public Vector getNonCccMinContacts() {
     	TargetArea ta = new TargetArea();
-    	String table = "ministry_viewNonCccMinTargetArea";
+    	String table = "ministry_viewnoncccmintargetarea";
     	ta.changeTargetTable(table);
     	return ta.selectList("NonCccMinID = '" + this.nonCccMinId + "'");
     }    
 	public Vector getNonCccMinContacts(String orderField, boolean DESC) {
 		TargetArea ta = new TargetArea();
-		String table = "ministry_viewNonCccMinTargetArea";
+		String table = "ministry_viewnoncccmintargetarea";
 		ta.changeTargetTable(table);
 		return ta.selectList("NonCccMinID = '" + this.nonCccMinId + "' ORDER BY "
 				+ orderField + " " + (DESC ? "DESC" : "ASC"));
