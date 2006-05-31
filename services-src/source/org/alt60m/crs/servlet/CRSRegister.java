@@ -228,7 +228,13 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.setSessionValue("selectedEvent", conferenceID);
 				ar.putValue("onlyOneRegType",crsApp.countRegistrationTypes(conferenceID)==1?"true":"false");
 				
-			if (ctx.getProfile() != null) {	// user logged in
+				Conference conference = crsApp.getConference(conferenceID);
+				Date thisDay = new Date();
+				boolean conferenceOpen = (thisDay.after(conference.getPreRegStart()) 
+						|| org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegStart())) 
+					&& (thisDay.before(conference.getPreRegEnd()) 
+							|| org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegEnd()));
+				if (ctx.getProfile() != null && conferenceOpen) {	// user logged in
 					
 					if ("Y".equals(ctx.getInputString("preview"))) {
 						ctx.setSessionValue("userLoggedIn", null);
