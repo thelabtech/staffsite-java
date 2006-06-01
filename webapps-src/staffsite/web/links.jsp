@@ -91,7 +91,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
                       <TR><td><%=fontB%><a href="http://staff.ccci.org" target='_blank'>CCCI Staff Site</a></td></tr>	
   					  <TR><td><%=fontB%><a href="http://www.ccci.org/ministries/united-states-ministries.html" target="_blank">Other US Ministries</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.usihr.org/" target="_blank">International Ministries</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.gcprayer.org" target="_blank">Great Commission Prayer Center</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://www.globalprayermovement.org" target="_blank">Global Prayer Movement</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.staffwomen.com" target="_blank">Staff Women Site</a></td></tr>
                       <TR><td><%=fontB%><a href="http://staff.campuscrusade.org/" target='_blank'>Bookstore</a></td></tr>	
 				</table>
