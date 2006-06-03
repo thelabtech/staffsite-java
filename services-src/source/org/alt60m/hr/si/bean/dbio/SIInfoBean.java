@@ -2,9 +2,13 @@ package org.alt60m.hr.si.bean.dbio;
 
 import java.io.Serializable;
 import java.util.*;
+
 import org.alt60m.hr.si.servlet.dbio.*;
 import org.alt60m.hr.si.model.dbio.*;
 import org.alt60m.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.text.SimpleDateFormat;
 /**
  * @author Ken Burcham
@@ -14,6 +18,7 @@ import java.text.SimpleDateFormat;
  */
 public class SIInfoBean implements Serializable {
 
+	private static Log log = LogFactory.getLog(SIInfoBean.class);
 	/**
 	 * returns person object with given ssmid.
 	 * returns null if person not found.
@@ -427,7 +432,7 @@ public class SIInfoBean implements Serializable {
 		Returns NULL if not found.
 	*/
 	public Hashtable getSIReferenceHashByType(String SIApplicationID, String referenceType) {
-		System.out.println("--->SIInfoBean.getSIReferenceHashByType(" + SIApplicationID + ", " + referenceType + ")");
+		log.debug("SIInfoBean.getSIReferenceHashByType(" + SIApplicationID + ", " + referenceType + ")");
 		Hashtable objectHash = new Hashtable();
 		try {
 			String SIReferenceID = getReferenceIDByType(SIApplicationID, referenceType);
@@ -446,7 +451,7 @@ public class SIInfoBean implements Serializable {
 		Returns NULL if not found.
 	*/
 	public SIReference getSIReferenceByType(String SIApplicationID, String referenceType) {
-		System.out.println("--->SIInfoBean.getSIReferenceByType(" + SIApplicationID + ", " + referenceType + ")");
+		log.debug("--->SIInfoBean.getSIReferenceByType(" + SIApplicationID + ", " + referenceType + ")");
 		try {
 			String SIReferenceID = getReferenceIDByType(SIApplicationID, referenceType);
 			if (SIReferenceID == "") {
@@ -461,7 +466,7 @@ public class SIInfoBean implements Serializable {
 		}
 	}
 	public SIReference getSIReferenceByType(String SIApplicationID, String referenceType, String yearID) {
-		System.out.println("--->SIInfoBean.getSIReferenceByType(" + SIApplicationID + ", " + referenceType + ")");
+		log.debug("SIInfoBean.getSIReferenceByType(" + SIApplicationID + ", " + referenceType + ")");
 		try {
 			String SIReferenceID = getReferenceIDByType(SIApplicationID, referenceType, yearID);
 			if (SIReferenceID == "") {
@@ -596,9 +601,7 @@ public class SIInfoBean implements Serializable {
 			Collection projects = ObjectHashUtil.list((new SIProject()).selectList(whereClause));
 			return projects;
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("Warning: Unable to perform SIInfoBean.getCurrentProjectsByRegion()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform SIInfoBean.getCurrentProjectsByRegion()!", e);
 			return null;
 		}
 	}
@@ -730,9 +733,8 @@ public class SIInfoBean implements Serializable {
 			Collection projects = ObjectHashUtil.list((new SIProject()).selectSQLList(query));
 			return projects;
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIInfoBean.getValidProjects()");
-			System.err.println(query);
-			e.printStackTrace();
+			log.error("Exception encountered in SIInfoBean.getValidProjects()", e);
+			log.debug("Offending query: " + query);
 			throw e;
 		}
 	}
@@ -743,7 +745,7 @@ public class SIInfoBean implements Serializable {
 		try {
 			return SIUtil.getCampusRegion(universityFullName, universityState);
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIInfoBean.getCampusRegion()");
+			log.error("Exception encountered in SIInfoBean.getCampusRegion()", e);
 			return null;
 		}
 	}
