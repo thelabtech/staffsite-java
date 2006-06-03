@@ -12,7 +12,9 @@
 		}
 	}
 	if (pageNum == 0)
-			String pageTitle = titles[pageNum - 1];
+		System.out.println("Error: Page="+thePage+" not found!");
+
+	String pageTitle = titles[pageNum - 1];
 %>
 <%@ include file="siMainHeader.jspf" %>
 	<div style="text-align:center;">
