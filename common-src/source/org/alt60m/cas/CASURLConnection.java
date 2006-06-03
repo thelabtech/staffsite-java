@@ -21,6 +21,8 @@ import java.util.Map;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.*;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.alt60m.util.BasicCookieHandler;
 
@@ -33,6 +35,7 @@ import org.alt60m.util.BasicCookieHandler;
  * 
  */
 public class CASURLConnection {
+	private static Log log = LogFactory.getLog(CASURLConnection.class);
 
 	private static final String USERNAME_TOKEN = "username";
 	private static final String PASSWORD_TOKEN = "password";
@@ -56,6 +59,7 @@ public class CASURLConnection {
 			+ "\"\\s+value\\s*=\\s*\"(.*)\"\\s*/>", Pattern.DOTALL);
 	
 	//private static final Pattern LOGGED_IN_PATTERN = Pattern.compile("")
+	
 	
 	private String signinUrl;
 	
@@ -105,18 +109,18 @@ public class CASURLConnection {
 		String testTicketService = "http://www.mygcx.org/authz-admin/CampusStaff";
 		CASURLConnection con = new CASURLConnection(testCasServer, testUsername, testPassword);
 		try {
-			System.out.println("Logging in...");
+			log.debug("Logging in...");
 			String content = con.logIn(testService, testTicketService, null);
 			if (content != null) {
 				if (content.trim().equals("Bad URL or parameters.  Sorry."))
-					System.out.println("OK");
+					log.debug("OK");
 				else
-					System.out.println(content);
+					log.debug(content);
 				System.out.flush();
 			} 
 			else {
 
-				System.out.println("Error: " + con.getError());
+				log.debug("Error: " + con.getError());
 				return;
 			}
 			
@@ -130,15 +134,15 @@ public class CASURLConnection {
 			
 			Map<String, String> paramList = new HashMap<String, String>();
 			paramList.put("admin_commands", request);
-			System.out.println("Sending Request...");
+			log.debug("Sending Request...");
 			content = con.sendRequest(paramList);
 			
 			if (content != null) {
-				System.out.println(content);
+				log.debug(content);
 			} 
 			else {
 
-				System.out.println("Error: " + con.getError());
+				log.debug("Error: " + con.getError());
 				return;
 			}
 		}
@@ -150,7 +154,7 @@ public class CASURLConnection {
 	
 	private static void log(String message)
 	{
-		System.out.println("CASURLConnection: " + message);
+		log.info(message);
 	}
 	
 	/**

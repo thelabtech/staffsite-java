@@ -30,9 +30,9 @@ public class HRQueryController extends Controller {
 			VIEWS_FILE = getServletContext().getRealPath("/WEB-INF/HRQueryViews.xml");
 			setViewsFile(VIEWS_FILE);
 			setDefaultAction(DEFAULT_ACTION);
-			log(Priority.INFO, "init() completed.  Ready for action.");
+			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
-			log(Priority.FATAL, "init() failed", e);
+			log.fatal("init() failed", e);
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class HRQueryController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showStaffQuery().", e);
+			log.error("Failed to perform showStaffQuery().", e);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class HRQueryController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showFieldsSelect().", e);
+			log.error("Failed to perform showFieldsSelect().", e);
 		}
 	}
 
@@ -179,7 +179,7 @@ public class HRQueryController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform executeQuery().", e);
+			log.error("Failed to perform executeQuery().", e);
 		}
 	}
 
@@ -429,7 +429,7 @@ public class HRQueryController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showQueryResults().", e);
+			log.error("Failed to perform showQueryResults().", e);
 		}
 	}
 

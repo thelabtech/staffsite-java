@@ -11,8 +11,7 @@
 
 		Map hashedRequest = request.getParameterMap();
 
-		//System.out.println(hashedRequest);
-		//String[] ministryInfo = request.getParameterValues("ministries");
+		//		//String[] ministryInfo = request.getParameterValues("ministries");
 
 		// Enter the contact
 		LinczoneProcessor lp = new LinczoneProcessor(propFile, getServletContext().getRealPath("/"));

@@ -3,16 +3,13 @@ package org.alt60m.security.dbio.importer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import org.alt60m.util.LogHelper;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class LoginResetAndEmail {
+	
+	private static Log log = LogFactory.getLog(LoginResetAndEmail.class);
 
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 	
 	Connection m_connection = null;
 	java.util.Random _rand = new java.util.Random();
@@ -22,7 +19,7 @@ public class LoginResetAndEmail {
 			m_connection = org.alt60m.util.DBConnectionFactory.getDatabaseConn(); 
 			 
 			if (m_connection == null) {
-				log(Priority.ERROR,"Failed to open database connection!");
+				log.error("Failed to open database connection!");
 				return;
 			}
 
@@ -39,21 +36,21 @@ public class LoginResetAndEmail {
                 String hashedPW = clear2hash( generatedPW.getBytes() );
 				try {
 					String update = "insert into simplesecuritymanager_user(username, password, lastLogin, createdOn) values ('"+secantUN+"', '"+hashedPW+"', null, getdate())";
-					log(Priority.INFO,update);
+					log.info(update);
 					Statement updateStatement = m_connection.createStatement();
 					updateStatement.executeUpdate(update);
 
 					try { 
 						sendEmail(firstName, email, generatedPW); 
 					} catch (Exception e) { 
-						log(Priority.ERROR,"Error emailing: " + secantUN + " at " + email,e); 
+						log.error("Error emailing: " + secantUN + " at " + email,e); 
 					}
 				} catch (Exception e) {
-					log(Priority.ERROR,"Error updating record: " + secantUN + "\n",e);
+					log.error("Error updating record: " + secantUN + "\n",e);
 				}
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR,"[" + new java.util.Date() +"] Failed.",e);
+			log.error("[" + new java.util.Date() +"] Failed.",e);
 		}
 	}
 
@@ -71,7 +68,7 @@ public class LoginResetAndEmail {
 			m_connection = org.alt60m.util.DBConnectionFactory.getDatabaseConn(); 
 
 			if (m_connection == null) {
-				log(Priority.ERROR,"Failed to open database connection!");
+				log.error("Failed to open database connection!");
 				Exception e = new Exception("Failed to open database connection.");
 				throw e;
 			}
@@ -89,29 +86,29 @@ public class LoginResetAndEmail {
 
                 try {
                         String update = "update simplesecuritymanager_user set password='"+hashedPW+"' where username='"+username+"'";
-                        System.out.println(update);
+                        log.debug(update);
                         Statement updateStatement = m_connection.createStatement();
                         updateStatement.executeUpdate(update);
 
                         update = "update staffsite_staffsiteprofile set changePassword=1 where username='"+username+"'";
-                        System.out.println(update);
+                        log.debug(update);
                         updateStatement = m_connection.createStatement();
                         updateStatement.executeUpdate(update);
 
                         try { 
                                 sendRequestedEmail(firstName, email, generatedPW); 
                         } catch (Exception e) { 
-                                System.out.println("Error emailing: " + username + " at " + email); 
+                                log.debug("Error emailing: " + username + " at " + email); 
                                 throw e;
                         }
                 } catch (Exception e) {
-                        System.out.println("Error updating record: " + username + "\n" + e);
+                        log.debug("Error updating record: " + username + "\n" + e);
                         throw e;
                 }
                 return email;
             }
 		} catch (Exception e) {
-			log(Priority.ERROR,"[" + new java.util.Date() +"] Failed.",e);
+			log.error("[" + new java.util.Date() +"] Failed.",e);
 			throw e;
 		}
 	}

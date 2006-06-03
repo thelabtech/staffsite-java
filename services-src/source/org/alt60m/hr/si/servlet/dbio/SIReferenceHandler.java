@@ -7,11 +7,14 @@ import org.alt60m.hr.si.bean.dbio.*;	// just to call getReferenceByType - should
 import java.text.SimpleDateFormat;
 import java.util.*;
 import org.alt60m.util.ObjectHashUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 //This class handles all of the Stint Reference related actions
 
 public class SIReferenceHandler {
-
+	private static Log log = LogFactory.getLog(SIReferenceHandler.class);
+	
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
 	public static final String REFERENCECLASS = "org.alt60m.hr.si.model.dbio.SIReference";
@@ -36,7 +39,7 @@ public class SIReferenceHandler {
     {
 		// used when a go-to-other-page is clicked on the reference page of the application.
 		// Default action for all links provided by header and footer include files.
-		System.out.println("Running postReferenceInfo()...");
+		log.debug("Running postReferenceInfo()...");
 		ActionResults ar = new ActionResults();
 		try {
 			String appID = (String) action.getValue("SIApplicationID");
@@ -122,8 +125,7 @@ public class SIReferenceHandler {
 			}
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.postReferenceInfo(): "+e;
-			System.err.println(sErr);
-			e.printStackTrace();
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;
@@ -133,7 +135,7 @@ public class SIReferenceHandler {
 	// 3-4-03 kl: createNewStaffReferenceRecord for new refs.jsp stafflist popup process
 	private synchronized void createNewStaffReferenceRecord(String applicantID, String refType, String staffNumber, String userID) {
 		try {
-			System.out.println("+++++++++++++++--------->createNewStaffReferenceRecord: appid="+applicantID+" type="+refType+" staffNumber="+staffNumber);
+			log.debug("createNewStaffReferenceRecord: appid="+applicantID+" type="+refType+" staffNumber="+staffNumber);
 			if (staffNumber.equals("")) {
 				// no new reference specified, so just return
 				return;
@@ -142,7 +144,7 @@ public class SIReferenceHandler {
 			// first, delete any existing reference record
 			SIReference oldRef = SIUtil.getReferenceIDByType(applicantID, refType);
 			if (oldRef != null) {
-					System.out.println("++++++++++++++++++++++++++++++--------->createNewStaffReferenceRecord: deleting old reference");
+					log.debug("createNewStaffReferenceRecord: deleting old reference");
 					SIUtil.deleteObject(REFERENCECLASS, String.valueOf(oldRef.getReferenceID()));
 			}
 
@@ -152,7 +154,7 @@ public class SIReferenceHandler {
 			// 1. Get staff information
 			Hashtable s = SIUtil.getReferenceStaffMember(staffNumber);
 			// note: if not there, then the jsp page did not give us the right staffNumber
-			System.out.println("++++++++++++++++++++++++++++++--------->createNewStaffReferenceRecord: GETTING STAFF = "+ s.get("FirstName"));
+			log.debug("createNewStaffReferenceRecord: GETTING STAFF = "+ s.get("FirstName"));
 
 			// 2. Fill new hashtable with info
 			String t;	// temp string
@@ -194,17 +196,16 @@ public class SIReferenceHandler {
 			refSave.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
 			refSave.put("LastChangedBy", userID);
 			String refID = ""; // this will force the saveObjectHash to create a new record
-	System.out.println("++++++++++++++++++++++++++++++--------->SIUtil.saveObjectHash refID="+refID);
+			log.debug("SIUtil.saveObjectHash refID="+refID);
 			SIUtil.saveObjectHash(refSave, refID, "ReferenceID", REFERENCECLASS);
 		} catch (Exception e) {
-			System.err.println(e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
 	// 3-5-03 kl: appFormRefDelCreateBlnk new method corrects behavior of Yes button on refs.jsp staff member reference
 	public ActionResults appFormRefDelCreateBlnk(String nextParm, String applicantID, String userID) {
-		System.out.println("Running SIRef appFormRefDelCreateBlnk()...");
+		log.debug("Running SIRef appFormRefDelCreateBlnk()...");
 
 		ActionResults ar = new ActionResults();
 		try {
@@ -245,7 +246,7 @@ public class SIReferenceHandler {
 	        return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.appFormRefDelCreateBlnk(): "+e+"";
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 	        return ar;
@@ -268,12 +269,12 @@ public class SIReferenceHandler {
 				String oldEmail = new SIReference(refID).getCurrentEmail();
 				//String oldEmail = (String)hash.get("OldCurrentEmail");
 				String newEmail = (String)hash.get("CurrentEmail");
-				System.out.println("------->oldEmail=" + oldEmail + "=  newEmail=" + newEmail + "=");
+				log.debug("------->oldEmail=" + oldEmail + "=  newEmail=" + newEmail + "=");
 				if (!refID.equals("") && oldEmail != null && newEmail != null) {
 					// see if user modified the email address field
 					if (!oldEmail.equals(newEmail)) {
 						// user changed the email.  Need to delete the old reference record and create a new one.
-						System.out.println("Because email address changed, deleting old Reference record refID=" + refID);
+						log.info("Because email address changed, deleting old Reference record refID=" + refID);
 						SIUtil.deleteObject(REFERENCECLASS, refID);
 						// force the saveObjectHash to create a new record
 						refID = "";
@@ -285,7 +286,7 @@ public class SIReferenceHandler {
 				hash.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
 				hash.put("LastChangedBy", userID);
 
-				System.out.println("calling SIUtil.saveObjectHash to refID=" + refID + "hashsize=" + hash.size());
+				log.debug("calling SIUtil.saveObjectHash to refID=" + refID + "hashsize=" + hash.size());
 				SIUtil.saveObjectHash(hash, refID, "referenceID", REFERENCECLASS);
 			}
 		} catch(Exception e) {
@@ -299,7 +300,7 @@ public class SIReferenceHandler {
 		Executes when an applicant clicks on "Delete" on the application reference page.
 	*/
 	public ActionResults appFormRefDelete(Action action) {
-		System.out.println("Running appFormRefDelete()...");
+		log.debug("Running appFormRefDelete()...");
 		ActionResults ar = new ActionResults();
 		try {
 			String nextParm = (String) action.getValue("nextParm");
@@ -318,7 +319,7 @@ public class SIReferenceHandler {
 	        return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.appFormRefDelete(): "+e+"";
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 	        return ar;
@@ -372,7 +373,7 @@ public class SIReferenceHandler {
 	        return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.appFormRefResendEmailInvite(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 	        return ar;
@@ -386,7 +387,7 @@ public class SIReferenceHandler {
     Copies this staff's information into the reference.
 	*/
 	public ActionResults appFormRefStaffAdd(Action action) {
-		System.out.println("Running appFormRefStaffAdd()...");
+		log.debug("Running appFormRefStaffAdd()...");
 		ActionResults ar = new ActionResults();
 		try {
 			String nextParm = (String) action.getValue("nextParm");
@@ -396,7 +397,7 @@ public class SIReferenceHandler {
 			int j = nextParm.indexOf("=");
 			String staffNo = nextParm.substring(j+1);  // get staff number
 
-			System.out.println("------> appFormRefStaffAdd: refid=" + referenceID + " staffno=" + staffNo);
+			log.debug("------> appFormRefStaffAdd: refid=" + referenceID + " staffno=" + staffNo);
 
 			// load Reference object
 			SIReference ref = new SIReference();
@@ -450,7 +451,7 @@ public class SIReferenceHandler {
 	        return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.appFormRefSearchForStaff(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 	        return ar;
@@ -463,20 +464,20 @@ public class SIReferenceHandler {
 		Executes when an applicant clicks on "Staff Lookup" on the application reference page.
 	*/
 	public ActionResults appFormRefStaffLookup(Action action) {
-		System.out.println("Running appFormRefStaffLookup()...");
+		log.debug("Running appFormRefStaffLookup()...");
 		ActionResults ar = new ActionResults();
 		try {
 			// return to this same page and display search results
 			String page = "refs";
 			// nextParm will be "refs9", "refd9", "refr9", or "reff9" indicating which reference to get the names out of and return the results to
 			String refPrefix = (String) action.getValue("nextParm");
-		System.out.println("refPrefix=" + refPrefix);
+		log.debug("refPrefix=" + refPrefix);
 
 			// get the name to search on:
 			Hashtable formData = action.getValues();
 			String firstName = ((String) formData.get(refPrefix + "FirstName")).trim();
 			String lastName = ((String) formData.get(refPrefix + "LastName")).trim();
-		System.out.println("FirstName=" + firstName + "  LastName=" + lastName);
+		log.debug("FirstName=" + firstName + "  LastName=" + lastName);
 
 			// search for the name
 			Hashtable staffInfo = SIUtil.getReferenceFindStaff(firstName, lastName);
@@ -486,7 +487,7 @@ public class SIReferenceHandler {
 	        return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.appFormRefSearchForStaff(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 	        return ar;
@@ -514,7 +515,7 @@ public class SIReferenceHandler {
 	*/
 
 	public ActionResults postRefFormEncEdit(Action action) {
-		System.out.println("Running postRefFormEncEdit()...");
+		log.debug("Running postRefFormEncEdit()...");
 		ActionResults ar = new ActionResults();
 		try {
 			Hashtable hs = new Hashtable();
@@ -523,9 +524,9 @@ public class SIReferenceHandler {
 
 			// get the encrypted reference form ID
 			String encryptedRefID = (String) action.getValue("encRefID");
-			System.out.println("postRefFormEncEdit: encryptedRefID=" + encryptedRefID);
+			log.debug("postRefFormEncEdit: encryptedRefID=" + encryptedRefID);
 			if (encryptedRefID == null)	{
-				System.out.println("posRefFormEncEdit: encRefID not specified");
+				log.warn("posRefFormEncEdit: encRefID not specified");
 				page = "refNotFound";
 				ar.putValue("page", page);
 				ar.setView(page);
@@ -534,20 +535,10 @@ public class SIReferenceHandler {
 
 			// decrypt the encrypted referenceID
 			String refID = ref.decodeReferenceID(encryptedRefID);
-			System.out.println("postRefFormEncEdit: decoded refID=" + refID);
-			System.out.println("postRefFormEncEdit: trying info.getObject");
-			try {
-				ref.setReferenceID(refID);
-				if (!ref.select()) {
-					throw new Exception("Reference not found");
-				}
-				//ref = (SIReference) SIUtil.getObject(refID, "ReferenceID", REFERENCECLASS);
-			} catch (Exception e) {
-				// do nothing, assume exception is of type ObjectNotFoundException
-				ref = null;
-			}
-			if (ref == null) {
-				System.err.println("postRefFormEncEdit: ref is null: SIReference id=" + refID + " not found.");
+			log.debug("postRefFormEncEdit: decoded refID=" + refID);
+			ref.setReferenceID(refID);
+			if (!ref.select()) {
+				log.warn("postRefFormEncEdit: ref is null: SIReference id=" + refID + " not found.");
 				page = "refNotFound";
 				ar.putValue("page", page);
 				ar.setView(page);
@@ -555,7 +546,7 @@ public class SIReferenceHandler {
 			}
 
 			if (ref.getIsFormSubmitted()) {
-				System.out.println("postRefFormEncEdit: Form already submitted");
+				log.debug("postRefFormEncEdit: Form already submitted");
 				page = "refAlreadySubmitted";
 				ar.putValue("page", page);
 				ar.setView(page);
@@ -570,7 +561,7 @@ public class SIReferenceHandler {
 			return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.postRefFormEncEdit(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;
@@ -584,7 +575,7 @@ public class SIReferenceHandler {
 		This will save the data from the screen, and then execute the desired nextAction.
 	*/
 	public ActionResults postRefFormSave(Action action) {
-		System.out.println("Running postRefFormSave()...");
+		log.debug("Running postRefFormSave()...");
 		ActionResults ar = new ActionResults();
 		try {
 			Hashtable formData = action.getValues();
@@ -597,7 +588,7 @@ public class SIReferenceHandler {
 
 			if (formData != null && refID != null) {
 				// we've got all the info we need, so we can save the object.
-				System.out.println("SIController.postRefFormSave(): Form data contained an id=" + refID + ".  userid="+userID);
+				log.debug("SIController.postRefFormSave(): Form data contained an id=" + refID + ".  userid="+userID);
 				formData.put("FormWorkflowStatus", "I");				
 				formData.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
 				formData.put("LastChangedBy", userID);
@@ -619,7 +610,7 @@ public class SIReferenceHandler {
 
 		catch(Exception e) {
 			String sErr = "Exception encountered in SIController.postRefFormSave(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
@@ -635,7 +626,7 @@ public class SIReferenceHandler {
 		If not, redisplays ref9 page with reasons why can't finish.
 	*/
 	private ActionResults refFormSubmit(Action action) {
-		System.out.println("Running refFormSubmit()...");
+		log.debug("Running refFormSubmit()...");
 		ActionResults ar = new ActionResults();
 		try {
 			String page = "";
@@ -645,7 +636,7 @@ public class SIReferenceHandler {
 
 			// get the reference object
 			SIReference ref = new SIReference();
-			System.out.println("refFormSubmit: trying info.getObject(SIReferenceClassName)");
+			log.debug("refFormSubmit: trying info.getObject(SIReferenceClassName)");
 			ref = (SIReference) SIUtil.getObject(refID, "ReferenceID", REFERENCECLASS);
 			String submitErrors = ref.submitReference();
 			if (submitErrors != ""){
@@ -660,13 +651,13 @@ public class SIReferenceHandler {
 
 			// Submit worked!
 			// I must update the submission fields, and persist the object
-			System.out.println("refFormSubmit: submitReference=TRUE!");
+			log.debug("refFormSubmit: submitReference=TRUE!");
 			ref.setFormWorkflowStatus("D");		// mark reference form as "DONE"
 			ref.setIsFormSubmitted(true);	// mark reference form as "SUBMITTED"
 			ref.setFormSubmittedDate(new Date());	// record date of submission
 
 			// dumb, but create a temp hashtable with fields that need persisting, and then persist the hashtable to the db
-			System.out.println("calling info.saveObjectHash refID=" + refID);
+			log.debug("calling info.saveObjectHash refID=" + refID);
 			Hashtable hsSave = new Hashtable();
 			hsSave.put("FormWorkflowStatus", (String)(ref.getFormWorkflowStatus()));
 			hsSave.put("IsFormSubmitted", (String)(ref.getIsFormSubmitted() ? "true" : "false"));
@@ -686,7 +677,7 @@ public class SIReferenceHandler {
 			return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.refFormSubmit(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
@@ -701,7 +692,7 @@ public class SIReferenceHandler {
 		Just displays the "please come again and finish" page.
 	*/
 	private ActionResults refFormFinishLater(Action action) {
-		System.out.println("Running refFormFinishLater()...");
+		log.debug("Running refFormFinishLater()...");
 		ActionResults ar = new ActionResults();
 		try {
 			String refID = (String) action.getValue("refID");
@@ -716,13 +707,11 @@ public class SIReferenceHandler {
 			return ar;
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.refFormFinishLater(): "+e;
-			System.err.println(sErr);
+			log.error(sErr, e);
 			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;
 		}
 	}
-
-
 }

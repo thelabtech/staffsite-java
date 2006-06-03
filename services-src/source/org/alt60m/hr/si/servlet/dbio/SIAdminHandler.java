@@ -6,6 +6,8 @@ import org.alt60m.servlet.*;
 import org.alt60m.hr.si.bean.dbio.SIInfoBean;
 import org.alt60m.hr.si.model.dbio.*;
 import org.alt60m.html.FormHelper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,6 +16,8 @@ import java.io.IOException;
 
 //This class handles all of the STINT/Internship Administration related actions
 public class SIAdminHandler {
+
+	private static Log log = LogFactory.getLog(SIAdminHandler.class);
 	boolean debug = true;
 	ActionResults ar = new ActionResults();
 	SIInfoBean siBean = new SIInfoBean();
@@ -73,7 +77,7 @@ public class SIAdminHandler {
 			}
 			ar.setView("adminhome");
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIAdminHandler.showSIAdminTool(): "+e);
+			log.error("Exception encountered in SIAdminHandler.showSIAdminTool(): "+e);
 			ar.setView("tools");
 		}
 		return ar;
@@ -211,13 +215,13 @@ public class SIAdminHandler {
 /*	private int getRole(Action action) {
 		String staffSiteProfileID = (String) action.getValue("loggedIn");
 		int role = 0;
-		if(debug) System.out.println("******** SIAdminHandler.getRole(): loggedIn staffSiteProfileID has value: "+staffSiteProfileID);
+		if(debug) log.debug("******** SIAdminHandler.getRole(): loggedIn staffSiteProfileID has value: "+staffSiteProfileID);
 		try {
 			SIPerson siAdministrator = SIUtil.getSIAdministrator(staffSiteProfileID);
 			role = Integer.parseInt(siAdministrator.getRole());
-			if(debug) System.out.println("******** SIAdminHandler.getRole(): role is: "+role);
+			if(debug) log.debug("******** SIAdminHandler.getRole(): role is: "+role);
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIAdminHandler.getRole(): "+e);
+			log.error("Exception encountered in SIAdminHandler.getRole(): "+e);
 			e.printStackTrace();
 		}
 		return role;
@@ -225,7 +229,7 @@ public class SIAdminHandler {
 */
 	// Just takes the user to the location editing screen if they have the correct role.
 	protected ActionResults postMakeDownload(Action action, String theFile, String httpFile) {
-System.out.println("In postMakeDownload()");
+		log.debug("In postMakeDownload()");
 		try {
 			Hashtable h = new Hashtable();
 
@@ -257,7 +261,7 @@ System.out.println("In postMakeDownload()");
 			Collection cCollections = siBean.getAppsCollections(regionID, yearID);
 			Iterator tubIterator = cCollections.iterator();
 			Hashtable tub = (Hashtable)tubIterator.next();
-			System.out.println("tub="+ tub.toString()); // trace
+			log.debug("tub="+ tub.toString()); // trace
 
 
 			// Get the list of applicants based on the appType and RegionID.
@@ -381,7 +385,7 @@ System.out.println("In postMakeDownload()");
 
 				s += "\n";
 			}
-System.out.println("s="+s);
+			log.debug("s="+s);
 
 			// create the output file:
 			try	{
@@ -390,19 +394,18 @@ System.out.println("s="+s);
 				file.close();
 //  3-21-03 kl: comment out h.put("filename", theFile);
 //  3-21-03 kl: un-comment  h.put("filename", httpFile);
-System.out.println("Writing download file to "+httpFile);
+				log.info("Writing download file to "+httpFile);
 //				h.put("filename", theFile);
 				h.put("filename", httpFile);
 			} catch (IOException e) {
 				h.put("filename", "Sorry, an error occurred while writing the file.");
-System.out.println("Error writing download file.");
+				log.error("Error writing download file.");
 			}
 			ar.addHashtable("tub", h);
 			// forward on to specified page
 			ar.setView((String)action.getValue("view"));
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIAdminHandler.getRole(): "+e);
-			e.printStackTrace();
+			log.error("Exception encountered in SIAdminHandler.getRole(): ", e);
 		}
 		return ar;
 	}

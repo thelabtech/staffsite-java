@@ -149,7 +149,7 @@ public class WsnSpController extends Controller
 
 					if (!emailTo.equals("none")) {
 							try {
-								System.out.println("emailTo= " + emailTo); // trace
+								log.debug("emailTo= " + emailTo); // trace
 								SendMessage email = new SendMessage();
 								email.setTo(emailTo);
 								email.setFrom("wsn@uscm.org");
@@ -158,8 +158,7 @@ public class WsnSpController extends Controller
 								email.send();
 							}
 							catch (Exception e) {
-								System.err.println(e.toString()); // 4-10-03 kl: Log the message and move on if invalid email
-								e.printStackTrace();
+								log.error(e.getMessage(), e); // 4-10-03 kl: Log the message and move on if invalid email
 							}
 					}
 				} // fi
@@ -167,8 +166,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -298,7 +296,7 @@ public class WsnSpController extends Controller
 			showAddKids(ctx);
 		} catch (Exception e) {
 			ctx.goToView("error");
-			System.err.println(e.toString());
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -462,7 +460,7 @@ public class WsnSpController extends Controller
 			showProj(ctx);
 		} catch (Exception e) {
 			ctx.goToView("error");
-			System.err.println(e.toString());
+			log.error(e.getMessage(), e);
 		}
     }
 
@@ -525,8 +523,7 @@ public class WsnSpController extends Controller
 					}
       				
 				} catch (StaffSelectException sse){
-					//sse.printStackTrace();
-					System.err.println(sse.toString());
+					log.error(sse.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw e;
@@ -537,7 +534,7 @@ public class WsnSpController extends Controller
 				ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -594,7 +591,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -858,8 +855,7 @@ public class WsnSpController extends Controller
 			}
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -941,8 +937,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1016,8 +1011,7 @@ public class WsnSpController extends Controller
 			adminEditApp(ctx);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1031,8 +1025,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1048,8 +1041,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1103,8 +1095,7 @@ public class WsnSpController extends Controller
 			showMainProj(ctx);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1201,8 +1192,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
         } catch (Exception e) {
-               System.err.println(e);
-               System.err.println("Failed to perform GetStaffInfoAction");
+               log.error("Failed to perform GetStaffInfoAction", e);
 		}
     }
 
@@ -1210,10 +1200,10 @@ public class WsnSpController extends Controller
 	// Test entry point
 
 	public void init() {
-		log(Priority.DEBUG, "WsnSpController.init()");
+		log.debug("WsnSpController.init()");
 		setViewsFile(getServletContext().getRealPath("/WEB-INF/WsnSpViewsDbio.xml"));
 		setDefaultAction("showIndex");
-		log(Priority.DEBUG, "WsnSpController constructor");
+		log.debug("WsnSpController constructor");
 	}
 
 	public void insurance (ActionContext ctx) {
@@ -1250,8 +1240,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1338,8 +1327,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1405,8 +1393,7 @@ public class WsnSpController extends Controller
 			adminEditApp(ctx);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1531,8 +1518,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1573,8 +1559,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -1629,8 +1614,7 @@ public class WsnSpController extends Controller
 			ctx.goToView("listquestions");
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1666,8 +1650,7 @@ public class WsnSpController extends Controller
 				throw new Exception();
 			}
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1675,7 +1658,7 @@ public class WsnSpController extends Controller
 	public void updateQuestionOrder(ActionContext ctx) {
 		try {
 			int questionSize = Integer.parseInt(ctx.getInputString("questionSize"));
-			System.out.println("------> " + questionSize);
+			log.debug("questionSize: " + questionSize);
 			for (int i = 0; i < questionSize; i++) {
 				Hashtable q = new Hashtable();
 				q.put("QuestionID", ctx.getInputString(i + "QuestionID"));
@@ -1685,8 +1668,7 @@ public class WsnSpController extends Controller
 			listQuestions(ctx);
 		
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1711,8 +1693,7 @@ public class WsnSpController extends Controller
 			ctx.goToView("editquestiondetails");
 		
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1734,8 +1715,7 @@ public class WsnSpController extends Controller
 			listQuestions(ctx);
 			
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1747,8 +1727,7 @@ public class WsnSpController extends Controller
 					try {
 						deleteQuestion(questionID);
 					} catch (Exception e) {
-						System.err.println(e.toString());
-						e.printStackTrace();
+						log.error(e.getMessage(), e);
 						ctx.goToView("error");
 					}
 					listQuestions(ctx);
@@ -1756,8 +1735,7 @@ public class WsnSpController extends Controller
 					ctx.goToView("error");
 				}
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -1778,8 +1756,7 @@ public class WsnSpController extends Controller
 			showProj(ctx);
 
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -2031,8 +2008,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2066,8 +2042,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2120,8 +2095,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2161,8 +2135,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2371,7 +2344,7 @@ public class WsnSpController extends Controller
 					h.put("filename",theFile);
 				}
 				catch (IOException e){
-					System.err.println(e.toString());
+					log.error(e.getMessage(), e);
 					h.put("filename","ERROR");
 				}
 
@@ -2384,8 +2357,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2403,13 +2375,13 @@ public class WsnSpController extends Controller
                     Method m = c.getMethod(methodName, null);
                     h.put(key, m.invoke(o, arguments));
                 } catch (IllegalAccessException e) {
-                    System.out.println(e);
+                    log.debug(e);
                 } catch (InvocationTargetException e) {
-                    System.out.println(e);
+                    log.debug(e);
                 } catch (NoSuchMethodException e) {
-                    System.out.println(e);
+                    log.debug(e);
                 } catch (IllegalArgumentException e) {
-                    System.out.println(methodName + " " + e);
+                    log.debug(methodName + " " + e);
                 } catch (NullPointerException e) {
                     //e.printStackTrace();
                 }
@@ -2443,16 +2415,16 @@ public class WsnSpController extends Controller
                 Method m = c.getMethod("set" + attr, (Class[]) parameterTypes.get("set" + attr));
                 m.invoke(o, arguments);
             } catch (IllegalAccessException e) {
-                System.err.println(e);
+                log.error(e.getMessage(), e);
             } catch (InvocationTargetException e) {
-                System.err.println(e);
+                log.error(e.getMessage(), e);
             } catch (IllegalArgumentException e) {
-                System.err.println(e);
+                log.error(e.getMessage(), e);
             } catch (NoSuchMethodException e) {
                 //Often this is okay
-                System.err.println(e);
+                log.error(e.getMessage(), e);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -2542,8 +2514,7 @@ public class WsnSpController extends Controller
 			}
 			showProj(ctx);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2551,14 +2522,14 @@ public class WsnSpController extends Controller
 	public void sendEmail (ActionContext ctx) {
 		try {
 			SendMessage email = new SendMessage();
-			System.out.println(ctx.getInputString("to"));
+			log.debug(ctx.getInputString("to"));
 			email.setBcc(ctx.getInputString("to") + ", " + ctx.getInputString("from"));
 			email.setFrom(ctx.getInputString("from"));
 			email.setSubject(ctx.getInputString("subject"));
 			email.setBody(ctx.getInputString("bodytext"));
 			email.send();
 
-			System.err.println("sendEmail to: " + ctx.getInputString("to"));
+			log.debug("sendEmail to: " + ctx.getInputString("to"));
 
 			String next = ctx.getInputString("frompage");
 			if (next.equals("showMainProject"))	{
@@ -2567,8 +2538,7 @@ public class WsnSpController extends Controller
 				showTeam(ctx);
 			}
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2685,8 +2655,7 @@ public class WsnSpController extends Controller
 				file.close();
 			}
 			catch (IOException e){
-				System.err.println(e.toString());
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 				ctx.goToView("error");
 				return;
 			}
@@ -2697,8 +2666,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2755,8 +2723,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2804,7 +2771,7 @@ public class WsnSpController extends Controller
 								h.put("Access","pdapd");
 								ctx.setSessionValue("MyHomeAction","showTeam&view=team&id=" + (String)h.get("WsnProjectID"));
 							} catch (Exception e) {
-								System.err.println("wsnsp - director but has no project assignment");
+								log.error("wsnsp - director but has no project assignment");
 								h.put("WsnProjectID","notassigned");
 								h.put("Access","pdapd");
 							}
@@ -2825,8 +2792,7 @@ public class WsnSpController extends Controller
 					e.printStackTrace();
 				}
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -2861,8 +2827,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -2955,8 +2920,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -3002,8 +2966,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -3029,8 +2992,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -3181,7 +3143,7 @@ public class WsnSpController extends Controller
 							String tmpValue = helper.value(String.valueOf(person.getSupportBalance()));
 							System.out.print(" tmpValue = " + tmpValue);
 							Double db1 = Double.valueOf(tmpValue);
-							System.out.println(" db1 = " + db1);
+							log.debug(" db1 = " + db1);
 							double usableAcctBal = db1.doubleValue();
 							double fullAcctBal = usableAcctBal / constant95;
 							NumberFormat currencyFormatter;
@@ -3222,8 +3184,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -3346,8 +3307,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -3378,8 +3338,7 @@ public class WsnSpController extends Controller
 			String view = ctx.getInputString("view");
 			ctx.goToView(view);
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -3479,8 +3438,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }
@@ -3504,8 +3462,8 @@ public class WsnSpController extends Controller
 						person.persist();
 					}
 					catch (Exception e) {
-						System.err.println("WSNSP-WAIVERACTION---------------------:" + e);
-						System.err.println("Attempted to find with key: " + (ctx.getInputString("id")));
+						log.debug("Attempted to find with key: " + (ctx.getInputString("id")));
+						log.error("Unable to complete waiver()", e);
 					}
 				}
 				i++;
@@ -3515,8 +3473,7 @@ public class WsnSpController extends Controller
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
     }

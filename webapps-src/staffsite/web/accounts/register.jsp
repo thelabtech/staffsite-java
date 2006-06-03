@@ -6,7 +6,6 @@
 		username = (String)ar.getValue("username");
 		password = (String)ar.getValue("password");
 		loginPage = (String)ar.getValue("loginPage");
-		System.out.println("\n***** lp2: "+loginPage+"\n");
 	}
 	if (loginPage == null) loginPage = "/accounts/genericLogin.jsp";
 	// 01-15-04 kl: Summer Projects required email field process for account creation page

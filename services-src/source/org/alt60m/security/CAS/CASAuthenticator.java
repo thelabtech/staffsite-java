@@ -12,6 +12,8 @@ import org.xml.sax.SAXException;
 import edu.yale.its.tp.cas.client.ServiceTicketValidator;
 import javax.servlet.*;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 
 /**
@@ -21,6 +23,7 @@ import org.apache.log4j.*;
  * 
  */
 public class CASAuthenticator {
+	private static Log log = LogFactory.getLog(CASAuthenticator.class); 
 	
 	public static final String CAS_TICKET_TOKEN = "ticket";
 
@@ -89,25 +92,24 @@ public class CASAuthenticator {
 			// contact CAS and validate
 			sv.validate();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		} catch (SAXException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		 
 		// if we want to look at the raw response, we can use getResponse()
 		xmlResponse = sv.getResponse();
-		 
-		// read the response
-		//TODO: remove println
-		System.out.println(xmlResponse);
+		log.debug(xmlResponse);
 		if(sv.isAuthenticationSuccessful()) {
 		    user = sv.getUser();
 		    result = new CASUser(user, sv.getPgtIou(), sv.getAttributes());
+			log.info("User " + user + " successfully authenticated against CAS");
 		} else {
 		    errorCode = sv.getErrorCode();
 		    errorMessage = sv.getErrorMessage();
+		    log.info("Unable to authenticate; Reason: " + sv.getErrorMessage());
 		    // handle the error
 		    throw new NotAuthenticatedException(errorCode, errorMessage);
 		}

@@ -151,17 +151,17 @@ public class StaffController extends Controller {
 		try {
 			setLog4JConfigFile(getServletContext()
 					.getRealPath(Log4JConfig_FILE));
-			log(Priority.INFO, "StaffController: Starting Init");
+			log.info("StaffController: Starting Init");
 
 			String servicesConfigPath = getServletContext().getRealPath(
 					MAPPING_FOLDER);
 			if (servicesConfigPath != null && servicesConfigPath.length() > 0) {
-				log(Priority.INFO, "The ServicesConfigPath used is: "
+				log.debug("The ServicesConfigPath used is: "
 						+ servicesConfigPath);
 				org.alt60m.servlet.ObjectMapping
 						.setConfigPath(servicesConfigPath);
 			} else {
-				log(Priority.INFO, "No ServicesConfigPath was specified.");
+				log.info("No ServicesConfigPath was specified.");
 			}
 
 			_profileManager = new ProfileManager();
@@ -175,9 +175,10 @@ public class StaffController extends Controller {
 			initHRQueryUsers(true);
 			CASAuthenticator.init(config.getServletContext());
 
-			log(Priority.INFO, "init() completed.  Ready for action.");
+			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
-			log(Priority.FATAL, "init() failed", e);
+			log.fatal("init() failed", e);
+			throw new ServletException("Initialization failure", e);
 		}
 	}
 
@@ -188,9 +189,9 @@ public class StaffController extends Controller {
 		if (verbose) {
 			for (Enumeration e = usersRoles.keys(); e.hasMoreElements();) {
 				String k = (String) e.nextElement();
-				log(Priority.DEBUG, k + " " + usersRoles.get(k));
+				log.debug(k + " " + usersRoles.get(k));
 			}
-			log(Priority.DEBUG, "finished loading users.");
+			log.debug("finished loading users.");
 		}
 	}
 
@@ -201,9 +202,9 @@ public class StaffController extends Controller {
 		if (verbose) {
 			for (Enumeration e = HRQueryUsersRoles.keys(); e.hasMoreElements();) {
 				String k = (String) e.nextElement();
-				log(Priority.DEBUG, k + " " + HRQueryUsersRoles.get(k));
+				log.debug(k + " " + HRQueryUsersRoles.get(k));
 			}
-			log(Priority.DEBUG, "finished loading HR Query users.");
+			log.debug("finished loading HR Query users.");
 		}
 	}
 
@@ -217,7 +218,7 @@ public class StaffController extends Controller {
 
 		while (headerNames.hasMoreElements()) {
 			String key = (String) headerNames.nextElement();
-			System.out.println(key + "=" + req.getHeader(key));
+			log.debug(key + "=" + req.getHeader(key));
 		}
 
 		try {
@@ -296,7 +297,7 @@ public class StaffController extends Controller {
 
 			ctx.getResponse().sendRedirect(gcxSigninURL);
 		} catch (Exception e) {
-			log(Priority.INFO, "Unable to Redirect");
+			log.info("Unable to Redirect");
 			ctx.setSessionValue("ErrorCode", "server error");
 			ctx.goToView("loginError");
 		}
@@ -313,7 +314,7 @@ public class StaffController extends Controller {
 			ctx.getResponse().sendRedirect(gcxLoginURL);
 			
 		} catch (Exception e) {
-			log(Priority.INFO, "Unable to Redirect");
+			log.info("Unable to Redirect");
 			ctx.setSessionValue("ErrorCode", "server error");
 			ctx.goToView("loginError");
 		}
@@ -329,7 +330,7 @@ public class StaffController extends Controller {
 			ctx.getSession().invalidate();
 
 		} catch (Exception e) {
-			log(Priority.INFO, "Unable to Redirect");
+			log.info("Unable to Redirect");
 			ctx.setSessionValue("ErrorCode", "server error");
 			ctx.goToView("loginError");
 		}
@@ -342,7 +343,7 @@ public class StaffController extends Controller {
 
 	public void logIn(ActionContext ctx) {
 		if (ctx.getInputString(CASAuthenticator.CAS_TICKET_TOKEN) == null) {
-			log(ctx.getRequest().getRequestURI() + " ** "
+			log.debug(ctx.getRequest().getRequestURI() + " ** "
 					+ ctx.getRequest().getQueryString());
 			ctx.goToView("login");
 		} else {
@@ -357,7 +358,7 @@ public class StaffController extends Controller {
 				if (session != null) {
 					session.invalidate();
 				} else {
-					log(Priority.DEBUG, "Ticket not mapped to session: "
+					log.debug("Ticket not mapped to session: "
 							+ ticket);
 				}
 			}
@@ -380,7 +381,7 @@ public class StaffController extends Controller {
 					authenticatedSessions.put(ticket, session);
 
 				} catch (NotAuthenticatedException e) {
-					log(Priority.INFO, "Not authenticated from CAS.");
+					log.info("Not authenticated from CAS.");
 					ctx.setSessionValue("ErrorCode", "notauthorized");
 					ctx.goToView("loginError");
 				}
@@ -398,30 +399,30 @@ public class StaffController extends Controller {
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 			// set a message needed for more help
-			log(Priority.INFO, "User not found: " + newUser.getUsername());
+			log.info("User not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileNotFoundException e) {
 			e.printStackTrace();
 			// set a message needed for more help
-			log(Priority.INFO, "Profile not found: " + newUser.getUsername());
+			log.info("Profile not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileManagementException e) {
 			e.printStackTrace();
-			log(Priority.ERROR, "Couldn't authenticate: "
+			log.error("Couldn't authenticate: "
 					+ newUser.getUsername() + " due to service problems.", e);
 			ctx.setSessionValue("ErrorCode", "unknown");
 			ctx.goToView("loginError");
 		} catch (MultipleProfilesFoundException e) {
 			e.printStackTrace();
-			log(Priority.ERROR, "Multiple accounts found: "
+			log.error("Multiple accounts found: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "multipleprofiles");
 			ctx.goToView("loginError");
 		} catch (UserNotVerifiedException e) {
 			//e.printStackTrace(); not really necessary
-			log(Priority.ERROR, "User GCX Account Not Verified: "
+			log.error("User GCX Account Not Verified: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "gcxnotverified");
 			ctx.goToView("loginError");
@@ -449,34 +450,34 @@ public class StaffController extends Controller {
 			
 
 			// Authenticate based on credentials
-			log(Priority.DEBUG, "username: " + userName);
-			log(Priority.DEBUG, "password: " + password);
+			log.debug("username: " + userName);
+			log.debug("password: " + password);
 			try {
 				profileId = _profileManager.authenticate(userName, password);
 				authorize(ctx, new CASUser(userName, null, null), profileId);
 			} catch (ProfileNotFoundException e1) {
 				// set a message needed for more help
-				log(Priority.INFO, "Profile not found: " + userName);
+				log.info("Profile not found: " + userName);
 				ctx.setSessionValue("ErrorCode", "noprofile");
 				ctx.goToView("loginError");
 
 			} catch (MultipleProfilesFoundException e1) {
-				log(Priority.ERROR, "Multiple accounts found: " + userName);
+				log.error("Multiple accounts found: " + userName);
 				ctx.setSessionValue("ErrorCode", "multipleprofiles");
 				ctx.goToView("loginError");
 			} catch (NotAuthorizedException e1) {
-				log(Priority.INFO, "Not authorized: " + userName);
+				log.info("Not authorized: " + userName);
 				ctx.setSessionValue("ErrorCode", "notauthorized");
 				ctx.goToView("loginError");
 			} catch (ProfileManagementException pme) {
 				pme.printStackTrace();
-				log(Priority.ERROR, "Couldn't authenticate: " + userName
+				log.error("Couldn't authenticate: " + userName
 						+ " do to service problems.", pme);
 				ctx.setSessionValue("ErrorCode", "unknown");
 				ctx.goToView("loginError");
 			} catch (Exception e) {
 				e.printStackTrace();
-				log(Priority.ERROR, "Unknown login error", e);
+				log.error("Unknown login error", e);
 				ctx.setSessionValue("ErrorCode", "unknown");
 				ctx.goToView("loginError");
 			}
@@ -506,7 +507,7 @@ public class StaffController extends Controller {
 			profileHash.put("region", "");
 		}
 
-		log(Priority.INFO, "Profile: " + profileHash);
+		log.info("Profile: " + profileHash);
 
 		ctx.setSessionValue("loggedIn", profileId);
 		ctx.setSessionValue("profile", profileHash);
@@ -546,7 +547,7 @@ public class StaffController extends Controller {
 			}
 		} catch (Exception e) {
 			isHR = false;
-			log(Priority.ERROR, "Couldn't determine if HR.  Setting to false.",
+			log.error("Couldn't determine if HR.  Setting to false.",
 					e);
 		}
 
@@ -563,15 +564,15 @@ public class StaffController extends Controller {
 
 		String requestedURL = (String) ctx.getSessionValue("onLogInGoto");
 		ctx.getSession().removeAttribute("onLogInGoto");
-		log("!!!!" + requestedURL);
+		log.debug("requestedURL: " + requestedURL);
 
 		ctx.getResponse().addCookie(mainCookie);
 		if (requestedURL != null) {
-			log("Going to : " + requestedURL);
+			log.debug("Going to : " + requestedURL);
 			try {
 				ctx.getResponse().sendRedirect(requestedURL);
 			} catch (IOException e) {
-				log(Priority.INFO, "Unable to Redirect");
+				log.info("Unable to Redirect");
 				ctx.setSessionValue("ErrorCode", "server error");
 				ctx.goToView("loginError");
 			}
@@ -581,7 +582,7 @@ public class StaffController extends Controller {
 				// clear ticket; need to send redirect
 				ctx.getResponse().sendRedirect(home);
 			} catch (IOException e) {
-				log(Priority.INFO, "Unable to Redirect");
+				log.info("Unable to Redirect");
 				ctx.setSessionValue("ErrorCode", "server error");
 				ctx.goToView("loginError");
 			}
@@ -590,23 +591,23 @@ public class StaffController extends Controller {
 
 	/*
 	 * } catch (MissingRequestParameterException mpe) { ctx.goToView("login"); }
-	 * catch (UserLockedOutException err) { log(Priority.INFO, "User locked out: " +
+	 * catch (UserLockedOutException err) { log.info("User locked out: " +
 	 * userName); ctx.setSessionValue("ErrorCode", "lockedout");
 	 * ctx.goToView("loginError"); } catch (ProfileNotFoundException pnfe) { //
-	 * set a message needed for more help log(Priority.INFO, "Profile not found: " +
+	 * set a message needed for more help log.info("Profile not found: " +
 	 * userName); ctx.setSessionValue("ErrorCode", "noprofile");
 	 * ctx.goToView("loginError"); } catch (MultipleProfilesFoundException mpfe) {
-	 * log(Priority.ERROR, "Multiple accounts found: " + userName);
+	 * log.error("Multiple accounts found: " + userName);
 	 * ctx.setSessionValue("ErrorCode", "multipleprofiles");
 	 * ctx.goToView("loginError"); } catch
 	 * (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException nae) {
-	 * log(Priority.INFO, "Not authorized: " + userName);
+	 * log.info("Not authorized: " + userName);
 	 * ctx.setSessionValue("ErrorCode", "notauthorized");
 	 * ctx.goToView("loginError"); } catch (ProfileManagementException pme) {
-	 * pme.printStackTrace(); log(Priority.ERROR, "Couldn't authenticate: " +
+	 * pme.printStackTrace(); log.error("Couldn't authenticate: " +
 	 * userName + " do to service problems.", pme);
 	 * ctx.setSessionValue("ErrorCode", "unknown"); ctx.goToView("loginError"); }
-	 * catch (Exception e) { e.printStackTrace(); log(Priority.ERROR, "Unknown
+	 * catch (Exception e) { e.printStackTrace(); log.error("Unknown
 	 * login error", e); ctx.setSessionValue("ErrorCode", "unknown");
 	 * ctx.goToView("loginError"); } }
 	 */
@@ -614,7 +615,7 @@ public class StaffController extends Controller {
 
 	/***************************************************************************
 	 * OLD CODE TO DELETE *** public void logIn(ActionContext ctx) {
-	 * log(ctx.getRequest().getRequestURI() + " ** " +
+	 * log.debug(ctx.getRequest().getRequestURI() + " ** " +
 	 * ctx.getRequest().getQueryString());
 	 * 
 	 * ctx.goToView("login"); }
@@ -627,8 +628,8 @@ public class StaffController extends Controller {
 	 * 
 	 * userName = ctx.getInputString("UserName", true).toLowerCase() +
 	 * MAIL_SUFFIX; password = ctx.getInputString("Password", true); //
-	 * Authenticate based on credentials log(Priority.DEBUG, "username: " +
-	 * userName); log(Priority.DEBUG, "password: " + password); String profileId =
+	 * Authenticate based on credentials log.debug("username: " +
+	 * userName); log.debug("password: " + password); String profileId =
 	 * _profileManager.authenticate(userName, password); // Load profile
 	 * Hashtable profileHash = ObjectHashUtil.obj2hash(new
 	 * StaffSiteProfile(profileId)); Staff staff = new Staff(); String accountNo =
@@ -638,7 +639,7 @@ public class StaffController extends Controller {
 	 * profileHash.put("region", region); } else { profileHash.put("region",
 	 * ""); } } else { profileHash.put("region", ""); }
 	 * 
-	 * log(Priority.INFO, "Profile: " + profileHash);
+	 * log.info("Profile: " + profileHash);
 	 * 
 	 * ctx.setSessionValue("loggedIn", profileId);
 	 * ctx.setSessionValue("profile", profileHash);
@@ -665,7 +666,7 @@ public class StaffController extends Controller {
 	 * if (isStaff) { StaffInfo si = new StaffInfo(); isHR =
 	 * si.isHumanResources(accountNo); } if
 	 * (isHR||HRQueryUsersRoles.containsKey(userName)) { hasHRQueryAccess=true; } }
-	 * catch (Exception e) { isHR = false; log(Priority.ERROR, "Couldn't
+	 * catch (Exception e) { isHR = false; log.error("Couldn't
 	 * determine if HR. Setting to false.", e); }
 	 * 
 	 * ctx.setSessionValue("isHR", String.valueOf(isHR));
@@ -679,7 +680,7 @@ public class StaffController extends Controller {
 	 * mainCookie.setMaxAge(maxage);
 	 * 
 	 * String requestedURL = (String) ctx.getSessionValue("onLogInGoto");
-	 * ctx.getSession().removeAttribute("onLogInGoto"); log("!!!!" +
+	 * ctx.getSession().removeAttribute("onLogInGoto"); log.debug("!!!!" +
 	 * requestedURL);
 	 * 
 	 * ctx.getResponse().addCookie(mainCookie);
@@ -720,26 +721,26 @@ public class StaffController extends Controller {
 	 * CAPTURE HR INFO UPON LOGIN
 	 * 
 	 * 
-	 * else if (requestedURL != null) { log("Going to : " + requestedURL);
+	 * else if (requestedURL != null) { log.debug("Going to : " + requestedURL);
 	 * ctx.goToURL(requestedURL); } else { ctx.goToView("home"); } } catch
 	 * (MissingRequestParameterException mpe) { ctx.goToView("login"); } catch
-	 * (UserLockedOutException err) { log(Priority.INFO, "User locked out: " +
+	 * (UserLockedOutException err) { log.info("User locked out: " +
 	 * userName); ctx.setSessionValue("ErrorCode", "lockedout");
 	 * ctx.goToView("loginError"); } catch (ProfileNotFoundException pnfe) { //
-	 * set a message needed for more help log(Priority.INFO, "Profile not found: " +
+	 * set a message needed for more help log.info("Profile not found: " +
 	 * userName); ctx.setSessionValue("ErrorCode", "noprofile");
 	 * ctx.goToView("loginError"); } catch (MultipleProfilesFoundException mpfe) {
-	 * log(Priority.ERROR, "Multiple accounts found: " + userName);
+	 * log.error("Multiple accounts found: " + userName);
 	 * ctx.setSessionValue("ErrorCode", "multipleprofiles");
 	 * ctx.goToView("loginError"); } catch
 	 * (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException nae) {
-	 * log(Priority.INFO, "Not authorized: " + userName);
+	 * log.info("Not authorized: " + userName);
 	 * ctx.setSessionValue("ErrorCode", "notauthorized");
 	 * ctx.goToView("loginError"); } catch (ProfileManagementException pme) {
-	 * pme.printStackTrace(); log(Priority.ERROR, "Couldn't authenticate: " +
+	 * pme.printStackTrace(); log.error("Couldn't authenticate: " +
 	 * userName + " do to service problems.", pme);
 	 * ctx.setSessionValue("ErrorCode", "unknown"); ctx.goToView("loginError"); }
-	 * catch (Exception e) { e.printStackTrace(); log(Priority.ERROR, "Unknown
+	 * catch (Exception e) { e.printStackTrace(); log.error("Unknown
 	 * login error", e); ctx.setSessionValue("ErrorCode", "unknown");
 	 * ctx.goToView("loginError"); } } /***** END OLD CODE TO DELETE
 	 **************************************************************************/
@@ -773,7 +774,7 @@ public class StaffController extends Controller {
 		String campusOnly = ctx.getInputString("campusOnly");
 		String boxStyle = ctx.getInputString("boxStyle");
 		String regionalNews = ctx.getInputString("regionalNews");
-		log("The value for regional news is .................................."
+		log.debug("The value for regional news is: "
 				+ regionalNews);
 
 		try {
@@ -911,7 +912,7 @@ public class StaffController extends Controller {
 					ErrorMsg += "Account number doesn't exist.  User account created anyway.  Please change account number if user is a staff person.";
 				} catch (Exception e) {
 					ErrorMsg += "There was an error creating the user account!<br>";
-					log(Priority.ERROR, "Error connecting to secant!:" + e);
+					log.error("Error connecting to secant!:" + e);
 				}
 
 			}
@@ -1030,7 +1031,7 @@ public class StaffController extends Controller {
 			try {
 				_profileManager.deleteProfile(userName);
 			} catch (Exception e) {
-				log(Priority.ERROR, "Could not create user" + e);
+				log.error("Could not create user" + e);
 			}
 			ResultMsg = ResultMsg + "User Account Deleted.<br>";
 			tub.put("UserName", ctx.getInputString("UserName"));
@@ -1093,7 +1094,7 @@ public class StaffController extends Controller {
 					} catch (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException e) {
 						ErrorMsg += "You entered your old password incorrectly.<br>";
 					} catch (Exception e) {
-						log(Priority.INFO, "Nope", e);
+						log.info("Nope", e);
 						e.printStackTrace();
 						ErrorMsg += "The password change was not successful.  This may not be the last time you will have to change your password.<br>";
 					}
@@ -1146,7 +1147,7 @@ public class StaffController extends Controller {
 				}
 
 			} catch (Exception e) {
-				log(Priority.ERROR, "Could not reset password: " + e);
+				log.error("Could not reset password: " + e);
 				ErrorMsg += "Could not reset password: " + e.getMessage();
 				ErrorMsg += "<P> Please notify Alt60M about this error and the UserName that gave the error.";
 			}
@@ -1253,7 +1254,7 @@ public class StaffController extends Controller {
 			ctx.goToView("home");
 
 		} catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform captureHRinfo", e);
+			log.error("Failed to perform captureHRinfo", e);
 		}
 
 	}
@@ -1279,7 +1280,7 @@ public class StaffController extends Controller {
 			if (ctx.getSessionValue("isHR") == null) {
 				ctx.goToURL("/Error.jsp?Reason=Timeout");
 			}
-			log(Priority.ERROR, "Failed to perform showTools", e);
+			log.error("Failed to perform showTools", e);
 		}
 
 	}
@@ -1320,7 +1321,7 @@ public class StaffController extends Controller {
 			if (ctx.getProfileID() == null) {
 				ctx.goToURL("/Error.jsp?Reason=Timeout");
 			}
-			log(Priority.ERROR, "Failed to perform loginStaffWeb", e);
+			log.error("Failed to perform loginStaffWeb", e);
 		}
 
 	}
@@ -1337,7 +1338,7 @@ public class StaffController extends Controller {
 			// String view = "";
 			boolean isStaff = ((Boolean) (ctx.getProfile().get("IsStaff")))
 					.booleanValue();
-			log(Priority.DEBUG, "Staff: " + isStaff);
+			log.debug("Staff: " + isStaff);
 
 			if (isStaff) {
 				results.putValue("mode", "staff");
@@ -1369,7 +1370,7 @@ public class StaffController extends Controller {
 				}
 			} else {
 
-				log("notStaff...");
+				log.debug("notStaff...");
 				// Not staff
 				results.putValue("mode", "nonstaff");
 				ctx.setReturnValue(results);
@@ -1380,7 +1381,7 @@ public class StaffController extends Controller {
 			ctx.setReturnValue(results);
 			ctx.goToView("loginStaffWeb");
 		} catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform loginStaffWeb", e);
+			log.error("Failed to perform loginStaffWeb", e);
 		}
 
 	}
@@ -1397,7 +1398,7 @@ public class StaffController extends Controller {
 			// String view = "";
 			boolean isStaff = ((Boolean) (ctx.getProfile().get("IsStaff")))
 					.booleanValue();
-			log(Priority.DEBUG, "Staff: " + isStaff);
+			log.debug("Staff: " + isStaff);
 
 			if (isStaff) {
 				results.putValue("mode", "staff");
@@ -1411,7 +1412,7 @@ public class StaffController extends Controller {
 				}
 			} else {
 
-				log("notStaff...");
+				log.debug("notStaff...");
 				// Not staff
 				results.putValue("mode", "nonstaff");
 				ctx.setReturnValue(results);
@@ -1422,7 +1423,7 @@ public class StaffController extends Controller {
 			ctx.setReturnValue(results);
 			ctx.goToView("loginStaffResources");
 		} catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform loginStaffResources", e);
+			log.error("Failed to perform loginStaffResources", e);
 		}
 
 	}
@@ -1459,7 +1460,7 @@ public class StaffController extends Controller {
 
 				if (!isStaff) {
 
-					log("notStaff...");
+					log.debug("notStaff...");
 					// Not staff
 					results.putValue("mode", "nonstaff");
 					view = "errorPS";
@@ -1469,7 +1470,7 @@ public class StaffController extends Controller {
 						&& !isNullOrEmpty(accountNo)) {
 					// Haven't selected to ignore SSO and password is non-null
 					// They are staff. Go for it
-					log("Haven't selected to ignore SSO and password is non-null");
+					log.debug("Haven't selected to ignore SSO and password is non-null");
 					results.putValue("section", section);
 					results.putValue("username", "cccstaff");
 					results.putValue("password", "vonette");
@@ -1482,7 +1483,7 @@ public class StaffController extends Controller {
 						&& isNullOrEmpty(password)) {
 					// If haven't selected to ignore SSO, and password is
 					// null...
-					log("If haven't selected to ignore SSO, and password is null...");
+					log.debug("If haven't selected to ignore SSO, and password is null...");
 					view = "setupPS";
 				} else if (enableSSO.equals(PREF_ENABLE_SSO_NO)) {
 					view = " ";
@@ -1501,7 +1502,7 @@ public class StaffController extends Controller {
 			ctx.goToView(view);
 
 		} catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform loginPS", e);
+			log.error("Failed to perform loginPS", e);
 		}
 
 	}
@@ -1678,7 +1679,7 @@ public class StaffController extends Controller {
 
 				// int attempts = getIntSessionValue(ctx.getSession(),
 				// EMAIL_ATTEMPTS_SESSION_CNT);
-				// log("attempt counter: " + attempts);
+				// log.debug("attempt counter: " + attempts);
 
 				// Does this password work?
 				if (verifyEmailPassword(username, password)) {
@@ -1751,7 +1752,7 @@ public class StaffController extends Controller {
 				// First, do they have a valid 'uscm.org' email address
 				String email = (String) profileHash.get("Email");
 
-				log(Priority.DEBUG, "email: " + email);
+				log.debug("email: " + email);
 
 				// If this email string contains *@uscm.org
 				if (email.indexOf("@" + MAIL_DOMAIN) > 0) {
@@ -1767,17 +1768,17 @@ public class StaffController extends Controller {
 							PREF_ENABLE_SSO_KEEP_ASKING)
 							.equalsIgnoreCase(PREF_ENABLE_SSO_NO));
 
-					log(Priority.DEBUG, "enableSSO: " + enableSSO);
-					log(Priority.DEBUG, getPreference(ctx.getProfileID(),
+					log.debug("enableSSO: " + enableSSO);
+					log.debug(getPreference(ctx.getProfileID(),
 							PREF_NAME_ENABLE_EMAIL_SSO)); // != "False");
 					// Yes, has cached password and sso enabled
 					if ((password != null) && (enableSSO != false)) {
 
-						log(Priority.DEBUG, "username: " + username);
+						log.debug("username: " + username);
 
 						// is password still valid?
 						if (verifyEmailPassword(username, password)) {
-							log(Priority.DEBUG, "verified password");
+							log.debug("verified password");
 
 							results.putValue("mode", "login");
 							results.putValue("username", username);
@@ -1793,8 +1794,7 @@ public class StaffController extends Controller {
 
 						// No, no cached password
 					} else {
-						log(Priority.DEBUG,
-								"no cached password or sso disabled");
+						log.debug("no cached password or sso disabled");
 						if (enableSSO) {
 							results.putValue("mode", "initialsetup");
 							goToView = "setupEmail";
@@ -1858,12 +1858,12 @@ public class StaffController extends Controller {
 			javax.mail.Store store = session.getStore("imap");
 			store.connect(MAIL_HOST, -1, username, password);
 			store.close();
-			log(Priority.DEBUG, "SUCCESS Authentication: user:" + username);
+			log.debug("SUCCESS Authentication: user:" + username);
 			return true;
 		} catch (javax.mail.AuthenticationFailedException authfailed) {
 			// Catch wrong username/password type errors
-			log(Priority.INFO, authfailed.toString());
-			log(Priority.INFO, "FAILED Authentication: user:" + username);
+			log.info(authfailed.toString());
+			log.info("FAILED Authentication: user:" + username);
 			return false;
 		}
 		// Propogate all other errors

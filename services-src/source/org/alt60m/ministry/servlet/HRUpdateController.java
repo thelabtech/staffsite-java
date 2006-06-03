@@ -42,10 +42,10 @@ public class HRUpdateController extends Controller {
 			String staffID = (String) staff.get("AccountNo");
 			String requestedBy = (String) staff.get("RequestedBy");
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			Hashtable newValues =
 				(Hashtable) ctx.getSession().getAttribute("formData");
@@ -117,7 +117,7 @@ public class HRUpdateController extends Controller {
 	* @param ctx ActionContext, gets "staffInfo" out of the session, puts "formData" into the session
 	*/
 	public void addressChangeRequest(ActionContext ctx) {
-		log("entering addressChangeRequest");
+		log.debug("entering addressChangeRequest");
 		try {
 			Hashtable staff = (Hashtable) (ctx.getSession().getAttribute("staffInfo"));
 			Hashtable primaryAddress = (Hashtable) (staff.get("primaryAddress"));
@@ -343,9 +343,8 @@ public class HRUpdateController extends Controller {
 			ar.putValue(
 				"exceptionText",
 				"HRUpdateController:addressChangeRequest:" + e.toString());
-			log(
-				Priority.ERROR,
-				"HRUpdateController:addressChangeRequest:" + e.toString());
+			log.error(
+				"HRUpdateController:addressChangeRequest:" + e.toString(), e);
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		}
@@ -370,10 +369,10 @@ public class HRUpdateController extends Controller {
 			String staffID = (String) staff.get("AccountNo");
 			String requestedBy = (String) staff.get("RequestedBy");
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			Hashtable newValues =
 				(Hashtable) ctx.getSession().getAttribute("formData");
@@ -527,8 +526,8 @@ public class HRUpdateController extends Controller {
 			Hashtable staff =
 				(Hashtable) (ctx.getSession().getAttribute("staffInfo"));
 			String staffID = (String) staff.get("AccountNo");
-			log("top staffInfo accountno is " + staffID);
-			log(
+			log.debug("top staffInfo accountno is " + staffID);
+			log.debug(
 				"top getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 
@@ -637,8 +636,8 @@ public class HRUpdateController extends Controller {
 			ar.addCollection("jobs", jobs);
 			ctx.setReturnValue(ar);
 
-			log("bottom staffInfo accountno is " + staffID);
-			log(
+			log.debug("bottom staffInfo accountno is " + staffID);
+			log.debug(
 				"bottom getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 
@@ -648,7 +647,7 @@ public class HRUpdateController extends Controller {
 				ctx.goToView("jobChange2");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", e.toString());
 			ctx.setReturnValue(ar);
@@ -664,9 +663,9 @@ public class HRUpdateController extends Controller {
 			String pathToViews = getServletContext().getRealPath("/WEB-INF/HRUpdateViews.xml");
 			setViewsFile(pathToViews);
 			setDefaultAction("showFormList");
-			log(Priority.INFO, "init() completed.  Ready for action.");
+			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
-			log(Priority.ERROR, "failed to init");
+			log.error("failed to init", e);
 		}
 	}
 	/**
@@ -690,10 +689,10 @@ public class HRUpdateController extends Controller {
 			String staffID = (String) staff.get("AccountNo");
 			String requestedBy = (String) staff.get("RequestedBy");
 
-			log("staffid is " + staffID);
-			log("requestedBy is " + requestedBy);
-			log("top staffInfo accountno is " + staffID);
-			log(
+			log.debug("staffid is " + staffID);
+			log.debug("requestedBy is " + requestedBy);
+			log.debug("top staffInfo accountno is " + staffID);
+			log.debug(
 				"top getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 
@@ -706,10 +705,10 @@ public class HRUpdateController extends Controller {
 			boolean includeSpouse =
 				((Boolean) newValues.get("includeSpouse")).booleanValue();
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			HRTool hrt = new HRTool();
 			hrt.jobChangeRequest(staffID, requestedBy, newValues);
@@ -719,14 +718,14 @@ public class HRUpdateController extends Controller {
 				HRTool hrt2 = new HRTool();
 				hrt2.jobChangeRequest(staffID, requestedBy, newValues);
 			}
-			log("bottom staffInfo accountno is " + staffID);
-			log(
+			log.debug("bottom staffInfo accountno is " + staffID);
+			log.debug(
 				"bottom getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 
 			postConfirm((String) ctx.getSession().getAttribute("hrInitiated"), ctx);
 		} catch (AuthorizerNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your request has been submitted to your regional HR team for approval.  " +
 				"Unfortunately, the HR Regional Director is unable to receive an email notification of this request because there is no HRRD set up in the computer system for the " + e.getAuthRegion() + " region.  " +
@@ -736,7 +735,7 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("notice");
 		} catch (BadRegionException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your current region is not recognized. This could be because you are not " +
 					"currently listed in the Campus Ministry. Please make sure to indicate your ministry as \"Campus " +
@@ -744,7 +743,7 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", e.toString());
 			ctx.setReturnValue(ar);
@@ -789,8 +788,8 @@ public class HRUpdateController extends Controller {
 			Hashtable staff =
 				(Hashtable) (ctx.getSession().getAttribute("staffInfo"));
 			String staffID = (String) staff.get("AccountNo");
-			log("top staffInfo accountno is " + staffID);
-			log(
+			log.debug("top staffInfo accountno is " + staffID);
+			log.debug(
 				"top getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 			
@@ -860,15 +859,15 @@ public class HRUpdateController extends Controller {
 			} else {
 				newValues.put("action", "jobChangeConfirm");
 			}
-			log("bottom staffInfo accountno is " + staffID);
-			log(
+			log.debug("bottom staffInfo accountno is " + staffID);
+			log.debug(
 				"bottom getteamlist session accountNo is "
 					+ ctx.getSessionValue("accountNo"));
 
 			ctx.setSessionValue("formData", newValues);
 			ctx.goToView("formConfirm");
 		} catch (NonCMJobChangeException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "This form is only for job information changes involving the Campus Ministry.  " +
 					"If you currently are in the Campus Ministry, please indicate that on the first page of this form.  " +
@@ -877,7 +876,7 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", e.toString());
 			ctx.setReturnValue(ar);
@@ -992,10 +991,10 @@ public class HRUpdateController extends Controller {
 			String staffID = (String) staff.get("AccountNo");
 			String requestedBy = (String) staff.get("RequestedBy");
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			Hashtable newValues =
 				(Hashtable) ctx.getSession().getAttribute("formData");
@@ -1003,7 +1002,7 @@ public class HRUpdateController extends Controller {
 			hrt.leaveOfAbsence(staffID, requestedBy, newValues);
 			postConfirm((String) ctx.getSession().getAttribute("hrInitiated"), ctx);
 		} catch (AuthorizerNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your request has been submitted to your regional HR team for approval.  " +
 				"Unfortunately, the HR Regional Director is unable to receive an email notification of this request because there is no HRRD set up in the computer system for the " + e.getAuthRegion() + " region.  " +
@@ -1013,7 +1012,7 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("notice");
 		} catch (BadRegionException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your current region is not recognized.");
 			ctx.setReturnValue(ar);
@@ -1049,10 +1048,10 @@ public class HRUpdateController extends Controller {
 				return;
 			}
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			Hashtable newValues =
 				(Hashtable) ctx.getSession().getAttribute("formData");
@@ -1199,7 +1198,7 @@ public class HRUpdateController extends Controller {
 	private void postConfirm(String hrInitiated, ActionContext ctx)
 		throws Exception {
 		if (hrInitiated != null && hrInitiated.equals("true")) {
-			log(
+			log.debug(
 				"setting session accountNo to "
 					+ ctx.getProfile().get("AccountNo"));
 			ctx.setSessionValue("accountNo", ctx.getProfile().get("AccountNo"));
@@ -1222,7 +1221,7 @@ public class HRUpdateController extends Controller {
 	private void printFormData(Hashtable newValues) {
 		for (Enumeration e = newValues.keys(); e.hasMoreElements();) {
 			String key = (String) e.nextElement();
-			System.out.println(
+			log.debug(
 				"newValues.put(\""
 					+ key
 					+ "\", \""
@@ -1332,10 +1331,10 @@ public class HRUpdateController extends Controller {
 			String staffID = (String) staff.get("AccountNo");
 			String requestedBy = (String) staff.get("RequestedBy");
 			if (requestedBy == null || requestedBy.equals("")) {
-				log("staff doing self.");
+				log.debug("staff doing self.");
 				requestedBy = staffID;
 			} else {
-				log("HR doing a staff.");
+				log.debug("HR doing a staff.");
 			}
 			Hashtable newValues =
 				(Hashtable) ctx.getSession().getAttribute("formData");
@@ -1353,7 +1352,7 @@ public class HRUpdateController extends Controller {
 			hrt.resignation(staffID, requestedBy, newValues);
 			postConfirm((String) ctx.getSession().getAttribute("hrInitiated"), ctx);
 		} catch (AuthorizerNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your request has been submitted to your regional HR team for approval.  " +
 				"Unfortunately, the HR Regional Director is unable to receive an email notification of this request because there is no HRRD set up in the computer system for the " + e.getAuthRegion() + " region.  " +
@@ -1363,12 +1362,13 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("notice");
 		} catch (BadRegionException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "Your current region is not recognized.");
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", e.toString());
 			ctx.setReturnValue(ar);
@@ -1411,21 +1411,21 @@ public class HRUpdateController extends Controller {
 			if (ctx.getSession().getAttribute("requestedBy") != null) {
 				requestedBy = (String) ctx.getSession().getAttribute("requestedBy");
 			} else {
-				log(Priority.INFO, "requestedBy is not in the session");
+				log.info("requestedBy is not in the session");
 			}
 		}
 		try {
 			if (acctNo == null || acctNo.equals("") ) {
-				log(Priority.INFO, "accountno is null");
+				log.info("accountno is null");
 				throw new AccountNumberNullException("HRUpdateController:showFormList:Account number is null");
 			} else {
-				log(Priority.INFO, "before getting user data");
+				log.debug("before getting user data");
 				ctx.setSessionValue("staffInfo", hrt.getUserData(ctx.getProfile(), acctNo, requestedBy));
-				log(Priority.INFO, "after getting user data");
+				log.debug("after getting user data");
 			}
 			ctx.goToView("index");
 		} catch (AccountNumberNullException e) {
-			System.err.println("AccountNumberNullException thrown.");
+			log.error("AccountNumberNullException thrown.", e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText","Your Account Number is not available in your Staff Site profile.  " +
 					"Please email <a href=\"mailto:help@campuscrusadeforchrist.com\">help@campuscrusadeforchrist.com</a> " +
@@ -1433,7 +1433,7 @@ public class HRUpdateController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText","HRUpdateController:showFormList:" + e.toString());
 			ctx.setReturnValue(ar);

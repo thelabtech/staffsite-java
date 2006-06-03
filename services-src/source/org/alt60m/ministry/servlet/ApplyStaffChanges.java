@@ -2,6 +2,8 @@ package org.alt60m.ministry.servlet;
 
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.util.DBConnectionFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 import java.text.*;
@@ -9,6 +11,8 @@ import java.sql.*;
 
 public class ApplyStaffChanges {
     
+	private static Log log = LogFactory.getLog(ApplyStaffChanges.class);
+	
     /**
      *  Static method that will grab all change requests that have not been applied,
      *  and apply those that have been approved or require no approval.
@@ -42,7 +46,7 @@ public class ApplyStaffChanges {
 		    log("excluded " + k + " change requests which may have pending approvals or have already been applied");
 		    log("failed to apply " + j + " change requests");
 		} catch (Exception e) {
-		    e.printStackTrace();
+		    log.error(e.getMessage(), e);
 		    throw e;
 		}
     }
@@ -210,7 +214,7 @@ public class ApplyStaffChanges {
 				//primaryAddr.persist();
 				change.persist();
 		    } catch (Exception  e) {
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 				throw e;
 		    }	    
 		} else {
@@ -239,7 +243,7 @@ public class ApplyStaffChanges {
 			statement.close();
 			conn.close();			
 		} catch (Exception e) {
-			e.printStackTrace();			
+			log.error(e.getMessage(), e);			
 		}
     }
 
@@ -249,7 +253,7 @@ public class ApplyStaffChanges {
 	}
 	
     static private void log(String msg) {
-		System.out.println(msg);
+		log.debug(msg);
     }
 
     public static void main (String[] args) {
@@ -257,6 +261,6 @@ public class ApplyStaffChanges {
 			org.alt60m.servlet.ObjectMapping.setConfigPath(args[0]);
 			DBConnectionFactory.setupPool();
 		    applyChanges(); 	     
-		} catch (Exception e) {	e.printStackTrace(); }
+		} catch (Exception e) {	log.error(e.getMessage(), e); }
     }    
 }

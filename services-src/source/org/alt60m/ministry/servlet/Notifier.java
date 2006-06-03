@@ -5,16 +5,19 @@ import org.alt60m.util.SendMessage;
 import org.alt60m.ministry.*;
 import org.alt60m.ministry.model.dbio.*;
 import java.util.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 
 public class Notifier {
-
+	private static Log log = LogFactory.getLog(Notifier.class);
 	public Notifier() {
 		getConfigProperties(org.alt60m.servlet.ObjectMapping.getConfigPath() + "/hrtool_notification.properties");
 /*
-System.out.println("***********************");
-		System.out.println("WEBSITE_EMAIL_ADDR = " + WEBSITE_EMAIL_ADDR + "\nERROR_EMAIL = " + ERROR_EMAIL + "\nPIU_STAFF_SERVICES_EMAIL = "+PIU_STAFF_SERVICES_EMAIL+"\nACS_STAFF_SERVICES_EMAIL = "+ACS_STAFF_SERVICES_EMAIL);
-System.out.println("***********************");
+log.debug("***********************");
+		log.debug("WEBSITE_EMAIL_ADDR = " + WEBSITE_EMAIL_ADDR + "\nERROR_EMAIL = " + ERROR_EMAIL + "\nPIU_STAFF_SERVICES_EMAIL = "+PIU_STAFF_SERVICES_EMAIL+"\nACS_STAFF_SERVICES_EMAIL = "+ACS_STAFF_SERVICES_EMAIL);
+log.debug("***********************");
 */
 	}
 
@@ -42,7 +45,7 @@ System.out.println("***********************");
      *  that requires their authorization.
      */
     public void notifyNextAuthorizor(StaffChangeRequest change) throws Exception {
-	log(Priority.DEBUG, "Entering notifyNextAuthorizer");
+	log.debug("Entering notifyNextAuthorizer");
 	try {
 	    final String nextAuthorizorEmail;
 	    Staff updateStaff = change.getUpdateStaff();			// get staff record for staff person being updated
@@ -61,8 +64,8 @@ System.out.println("***********************");
 				// found it
 				receivingRegion = field.getNewValue();
 				//region2region = true;
-				log(Priority.DEBUG, "region to region is true");
-				log(Priority.DEBUG, "receiving region is " + receivingRegion);
+				log.debug("region to region is true");
+				log.debug("receiving region is " + receivingRegion);
 			}
 		}
 		
@@ -85,8 +88,8 @@ System.out.println("***********************");
 				if (receivingRegion != null && auth.getSequence() != 1) {
 					region = receivingRegion;
 				}
-				log(Priority.DEBUG, "** looking for auth for :" + region + ": region");
-				log(Priority.DEBUG, "*** sequence no " + auth.getSequence() + " is unauthorized");
+				log.debug("** looking for auth for :" + region + ": region");
+				log.debug("*** sequence no " + auth.getSequence() + " is unauthorized");
 				break;
 			}
 	    }    
@@ -101,12 +104,12 @@ System.out.println("***********************");
 	    // HRNC authorization...no more auths to go so apply changes and send to Staff Services
 /*		} else if (auth.getRole().equals(StaffChangeRequest.HR_NON_CAMPUS) && auth.getSequence() == 3) {
 			ApplyStaffChanges.applyChanges(change); //Really we should apply these changes someplace else
-			log(Priority.DEBUG, "Could be emailing SS now, hopefully w/ a pending approval message");
+			log.debug("Could be emailing SS now, hopefully w/ a pending approval message");
 			emailStaffServices(change.getChangeRequestId());
 */			//notifyNonCampus();
 	    } else if (auth.getRole().equals(StaffChangeRequest.HR_REGIONAL_DIR) || auth.getRole().equals(StaffChangeRequest.HR_NATIONAL_DIR)) {
-			log(Priority.DEBUG, "notifying a campus person from :" + region + ": region");
-			log(Priority.DEBUG, "using auth with seqno " + auth.getSequence());
+			log.debug("notifying a campus person from :" + region + ": region");
+			log.debug("using auth with seqno " + auth.getSequence());
 			
 			// If no region, automatically approve (since we're forcing them to have a region now)
 			if ( auth.getRole().equals(StaffChangeRequest.HR_REGIONAL_DIR) && auth.getSequence() == 1 && region.equals("") ) {
@@ -140,23 +143,23 @@ System.out.println("***********************");
 	} catch (BadRegionException e) {
 		throw e;
 	} catch (Exception e) {
-		e.printStackTrace();
-	    throw new Exception(e.toString());
+		log.error(e.getMessage(), e);
+	    throw e;
 	}
     }
 
     private void notifyNonCampus() {
 	// here is where we compose and send the message to staff services regarding this change
-	log(Priority.DEBUG, "NOT IMPLEMENTED Notifying Non-Campus Person");
+	log.debug("NOT IMPLEMENTED Notifying Non-Campus Person");
     }
 
     private void notifyCampus(StaffChangeRequest change, Staff updateStaff, Authorization auth, String region) throws Exception {
-	log(Priority.DEBUG, "in notifyCampus");
+	log.debug("in notifyCampus");
 	try {
-	    log(Priority.DEBUG, "before lookupAuthEmail");
+	    log.debug("before lookupAuthEmail");
 	    String nextAuthorizorEmail = lookUpAuthEmail(auth, region);
-	    log(Priority.DEBUG, "past lookUpAuthEmail");	
-	    log(Priority.DEBUG, "next authorizor: " + nextAuthorizorEmail);
+	    log.debug("past lookUpAuthEmail");	
+	    log.debug("next authorizor: " + nextAuthorizorEmail);
 	    final String lastName = updateStaff.getLastName();
 	    final String firstName = updateStaff.getFirstName();
 	    final String changeType = change.getType();
@@ -187,7 +190,7 @@ System.out.println("***********************");
 				if (field.getField().equals("region")) {
 					// found it
 					receivingRegion = field.getNewValue();
-					log(Priority.DEBUG, "receiving region is " + receivingRegion);
+					log.debug("receiving region is " + receivingRegion);
 					break;
 				}	
 			}
@@ -197,8 +200,8 @@ System.out.println("***********************");
 	} catch (AuthorizerNotFoundException e) {
 		throw e;
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    throw new Exception(e.toString());
+	    log.error(e.getMessage(), e);
+	    throw e;
 	}
     }
 
@@ -248,7 +251,7 @@ System.out.println("***********************");
 	    if (c.size() > 0) {
 			Iterator iter = c.iterator();
 			nextAuthorizor = (Staff) iter.next();
-			log(Priority.DEBUG, "Found " + nextAuthorizor.getLastName() + " to authorize this request");
+			log.debug("Found " + nextAuthorizor.getLastName() + " to authorize this request");
 	    } else {
 			// If we have NO authorizor, we have got a problem.
 			// Send an email to an admin to fix this data issue.
@@ -269,10 +272,10 @@ System.out.println("***********************");
 	    
 	    if (nextAuthorizor != null) {
 			nextAuthorizorEmail = nextAuthorizor.getEmail();
-			log(Priority.DEBUG, "email is " + nextAuthorizor.getEmail());
+			log.debug("email is " + nextAuthorizor.getEmail());
 	    } else {
 			nextAuthorizorEmail = null;
-			log(Priority.DEBUG, "next authorizor is null");
+			log.debug("next authorizor is null");
 			throw new AuthorizerNotFoundException(auth.getRole(), region);
 	    }
 	} catch (AuthorizerNotFoundException e) {
@@ -289,7 +292,7 @@ System.out.println("***********************");
      *  to the database.
      */
     public void emailStaffServices(Map formData) throws Exception {
-	log(Priority.DEBUG, "Entering emailStaffServices...");
+	log.debug("Entering emailStaffServices...");
 	SendMessage sm = new SendMessage();
 	sm.setTo(PIU_STAFF_SERVICES_EMAIL);
 	sm.setFrom(WEBSITE_EMAIL_ADDR);
@@ -417,7 +420,7 @@ System.out.println("***********************");
 	}
 	sm.setBody(body);
 	sm.send(true);	     
-	log(Priority.DEBUG, "leaving emailStaffServices");
+	log.debug("leaving emailStaffServices");
     }
 
     /**
@@ -581,9 +584,9 @@ System.out.println("***********************");
 	    PIU_STAFF_SERVICES_EMAIL = p.getProperty("piu_staff_services_email");
 	    ACS_STAFF_SERVICES_EMAIL = p.getProperty("acs_staff_services_email");
 	    ACS_RESIGN_STAFF_SERVICES_EMAIL = p.getProperty("acs_resign_staff_services_email");
-	    System.out.println("getConfigProperties Succeeded");
+	    log.debug("getConfigProperties Succeeded");
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    log.error(e.getMessage(), e);
 	}	
     }
 
@@ -593,7 +596,7 @@ System.out.println("***********************");
     }
 
     static private void log(String msg) {
-	System.out.println(msg);
+	log.debug(msg);
     }
 
     /**

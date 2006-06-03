@@ -2,12 +2,17 @@ package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.servlet.*;
 import org.alt60m.hr.si.model.dbio.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.*;
 
 //This class handles all of the Stint Application related actions
 
 public class SIAppHandler {
 
+	private static Log log = LogFactory.getLog(SIAppHandler.class);
+	
     public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
     
@@ -35,7 +40,7 @@ public class SIAppHandler {
     protected ActionResults testSIController(Action action)
     {
         ActionResults ar = new ActionResults();
-        System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+        log.debug("in " + action.getName() + " handler method!");
         ar.setView("home");
         return ar;
     }
@@ -43,7 +48,7 @@ public class SIAppHandler {
     protected ActionResults postContactInfo(Action action)
     {
         ActionResults ar = new ActionResults();        
-        System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+        log.debug("in " + action.getName() + " handler method!");
         
         String result = updatePersonInfo(action.getValues());
         if (result!=null) ar.putValue("ErrorMessage", result);
@@ -52,14 +57,14 @@ public class SIAppHandler {
         
         if(debug) outputparms(action.getValues());
         
-        System.out.println("postContactInfo returning error: " + ar.getValue("ErrorMessage"));
+        log.debug("postContactInfo returning error: " + ar.getValue("ErrorMessage"));
         return ar;
     }
 
     protected ActionResults postAppHome(Action action)
     {
         ActionResults ar = new ActionResults();        
-        System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+        log.debug("in " + action.getName() + " handler method!");
         ar.setView((String)action.getValue("page"));
 		if(debug) outputparms(action.getValues());
 		
@@ -188,7 +193,7 @@ public class SIAppHandler {
 		try	{
 			a = (SIApplication) SIUtil.getObject(appid, "ApplicationID", APPLICATIONCLASS);
 		} catch(Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
 		}
 		action.putValue("AssignedToProject",""+a.getLocationA());
 		action.putValue("FinalProject",""+a.getLocationA());
@@ -214,7 +219,7 @@ public class SIAppHandler {
     private ActionResults processUpdateAppInfo(Action action)
     {
         ActionResults ar = new ActionResults();
-        System.out.println("<-------- processing action: " + action.getName() + " ------>");
+        log.debug("processing action: " + action.getName());
         
         //add date last changed to action values.
         action.putValue("DateAppLastChanged", org.alt60m.html.Util.formatDateTime(new Date()));
@@ -235,7 +240,7 @@ public class SIAppHandler {
         String errormessage = null;
         
         String personid = (String) parms.get("SIPersonID");
-        System.out.println("UpdatePersonInfo using personid: " + personid);
+        log.debug("UpdatePersonInfo using personid: " + personid);
         
 
 		// dc 2003-01-06: special processing.  Since we can no longer have GENDER field on any screen,
@@ -258,7 +263,7 @@ public class SIAppHandler {
 		if (!(universityState == null || "".equals(universityState))) {
 			// universityState field was on this page.  So, add the REGION field to the hash table
 			String newRegion = SIUtil.getRegionForState(universityState);
-System.out.println("calling info.getRegionForState(" + universityState + ") region=" + newRegion + "=");
+			log.debug("calling info.getRegionForState(" + universityState + ") region=" + newRegion + "=");
 			parms.put("Region", newRegion);
 		}
 
@@ -270,13 +275,13 @@ System.out.println("calling info.getRegionForState(" + universityState + ") regi
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             errormessage = "Internal Error saving Person Info: " + e.getMessage();
         }
 
 		if(debug) outputparms(parms);
 
-		System.out.println("Returning error message: " + errormessage);
+		log.debug("Returning error message: " + errormessage);
 		
         return errormessage;        
     }
@@ -289,12 +294,12 @@ System.out.println("calling info.getRegionForState(" + universityState + ") regi
 	private void outputparms(Hashtable parms)
 	{
         //--output for testing
-        System.out.println("---------Values in Parms----------");
+        log.debug("---------Values in Parms----------");
         for(Iterator i = parms.keySet().iterator(); i.hasNext(); )
         {
             String key = (String) i.next();
             String val = (String) parms.get(key);
-            System.out.println(key + "    --    " + val);
+            log.debug(key + "    --    " + val);
         }		
 	}
 
@@ -309,23 +314,14 @@ System.out.println("calling info.getRegionForState(" + universityState + ") regi
         String personid = (String) parms.get("SIPersonID");
         String appid =    (String) parms.get("ApplicationID");
         
-        System.out.println("UpdateAppInfo using personid: " + personid);
-        System.out.println("UpdateAppInfo using appid   : " + appid);
+        log.debug("UpdateAppInfo using personid: " + personid);
+        log.debug("UpdateAppInfo using appid   : " + appid);
                 
         try
         {
             
             SIUtil.saveObjectHash(parms, appid, "ApplicationID", APPLICATIONCLASS);
-            
-            //--output for testing
-            System.out.println("---------Values in Parms----------");
-            for(Iterator i = parms.keySet().iterator(); i.hasNext(); )
-            {
-                String key = (String) i.next();
-                Object val = parms.get(key);
-                System.out.println(key + "    --    " + val);
-            }
-            
+            outputparms(parms);            
             //thats it.
         }
         catch (Exception e)
@@ -334,11 +330,12 @@ System.out.println("calling info.getRegionForState(" + universityState + ") regi
         	{
         		//specific error message when we try to post too much data
         		// and run into microsoft SQLServer row limit of 8060 characters
+        		log.warn("Too many characters in submission: " + e.getMessage());
         		errormessage = "Error: The last page of information you just posted was NOT saved.  You have exceeded the total number of characters allowed per application.  Please review your answers and trim them down a bit.  Thank you.";
         	}
         	else
         	{
-            	e.printStackTrace();
+        		log.error(e.getMessage(), e);
             	errormessage = "Internal Error saving Application Info: " + e.getMessage();
         	}
         }

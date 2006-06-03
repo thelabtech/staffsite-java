@@ -2,12 +2,13 @@ package org.alt60m.html;
 
 import java.util.*;
 import java.io.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.model.dbio.*;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Weddings implements java.io.Serializable {
-
+	private static Log log = LogFactory.getLog(Weddings.class);
+	
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
 	java.text.SimpleDateFormat parseDateToDayNumber = new java.text.SimpleDateFormat ("D");
@@ -21,11 +22,6 @@ public class Weddings implements java.io.Serializable {
 	boolean justCampus = false;
     Properties p = new Properties();
 
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 	
 	private String _pathToFile = "";//"webapps/staffsite/occasions.properties";
 	private final String PROPERTIES_FILE = "occasions.properties";
@@ -39,7 +35,7 @@ public class Weddings implements java.io.Serializable {
     private void getFileLocs() {
 		try {
 			File f = new File(_pathToFile, PROPERTIES_FILE);
-			log(Priority.INFO,f.getAbsolutePath());
+			log.debug(f.getAbsolutePath());
 			FileInputStream fis = new FileInputStream(f);
 			p.load(fis);
 			//String pathToFile	= p.getProperty("_pathToFile");
@@ -49,7 +45,7 @@ public class Weddings implements java.io.Serializable {
 			theCampusFile		= new File(_pathToFile, p.getProperty("_weddings_c")).getAbsolutePath();
 			theCampusWeekFile	= new File(_pathToFile, p.getProperty("_weddings_c_w")).getAbsolutePath();
 		} catch (Exception e) {	    
-			log(Priority.ERROR,e.toString(),e);
+			log.error(e.getMessage() ,e);
 		}
     }
 
@@ -95,7 +91,7 @@ public class Weddings implements java.io.Serializable {
 					bdQuery = "maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+" AND (removedFromPeopleSoft='N') order by lastName";
 				}
 					
-				log(Priority.INFO,bdQuery);
+				log.debug(bdQuery);
 			
 				Collection stafflist = new Staff().selectList(bdQuery);// staffAdaptor.list(bdQuery, new String[]{"PreferredName","LastName","AccountNo","SpouseFirstName","MarriageDate"});
 				if (stafflist.isEmpty()){
@@ -122,10 +118,10 @@ public class Weddings implements java.io.Serializable {
 			}
 		}
 		catch (IOException e){
-			log(Priority.INFO,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.INFO,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 
@@ -199,10 +195,10 @@ public class Weddings implements java.io.Serializable {
 			}
 		}
 		catch (IOException e){
-			log(Priority.INFO,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.INFO,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 	

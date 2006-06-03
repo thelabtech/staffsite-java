@@ -2,9 +2,10 @@ package org.alt60m.ministry.bean;
 
 import java.sql.*;
 import java.util.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.model.dbio.*;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * Staff Updater
@@ -14,6 +15,8 @@ import org.apache.log4j.Priority;
  */
 
 public class RolodexUpdater {
+	private static Log log = LogFactory.getLog(RolodexUpdater.class);
+	
 	private static final String ROLODEX_TBL = "ministry_Rolodex";
 	private static final String CRS_TBL = "crs_CRSPerson";
 	private static final String EVENT_TBL = "event_EventPerson";
@@ -24,12 +27,7 @@ public class RolodexUpdater {
 	private static final String USSP01_TBL = "ussp_Student01";
 	private static final String WSN_TBL = "wsn_sp_viewapplication";
     
-		//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	private void log(String msg) { logHelper.log(this.getClass().toString(),msg); }
-	//End of Log Helper Code//
+
 
     public RolodexUpdater() {    }
     
@@ -88,7 +86,7 @@ public class RolodexUpdater {
 				return "";
 			}
 		} catch (SQLException e) {
-			log("error trying to get note.  assuming okay, and moving on");
+			log.debug("error trying to get note.  assuming okay, and moving on");
 			return "";
 		}
     }
@@ -171,7 +169,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -200,19 +198,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("crspersonid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setCrsPersonId(_resultset.getString("sourcekey"));
 						rol.persist();
 						rolodexIndiv.put("crspersonid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from CRS tables");
+			log.debug("failed to update from CRS tables");
 			e.printStackTrace();
 			throw e;
 		}
@@ -243,7 +241,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -279,19 +277,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("eventpersonid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setEventPersonId(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("eventpersonid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from EVENT tables");
+			log.debug("failed to update from EVENT tables");
 			e.printStackTrace();
 			throw e;
 		}
@@ -322,7 +320,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -370,19 +368,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("sipersonid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setSiPersonId(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("sipersonid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from STINT tables");
+			log.debug("failed to update from STINT tables");
 			e.printStackTrace();
 			throw e;
 		}
@@ -408,7 +406,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -433,19 +431,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("linczonecontactid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setLinczoneContactId(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("linczonecontactid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from LINCZONE tables");
+			log.debug("failed to update from LINCZONE tables");
 			e.printStackTrace();
 			throw e;
 		}
@@ -478,7 +476,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -512,19 +510,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("staffaccountno")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setStaffAccountNo(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("staffaccountno", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from STAFF tables");
+			log.debug("failed to update from STAFF tables");
 			e.printStackTrace();
 			throw e;
 		}	
@@ -553,7 +551,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", ";
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -585,7 +583,7 @@ public class RolodexUpdater {
 					try {
 						rol.persist();
 					} catch (Exception e1) {
-						log(org.alt60m.util.ObjectHashUtil.obj2hash(rol).toString());						
+						log.debug(org.alt60m.util.ObjectHashUtil.obj2hash(rol).toString());						
 						e1.printStackTrace();
 					}
 					Hashtable rolodexIndiv = new Hashtable();
@@ -596,19 +594,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("usspstudentid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setUsspStudentId(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("usspstudentid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from USSP tables");
+			log.debug("failed to update from USSP tables");
 			e.printStackTrace();
 			throw e;
 		}	
@@ -637,7 +635,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", ";
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -672,7 +670,7 @@ public class RolodexUpdater {
 					try {
 						rol.persist();
 					} catch (Exception e1) {
-						log(org.alt60m.util.ObjectHashUtil.obj2hash(rol).toString());						
+						log.debug(org.alt60m.util.ObjectHashUtil.obj2hash(rol).toString());						
 						e1.printStackTrace();
 					}
 					Hashtable rolodexIndiv = new Hashtable();
@@ -687,7 +685,7 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("ussp01studentid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						if (_resultset.getString("sourcekey")!=null) {
 							rol.setUssp01StudentId(_resultset.getString("sourcekey"));
@@ -702,12 +700,12 @@ public class RolodexUpdater {
 						}
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from USSP01 tables");
+			log.debug("failed to update from USSP01 tables");
 			e.printStackTrace();
 			throw e;
 		}	
@@ -738,7 +736,7 @@ public class RolodexUpdater {
 			while (_resultset.next()) {
 				String key = _resultset.getString("firstname")+", "+_resultset.getString("lastname")+", "+_resultset.getString("email");
 				if (!rolodexHash.containsKey(key)) {
-					log(key+", inserting into rolodex");
+					log.debug(key+", inserting into rolodex");
 					Rolodex rol = new Rolodex();
 					
 					rol.setAddress(_resultset.getString("address"));
@@ -779,19 +777,19 @@ public class RolodexUpdater {
 				} else {
 					Hashtable rolodexIndiv = (Hashtable)rolodexHash.get(key);
 					if (!rolodexIndiv.containsKey("wsnsppersonid")) {
-						log(key+", already in rolodex, but adding key");			
+						log.debug(key+", already in rolodex, but adding key");			
 						Rolodex rol = new Rolodex((String)rolodexIndiv.get("rolodexid"));
 						rol.setWsnSpPersonId(_resultset.getString("sourcekey"));
 						rol.persist();				
 						rolodexIndiv.put("wsnsppersonid", _resultset.getString("sourcekey"));
 						rolodexHash.put(key, rolodexIndiv);			
 					} else {
-						log(key+", already in rolodex, and contains this key");			
+						log.debug(key+", already in rolodex, and contains this key");			
 					}
 				}
 			}
 		} catch (Exception e) {
-			log("failed to update from WSN tables");
+			log.debug("failed to update from WSN tables");
 			e.printStackTrace();
 			throw e;
 		}	

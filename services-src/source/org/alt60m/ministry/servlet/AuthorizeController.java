@@ -14,9 +14,9 @@ public class AuthorizeController extends Controller {
 	    String pathToViews = getServletContext().getRealPath("/WEB-INF/HRAuthorizeViews.xml");
 	    setViewsFile(pathToViews);
 	    setDefaultAction("showPage");
-	    log(Priority.INFO, "init() completed.  Ready for action.");	     	     
+	    log.info("init() completed.  Ready for action.");	     	     
 	} catch (Exception e) {
-	    log(Priority.ERROR, "failed to init");
+	    log.fatal("failed to init");
 	}	
     }
 

@@ -18,21 +18,16 @@
 
 	// user's login details
 	String userID = (String)session.getValue("userID");
-	System.out.println("userID: "+userID);
-	int intUserID = new Integer(userID).intValue();
-	System.out.println("userID: "+userID);
-	String userEmail = (String)session.getValue("userEmail");
-	System.out.println("userEmail: "+userEmail);
-
-	//following added by KB to spoof all pay* pages to be payment.
+		int intUserID = new Integer(userID).intValue();
+		String userEmail = (String)session.getValue("userEmail");
+		//following added by KB to spoof all pay* pages to be payment.
     String returnpage = (String) request.getParameter("page");
 	if(returnpage!=null)
 	{
  	 if(returnpage.startsWith("pay")) returnpage = "payment";
 	 if("submitapp".equals(returnpage)) returnpage = "submit";
 	}
-	System.out.println("returned page = " + returnpage);
-	// boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
+		// boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
 	String titles[] = {"Home", "Instructions",  "Frequently Asked Questions","Contact Information", "Ministry Interests", "References", "STINT Only", "Ministry Experience", "Church Background", "Personal Information", "Alcohol Use", "Drug Use", "Tobacco Use", "Moral Convictions", "Financial Information", "Ministry Partner Development", "Biographical Information", "Statement of Beliefs", "Payment", "Submit Application"};
 	String pages[] = {"apphome", "instruct", "faq", "contact", "interests", "refs", "stintonly", "experience", "church", "personal", "ause", "duse", "tuse", "moral", "financial", "mpd", "bio", "belief", "payment", "submit"};
 	int pageNum = 0;
@@ -46,10 +41,7 @@
 	ActionResults ar = ActionResults.getActionResults(session);
 	String SIPersonID = (String) session.getValue("SIPersonID");
 	String ApplicationID = (String) session.getValue("ApplicationID");
-	System.out.println("ApplicationID=" + ApplicationID);
-	System.out.println("SIPersonID=" + SIPersonID);
-
-	//lookup person and application -- refactored out of jsps kb 2/4/03
+			//lookup person and application -- refactored out of jsps kb 2/4/03
 	SIApplication a = null;
 	SIPerson p = null;
 	try{
@@ -69,10 +61,7 @@
 		System.out.println("ERROR trying to get person/application objects:");
 		e.printStackTrace();
 	}
-	System.out.println("Retrieved person object: " + p.getSIPersonID());
-	System.out.println("Retrieved app    object: " + a.getApplicationID());
-
-    if (a.getDateSubmitted() != null)
+		    if (a.getDateSubmitted() != null)
         isSubmitted = true;
 	else
         isSubmitted = false;
@@ -176,8 +165,7 @@
 		</TD>
 		<TD CLASS="appbox" VALIGN="TOP">
 
-		<%System.out.println("ERRORMESSAGE: " + ar.getValue("ErrorMessage"));
-		if (ar.getValue("ErrorMessage")!=null)
+		<%		if (ar.getValue("ErrorMessage")!=null)
 		  {	%>
 		   <font color="red">Message: <%=ar.getValue("ErrorMessage")%>
 		<%}%>

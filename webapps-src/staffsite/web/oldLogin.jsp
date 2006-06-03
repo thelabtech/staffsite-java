@@ -10,7 +10,6 @@ if(cookies!=null) {
 		Cookie cookie = cookies[i];
 		if ((cookieName.equals(cookie.getName())) && (cookie.getValue().indexOf("@uscm.org") > 0)){
 			UserName=cookie.getValue().substring(0,cookie.getValue().indexOf("@uscm.org"));
-			System.out.println("Logging in to StaffSite:--UserName:" +UserName + " --MaxAge:" + cookie.getMaxAge());
 		}
 	}
 }

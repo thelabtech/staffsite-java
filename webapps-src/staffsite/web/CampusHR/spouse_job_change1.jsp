@@ -3,8 +3,7 @@
 	
 	Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 	
-	System.out.println(staffInfo.toString());
-	String lastName = "";
+		String lastName = "";
 	String firstName = "";
 	String preferredName = "";
 	String middleInitial = "";

@@ -33,7 +33,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 	private final String ERR_conferenceNotFound = "The conference could not be located. This most likely happened because your browser has been inactive too long. Click back to login to your conference again.";
 
 	public void init() {
-		log(Priority.DEBUG, "CRSRegister.init()");
+		log.debug("CRSRegister.init()");
 		super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
 		super.setDefaultAction(DEFAULT_ACTION);
 	}
@@ -67,7 +67,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 		ar.putValue("nextAction", "");
 		ctx.setReturnValue(ar);
 		ctx.goToView("error");
-		log(Priority.ERROR, "Failed to perform " + methodName + "().", e);
+		log.error("Failed to perform " + methodName + "().", e);
 	}
 
 	/** ***************************************************************************** */
@@ -246,7 +246,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					} else {
 						String username = (String) ctx.getProfile().get(
 								"UserName");
-						System.out.println("user " + username
+						log.info("user " + username
 								+ " authenticated by staffsite.");
 						int ssmID = crsApp.getSsmID(username);
 						Person p = crsApp.getPersonBySsmID(ssmID);
@@ -306,7 +306,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				if (!manager.authenticate(username, password)) { //user
 					// authentication
 					// failed
-					System.out.println("authentication for user " + username
+					log.info("authentication for user " + username
 							+ " failed.");
 					ar.putValue(
 							"errorMsg",
@@ -317,7 +317,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					ctx.setReturnValue(ar);
 					ctx.goToView("error");
 				} else { //user has been authenticated
-					System.out.println("user " + username + " authenticated.");
+					log.info("user " + username + " authenticated.");
 					int ssmID = crsApp.getSsmID(username);
 					Person p = crsApp.getPersonBySsmID(ssmID);
 					if (p.isPKEmpty()) {
@@ -1593,9 +1593,9 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 								bankAcctNum.length());
 
 				String registrationID = (String) ctx.getSessionValue("registrationID");
-				System.out.println("getRemoteAddr: "
+				log.debug("getRemoteAddr: "
 						+ ctx.getRequest().getRemoteAddr());
-				System.out.println("getRemoteHost: "
+				log.debug("getRemoteHost: "
 						+ ctx.getRequest().getRemoteHost());
 				paymentInfo.put("customerIP", ctx.getRequest().getRemoteHost());
 				//				Hashtable payment = crsApp.paymentECheck(regID, paymentInfo);
@@ -1772,7 +1772,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 						: ctx.getInputString("name");
 				nameSubString = TextUtils.formatApostrophe(nameSubString);
 				ar.putValue("nameSubString", nameSubString);
-				log(Priority.DEBUG, "listStaff substring: " + nameSubString);
+				log.debug("listStaff substring: " + nameSubString);
 
 				Collection list = new Vector();
 				if (nameSubString.length() > 0) {
@@ -1830,7 +1830,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1855,7 +1855,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("lookupPerson");
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1977,7 +1977,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("lookupSSM");
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2097,7 +2097,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2154,7 +2154,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2200,7 +2200,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2233,7 +2233,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("createSpouseLogin");
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2269,7 +2269,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("confirmSpouseLogin");
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -2327,7 +2327,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("confirmSpouse");
 			}		
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}		

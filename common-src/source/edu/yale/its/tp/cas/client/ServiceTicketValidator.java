@@ -172,7 +172,6 @@ public class ServiceTicketValidator {
     if (proxyCallbackUrl != null)
       sb.append("&pgtUrl=" + proxyCallbackUrl);
     String url = sb.toString();
-    System.out.println("Validating ticket: " + url);
     String response = SecureURL.retrieve(url);
     this.entireResponse = response;
     

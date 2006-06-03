@@ -37,14 +37,11 @@
 %>
 <%
 try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
-	System.out.println("Got Here");
 
 if (session.getValue("tub") == null) {
-	System.out.println("Tub NOT there");
 	Hashtable h = new Hashtable();
 //	session.setValue("tub", h);
 } else {
-	System.out.println("Tub there");
 }
 
 
@@ -80,7 +77,6 @@ if (session.getValue("tub") == null) {
 
 	// Load a person object to be used on any page using this header
 	String personID = ar.getValue("WsnApplicationID");
-	System.out.println("personID = " + personID);
   	WsnApplication p = null;
     p = infoBean.getWsnApplication(personID);
 

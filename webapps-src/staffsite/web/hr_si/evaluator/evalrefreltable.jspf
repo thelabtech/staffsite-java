@@ -111,21 +111,16 @@
 			}
 			display = DisplayRefRel(ref, refTitle);
 			%><%=display%><%
-			System.out.println("refTitle = " + refTitle);
-		}
+					}
 	} else if (pfType.equals("STAFF")) {
 			%><%=DisplayRefRel(refS, "CCC staff member")%><%
-			System.out.println("refTitle = " + refTitle);
-	} else if (pfType.equals("DISCIPLER")) {
+				} else if (pfType.equals("DISCIPLER")) {
 			%><%=DisplayRefRel(refD, "Current discipler or Bible study leader")%><%
-			System.out.println("refTitle = " + refTitle);
-	} else if (pfType.equals("ROOMMATE")) {
+				} else if (pfType.equals("ROOMMATE")) {
 			%><%=DisplayRefRel(refR, "Roommate")%><%
-			System.out.println("refTitle = " + refTitle);
-	} else if (pfType.equals("FRIEND")) {
+				} else if (pfType.equals("FRIEND")) {
 			%><%=DisplayRefRel(refF, "Friend who knows you well")%><%
-			System.out.println("refTitle = " + refTitle);
-	}
+				}
 %>
 </table>
 

@@ -6,10 +6,15 @@ import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.util.OnlinePayment;
 import org.alt60m.util.SendMessage;
 import org.alt60m.util.ObjectHashUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MSInfo {
+	private static Log log = LogFactory.getLog(MSInfo.class);
+	
 	public static final String CURRENT_WSN_YEAR = "2006";
 	public static final int CURRENT_WSN_YEAR_INT = Integer.parseInt(CURRENT_WSN_YEAR);
 	
@@ -63,19 +68,19 @@ public class MSInfo {
 	// Returns the saved object, or null on failure.
 	public Object saveObject(Object obj, String id, String idName, String className) {
 		try {
-			System.out.println("-->saveObject: hs = ObjectAdaptor.obj2hash(obj);");
+			log.debug("-->saveObject: hs = ObjectAdaptor.obj2hash(obj);");
 			Hashtable hs = ObjectAdaptor.obj2hash(obj);	// convert object to be saved to hashtable
-			System.out.println("-->saveObject: hs = saveObjectHash(hs, id, idName, className);");
-			System.out.println("-->id=" + id + " idName=" + idName + " className=" + className);
+			log.debug("-->saveObject: hs = saveObjectHash(hs, id, idName, className);");
+			log.debug("-->id=" + id + " idName=" + idName + " className=" + className);
 			hs = saveObjectHash(hs, id, idName, className);
-			System.out.println("-->saveObject: Object newObj = (Class.forName(className)).newInstance();");
+			log.debug("-->saveObject: Object newObj = (Class.forName(className)).newInstance();");
 			Object newObj = (Class.forName(className)).newInstance();
-			System.out.println("-->saveObject: ObjectAdaptor.hash2obj(hs, newObj);");
+			log.debug("-->saveObject: ObjectAdaptor.hash2obj(hs, newObj);");
 			ObjectAdaptor.hash2obj(hs, newObj);
 			return newObj;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 	}
@@ -97,8 +102,7 @@ public class MSInfo {
 				deleteMSPaymentObject(objectID);
 			}
 		} catch (Exception e) {
-			System.err.println("Failed to delete object of type \"" + className + "\" with ID \"" + objectID + "\". [MSInfo.deleteObject] e=" + e);
-			e.printStackTrace();
+			log.error("Failed to delete object of type \"" + className + "\" with ID \"" + objectID + "\". [MSInfo.deleteObject] e=" + e);
 		}
 	}
 
@@ -107,7 +111,7 @@ public class MSInfo {
 	 * removes an S2 reference if it exists.
 	 */
 	public void deleteS2IfExists(String WsnApplicationID) {
-		System.out.println("Deleting S2 Reference for : " + WsnApplicationID);
+		log.debug("Deleting (if exists) S2 Reference for : " + WsnApplicationID);
 		if (WsnApplicationID == null)
 			return;
 		try {
@@ -117,8 +121,7 @@ public class MSInfo {
 			if (wsnReference.select())
 				wsnReference.delete();
 		} catch (Exception e) {
-			System.out.println("Problem deleting S2 Reference for: " + WsnApplicationID);
-			e.printStackTrace();
+			log.error("Problem deleting S2 Reference for: " + WsnApplicationID, e);
 		}
 	}
 	private void deleteWsnEvaluationObject(String objectID) {
@@ -154,9 +157,9 @@ public class MSInfo {
 			text.append("Sincerely,\n");
 			text.append("Campus Crusade for Christ\n\n\n");
 
-			System.out.println("TEXT=" + text.toString() + "=");
-			System.out.println("person.getCurrentEmail()=" + applicantEmailAddress);
-			System.out.println("fromEmailAddress=" + this.EMAILFROM);
+			log.debug("TEXT=" + text.toString() + "=");
+			log.debug("person.getCurrentEmail()=" + applicantEmailAddress);
+			log.debug("fromEmailAddress=" + this.EMAILFROM);
 
 			SendMessage msg = new SendMessage(); //"smtp.comcast.net"
 			msg.setTo(applicantEmailAddress);
@@ -168,8 +171,7 @@ public class MSInfo {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("emailpaymentstaffacceptance(): send email failed.");
-			e.printStackTrace();
+			log.error("emailpaymentstaffacceptance(): send email failed.", e);
 			return false;
 		}
 	}
@@ -192,9 +194,9 @@ public class MSInfo {
 			text.append("Sincerely,\n");
 			text.append("Campus Crusade for Christ\n\n\n");
 
-			System.out.println("TEXT=" + text.toString() + "=");
-			System.out.println("person.getCurrentEmail()=" + applicantEmailAddress);
-			System.out.println("fromEmailAddress=" + this.EMAILFROM);
+			log.debug("TEXT=" + text.toString() + "=");
+			log.debug("person.getCurrentEmail()=" + applicantEmailAddress);
+			log.debug("fromEmailAddress=" + this.EMAILFROM);
 
 			SendMessage msg = new SendMessage(); //"smtp.comcast.net"
 			msg.setTo(applicantEmailAddress);
@@ -206,8 +208,7 @@ public class MSInfo {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("emailpaymentstaffacceptance(): send email failed.");
-			e.printStackTrace();
+			log.error("emailpaymentstaffacceptance(): send email failed.", e);
 			return false;
 		}
 
@@ -235,8 +236,7 @@ public class MSInfo {
 			else
 				return null;
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getAssosciateProjectDirector()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform MSInfo.getAssosciateProjectDirector()!", e);
 			return null;
 		}
 	}
@@ -317,7 +317,7 @@ public class MSInfo {
 				return null;
 			return theRegion;
 		} catch (Exception e) {
-			System.err.println("Exception encountered in MSInfo.getCampusRegion()");
+			log.error("Exception encountered in MSInfo.getCampusRegion()", e);
 			throw e;
 		}
 	}
@@ -333,7 +333,7 @@ public class MSInfo {
 			else
 				return null;
 		} catch (Exception e) {
-			System.err.println("Failed to getCampusRegionByName() in MSBroker!");
+			log.error("Failed to getCampusRegionByName()!", e);
 			throw e;
 		}
 	}
@@ -457,8 +457,7 @@ public class MSInfo {
 			} else
 				objHash = null;
 		} catch (Exception e) {
-			System.err.println("Failed to retrieve object of type \"" + className + "\" with ID \"" + objectID + "\". [MSInfo.getObjectHash]");
-			e.printStackTrace();
+			log.error("Failed to retrieve object of type \"" + className + "\" with ID \"" + objectID + "\". [MSInfo.getObjectHash]", e);
 			objHash = null;
 		}
 		return objHash;
@@ -495,9 +494,7 @@ public class MSInfo {
 			project.changeTargetTable("wsn_sp_viewopenprojects");
 			return ObjectHashUtil.list(project.selectList("(projectType = '" + type + "')" + " AND (studentStartDate > " + today + ")" + " AND (onHold <> \'1\')" + " AND (wsnYear = '" + CURRENT_WSN_YEAR + "')" + " ORDER BY name"));
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("Warning: Unable to perform MSInfo.getOpenProjects()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform MSInfo.getOpenProjects()!", e);
 			return null;
 		}
 	}
@@ -508,7 +505,7 @@ public class MSInfo {
 			WsnApplication person = new WsnApplication();
 			return ObjectHashUtil.list(person.selectList("finalWsnProjectID = '" + projectID + "' AND wsnYear = '" + CURRENT_WSN_YEAR + "' AND role <= 1"));
 		} catch (Exception e) {
-			System.err.println("Exception encountered in MSInfo.getParticipants()");
+			log.error("Exception encountered in MSInfo.getParticipants()", e);
 			return null;
 		}
 	}
@@ -534,14 +531,14 @@ public class MSInfo {
 			Staff staff = new Staff();
 			Collection c = staff.selectList("isSecure <> 'T' AND firstname like '" + firstname + "%' AND lastname='" + lastname + "'");
 
-			System.out.println("Number of Staff Matches found: " + c.size());
+			log.debug("Number of Staff Matches found: " + c.size());
 
 			for (Iterator i = c.iterator(); i.hasNext();) {
 				Hashtable h = ObjectHashUtil.obj2hash((Staff) i.next());
 				String toput = "AccountNo=" + (String) h.get("AccountNo") + "&" + "Email=" + (String) h.get("Email") + "&" + "FirstName=" + (String) h.get("FirstName") + "&" + "LastName=" + (String) h.get("LastName") + "&" + "Amount=" + amount;
 				String name = (String) h.get("FirstName") + " " + (String) h.get("LastName");
 				retvals.put(name, toput);
-				System.out.println("Found a match: " + toput);
+				log.debug("Found a match: " + toput);
 			}
 
 		} catch (Exception e) {
@@ -557,7 +554,7 @@ public class MSInfo {
 		Hashtable info = new Hashtable();
 		String WsnApplicationid = (String) formData.get("encodedPersID");
 		if (WsnApplicationid == null) {
-			System.out.println("There was no PersonID associated with your request.  You followed an invalid link.");
+			log.warn("There was no PersonID associated with your request.  You followed an invalid link.");
 			info.put("ErrorMessage", "There was no PersonID associated with your request.  You followed an invalid link.");
 			return info;
 		}
@@ -570,7 +567,7 @@ public class MSInfo {
 			//get the payment
 			Collection c = payment.selectList("type='Staff Intent' AND fk_WsnApplicationID = '" + WsnApplicationid + "'");
 			if (c.size() == 0) {
-				System.out.println("There were no StaffIntent payment types found.  This is a strange error.");
+				log.error("There were no StaffIntent payment types found.  This is a strange error.");
 				info.put("ErrorMessage", "The record saved by the Applicant that had the required information could not be found.  This is an internal error.  Please contact the System Administrator.");
 				return info;
 			}
@@ -586,7 +583,7 @@ public class MSInfo {
 			for (Iterator i = c.iterator(); i.hasNext();) {
 				Hashtable h = ObjectHashUtil.obj2hash((MSPayment) i.next());
 				if (h != null) {
-					System.out.println("Found a record... setting...");
+					log.debug("Found a record... setting...");
 					appAmount = (Float)h.get("Credit");
 					staffAccountNo = (String) h.get("AccountNo");
 					paymentId = (String) h.get("PaymentID");
@@ -605,11 +602,11 @@ public class MSInfo {
 			info.put("applicantPhone", person.getCurrentPhone());
 			info.put("WsnApplicationID", WsnApplicationid);
 
-			System.out.println(applicationAmount);
-			System.out.println(staffAccountNo);
+			log.debug(applicationAmount);
+			log.debug(staffAccountNo);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 
 		return info;
@@ -637,10 +634,10 @@ public class MSInfo {
 			payment.setPaymentFor("Mobilization System");
 			Collection c = payment.selectList();
 			if (c.size() > 1)
-				System.out.println("WARNING! There are multiple payments for this person!");
+				log.warn("WARNING! There are multiple payments for this person!");
 
 			if (c.size() == 0)
-				System.out.println("There are no payments for this person (thats ok)");
+				log.debug("There are no payments for this person (thats ok)");
 			else {
 				MSPayment pay = null;
 				for (Iterator i = c.iterator(); i.hasNext();) {
@@ -661,7 +658,7 @@ public class MSInfo {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			ht.put("ErrorMessage", "Error=" + e.getMessage());
 		}
 
@@ -672,9 +669,7 @@ public class MSInfo {
 		try {
 			return ObjectHashUtil.obj2hash(new WsnProject(projectID));
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getProject()! Reason:");
-			System.err.println(e);
-			e.printStackTrace();
+			log.error("Warning: Unable to perform MSInfo.getProject()!", e);
 			return null;
 		}
 	}
@@ -724,8 +719,7 @@ public class MSInfo {
 
 			return availability;
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("Exception encountered in MSInfo.getProjectAvailability()");
+			log.error("Exception encountered in MSInfo.getProjectAvailability()", e);
 			return null;
 		}
 	}
@@ -740,8 +734,7 @@ public class MSInfo {
 			else
 				return null;
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getProjectCoordinator()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform MSInfo.getProjectCoordinator()!", e);
 			return null;
 		}
 	}
@@ -755,8 +748,7 @@ public class MSInfo {
 			else
 				return null;
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getProjectDirector()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform MSInfo.getProjectDirector()!", e);
 			return null;
 		}
 	}
@@ -764,7 +756,7 @@ public class MSInfo {
 	//returns the list of people it finds that aren't paid that match.
 	//kb 10-22-02
 	public Hashtable getReceivePaymentFind(Hashtable formData) {
-		System.out.println("Looking for payments...");
+		log.debug("Looking for payments...");
 		Hashtable retvals = new Hashtable();
 
 		try {
@@ -787,8 +779,7 @@ public class MSInfo {
 				retvals.put(name, h);
 			}
 		} catch (Exception e) {
-			System.out.println("Error! " + e.getMessage());
-			e.printStackTrace();
+			log.error("Error!", e);
 			retvals.put("ErrorMessage", "You must enter both a first and last name.");
 			return retvals;
 		}
@@ -830,7 +821,7 @@ public class MSInfo {
 	public Collection getReferenceFindStaff(String firstName, String lastName, String city, String state) {
 		Vector v = new Vector();
 		Collection c = v;
-		System.out.println("info.getReferenceFindStaff(first=" + firstName + ", last=" + lastName + ", city=" + city + ", state=" + state + ")");
+		log.debug("info.getReferenceFindStaff(first=" + firstName + ", last=" + lastName + ", city=" + city + ", state=" + state + ")");
 
 		try {
 			if (firstName == null || lastName == null || "".equals(firstName) || "".equals(lastName)) {
@@ -857,9 +848,7 @@ public class MSInfo {
 			}
 			return ObjectHashUtil.list(c);
 		} catch (Exception e) {
-			String sErr = "Exception encountered in MSInfo.getReferenceFindStaff(): " + e;
-			System.err.println(sErr);
-			e.printStackTrace();
+			log.error("Exception encountered in MSInfo.getReferenceFindStaff()", e);
 			return null;
 		}
 	}
@@ -868,7 +857,7 @@ public class MSInfo {
 	public Collection getReferenceFindStaff(String firstName, String preferredName, String lastName, String city, String state) {
 		Vector v = new Vector();
 		Collection c = v;
-		System.out.println("info.getReferenceFindStaff(first=" + firstName + ", pref=" + preferredName + ", last=" + lastName + ", city=" + city + ", state=" + state + ")");
+		log.debug("info.getReferenceFindStaff(first=" + firstName + ", pref=" + preferredName + ", last=" + lastName + ", city=" + city + ", state=" + state + ")");
 
 		try {
 			if (lastName == null || "".equals(lastName)) {
@@ -899,9 +888,7 @@ public class MSInfo {
 			}
 			return c;
 		} catch (Exception e) {
-			String sErr = "Exception encountered in MSInfo.getReferenceFindStaff(): " + e;
-			System.err.println(sErr);
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 	}
@@ -928,7 +915,7 @@ public class MSInfo {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return retvals;
 		}
 		return retvals;
@@ -949,11 +936,9 @@ public class MSInfo {
 			if (i.hasNext()) {
 				Hashtable h = ObjectHashUtil.obj2hash((TargetArea) i.next());
 				result = (h.get("Region") == null) ? "" : (String) h.get("Region");
-				String name = (String) h.get("Name");
-				System.out.println("Name=" + name);
 			}
 		} catch (Exception e) {
-			System.out.println("There was an error with your request: " + e);
+			log.error("There was an error with your request: " + e);
 		}
 		return result;
 	}
@@ -1008,9 +993,8 @@ public class MSInfo {
 
 			return result;
 		} catch (Exception e) {
-			System.err.println("Exception encountered in MSInfo.getValidProjects()");
-			System.err.println(query);
-			e.printStackTrace();
+			log.error(e);
+			log.debug("Offending query: " + query);
 			return null;
 		}
 	}	
@@ -1044,8 +1028,7 @@ public class MSInfo {
 			wsnEvaluation.select();
 			return wsnEvaluation;
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnEvaluationWithWsnApplication()! Reason:");
-			System.err.println(e);
+			log.error(e);
 			return null;
 		}
 	}
@@ -1060,7 +1043,7 @@ public class MSInfo {
 			} else
 				objHash = null;
 */		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1113,13 +1096,11 @@ public class MSInfo {
 				//	WsnApplicationHash.put("MaritalStatus",crsPerson.getMaritalStatus() == null ? "" : crsPerson.getMaritalStatus());
 				return WsnApplicationHash;
 			} else {
-				System.out.println("getWsnApplicationInfoFromCRSPersonWithEmailAddress DID NOT find a person matching in CRS");
+				log.debug("getWsnApplicationInfoFromCRSPersonWithEmailAddress DID NOT find a person matching in CRS");
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnApplicationInfoFromCRSPersonWithEmailAddress()! Reason:");
-			System.err.println(e);
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 	}
@@ -1142,23 +1123,21 @@ public class MSInfo {
 	}
 	
 	public Hashtable getWsnApplicationWithEmailAddress(String emailAddress, String wsnYear) {
-		System.out.println("getWsnApplicationWithEmailAddress:" + emailAddress);
+		log.debug("getWsnApplicationWithEmailAddress:" + emailAddress);
 		try {
 			WsnApplication WsnApplication = new WsnApplication();
 			WsnApplication.setCurrentEmail(emailAddress);
 			WsnApplication.setWsnYear(wsnYear);
 			WsnApplication.select();
 			if (WsnApplication != null) {
-				System.out.println("Found WsnApplication: " + WsnApplication.getWsnApplicationID());
+				log.debug("Found WsnApplication: " + WsnApplication.getWsnApplicationID());
 				return ObjectHashUtil.obj2hash(WsnApplication);
 			} else {
-				System.out.println("Did NOT find WsnApplication");
+				log.debug("Did NOT find WsnApplication");
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnApplicationWithEmailAddress()! Reason:");
-			System.err.println(e);
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 	}
@@ -1180,22 +1159,21 @@ public class MSInfo {
 	}
 	
 	public Hashtable getWsnApplicationWithSsmUserID(String ssmUserID, String wsnYear) {
-		System.out.println("getWsnApplicationWithSsmUserID:" + ssmUserID);
+		log.debug("getWsnApplicationWithSsmUserID:" + ssmUserID);
 		try {
 			WsnApplication WsnApplication = new WsnApplication();
 			WsnApplication.setSsmUserID(Integer.parseInt(ssmUserID));
 			WsnApplication.setWsnYear(wsnYear);
 			WsnApplication.select();
 			if (!WsnApplication.isPKEmpty()) {
-				System.out.println("Found WsnApplication: " + WsnApplication.getWsnApplicationID());
+				log.debug("Found WsnApplication: " + WsnApplication.getWsnApplicationID());
 				return ObjectHashUtil.obj2hash(WsnApplication);
 			} else {
-				System.out.println("Did NOT find WsnApplication");
+				log.debug("Did NOT find WsnApplication");
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnApplicationWithSsmUserID()! Reason:");
-			System.err.println(e);
+			log.error(e);
 			return null;
 		}
 	}
@@ -1258,7 +1236,7 @@ public class MSInfo {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return false;
 		}
 	}
@@ -1279,8 +1257,7 @@ public class MSInfo {
 			else
 				return null;
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnReferenceHashWithWsnApplication()! Reason:");
-			System.err.println(e);
+			log.error(e);
 			return null;
 		}
 	}
@@ -1308,8 +1285,7 @@ public class MSInfo {
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform MSInfo.getWsnReferenceWithWsnApplication()! Reason:");
-			System.err.println(e);
+			log.error(e);
 			return null;
 		}
 	}
@@ -1396,7 +1372,7 @@ public class MSInfo {
 		}
 		//if(isEmpty(formData.get("CCExpY")))        m.append("CCExpY ");
 
-		//System.out.println("BEFOREPREPEND="+m.toString());
+		//log.debug("BEFOREPREPEND="+m.toString());
 
 		//determine if text string is plural or not
 		if (f.length() > 1) {
@@ -1405,7 +1381,7 @@ public class MSInfo {
 			m = new StringBuffer(sText.toString() + m.toString());
 		}
 
-		//System.out.println("AFTERPREPEND="+m.toString());
+		//log.debug("AFTERPREPEND="+m.toString());
 
 		return m.toString();
 	}
@@ -1435,7 +1411,7 @@ public class MSInfo {
 
 		//check for testmode
 		if (PAYMENTTESTMODE) {
-			System.out.println("TESTMODE=TRUE: Setting results to true no matter what they really were.");
+			log.debug("TESTMODE=TRUE: Setting results to true no matter what they really were.");
 			results.put("Status", "Success");
 		}
 
@@ -1526,7 +1502,7 @@ public class MSInfo {
 				retval.put("ErrorMessage", s.toString());
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e);
 				retval.put("ErrorMessage", e.getMessage());
 				return retval;
 			}
@@ -1537,20 +1513,20 @@ public class MSInfo {
 		}
 		//following options do not return, but flow onward.
 		else if ("MyAccount".equals(PaymentType)) {
-			System.out.println("Staff chose to pay via their account.");
+			log.debug("Staff chose to pay via their account.");
 			AccountNumber = (String) formData.get("staffAccountNo");
 		} else if ("AnotherAccount".equals(PaymentType)) {
-			System.out.println("Staff chose to pay via another account.");
+			log.debug("Staff chose to pay via another account.");
 			AccountNumber = (String) formData.get("OtherAccount");
 		} else {
-			System.out.println("Payment Type was not recognized.  Internal Error of some type (page was malformed).");
+			log.warn("Payment Type was not recognized.  Internal Error of some type (page was malformed).");
 			retval.put("ErrorMessage", "Payment Type was not recognized.  Internal Error of some type (page was malformed).");
 			return retval;
 		}
 
 		//create staff payment
 		try {
-			System.out.println("Creating Staff Payment.");
+			log.debug("Creating Staff Payment.");
 			MSPayment payment = new MSPayment();
 
 			payment.setType("Staff Payment");
@@ -1582,8 +1558,7 @@ public class MSInfo {
 			retval.put("ErrorMessage", "We have noted your payment of this applicant's application fee and emailed the applicant.  Thank you!");
 
 		} catch (Exception e) {
-			System.out.println("Error!: " + e.getMessage());
-			e.printStackTrace();
+			log.error(e);
 			retval.put("ErrorMessage", e.getMessage());
 			return retval;
 		}
@@ -1597,7 +1572,7 @@ public class MSInfo {
 		String accountno = (String) formData.get("AccountNo");
 
 		Hashtable h = new Hashtable();
-		System.out.println("Creating Staff Payment.");
+		log.info("Creating Staff Payment");
 		MSPayment payment = new MSPayment();
 
 		payment.setType("Staff Intent");
@@ -1614,7 +1589,7 @@ public class MSInfo {
 		payment.setAccountNo(accountno);
 
 		payment.persist();
-		System.out.println("done. ");
+		log.debug("done. ");
 
 		return h;
 	}
@@ -1633,10 +1608,11 @@ public class MSInfo {
 			      {
 			        String key = (String) i.next();
 			        String val = (String) formData.get(key);
-			        System.out.println("paymentinfo: " + key + "     -    " + val);
+			        log.debug("paymentinfo: " + key + "     -    " + val);
 			      }
 			    }
-			      catch(Exception e){e.printStackTrace();
+			      catch(Exception e){
+			      log.error(e);
 			    }
 		*/
 		String WsnApplicationid = (String) formData.get("Fk_WsnApplicationID");
@@ -1648,6 +1624,7 @@ public class MSInfo {
 
 		//*************CCARD
 		if ("CCard".equals(paymenttype)) {
+			log.info("Paying by credit card");
 			try {
 				String ErrorMessage = "";
 
@@ -1656,7 +1633,7 @@ public class MSInfo {
 				ErrorMessage = paymentCheckCreditCardValues(formData);
 				if (!"".equals(ErrorMessage)) //anything but blank
 					{
-					System.out.println("Error processing credit card payment: " + ErrorMessage);
+					log.error("Error processing credit card payment: " + ErrorMessage);
 					ht.put("page", "payccard");
 					ht.put("ErrorMessage", ErrorMessage);
 					return ht;
@@ -1669,12 +1646,12 @@ public class MSInfo {
 
 				//is successful?
 				if ("Success".equals(status)) {
-					System.out.println("Payment was successful");
+					log.info("Credit Card Payment was successful");
 					//mark WsnApplication.isPaid=true
 					markPersonPaid(WsnApplicationid);
 					ht.put("page", "payment");
 				} else {
-					System.out.println("Error processing credit card payment: " + response);
+					log.error("Error processing credit card payment: " + response);
 					ht.put("page", "payccard");
 					ht.put("ErrorMessage", "Error processing CCard payment:" + response);
 				}
@@ -1683,39 +1660,40 @@ public class MSInfo {
 //				ht.put("ErrorMessage", "Exception processing CCard payment: " + e.getMessage());
 				ht.put("ErrorMessage", "Invalid Payment Information.  Please re-enter Information." + e.getMessage());
 				ht.put("page", "payccard");
-				e.printStackTrace();
+				log.error(e);
 			}
 		}
 
 		//*************MAIL
 		else if ("Mail".equals(paymenttype)) {
 			try {
-				System.out.println("-->mail");
+				log.info("Paying by Mail");
 				ht.putAll(paymentMail(WsnApplicationid));
 				ht.put("page", "payment");
 			} catch (Exception e) {
 				ht.put("ErrorMessage", "Error processing Mail payment: " + e.getMessage());
-				e.printStackTrace();
+				log.error(e);
 			}
 		}
 
 		//*************STAFF
 		else if ("Staff".equals(paymenttype)) {
 			try {
-				System.out.println("-->staff");
+				log.info("Paying by Staff");
 				ht.put("page", "payment");
 				ht.putAll(paymentStaff(WsnApplicationid, formData));
 				if (!sendStaffPaymentEmail(WsnApplicationid, formData)) {
-
+					log.error("unable to send email");
 					ht.put("ErrorMessage", "There was a problem sending the email.  Please contact the system administrator.  There may have been a problem with that Staff Member's email address.");
 					return ht;
 				}
 			} catch (Exception e) {
 				ht.put("ErrorMessage", "Error processing Mail payment: " + e.getMessage());
-				e.printStackTrace();
+				log.error("Unable to email", e);
+				log.error(e);
 			}
 		} else {
-			System.out.println("Payment type not recognized: " + paymenttype);
+			log.error("Payment type not recognized: " + paymenttype);
 			ht.put("page", "error");
 			ht.put("ErrorMessage", "Payment type not recognized.  Please contact the System Administrator.");
 		}
@@ -1728,7 +1706,7 @@ public class MSInfo {
 	public Hashtable receivePayments(Hashtable formData) {
 		Hashtable response = new Hashtable();
 		String WsnApplicationid = (String) formData.get("WsnApplicationID"); //person who got the payment
-		System.out.println("posting Received payment for -->" + WsnApplicationid);
+		log.info("posting Received payment for application: " + WsnApplicationid);
 		if (WsnApplicationid != null) {
 			try {
 				MSPayment payment = new MSPayment();
@@ -1748,7 +1726,7 @@ public class MSInfo {
 
 				response.put("page", "receivepayment");
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e);
 				response.put("ErrorMessage", "There was a problem with your request: " + e.getMessage());
 				response.put("page", "receivepayment");
 			}
@@ -1769,8 +1747,7 @@ public class MSInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1826,8 +1803,7 @@ public class MSInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1869,8 +1845,7 @@ public class MSInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1889,8 +1864,7 @@ public class MSInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1927,8 +1901,7 @@ public class MSInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e);
 			objHash = null;
 		}
 		return objHash;
@@ -1968,9 +1941,9 @@ public class MSInfo {
 			text.append(referenceLink);
 			text.append(".\n\n");
 
-			System.out.println("ref.sendemailinvite TEXT=" + text.toString() + "=");
-			System.out.println("person.getCurrentEmail()=" + person.getCurrentEmail());
-			System.out.println("staffEmailAddress=" + staffEmail);
+			log.debug("ref.sendemailinvite TEXT=" + text.toString() + "=");
+			log.debug("person.getCurrentEmail()=" + person.getCurrentEmail());
+			log.debug("staffEmailAddress=" + staffEmail);
 
 			SendMessage msg = new SendMessage();
 			msg.setTo(staffEmail);
@@ -1983,8 +1956,7 @@ public class MSInfo {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("sendStaffPaymentEmail(): send email failed.");
-			e.printStackTrace();
+			log.error("sendStaffPaymentEmail(): send email failed.", e);
 			return false;
 		}
 	}

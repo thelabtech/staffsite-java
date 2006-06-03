@@ -10,14 +10,12 @@
 	Vector myReviews = (Vector) tub.getCollection("Reviews");
 	Hashtable mySession = (Hashtable) tub.getHashtable("ReviewSession");
 	Iterator r360list = myReviews.iterator();
-	System.out.println("1");
-	// String fName = tub.getValue("ReviewForPName");
+		// String fName = tub.getValue("ReviewForPName");
 	Review360Summary everybody = new Review360Summary();
 	Collection summaries = new LinkedList();
 	everybody.setLeadershipLevel("Total Average");
 	boolean foundone = false;
-	System.out.println("2");
-	while(r360list.hasNext()){
+		while(r360list.hasNext()){
 		Hashtable my360 = (Hashtable)r360list.next();
 		Review360Summary temp = new Review360Summary(my360);
 		Iterator i = summaries.iterator();
@@ -37,19 +35,13 @@
 			everybody.append(my360);
 		}
 	}
-	System.out.println("3");
-
-	Iterator i = summaries.iterator();
+		Iterator i = summaries.iterator();
 	while(i.hasNext()){
 		Review360Summary mySummary = (Review360Summary)i.next();
 		mySummary.calc();
 	}
-	System.out.println("4");
-
-	everybody.calc();
-	System.out.println("5");
-
-	int tableWidth = 700;
+		everybody.calc();
+		int tableWidth = 700;
 	String bar = "<TR><TD COLSPAN='4'" + bgcolorB + "><IMG SRC='/images/blank.gif' HEIGHT='1' WIDTH='" + tableWidth + "'></TD></TR>";
 %>
 <%@ include file="questionsInclude.jspf" %>
@@ -92,8 +84,7 @@
 		<TR><TH ALIGN="LEFT" <%=bgcolorW%> COLSPAN="4"><%=fontB%>Respose Key:</FONT></TH></TR>
 <%
 		i = summaries.iterator();
-		System.out.println("6");
-		while(i.hasNext()){
+				while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
 			<%=mySummary.getInfo()%>
@@ -115,8 +106,7 @@
 			<BLOCKQUOTE>
 <%
 		i = summaries.iterator();
-		System.out.println("7");
-		while(i.hasNext()){
+				while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
 			<B><%=mySummary.getLeadershipLevel()%></B><BR>
@@ -164,8 +154,7 @@
 %>
 										</TR>
 <%
-		System.out.println("8");
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -244,9 +233,7 @@
 			<TD <%=bgcolorW%> COLSPAN="4">
 			<BLOCKQUOTE>
 <%
-		System.out.println("9");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -272,9 +259,7 @@
 			<TD <%=bgcolorW%> COLSPAN="4">
 			<BLOCKQUOTE>
 <%
-		System.out.println("10");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -302,9 +287,7 @@
 			<TD <%=bgcolorW%> COLSPAN="4">
 			<BLOCKQUOTE>
 <%
-		System.out.println("11");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -330,9 +313,7 @@
 			<TD <%=bgcolorW%> COLSPAN="4">
 			<BLOCKQUOTE>
 <%
-		System.out.println("12");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -360,9 +341,7 @@
 			<TD <%=bgcolorW%> COLSPAN="4">
 			<BLOCKQUOTE>
 <%
-		System.out.println("13");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>
@@ -406,9 +385,7 @@
 %>
 										</TR>
 <%
-		System.out.println("14");
-
-		i = summaries.iterator();
+				i = summaries.iterator();
 		while(i.hasNext()){
 			Review360Summary mySummary = (Review360Summary)i.next();
 %>

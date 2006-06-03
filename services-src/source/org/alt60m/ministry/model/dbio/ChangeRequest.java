@@ -1,10 +1,16 @@
 package org.alt60m.ministry.model.dbio;
 
 import java.util.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.kenburcham.framework.dbio.DBIOEntity;
 import com.kenburcham.framework.dbio.DBIOEntityException;
 
 public class ChangeRequest extends DBIOEntity {
+	private static Log log = LogFactory.getLog(ChangeRequest.class);
+	
     private String changeRequestId = new String();
     private Date requestDate = null;
     private Date effectiveDate = null;
@@ -122,7 +128,7 @@ public class ChangeRequest extends DBIOEntity {
 					break;
 				}
 			} else if (nextAuth.getRole().equals("HRNC") && (nextAuth.getAuthorized() == null || nextAuth.getAuthorized().equals(""))){
-				System.out.println("making non-campus approval***********" + nextAuth.getAuthorizationId());
+				log.info("making non-campus approval: " + nextAuth.getAuthorizationId());
 				nextAuth.setAuthorized("Y");
 				nextAuth.setAuthDate(new java.sql.Date(System.currentTimeMillis()));
 			}
@@ -141,7 +147,7 @@ public class ChangeRequest extends DBIOEntity {
 						orderedAuths.add(authObj);
 				    }		     
 				} catch (NullPointerException e) {
-				    System.out.println("ChangeRequest " + changeRequestId + " has a null authorization");
+				    log.error("ChangeRequest " + changeRequestId + " has a null authorization", e);
 				}
 		    }
 		}

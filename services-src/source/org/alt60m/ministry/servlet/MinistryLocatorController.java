@@ -1,6 +1,9 @@
 package org.alt60m.ministry.servlet;
 
 import java.util.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 import org.alt60m.servlet.*;
 import org.alt60m.util.*;
@@ -35,10 +38,9 @@ public class MinistryLocatorController extends Controller {
 	// *************************************************************************
    public void init() {
 		try	{
-			log(Priority.DEBUG, "MinistryLocatorController.init()");
+			log.debug("MinistryLocatorController.init()");
 		} catch (Exception e) {
-			log(Priority.ERROR, "Exception in ministryLocatorController init()");
-			log(Priority.ERROR, e.toString());
+			log.error("Exception in ministryLocatorController init()", e);
 		}
    }
 	
@@ -157,7 +159,7 @@ public class MinistryLocatorController extends Controller {
 			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
 
         } catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform ministryLocate().", e);
+			log.error("Failed to perform ministryLocate().", e);
 		}
 	}
 	
@@ -176,7 +178,7 @@ public class MinistryLocatorController extends Controller {
 			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
 			
         } catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform ministryLocate().", e);
+			log.error("Failed to perform ministryLocate().", e);
 		}
 	}
 
@@ -261,7 +263,7 @@ public class MinistryLocatorController extends Controller {
 			out.flush();
 
         } catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform ministryInfo().", e);
+			log.error("Failed to perform ministryInfo().", e);
 		}
 	}
 }

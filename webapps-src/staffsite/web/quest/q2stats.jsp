@@ -74,8 +74,7 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 	}
 	else if (primaryColumn.equalsIgnoreCase("desirescale")){
 		tempCounter=returnComplicatedCount(quest,"(desirescale != 0)" + whereString);
-		System.out.println(whereString);
-		if (tempCounter > 0){
+				if (tempCounter > 0){
 		int tempCounter2=0;
 			for (int cnt=10 ; cnt>0 ; cnt--){
 				int records=returnComplicatedCount(quest,"desirescale = " + Integer.toString(cnt) + "" + whereString);
@@ -96,14 +95,12 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 		if (tempCounter>0) {
 			statmt = con.createStatement();
 			rst= statmt.executeQuery("Select * from " + secondaryTable + " WHERE ID != '" + tString + "' order by value");
-			System.out.println("Select value from " + secondaryTable + " WHERE ID != '" + tString + "'");
-			while(rst.next()){
+						while(rst.next()){
 				String restriction = rst.getString("ID");
 				int records=returnComplicatedCount(quest,"(" + primaryColumn + " = '" + restriction + "')" + whereString);
 				if (((records*100)/(tempCounter)) > cutOffPercentage) {
 					temp=temp+"<tr><td><font size='2' face='arial'>" + rst.getString("value") + "</td>		<td> &nbsp; </td>	<td><img src='/quest/images/reddot.gif' height='10' width='" + (records*100)/tempCounter + "'></td><td> <font size='2' face='arial'>" + (records*100)/tempCounter + "." + ((records*1000)/tempCounter)%10 + "<font size='1'>% </td></tr>";
-				System.out.println(restriction + " = "  + records);
-				}
+								}
 			}
 			statmt.close();
 		}
@@ -146,8 +143,7 @@ String getOptionsList (String sqlString, HttpSession thisSession, String thisSes
 			System.out.println(e);
 		}
 		thisSession.putValue(thisSessionString, tempString);	//dump the string into our session for faster access later
-		System.out.println("Quest- recorded " + thisSessionString + " to the Session");
-	}
+			}
 	return tempString;
 }
 String headerTitleBar(String pageTitle, String pageName) {

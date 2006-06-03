@@ -3,6 +3,9 @@ package org.alt60m.servlet;
 import java.util.*;
 import java.lang.reflect.*;
 import javax.servlet.http.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 import org.alt60m.util.LogHelper;
 
@@ -12,9 +15,10 @@ import org.alt60m.util.LogHelper;
  */
 public abstract class Controller extends HttpServlet {
 
-	// Logging object
 	protected LogHelper Log = new LogHelper();
 
+	protected Log log = LogFactory.getLog(this.getClass());
+	
 	// Mapping of views to URLs
 	private Hashtable _views = new Hashtable();
 
@@ -45,7 +49,7 @@ public abstract class Controller extends HttpServlet {
 			_request = request;
 			_response = response;
 
-			log(Priority.DEBUG, "New ActionContext for session ID:" + _session.getId());
+			log.debug("New ActionContext for session ID:" + _session.getId());
 
 			// Clear state
 			_session.removeAttribute(RETURN_TOKEN);
@@ -139,11 +143,11 @@ public abstract class Controller extends HttpServlet {
 			return _session.getAttribute(key);
 		}
 		public void setError(String errorMsg) {
-			log(Priority.ERROR, "Error state set: "+errorMsg);
+			log.error("Error state set: "+errorMsg);
 			_session.setAttribute(ERR_TOKEN, errorMsg);
 		}
 		public void setError() {
-			log(Priority.ERROR, "Error state set");
+			log.error("Error state set");
 			_session.setAttribute(ERR_TOKEN, "Error processing request");
 		}
 
@@ -156,7 +160,7 @@ public abstract class Controller extends HttpServlet {
 		}
 
 		public void goToView(String view) {
-			log(Priority.DEBUG, "going to view: " + view);
+			log.debug("going to view: " + view);
 
 			if (_views.get(view) != null)
 			{
@@ -166,13 +170,12 @@ public abstract class Controller extends HttpServlet {
 				String url = (String) _views.get(view);
 				goToURL(url);
 			} else {
-				log(Priority.ERROR, "Couldn't locate view: " + view);
-				System.err.println("Couldn't locate view: " + view);
+				log.error("Couldn't locate view: " + view);
 			}
-
 		}
 
 		public void goToLastView() {
+			log.debug("Going to last view");
 			String lastView = getLastView();
 			goToView(lastView);
 		}
@@ -180,12 +183,12 @@ public abstract class Controller extends HttpServlet {
 		public void goToURL(String url) {
 			try
 			{
-				log(Priority.DEBUG, "Forwarding to: " + url);
+				log.debug("Forwarding to: " + url);
 				getServletConfig().getServletContext().getRequestDispatcher(url).forward(_request, _response);
 			}
 			catch (Exception e)
 			{
-				log(Priority.ERROR, e.toString(), e);
+				log.error(e.toString(), e);
 			}
 		}
 
@@ -217,31 +220,11 @@ public abstract class Controller extends HttpServlet {
 	{
 	}
 
-/*
-	public Controller(String xmlViews)
-	{
-		this(xmlViews, null);
-	}
-*/
-/*
-	public Controller(String xmlViews, String defaultAction)
-	{
-
-		this();
-
-		_defaultAction = defaultAction;
-		_viewsFile = xmlViews;
-
-		initViews(xmlViews);
-
-	}
-*/
-
 	/**
 	 *   IF YOU OVERRIDE THIS METHOD DON'T FORGET TO CALL THIS CODE
 	 */
 	public void init() {
-		log(Priority.DEBUG, "init() called on Controller");
+		log.debug("init() called on Controller");
 	}
 
 	/**
@@ -249,13 +232,13 @@ public abstract class Controller extends HttpServlet {
 	 */
 	public void initViews(String xmlViews)
 	{
-		log(Priority.DEBUG, "Parsing view file: '" + xmlViews + "'.");
+		log.debug("Parsing view file: '" + xmlViews + "'.");
 
 		_views = ViewsProcessor.parse(xmlViews);
 
 		for (Enumeration e = _views.keys(); e.hasMoreElements();) {
 			String k = (String) e.nextElement();
-			log(Priority.DEBUG, k + "=" + _views.get(k));
+			log.debug(k + "=" + _views.get(k));
 		}
 	}
 
@@ -290,54 +273,60 @@ public abstract class Controller extends HttpServlet {
 	/** Comment */
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res) {
 
-		ActionContext ctx = new ActionContext(req, res);
-
 		synchronized (this) {
 			_thread_ctr++;
 			if (_thread_ctr > 1)
 			{
-				log(Priority.DEBUG, "Thread count: " + _thread_ctr );
+				log.debug("Thread count: " + _thread_ctr );
 			}
 		}
 
-		try {
-			if(req.getParameter("action") == null){
-				log(Priority.DEBUG, "Invoking default action: " +_defaultAction );
-				NDC.push(_defaultAction);
+		ActionContext ctx = new ActionContext(req, res);
 
-				ctx.setLastAction(_defaultAction);
-				Method action = this.getClass().getMethod(_defaultAction, new Class[] {ActionContext.class});
-				action.invoke(this, new Object[] {ctx} );
-				actionInvoked(_defaultAction, ctx);
+		String actionName = null;
+		try {
+			String user = (String) req.getSession().getAttribute("userName");
+			if (user == null) {
+				user = (String) req.getSession().getAttribute("userLoggedIn");
+			}
+			if (user == null) {
+				user = "(anonymous)";
+			}
+			NDC.push(user);
+			if(req.getParameter("action") == null){
+				log.debug("Invoking default action: " +_defaultAction );
+				actionName = _defaultAction;
 			} else {
 				String requestedAction = req.getParameter("action");
-
-				log(Priority.DEBUG, "Invoking action: " + requestedAction );
-				NDC.push(requestedAction);
-
-				ctx.setLastAction(requestedAction);
-				Method action = this.getClass().getMethod(requestedAction,  new Class[] {ActionContext.class});
-				action.invoke(this, new Object[] {ctx});
-				actionInvoked(requestedAction, ctx);
-				log(Priority.DEBUG, "Finished action: " + requestedAction );
-				
+				log.info("Invoking action: " + requestedAction);
+				actionName = requestedAction;
 			}
+			NDC.push(actionName);
+
+			ctx.setLastAction(actionName);
+			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
+			long beginTime = System.currentTimeMillis();
+			action.invoke(this, new Object[] {ctx});
+			actionInvoked(actionName, ctx);
+			long endTime = System.currentTimeMillis();
+			log.info("Finished action: " + actionName + " in " + (endTime - beginTime)+ " ms");
+			
 		} catch (java.lang.NoSuchMethodException e) {
-			log(Priority.ERROR, "Action doesn't exist", e );
+			log.error("Action doesn't exist", e );
 
 			ctx.setError();
 			ctx.goToErrorView();
 
         } catch (java.lang.Exception e) {
-            e.printStackTrace();
-            log(Priority.ERROR, "Error invoking action", e );
+        	log.error("Error invoking action " + actionName, e );
+        	e.printStackTrace();
             ctx.setError();
             ctx.goToErrorView();
 		} finally {
 			NDC.pop();
+			NDC.pop();
+			synchronized (this) { _thread_ctr--; }
 		}
-
-		synchronized (this) { _thread_ctr--; }
 	}
 
 	/**
@@ -360,7 +349,7 @@ public abstract class Controller extends HttpServlet {
 			ctx.getResponse().setHeader("response", value);
 
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error("Error getting health", e);
 			ctx.setError();
 		}
 	}
@@ -372,31 +361,12 @@ public abstract class Controller extends HttpServlet {
 			try {
 				reload();
 				out.println("Reload successful.");
+				log.info("Reload successful.");
 			} catch (Exception e) {
 				out.println("Reload failed!<BR>"+e.toString());
-				log(Priority.ERROR, e.toString(), e);
+				log.error("Reload failed!", e);
 				ctx.setError();
 			}
 		} catch (Exception ignore) {}
 	}
-
-
-	public void log(java.lang.String msg) {
-//		if (_inited) super.log(msg); else System.out.println(msg);
-		Log.log(this.getClass().toString(),Priority.DEBUG, msg);
-	}
-	public void log(java.lang.String msg, java.lang.Throwable t) {
-//		if (_inited) super.log(msg, t); else System.out.println(msg + "\n" + t);
-		Log.log(this.getClass().toString(),Priority.DEBUG, msg, t);
-	}
-	public void log(Priority p, String msg) {
-//		if (_inited) super.log(msg); else System.out.println(msg);
-		Log.log(this.getClass().toString(),p, msg);
-
-	}
-	public void log(Priority p, String msg, java.lang.Throwable t) {
-//		if (_inited) super.log(msg, t); else System.out.println(msg + "\n" + t);
-		Log.log(this.getClass().toString(),p, msg, t);
-	}
-
 }

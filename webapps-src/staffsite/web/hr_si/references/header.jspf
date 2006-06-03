@@ -25,12 +25,8 @@
 	}
 	// title of this html page:
 	String pageTitle = "Reference Form - " + titles[pageNum - 1] + "(" + pageNum + "/" + titles.length + ")";
-System.out.println("thePage=" + thePage + "  pageTitle=" + pageTitle);
-
-
 	//-- Setup some variables to make JSP programming easier:
 	String refID = ar.getValue("SIReferenceID");
-System.out.println("refID=" + refID);
   	SIReference r = null;
     r = siBean.getSIReference(refID);
 	// full name of reference person:

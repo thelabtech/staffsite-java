@@ -21,6 +21,7 @@ import java.util.Hashtable;
 	//End of Log Helper Code//
 */
 
+@Deprecated
 public class LogHelper {
 
 	private static String LOG_CONFIG_FILE;
@@ -39,7 +40,7 @@ public class LogHelper {
 			if(cat==null) {    //If the logger has not been initilized for a given class, it creates a one.
 				cat = Category.getInstance(className);
 				loggers.put(className,cat); //Persist the logger
-				cat.log(Priority.INFO,"Init Log4J for: "+className);
+				cat.log(Priority.DEBUG,"Init Log4J for: "+className);
 			}
 		}
 		return (cat!=null);

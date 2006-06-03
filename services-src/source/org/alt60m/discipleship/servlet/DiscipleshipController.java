@@ -29,15 +29,15 @@ public class DiscipleshipController extends Controller {
     private final String TARGET_AREA_ID_TOKEN = "targetareaid";
 
     public DiscipleshipController() {
-        log(Priority.DEBUG, "DiscipleshipController constructor");
+        log.debug("DiscipleshipController constructor");
     }
 
     public void init() {
-        log(Priority.DEBUG, "DiscipleshipController.init()");
+        log.debug("DiscipleshipController.init()");
         try {
             initState();
         } catch (Exception e) {
-            log(Priority.FATAL, "Failed to init class!", e);
+            log.fatal("Failed to init class!", e);
         }
     }
 
@@ -656,7 +656,7 @@ public class DiscipleshipController extends Controller {
         }
         catch (Exception e) {
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showIndex().", e);
+            log.error("Failed to perform showIndex().", e);
         }
     }
 }

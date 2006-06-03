@@ -33,7 +33,6 @@
 	else if (refType.equals("S2"))
 		header = "Spiritual Leader Reference #2";
 
-System.out.println("stafflist.jsp: reftype="+refType+"WsnApplicationID="+WsnApplicationID);
 %>
 
 <html>

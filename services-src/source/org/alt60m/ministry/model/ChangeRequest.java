@@ -3,8 +3,8 @@
 
 package org.alt60m.ministry.model;
 import java.util.*;
-import org.alt60m.util.LogHelper;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @persistent 
@@ -14,6 +14,8 @@ import org.apache.log4j.Priority;
  * @access shared
  */
 public class ChangeRequest {
+	private static Log log = LogFactory.getLog(ChangeRequest.class);
+	
 	/**
 	 * @primary-key
 	 */
@@ -22,12 +24,6 @@ public class ChangeRequest {
     private Date effectiveDate;
     private Date appliedDate;
     private String type = new String();
-    
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-//	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
     
 	public Date getRequestDate() {
 		return requestDate; 
@@ -165,7 +161,7 @@ public class ChangeRequest {
 					break;
 				}
 			} else if (nextAuth.getRole().equals("HRNC") && (nextAuth.getAuthorized() == null || nextAuth.getAuthorized().equals(""))){
-				log(Priority.INFO,"making non-campus approval***********" + nextAuth.getAuthorizationID());
+				log.info("making non-campus approval: " + nextAuth.getAuthorizationID());
 				nextAuth.setAuthorized("Y");
 				nextAuth.setAuthDate(new java.sql.Date(System.currentTimeMillis()));
 			}
@@ -183,7 +179,7 @@ public class ChangeRequest {
 			orderedAuths.add(authObj);
 		    }		     
 		} catch (NullPointerException e) {
-			log(Priority.ERROR,"ChangeRequest " + changeRequestID + " has a null authorization");
+			log.error("ChangeRequest " + changeRequestID + " has a null authorization");
 		}
 	    }
 	}

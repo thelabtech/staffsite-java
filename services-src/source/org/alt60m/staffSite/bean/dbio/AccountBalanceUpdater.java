@@ -2,10 +2,14 @@ package org.alt60m.staffSite.bean.dbio;
 
 import java.sql.*;
 import java.util.*;
+
 import org.alt60m.util.DBConnectionFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class AccountBalanceUpdater {
 
+	private static Log log = LogFactory.getLog(AccountBalanceUpdater.class);
 	final String BALANCE_PREFERENCE_NAME = "CURRENT_BALANCE";    
 
 	Connection m_connection = null;
@@ -21,14 +25,14 @@ public class AccountBalanceUpdater {
 			m_connection = DBConnectionFactory.getOracleDatabaseConn();
 			 
 			if (m_connection == null) {
-				System.out.println("Failed to open Oracle database connection!");
+				log.fatal("Failed to open Oracle database connection!");
 				return;
 			}
 
-			System.out.println("Connected.");
+			log.info("Connected to Oracle");
 			
 			java.util.Date querystart = new java.util.Date();
-			System.out.println("[" + querystart +"] Querying...");
+			log.info("[" + querystart +"] Querying...");
 			
 			//get all StaffSiteProfiles
 			Connection sqlconn = DBConnectionFactory.getDatabaseConn();
@@ -37,9 +41,9 @@ public class AccountBalanceUpdater {
 			ResultSet rs = sqlstatement.executeQuery(query);
 
 			java.util.Date querystop = new java.util.Date();
-			System.out.println("[" + querystop + "] Got Recordset.");
+			log.info("[" + querystop + "] Got Recordset.");
 
-			System.out.println("[" + new java.util.Date() + "] Getting current balances.");			
+			log.info("[" + new java.util.Date() + "] Getting current balances.");			
 			Hashtable allBalances = getAllBalances();
 			m_connection.close();
 
@@ -55,7 +59,7 @@ public class AccountBalanceUpdater {
 				try {
 
 					if(accountNo.length() < 9) {
-						if(verbose) System.out.println("**Account number is malformed for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
+						if(verbose) log.warn("**Account number is malformed for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
 					} else {
 						String commonAccountNo = accountNo.substring(0,9);
 
@@ -63,29 +67,26 @@ public class AccountBalanceUpdater {
 							balance = ((Integer) allBalances.get(commonAccountNo)).intValue();
 							_preferences.savePreference(profileID, BALANCE_PREFERENCE_NAME, dateStamp , Integer.toString(balance));
 							if (verbose) 
-								System.out.println("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
+								log.info("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
 						} else { 
 							if (verbose) 
-								System.out.println("**No balance info available for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
+								log.info("**No balance info available for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
 						}
 					}
 					
 				} catch(Exception e) {
-					System.out.println("**Failed to update balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.");
+					log.error("**Failed to update balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.");
 					if(verbose) 
-						System.out.println("  Error message: " + e.getMessage());
+						log.error("  Error message: " + e.getMessage(), e);
 					else
-						System.out.println("  Error message: " + e.toString());
-
+						log.error("  Error message: " + e.toString());
 				}
 			}
 	
-			System.out.println("[" + new java.util.Date() +"] Success.");
+			log.info("[" + new java.util.Date() +"] Success.");
 
 		} catch (Exception e) {
-			System.out.println("[" + new java.util.Date() +"] Failed.");
-			System.out.println(e.toString());
-			e.printStackTrace();
+			log.error("[" + new java.util.Date() +"] Failed.", e);
 		}
 	}
 	
@@ -97,9 +98,9 @@ public class AccountBalanceUpdater {
 					"where lm.emplid = tm.emplid order by lm.emplid";
 
 		Statement statement = m_connection.createStatement();
-		System.out.println("[" + new java.util.Date() +"]before executing query .....");
+		log.info("[" + new java.util.Date() +"]before executing query .....");
 		ResultSet rs1 = statement.executeQuery(query);
-		System.out.println("[" + new java.util.Date() +"]after executing query .....");
+		log.info("[" + new java.util.Date() +"]after executing query .....");
 		
 		Hashtable allBalances = new Hashtable();
 		
@@ -114,7 +115,7 @@ public class AccountBalanceUpdater {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length<1) {
-			System.out.println("Usage: AccountBalanceUpdater [-verbose]");
+			log.info("Usage: AccountBalanceUpdater [-verbose]");
 			return;
 		}
 		org.alt60m.servlet.ObjectMapping.setConfigPath(args[1]);

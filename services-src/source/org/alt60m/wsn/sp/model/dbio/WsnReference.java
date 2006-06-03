@@ -2,12 +2,17 @@ package org.alt60m.wsn.sp.model.dbio;
 
 import java.util.*;
 import org.alt60m.util.SendMessage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.text.SimpleDateFormat;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 //import com.kenburcham.framework.dbio.DBIOEntityException;
 
 public class WsnReference extends DBIOEntity {
+	private static Log log = LogFactory.getLog(WsnReference.class);
+	
 	public final static String DEFAULT_FROM_EMAIL = "help@campuscrusadeforchrist.com";
 	
 	public WsnReference() {
@@ -560,7 +565,7 @@ public class WsnReference extends DBIOEntity {
 				text += "To make any changes to your application form or to this reference, please click on this link:\n" + applicationLink + ".\n\n";
 				text += "Sincerely,\n";
 				text += "Campus Crusade for Christ\n";
-				System.out.println("\n\nsendEmailInvite to applicant=" + text + "\n\n");
+				log.debug("sendEmailInvite to applicant=" + text);
 				msg.setTo(applicantEmailAddress);
 				msg.setFrom(DEFAULT_FROM_EMAIL);
 				msg.setSubject("Project Reference for " + applicantFullName);
@@ -570,10 +575,7 @@ public class WsnReference extends DBIOEntity {
 
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailRefInvite(): Exception=" + e);
-			if (!e.getMessage().equals("No recipient addresses")) {
-				e.printStackTrace();
-			}
+			log.error("sendEmailRefInvite()", e);
 			return false;
 		}
 	}
@@ -593,7 +595,7 @@ public class WsnReference extends DBIOEntity {
 
 			// check for applicant email
 			if (applicantEmailAddress == null  ||  applicantEmailAddress.trim().equals("")){
-				System.out.println(	"!!!!!!!!!!applicantEmailAddress does not exist, disregard SendMessage to applicant");
+				log.warn(	"applicantEmailAddress does not exist, disregarding SendMessage to applicant");
 				return true;
 			}
 			else {
@@ -606,8 +608,7 @@ public class WsnReference extends DBIOEntity {
 				return true;
 			}
 		} catch(Exception e) {
-			System.err.println("sendEmailRefComplete(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailRefComplete(): send email failed.", e);
 			return false;
 		}
 	}
@@ -649,8 +650,7 @@ public class WsnReference extends DBIOEntity {
 			msg.send();
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailReminder(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailReminder(): send email failed.", e);
 			return false;
 		}
 	}
@@ -667,7 +667,7 @@ public class WsnReference extends DBIOEntity {
 			text += "Sincerely,\n";
 			text += "Campus Crusade for Christ\n\n\n";
 
-System.out.println("\n\nsendEmailThankYou=" + text + "\n\n");
+			log.debug("sendEmailThankYou=" + text);
 			SendMessage msg = new SendMessage();
 			msg.setTo(this.getCurrentEmail());
 			msg.setFrom(DEFAULT_FROM_EMAIL);
@@ -676,8 +676,7 @@ System.out.println("\n\nsendEmailThankYou=" + text + "\n\n");
 			msg.send();
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailThankYou(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailThankYou(): send email failed.", e);
 			return false;
 		}
 	}

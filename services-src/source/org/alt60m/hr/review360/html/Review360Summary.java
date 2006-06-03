@@ -2,9 +2,13 @@ package  org.alt60m.hr.review360.html;
 
 import java.util.*;
 import org.alt60m.ministry.model.dbio.Staff;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Review360Summary implements java.io.Serializable
 {
+	private static Log log = LogFactory.getLog(Review360Summary.class);
+	
 	private String leadershipLevel = "";
 	private String q1 = "";
 	private float q2;
@@ -227,7 +231,7 @@ public class Review360Summary implements java.io.Serializable
 			
 		}
 		catch(Exception e){
-			System.out.println(e);
+			log.error(e);
 		}
 	}
 

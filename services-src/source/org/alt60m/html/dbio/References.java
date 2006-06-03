@@ -1,22 +1,18 @@
 package org.alt60m.html.dbio;
 
 import java.sql.*;
-import org.alt60m.util.LogHelper;
+
 import org.alt60m.hr.si.model.dbio.SIReference;
 import org.alt60m.hr.si.servlet.dbio.SIUtil;
 import org.alt60m.wsn.sp.model.dbio.WsnReference;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Priority;
 
 public class References implements java.io.Serializable {
-
+	private static Log log = LogFactory.getLog(References.class);
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 	String accountNo = "";
-	
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 
 	public static final String CURRENT_YEAR = SIUtil.CURRENT_SI_YEAR;
 
@@ -24,7 +20,7 @@ public class References implements java.io.Serializable {
 
 		public void initReferences(String staffAccountNo) {
 			accountNo = staffAccountNo;
-			log(Priority.INFO,"References.initReferences(): accountNo=" + accountNo);
+			log.debug("References.initReferences(): accountNo=" + accountNo);
 		}
 
 		public void setBodyFont(String aValue) {
@@ -50,11 +46,11 @@ public class References implements java.io.Serializable {
 // 					" WHERE r.staffnumber='" + accountNo + "' and p.wsnYear='" + CURRENT_YEAR + "' ORDER BY p.legallastname";
 
  					//Start new query
- 						log(Priority.INFO,"References.print(): strSQL=" + strSQL);
+ 						log.debug("References.print(): strSQL=" + strSQL);
  						java.sql.Connection conn2 = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
  						java.sql.Statement stmt2 = conn2.createStatement();
  						ResultSet msResults = stmt2.executeQuery(strSQL);
- 					log(Priority.INFO,"References.print(): Number of MS references foundNEW: " + msResults);
+ 					log.debug("References.print(): Number of MS references foundNEW: " + msResults);
  					String _referenceid, _formworkflowstatus, _firstname, _lastname = null;
  					try {
  						while(msResults.next()){
@@ -63,7 +59,7 @@ public class References implements java.io.Serializable {
  							_firstname = msResults.getString("legalfirstname");
  							_lastname = msResults.getString("legallastname");
  							String name = _firstname + " " + _lastname;
- 							log(Priority.INFO,"References NAME="+ name + " status=" + _formworkflowstatus);
+ 							log.debug("References NAME="+ name + " status=" + _formworkflowstatus);
  							if (_formworkflowstatus.equals("D"))
  								refString = refString + bodyFont + name + "</font><br>";
  							else {
@@ -93,12 +89,12 @@ public class References implements java.io.Serializable {
 					" WHERE r.staffnumber='" + accountNo + "' and a.siYear='" + CURRENT_YEAR + "' ORDER BY p.lastname";
 
 					//Start new query
-					log(Priority.INFO,"References.print(): strSQL=" + strSQL);
+					log.debug("References.print(): strSQL=" + strSQL);
 					java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 					java.sql.Statement stmt1 = conn.createStatement();
 					ResultSet siResults = stmt1.executeQuery(strSQL);
 
-					log(Priority.INFO,"References.print(): Number of SI references foundNEW: " + siResults);
+					log.debug("References.print(): Number of SI references foundNEW: " + siResults);
 					
 					String _referenceid, _formworkflowstatus, _firstname, _lastname = null;
 					try {
@@ -109,7 +105,7 @@ public class References implements java.io.Serializable {
 							_lastname = siResults.getString("lastname");
 //							String status = (String) h.get("FormWorkflowStatus");
 							String name = _firstname + " " + _lastname;
-							log(Priority.INFO,"References NAME="+ name + " status=" + _formworkflowstatus);
+							log.debug("References NAME="+ name + " status=" + _formworkflowstatus);
 							if (_formworkflowstatus.equals("D"))
 								refString = refString + bodyFont + name + "</font><br>";
 							else {
@@ -133,7 +129,7 @@ public class References implements java.io.Serializable {
 				return refString;
 			}
 			catch (Exception e){
-				log(Priority.ERROR,"ReferencesError:",e);
+				log.error("ReferencesError:",e);
 				return("References.print() Error");
 			}
 		}

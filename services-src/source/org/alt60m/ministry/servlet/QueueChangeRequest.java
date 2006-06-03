@@ -10,9 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 
 public class QueueChangeRequest {
+	private static Log log = LogFactory.getLog(QueueChangeRequest.class);
+	
 	/**
 	 *  Method called by a servlet to commit an address change to the database.
 	 *
@@ -89,12 +94,11 @@ public class QueueChangeRequest {
 			ApplyStaffChanges.applyChanges(addrChangeRequest);
 			new Notifier().emailStaffServices(newValues);
 		} catch (java.text.ParseException pe) {
-			pe.printStackTrace();
-			String emsg = pe.toString(); //save the root cause
-			throw new Exception(emsg);
+			log.error(pe.getMessage(), pe);
+			throw pe;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -190,12 +194,11 @@ public class QueueChangeRequest {
 
 			new Notifier().emailStaffServices(newValues);
 		} catch (java.text.ParseException pe) {
-			pe.printStackTrace();
-			String emsg = pe.toString(); //save the root cause
-			throw new Exception(emsg);
+			log.error(pe.getMessage(), pe);
+			throw pe;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -289,11 +292,11 @@ public class QueueChangeRequest {
 			
 			new Notifier().emailStaffServices(newValues);
 		} catch (java.text.ParseException pe) {
-			pe.printStackTrace();
-			String emsg = pe.toString(); //save the root cause
+			log.error(pe.getMessage(), pe);
+			throw pe;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -337,8 +340,8 @@ public class QueueChangeRequest {
 		} catch (DuplicateRequestException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -466,8 +469,8 @@ public class QueueChangeRequest {
 		} catch (BadRegionException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -576,8 +579,8 @@ public class QueueChangeRequest {
 		} catch (BadRegionException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e.toString());
+			log.error(e.getMessage(), e);
+			throw e;
 		}
 	}
 
@@ -1121,7 +1124,7 @@ public class QueueChangeRequest {
 	}
 
 	static private void log(String msg) {
-		System.out.println(msg);
+		log.debug(msg);
 	}
 	static private void log(org.apache.log4j.Priority p, String msg) {
 		log(msg);

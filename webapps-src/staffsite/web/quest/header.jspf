@@ -33,8 +33,7 @@ String getOptionsList (String sqlString, HttpSession thisSession, String thisSes
 			System.out.println(e);
 		}
 		thisSession.putValue(thisSessionString, tempString);	//dump the string into our session for faster access later
-		System.out.println("Quest- recorded " + thisSessionString + " to the Session");
-	}
+			}
 	return tempString;
 }
 

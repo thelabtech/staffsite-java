@@ -10,10 +10,15 @@ import org.alt60m.hr.ms.model.dbio.MSPayment;
 import org.alt60m.hr.si.model.dbio.SIProject;
 import org.alt60m.hr.si.servlet.dbio.SIProjectHandler;
 import org.alt60m.hr.si.servlet.dbio.SIUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Priority;
 /* Class added 9 October 2002 by RDH. */
 
 public class MSInfoBean implements java.io.Serializable
 {
+	private static Log log = LogFactory.getLog(MSInfoBean.class);
+	
 	private final MSInfo info = new MSInfo();
 	protected final String WsnApplicationClassName = "org.alt60m.wsn.sp.model.dbio.WsnApplication";
 	protected final String WsnProjectClassName = "org.alt60m.wsn.sp.model.dbio.WsnProject";
@@ -24,7 +29,7 @@ public class MSInfoBean implements java.io.Serializable
 	// "userID" and "userEmail" will be set as session variables by the AccountManager,
 	// the jsp should grab them and pass them here
 	
-		System.out.println("getWsnApplicationHash: "+userID + " -- " + userEmail);
+		log.debug("getWsnApplicationHash: "+userID + " -- " + userEmail);
 	
 		try {
 			Hashtable objectHash = new Hashtable();
@@ -34,7 +39,7 @@ public class MSInfoBean implements java.io.Serializable
 				objectHash = info.getWsnApplicationWithSsmUserID(userID);
 
 			    if (objectHash == null && userEmail != null && !userEmail.equals("")) {
-					System.out.println("User NOT found--assuming NEW");
+					log.info("User NOT found--assuming NEW");
 					objectHash = new Hashtable();
 					
 					objectHash = info.getWsnPersonInfoFromSSM(userID);
@@ -57,13 +62,13 @@ public class MSInfoBean implements java.io.Serializable
 	*/
 	public Hashtable getWsnReferenceHash(String WsnApplicationID, String referenceType) {
 		try {
-			System.out.println("MSInfoBean.getWsnReferenceHash(" + WsnApplicationID + ", " + referenceType + ")");
+			log.debug("MSInfoBean.getWsnReferenceHash(" + WsnApplicationID + ", " + referenceType + ")");
 			Hashtable objectHash = new Hashtable();
 			objectHash = info.getWsnReferenceHashWithWsnApplication(WsnApplicationID, referenceType);
 			if (objectHash == null)
-				System.out.println("MSInfoBean.getWsnReferenceHash objectHash=null, wsnreference not found!");
+				log.debug("MSInfoBean.getWsnReferenceHash objectHash=null, wsnreference not found!");
 			else
-				System.out.println("MSInfoBean.getWsnReferenceHash objectHash!=null, wsnreference FOUND!");
+				log.debug("MSInfoBean.getWsnReferenceHash objectHash!=null, wsnreference FOUND!");
 			return objectHash;
 		} catch (Exception e) {
 			//log(Priority.ERROR, "Failed (). ", e);

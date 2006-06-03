@@ -7,10 +7,14 @@ import org.alt60m.staffSite.bean.PasswordValidator;
 import org.alt60m.security.dbio.manager.*;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Priority;
 import org.alt60m.crs.model.Conference;
 
 public class AccountController extends org.alt60m.servlet.Controller {
+	protected static Log log = LogFactory.getLog(AccountController.class);
+	
 
 	private final String VIEWS_FILE = "/WEB-INF/accountviews.xml";
 	private final String DEFAULT_ACTION = "goToLogin";
@@ -27,13 +31,13 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	// goes to the error page
 	public void goToErrorPage(ActionContext ctx, String errorString) {
 		try	{
-			log(Priority.ERROR,"Error encountered. Forwarding to error page:");
-			log(Priority.ERROR,errorString);
+			log.error("Error encountered. Forwarding to error page:");
+			log.error(errorString);
 			ctx.setSessionValue("ErrorString", errorString);
 			ctx.goToView("error");
 		}
 		catch (Exception e) {
-			log(Priority.ERROR,"An exception was caught during goToErrorPage",e);
+			log.error("An exception was caught during goToErrorPage",e);
 		}
 	}
 
@@ -54,7 +58,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			if (url != null && !url.equals("")) ctx.goToURL(url); else ctx.goToView(page);
 		} catch (Exception e) {
-			log(Priority.ERROR,e.toString(),e);
+			log.error(e.toString(),e);
 		}
 	}
 
@@ -80,11 +84,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		String destinationPage = ctx.getInputString("destinationPage");
 		String username = ctx.getInputString("username").toLowerCase();
 		String password = ctx.getInputString("password");
-		log(Priority.INFO,"\nusername: "+username);
-		log(Priority.INFO,"password: "+password.length());
-		log(Priority.INFO,"loginPage: "+loginPage);
-		log(Priority.INFO,"destinationPage: "+destinationPage);
-		log(Priority.INFO,"********************************************************************************");
+		log.info("User " + username + " attempting loggin in via AccountController");
+		log.info("password length: "+password.length());
+		log.info("loginPage: "+loginPage);
+		log.info("destinationPage: "+destinationPage);
 		try {
 
 			if (loginPage == null || loginPage.equals("")) loginPage = "genericLogin";
@@ -139,7 +142,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			// user has been authenticated and is validated
 			// so proceed.
 			
-			log(Priority.INFO,"User "+username+" has successfully logged in.");
+			log.info("User "+username+" has successfully logged in.");
 			ctx.setSessionValue("userLoggedIn", username);
 			ctx.setSessionValue("userLoggedInSsm", userID);
 			ctx.setSessionValue("userEmail", userEmail);
@@ -147,27 +150,30 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.goToURL(destinationPage);
 			
 			
-		} catch(UserNotFoundException e) {  //user authentication failed
+		} catch(UserNotFoundException e) {  
+			log.info("user not found: " + e.getMessage());
 			ar.putValue("errorMessage", e.getMessage());
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
-		} catch(NotAuthorizedException e) {  //user authentication failed
+		} catch(NotAuthorizedException e) {
+			log.info("invalid password");
 			ar.putValue("errorMessage", "Invalid Password.");
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
-		} catch(UserLockedOutException e) {  //user authentication failed
+		} catch(UserLockedOutException e) {  
+			log.info("user locked out: " + e.getMessage());
 			ar.putValue("errorMessage", e.getMessage());
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
 		} catch(org.alt60m.security.dbio.manager.SecurityManagerFailedException smfe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.authenticate() aborted: "+smfe.getMessage(),smfe);
+			log.error("Security Manager failed. Execution of AccountController.authenticate() aborted: "+smfe.getMessage(),smfe);
 			goToErrorPage(ctx, "Authentication failed, because an internal error occured in the security manager during processing.");	
 		} catch(org.alt60m.security.dbio.manager.SecurityManagerException sme) {
 			ar.putValue("errorMessage", sme.getMessage());
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to complete AccountController.authenticate()!",e);
+			log.error("Failed to complete AccountController.authenticate()!",e);
 			goToErrorPage(ctx, "Authentication failed, because an internal error occured during processing.");			
 		}
 	}
@@ -296,7 +302,6 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	/* Create a new SimpleSecurityManager user.
 	   created 12 September 2002 by RDH (Based on code by TEM) */
 	public void register(ActionContext ctx) {
-		log(Priority.INFO,"<------------ calling AccountController.register() ------->");
 		try {
 			ActionResults ar = new ActionResults("createNewSSMUser");
 			String userErrors = "";
@@ -323,7 +328,6 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				f.append("1");
 				username = "";
 			}
-			log(Priority.INFO,"username=" + username);
 			// 11-14-03 kl: do not check for username match for registerUsername
 //			if ((registerUsername!=null)&&(registerUsername.equalsIgnoreCase("true"))){
 				if (!username.equals(username2)) {
@@ -332,6 +336,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				}
 //			}
 			
+			log.debug("new username: " + username);
 			String email = username;
 			
 			if (registerUsername.equals("false")) {				
@@ -348,7 +353,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					userErrors += "We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>";
 					f.append("1");
 				}				
-				log(Priority.INFO,"email=" + email);
+				log.debug("new email: " + email);
 			}			
 			if (manager.userExists(username)) {
 				userErrors += "* The username you specified already exists.<br>";
@@ -384,9 +389,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			}
 
 			if (userErrors.equals("")) { // everything was set up okay.
-				log(Priority.INFO,"Creating new user...");
+				log.info("Attempting to create account for " + username);
 				manager.createUser(username, password, passwordQuestion, passwordAnswer.toLowerCase());
-					log(Priority.INFO,"*****registerUsername=" + registerUsername);
+					log.debug("*****registerUsername=" + registerUsername);
 					if (registerUsername.equals("true"))
 						ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences or apply for Summer Projects or STINT/Internships.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.");
 					else{
@@ -410,10 +415,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 						}
 					}
 				ctx.setReturnValue(ar);
-				log(Priority.INFO,"\n*****Account created successfully. Forwarding to: \""+loginPage+"\"");
+				log.info("Account created successfully. Forwarding to: \""+loginPage+"\"");
 				ctx.goToURL(loginPage);
 			} else {
-				log(Priority.ERROR,"Reporting errors to user: userErrors=" + userErrors);
+				log.info("Account not created; Errors:" + userErrors);
 				ar.putValue("errorMessage", "Your account was not created for the following" + reasonText + "<div class=\"indent\">"+userErrors+"</div>");
 				ar.putValue("passwordQuestion", passwordQuestion);
 				ar.putValue("passwordAnswer", passwordAnswer);
@@ -427,7 +432,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					ctx.goToView("registerUsername");
 			}
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to complete createUser().",e);
+			log.error("Failed to complete createUser().",e);
 			goToErrorPage(ctx, "Failed to complete your registration, because an internal error occured during processing.");
 		}
 	}
@@ -440,7 +445,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		try {
 			if (username != null && !username.equals("")) {
 				String passwordQuestion = manager.getPasswordQuestion(username);
-				System.out.println("Password question:"+passwordQuestion);
+				log.debug("Password question: "+passwordQuestion);
 				if ((passwordQuestion==null) || (passwordQuestion.length()==0)) {
 					goToErrorPage(ctx, "If you are Campus Ministry Staff, you should be using your uscm email address (first.last@uscm.org) and your Campus Staff Site password. If you have forgotten your Staff Site password, you may reset it by going to https://staff.campuscrusadeforchrist.com/servlet/StaffController and clicking the \"forgot your password\" link beneath the login fields.");					
 				} else {
@@ -456,7 +461,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				ctx.goToView("lookupQuestion");
 			}
 /*		} catch(org.alt60m.security.manager.SecurityManagerFailedException smfe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.lookupQuestion() aborted: "+smfe.getMessage(),smfe);
+			log.error("Security Manager failed. Execution of AccountController.lookupQuestion() aborted: "+smfe.getMessage(),smfe);
 			goToErrorPage(ctx, "Failed to retrieve your question, because an internal error occured in the security manager during processing.");	
 		} catch(org.alt60m.security.manager.SecurityManagerException sme) {
 			ar.putValue("username", username);
@@ -465,7 +470,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("lookupQuestion");
 */		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to complete AccountController.lookupQuestion()!",e);
+			log.error("Failed to complete AccountController.lookupQuestion()!",e);
 			goToErrorPage(ctx, "Failed to retrieve your question, because an internal error occured during processing.");			
 		}
 	}
@@ -495,16 +500,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
 		} catch(org.alt60m.security.dbio.manager.NotAuthorizedException nae) {
-			log(Priority.ERROR,"Failed to complete AccountController.answerQuestion(). "+nae.getMessage(),nae);
+			log.info("Failed to complete AccountController.answerQuestion(). "+nae.getMessage(),nae);
 			goToErrorPage(ctx, nae.getMessage());	
 		} catch(org.alt60m.security.dbio.manager.UserNotFoundException unfe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
+			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
 			goToErrorPage(ctx, unfe.getMessage());	
 		} catch(org.alt60m.security.dbio.manager.UserLockedOutException uloe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
+			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
 			goToErrorPage(ctx, uloe.getMessage());	
 		} catch(org.alt60m.security.dbio.manager.SecurityManagerFailedException smfe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+smfe.getMessage(),smfe);
+			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+smfe.getMessage(),smfe);
 			goToErrorPage(ctx, "Failed to check your answer, because an internal error occured in the security manager during processing.");	
 /*		} catch(org.alt60m.security.manager.SecurityManagerException sme) {
 			ar.putValue("username", username);
@@ -513,7 +518,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("answerQuestion");
 */		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to complete AccountController.answerQuestion().",e);
+			log.error("Failed to complete AccountController.answerQuestion().",e);
 			goToErrorPage(ctx, "Failed to check your answer, because an internal error occured during processing.");			
 		}
 	}
@@ -566,7 +571,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch(org.alt60m.security.dbio.manager.SecurityManagerFailedException smfe) {
-			log(Priority.ERROR,"Security Manager failed. Execution of AccountController.changePassword() aborted: "+smfe.getMessage(),smfe);
+			log.error("Security Manager failed. Execution of AccountController.changePassword() aborted: "+smfe.getMessage(),smfe);
 			goToErrorPage(ctx, "Failed to change your password, because an internal error occured in the security manager during processing.");	
 		} catch(org.alt60m.security.dbio.manager.SecurityManagerException sme) { // happens if the password couldn't be changed
 			if (username!=null) {
@@ -579,7 +584,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("changePassword");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to complete AccountController.changePassword().",e);
+			log.error("Failed to complete AccountController.changePassword().",e);
 			goToErrorPage(ctx, "Failed to change your password, because an internal error occured during processing.");			
 		}
 	}
@@ -601,7 +606,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				ctx.goToURL(url);
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR,"Failure while attempting to verify email address.",e);
+			log.error("Failure while attempting to verify email address.",e);
 			ctx.goToView("validateEmailError");
 		}
 	}
@@ -638,7 +643,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\nhttp://www.campuscrusadeforchrist.com";
 			sendEmail(userEmail, GENERIC_FROM_ADDRESS, subject, body, "text/plain");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
 		}
 	}
@@ -655,7 +660,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				    "\n\nThe Conference Registration Tool Team";
 			sendEmail(userEmail, "info@conferenceregistrationtool.com", subject, body, "text/plain");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
 		}
 	}
@@ -676,10 +681,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above.<BR><BR>"+
 					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462.<BR><BR>"+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
-			log(Priority.INFO,body);
+			log.debug(body);
 			sendEmail(username, GENERIC_FROM_ADDRESS, subject, body, "text/html");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
 		}
 	}
@@ -699,10 +704,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above."+
 					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
-			log(Priority.INFO,body);
+			log.debug(body);
 			sendEmail(username, GENERIC_FROM_ADDRESS, subject, body, "text/plain");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
 		}
 	}
@@ -720,10 +725,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above."+
 					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above."+
 					"\n\nIf you have any questions please contact the administrator for the conference you are registering for.";
-			log(Priority.INFO,body);
+			log.debug(body);
 			sendEmail(username, "info@conferenceregistrationtool.com", subject, body, "text/plain");
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email for user "+username+"!",e);
+			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
 		}
 	}
@@ -737,7 +742,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			msg.setBody(body, mimeType);
 			msg.send();
 		} catch(Exception e) {
-			log(Priority.ERROR,"Failed to send password email to email address \""+toAddress+"!\"",e);
+			log.error("Failed to send password email to email address \""+toAddress+"!\"",e);
 			throw e;
 		}
 	}

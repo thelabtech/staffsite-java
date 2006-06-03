@@ -36,10 +36,10 @@ public class TestCRSAdmin extends Controller {
 		ar.putValue("exceptionText", exceptionText);
 		ctx.setReturnValue(ar);
 		ctx.goToErrorView();
-		log(Priority.ERROR, "Failed to perform " + methodName + "().", e);
+		log.error("Failed to perform " + methodName + "().", e);
 	}
 	public void init() {
-		log(Priority.DEBUG, "CRSAdmin.init()");
+		log.error("CRSAdmin.init()");
 		super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
 		super.setDefaultAction(DEFAULT_ACTION);
 		super.setDefaultErrorView(DEFAULT_ERROR_VIEW);

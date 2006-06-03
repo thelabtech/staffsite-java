@@ -115,7 +115,7 @@ public class CRSAdmin extends Controller {
 						ctx.getResponse().sendRedirect(url);
 					}
 				} else {
-					System.out.println(password + " != 0:" + c.getStaffPassword() + " | 1:" + c.getPassword()
+					log.debug(password + " != 0:" + c.getStaffPassword() + " | 1:" + c.getPassword()
 							+ " required:" + ctx.getSessionValue("levelRequired"));
 					ar.putValue(
 							"errorMsg",
@@ -137,38 +137,38 @@ public class CRSAdmin extends Controller {
 		ctx.setSessionValue("authURL", ctx.getRequest().getRequestURL().toString() + "?"
 				+ ctx.getRequest().getQueryString());
 
-		//		System.out.println("***Auth: " + ctx.getSessionValue("authLevel"));
-		//		System.out.println("***Conference: " +
+		//		log.debug("Auth: " + ctx.getSessionValue("authLevel"));
+		//		log.debug("Conference: " +
 		// ctx.getSessionValue("eventLoggedIn"));
 
 		ctx.setSessionValue("levelRequired", levelRequired);
 		ctx.setSessionValue("loginAction", "showConference");
 
 		if (AUTH_LEVELS[2].equals(ctx.getSessionValue("authLevel"))) {
-			//			System.out.println("auth[2]");
+			//			log.debug("auth[2]");
 			return true;
 		} else if (ctx.getSessionValue("loggedIn") != null && levelRequired.equals(AUTH_LEVELS[0])) {
-			//			System.out.println("auth[0]");
+			//			log.debug("auth[0]");
 			if (ctx.getSessionValue("authLevel") == null) {
-				//				System.out.println("auth staffsite");
+				//				log.debug("auth staffsite");
 				ctx.setSessionValue("authLevel", AUTH_LEVELS[0]);
 			}
 			return true;
 		} else if (ctx.getSessionValue("authLevel") == null) {
-			//			System.out.println("auth null");
+			//			log.debug("auth null");
 			return false;
 		} else if (ArrayHelper.indexOf((String) ctx.getSessionValue("authLevel"), AUTH_LEVELS) >= ArrayHelper.indexOf(
 				levelRequired, AUTH_LEVELS)) {
-			//			System.out.println("auth old");
+			//			log.debug("auth old");
 			if (ctx.getSessionValue("eventLoggedIn") == null) {
 				//			if (ctx.getSessionValue("eventLoggedIn") == null ||
 				// ctx.getInputString("conferenceID") != null){
-				//				System.out.println("false" +
+				//				log.debug("false" +
 				// ctx.getSessionValue("eventLoggedIn") + " - " +
 				// ctx.getInputString("conferenceID"));
 				return false;
 			} else {
-				//				System.out.println("true");
+				//				log.debug("true");
 				return true;
 			}
 		} else {
@@ -1564,11 +1564,11 @@ public class CRSAdmin extends Controller {
 		ar.putValue("exceptionText", exceptionText);
 		ctx.setReturnValue(ar);
 		ctx.goToErrorView();
-		log(Priority.ERROR, "Failed to perform " + methodName + "().", e);
+		log.error("Failed to perform " + methodName + "().", e);
 	}
 
 	public void init() {
-		log(Priority.DEBUG, "CRSAdmin.init()");
+		log.debug("CRSAdmin.init()");
 		super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
 		super.setDefaultAction(DEFAULT_ACTION);
 		super.setDefaultErrorView(DEFAULT_ERROR_VIEW);
@@ -3331,7 +3331,7 @@ public void newQuestion(ActionContext ctx) {
 
 					while (qi.hasNext()) {
 						Question q = (Question) qi.next();
-//						System.out.println(q.getAnswerType());
+//						log.debug(q.getAnswerType());
 						if (!q.getAnswerType().equals("divider") && !q.getAnswerType().equals("info")
 								&& !q.getAnswerType().equals("hide")) {
 							Hashtable values = new Hashtable();
@@ -3640,7 +3640,7 @@ public void newQuestion(ActionContext ctx) {
 				login(ctx);
 			} else {
 				int merchandiseSize = Integer.parseInt(ctx.getInputString("merchandiseSize"));
-				System.out.println("------> " + merchandiseSize);
+				log.debug("merchandiseSize: "  + merchandiseSize);
 				for (int i = 0; i < merchandiseSize; i++) {
 					Hashtable m = new Hashtable();
 					m.put("MerchandiseID", ctx.getInputString(i + "MerchandiseID"));
@@ -3666,7 +3666,7 @@ public void newQuestion(ActionContext ctx) {
 				login(ctx);
 			} else {
 				int questionSize = Integer.parseInt(ctx.getInputString("questionSize"));
-				System.out.println("------> " + questionSize);
+				log.debug("questionSize" + questionSize);
 				for (int i = 0; i < questionSize; i++) {
 					Hashtable q = new Hashtable();
 					q.put("QuestionID", ctx.getInputString(i + "QuestionID"));
@@ -3693,7 +3693,7 @@ public void newQuestion(ActionContext ctx) {
 			// Max
 			String name = (String) (multi.getFileNames().nextElement());
 			java.io.File file = multi.getFile(name);
-			System.out.println("File uploaded: " + file.getName());
+			log.debug("File uploaded: " + file.getName());
 			ar.addHashtable("Results", importExport.importFromAccess(file.getName(),
 					(String) ctx.getSessionValue("eventLoggedIn")));
 

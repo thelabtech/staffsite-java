@@ -36,8 +36,9 @@ public class SecureURL {
       r = new BufferedReader(new InputStreamReader(uc.getInputStream()));
       String line;
       StringBuffer buf = new StringBuffer();
+      String lineSep = System.getProperty("line.separator");
       while ((line = r.readLine()) != null)
-        buf.append(line + "\n");
+        buf.append(line + lineSep);
       return buf.toString();
     } finally {
       try {

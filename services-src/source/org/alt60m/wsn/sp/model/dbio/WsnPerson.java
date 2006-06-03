@@ -9,10 +9,15 @@ import java.util.Vector;
 import org.alt60m.hr.ms.servlet.dbio.MSInfo;
 import org.alt60m.ministry.model.dbio.Address;
 import org.alt60m.ministry.model.dbio.LocalLevel;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.kenburcham.framework.dbio.DBIOEntity;
 import com.kenburcham.framework.dbio.DBIOEntityException;
 
 public class WsnPerson extends DBIOEntity{
+	private static Log log = LogFactory.getLog(WsnPerson.class);
+	
 	private static Hashtable translateMaritalStatusToTable = null;
 	private static Hashtable translateMaritalStatusToCode = null;
 	
@@ -669,7 +674,7 @@ public class WsnPerson extends DBIOEntity{
 	// used for emailing the referenceId as a hyperlink.
 	public static String encodeWsnApplicationID(String id) {
 	    Long result = new Long(0L);
-	    System.out.println("EncodeWsnApplicationID=" + id);
+	    log.debug("EncodeWsnApplicationID=" + id);
 	    try
 	    {
 	      long wsnid = Long.valueOf(id).longValue();
@@ -678,9 +683,9 @@ public class WsnPerson extends DBIOEntity{
 		}
 		catch(Exception e)
 		{
-            System.out.println("Error: Problem encoding WsnApplicationID: " +id + "... returning '0' (probably not what you wanted)"); 		    
+            log.error("Error: Problem encoding WsnApplicationID: " +id + "... returning '0' (probably not what you wanted)"); 		    
 		}
-		System.out.println("EncodeWsnApplicationID returning: " + result.toString());
+		log.debug("EncodeWsnApplicationID returning: " + result.toString());
 		
 		return result.toString();
 	}
@@ -688,7 +693,7 @@ public class WsnPerson extends DBIOEntity{
 	// Given an encoded referenceId, decodes it back to a form that can be used for query on referenceId field
 	public static String decodeWsnApplicationID(String id) {
 	    Long result = new Long(0L);
-	    System.out.println("DecodeWsnApplicationID=" + id);
+	    log.debug("DecodeWsnApplicationID=" + id);
 	    try
 	    {
 	      long wsnid = Long.valueOf(id).longValue();
@@ -697,9 +702,9 @@ public class WsnPerson extends DBIOEntity{
 		}
 		catch(Exception e)
 		{
-            System.out.println("Error: Problem decoding WsnApplicationID: " +id + "... returning '0' (probably not what you wanted)"); 		    
+            log.error("Error: Problem decoding WsnApplicationID: " +id + "... returning '0' (probably not what you wanted)"); 		    
 		}
-		System.out.println("DecodeWsnApplicationID returning: " + result.toString());
+		log.debug("DecodeWsnApplicationID returning: " + result.toString());
 		
 		return result.toString();
 	}
@@ -718,8 +723,8 @@ public class WsnPerson extends DBIOEntity{
 			Hashtable project = (Hashtable)itr.next();
 			String projectID = (String)project.get("WsnProjectID");
 			if (!"".equals(projectID) && projectID != null  &&  projectID.equals(pid)) {
-System.out.println("   projectid=" + projectID + " name=" + (String)project.get("Name"));
-System.out.println("   FOUND THIS ONE!");
+				log.debug("   projectid=" + projectID + " name=" + (String)project.get("Name"));
+				log.debug("   FOUND THIS ONE!");
 				return true;
 			}
 		}

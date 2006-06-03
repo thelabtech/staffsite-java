@@ -5,9 +5,6 @@ package org.alt60m.cms.test;
 import org.alt60m.cms.util.CmsInfo;
 import org.alt60m.cms.model.Category;
 import org.alt60m.cms.model.File;
-import org.alt60m.util.LogHelper;
-import org.apache.log4j.Priority;
-import junit.framework.*;
 import junitx.framework.*;
 import java.util.*;
 
@@ -18,11 +15,6 @@ import java.util.*;
  */
 public class TestCmsInfo extends PrivateTestCase {
 	
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 	
     /**
      * constructor.
@@ -71,7 +63,6 @@ public class TestCmsInfo extends PrivateTestCase {
 
 
         } catch (Exception e) {
-			log(Priority.ERROR,"testAll failed!",e);
         }
 	}
 	private void showAllCategories(CmsInfo info, Category parent, int level) throws Exception {
@@ -81,7 +72,6 @@ public class TestCmsInfo extends PrivateTestCase {
        		Category cat = (Category) iCats.next();
             StringBuffer buf = new StringBuffer();
             for(int indent=0;indent<level;indent++) System.out.print("..");
-			log(Priority.INFO,cat.getCatName());
 //ToDo: Re-add this before using.  I commented it out, so it would compile.
 //			for(Iterator iFiles = cat.getFiles().iterator();iFiles.hasNext();) {
 //                File theFile = (File) iFiles.next();

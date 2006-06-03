@@ -5,7 +5,6 @@
 	ActionResults ar = new ActionResults();
 	ar = ActionResults.getActionResults(session);
 	String ErrorMessage = (String) ar.getValue("ErrorMessage");
-	System.out.println("Found ErrorMessage=" + ErrorMessage);
 	String idName = "PaymentID";  //* kb 10/1/02
 	String className = "org.alt60m.hr.ms.model.dbio.MSPayment";  //* kb 10/1/02
 %>

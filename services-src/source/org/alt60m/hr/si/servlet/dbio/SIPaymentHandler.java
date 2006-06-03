@@ -6,12 +6,16 @@ import org.alt60m.servlet.*;
 import org.alt60m.util.OnlinePayment;
 import org.alt60m.util.SendMessage;
 import org.alt60m.util.ObjectHashUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.*;
 
 //This class handles all of the Stint Application related actions
 
 public class SIPaymentHandler {
-
+	private static Log log = LogFactory.getLog(SIPaymentHandler.class);
+	
 	private static final boolean debug = false;
 	private static final boolean PAYMENTTESTMODE = false;
 	private static final String MERCHANTACCTNUM = "stint*1";
@@ -29,7 +33,7 @@ public class SIPaymentHandler {
 	 */
 	protected ActionResults postChoosePayment(Action action) {
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		//determine our next view
 		String page = (String) action.getValues().get("page");
@@ -54,11 +58,11 @@ public class SIPaymentHandler {
 	 */
 	protected ActionResults postMailPayment(Action action) {
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 		try {
 			String page = (String) action.getValues().get("page");
 			if ("paymentsoon".equals(page)) {
-				System.out.println("-->mail");
+				log.debug("-->mail");
 				String appid = (String) action.getValues().get("ApplicationID");
 				paymentMail(appid);
 				ar.setView("payment");
@@ -68,7 +72,7 @@ public class SIPaymentHandler {
 		} catch (Exception e) {
 			ar.putValue("ErrorMessage", "Error processing Mail payment: " + e.getMessage());
 			ar.setView("paymail");
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 		return ar;
@@ -82,7 +86,7 @@ public class SIPaymentHandler {
 	 */
 	protected ActionResults postCCardPayment(Action action) {
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		//determine our next view
 		String page = (String) action.getValues().get("page");
@@ -108,7 +112,7 @@ public class SIPaymentHandler {
 
 			if (!"".equals(ErrorMessage)) //anything but blank
 				{
-				System.out.println("Error processing credit card payment: " + ErrorMessage);
+				log.warn("Error processing credit card payment: " + ErrorMessage);
 				ar.setView("payccard");
 				ar.putValue("ErrorMessage", ErrorMessage);
 				return ar; //early return
@@ -121,11 +125,11 @@ public class SIPaymentHandler {
 
 			//is successful?
 			if ("Success".equals(status)) {
-				System.out.println("Payment was successful");
+				log.info("Credit Card Payment was successful");
 				markApplicationPaid(appid);
 				ar.setView("payment");
 			} else {
-				System.out.println("Error processing credit card payment: " + status);
+				log.warn("Error processing credit card payment: " + status);
 				ar.setView("payccard");
 				ar.putValue("ErrorMessage", "Error processing CCard payment:" + status + "--" + response);
 			}
@@ -133,7 +137,7 @@ public class SIPaymentHandler {
 		} catch (Exception e) {
 			ar.putValue("ErrorMessage", "Exception processing CCard payment: " + e.getMessage());
 			ar.setView("payccard");
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 		//** end copy        
@@ -150,7 +154,7 @@ public class SIPaymentHandler {
 	protected ActionResults chooseStaffForPayment(Action action) {
 		Hashtable h = new Hashtable();
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		String appid = (String) action.getValues().get("ApplicationID");
 		String persid = (String) action.getValues().get("SIPersonID");
@@ -163,7 +167,7 @@ public class SIPaymentHandler {
 		}
 
 		try {
-			System.out.println("-->staff");
+			log.debug("-->staff");
 
 			//record the payment via staff member intention
 			h = paymentStaff(appid, action.getValues());
@@ -180,7 +184,7 @@ public class SIPaymentHandler {
 		} catch (Exception e) {
 			ar.putValue("ErrorMessage", "Error processing Mail payment: " + e.getMessage());
 			ar.setView("paystaff");
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 		return ar;
@@ -195,7 +199,7 @@ public class SIPaymentHandler {
 	 */
 	protected ActionResults paymentFromStaff(Action action) {
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		//set the view to paymentfromstaff
 		ar.setView("paymentfromstaff");
@@ -203,7 +207,7 @@ public class SIPaymentHandler {
 		//validate the personid coming in
 		String appid = (String) action.getValues().get("encodedAppID");
 		if (appid == null) {
-			System.out.println("There was no ApplicationID associated with your request.  You followed an invalid link.");
+			log.warn("There was no ApplicationID associated with your request.  You followed an invalid link.");
 			ar.putValue("ErrorMessage", "There was no ApplicationID associated with your request.  You followed an invalid link, the application is removed, etc.  Please contact the System Administrator if you think this isn't the case.");
 			return ar;
 		}
@@ -211,7 +215,7 @@ public class SIPaymentHandler {
 		//get the appid for this person.
 		String personid = (String) action.getValues().get("encodedPersID");
 		if (personid == null) {
-			System.out.println("Could not find personid for this person!");
+			log.warn("Could not find personid for this person!");
 			ar.putValue("ErrorMessage", "There was no PersonID associated with your request.  You followed an invalid link, the application is removed, etc.  Please contact the System Administrator if you think this isn't the case.");
 			return ar;
 		}
@@ -219,7 +223,7 @@ public class SIPaymentHandler {
 		String payid = (String) action.getValues().get("encodedPayID");
 		if(payid==null)
 		{
-			System.out.println("Could not find payid for this staff person!");
+			log.warn("Could not find payid for this staff person!");
 			StringBuffer s = new StringBuffer();
 			s.append("There was no PaymentID associated with your request.  ");
 			s.append("Please contact the applicant to process another payment request.  Thank You!");
@@ -238,7 +242,7 @@ public class SIPaymentHandler {
 			Hashtable payment = SIUtil.getApplicationPaymentForStaff(appid, payid);
 
 			if (payment.size() == 0) {
-				System.out.println("There were no StaffIntent payment types found.  This is a strange error.");
+				log.warn("There were no StaffIntent payment types found.  This is a strange error.");
 				info.put("ErrorMessage", "The record saved by the Applicant that had the required information could not be found.  This is an internal error.  Please contact the System Administrator.");
 			}
 		    String applicationAmount = payment.get("Credit").toString();
@@ -269,7 +273,7 @@ public class SIPaymentHandler {
 			}
 			else {
 				if (type.equals("Staff Intent")) {
-					System.out.println("Found a payment record... setting values for jsp..."); // continue
+					log.debug("Found a payment record... setting values for jsp..."); // continue
 				}
 				else {
 					//build a msg back to the staff member
@@ -284,8 +288,7 @@ public class SIPaymentHandler {
 			try {
 				applicationAmount = "" + Float.valueOf(applicationAmount).intValue();
 			} catch (NumberFormatException nfe) {
-				System.out.println("getPaymentFromStaffInfo: Couldn't convert applicationAmount float: " + applicationAmount);
-				nfe.printStackTrace();
+				log.error("getPaymentFromStaffInfo: Couldn't convert applicationAmount float: " + applicationAmount, nfe);
 			}
 
 			//put in each item
@@ -298,11 +301,11 @@ public class SIPaymentHandler {
 			info.put("PersonID", personid);
 			info.put("ApplicationID", appid);
 
-			System.out.println(applicationAmount);
-			System.out.println(staffAccountNo);
+			log.debug("applicationAmmount:" + applicationAmount);
+			log.debug("staffAccountNo:" + staffAccountNo);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 		ar.addHashtable("info", info);
@@ -321,7 +324,7 @@ public class SIPaymentHandler {
 	 */
 	protected ActionResults postFindStaffForPayment(Action action) {
 		ActionResults ar = new ActionResults();
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 		String page = (String) action.getValues().get("page");
 
 		if (!page.equals("payment3")) {
@@ -344,7 +347,7 @@ public class SIPaymentHandler {
 	protected ActionResults postPaymentFromStaff(Action action) {
 		ActionResults ar = new ActionResults();
 		ar.setView("paymentfromstaffthanks");
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		Hashtable formData = action.getValues();
 
@@ -373,21 +376,21 @@ public class SIPaymentHandler {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ar.putValue("ErrorMessage",e.getMessage());
 			return ar;
 		}
 
 		if (PaymentType == null) {
-			System.out.println("Payment Type was null.  Internal Error of some type");
+			log.warn("Payment Type was null.  Internal Error of some type");
 			ar.putValue("ErrorMessage", "Payment Type was null.  Internal Error of some type.");
 			return ar;
 		} else if ("No".equals(PaymentType)) {
-			System.out.println("Staff chose not to pay application fee.");
+			log.info("Staff chose not to pay application fee.");
 
 			try {
 				//note it in our db
-				System.out.println("Creating Staff Payment Refusal.");
+				log.debug("Creating Staff Payment Refusal.");
 				SIPayment payment = new SIPayment();
 				payment.setPaymentID(PaymentID);
 				payment.select();
@@ -412,7 +415,7 @@ public class SIPaymentHandler {
 				ar.putValue("ErrorMessage", s.toString());
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 				ar.putValue("ErrorMessage", e.getMessage());
 				return ar;
 			}
@@ -425,20 +428,20 @@ public class SIPaymentHandler {
 		}
 		//following options do not return, but flow onward.
 		else if ("MyAccount".equals(PaymentType)) {
-			System.out.println("Staff chose to pay via their account.");
+			log.info("Staff chose to pay via their account.");
 			AccountNumber = (String) formData.get("staffAccountNo");
 		} else if ("AnotherAccount".equals(PaymentType)) {
-			System.out.println("Staff chose to pay via another account.");
+			log.info("Staff chose to pay via another account.");
 			AccountNumber = (String) formData.get("OtherAccount");
 		} else {
-			System.out.println("Payment Type was not recognized.  Internal Error of some type .");
+			log.warn("Payment Type was not recognized.  Internal Error of some type .");
 			ar.putValue("ErrorMessage", "Payment Type was not recognized.  Internal Error of some type.");
 			return ar;
 		}
 
 		//create staff payment
 		try {
-			System.out.println("Creating Staff Payment.");
+			log.debug("Creating Staff Payment.");
 			SIPayment payment = new SIPayment();
 			payment.setPaymentID(PaymentID);
 			payment.select();
@@ -476,8 +479,7 @@ public class SIPaymentHandler {
 			ar.putValue("ErrorMessage", "We have noted your payment of this applicant's application fee and emailed the applicant.  Thank you!");
 
 		} catch (Exception e) {
-			System.out.println("Error!: " + e.getMessage());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ar.putValue("ErrorMessage", e.getMessage());
 			return ar;
 		}
@@ -495,7 +497,7 @@ public class SIPaymentHandler {
 	protected ActionResults postCoordinatorPaymentFind(Action action) {
 		ActionResults ar = new ActionResults();
 		ar.setView("receivepayment");
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		Hashtable people = getMatchingUnPaidPeople((String) action.getValue("firstname"), (String) action.getValue("lastname"));
 		if (people.containsKey("ErrorMessage")) {
@@ -510,10 +512,10 @@ public class SIPaymentHandler {
 	protected ActionResults postReceiveCoordinatorPayments(Action action) {
 		ActionResults ar = new ActionResults();
 		ar.setView("receivepayment");
-		System.out.println("<-------- in " + action.getName() + " handler method! ------>");
+		log.debug("in " + action.getName() + " handler method!");
 
 		String appid = (String) action.getValues().get("ApplicationID"); //person who got the payment
-		System.out.println("posting Received payment for appid-->" + appid);
+		log.debug("posting Received payment for appid:" + appid);
 		if (appid != null) {
 			try {
 				SIPayment payment = new SIPayment();
@@ -531,11 +533,11 @@ public class SIPaymentHandler {
 
 				this.markApplicationPaid(appid);
 
-				System.out.println("app marked paid.");
+				log.debug("app marked paid.");
 
 				ar.setView("receivepayment");
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 				ar.putValue("ErrorMessage", "There was a problem with your request: " + e.getMessage());
 				ar.setView("receivepayment");
 			}
@@ -601,7 +603,7 @@ public class SIPaymentHandler {
 	 *  registrationID = applicationid
 	 */
 	public Hashtable paymentCreditCard(String registrationID, Hashtable ccPaymentInfo) throws Exception {
-		System.out.println("\n\nProcessing Credit Card.\n\n");
+		log.info("Processing Credit Card for registration " + registrationID);
 		ccPaymentInfo.put("InvoiceNum", registrationID);
 		ccPaymentInfo.put("Description", "STINT System Payment");
 		ccPaymentInfo.put("CustID", registrationID);
@@ -615,14 +617,14 @@ public class SIPaymentHandler {
 
 		Hashtable results = onlinePay.processCreditCard(ccPaymentInfo);
 
-		System.out.println("--> authorize.net status  : " + results.get("Status"));
-		System.out.println("--> authorize.net response: " + results.get("Response"));
+		log.debug("--> authorize.net status  : " + results.get("Status"));
+		log.debug("--> authorize.net response: " + results.get("Response"));
 
 		Hashtable paymentHash = new Hashtable();
 
 		//check for testmode
 		if (PAYMENTTESTMODE) {
-			System.out.println("TESTMODE=TRUE: Setting results to true no matter what they really were.");
+			log.debug("TESTMODE=TRUE: Setting results to true no matter what they really were.");
 			results.put("Status", "Success");
 		}
 
@@ -637,7 +639,7 @@ public class SIPaymentHandler {
 			payment.setPostedDate(new Date());
 			payment.setPaymentFor("STINT System");
 			payment.setFk_ApplicationID(registrationID);
-			System.out.println("----> Fk_ApplicationID = " + payment.getFk_ApplicationID());
+			log.debug("----> Fk_ApplicationID = " + payment.getFk_ApplicationID());
 			payment.persist();
 
 			paymentHash = ObjectHashUtil.obj2hash(payment);
@@ -646,7 +648,7 @@ public class SIPaymentHandler {
 			for (Iterator ii = paymentHash.keySet().iterator(); ii.hasNext();) {
 				String key = (String) ii.next();
 				Object val = (Object) paymentHash.get(key);
-				System.out.println("payment hash after post to authorize.net: " + key + " -- " + val.toString());
+				log.debug("payment hash after post to authorize.net: " + key + " -- " + val.toString());
 			}
 
 			//TODO:
@@ -667,7 +669,7 @@ public class SIPaymentHandler {
 	* marks an application as paid.  kb 10/16/02
 	*/
 	private void markApplicationPaid(String appid) throws Exception {
-		System.out.println("Marking Application (id=" + appid + ") paid.");
+		log.debug("Marking Application (id=" + appid + ") paid.");
 
 		SIApplication a = new SIApplication(appid);
 		a.setIsPaid(true);
@@ -683,7 +685,7 @@ public class SIPaymentHandler {
 	 */
 	private void paymentMail(String appid) throws Exception {
 
-		System.out.println("Creating Mail Payment.");
+		log.debug("Creating Mail Payment.");
 		SIPayment payment = new SIPayment();
 
 		payment.setType("Mail Intent");
@@ -694,7 +696,7 @@ public class SIPaymentHandler {
 		payment.setFk_ApplicationID(appid);
 
 		payment.persist();
-		System.out.println("done saving mail payment.");
+		log.debug("done saving mail payment.");
 
 	}
 
@@ -706,7 +708,7 @@ public class SIPaymentHandler {
 		String accountno = (String) formData.get("AccountNo");
 
 		Hashtable h = new Hashtable();
-		System.out.println("Creating Staff Payment.");
+		log.debug("Creating Staff Payment.");
 		SIPayment payment = new SIPayment();
 
 		payment.setType("Staff Intent");
@@ -775,8 +777,7 @@ public class SIPaymentHandler {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("sendStaffPaymentEmail(): send email failed.");
-			e.printStackTrace();
+			log.error("sendStaffPaymentEmail(): send email failed.", e);
 			return false;
 		}
 	}
@@ -801,7 +802,7 @@ public class SIPaymentHandler {
 
 			String whereClause = "isSecure <> 'T' AND firstname like '" + firstname + "%' AND lastname='" + lastname + "'";
 			Collection c = ObjectHashUtil.list((new Staff()).selectList(whereClause));
-			System.out.println("Number of Staff Matches found: " + c.size());
+			log.debug("Number of Staff Matches found: " + c.size());
 
 			for (Iterator i = c.iterator(); i.hasNext();) {
 				Hashtable h = (Hashtable) i.next();
@@ -811,7 +812,7 @@ public class SIPaymentHandler {
 
 				retvals.put(name, toput);
 
-				//System.out.println("Found a match: " + toput);
+				//log.debug("Found a match: " + toput);
 
 			}
 
@@ -845,13 +846,13 @@ public class SIPaymentHandler {
 			text.append("Sincerely,\n");
 			text.append("Campus Crusade for Christ\n\n\n");
 
-			System.out.println("TEXT=" + text.toString() + "=");
-			System.out.println("person.getCurrentEmail()=" + person.getCurrentEmail());
-			System.out.println("fromEmailAddress=" + this.EMAILFROM);
+			log.debug("TEXT=" + text.toString() + "=");
+			log.debug("person.getCurrentEmail()=" + person.getCurrentEmail());
+			log.debug("fromEmailAddress=" + this.EMAILFROM);
 
 			// check for applicant email
 			if (applicantEmailAddress == null  ||  applicantEmailAddress.trim().equals("")){
-				System.out.println(	"!!!!!!!!!!applicantEmailAddress does not exist, disregard SendMessage to applicant");
+				log.warn(	"applicantEmailAddress does not exist, disregard SendMessage to applicant");
 				return true;
 			}
 			else {
@@ -864,8 +865,7 @@ public class SIPaymentHandler {
 			return true;
 			}
 		} catch (Exception e) {
-			System.err.println("emailpaymentstaffacceptance(): send email failed.");
-			e.printStackTrace();
+			log.error("emailpaymentstaffacceptance(): send email failed.", e);
 			return false;
 		}
 	}
@@ -897,8 +897,7 @@ public class SIPaymentHandler {
 			msg.send();
 			return true;
 		} catch (Exception e) {
-			System.err.println("emailToolOwnerPaymentStaffAcceptance(): send email failed.");
-			e.printStackTrace();
+			log.error("emailToolOwnerPaymentStaffAcceptance(): send email failed.", e);
 			return false;
 		}
 	}
@@ -940,9 +939,9 @@ public class SIPaymentHandler {
 			text.append("Sincerely,\n"+"<BR>");
 			text.append("Campus Crusade for Christ\n\n\n"+"<BR><BR>");
 			
-			System.out.println("TEXT=" + text.toString() + "=");
-			System.out.println("person.getCurrentEmail()=" + person.getCurrentEmail());
-			System.out.println("fromEmailAddress=" + this.EMAILFROM);
+			log.debug("TEXT=" + text.toString() + "=");
+			log.debug("person.getCurrentEmail()=" + person.getCurrentEmail());
+			log.debug("fromEmailAddress=" + this.EMAILFROM);
 
 			SendMessage msg = new SendMessage();//"smtp.comcast.net"
 			msg.setTo(applicantEmailAddress);
@@ -954,8 +953,7 @@ public class SIPaymentHandler {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("emailpaymentstaffacceptance(): send email failed.");
-			e.printStackTrace();
+			log.error("emailpaymentstaffacceptance(): send email failed.", e);
 			return false;
 		}
 
@@ -970,15 +968,15 @@ public class SIPaymentHandler {
 	 */
 	private Hashtable getMatchingUnPaidPeople(String firstname, String lastname) {
 
-		System.out.println("Looking for payments...");
+		log.debug("Looking for payments...");
 		Hashtable retvals = new Hashtable();
 
 		try {
 
-			System.out.println(" search--> " + firstname + " " + lastname);
+			log.debug(" search--> " + firstname + " " + lastname);
 
 			if (firstname == null || lastname == null || "".equals(firstname) || "".equals(lastname)) {
-				System.out.println("You must enter both a first and a last name");
+				log.debug("You must enter both a first and a last name");
 				retvals.put("ErrorMessage", "You must enter both a first and last name.");
 				return retvals;
 			}
@@ -999,15 +997,14 @@ public class SIPaymentHandler {
 				h.put("link", toput); //add link to the this person's hashtable
 
 				retvals.put(name, h);
-				System.out.println(name + " added with hash of " + h.size());
+				log.debug(name + " added with hash of " + h.size());
 
-				System.out.println("Found a match: " + toput);
+				log.debug("Found a match: " + toput);
 
 			}
 
 		} catch (Exception e) {
-			System.out.println("Error! " + e.getMessage());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			retvals.put("ErrorMessage", "You must enter both a first and last name.");
 			return retvals;
 		}

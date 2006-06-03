@@ -3,13 +3,11 @@ package org.alt60m.ministry.bean;
 import java.sql.*;
 import java.util.*;
 //import org.alt60m.ministry.*;
-//import org.alt60m.ministry.model.*;
-//import org.alt60m.persistence.castor.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.util.ObjectHashUtil;
 import org.alt60m.ministry.model.dbio.*;
 //import org.alt60m.util.TextUtils;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Staff Updater
@@ -19,7 +17,9 @@ import org.apache.log4j.Priority;
  */
 
 public class StaffUpdater {
-    private static final String PS_EMPL_TBL = "sysadm.PS_EMPLOYEES";
+	private static Log log = LogFactory.getLog(StaffUpdater.class);
+	
+	private static final String PS_EMPL_TBL = "sysadm.PS_EMPLOYEES";
     private static final String PS_TAX_TBL = "sysadm.PS_TAX_LOCATION1";
     private static final String PS_EMPL_ID  = "emplid";
     private static final String STAFF_TBL = "ministry_staff";
@@ -33,25 +33,20 @@ public class StaffUpdater {
     Hashtable luRespScope = new Hashtable();
 //    Hashtable luWorkLoc = new Hashtable();
 
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	private void log(String msg) { logHelper.log(this.getClass().toString(),msg); }
-	//End of Log Helper Code//
+
 
     public StaffUpdater() {    }
     private void initMinistry() throws Exception {
-		log(Priority.INFO,"initializing Ministry...");
+		log.info("initializing Ministry...");
 	    Connection conn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
 	    Statement statement = conn.createStatement();
 	    ResultSet rs;
 
 	    String qry = "SELECT SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY, SYSADM.PS_DEPT_TBL.DESCR FROM SYSADM.PS_CCC_MINISTRIES, SYSADM.PS_DEPT_TBL where SYSADM.PS_CCC_MINISTRIES.CCC_MINISTRY = SYSADM.PS_DEPT_TBL.DEPTID";
 
-		log(Priority.INFO,"preparing to execute query...");
+		log.info("preparing to execute query...");
 	    rs = statement.executeQuery(qry);
-		log(Priority.INFO,"...executed.");
+		log.info("...executed.");
 
 	    while (rs.next()) {
 	        String abbr = new String(rs.getString("ccc_ministry"));
@@ -61,7 +56,7 @@ public class StaffUpdater {
 	    }
         luMinistry.put("CM", "Campus Ministry"); //kb 11/14 - moved out of above loop
 	    conn.close();
-		log(Priority.INFO,"...done initializing ministry.");
+		log.info("...done initializing ministry.");
     }
 
 	public void initRegion() throws Exception {
@@ -88,16 +83,16 @@ public class StaffUpdater {
 	}
 
     public void initRespScope() throws Exception {
-		log(Priority.INFO,"initializing RespScope...");
+		log.info("initializing RespScope...");
 		Connection conn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
 		Statement statement = conn.createStatement();
 		ResultSet rs;
 	
 		String qry = "SELECT FIELDVALUE, XLATLONGNAME FROM SYSADM.XLATTABLE where FIELDNAME = 'RESPONS_SCOPE'";
 	
-		log(Priority.INFO,"preparing to execute query...");
+		log.info("preparing to execute query...");
 		rs = statement.executeQuery(qry);
-		log(Priority.INFO,"...executed.");
+		log.info("...executed.");
 	
 		while (rs.next()) {
 		    String abbr = new String(rs.getString("fieldvalue"));
@@ -105,20 +100,20 @@ public class StaffUpdater {
 			luRespScope.put(abbr, desc);
 		}
 		conn.close();
-		log(Priority.INFO,"...done initializing RespScope.");  
+		log.info("...done initializing RespScope.");  
     }
     
 /*    public void initWorkLoc() throws Exception {
-    	log(Priority.INFO,"initializing WorkLoc");
+    	log.info("initializing WorkLoc");
     	Connection conn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
     	Statement statement = conn.createStatement();
     	ResultSet rs;
     	
     	String qry = "SELECT TAX_LOCATION_CD, DESCR FROM SYSADM.TAX_LOCATION1";
     	
-    	log(Priority.INFO,"preparing to execute query...");
+    	log.info("preparing to execute query...");
     	rs = statement.executeQuery(qry);
-    	log(Priority.INFO,"...executed.");
+    	log.info("...executed.");
     	
     	while (rs.next()) {
     		String abbr = rs.getString("tax_location_cd");
@@ -126,7 +121,7 @@ public class StaffUpdater {
     		luWorkLoc.put(abbr, desc);
     	}
     	conn.close();
-    	log(Priority.INFO,"...done initializing WorkLoc");
+    	log.info("...done initializing WorkLoc");
     }
 */
     public void performUpdate() {
@@ -134,52 +129,52 @@ public class StaffUpdater {
 	    _connection = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn(); //DriverManager.getConnection(CONNECTION_INFO, USERNAME, PASSWORD); 
 			 
 	    if (_connection != null) {
-			log(Priority.INFO,"Connected.");
+			log.info("Connected.");
 				try {
 					initMinistry();
 					initRegion();
 					initStrategy();
 					initRespScope();
 
-					System.out.println("[" + new java.util.Date().toString() + "] Beginning update ...");
+					log.info("[" + new java.util.Date().toString() + "] Beginning update ...");
 					updateStaffObjects();
-					System.out.println("[" + new java.util.Date().toString() + "] Update complete.");
+					log.info("[" + new java.util.Date().toString() + "] Update complete.");
 
 					_connection.close();
 				} catch (Exception e) {
-					log(Priority.ERROR,"An error occured while updating: " + e.toString(),e);
+					log.error("An error occured while updating: " + e.toString(),e);
 				}
 			} else {
-				log(Priority.ERROR,"The connection is null");
+				log.error("The connection is null");
 			}
 		} catch (Exception e) {
-			log(Priority.ERROR,"Error opening database connection",e);				
+			log.error("Error opening database connection",e);				
 		}
     }
 
 	//Have to rewrite this because now the staff table is in mssql and ps-emp in oracle
 /*
 	private void removeStaffObject() throws Exception {
-		log(Priority.INFO,"making Oracle connection ... ");
+		log.info("making Oracle connection ... ");
 		Connection psconn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
 		Statement psstatement = psconn.createStatement();
 
-		log(Priority.INFO,"making sql connection ... ");
+		log.info("making sql connection ... ");
 		Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 		Statement sqlstatement = sqlconn.createStatement();
 		ResultSet sqlrs;
 		ResultSet psrs;
 
-		log(Priority.INFO,"[" + new java.util.Date() + "] Querying...");
+		log.info("[" + new java.util.Date() + "] Querying...");
 		String psqry = "select "+PS_EMPL_ID+" from " + PS_EMPL_TBL + " order by "+PS_EMPL_ID+" desc";
-		log(psqry);
+		log.debug(psqry);
 		psrs = psstatement.executeQuery(psqry);
 
 		String qry =
 			"select accountNo from " + STAFF_TBL + " where accountNo not in " +
 				"(" + TextUtils.listToCommaDelimitedQuotedString(psrs,"'") + ")" +
 			" order by " + PS_EMPL_ID + " desc";
-		log(qry);
+		log.debug(qry);
 
 		sqlrs = sqlstatement.executeQuery(qry);
 		psconn.close();
@@ -188,28 +183,28 @@ public class StaffUpdater {
 			String staffID = sqlrs.getString("accountNo");
 			try {
 				Staff staff = new Staff(staffID);
-				log(Priority.INFO,"[" + new java.util.Date() + "] Removing account: " + staffID);
+				log.info("[" + new java.util.Date() + "] Removing account: " + staffID);
 				staff.delete();
 			} catch (Exception e) {
-				log(Priority.ERROR,
+				log.error(
 					"[" + new java.util.Date() + "] Failed to remove account: " + staffID,e);
 			}
 		}
 	}
 */
 	private void insertStaffObjects() throws Exception {
-		System.out.println("making Oracle connection ... ");
+		log.info("making Oracle connection ... ");
 		Connection psconn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
 		Statement psstatement = psconn.createStatement();
 		
-		System.out.println("making sql connection ... ");
+		log.info("making sql connection ... ");
 		Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 		Statement sqlstatement = sqlconn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
 		ResultSet sqlrs;
 		ResultSet psrs;
 
-		System.out.println("[" + new java.util.Date() + "] Querying...");
+		log.info("[" + new java.util.Date() + "] Querying...");
 
 		String qry = "select distinct accountNo from " + STAFF_TBL + " order by accountNo desc";
 		sqlrs = sqlstatement.executeQuery(qry);
@@ -231,7 +226,7 @@ public class StaffUpdater {
 		int sqlSize = sqlResults.size();
 		int psSize = psResults.size();
 		
-		System.out.println("sqlSive: "+sqlSize+", psSize: "+psSize);
+		log.debug("sqlSize: "+sqlSize+", psSize: "+psSize);
 		
 		int i = 0;
 		int j = 0;
@@ -260,13 +255,13 @@ public class StaffUpdater {
 		while (k.hasNext()) {
 			String staffID = (String) k.next();
 			try {
-				System.out.println("inserting : "+staffID);
+				log.info("inserting : "+staffID);
 				String insertQuery = "insert into ministry_staff (accountNo) values ('"+staffID+"')";
 				sqlstatement.executeUpdate(insertQuery);				
-				System.out.println("inserted successfully : "+staffID);
+				log.info("inserted successfully : "+staffID);
 			} catch (Exception e) {
-				System.out.println(
-					"[" + new java.util.Date() + "] Failed to insert account: " + staffID);
+				log.error(
+					"[" + new java.util.Date() + "] Failed to insert account: " + staffID, e);
 			}
 		}
 		
@@ -274,13 +269,13 @@ public class StaffUpdater {
 		while (k.hasNext()) {
 			String staffID = (String) k.next();
 			try {
-				System.out.println("removing : "+staffID);
+				log.info("removing : "+staffID);
 				String removeQuery = "update ministry_staff set removedFromPeopleSoft = 'Y', fk_teamID = 0 where accountNo = '"+staffID+"'";
 				sqlstatement.executeUpdate(removeQuery);				
-				System.out.println("removed successfully : "+staffID);
+				log.info("removed successfully : "+staffID);
 			} catch (Exception e) {
-				System.out.println(
-					"[" + new java.util.Date() + "] Failed to remove account: " + staffID);
+				log.error(
+					"[" + new java.util.Date() + "] Failed to remove account: " + staffID, e);
 			}
 		}
 		
@@ -302,31 +297,31 @@ public class StaffUpdater {
 		Statement statement = _connection.createStatement();
 		ResultSet rs = null;
 
-		System.out.println("[" + new java.util.Date() +"] Querying...");
+		log.info("[" + new java.util.Date() +"] Querying...");
 		java.sql.Date currDate = new java.sql.Date(new java.util.Date().getTime());
 		String qry = "select emp.*, tax.descr as tax_descr, tax.country as tax_country, tax.city as tax_city, tax.state as tax_state from " + PS_EMPL_TBL + " emp LEFT JOIN " + PS_TAX_TBL + " tax ON emp.tax_location_cd = tax.tax_location_cd WHERE emp.empl_rcd = 0 AND emp.effdt <= to_date('" + currDate.toString() + "','yyyy-mm-dd') order by " + PS_EMPL_ID + " desc";
-		log(qry);
+		log.debug(qry);
 		rs = statement.executeQuery(qry);
 		
 /*		ResultSetMetaData rsmd = rs.getMetaData();
 		for (int i = 1; i < rsmd.getColumnCount(); i++) {
-			System.out.println(rsmd.getColumnName(i));
+			log.info(rsmd.getColumnName(i));
 		}
 */
 		java.util.Date querystop = new java.util.Date();
-		System.out.println("[" + querystop + "] Got Recordset.");
+		log.debug("[" + querystop + "] Got Recordset.");
 		while (rs.next()) {
 		    Staff staff = new Staff();
 		    String currentNo = rs.getString(PS_EMPL_ID);
-		    System.out.print(" PS record: " + currentNo + "...");
+		    log.info(" PS record: " + currentNo + "...");
 		    try {
 //		    	boolean justCreated = false;
 //				try {
 					staff.setAccountNo(currentNo);
 					staff.select();
-//					System.out.println("Ministry: " + rs.getString("ccc_ministry") + " , Region: " + rs.getString("ccc_sub_ministry") + ", EffDate: " + rs.getString("effdt"));
+//					log.info("Ministry: " + rs.getString("ccc_ministry") + " , Region: " + rs.getString("ccc_sub_ministry") + ", EffDate: " + rs.getString("effdt"));
 //				    if (!staff.select()) {
-//						log("Using if/else create");
+//						log.debug("Using if/else create");
 //						staff = new Staff();
 //						staff.setAccountNo(currentNo);
 //						insert(staff);				
@@ -335,7 +330,7 @@ public class StaffUpdater {
 //						justCreated = false;			    	
 //				    }
 //				} catch (Exception nf) {
-//				    log("Using throwed create");
+//				    log.debug("Using throwed create");
 //					staff = new Staff();
 //					staff.setAccountNo(currentNo);
 //					insert(staff);				
@@ -347,27 +342,25 @@ public class StaffUpdater {
 						
 				// always fill in new records
 //				if (justCreated) {
-//	            	System.out.print("is new, so setting attributes...");
+//	            	log.debug("is new, so setting attributes...");
 //			    	setStaffAttributes(staff, rs);
 //					staff.persist();
 			    // Non-campus staff, so fill in
 				/*} else*/ //if (!isCampusStaff) {
-	          	System.out.print("noncampus, so setting attributes...");
-//	          	System.out.print(rs.getString("tax_location_cd") + ": ");
-//	          	System.out.print(rs.getString("descr") + ", ");
-//	          	System.out.println(rs.getString("tax_state"));
+	          	log.debug("noncampus, so setting attributes...");
+//	          	log.debug(rs.getString("tax_location_cd") + ": ");
+//	          	log.debug(rs.getString("descr") + ", ");
+//	          	log.info(rs.getString("tax_state"));
 			    	setStaffAttributes(staff, rs);
 					staff.persist();
 			    // Is campus staff, and not a new record
 	            //} else /*if (isCampusStaff && !justCreated)*/ {
-	            //	System.out.print("is campus, but WILL NOT UPDATE...");
+	            //	log.debug("is campus, but WILL NOT UPDATE...");
 	            //} /*else {
-			    //	System.out.print("UNKNOWN CASE...");
+			    //	log.debug("UNKNOWN CASE...");
 			    //}*/
 		    } catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("\n***Failed to process record " + currentNo);
-				System.out.println(e);
+				log.error("Failed to process record " + currentNo, e);
 				if(_stopOnFail) throw e;
 		    }
 		}
@@ -389,21 +382,21 @@ public class StaffUpdater {
 		Address primaryAddress = staff.getPrimaryAddress();
 		Address secondaryAddress = staff.getSecondaryAddress();
 		java.util.Date today = new java.util.Date();
-		System.out.print(
+		log.debug(
 			"Updating current address for: " + staff.getLastName() + ", " + staff.getFirstName() + "...");
 		// If there exists a secondary address, and the date range is current
 		try {
 			if (secondaryAddress != null
 				&& today.before(secondaryAddress.getEndDate())
 				&& today.after(secondaryAddress.getStartDate())) {
-				log(Priority.INFO,"...using secondary address.");
+				log.info("...using secondary address.");
 				staff.setCurrentAddressId(staff.getSecondaryAddressId());
 			} else {
-				log(Priority.INFO,"...using primary address.");
+				log.info("...using primary address.");
 				staff.setCurrentAddressId(staff.getPrimaryAddressId());
 			}
 		} catch (NullPointerException npe) {
-			log(Priority.ERROR,"...null pointer using address.",npe);
+			log.error("...null pointer using address.",npe);
 			staff.setCurrentAddressId(staff.getPrimaryAddressId());
 		}
 	}
@@ -471,7 +464,7 @@ public class StaffUpdater {
 		}
 
 		Hashtable after = ObjectHashUtil.obj2hash(staff);
-		log(Priority.INFO,"Account No. " + staff.getAccountNo());
+		log.info("Account No. " + staff.getAccountNo());
 		showWhatChanged(before, after);
 	}
 	private void showWhatChanged(Hashtable before, Hashtable after) {
@@ -482,7 +475,7 @@ public class StaffUpdater {
 				Object objAfter = after.get(key);
 				if(objBefore!=null && (objBefore instanceof String || objBefore instanceof Integer || objBefore instanceof java.sql.Date)) {
 					if (!objBefore.equals(objAfter) && !(objBefore.toString().equals("") && objAfter.toString().equals(" "))) {
-						log("\t\tField: '"+key+ "' was='"+objBefore+"' is='"+objAfter+"'");
+						log.debug("\t\tField: '"+key+ "' was='"+objBefore+"' is='"+objAfter+"'");
 					}
 				}
 			}
@@ -548,7 +541,7 @@ public class StaffUpdater {
 				husband.persist();
 		    }
 		} catch (Exception e) {
-		    log("The spouse object was not found");
+		    log.error("The spouse object was not found", e);
 		}
     }
 
@@ -556,7 +549,7 @@ public class StaffUpdater {
 		OldAddress add1 = staff.getPrimaryAddress();
 		if (add1 == null) {
 		    add1 = new OldAddress();
-		    System.out.println("Address1 not persistant");
+		    log.info("Address1 not persistant");
 		}
 		add1.setAddress1(rs.getString("address1"));
 		add1.setAddress2(rs.getString("address2"));						
@@ -572,7 +565,7 @@ public class StaffUpdater {
 		OldAddress add2 = staff.getSecondaryAddress();
 		if (add2 == null) {
 		    add2 = new OldAddress();
-		    log(Priority.ERROR,"Address2 not persistant");
+		    log.error("Address2 not persistant");
 		}
 		add2.setAddress1(rs.getString("address1_other"));
 		add2.setAddress2(rs.getString("address2_other"));
@@ -592,13 +585,12 @@ public class StaffUpdater {
 			StaffUpdater su = new StaffUpdater();
 			org.alt60m.servlet.ObjectMapping.setConfigPath(args[0]);
 			//org.alt60m.util.DBConnectionFactory.setConfigProperties(args[0]);
-			//log(Priority.INFO,"Removing Former Staff");
+			//log.info("Removing Former Staff");
 			//su.removeStaffObject();
-			System.out.println("Updating Staff");
+			log.info("Updating Staff");
 			su.performUpdate();
 		} catch (Exception e) {
-			System.out.println("Failed: ");
-			e.printStackTrace();
+			log.fatal("Failed!", e);
 		}
 	}
 

@@ -1,12 +1,14 @@
 package org.alt60m.ministry.bean;
 
-import org.apache.log4j.*;
-import org.alt60m.util.LogHelper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.ministry.servlet.*;
 
 public class CampusContacts implements java.io.Serializable
 {
+	private static Log log = LogFactory.getLog(CampusContacts.class);
+	
 	private String fontB = "<FONT FACE=\"Arial\" SIZE=\"2\" COLOR=\"#336699\">";
 	private String fontB1 = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 
@@ -14,11 +16,6 @@ public class CampusContacts implements java.io.Serializable
 	String fontFace;
 	String fontColor;
 
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 
 	public CampusContacts() {}
 
@@ -123,7 +120,7 @@ public class CampusContacts implements java.io.Serializable
 											while (staffIterator.hasNext())
 											{
 												Staff staffObj = (Staff) staffIterator.next();
-												log(Priority.INFO,staffObj.getWorkPhone());
+												log.debug(staffObj.getWorkPhone());
 												if ((staffObj.getWorkPhone()==null)||(staffObj.getWorkPhone().equals(""))||(staffObj.getWorkPhone().equals(" ")))
 												{
 													phone = staffObj.getHomePhone();
@@ -224,7 +221,7 @@ public class CampusContacts implements java.io.Serializable
 											while (staffIterator.hasNext())
 											{
 												Staff staffObj = (Staff) staffIterator.next();
-												log(Priority.INFO,staffObj.getWorkPhone());
+												log.debug(staffObj.getWorkPhone());
 												if ((staffObj.getWorkPhone()==null)||(staffObj.getWorkPhone().equals(""))||(staffObj.getWorkPhone().equals(" ")))
 												{
 													phone = staffObj.getHomePhone();
@@ -278,7 +275,7 @@ public class CampusContacts implements java.io.Serializable
 											while (staffIterator.hasNext())
 											{
 												Staff staffObj = (Staff) staffIterator.next();
-												log(Priority.INFO,staffObj.getWorkPhone());
+												log.debug(staffObj.getWorkPhone());
 												if ((staffObj.getWorkPhone()==null)||(staffObj.getWorkPhone().equals(""))||(staffObj.getWorkPhone().equals(" ")))
 												{
 													phone = staffObj.getHomePhone();
@@ -336,7 +333,7 @@ public class CampusContacts implements java.io.Serializable
 											while (staffIterator.hasNext())
 											{
 												Staff staffObj = (Staff) staffIterator.next();
-												log(Priority.INFO,staffObj.getWorkPhone());
+												log.debug(staffObj.getWorkPhone());
 												if ((staffObj.getWorkPhone()==null)||(staffObj.getWorkPhone().equals(""))||(staffObj.getWorkPhone().equals(" ")))
 												{
 													phone = staffObj.getHomePhone();
@@ -393,7 +390,7 @@ public class CampusContacts implements java.io.Serializable
 											while (staffIterator.hasNext())
 											{
 												Staff staffObj = (Staff) staffIterator.next();
-												log(Priority.INFO,staffObj.getWorkPhone());
+												log.debug(staffObj.getWorkPhone());
 												if ((staffObj.getWorkPhone()==null)||(staffObj.getWorkPhone().equals(""))||(staffObj.getWorkPhone().equals(" ")))
 												{
 													phone = staffObj.getHomePhone();
@@ -492,7 +489,7 @@ public class CampusContacts implements java.io.Serializable
 											}
 											*/
 		} catch (Exception re) {
-			log(Priority.ERROR,re.toString(),re);
+			log.error(re.getMessage(), re);
 		}		
 
 		return sb.toString();	

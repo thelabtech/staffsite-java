@@ -1,6 +1,9 @@
 package org.alt60m.util;
 import java.util.Hashtable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Created Aug 6, 2002, by David Bowdoin
  * This class processes online payments via www.authorizenet.com
@@ -28,6 +31,10 @@ Fields in Hashtable paymentInfoIn
 
  */
 public class OnlinePayment {
+
+	private static Log log = LogFactory.getLog(OnlinePayment.class);
+	
+	
     private String merchantAcctNum = "";
     private String merchantAcctPassword = "";
     private boolean testMode = false;
@@ -149,9 +156,9 @@ public class OnlinePayment {
 
             postResponse = authNetObj.getResponseString();
         }
-        if(testMode) System.out.println("postData: " + postData);
-        if(testMode) System.out.println("postResponse: " + postResponse);
-        System.out.println("Results: " + results);
+        if(testMode) log.debug("postData: " + postData);
+        if(testMode) log.debug("postResponse: " + postResponse);
+        log.debug("Results: " + results);
 
         return results;
     }

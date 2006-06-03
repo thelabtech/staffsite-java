@@ -3,6 +3,8 @@ package org.alt60m.ministry.servlet;
 import java.util.*;
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Priority;
 
 /* 
@@ -14,11 +16,8 @@ import org.apache.log4j.Priority;
  * @testcase org.alt60m.ministry.test.TestHRTool 
  */
 public class HRTool {
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
+	private static Log log = LogFactory.getLog(HRTool.class);
+	
 
     public void addressChangeRequest(final String staffID, final String requestorStaffID, final Map newValues) throws Exception {
         QueueChangeRequest qcr = new QueueChangeRequest();
@@ -249,7 +248,7 @@ public class HRTool {
     }
 
     static private void log(String msg) {
-		System.out.println(msg);
+		log.debug(msg);
     }
 
     private void dumpValues(Hashtable newValues) {

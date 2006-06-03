@@ -2,11 +2,13 @@ package org.alt60m.ministry.servlet;
 
 import java.util.*;
 import java.text.*;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
 import org.alt60m.servlet.*;
 import org.alt60m.util.*;
 import org.alt60m.ministry.model.dbio.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.ActivityExistsException;
 
 /**
@@ -15,7 +17,8 @@ import org.alt60m.ministry.ActivityExistsException;
  * @version 1.0
  */
 public class InfoBaseTool {
-
+	private static Log log = LogFactory.getLog(InfoBaseTool.class);
+	
     class StaffByRegionCache {
         Date lastUpdated;
 		Hashtable staffByRegion = new Hashtable();
@@ -25,13 +28,6 @@ public class InfoBaseTool {
     final String[] _reportTypes = new String[] { "locallevel", "targetarea", "regional", "national" };
 
 	private StaffByRegionCache staffByRegionCache = new StaffByRegionCache();
-
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-//	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	static private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log("InfoBaseTool",p,msg,t); }
-	//End of Log Helper Code//
-
 
     String buildCommaDelimitedQuotedList(Collection col) {
         String result = "";
@@ -80,7 +76,7 @@ public class InfoBaseTool {
 			target.setCiaUrl((String)request.get("ciaUrl"));
 			target.persist();
 		} catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform createNewTargetArea().", e);
+			log.error("Failed to perform createNewTargetArea().", e);
 			throw new Exception(e);
 	   }
 	}
@@ -91,7 +87,7 @@ public class InfoBaseTool {
 			rs.persist();
 			return rs;
 		} catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform createRegionalStatObject().", e);
+            log.error("Failed to perform createRegionalStatObject().", e);
 			throw new Exception(e);
 		}
 	}
@@ -102,7 +98,7 @@ public class InfoBaseTool {
 			stat.persist();
 			return stat;
 		} catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform createStatObject().", e);
+            log.error("Failed to perform createStatObject().", e);
 			throw new Exception(e);
 		}
 	}
@@ -112,7 +108,7 @@ public class InfoBaseTool {
  			LocalLevel ll = new LocalLevel(llId);
 			ll.delete();
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform deleteLocalLevelTeam().", e);
+            log.error("Failed to perform deleteLocalLevelTeam().", e);
 			throw new Exception(e);
         }
     }
@@ -122,7 +118,7 @@ public class InfoBaseTool {
  			TargetArea ta = new TargetArea(targetAreaId);
 			ta.delete();
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform deleteTargetArea().", e);
+            log.error("Failed to perform deleteTargetArea().", e);
 			throw new Exception(e);
         }
     }
@@ -162,7 +158,7 @@ public class InfoBaseTool {
 			return results;
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform editSuccessCriteria().", e);
+            log.error("Failed to perform editSuccessCriteria().", e);
 			throw new Exception(e);
         }
     }
@@ -197,7 +193,7 @@ public class InfoBaseTool {
 			return InfoBaseQueries.getActivityCount();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getActivityCount().", e);
+            log.error("Failed to perform getActivityCount().", e);
   			throw new Exception(e);
         }
     }
@@ -207,7 +203,7 @@ public class InfoBaseTool {
 			return InfoBaseQueries.getActivityCountCurrent();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getActivityCountCurrent().", e);
+            log.error("Failed to perform getActivityCountCurrent().", e);
   			throw new Exception(e);
         }
     }
@@ -216,7 +212,7 @@ public class InfoBaseTool {
         try { 
 			return new Activity(activityId);
 		} catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getActivityObject().", e);
+            log.error("Failed to perform getActivityObject().", e);
 			throw new Exception(e);
         }
     }
@@ -227,7 +223,7 @@ public class InfoBaseTool {
             return ncm.selectList();
 		}
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getAllNonCccMin().", e);
+            log.error("Failed to perform getAllNonCccMin().", e);
  			throw new Exception(e);
         }
     }
@@ -257,7 +253,7 @@ public class InfoBaseTool {
 			return colTAs;
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform getCampusList().", e);
+			log.error("Failed to perform getCampusList().", e);
 			throw new Exception(e);
 		}
 	}
@@ -329,7 +325,7 @@ public class InfoBaseTool {
 			return colTAs;
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform getCampusListLocator().", e);
+			log.error("Failed to perform getCampusListLocator().", e);
 			throw new Exception(e);
 		}
 	}
@@ -399,7 +395,7 @@ public class InfoBaseTool {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform getCampusList().  Offending query:" + query, e);
+			log.error("Failed to perform getCampusList().  Offending query:" + query, e);
 			throw new Exception(e);
 		}
 	}
@@ -408,7 +404,7 @@ public class InfoBaseTool {
         try {
 			return new LocalLevel(llId);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getLocalLevelTeam().", e);
+            log.error("Failed to perform getLocalLevelTeam().", e);
 			throw new Exception(e);
         }
     }
@@ -417,7 +413,7 @@ public class InfoBaseTool {
         try {
 			return InfoBaseQueries.getLocalLevelTeamsByRegion(region);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getLocalLevelTeamsByRegion().", e);
+            log.error("Failed to perform getLocalLevelTeamsByRegion().", e);
  			throw new Exception(e);
         }
     }
@@ -426,7 +422,7 @@ public class InfoBaseTool {
         try {
 			return new NonCccMin(nonCccMinId);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getNonCccMin().", e);
+            log.error("Failed to perform getNonCccMin().", e);
 			throw new Exception(e);
         }
     }
@@ -456,7 +452,7 @@ public class InfoBaseTool {
 			return colTAs;
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getNonSecureCampusList().", e);
+            log.error("Failed to perform getNonSecureCampusList().", e);
 			throw new Exception(e);
         }
     }
@@ -466,7 +462,7 @@ public class InfoBaseTool {
 			return new RegionalStat(statId);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getRegionalStatObject().", e);
+            log.error("Failed to perform getRegionalStatObject().", e);
   			throw new Exception(e);
         }
     }
@@ -478,7 +474,7 @@ public class InfoBaseTool {
 			return c;
 		}
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getRegionalStats().", e);
+            log.error("Failed to perform getRegionalStats().", e);
  			throw new Exception(e);
        }
 	}
@@ -488,7 +484,7 @@ public class InfoBaseTool {
 			return InfoBaseQueries.getRegionalTeam(region);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getRegionalTeam().", e);
+            log.error("Failed to perform getRegionalTeam().", e);
  			throw new Exception(e);
        }
     }
@@ -498,7 +494,7 @@ public class InfoBaseTool {
  			return InfoBaseQueries.getReportedCnt(since);
        }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getReportedCnt().", e);
+            log.error("Failed to perform getReportedCnt().", e);
   			throw new Exception(e);
         }
     }
@@ -525,7 +521,7 @@ public class InfoBaseTool {
         try {
 			return new Staff(staffId);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveStatObjectWithActivity().", e);
+            log.error("Failed to perform saveStatObjectWithActivity().", e);
  			throw new Exception(e);
        }
 	}
@@ -534,7 +530,7 @@ public class InfoBaseTool {
 		try  {
 			return new Statistic(statisticId);
 		} catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getStatObject().", e);
+            log.error("Failed to perform getStatObject().", e);
 			throw new Exception(e);
 		}
 	}
@@ -553,7 +549,7 @@ public class InfoBaseTool {
         try {
  			return new TargetArea(targetAreaId);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getTargetArea().", e);
+            log.error("Failed to perform getTargetArea().", e);
 			throw new Exception(e);
         }
     }
@@ -563,7 +559,7 @@ public class InfoBaseTool {
             Collection teams = InfoBaseQueries.getTargetAreasByRegion(region);
 			return teams;
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getTargetAreasByRegion().", e);
+            log.error("Failed to perform getTargetAreasByRegion().", e);
  			throw new Exception(e);
         }
     }
@@ -575,7 +571,7 @@ public class InfoBaseTool {
 			return c;
 		}
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getTargetAreaStats().", e);
+            log.error("Failed to perform getTargetAreaStats().", e);
 			throw new Exception(e);
         }
 
@@ -588,7 +584,7 @@ public class InfoBaseTool {
 			return c;
 		}
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform getTargetAreaStats().", e);
+            log.error("Failed to perform getTargetAreaStats().", e);
   			throw new Exception(e);
       }
 	}
@@ -632,7 +628,7 @@ public class InfoBaseTool {
 			return list;
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform listStaff().", e);
+            log.error("Failed to perform listStaff().", e);
 			throw new Exception(e);
         }
     }
@@ -642,7 +638,7 @@ public class InfoBaseTool {
 			return InfoBaseQueries.listStaffHashByRegion(region);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform listStaffByRegionSQL().", e);
+            log.error("Failed to perform listStaffByRegionSQL().", e);
   			throw new Exception(e);
         }
     }
@@ -652,7 +648,7 @@ public class InfoBaseTool {
 			return InfoBaseQueries.listStaffHashByLastName(lastName);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform listStaffHashByLastName().", e);
+            log.error("Failed to perform listStaffHashByLastName().", e);
   			throw new Exception(e);
         }
     }
@@ -676,7 +672,7 @@ public class InfoBaseTool {
             activity.dissocContact(staff);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform removeContact().", e);
+            log.error("Failed to perform removeContact().", e);
   			throw new Exception(e);
         }
     }
@@ -688,7 +684,7 @@ public class InfoBaseTool {
 			ministry.removeOtherMinistry(target);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform removeMin().", e);
+            log.error("Failed to perform removeMin().", e);
   			throw new Exception(e);
        }
     }
@@ -700,7 +696,7 @@ public class InfoBaseTool {
 			staff.persist();
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform removeStaff().", e);
+			log.error("Failed to perform removeStaff().", e);
 			throw new Exception(e);
 		}
 	}
@@ -710,7 +706,7 @@ public class InfoBaseTool {
 			removeStaff(staffId);
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform removeStaff().", e);
+			log.error("Failed to perform removeStaff().", e);
 			throw new Exception(e);
 		}
 	}
@@ -728,7 +724,7 @@ public class InfoBaseTool {
             activity.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveActivity().", e);
+            log.error("Failed to perform saveActivity().", e);
  			throw new Exception(e);
         }
     }
@@ -738,7 +734,7 @@ public class InfoBaseTool {
             saveAddMinToCampus(targetAreaId, nonCccMinId);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveAddCampusToMin().", e);
+            log.error("Failed to perform saveAddCampusToMin().", e);
   			throw new Exception(e);
         }
     }
@@ -749,7 +745,7 @@ public class InfoBaseTool {
             TargetArea target = new TargetArea(targetAreaId);
             ministry.addOtherMinistry(target);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveAddMinToCampus().", e);
+            log.error("Failed to perform saveAddMinToCampus().", e);
  			throw new Exception(e);
         }
     }
@@ -770,7 +766,7 @@ public class InfoBaseTool {
                 activity.setStatus("AC");
 			activity.persist();
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveAddTeamToCampus().", e);
+            log.error("Failed to perform saveAddTeamToCampus().", e);
  			throw new Exception(e);
         }
     }
@@ -786,7 +782,7 @@ public class InfoBaseTool {
             }
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveAssociateStaff().", e);
+            log.error("Failed to perform saveAssociateStaff().", e);
   			throw new Exception(e);
         }
     }
@@ -798,7 +794,7 @@ public class InfoBaseTool {
             activity.addActivityContacts(staff);
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveContact().", e);
+            log.error("Failed to perform saveContact().", e);
   			throw new Exception(e);
         }
     }
@@ -940,11 +936,11 @@ public class InfoBaseTool {
             }          
         }
         catch (ActivityExistsException aee) {
-        	log(Priority.ERROR, "Failed to perform saveEditActivity().", aee);
+        	log.error("Failed to perform saveEditActivity().", aee);
  			throw aee;
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveEditActivity().", e);
+            log.error("Failed to perform saveEditActivity().", e);
  			throw new Exception(e);
         }
     }
@@ -956,7 +952,7 @@ public class InfoBaseTool {
             target.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveNewCampus().", e);
+            log.error("Failed to perform saveNewCampus().", e);
 			throw new Exception(e);
         }
     }
@@ -977,7 +973,7 @@ public class InfoBaseTool {
             }
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveNonCCCMin().", e);
+            log.error("Failed to perform saveNonCCCMin().", e);
  			throw new Exception(e);
         }
     }
@@ -994,7 +990,7 @@ public class InfoBaseTool {
             regionalStat.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveRegionalSuccessCriteria().", e);
+            log.error("Failed to perform saveRegionalSuccessCriteria().", e);
   			throw new Exception(e);
         }
     }
@@ -1006,7 +1002,7 @@ public class InfoBaseTool {
 			rt.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveRegionInfo().", e);
+            log.error("Failed to perform saveRegionInfo().", e);
 			throw new Exception(e);
         }
     }
@@ -1017,7 +1013,7 @@ public class InfoBaseTool {
             stat.setActivityId(activityId);
             stat.persist();
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveStatObjectWithActivity().", e);
+            log.error("Failed to perform saveStatObjectWithActivity().", e);
  			throw new Exception(e);
  		}
     }
@@ -1029,7 +1025,7 @@ public class InfoBaseTool {
             ta.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveTargetAreaInfo().", e);
+            log.error("Failed to perform saveTargetAreaInfo().", e);
  			throw new Exception(e);
        }
     }
@@ -1052,7 +1048,7 @@ public class InfoBaseTool {
             ll.persist();
         }
         catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform saveTeam().", e);
+            log.error("Failed to perform saveTeam().", e);
  			throw new Exception(e);
         }
     }
@@ -1097,7 +1093,7 @@ public class InfoBaseTool {
 			msg.send();
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform sendTargetAreaRequestEmail().", e);
+			log.error("Failed to perform sendTargetAreaRequestEmail().", e);
 			throw new Exception(e);
 		}
 	}
@@ -1133,7 +1129,7 @@ public class InfoBaseTool {
 			msg.send();
 		}
 		catch (Exception e) {
-			log(Priority.ERROR, "Failed to perform sendTargetAreaRequestEmail().", e);
+			log.error("Failed to perform sendTargetAreaRequestEmail().", e);
 			throw new Exception(e);
 		}
 	}

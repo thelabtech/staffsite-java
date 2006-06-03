@@ -4,7 +4,6 @@
 	ActionResults ar = ActionResults.getActionResults(session);	
 
 	String ErrorMessage = (String) ar.getValue("ErrorMessage");
-	System.out.println("Found ErrorMessage=" + ErrorMessage);
 
 	Hashtable existingpayments = ar.getHashtable("existingpayments");
 	if (existingpayments==null) existingpayments = new Hashtable();

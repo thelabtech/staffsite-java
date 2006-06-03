@@ -2,17 +2,12 @@ package org.alt60m.html;
 
 import java.util.*;
 import java.io.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.model.dbio.*;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Birthdays implements java.io.Serializable {
-
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
+	private static Log log = LogFactory.getLog(Birthdays.class);
 	
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
@@ -42,7 +37,7 @@ public class Birthdays implements java.io.Serializable {
 
 		try {
 			File f = new File(_pathToFile, PROPERTIES_FILE);
-			log(Priority.INFO,(f.getAbsolutePath()));
+			log.debug((f.getAbsolutePath()));
 			FileInputStream fis = new FileInputStream(f);
 			p.load(fis);
 			pathToViewStaff		= p.getProperty("_pathToViewStaff");
@@ -100,7 +95,7 @@ public class Birthdays implements java.io.Serializable {
 					bdQuery = "MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+" AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				
-				log(Priority.INFO,bdQuery);
+				log.debug(bdQuery);
 
 				Collection stafflist = new Staff().selectList(bdQuery); // _ministryStaffAdaptor.list(bdQuery);
 				if (stafflist.isEmpty()){
@@ -115,10 +110,10 @@ public class Birthdays implements java.io.Serializable {
 			}
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 
@@ -221,10 +216,10 @@ public class Birthdays implements java.io.Serializable {
 			}
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 

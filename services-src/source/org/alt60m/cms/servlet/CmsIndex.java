@@ -5,6 +5,8 @@ import org.alt60m.util.ObjectHashUtil;
 import java.io.IOException;
 import java.util.*;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.index.*;
 import org.apache.lucene.analysis.*;
 import org.apache.lucene.document.*;
@@ -16,6 +18,8 @@ public class CmsIndex {
 	static String searchIndexPath = "./Tomcat/webapps/staffsite/cms/cmsIndex";
 	static String fileSpecsPath = "file:///D:/ade4_USCM/Tomcat/webapps/staffsite/WEB-INF/cmsfilespecs.xml";
 
+	private static Log log = LogFactory.getLog(CmsIndex.class);
+	
 	public CmsIndex() {}
 	public static void SetIndexPath(String searchIndexPathIn) {
 		searchIndexPath = searchIndexPathIn;
@@ -28,19 +32,19 @@ public class CmsIndex {
 
 			// get all the files in the cms
 			org.alt60m.cms.model.File a = new org.alt60m.cms.model.File();
-			Vector fs = (Vector)ObjectHashUtil.list(a.selectList("order by CmsFileID"));
+			Vector fileSet = (Vector)ObjectHashUtil.list(a.selectList("order by CmsFileID"));
 
-			for (int i=0;i<fs.size();i++) {
-				Hashtable f = (Hashtable)fs.get(i);
-				System.out.println("Indexing file " + f.get("FileId"));
+			for (int i=0;i<fileSet.size();i++) {
+				Hashtable f = (Hashtable)fileSet.get(i);
+				log.debug("Indexing file " + f.get("FileId"));
 				add(f,writer,fileSpecs);
 			}
-			System.out.println("Optimizing");
+			log.debug("Optimizing");
 			writer.optimize();
 			writer.close();
 		} catch (Exception e) {
+			log.error(e);
 			e.printStackTrace();
-			System.out.println(e);
 		}
 	}
 
@@ -52,8 +56,7 @@ public class CmsIndex {
 			add(d,writer,fileSpecs);
 			writer.close();
 		} catch (IOException ioe) {
-			System.out.println("Error while adding to search index!");
-			System.out.println(ioe);
+			log.error("Error while adding to search index!", ioe);
 		}
 	}
 
@@ -64,8 +67,7 @@ public class CmsIndex {
 			add(d,writer,fileSpecs);
 			writer.close();
 		} catch (IOException ioe) {
-			System.out.println("Error while adding to search index!");
-			System.out.println(ioe);
+			log.error("Error while adding to search index!", ioe);
 		}
 	}
 
@@ -104,8 +106,7 @@ public class CmsIndex {
 
 			writer.addDocument(doc);
 		} catch (IOException ioe) {
-			System.out.println("Error while adding to search index!");
-			System.out.println(ioe);
+			log.error("Error while adding to search index!", ioe);
 		}
 	}
 
@@ -124,7 +125,7 @@ public class CmsIndex {
 			reader.delete(term);
 			reader.close();
 		} catch (IOException ioe) {
-			System.out.println("Error while deleting from search index.");
+			log.error("Error while deleting from search index", ioe);
 		}
 	}
 
@@ -134,7 +135,7 @@ public class CmsIndex {
 			Query query = QueryParser.parse(queryString, "all", new StopAnalyzer());
 			h = CmsIndex.search(query);
 		} catch (ParseException pe) {
-			System.out.println(pe);
+			log.error(pe);
 		}
 		return h;
 
@@ -148,10 +149,10 @@ public class CmsIndex {
 
 			//Query query1 = QueryParser.parse(queryString+" +quality:1", "all", analyzer);
 
-			System.out.println("Searching for: " + query.toString("all"));
+			log.info("Searching for: " + query.toString("all"));
 
 			Hits hits = searcher.search(query);
-			System.out.println(hits.length() + " total matching document(s)");
+			log.info(hits.length() + " total matching document(s)");
 
 			for (int i=0; i < hits.length(); i++) {
 				Hashtable hit = new Hashtable();
@@ -172,7 +173,7 @@ public class CmsIndex {
 			searcher.close();
 
 		} catch (Exception e) {
-		  System.out.println(" caught a " + e.getClass() +
+			log.error(" caught a " + e.getClass() +
 				 "\n with message: " + e.getMessage());
 		}
 		return results;
@@ -181,14 +182,14 @@ public class CmsIndex {
 //    javac -d G:\ade4\classes G:\ade4\controlled-src\services-src\source\org\alt60m\cms\servlet\CmsIndex.java
 	public static void main(String[] args) {
 		CmsIndex ci = new CmsIndex();
-		System.out.println("Index creation Started");
+		log.info("Index creation Started");
 		ci.populate();
 
 		/*
 		Hashtable results = ci.search(args[0]);
 		for (int i=0;i<results.size();i++) {
 			Hashtable result = (Hashtable)results.get(new Integer(i).toString());
-			System.out.println((i+1) + ". " + result.get("Title") + " (" + result.get("Score") + "%)");
+			log.info((i+1) + ". " + result.get("Title") + " (" + result.get("Score") + "%)");
 		}
 		*/
 	}

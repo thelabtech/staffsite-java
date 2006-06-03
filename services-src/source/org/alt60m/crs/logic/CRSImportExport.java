@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.alt60m.cms.util.CatPathMaker;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /*******************************************************************************
  * This code was written by David Bowdoin, 7/2002
  * 
@@ -17,6 +21,8 @@ import java.util.*;
  ******************************************************************************/
 
 public class CRSImportExport {
+	private static Log log = LogFactory.getLog(CRSImportExport.class); 
+
 	private static Map instances = new HashMap();
 	
 	private int verboseLevel = 1; //1 notification and sever error only, 2
@@ -64,14 +70,14 @@ public class CRSImportExport {
 	// C:\ade3\controlled-src\services-src\source\org\alt60m\crs\logic\CRSImportExport.java
 	//    java org.alt60m.crs.logic.CRSImportExport
 	public static void main(String[] args) throws Exception {
-		System.out.println("----Start of Import/Export Text----");
+		log.debug("----Start of Import/Export Text----");
 		CRSImportExport test = new CRSImportExport(
 				"Replace me with a real path for me to work");
 
 		//        test.exportToAccess("18","SW","Blank.mdb");
-		//System.out.println(test.importFromAccess("Conference18.mdb", "18"));
+		//log.debug(test.importFromAccess("Conference18.mdb", "18"));
 
-		System.out.println("----End of of Import/Export Text----");
+		log.debug("----End of of Import/Export Text----");
 	}
 
 	//********************************************************************************//
@@ -336,7 +342,7 @@ public class CRSImportExport {
 	//Given a query, createTable creates a new table to accommodate the data
 	private void createTable(String sourceQuery, String destinationTable)
 			throws Exception {
-		System.out.println(sourceQuery);
+		log.debug(sourceQuery);
 		ResultSet rs = sqlStatement.executeQuery("SELECT * FROM ("
 				+ sourceQuery + ") A WHERE 1=2"); // WHERE 1=2 is always false,
 		// so no records are actualy
@@ -352,8 +358,8 @@ public class CRSImportExport {
 			case -5: // bigint???
 			case 5: //smallint
 			case 4: //int, the first integer found becomes the primary key
-				//System.out.println(rsmd.getTableName(i));
-				//System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
+				//log.debug(rsmd.getTableName(i));
+				//log.debug(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
 				// tables primary key
 				if (!identityFound) { //identity
 					identityFound = true;
@@ -366,7 +372,7 @@ public class CRSImportExport {
 				break;
 			case 1: //char
 			case 12: //varchar
-				//System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
+				//log.debug(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
 				if (rsmd.getColumnDisplaySize(i) < 256)
 					query += rsmd.getColumnName(i) + " TEXT("
 							+ rsmd.getColumnDisplaySize(i) + ")";
@@ -376,7 +382,7 @@ public class CRSImportExport {
 			case 6: //float
 			case 8: //float
 			case 93: //datetime
-				//System.out.println(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
+				//log.debug(rsmd.getColumnTypeName(i) + " " + rsmd.getColumnType(i));
 				query += rsmd.getColumnName(i) + " "
 						+ rsmd.getColumnTypeName(i);
 				break;
@@ -397,7 +403,7 @@ public class CRSImportExport {
 								 * the table does not exsist
 								 */
 		}
-		System.out.println(query);
+		log.debug(query);
 		accessStatement.execute(query);
 	}
 
@@ -894,7 +900,7 @@ public class CRSImportExport {
 				}
 				fieldsAskedFor.add(fieldName);
 			}
-			System.out.println("--" + fieldName + "--");
+			log.debug("--" + fieldName + "--");
 			try {
 				rsSQLAnswers.moveToInsertRow();
 				rsSQLAnswers.updateObject("fk_QuestionId", rsSQLQuestions
@@ -942,7 +948,7 @@ public class CRSImportExport {
 	private void writeOutput(int priority, String sourceString) {
 		if (priority <= verboseLevel) {
 			output += sourceString + "\n";
-			System.out.println(sourceString);
+			log.debug(sourceString);
 		}
 	}
 

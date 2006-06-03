@@ -17,6 +17,8 @@ import org.alt60m.gcx.CommunityAdminInterfaceException;
 import org.gcx.cas.CASProxyURLConnection;
 import edu.yale.its.tp.cas.proxy.ProxyTicketReceptor;
 import org.alt60m.security.CAS.CASUser;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 //import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
 
@@ -26,6 +28,8 @@ import org.alt60m.security.CAS.CASUser;
  */
 public class SimpleSecurityManager implements SecurityManager {
 
+	private static Log log = LogFactory.getLog(SimpleSecurityManager.class);
+	
 	// max logins before locked out
 	private int maxFailedLogins = 5;
 	
@@ -395,7 +399,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	public User getUserObjectByAccountNo(String accountNo)
 			throws UserNotFoundException, ProfileNotFoundException,
 			MultipleProfilesFoundException { // , ProfileManagementException
-		System.out.println("getUserObjectByAccountNo:" + accountNo);
+		log.debug("getUserObjectByAccountNo:" + accountNo);
 
 		StaffSiteProfile ssp = getProfileByAccountNo(accountNo);
 
@@ -403,7 +407,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		user.setUsername(ssp.getUserName());
 
 		if (!user.select()) {
-			System.out.println(" not found!");
+			log.debug(" not found!");
 			throw new UserNotFoundException("Username '" + ssp.getUserName()
 					+ "' was not found.");
 		}
@@ -418,12 +422,12 @@ public class SimpleSecurityManager implements SecurityManager {
 	 */
 	public User getUserObjectByUsername(String username)
 			throws UserNotFoundException {
-		System.out.println("getUserObjectByUsername: " + username);
+		log.debug("getUserObjectByUsername: " + username);
 		User user = new User();
 		user.setUsername(username);
 
 		if (!user.select()) {
-			System.out.println(" not found!");
+			log.debug(" not found!");
 			throw new UserNotFoundException("Username '" + username
 					+ "' was not found.");
 		}
@@ -452,12 +456,12 @@ public class SimpleSecurityManager implements SecurityManager {
 			Exception {
 		// Do a query to get the user by userID
 		try {
-			System.out.println("getUserObjectByUserID:");
+			log.debug("getUserObjectByUserID:");
 			User user = new User();
 			user.setUserID(userID);
 
 			if (!user.select()) {
-				System.out.println("User with userID \"" + userID
+				log.debug("User with userID \"" + userID
 						+ "\" was not found.");
 				throw new UserNotFoundException("User with userID \"" + userID
 						+ "\" was not found.");
@@ -471,12 +475,11 @@ public class SimpleSecurityManager implements SecurityManager {
 	public void markEmailAsVerified(int userID) throws UserNotFoundException,
 			Exception {
 		try {
-			System.out.println("Getting ssm user: " + userID + " ... ");
+			log.debug("Getting ssm user: " + userID + " ... ");
 			User user = getUserObject(userID);
-			System.out.println("   Marking email as verified ... ");
+			log.debug("   Marking email as verified ... ");
 			user.setEmailVerified(true);
-			System.out
-					.println("   Email has been successfully marked as verified ... ");
+			log.debug("   Email has been successfully marked as verified ... ");
 			user.persist();
 		} catch (UserNotFoundException unfe) {
 			throw unfe;
@@ -523,7 +526,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			// no existing GUID; i.e., first
 			// SSO login
 			
-			log("User " + user.getUsername() + " is logging in for first time");
+			log.info("User " + user.getUsername() + " is logging in for first time");
 
 			// check if user is a member of CampusStaff; if so, create a
 			// staffsite account for them
@@ -534,25 +537,24 @@ public class SimpleSecurityManager implements SecurityManager {
 					cai = new CommunityAdminInterface("CampusStaff");
 					groups = cai.listContainingGroups(user.getGUID());
 					if (groups != null) {
-						System.out.println("Groups:");
+						log.debug("Groups:");
 						for (String group : groups) {
-							System.out.println(group);
+							log.debug(group);
 						}
 					}
 				} catch (CommunityAdminInterfaceException caie) {
-					log("Membership query exception: " + caie);
+					log.error("Membership query exception", caie);
 				}
 				if (groups == null) {
 					// log
 					if (cai == null) {
-						System.out
-								.println("Membership query failed; unknown cause");
+						log.error("Membership query failed; unknown cause");
 					} else {
-						System.out.println("Membership query failed: "
+						log.warn("Membership query failed: "
 								+ cai.getMessage());
 					}
 					// throw new SecurityManagerFailedException("Unable to
-					// perform GCX Community memberhsip query");
+					// perform GCX Community membership query");
 				}
 				if (groups != null && groups.contains("CampusStaff:_MEMBERS")){
 					ssmUser = createProfile(user, guid);
@@ -597,7 +599,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		// check that account is verified;
 		if (acctNo == null || acctNo.equals("")) {
 
-			log("User " + user.getUsername() + " is not verified.");
+			log.info("User " + user.getUsername() + " is not verified.");
 			throw new UserNotVerifiedException();
 		}
 		try {
@@ -707,7 +709,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		}
 		catch (InvalidAccountNumberException e1)
 		{
-			System.out.println("Ignoring: " + e1);
+			log.warn("Account number is invalid; Ignoring: " + e1);
 			//ignore
 		}
 		catch (ProfileAlreadyExistsException e1)
@@ -751,7 +753,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	}
 
 	private void addGUID(User ssmUser, CASUser casUser){
-		log("Attempting to add user " +
+		log.info("Attempting to add user " +
 				casUser.getUsername() + " to CampusStaff");
 		String guid = casUser.getGUID();
 		
@@ -780,16 +782,16 @@ public class SimpleSecurityManager implements SecurityManager {
 					content = proxyCon.getURL(barService, proxyticket);
 					if (proxyCon.wasSuccess() && content != null) {
 						success = true;
-						log("Proxy request succeeded; "
+						log.debug("Proxy request succeeded; "
 								+ "User likely in GCX already");
 					} else {
 						// TODO: retry with real service url?
-						log("Error: " + proxyCon.getError());
+						log.warn("Unable to retrieve connexion bar: " + proxyCon.getError());
 					}
 				}
 				else
 				{
-					log("proxyTicket is null!");
+					log.warn("proxyTicket is null!");
 				}
 			} catch (Exception e) {
 				
@@ -800,7 +802,7 @@ public class SimpleSecurityManager implements SecurityManager {
 				// team fixes their server.
 				if (e.getMessage().indexOf(
 						"Server returned HTTP response code: 401") != -1) {
-					log("User was not in GCX; hopefully is now.  Retrying...");
+					log.debug("User was not in GCX; hopefully is now.  Retrying...");
 					try {
 						// proxy ticket can't be null, or we wouldn't be here..
 						CASProxyURLConnection proxyCon = new CASProxyURLConnection(
@@ -808,36 +810,31 @@ public class SimpleSecurityManager implements SecurityManager {
 						content = proxyCon.getURL(barService, proxyticket);
 						if (proxyCon.wasSuccess() && content != null) {
 							success = true;
-							log("Proxy request succeeded; "
+							log.info("Proxy request succeeded; "
 									+ "User is now in GCX");
 
 						} else {
 							// TODO: retry with real service url?
-							log("Error: " + proxyCon.getError());
+							log.warn("Unable to retrieve connexion bar: " + proxyCon.getError());
 						}
 						
 					} catch (Exception e2) {
-						
-						System.err.println("Exception Occurred " +
-								"(again) getting content: " + e2);
-						System.err.println("Stack trace: ");
-						e2.printStackTrace(System.err);
+						log.error("Exception Occurred " +
+								"(again) getting content: ", e2);
 					}
 				}
 				else
 				{
-					System.err.println("Exception Occurred getting content: " + e);
-					System.err.println("Stack trace: ");
-					e.printStackTrace(System.err);
+					log.error("Exception Occurred getting content: ", e);
 				}
 			}
 		} 
 		else
 		{
-			log("PgtIou is null!");
+			log.warn("User has no PgtIou; unable to ensure user's existence in GCX");
 		}
 		if (!success) {
-			log("Attempt to get omnibar failed; " +
+			log.warn("Attempt to get omnibar failed; " +
 					"attempting to add user to CampusStaff anyway");
 		}
 
@@ -849,25 +846,23 @@ public class SimpleSecurityManager implements SecurityManager {
 				//add guid to ssm
 				ssmUser.setGloballyUniqueID(guid);
 				ssmUser.persist();
-				log("Successfully added " + casUser.getUsername() + 
+				log.info("Successfully added " + casUser.getUsername() + 
 						" to CampusStaff");
 			}
 			else
 			{
 				// TODO: better log
-				log(cai.getError());
-				log("User not added to CampusStaff");
+				log.warn("User not added to CampusStaff: " + cai.getError());
 			}
 		} catch (IOException e) {
-			System.err.println("IO Exception addding user to CampusStaff; stack trace:");
-			e.printStackTrace(System.err);
-			log("User not added to CampusStaff due to IO Exception: " + e.getMessage());
+			log.error("IO Exception adding user to CampusStaff", e);
+			log.info("User not added to CampusStaff");
 		} catch (CommunityAdminInterfaceException e) {
-			System.err.println("Exception adding user to CampusStaff: " + e.getMessage());
+			log.error("Exception adding user to CampusStaff", e);
+			log.info("User not added to CampusStaff");
 		} catch (Exception e) {
-			System.err.println("Exception adding user to CampusStaff; stack trace:");
-			e.printStackTrace(System.err);
-			log("User not added to CampusStaff due to Exception: " + e.getMessage());
+			log.error("Exception adding user to CampusStaff", e);
+			log.info("User not added to CampusStaff");
 		}
 		
 
@@ -878,8 +873,9 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @param username
 	 */
 	private void changeUsername(User ssmUser, String username) {
-		int ssmId = ssmUser.getUserID();
 		String oldUsername = ssmUser.getUsername();
+		
+		log.info("Changing username from " + oldUsername + " to " + username);
 
 		// Change in SSM
 		ssmUser.setUsername(username);
@@ -941,8 +937,4 @@ public class SimpleSecurityManager implements SecurityManager {
 		return (StaffSiteProfile) profiles.iterator().next();
 	}
 
-	private void log(String message)
-	{
-		System.out.println("SSM: " + message);
-	}
 }

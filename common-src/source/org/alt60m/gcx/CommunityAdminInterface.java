@@ -11,6 +11,8 @@ import java.util.regex.*;
 import java.util.*;
 
 import org.alt60m.cas.CASURLConnection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Basic class useful for communicating with the authz-admin GCX interface.
@@ -71,6 +73,9 @@ public class CommunityAdminInterface {
 				+ "GCX" 
 				+ ".*<\\s*/title\\s*>.*<\\s*/html\\s*>", Pattern.DOTALL);
 	
+
+	private static Log log = LogFactory.getLog(CommunityAdminInterface.class);
+	
 	private String community;
 	
 	private String myLastError;
@@ -85,7 +90,7 @@ public class CommunityAdminInterface {
 	
 	private static void log(String message)
 	{
-		System.out.println("CommunityAdminInterface: " + message);
+		log.info(message);
 	}
 	
 	public CommunityAdminInterface(String community) throws IOException,
@@ -122,10 +127,10 @@ public class CommunityAdminInterface {
 			
 		} catch (IOException e) {
 			
-			System.out.println("IOException: " + e);
+			log.debug("IOException", e);
 		} catch (CommunityAdminInterfaceException e) {
 			
-			System.out.println("CommunityAdminInterfaceException: " + e);
+			log.error("CommunityAdminInterfaceException", e);
 		}
 	}
 	
@@ -134,20 +139,20 @@ public class CommunityAdminInterface {
 
 		String guid = "BB20A5DB-D31E-65B5-3629-E24504A00942";
 		if (!cai.addToGroup(guid, "OWNER")) {
-			System.out.println(cai.getError());
-			System.out.println("User not added");
+			log.debug(cai.getError());
+			log.debug("User not added");
 		} else {
-			System.out.println("Success!");
+			log.debug("Success!");
 		}
 
 		Collection<String> userGuids = cai.listUsers();
 		if (userGuids != null) {
-			System.out.println("Success!");
+			log.debug("Success!");
 			for (String user : userGuids) {
-				System.out.println(user);
+				log.debug(user);
 			}
 		} else {
-			System.out.println("Failure!");
+			log.debug("Failure!");
 		}
 		
 		
@@ -163,60 +168,60 @@ public class CommunityAdminInterface {
 		Collection<String> groups;
 		if ((groups = cai.listGroups()) == null)
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		else
 		{
-			System.out.println("Groups:");
+			log.debug("Groups:");
 			for (String group : groups)
 			{
-				System.out.println(group);
+				log.debug(group);
 			}
 		}
 		
 		Collection<String> roles;
 		if ((roles = cai.listRoles()) == null)
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		else
 		{
-			System.out.println("Roles:");
+			log.debug("Roles:");
 			for (String role : roles)
 			{
-				System.out.println(role);
+				log.debug(role);
 			}
 		}
 		
 		Collection<String> resources;
 		if ((resources = cai.listResources()) == null)
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		else
 		{
-			System.out.println("Resources:");
+			log.debug("Resources:");
 			for (String resource : resources)
 			{
-				System.out.println(resource);
+				log.debug(resource);
 			}
 		}
 		
 		Collection<String> myGroups;
 		if ((myGroups = cai.listContainingGroups(guid)) == null)
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		else
 		{
-			System.out.println("My Groups:");
+			log.debug("My Groups:");
 			for (String group : myGroups)
 			{
-				System.out.println(group);
+				log.debug(group);
 			}
 		}
 		
@@ -224,104 +229,104 @@ public class CommunityAdminInterface {
 		Collection<String> perms;
 //		if ((perms = cai.listPermissions(guid)) == null)
 //		{
-//			System.out.println("Failure; " + cai.getError());
+//			log.debug("Failure; " + cai.getError());
 //			return false;
 //		}
 //		else
 //		{
-//			System.out.println("Permissions:");
+//			log.debug("Permissions:");
 //			for (String perm : perms)
 //			{
-//				System.out.println(perm);
+//				log.debug(perm);
 //			}
 //		}
 		
 		if (!groups.contains("campus:_TEST") && !cai.addGroup("campus:_TEST"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		
 		if (!cai.addToGroup(guid, "TEST"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		if (!resources.contains("GCX:www.mygcx.org:campus:testResource") && !cai.addResource("GCX:www.mygcx.org:campus:testResource"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		if (!roles.contains("campus:_TEST_ROLE") && cai.addRole("campus:_TEST_ROLE"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		
 //		if ((groups = cai.listGroups()) == null)
 //		{
-//			System.out.println("Failure; " + cai.getError());
+//			log.debug("Failure; " + cai.getError());
 //			return false;
 //		}
 //		else
 //		{
-//			System.out.println("Groups:");
+//			log.debug("Groups:");
 //			for (String group : groups)
 //			{
-//				System.out.println(group);
+//				log.debug(group);
 //			}
 //		}
 		
 //		if ((roles = cai.listRoles()) == null)
 //		{
-//			System.out.println("Failure; " + cai.getError());
+//			log.debug("Failure; " + cai.getError());
 //			return false;
 //		}
 //		else
 //		{
-//			System.out.println("Roles:");
+//			log.debug("Roles:");
 //			for (String role : roles)
 //			{
-//				System.out.println(role);
+//				log.debug(role);
 //			}
 //		}
 		
 //		if ((resources = cai.listResources()) == null)
 //		{
-//			System.out.println("Failure; " + cai.getError());
+//			log.debug("Failure; " + cai.getError());
 //			return false;
 //		}
 //		else
 //		{
-//			System.out.println("Resources:");
+//			log.debug("Resources:");
 //			for (String resource : resources)
 //			{
-//				System.out.println(resource);
+//				log.debug(resource);
 //			}
 //		}
 		
 		if (!cai.addToRole("GCX:www.mygcx.org:campus:testResource", "TEST_ROLE"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		if (!cai.addPermission("campus:_TEST", "campus:_TEST_ROLE"))
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		
 		if ((perms = cai.listPermittedEntities("GCX:www.mygcx.org:campus:screen:admin")) == null)
 		{
-			System.out.println("Failure; " + cai.getError());
+			log.debug("Failure; " + cai.getError());
 			return false;
 		}
 		else
 		{
-			System.out.println("Permissions:");
+			log.debug("Permissions:");
 			for (String perm : perms)
 			{
-				System.out.println(perm);
+				log.debug(perm);
 			}
 		}
 		return true;
@@ -1034,7 +1039,7 @@ class BasicAdminResponse
 	
 	private static void log(String msg)
 	{
-		//System.out.println("BasicAdminResponse: " + msg);
+		//log.debug("BasicAdminResponse: " + msg);
 	}
 	
 	private static void debug(String msg)

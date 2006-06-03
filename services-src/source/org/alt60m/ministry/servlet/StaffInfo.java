@@ -1,6 +1,5 @@
 package org.alt60m.ministry.servlet;
 
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.util.DBConnectionFactory;
 import java.util.*;

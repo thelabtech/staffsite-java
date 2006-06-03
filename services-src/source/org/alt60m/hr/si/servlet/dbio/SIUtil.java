@@ -7,6 +7,9 @@ import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.wsn.sp.model.dbio.WsnApplication;
 import org.alt60m.security.dbio.manager.*;
 import org.alt60m.util.ObjectHashUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -16,6 +19,7 @@ import java.text.SimpleDateFormat;
 */
 
 public class SIUtil {
+	private static Log log = LogFactory.getLog(SIUtil.class);
 	private static boolean debug = true;
 	
 	/*
@@ -55,8 +59,7 @@ public class SIUtil {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -71,8 +74,7 @@ public class SIUtil {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -87,8 +89,7 @@ public class SIUtil {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -119,8 +120,7 @@ public class SIUtil {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -138,8 +138,7 @@ public class SIUtil {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -154,8 +153,7 @@ public class SIUtil {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 	}
@@ -290,7 +288,7 @@ public class SIUtil {
 			} else
 				objHash = null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			objHash = null;
 		}
 		return objHash;
@@ -471,8 +469,7 @@ public class SIUtil {
 				deleteSIUserObject(objectID);
 			}
 		} catch (Exception e) {
-			System.err.println("Failed to delete object of type \"" + className + "\" with ID \"" + objectID + "\". [SIUtil.deleteObject] e=" + e);
-			e.printStackTrace();
+			log.error("Failed to delete object of type \"" + className + "\" with ID \"" + objectID + "\". [SIUtil.deleteObject] e=" + e, e);
 		}
 	}
 	private static void deleteSIApplicationObject(String objectID) {
@@ -522,9 +519,9 @@ public class SIUtil {
 			String whereClause = "fk_ApplicationID = '" + appid + "' AND paymentFor='STINT System'";
 			Collection c = ObjectHashUtil.list((new SIPayment()).selectList(whereClause));
 			if (c.size() > 1)
-				System.out.println("WARNING! There are multiple payments for this application!");
+				log.warn("WARNING! There are multiple payments for this application!");
 			if (c.size() == 0)
-				System.out.println("There are no payments for this application (thats ok)");
+				log.debug("There are no payments for this application (thats ok)");
 			else {
 				Hashtable h = null;
 				for (Iterator i = c.iterator(); i.hasNext();) {
@@ -551,7 +548,7 @@ public class SIUtil {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ht.put("ErrorMessage", "Error=" + e.getMessage());
 		}
 		return ht;
@@ -571,9 +568,9 @@ public class SIUtil {
 			String whereClause = "fk_ApplicationID = '" + appid + "' AND paymentID = '" + payid + "' AND paymentFor='STINT System'";
 			Collection c = ObjectHashUtil.list((new SIPayment()).selectList(whereClause));
 			if (c.size() > 1)
-				System.out.println("WARNING! There are multiple payments for this application!");
+				log.warn("WARNING! There are multiple payments for this application!");
 			if (c.size() == 0)
-				System.out.println("There are no payments for this application (thats ok)");
+				log.debug("There are no payments for this application (thats ok)");
 			else {
 				for (Iterator i = c.iterator(); i.hasNext();) {
 					h = (Hashtable) i.next();
@@ -581,7 +578,7 @@ public class SIUtil {
 					if (h != null) {
 						paymentid = (String) h.get("PaymentID");
 
-						System.out.println("found a 'PaymentID': " + paymentid + " for person " + appid);
+						log.debug("found a 'PaymentID': " + paymentid + " for person " + appid);
 
 						//debug--simply outputs the contents of the returned hashtable from the directsql call
 						for (Iterator ii = h.keySet().iterator(); ii.hasNext();) {
@@ -593,7 +590,7 @@ public class SIUtil {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ht.put("ErrorMessage", "Error=" + e.getMessage());
 		}
 		return h; // disregard multiple hashtables for this fix
@@ -608,7 +605,7 @@ public class SIUtil {
 		int numrefs = 0;
 
 		if (appid == null) {
-			System.out.println("ApplicationID was null in getNumberOfReferences.  Couldn't lookup references.");
+			log.debug("ApplicationID was null in getNumberOfReferences.  Couldn't lookup references.");
 			return numrefs;
 		}
 		try {
@@ -616,9 +613,9 @@ public class SIUtil {
 			String qry = "select count(*) as refcount from hr_si_reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = " + appid;
 			numrefs = ObjectHashUtil.countIt(ref, qry);
 
-			System.out.println("getNumberOfReferences found(int): " + numrefs);
+			log.debug("getNumberOfReferences found(int): " + numrefs);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return numrefs;
 	}
@@ -674,7 +671,7 @@ public class SIUtil {
 				String toput = "AccountNo=" + (String) h.get("AccountNo");
 				String name = (String) h.get("FirstName") + " " + (String) h.get("LastName");
 				retvals.put(name, toput);
-				System.out.println("Found a match: " + toput);
+				log.debug("Found a match: " + toput);
 			}
 		} catch (Exception e) {
 			retvals.put("ErrorMessage", "There was an error with your request: " + e.getMessage());
@@ -705,7 +702,7 @@ public class SIUtil {
 			retvals.put("Zip", (h1.get("Zip") == null) ? "" : h1.get("Zip"));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return retvals;
 		}
 		return retvals;
@@ -882,7 +879,7 @@ public class SIUtil {
 			containerID.add(tub);
 			return (Collection) containerID;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -902,14 +899,14 @@ public class SIUtil {
 				Hashtable h = (Hashtable) i.next();
 				if (h != null) {
 					appid = (String) h.get("ApplicationID");
-					System.out.println("Found ApplicationID: " + appid);
+					log.debug("Found ApplicationID: " + appid);
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
-		System.out.println("getApplicationForPerson returning: " + appid);
+		log.debug("getApplicationForPerson returning: " + appid);
 		return appid;
 	}
 
@@ -921,8 +918,7 @@ public class SIUtil {
 			if (p.select()) return p;			
 			else return null;
 		} catch (Exception e) {
-			System.err.println("Exception caught whil trying to get SIAdministrator with staffSiteProfileID: " + staffSiteProfileID + " Exception was: " + e);
-			e.printStackTrace();
+			log.error("Exception caught whil trying to get SIAdministrator with staffSiteProfileID: " + staffSiteProfileID, e);
 			throw e;
 		}
 	}
@@ -944,10 +940,10 @@ public class SIUtil {
 			if (person.select()) {
 				return person;
 			} else {
-				System.out.println("-->Didn't find matching CRSPerson.");
+				log.debug("-->Didn't find matching CRSPerson.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -968,10 +964,10 @@ public class SIUtil {
 			if (results.hasNext()) {
 				return (WsnApplication) results.next();
 			} else {
-				System.out.println("-->Didn't find matching WsnApplication.");
+				log.debug("-->Didn't find matching WsnApplication.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -992,10 +988,10 @@ public class SIUtil {
 			if (person.select()) {
 				return person;
 			} else {
-				System.out.println("-->Didn't find matching Staff.");
+				log.debug("-->Didn't find matching Staff.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -1019,7 +1015,7 @@ public class SIUtil {
 			try {
 				p.setGraduationDate(new SimpleDateFormat("MM/dd/yyyy").parse(w.getGraduationDate()));
 			} catch (Exception ee) {
-				System.out.println("Couldn't format GraduationDate: " + w.getGraduationDate());
+				log.debug("Couldn't format GraduationDate: " + w.getGraduationDate());
 			}
 			p.setGender(w.getGender());
 			p.setCurrentAddress1(w.getCurrentAddress());
@@ -1038,7 +1034,7 @@ public class SIUtil {
 
 			p.persist();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
 		return p;
@@ -1063,7 +1059,7 @@ public class SIUtil {
 			try {
 				p.setGraduationDate(c.getGraduationDate());
 			} catch (Exception ee) {
-				System.out.println("Couldn't format GraduationDate: " + c.getGraduationDate());
+				log.warn("Couldn't format GraduationDate: " + c.getGraduationDate());
 			}
 			p.setGender(translateGenderFromCRS(c.getGender()));
 			p.setCurrentAddress1(c.getAddress1());
@@ -1082,7 +1078,7 @@ public class SIUtil {
 
 			p.persist();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
 		return p;
@@ -1135,7 +1131,7 @@ public class SIUtil {
 
 			p.persist();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return null;
 		}
 		return p;
@@ -1153,9 +1149,9 @@ public class SIUtil {
 	/* "It's not failure, but low aim is crime." -Lowell */
 	public static String getCampusRegion(String universityFullName, String universityState) {
 		if (debug) {
-			System.out.println("SIUtil.getCampusRegion() says:");
-			System.out.println("university name: " + universityFullName);
-			System.out.println("university state: " + universityState);
+			log.debug("SIUtil.getCampusRegion() says:");
+			log.debug("university name: " + universityFullName);
+			log.debug("university state: " + universityState);
 		}
 		try {
 			String theRegion = "";
@@ -1229,7 +1225,7 @@ public class SIUtil {
 			}
 			return theRegion;
 		} catch (Exception e) {
-			System.err.println("Exception encountered in SIUtil.getCampusRegion()");
+			log.error("Exception encountered in SIUtil.getCampusRegion()", e);
 			return null;
 		}
 	}
@@ -1239,7 +1235,6 @@ public class SIUtil {
 	// This may not always be true, but this was decided by Scott to be close enough.
 	public static String getRegionForState(String state) {
 		String result = "";
-		try {
 			if (state == null)
 				return result;
 			String whereClause = "region is not NULL AND state='" + state + "'";
@@ -1249,11 +1244,9 @@ public class SIUtil {
 				Hashtable h = (Hashtable) i.next();
 				result = (h.get("Region") == null) ? "" : (String) h.get("Region");
 				String name = (String) h.get("Name");
-				System.out.println("Name=" + name);
+				log.debug("State: " + state);
+				log.debug("Region: " + name);
 			}
-		} catch (Exception e) {
-			System.out.println("There was an error with your request: " + e);
-		}
 		return result;
 	}
 
@@ -1277,7 +1270,7 @@ public class SIUtil {
 			}
 			return authorized;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return false;
 		}
 	}
@@ -1296,12 +1289,11 @@ public class SIUtil {
 			if (siReference != null)
 				return siReference;
 			else {
-				System.out.println("WARNING: SIUtil.getReferenceIDByType returning null...");
+				log.warn("WARNING: SIUtil.getReferenceIDByType returning null...");
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Unable to perform SIUtil.getReferenceIDByType()! Reason:");
-			System.err.println(e);
+			log.error("Warning: Unable to perform SIUtil.getReferenceIDByType()! Reason:", e);
 			return null;
 		}
 	}

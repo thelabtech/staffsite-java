@@ -15,7 +15,6 @@
 		}
 	}
 	if (pageNum == 0)
-		System.out.println("Error: Page="+thePage+" not found!");
 
 	// check input string / form data for "skin" info
 	String ssurl = request.getParameter("ssurl");

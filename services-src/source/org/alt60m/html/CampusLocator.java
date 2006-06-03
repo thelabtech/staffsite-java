@@ -44,7 +44,7 @@ public class CampusLocator extends Controller {
        		String searchText = ctx.getInputString("searchtext", true);
 			outputCampusList(ctx.getResponse(), searchText);
         } catch (Exception e) {
-            log(Priority.ERROR, "Failed to perform campusLocate().", e);
+            log.error("Failed to perform campusLocate().", e);
 		}
 	}
 }

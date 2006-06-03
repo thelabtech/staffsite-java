@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 //import com.kenburcham.framework.dbio.DBIOEntity;
 //import com.kenburcham.framework.dbio.DBIOEntityException;
 import org.alt60m.util.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.kenburcham.framework.dbio.DBIOEntity;
 /**
  * @persistent 
@@ -16,6 +19,9 @@ import com.kenburcham.framework.dbio.DBIOEntity;
  * @key-generator IDENTITY
  */
 public class SIReference extends DBIOEntity {
+
+	private static Log log = LogFactory.getLog(SIReference.class);
+	
 	public final static String DEFAULT_FROM_EMAIL = "help@campuscrusadeforchrist.com";
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
@@ -1136,7 +1142,7 @@ public class SIReference extends DBIOEntity {
 			
 			// check for applicant email
 			if (applicantEmailAddress == null  ||  applicantEmailAddress.trim().equals("")){
-				System.out.println(	"!!!!!!!!!!applicantEmailAddress does not exist, disregard SendMessage to applicant");
+				log.warn("applicantEmailAddress does not exist, disregard SendMessage to applicant");
 				return true;
 			}
 			else {

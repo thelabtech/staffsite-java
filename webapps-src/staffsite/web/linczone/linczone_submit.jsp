@@ -10,8 +10,7 @@
 
 		Map hashedRequest = request.getParameterMap();
 
-		//System.out.println(hashedRequest);
-		//String[] ministryInfo = request.getParameterValues("ministries");
+		//		//String[] ministryInfo = request.getParameterValues("ministries");
 
 		// Enter the contact
 		LinczoneProcessor lp = new LinczoneProcessor(propFile, getServletContext().getRealPath("/"));
@@ -23,9 +22,7 @@
 	} catch (Exception e) {
 		
 		e.printStackTrace();
-		System.out.println(e);
-		
-		// redirect to error page
+				// redirect to error page
 		getServletContext().getRequestDispatcher(VIEW_ERR).forward(request, response);
 	
 	}

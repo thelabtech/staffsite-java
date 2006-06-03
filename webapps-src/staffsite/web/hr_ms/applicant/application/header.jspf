@@ -29,7 +29,6 @@
 	}
     public String PersonYesNo(boolean isSubmitted, Hashtable personHash, String field, boolean alwaysEdit) {
         boolean selected = personHash.get(field)!=null && ((Boolean)personHash.get(field)).booleanValue() == true;
-        System.out.println(personHash.get(field));
         return "<INPUT type=radio name='" + field + "' value='true' "+ (selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> Yes <INPUT type=radio name='" + field + "' value='false'"+ (!selected?" CHECKED='checked'":"") + ((isSubmitted && !alwaysEdit)?" DISABLED":"") +"> No";
     }
     public String PersonCheckBox(boolean isSubmitted, Hashtable personHash, String field, boolean alwaysEdit) {
@@ -112,9 +111,7 @@ try
 {
 	// user's login details
 	String userID = (String)session.getValue("userID");
-System.out.println("userID: "+userID);
 	String userEmail = (String)session.getValue("userEmail");
-System.out.println("userEmail: "+userEmail);
 	// get name of current page being viewed (must match names in pages[] later)
 	// get only message to be displayed sent from controller
 	String theMessage = "";
@@ -141,8 +138,6 @@ if (thePage.equals("payccard")
 	  || thePage.equals("payfindstaff"))
   	  thePage="payment";
 
-System.out.println("thePage: "+thePage);
-System.out.println("theMessage: "+theMessage);
 
 	// figure out if this person is staff or not
 	boolean staff = request.getParameter("as") != null && request.getParameter("as").equals("staff");
@@ -170,7 +165,6 @@ System.out.println("theMessage: "+theMessage);
 		}
 	}
 	if (pageNum == 0) {
-		System.out.println("Error: Page="+thePage+" not found!");
 		response.sendRedirect("/servlet/MSController?action=goToPage&page=apphome");
 		return;
 	}
@@ -262,9 +256,6 @@ function LimitText(fieldObj,maxChars)
 <input type="hidden" name="nextParm">
 <!-- Data Persistence Values -->
 <input type="hidden" name="userID" value="<%=userID%>">
-<!--	input type="hidden" name="id" value="< %=id%>">< % System.out.println("***** id: "+id); %>  -->
-<!--	input type="hidden" name="idName" value="< %=idName%>">  -->
-<!--	input type="hidden" name="className" value="< %=className%>">  -->
 <!-- End persistence values -->
 <center>
 <% box.setTitle(titles[pageNum - 1]); %>

@@ -139,8 +139,6 @@ public class ProxyTicketReceptor extends HttpServlet {
     String url = casProxyUrl + "?pgt=" + pgtId + "&targetService=" + target;
     String response = SecureURL.retrieve(url);
 
-    System.out.println(response);
-    
     // parse this response (use a lightweight approach for now)
     if (response.indexOf("<cas:proxySuccess>") != -1
         && response.indexOf("<cas:proxyTicket>") != -1) {

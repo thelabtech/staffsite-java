@@ -3,7 +3,11 @@ package org.alt60m.util;
 import java.util.*;
 import java.lang.reflect.*;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class ObjectHashUtil {
+	private static Log log = LogFactory.getLog(ObjectHashUtil.class);
     static public Collection list(Collection colObjects) { //throws Exception {
  
 		Collection results = new Vector();
@@ -21,22 +25,22 @@ public class ObjectHashUtil {
         return results;
     }
 	static public Hashtable obj2hash(Object o) {
-//System.out.println("!!!!!!!!------ START OF OBJECT -------!!!!!!!!!! ");
 		Hashtable h = new Hashtable();
 		Object[] arguments = new Object[] {};
 		Class c = o.getClass();
 		Method[] publicMethods = c.getMethods();
 		for (int i = 0; i < publicMethods.length; i++) {
-			String methodName = publicMethods[i].getName();
+			Method method = publicMethods[i];
+			String methodName = method.getName();
             //Verify that the method starts with get, and is not in our list of methods to skip.
-			// HOW do we include a new method in the list of methods to skip?
-			if (methodName.startsWith("get") && (-1 == ";getEJBHome;getHandle;getPrimaryKey;getClass;getAttribute;getFieldValue;getHeaderName;getColumnName;getXML;getAutoCommit;getDBIOTableName;getDBIOTableDef;getCustomFields;getUltrasoft;getAutodetectProperties".indexOf(methodName)) ) {
+			if (methodName.startsWith("get") &&
+					(method.getParameterTypes().length == 0) &&
+					(-1 == ";getEJBHome;getHandle;getPrimaryKey;getClass;getAttribute;getFieldValue;getHeaderName;getColumnName;getXML;getAutoCommit;getDBIOTableName;getDBIOTableDef;getCustomFields;getUltrasoft;getAutodetectProperties".indexOf(methodName)) ) {
 				String key = methodName.substring(3);
 				try {
 				  Method m = c.getMethod(methodName, null);
 				  if (checkReturnType(m.getReturnType())) {
                     Object result = m.invoke(o, arguments);
-// System.out.println("!!!!!!!!-------------!!!!!!!!!! " + key + " - " + result);
                     if(result==null && java.lang.String.class.isAssignableFrom(m.getReturnType())) {
 						h.put(key, "");
                     } else {
@@ -44,14 +48,13 @@ public class ObjectHashUtil {
                     }
                   }
 				} catch (IllegalAccessException e) {
-				  System.out.println(e);
+				  log.debug(e);
 				} catch (InvocationTargetException e) {
-				  System.out.println("method: " + methodName + " " + e);
+				  log.debug("method: " + methodName + " " + e);
 				} catch (NoSuchMethodException e) {
-				  System.out.println(e);
-				  System.out.println("Method name in question:"+methodName);
+				  log.debug("Method does not exist: "+methodName);
 				} catch (IllegalArgumentException e) {
-				  System.out.println(methodName + " " + e);
+				  log.debug(methodName + " " + e);
 				} catch (NullPointerException e) {                    
 				}
 			}
@@ -67,13 +70,13 @@ public class ObjectHashUtil {
 			  Method m = c.getMethod(methodName, null);
 			  h.put(fields[i], m.invoke(o, new Object[] {} ));
 			} catch (IllegalAccessException e) {
-			  System.out.println(e);
+			  log.debug(e);
 			} catch (InvocationTargetException e) {
-			  System.out.println("method: " + methodName + " " + e);
+			  log.debug("method: " + methodName + " " + e);
 			} catch (NoSuchMethodException e) {
-			  System.out.println(e);
+			  log.debug(e);
 			} catch (IllegalArgumentException e) {
-			  System.out.println(methodName + " " + e);
+			  log.debug(methodName + " " + e);
 			} catch (NullPointerException e) {                    
 			}
 	  }
@@ -152,33 +155,10 @@ public class ObjectHashUtil {
                 }
 
 				m.invoke(o, arguments);
-			} catch (IllegalAccessException e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
-			} catch (InvocationTargetException e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
-			} catch (IllegalArgumentException e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
-/*				System.err.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.err.println(e.toString());
-                System.err.println("Object Classname: " + attr.getClass().toString());
-                try {
-                	System.err.println("\tMethod name: " + c.getMethod("set" + attr, (Class[]) parameterTypes.get("set" + attr)).toString());
-                } catch (Exception e2) {
-                	System.err.println("Couldn't get method name.");
-                }
-                e.printStackTrace();
-*/			} catch (NoSuchMethodException e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
-			} catch (NullPointerException e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
 			} catch (Exception e) {
-				System.out.println("Couldn't set: '" + attr + "', Value: " + request.get(attr));
-                System.out.println(e.toString());
+				//really, this ought to be a log.error, but our code breaks the contract so frequently and
+				//I don't want it to spit stack traces everwhere
+				log.debug("Couldn't set: '" + attr + "', Value: " + request.get(attr) + ", because: " + e);
 			}
 		}
 	}

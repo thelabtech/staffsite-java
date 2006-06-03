@@ -2,12 +2,13 @@ package org.alt60m.html;
 
 import java.util.*;
 import java.io.*;
-import org.alt60m.util.LogHelper;
 import org.alt60m.ministry.model.dbio.*;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Occasions implements java.io.Serializable {
-
+	private static Log log = LogFactory.getLog(Occasions.class);
+	
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 	java.util.GregorianCalendar today = new java.util.GregorianCalendar();
 	java.text.SimpleDateFormat parseDateToDayNumber = new java.text.SimpleDateFormat ("D");
@@ -29,11 +30,6 @@ public class Occasions implements java.io.Serializable {
 	private String _pathToFile = "";
 	private final String PROPERTIES_FILE = "occasions.properties";
 
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 
 	public Occasions() { }
 
@@ -46,7 +42,7 @@ public class Occasions implements java.io.Serializable {
 
 		try {
 			File f = new File(_pathToFile, PROPERTIES_FILE);
-			log(Priority.INFO,f.getAbsolutePath());
+			log.debug(f.getAbsolutePath());
 			FileInputStream fis = new FileInputStream(f);
 			p.load(fis);
 			//String pathToFile	= p.getProperty("_pathToFile");
@@ -78,7 +74,7 @@ public class Occasions implements java.io.Serializable {
 			int day = (new Integer(today.get(Calendar.DATE))).intValue();
 
 			bdQuery = "region!=\"\" and MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+" AND (removedFromPeopleSoft='N') order by lastName";
-			log(Priority.INFO,bdQuery);
+			log.debug(bdQuery);
 
 			Collection stafflist = new Staff().selectList(bdQuery);
 			if (stafflist.isEmpty()){
@@ -92,10 +88,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 
@@ -109,7 +105,7 @@ public class Occasions implements java.io.Serializable {
 			int day = (new Integer(today.get(Calendar.DATE))).intValue();
 
 			bdQuery = "MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+" AND (removedFromPeopleSoft='N') order by lastName";
-			log(Priority.INFO,bdQuery);
+			log.debug(bdQuery);
 
 			Collection stafflist = new Staff().selectList(bdQuery);
 			if (stafflist.isEmpty()){
@@ -123,10 +119,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 
@@ -210,10 +206,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 
@@ -297,10 +293,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:BirthdayError:",e);
+			log.error("IO:BirthdayError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"BirthdayError:",e);
+			log.error("BirthdayError:",e);
 		}
 	}
 
@@ -311,7 +307,7 @@ public class Occasions implements java.io.Serializable {
 			String bdQuery ="";
 			bdQuery = "region<>'' and maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(s.marriageDate)="+today.get(Calendar.DATE)+" AND (removedFromPeopleSoft='N') order by lastName";
 				
-			log(Priority.INFO,bdQuery);
+			log.debug(bdQuery);
 		
 			Collection stafflist = new Staff().selectList(bdQuery); //staffAdaptor.list(bdQuery, new String[]{"PreferredName","LastName","AccountNo","SpouseFirstName","MarriageDate"});
 			if (stafflist.isEmpty()){
@@ -337,10 +333,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.INFO,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 
@@ -351,7 +347,7 @@ public class Occasions implements java.io.Serializable {
 			String bdQuery ="";
 			bdQuery = "maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+" AND (removedFromPeopleSoft='N') order by lastName";
 				
-			log(Priority.INFO,bdQuery);
+			log.debug(bdQuery);
 		
 			Collection stafflist = new Staff().selectList(bdQuery);//staffAdaptor.list(bdQuery, new String[]{"PreferredName","LastName","AccountNo","SpouseFirstName","MarriageDate"});
 			if (stafflist.isEmpty()){
@@ -377,10 +373,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 
@@ -435,10 +431,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 	
@@ -493,10 +489,10 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:WeddingsError:",e);
+			log.error("IO:WeddingsError:",e);
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"WeddingsError:",e);
+			log.error("WeddingsError:",e);
 		}
 	}
 		
@@ -545,11 +541,11 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:StaffAnniversariesError:",e);
+			log.error("IO:StaffAnniversariesError:",e);
 			
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"StaffAnniversariesError:",e);
+			log.error("StaffAnniversariesError:",e);
 			
 		}
 	}
@@ -601,11 +597,11 @@ public class Occasions implements java.io.Serializable {
 			fw.close();
 		}
 		catch (IOException e){
-			log(Priority.ERROR,"IO:StaffAnniversariesError:",e);
+			log.error("IO:StaffAnniversariesError:",e);
 			
 		}
 		catch (Exception e){
-			log(Priority.ERROR,"StaffAnniversariesError:",e);
+			log.error("StaffAnniversariesError:",e);
 			
 		}
 	}
@@ -616,29 +612,29 @@ public class Occasions implements java.io.Serializable {
 			Occasions o = new Occasions();
 			o.initOccasions("c:/ade3/tomcat/webapps/staffsite");
 //ToDo: Re-add this before using.  I commented it out, so it would compile.
-//			log(Priority.INFO,"writing campus's day's birthdays ...");
+//			log.debug("writing campus's day's birthdays ...");
 //			o.writeCampusBirthdaysToday();
-//			log(Priority.INFO,"writing all day's birthdays ...");
+//			log.debug("writing all day's birthdays ...");
 //			o.writeAllBirthdaysToday();
-//			log(Priority.INFO,"writing campus's week's birthdays ...");
+//			log.debug("writing campus's week's birthdays ...");
 //			o.writeCampusWeekBirthdays();
-//			log(Priority.INFO,"writing all week's birthdays ...");
+//			log.debug("writing all week's birthdays ...");
 //			o.writeAllWeekBirthdays();
-//			log(Priority.INFO,"writing campus's day's weddings ...");
+//			log.debug("writing campus's day's weddings ...");
 //			o.writeCampusWeddingsToday();
-//			log(Priority.INFO,"writing all day's weddings ...");
+//			log.debug("writing all day's weddings ...");
 //			o.writeWeddingsToday();
-//			log(Priority.INFO,"writing campus week's weddings ...");
+//			log.debug("writing campus week's weddings ...");
 //			o.writeCampusWeekWeddings();
-//			log(Priority.INFO,"writing all week's weddings ...");
+//			log.debug("writing all week's weddings ...");
 //			o.writeWeekWeddings();
-//			log(Priority.INFO,"writing campus week's staff anniversaries ...");
+//			log.debug("writing campus week's staff anniversaries ...");
 //			o.writeCampusWeekStaffAnniversaries();
-//			log(Priority.INFO,"writing all week's staff anniversaries ...");
+//			log.debug("writing all week's staff anniversaries ...");
 //			o.writeWeekStaffAnniversaries();
 		}
 		catch (Exception e)	{
-//			log(Priority.ERROR,"Failed to write occassions files: ",e);
+//			log.error("Failed to write occassions files: ",e);
 			
 		}
 	}

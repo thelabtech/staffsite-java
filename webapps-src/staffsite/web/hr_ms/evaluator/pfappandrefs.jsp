@@ -52,7 +52,6 @@
 <%
     // big try-catch for evaluation pages  (see evaluateheader.jsp for try)
     } catch (Exception e) {
-        System.out.println(e);
-        e.printStackTrace();
+                e.printStackTrace();
     }
 %>

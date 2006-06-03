@@ -38,15 +38,15 @@ public class CmsFileSpecsProcessor {
 
     /*
     public static void main(String argv[]) {
-	//System.out.println("Starting...");
+	//log.debug("Starting...");
         uri = "fsk.xml";
         Hashtable hash = parse(uri);
 
 	for (Enumeration e = hash.keys(); e.hasMoreElements();) {
 	    String k = (String) e.nextElement();
-	    System.out.println(":" + k + ": :" + hash.get(k));
+	    log.debug(":" + k + ": :" + hash.get(k));
 	}
-        //System.out.println("done.");
+        //log.debug("done.");
     }
     */
 }

@@ -8,12 +8,17 @@ import javax.naming.*;
 import javax.sql.*;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.kenburcham.framework.Constants;
 import com.kenburcham.framework.system.ConnectionManager;;
 
 public class DBConnectionFactory {
 
+
+	protected static Log log = LogFactory.getLog(DBConnectionFactory.class);
+	
 	private static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(description=(address=(host=hart-ca009v)(protocol=tcp)(port=1526))(connect_data=(sid=prod)))";
 	private static final String ORACLE_DEFAULT_USER = "istcampus";
@@ -53,7 +58,7 @@ public class DBConnectionFactory {
 			ds = (DataSource) ctx.lookup(POOL_NAME);
 			ConnectionManager.getInstance().addDataSource(POOL_NAME, ds);
 		} catch (NamingException e) {
-			System.out.println("JDNI lookup failed; using default datasource");
+			log.warn("JDNI lookup failed; using default datasource");
 			getConfigProperties();
 			BasicDataSource bds = new BasicDataSource();
 			bds.setUsername(DEFAULT_USER);
@@ -105,11 +110,11 @@ public class DBConnectionFactory {
 			if (DEFAULT_DB != null)
 				DEFAULT_URL = DEFAULT_URL + "/" + DEFAULT_DB;
 			else
-				System.out.println("No Default database selected; continuing");
+				log.info("No Default database selected; continuing");
 			if(p.getProperty("server")!=null) MSSQL_A022_URL = "jdbc:microsoft:sqlserver://"+p.getProperty("server")+":1433";
-			System.out.println("getConfigProperties Succeeded");
+			log.info("Finished loading database properties");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Failed loading database properties: ", e);
 		}
 	}
 }

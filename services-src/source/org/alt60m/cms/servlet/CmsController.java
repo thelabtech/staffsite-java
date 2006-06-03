@@ -57,12 +57,12 @@ public class CmsController extends Controller {
 
 	/**starts the log and initializes the ObjectAdaptors */
 	public CmsController() {
-		log(Priority.DEBUG, "CmsController constructor");
+		log.debug("CmsController constructor");
 	}
 
-	/**runs initUsers() and initFileSpecs() and initializes searchIndexPath and contentPath with values from web.xml */
+	/**runs initUsers() and initFileSpecs() and initializes searchIndexPath and contentPath */
 	public void init() {
-		log(Priority.DEBUG, "CmsController.init()");
+		log.debug("CmsController.init()");
 
 		super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
 		super.setDefaultAction("home");
@@ -71,7 +71,7 @@ public class CmsController extends Controller {
 		initFileSpecs(false);
 		contentPath = getServletContext().getRealPath(CONTENT_FOLDER);
 		CmsIndex.SetIndexPath(getServletContext().getRealPath(INDEX_FOLDER));
-		log(Priority.DEBUG, "contentPath: " + contentPath);
+		log.debug("contentPath: " + contentPath);
 	}
 
 	/**gets a list of the moderators from cmsusers.xml */
@@ -80,9 +80,9 @@ public class CmsController extends Controller {
 		if (verbose) {
 			for (Enumeration e = usersRoles.keys(); e.hasMoreElements();) {
 				String k = (String) e.nextElement();
-				log(k + " " + usersRoles.get(k));
+				log.debug(k + " " + usersRoles.get(k));
 			}
-			log("finished loading users.");
+			log.debug("finished loading users.");
 		}
 	}
 
@@ -92,9 +92,9 @@ public class CmsController extends Controller {
 		if (verbose) {
 			for (Enumeration e = usersRoles.keys(); e.hasMoreElements();) {
 				String k = (String) e.nextElement();
-				log(k + " " + fileSpecs.get(k));
+				log.debug(k + " " + fileSpecs.get(k));
 			}
-			log("finished loading filespecs.");
+			log.debug("finished loading filespecs.");
 		}
 	}
 	/**reinitializes the users, views and file specifications */
@@ -160,7 +160,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform home() action.", e);
+			log.error("Failed to perform home() action.", e);
 		}
 	}
 
@@ -237,19 +237,19 @@ public class CmsController extends Controller {
 			ctx.setError();
 			ctx.goToErrorView();
 			e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform browse() action.", e);
+			log.error("Failed to perform browse() action.", e);
 		}
 	}
 
 	public void reindex(ActionContext ctx) {
 		try {
 			CmsIndex ci = new CmsIndex();
-			System.out.println("Index created");
+			log.debug("Index created");
 			ci.populate();
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform reindex() action.", e);
+			log.error("Failed to perform reindex() action.", e);
 		}
 	}
 
@@ -259,7 +259,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform advancedSearch() action.", e);
+			log.error("Failed to perform advancedSearch() action.", e);
 		}
 	}
 
@@ -337,7 +337,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform advancedSearch() action.", e);
+			log.error("Failed to perform advancedSearch() action.", e);
 		}
 	}
 
@@ -359,7 +359,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform simpleSearch() action.", e);
+			log.error("Failed to perform simpleSearch() action.", e);
 		}
 	}
 
@@ -402,7 +402,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform searchResults() action.", e);
+			log.error("Failed to perform searchResults() action.", e);
 		}
 	}
 
@@ -412,7 +412,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform selectFile() action.", e);
+			log.error("Failed to perform selectFile() action.", e);
 		}
 	}
 
@@ -422,7 +422,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform uploadForm action.", e);
+			log.error("Failed to perform uploadForm action.", e);
 		}
 	}
 
@@ -436,7 +436,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform popupUploadForm action.", e);
+			log.error("Failed to perform popupUploadForm action.", e);
 		}
 	}
 
@@ -450,7 +450,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform popupUploadFile action.", e);
+			log.error("Failed to perform popupUploadFile action.", e);
 		}
 	}
 
@@ -464,7 +464,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform popupUploadText action.", e);
+			log.error("Failed to perform popupUploadText action.", e);
 		}
 	}
 
@@ -478,7 +478,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform popupUploadWeb action.", e);
+			log.error("Failed to perform popupUploadWeb action.", e);
 		}
 	}
 
@@ -570,7 +570,7 @@ public class CmsController extends Controller {
 			tub.put("Url", url);
 			newFile.persist();
 			//if (tub==null) {
-			//	System.out.println("tub is null!  Throwing...");
+			//	log.error("tub is null!  Throwing...");
 			//	throw new SaveMetaInfoException();
 			//}
 			assocCat(id, multi.getParameter("catId"));
@@ -582,10 +582,10 @@ public class CmsController extends Controller {
 			ctx.goToView("popupUploadDone");
 
 		} catch (CreateMetaInfoException cmie) {
-			System.out.println(cmie);
+			log.error(cmie);
 			ctx.goToView("uploadError");
 		} catch (UnsupportedFileTypeException ufte) {
-			System.out.println(ufte);
+			log.error(ufte);
 			uploadRollback(fileName);
 			tub.put("FileName", fileName);
 			ctx.setReturnValue(tub);
@@ -615,7 +615,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showReplace action.", e);
+			log.error("Failed to perform showReplace action.", e);
 		}
 	}
 
@@ -642,7 +642,7 @@ public class CmsController extends Controller {
 				String ext = unnamedFile.toLowerCase().substring(unnamedFile.lastIndexOf("."));
 				String fileName = id + ext;
 				f.renameTo(new java.io.File(contentPath + java.io.File.separatorChar + fileName));
-				System.out.println("file: " + f.getName() + " renamed to : " + contentPath + java.io.File.separatorChar + fileName);
+				log.info("file: " + f.getName() + " renamed to : " + contentPath + java.io.File.separatorChar + fileName);
 
 				// change the meta-info
 				Hashtable values = new Hashtable();
@@ -670,7 +670,7 @@ public class CmsController extends Controller {
 				ctx.goToView("popupSuccess");
 			} catch (IOException ioe) {
 				//throw new FileUploadException();
-				System.out.println(ioe);
+				log.error(ioe);
 				ctx.goToView("uploadError");
 			}
 
@@ -678,7 +678,7 @@ public class CmsController extends Controller {
 			ctx.setError();
 			ctx.goToView("uploadError");
 			//ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform replaceResource action.", e);
+			log.error("Failed to perform replaceResource action.", e);
 		}
 	}
 
@@ -701,7 +701,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform moderate action.", e);
+			log.error("Failed to perform moderate action.", e);
 			e.printStackTrace();
 		}
 
@@ -721,7 +721,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform review action.", e);
+			log.error("Failed to perform review action.", e);
 		}
 	}
 
@@ -742,7 +742,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform saveReview action.", e);
+			log.error("Failed to perform saveReview action.", e);
 		}
 	}
 
@@ -776,7 +776,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform edit action.", e);
+			log.error("Failed to perform edit action.", e);
 		}
 	}
 
@@ -791,7 +791,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform saveEdit action.", e);
+			log.error("Failed to perform saveEdit action.", e);
 		}
 	}
 
@@ -822,7 +822,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform moderateDeleteResource action.", e);
+			log.error("Failed to perform moderateDeleteResource action.", e);
 		}
 	}
 
@@ -875,7 +875,7 @@ public class CmsController extends Controller {
 			ctx.setError();
 			ctx.goToErrorView();
 			e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform fileInfo action.", e);
+			log.error("Failed to perform fileInfo action.", e);
 		}
 	}
 
@@ -907,7 +907,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform browseCat action.", e);
+			log.error("Failed to perform browseCat action.", e);
 		}
 	}
 
@@ -926,7 +926,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform addToCategory action.", e);
+			log.error("Failed to perform addToCategory action.", e);
 		}
 	}
 
@@ -944,7 +944,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform removeFromCategory action.", e);
+			log.error("Failed to perform removeFromCategory action.", e);
 		}
 	}
 
@@ -958,7 +958,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showAddCategory action.", e);
+			log.error("Failed to perform showAddCategory action.", e);
 		}
 	}
 
@@ -991,7 +991,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform addCategory action.", e);
+			log.error("Failed to perform addCategory action.", e);
 		}
 	}
 
@@ -1003,7 +1003,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showDeleteCategory action.", e);
+			log.error("Failed to perform showDeleteCategory action.", e);
 		}
 	}
 
@@ -1022,7 +1022,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform deleteCategory action.", e);
+			log.error("Failed to perform deleteCategory action.", e);
 		}
 	}
 
@@ -1034,7 +1034,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform showRenameCategory action.", e);
+			log.error("Failed to perform showRenameCategory action.", e);
 		}
 	}
 
@@ -1061,7 +1061,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform renameCategory action.", e);
+			log.error("Failed to perform renameCategory action.", e);
 		}
 	}
 
@@ -1110,7 +1110,7 @@ public class CmsController extends Controller {
 				response.sendRedirect(Url);
 
 			} catch (IOException ioe) {
-				System.out.println(ioe);
+				log.error(ioe);
 			} finally {
 				/* removed because it didn't work quite right -- redirect instead
 				if (op != null)
@@ -1122,7 +1122,7 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform getFile action.", e);
+			log.error("Failed to perform getFile action.", e);
 		}
 	}
 
@@ -1151,12 +1151,12 @@ public class CmsController extends Controller {
 				ctx.goToView("downloadRedirect");
 
 			} catch (Exception e) {
-				System.out.println(e);
+				log.error(e);
 			}
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform getFile action.", e);
+			log.error("Failed to perform getFile action.", e);
 		}
 	}
 

@@ -4,8 +4,13 @@ import java.sql.*;
 import java.util.*;
 import java.text.*;
 import org.alt60m.hr.ms.servlet.dbio.MSInfo;
+import org.alt60m.security.dbio.manager.SimpleSecurityManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable {
+
+	private static Log log = LogFactory.getLog(WsnApplicationAccountBalanceUpdater.class);
     
 //    String conn = new String("jdbc:oracle:thin:@(description=(address=(host=hart-ca009v)(protocol=tcp)(port=1526))(connect_data=(sid=prod)))");
 //    String oracleun = new String("istcampus");
@@ -25,9 +30,9 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 			java.sql.Connection sqlconnInsert = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 			java.sql.Statement sqlstmtInsert = sqlconnInsert.createStatement();
 
-			System.out.println("Load PS Financial records....");
+			log.info("Load PS Financial records....");
 			loaded = loadDonations(sqlstmtInsert);
-			System.out.println("...Loading!");
+			log.info("...Loading!");
 
 			sqlstmtInsert.close();
 			sqlconnInsert.close();
@@ -47,11 +52,10 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 						double bal = fetchBalance(accountNo, sqlconn);
 						java.sql.Statement sqlstmt2 = sqlconn.createStatement();
 						sqlstmt2.executeUpdate("update wsn_sp_wsnapplication set supportbalance = " + bal + " where WsnApplicationID = '" + WsnApplicationID + "'");
-						System.out.println(" updated with " + bal);
+						log.info(" updated with " + bal);
 						sqlstmt2.close();
 					} catch (SQLException e) {
-						System.err.println("Error fetching " + accountNo);
-						System.err.println(e);
+						log.error("Error fetching " + accountNo, e);
 					}
 				}
 			} 
@@ -93,9 +97,9 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 
 				deleteStatementText = "DELETE FROM wsn_sp_wsndonations";
 				try {
-					System.out.println("Deleting wsn_sp_Donations....");
+					log.info("Deleting wsn_sp_Donations....");
 					sqlstmtInsert.executeUpdate(deleteStatementText);
-					System.out.println("....wsn_sp_Donations Deleted!");
+					log.info("....wsn_sp_Donations Deleted!");
 				} catch (SQLException e) {
 					System.err.println("CANNOT delete wsn_sp_wsndonations!");
 					System.err.println(e);
@@ -166,7 +170,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 		DateFormat timeFormatter = DateFormat.getTimeInstance(DateFormat.DEFAULT, currentLocale);
 		today = new java.util.Date();
 		timeOut = timeFormatter.format(today);
-		System.out.println("Starting..." + timeOut);
+		log.info("Starting..." + timeOut);
 
 		// Main
 		org.alt60m.servlet.ObjectMapping.setConfigPath(args[0]);
@@ -176,6 +180,6 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 		today2 = new java.util.Date();
 		DateFormat timeFormatter2 = DateFormat.getTimeInstance(DateFormat.DEFAULT, currentLocale);
 		timeOut2 = timeFormatter2.format(today2);
-		System.out.println("\n...Finished..." + timeOut2);
+		log.info("...Finished..." + timeOut2);
     }
 }

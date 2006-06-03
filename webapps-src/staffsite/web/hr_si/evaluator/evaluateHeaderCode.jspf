@@ -56,9 +56,7 @@
 					case 2:  ref = refR;  refTitle = "ROOMMATE";   break;
 					case 3:  ref = refF;  refTitle = "FRIEND";     break;
 				}
-			System.out.println("refTitle1 = " + refTitle);
-			System.out.println("field1 = " + field);
-				display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+										display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
 				display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
 			}
 		} else if (pfType.equals("STAFF")){
@@ -75,11 +73,7 @@
 			display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
 		} else if (pfType.equals("FRIEND")){
 	        ref = refF;
-			System.out.println("refTitleFriend = " + refTitle);
-			System.out.println("fieldFriend = " + field);
-			System.out.println("refFriend = " + ref);
-			System.out.println("pfTypeFriend = " + pfType);
-				display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+																display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
 				display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
 		}
 		return display;
@@ -90,20 +84,14 @@
         SIReference ref = null;
 		ref = refF;
 
-		System.out.println("refTitle1New = " + refTitle);
-		System.out.println("field1New = " + field);
-		display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
+						display += PrintEvalBoxHTMLLines(ref, pfType, refTitle, field);
 		display += PrintEvalBoxHTMLBottom(ref, pfType, refTitle, field);
         return display;
     }
 
     public String PrintEvalBoxHTMLLines(SIReference ref, String pfType, String refTitle, String field) throws Exception {
 
-		System.out.println("refTitle2 = " + refTitle);
-		System.out.println("field2 = " + field);
-		System.out.println("ref = " + ref);
-		System.out.println("pfType = " + pfType);
-		String display = "";
+										String display = "";
 		int value = Integer.parseInt(ref.getClass().getMethod("get"+field, null).invoke(ref, null).toString());
 		display +="<tr><td class='insideboxblue' valign='bottom' nowrap>"+refTitle+"</td>";
 		for(int i=1;i<=6;i++) {
@@ -118,9 +106,7 @@
 
     public String PrintEvalBoxHTMLBottom(SIReference ref, String pfType, String refTitle, String field) throws Exception {
 
-		System.out.println("refTitle2 = " + refTitle);
-		System.out.println("field2 = " + field);
-		String display = "";
+						String display = "";
         display +="<td CLASS='insideboxbb'>"+ref.getClass().getMethod("get"+field+"c", null).invoke(ref, null)+"&nbsp;</td></TR>\n";
 
 		return display;
@@ -152,11 +138,7 @@
 			display += PrintEvalCommentLines(ref, field, refTitle);
 		} else if (pfType.equals("FRIEND")){
 	        ref = refF;
-			System.out.println("refTitleFriend = " + refTitle);
-			System.out.println("fieldFriend = " + field);
-			System.out.println("refFriend = " + ref);
-			System.out.println("pfTypeFriend = " + pfType);
-			display += PrintEvalCommentLines(ref, field, refTitle);
+															display += PrintEvalCommentLines(ref, field, refTitle);
 		}
         return display;
     }

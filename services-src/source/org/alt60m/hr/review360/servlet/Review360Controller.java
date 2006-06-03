@@ -48,13 +48,13 @@ public class Review360Controller extends Controller
 	private final String DEFAULT_ACTION = "showIndex";
 	
 	public Review360Controller()  {
-		log(Priority.DEBUG, "Review360Controller constructor");
+		log.debug("Review360Controller constructor");
 	}
 
 
 	public void init() 
    {
-		log(Priority.DEBUG, "Review360Controller.init()");
+		log.debug("Review360Controller.init()");
 		
 		try {
 			super.setViewsFile(getServletContext().getRealPath(VIEWS_FILE));
@@ -64,7 +64,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.FATAL, e.toString(), e);
+			log.fatal(e.toString(), e);
 		}
 
    }
@@ -113,7 +113,7 @@ public class Review360Controller extends Controller
 		
 		ActionResults result = new ActionResults();
 
-		log(Priority.DEBUG, "Current user accountNo: " + accountNo);
+		log.debug("Current user accountNo: " + accountNo);
 
 		try
 		{
@@ -145,7 +145,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -164,7 +164,7 @@ public class Review360Controller extends Controller
 		
 		ActionResults result = new ActionResults();
 
-		log(Priority.DEBUG, "Current user accountNo: " + accountNo);
+		log.debug("Current user accountNo: " + accountNo);
 
 		try
 		{
@@ -192,7 +192,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -211,7 +211,7 @@ public class Review360Controller extends Controller
 	private Vector createAssignmentList(String sReviewerAcctNo) throws Exception {
 
 		Vector assignmentList = new Vector();
-		log(Priority.DEBUG, "createAssignmentList start() - " + sReviewerAcctNo);
+		log.debug("createAssignmentList start() - " + sReviewerAcctNo);
 
 		try
 		{	
@@ -221,7 +221,7 @@ public class Review360Controller extends Controller
 											+"and dateCompleted is null"); 
 			Iterator rlist = reviews.iterator();
 
-			log(Priority.DEBUG, "query complete. " + reviews.size() + " rows.");
+			log.debug("query complete. " + reviews.size() + " rows.");
 
 			while (rlist.hasNext())
 			{
@@ -252,7 +252,7 @@ public class Review360Controller extends Controller
 					assignmentList.add(entry);
 
 				} catch (Exception e) {
-					log(Priority.ERROR, "Failed while attempting to get the session from review360: " + my360.getReview360Id());
+					log.error("Failed while attempting to get the session from review360: " + my360.getReview360Id());
 				}
 
 			}
@@ -270,7 +270,7 @@ public class Review360Controller extends Controller
 	private Vector createLightAssignmentList(String sReviewerAcctNo) throws Exception {
 
 		Vector assignmentList = new Vector();
-		log(Priority.DEBUG, "createLightAssignmentList start()");
+		log.debug("createLightAssignmentList start()");
 
 		try
 		{
@@ -282,7 +282,7 @@ public class Review360Controller extends Controller
 											+"and dateCompleted is null"); 
 			Iterator rlist = reviews.iterator();
 
-			log(Priority.DEBUG, "query complete. " + reviews.size() + " rows.");
+			log.debug("query complete. " + reviews.size() + " rows.");
 
 			while (rlist.hasNext())
 			{
@@ -311,7 +311,7 @@ public class Review360Controller extends Controller
 
 				} catch (Exception e) {
 					
-					log(Priority.ERROR, "Failed while attempting to get the session from review360: " + my360.getReview360LightId());
+					log.error("Failed while attempting to get the session from review360: " + my360.getReview360LightId());
 				}
 
 			}
@@ -339,7 +339,7 @@ public class Review360Controller extends Controller
 	private Vector createAdminList(String sReviewerAcctNo, boolean includeReviewInfo) throws Exception {
 
 		Vector adminList = new Vector();
-		log(Priority.DEBUG, "createAdminList start() accountNo = " + sReviewerAcctNo);
+		log.debug("createAdminList start() accountNo = " + sReviewerAcctNo);
 
 		try
 		{	
@@ -349,7 +349,7 @@ public class Review360Controller extends Controller
 											+"' OR administratorID= '"+sReviewerAcctNo
 											+"' ORDER BY dateDue DESC");
 			
-			log(Priority.DEBUG, "createAdminList after doQuery - size = " + reviews.size());
+			log.debug("createAdminList after doQuery - size = " + reviews.size());
 
 			Iterator rlist = reviews.iterator();
 			while (rlist.hasNext())
@@ -376,13 +376,12 @@ public class Review360Controller extends Controller
 						
 						entry.put("Reviews", myReviews);
 					}
-					log(Priority.DEBUG, "Adding review ID# " + entry.get(REVIEW_SESSION_ID_TOKEN) + " to the list");
+					log.debug("Adding review ID# " + entry.get(REVIEW_SESSION_ID_TOKEN) + " to the list");
 					adminList.add(entry);
 				}
 				catch (Exception e)
 				{
-					log(Priority.ERROR, "Failed on RevieweeID: " + mySession.getRevieweeId(), e);
-					e.printStackTrace();
+					log.error("Failed on RevieweeID: " + mySession.getRevieweeId(), e);
 
 				}
 				
@@ -400,7 +399,7 @@ public class Review360Controller extends Controller
 	private Vector createLightAdminList(String sReviewerAcctNo, boolean includeReviewInfo) throws Exception {
 
 		Vector adminList = new Vector();
-		log(Priority.DEBUG, "createLightAdminList start() accountNo = " + sReviewerAcctNo);
+		log.debug("createLightAdminList start() accountNo = " + sReviewerAcctNo);
 		try
 		{
 			// Generate a list of Reviews that a particular user is administering
@@ -409,7 +408,7 @@ public class Review360Controller extends Controller
 											+"' OR administratorID= '"+sReviewerAcctNo
 											+"' ORDER BY dateDue DESC");
 			
-			log(Priority.DEBUG, "createAdminList after doQuery - size = " + reviews.size());
+			log.debug("createAdminList after doQuery - size = " + reviews.size());
 
 			Iterator rlist = reviews.iterator();
 			
@@ -435,12 +434,12 @@ public class Review360Controller extends Controller
 						entry.put("Reviews", myReviews);
 					}
 
-					log(Priority.DEBUG, "Adding review light ID# " + entry.get(REVIEW_SESSION_LIGHT_ID_TOKEN) + " to the list");
+					log.debug("Adding review light ID# " + entry.get(REVIEW_SESSION_LIGHT_ID_TOKEN) + " to the list");
 					adminList.add(entry);
 				}
 				catch (Exception e)
 				{
-					log(Priority.ERROR, "Failed on ReviewSessionLightID: " + mySession.getRevieweeId(), e);
+					log.error("Failed on ReviewSessionLightID: " + mySession.getRevieweeId(), e);
 
 				}
 			}
@@ -478,7 +477,7 @@ public class Review360Controller extends Controller
 
 			// Get review to edit
 			String reviewId = (String) ctx.getInputString(REVIEW_360_ID_TOKEN, true);
-			log(Priority.DEBUG, "Review360ID=" + reviewId);
+			log.debug("Review360ID=" + reviewId);
 			
 			Review360 my360 = new Review360(reviewId);
 			ObjectHashUtil.hash2obj(ctx.getHashedRequest(),my360);
@@ -502,7 +501,7 @@ public class Review360Controller extends Controller
 		{
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform editReview360()",  e);
+			log.error("Failed to perform editReview360()",  e);
 		}
    }
 */
@@ -526,9 +525,9 @@ public class Review360Controller extends Controller
 			
 			// get the encrypted review form ID
 			String encryptedRevID = ctx.getInputString("encRevID");
-			System.out.println("refFormEncEdit: encryptedReviewID=" + encryptedRevID);
+			log.debug("refFormEncEdit: encryptedReviewID=" + encryptedRevID);
 			if (encryptedRevID == null || encryptedRevID.equals("null"))	{
-				System.out.println("revFormEncEdit: encRevID not specified");
+				log.debug("revFormEncEdit: encRevID not specified");
 				page = "revNotFound";
 				ctx.goToView(page);
 				return;
@@ -541,7 +540,7 @@ public class Review360Controller extends Controller
 				rev = null;
 			}
 			if (rev == null) {
-				System.err.println("revFormEncEdit: rev is null: Review360 id=" + revID + " not found.");
+				log.error("revFormEncEdit: rev is null: Review360 id=" + revID + " not found.");
 				page = "revNotFound";
 				ctx.goToView(page);
 				return;
@@ -565,8 +564,7 @@ public class Review360Controller extends Controller
 		} catch(Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Exception encountered in Review360Controller.revFormEncEdit()", e);
-			e.printStackTrace();
+			log.error("Exception encountered in Review360Controller.revFormEncEdit()", e);
 		}
 	}
 
@@ -623,8 +621,7 @@ public class Review360Controller extends Controller
 		{
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform editReview360Question()", e);
-			e.printStackTrace();
+			log.error("Failed to perform editReview360Question()", e);
 		}
    }
 
@@ -662,7 +659,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, "Failed to perform saveReview360()", e);
+			log.error("Failed to perform saveReview360()", e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -701,7 +698,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e, e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -728,7 +725,7 @@ public class Review360Controller extends Controller
 		try
 		{
 			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN);
-			log(Priority.DEBUG, "reviewSessionID: " + reviewSessionId);
+			log.debug("reviewSessionID: " + reviewSessionId);
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
 
 			Collection col360s = mySession.getReview360s();
@@ -745,7 +742,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -787,10 +784,9 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, "Couldn't list admin sessions", e);
+			log.error("Couldn't list admin sessions", e);
 			ctx.setError();
 			ctx.goToErrorView();
-			e.printStackTrace();
 		}
 
    }
@@ -816,7 +812,7 @@ public class Review360Controller extends Controller
 
 			// Get review to edit
 			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN);
-			log(Priority.DEBUG, "reviewSessionID: " + reviewSessionId);
+			log.debug("reviewSessionID: " + reviewSessionId);
 			
 			ReviewSession rs = new ReviewSession(reviewSessionId);
 			result.addHashtable("ReviewSession", ObjectHashUtil.obj2hash(rs));
@@ -832,7 +828,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -854,7 +850,7 @@ public class Review360Controller extends Controller
 		try
 		{
 			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN);
-			log(Priority.DEBUG, "saveReviewSessionDetails - reviewSessionID" + reviewSessionId);
+			log.debug("saveReviewSessionDetails - reviewSessionID" + reviewSessionId);
 
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
 			java.text.SimpleDateFormat myDate = new java.text.SimpleDateFormat();
@@ -873,7 +869,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -904,7 +900,7 @@ public class Review360Controller extends Controller
 			if (section == null) {
 				section = "1";	
 			} else if (section.equals("3")){
-				log(Priority.DEBUG, "adding requestedbyname:" + (String)ctx.getInputString("requestedById", true) +  " for section 3");
+				log.debug("adding requestedbyname:" + (String)ctx.getInputString("requestedById", true) +  " for section 3");
 
 				Staff so = new Staff(ctx.getInputString("requestedById", true));
 
@@ -918,7 +914,7 @@ public class Review360Controller extends Controller
 			ctx.goToView("newReviewSession"+section);
 
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -939,7 +935,7 @@ public class Review360Controller extends Controller
 	 */
 	public void saveReviewSession(ActionContext ctx) 
    {
-		log(Priority.DEBUG, "saveReviewSession");
+		log.debug("saveReviewSession");
 
 		try
 		{
@@ -966,7 +962,7 @@ public class Review360Controller extends Controller
 
 
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -999,7 +995,7 @@ public class Review360Controller extends Controller
 		} 
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1030,7 +1026,7 @@ public class Review360Controller extends Controller
 		} 
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1056,8 +1052,8 @@ public class Review360Controller extends Controller
 			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN, true);
 			String reviewerId = ctx.getInputString("reviewerId", true);
 
-			log(Priority.DEBUG, "associate 1: reviewSessionID: " + reviewSessionId);
-			log(Priority.DEBUG, "                  reviewerID: " + reviewerId);
+			log.debug("associate 1: reviewSessionID: " + reviewSessionId);
+			log.debug("                  reviewerID: " + reviewerId);
 			
 			Review360 myReview = new Review360();
 			
@@ -1066,11 +1062,11 @@ public class Review360Controller extends Controller
 			myReview.setDateStarted(currentDate);
 			myReview.setReviewedById(reviewerId);
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
-			log(Priority.DEBUG, "ReviewSessionID = " + mySession.getReviewSessionId());
+			log.debug("ReviewSessionID = " + mySession.getReviewSessionId());
 			myReview.setDateDue(mySession.getDateDue());
 			myReview.assocReviewSession(mySession);
 			Vector reviews = mySession.getReview360s();
-			log(Priority.DEBUG, (reviews.contains(myReview) ? "object in set" : "object not in set"));
+			log.debug((reviews.contains(myReview) ? "object in set" : "object not in set"));
 			
 			myReview.persist();
 			mySession.persist();
@@ -1083,10 +1079,9 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
-			e.printStackTrace();
 		}
    }
    
@@ -1132,11 +1127,11 @@ public class Review360Controller extends Controller
 			myReview.setDateStarted(currentDate);
 			
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
-			log(Priority.DEBUG, "ReviewSessionID = " + mySession.getReviewSessionId());
+			log.debug("ReviewSessionID = " + mySession.getReviewSessionId());
 			myReview.setDateDue(mySession.getDateDue());
 			myReview.assocReviewSession(mySession);
 			Vector reviews = mySession.getReview360s();
-			log(Priority.DEBUG, (reviews.contains(myReview) ? "object in set" : "object not in set"));
+			log.debug((reviews.contains(myReview) ? "object in set" : "object not in set"));
 			
 			// TODO: figure out where to store the name and email address (since we can't get it from the staff record
 			// in the Review360 record?
@@ -1152,10 +1147,9 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
-			e.printStackTrace();
 		}
    }
 	
@@ -1192,14 +1186,14 @@ public class Review360Controller extends Controller
 				myReview = null;
 			}
 			if (myReview == null) {
-				System.err.println("deleteReviewer: rev is null: Review360 id=" + revID + " not found.");
+				log.error("deleteReviewer: rev is null: Review360 id=" + revID + " not found.");
 				page = "revNotFound";
 				ctx.goToView(page);
 				return;
 			}
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
 
-			log(Priority.DEBUG, "reviewSessionID: " + reviewSessionId + ", review360ID: " + review360Id);
+			log.debug("reviewSessionID: " + reviewSessionId + ", review360ID: " + review360Id);
 			
 			mySession.dissocReview360(myReview);
 			myReview.delete();
@@ -1214,7 +1208,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			// try { client.rollback(); } catch (Exception ignore) {}
 			
 			ctx.setError();
@@ -1248,7 +1242,7 @@ public class Review360Controller extends Controller
 			nameSubString = ctx.getInputString(NAME_SUBSTRING_TOKEN, true);
 			nameSubString = TextUtils.formatApostrophe(nameSubString);
 
-			log(Priority.DEBUG, "listStaff substring: " + nameSubString);
+			log.debug("listStaff substring: " + nameSubString);
 			
 			Collection list;
 			if (nameSubString.length() == 0) {
@@ -1293,7 +1287,7 @@ public class Review360Controller extends Controller
 			ctx.goToView(ctx.getInputString("lastAction"));
 
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1344,7 +1338,7 @@ public class Review360Controller extends Controller
 					ro = null;
 				}
 				if (ro == null) {
-					System.err.println("showReviewSummary: rev is null: Review360 id=" + revID + " not found.");
+					log.error("showReviewSummary: rev is null: Review360 id=" + revID + " not found.");
 					ctx.goToView("revNotFound");
 					return;
 				}
@@ -1361,7 +1355,7 @@ public class Review360Controller extends Controller
 			result.putValue("RequestedByName", so2.getPreferredName() + " " + so2.getLastName());
 			result.putValue("IsMale", String.valueOf(so.getIsMale()));
 
-			log(Priority.DEBUG, "showReviewSummary reviewSessionID = " + reviewSessionId);
+			log.debug("showReviewSummary reviewSessionID = " + reviewSessionId);
 
 			if(ctx.getInputString("encRevID") != null)
 			{
@@ -1371,7 +1365,7 @@ public class Review360Controller extends Controller
 				
 				// decrypt the encrypted referenceID
 				String revID = myReview.decodeReview360ID(encryptedRevID);
-				log(Priority.DEBUG, "showReviewSummary - single review - review360ID = " + revID);
+				log.debug("showReviewSummary - single review - review360ID = " + revID);
 				
 				myReview.setReview360Id(revID);
 				
@@ -1379,7 +1373,7 @@ public class Review360Controller extends Controller
 					myReview = null;
 				}
 				if (myReview == null) {
-					System.err.println("showReviewSummary: rev is null: Review360 id=" + revID + " not found.");
+					log.error("showReviewSummary: rev is null: Review360 id=" + revID + " not found.");
 					ctx.goToView("revNotFound");
 					return;
 				}
@@ -1388,7 +1382,7 @@ public class Review360Controller extends Controller
 			} else {
 
 				Collection c = mySession.getReview360s();	
-				log(Priority.DEBUG, "showReviewSummary - adding all " + c.size() + " reviews");
+				log.debug("showReviewSummary - adding all " + c.size() + " reviews");
 				Iterator rlist = c.iterator();
 				while (rlist.hasNext())
 				{
@@ -1405,7 +1399,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1428,14 +1422,14 @@ public class Review360Controller extends Controller
 			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN, true);
 			ActionResults result = new ActionResults();
 
-			log(Priority.DEBUG, "editReviewSession reviewSessionID = " + reviewSessionId);
+			log.debug("editReviewSession reviewSessionID = " + reviewSessionId);
 			result.addHashtable("ReviewSession", getReviewSession(reviewSessionId));
 			ctx.setReturnValue(result);
 			ctx.goToView("editReviewSession");
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1456,7 +1450,7 @@ public class Review360Controller extends Controller
    {
 			// For each review, create a hash table to store return values in
 			Hashtable entry = new Hashtable();
-			log("getReviewSession reviewsessionID = " + reviewSessionId);
+			log.debug("getReviewSession reviewsessionID = " + reviewSessionId);
 
 			ReviewSession mySession = new ReviewSession(reviewSessionId);
 
@@ -1489,7 +1483,7 @@ public class Review360Controller extends Controller
 			session.setAttribute("rsize", new Integer(createAssignmentList(accountNo).size() + createLightAssignmentList(accountNo).size()));
 			int alsize = createAdminList(accountNo, false).size();
 			int lalsize = createLightAdminList(accountNo, false).size();
-			log(Priority.DEBUG, alsize + " full and " + lalsize + " light reviews");
+			log.debug(alsize + " full and " + lalsize + " light reviews");
 			session.setAttribute("asize", new Integer(alsize + lalsize));
 		} else {
 			session.setAttribute("rsize", new Integer(0));
@@ -1502,7 +1496,7 @@ public class Review360Controller extends Controller
    private Vector getReviews(ReviewSession mySession) throws Exception
 	{
 		Iterator r360list = mySession.getReview360s().iterator();
-		log(Priority.DEBUG, "# of reviews - " + mySession.getReview360s().size());
+		log.debug("# of reviews - " + mySession.getReview360s().size());
 
 		Vector myReviews = new Vector();
 
@@ -1512,7 +1506,7 @@ public class Review360Controller extends Controller
 
 			java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy");
 
-			log(Priority.DEBUG, "looking up staff " + my360.getReviewedById());
+			log.debug("looking up staff " + my360.getReviewedById());
 
             try {
                 if("".equals(my360.getReviewedById()))	// no staff number
@@ -1520,12 +1514,12 @@ public class Review360Controller extends Controller
                 else
                 {
 	                Staff so = my360.getReviewedBy();
-	                log(Priority.DEBUG, "found staff " + so.getPreferredName() + " " + so.getLastName());
+	                log.debug("found staff " + so.getPreferredName() + " " + so.getLastName());
 	                review.put("PsEmail", so.getEmail());
 	                review.put("ReviewedByName", so.getPreferredName() + " " + so.getLastName());
                 }     		
             } catch(Exception e) {
-                log(Priority.DEBUG, "staff not found ");
+                log.debug("staff not found ");
                 review.put("PsEmail", my360.getReviewedByEmail());
                 review.put("ReviewedByName", "".equals(my360.getReviewedByFirstName()+my360.getReviewedByLastName())?"Former Staff Member":my360.getReviewedByFirstName()+" "+my360.getReviewedByLastName());
             }
@@ -1566,7 +1560,7 @@ public class Review360Controller extends Controller
 	{
 
 		Iterator r360list = mySession.getReview360Lights().iterator();
-		log(Priority.DEBUG, "# of reviews - " + mySession.getReview360Lights().size());
+		log.debug("# of reviews - " + mySession.getReview360Lights().size());
 
 		Vector myReviews = new Vector();
 
@@ -1576,7 +1570,7 @@ public class Review360Controller extends Controller
 
 			java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy");
 
-			log(Priority.DEBUG, "looking up staff " + my360.getReviewedById());							
+			log.debug("looking up staff " + my360.getReviewedById());							
 			
 			try {
 				if("".equals(my360.getReviewedById()))
@@ -1585,13 +1579,13 @@ public class Review360Controller extends Controller
 				{
 					Staff so = my360.getReviewedBy();
 	
-					log(Priority.DEBUG, "found staff " + so.getPreferredName() + " " + so.getLastName());
+					log.debug("found staff " + so.getPreferredName() + " " + so.getLastName());
 					
 					review.put("PsEmail", so.getEmail());
 					review.put("ReviewedByName", so.getPreferredName() + " " + so.getLastName());
 				}
 			} catch (Exception notfound) {
-				log(Priority.ERROR, "Didn't find staff: " + my360.getReviewedById());
+				log.error("Didn't find staff: " + my360.getReviewedById());
 
 				review.put("PsEmail", my360.getReviewedByEmail());
                 review.put("ReviewedByName",my360.getReviewedByFirstName()+" "+my360.getReviewedByLastName());
@@ -1655,7 +1649,7 @@ public class Review360Controller extends Controller
 			reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN, true);
 			lastAction = ctx.getInputString(LAST_ACTION_TOKEN);
 
-			log(Priority.DEBUG, "composeEmail reviewSessionID: " + reviewSessionId);
+			log.debug("composeEmail reviewSessionID: " + reviewSessionId);
 
 			java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy");
 
@@ -1708,7 +1702,7 @@ public class Review360Controller extends Controller
 			ctx.goToView("composeEmail");
 
 		} catch (Exception e) {
-			log(Priority.ERROR, e.toString(), e);
+			log.error(e.toString(), e);
 			ctx.setError();
 			ctx.goToErrorView();
 		}
@@ -1729,7 +1723,7 @@ public class Review360Controller extends Controller
 				lastAction = ctx.getInputString(LAST_ACTION_TOKEN);
 				content = ctx.getInputString("content");
 				
-				log(Priority.DEBUG, "composeEmail reviewSessionID: " + reviewSessionId);
+				log.debug("composeEmail reviewSessionID: " + reviewSessionId);
 
 				java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy");
 
@@ -1799,12 +1793,12 @@ public class Review360Controller extends Controller
 						
 					}
 					catch (AddressException ae) {
-						log(Priority.ERROR, "Failed to send email - Missing or Bad Email address", ae);
+						log.error("Failed to send email - Missing or Bad Email address", ae);
 						strConfirmation += "Failed to send email to " + names[index] + " - Missing or Bad Email address<br /><br />";	
 					}
 					catch (Exception e)
 					{
-						log(Priority.ERROR, "Failed to send email - " , e);
+						log.error("Failed to send email - " , e);
 						strConfirmation += "Failed to send email to " + names[index] + " (" + emails[i] +")<br /><br />";	
 					}
 					
@@ -1816,7 +1810,7 @@ public class Review360Controller extends Controller
 				ctx.goToView("confirmEmails");
 
 			} catch (Exception e) {
-				log(Priority.ERROR, e.toString(), e);
+				log.error(e.toString(), e);
 				ctx.setError();
 				ctx.goToErrorView();
 			}
@@ -1864,16 +1858,16 @@ public class Review360Controller extends Controller
 				email.setBody(body);
 				email.send();
 				
-				log(Priority.DEBUG, "sendEmail to: " + toEmail);
+				log.debug("sendEmail to: " + toEmail);
 				
 			}
 			catch (AddressException ae) {
-				log(Priority.ERROR, "Failed to send email - Missing or Bad Email address", ae);
+				log.error("Failed to send email - Missing or Bad Email address", ae);
 				throw ae;
 			}
 			catch (Exception e)
 			{
-				log(Priority.ERROR, "Failed to send email - " , e);
+				log.error("Failed to send email - " , e);
 				throw e;
 			}			
 		}
@@ -1908,16 +1902,16 @@ public class Review360Controller extends Controller
 				email.setBody(body);
 				email.send();
 				
-				log(Priority.DEBUG, "sendEmail to: " + toEmail);
+				log.debug("sendEmail to: " + toEmail);
 				
 			}
 			catch (AddressException ae) {
-				log(Priority.ERROR, "Failed to send email - Missing or Bad Email address", ae);
+				log.error("Failed to send email - Missing or Bad Email address", ae);
 				throw ae;
 			}
 			catch (Exception e)
 			{
-				log(Priority.ERROR, "Failed to send email - " , e);
+				log.error("Failed to send email - " , e);
 				throw e;
 			}			
 		}
@@ -1971,16 +1965,16 @@ public class Review360Controller extends Controller
 			email.setBody(ctx.getInputString("bodytext"));
 			email.send();
 			
-			log(Priority.DEBUG, "sendEmail to: " + ctx.getInputString("to"));
+			log.debug("sendEmail to: " + ctx.getInputString("to"));
 			
 		}
 		catch (AddressException e) {
-			log(Priority.ERROR, "Failed to send email - Missing or Bad Email address", e);
+			log.error("Failed to send email - Missing or Bad Email address", e);
 			result.putValue("errMsg", "Failed to send email - Missing or Bad Email address.");
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, "Failed to send email - " , e);
+			log.error("Failed to send email - " , e);
 			result.putValue("errMsg", "Failed to send email. Make sure you have the correct address.");
 
 		}
@@ -2013,7 +2007,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			log(Priority.ERROR, "Failed to send email - " , e);
+			log.error("Failed to send email - " , e);
 		}
 	}
 
@@ -2038,7 +2032,7 @@ public class Review360Controller extends Controller
 		String accountNo = (String)ctx.getSession().getAttribute("accountNo");
 		ActionResults result = new ActionResults();
 		
-		log(Priority.DEBUG, "Current user accoutNo: " + accountNo);
+		log.debug("Current user accoutNo: " + accountNo);
 
 		Vector assignmentList = new Vector();
 
@@ -2079,7 +2073,7 @@ public class Review360Controller extends Controller
 				
 				} catch (Exception e) {
 					
-					log(Priority.ERROR, "Failed while attempting to get the session from review360: " + my360.getReview360Id());
+					log.error("Failed while attempting to get the session from review360: " + my360.getReview360Id());
 				}
 
 			}
@@ -2112,7 +2106,7 @@ public class Review360Controller extends Controller
 				
 				} catch (Exception e) {
 					
-					log(Priority.ERROR, "Failed while attempting to get the session from review360: " + my360Light.getReview360LightId());
+					log.error("Failed while attempting to get the session from review360: " + my360Light.getReview360LightId(), e);
 				}
 
 			}
@@ -2121,8 +2115,7 @@ public class Review360Controller extends Controller
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
-			e.fillInStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 		result.addCollection("AssignmentList", assignmentList);

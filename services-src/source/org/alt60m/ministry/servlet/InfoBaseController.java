@@ -36,7 +36,7 @@ public class InfoBaseController extends Controller {
     private final String TARGET_AREA_ID_TOKEN = "targetareaid";
 
     public InfoBaseController() {
-        log(Priority.DEBUG, "InfoBaseController constructor");
+        log.debug("InfoBaseController constructor");
     }
 
     /** @param ctx ActionContext object */
@@ -76,7 +76,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addActivity ().", e);
+            log.error("Failed to perform addActivity ().", e);
         }
     }
     
@@ -94,7 +94,7 @@ public class InfoBaseController extends Controller {
 	catch (Exception e) {
 		ctx.setError();
 		ctx.goToErrorView();
-		log(Priority.ERROR, "Failed to perform addCampusToMin ().", e);
+		log.error("Failed to perform addCampusToMin ().", e);
 	}
     }
 
@@ -128,7 +128,7 @@ public class InfoBaseController extends Controller {
 			e.printStackTrace();
 			ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addContact().", e);
+            log.error("Failed to perform addContact().", e);
         }
     }
 
@@ -148,7 +148,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addMinToCampus().", e);
+            log.error("Failed to perform addMinToCampus().", e);
         }
     }
 
@@ -162,7 +162,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addNewCampus().", e);
+            log.error("Failed to perform addNewCampus().", e);
         }
     }
 
@@ -204,7 +204,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addTeamToCampus().", e);
+            log.error("Failed to perform addTeamToCampus().", e);
         }
     }
 
@@ -224,7 +224,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform addTeamToRegion().", e);
+            log.error("Failed to perform addTeamToRegion().", e);
         }
     }
 
@@ -270,7 +270,7 @@ public class InfoBaseController extends Controller {
         try {
             String type = ctx.getInputString("type", new String[] { "targetarea", "locallevel", "statistic" });
             String mode = ctx.getInputString("mode", new String[] { "add", "remove" });
-            log("current user: " + ctx.getProfileID());
+            log.debug("current user: " + ctx.getProfileID());
             if (mode.equals("remove")) {
                 String bookmarkID = ctx.getInputString("bookmarkid", true);
                 _bookmarks.removeBookmark(bookmarkID);
@@ -302,7 +302,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform changeBookmark().", e);
+            log.error("Failed to perform changeBookmark().", e);
         }
     }
 
@@ -329,7 +329,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform createReport().", e);
+            log.error("Failed to perform createReport().", e);
         }
     }
 	
@@ -344,7 +344,7 @@ public class InfoBaseController extends Controller {
 		{
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform deleteTeam().", e);
+			log.error("Failed to perform deleteTeam().", e);
 		}
 
 	}
@@ -361,7 +361,7 @@ public class InfoBaseController extends Controller {
 		{
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform deleteTeam().", e);
+			log.error("Failed to perform deleteTeam().", e);
 		}
 	}	
 
@@ -393,7 +393,7 @@ public class InfoBaseController extends Controller {
 			e.printStackTrace();
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform detailedListCampus().", e);
+            log.error("Failed to perform detailedListCampus().", e);
         }
     }
 
@@ -425,7 +425,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editActivity().", e);
+            log.error("Failed to perform editActivity().", e);
         }
     }
 
@@ -451,7 +451,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editTeam().", e);
+            log.error("Failed to perform editTeam().", e);
         }
     }
 
@@ -469,9 +469,7 @@ public class InfoBaseController extends Controller {
                 String statId = ctx.getInputString("statisticid");
                 RegionalStat stat = ibt.getRegionalStatObject(statId);
                 results.addHashtable("statistic", ObjectHashUtil.obj2hash(stat));
-				System.out.println("--------------------");
-				System.out.println(ObjectHashUtil.obj2hash(stat));
-				System.out.println("--------------------");
+				log.debug("Statistic: " + ObjectHashUtil.obj2hash(stat));
                 results.putValue("periodbegin", userFormat.format(stat.getPeriodBegin()));
                 results.putValue("periodend", userFormat.format(stat.getPeriodEnd()));
             } else {
@@ -484,7 +482,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editRegionalSuccessCriteria().", e);
+            log.error("Failed to perform editRegionalSuccessCriteria().", e);
         }
     }
 
@@ -520,7 +518,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editRegionlnfo().", e);
+            log.error("Failed to perform editRegionlnfo().", e);
         }
     }
 
@@ -541,7 +539,7 @@ public class InfoBaseController extends Controller {
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editSuccessCriteria().", e);
+            log.error("Failed to perform editSuccessCriteria().", e);
         }
     }
 
@@ -559,7 +557,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editTargetArea().", e);
+            log.error("Failed to perform editTargetArea().", e);
         }
     }
 
@@ -605,7 +603,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform editTeam().", e);
+            log.error("Failed to perform editTeam().", e);
         }
     }
 
@@ -669,7 +667,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform enterSuccessCriteria ().", e);
+            log.error("Failed to perform enterSuccessCriteria ().", e);
         }
     }
 
@@ -713,12 +711,12 @@ public class InfoBaseController extends Controller {
 		{
         	ctx.setError();
         	ctx.goToErrorView();
-        	log(Priority.ERROR, "Missing target area id.", e);
+        	log.error("Missing target area id.", e);
 		}
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform enterSuccessCriteria ().", e);
+            log.error("Failed to perform enterSuccessCriteria ().", e);
         }
     }
 
@@ -740,11 +738,11 @@ public class InfoBaseController extends Controller {
     //		3/19/01		MDP		Initial coding
     // *************************************************************************
     public void init() {
-        log(Priority.DEBUG, "InfoBaseController.init()");
+        log.debug("InfoBaseController.init()");
         try {
             initState();
         } catch (Exception e) {
-            log(Priority.FATAL, "Failed to init class!", e);
+            log.fatal("Failed to init!", e);
         }
     }
 
@@ -801,7 +799,7 @@ public class InfoBaseController extends Controller {
 			e.printStackTrace();
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform listCampus().", e);
+            log.error("Failed to perform listCampus().", e);
         }
     }
 
@@ -818,7 +816,7 @@ public class InfoBaseController extends Controller {
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform listLLMetros().", e);
+            log.error("Failed to perform listLLMetros().", e);
         }
     }
 
@@ -854,7 +852,7 @@ public class InfoBaseController extends Controller {
 			e.printStackTrace();
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform listStaff().", e);
+            log.error("Failed to perform listStaff().", e);
         }
     }
 
@@ -898,7 +896,7 @@ public class InfoBaseController extends Controller {
 		catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform proposeNewTargetArea().", e);
+			log.error("Failed to perform proposeNewTargetArea().", e);
 		}
 	}
 	/** @param ctx ActionContext object */
@@ -916,7 +914,7 @@ public class InfoBaseController extends Controller {
 		catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform proposeNewLocalLevel().", e);
+			log.error("Failed to perform proposeNewLocalLevel().", e);
 		}
 	}
 
@@ -937,7 +935,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform removeContact().", e);
+            log.error("Failed to perform removeContact().", e);
         }
     }
 
@@ -959,7 +957,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform removeMin().", e);
+            log.error("Failed to perform removeMin().", e);
         }
     }
 
@@ -976,7 +974,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform removeStaff().", e);
+            log.error("Failed to perform removeStaff().", e);
         }
     }
 
@@ -999,7 +997,7 @@ public class InfoBaseController extends Controller {
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveActivity().", e);
+            log.error("Failed to perform saveActivity().", e);
         }
     }
 
@@ -1016,7 +1014,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveAddCampusToMin().", e);
+            log.error("Failed to perform saveAddCampusToMin().", e);
         }
     }
 
@@ -1036,7 +1034,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveAddMinToCampus().", e);
+            log.error("Failed to perform saveAddMinToCampus().", e);
         }
     }
 
@@ -1057,7 +1055,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveAddTeamToCampus().", e);
+            log.error("Failed to perform saveAddTeamToCampus().", e);
         }
     }
 
@@ -1073,7 +1071,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform removeStaff().", e);
+            log.error("Failed to perform removeStaff().", e);
         }
     }
 
@@ -1089,7 +1087,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveContact().", e);
+            log.error("Failed to perform saveContact().", e);
         }
     }
 
@@ -1115,7 +1113,7 @@ public class InfoBaseController extends Controller {
         }catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveEditActivity().", e);
+            log.error("Failed to perform saveEditActivity().", e);
         }
     }
 
@@ -1131,7 +1129,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveNewCampus().", e);
+            log.error("Failed to perform saveNewCampus().", e);
         }
     }
 
@@ -1156,7 +1154,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveNonCCCMin().", e);
+            log.error("Failed to perform saveNonCCCMin().", e);
         }
     }
 
@@ -1181,7 +1179,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveRegionalSuccessCriteria().", e);
+            log.error("Failed to perform saveRegionalSuccessCriteria().", e);
         }
     }
 
@@ -1196,7 +1194,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveRegionInfo().", e);
+            log.error("Failed to perform saveRegionInfo().", e);
         }
     }
 
@@ -1234,7 +1232,7 @@ public class InfoBaseController extends Controller {
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveSuccessCriteria().", e);
+            log.error("Failed to perform saveSuccessCriteria().", e);
         }
     }
 
@@ -1249,7 +1247,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveTargetAreaInfo().", e);
+            log.error("Failed to perform saveTargetAreaInfo().", e);
         }
     }
 
@@ -1277,7 +1275,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform saveTeam().", e);
+            log.error("Failed to perform saveTeam().", e);
         }
     }
 
@@ -1297,7 +1295,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showCampusCountReport().", e);
+            log.error("Failed to perform showCampusCountReport().", e);
         }
     }
 
@@ -1308,7 +1306,7 @@ public class InfoBaseController extends Controller {
         }
         catch (Exception e) {
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showIndex().", e);
+            log.error("Failed to perform showIndex().", e);
         }
     }
 
@@ -1327,7 +1325,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showMin().", e);
+            log.error("Failed to perform showMin().", e);
         }
     }
 
@@ -1344,7 +1342,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showReport().", e);
+            log.error("Failed to perform showReport().", e);
         }
     }
 
@@ -1373,7 +1371,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showStaffInfo().", e);
+            log.error("Failed to perform showStaffInfo().", e);
         }
     }
 
@@ -1385,7 +1383,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showSuccessCriteriaHome().", e);
+            log.error("Failed to perform showSuccessCriteriaHome().", e);
         }
     }
 
@@ -1427,7 +1425,7 @@ public class InfoBaseController extends Controller {
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showTargetArea().", e);
+            log.error("Failed to perform showTargetArea().", e);
         }
     }
 
@@ -1490,7 +1488,7 @@ public class InfoBaseController extends Controller {
 			e.printStackTrace();
             ctx.setError();
             ctx.goToErrorView();
-            log(Priority.ERROR, "Failed to perform showTeam().", e);
+            log.error("Failed to perform showTeam().", e);
         }
     }
 
@@ -1517,7 +1515,7 @@ public class InfoBaseController extends Controller {
 		catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform submitNewTargetAreaRequest().", e);
+			log.error("Failed to perform submitNewTargetAreaRequest().", e);
 		}
 	}
 
@@ -1538,7 +1536,7 @@ public class InfoBaseController extends Controller {
 		catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			log(Priority.ERROR, "Failed to perform submitNewLocalLevelRequest().", e);
+			log.error("Failed to perform submitNewLocalLevelRequest().", e);
 		}
 	}
 

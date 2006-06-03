@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.alt60m.cms.util.CatPathMaker;
 import org.alt60m.crs.model.Answer;
 import org.alt60m.crs.model.ChildRegistration;
 import org.alt60m.crs.model.Conference;
@@ -29,6 +30,8 @@ import org.alt60m.security.dbio.manager.SimpleSecurityManager;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.util.OnlinePayment;
 import org.alt60m.util.SendMessage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.kenburcham.framework.dbio.DBIOEntityException;
 import com.kenburcham.framework.dbio.DBIOException;
@@ -39,6 +42,7 @@ public class CRSApplication {
 		} catch (Exception e) {
 		}
 	}
+	private static Log log = LogFactory.getLog(CRSApplication.class); 
 
 	public static final String[] PREMADE_QUESTIONS = {
 			"Attending Spouse Name:", "Number of Children Attending:",
@@ -558,7 +562,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			System.out.println("\n\n\n" + e + "\n\n\n");
+			log.error("Failed to save merchandise", e);
 			e.printStackTrace();
 			return false;
 		}
@@ -1240,7 +1244,7 @@ public class CRSApplication {
 
 		int end = (offset + size - 1 > maxSize ? maxSize : offset + size - 1);
 
-		System.out.println("MS-" + maxSize + " , Start-" + start + " , End-"
+		log.debug("MS-" + maxSize + " , Start-" + start + " , End-"
 				+ end);
 
 		if (maxSize > 1)
@@ -2461,9 +2465,9 @@ public class CRSApplication {
 				getRegistrationDebits(registrationID)
 						- getRegistrationCredits(registrationID)));
 
-		System.out.println(results.get("Credits"));
-		System.out.println(results.get("Debits"));
-		System.out.println(results.get("BalanceDue"));
+		log.debug("Credits: " + results.get("Credits"));
+		log.debug("Debits: " + results.get("Debits"));
+		log.debug("BalanceDue: " + results.get("BalanceDue"));
 
 		return results;
 	}
@@ -3130,7 +3134,7 @@ public class CRSApplication {
 
 			email.setBody(msg);
 			email.send();
-			//			System.out.println(msg);
+			//			log.debug(msg);
 		} catch (Exception e) {
 		}
 	}
@@ -3176,7 +3180,7 @@ public class CRSApplication {
 			msg += "The " + c.getName() + " Team";
 			email.setBody(msg);
 			email.send();
-			//			System.out.println(msg);
+			//			log.debug(msg);
 		} catch (Exception e) {
 		}
 	}
@@ -3251,7 +3255,7 @@ public class CRSApplication {
 			
 			email.setBody(msg);
 			email.send();
-			//			System.out.println(msg);
+			//			log.debug(msg);
 		} catch (Exception e) {
 		}
 	}
@@ -3345,7 +3349,7 @@ public class CRSApplication {
 			msg += "The " + c.getName() + " Team\n";
 			email.setBody(msg);
 			email.send();
-			System.out.println(msg);
+			log.debug(msg);
 		} catch (Exception e) {
 		}
 	}

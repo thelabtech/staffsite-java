@@ -16,11 +16,14 @@ import org.alt60m.security.dbio.model.User;
 import org.alt60m.staffSite.bean.dbio.UserPreferences;
 import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
 import org.alt60m.security.CAS.CASUser;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  * @stereotype tested
  * @testcase <{TestProfileManager}>
  */
 public class ProfileManager {
+	private static Log log = LogFactory.getLog(ProfileManager.class);
 
     public ProfileManager() { //String secantAdminUserName, String secantAdminPassword) throws ProfileManagementException {
             _securityMan = new SimpleSecurityManager();// org.alt60m.factory.ServiceFactory.getSimpleSecurityManager(); //new org.alt60m.security.manager.SimpleSecurityManager();//org.alt60m.security.manager.TransitionalSecurityManager(secantAdminUserName, secantAdminPassword);
@@ -66,9 +69,9 @@ public class ProfileManager {
             boolean secantAuthorized = false;
             // first, try connecting to Secant's security
             try {
-				System.out.println("userName="+userName+", password="+password.length());
+				log.debug("userName="+userName+", password="+password.length());
                 secantAuthorized = _securityMan.authenticate(userName, password);
-				System.out.println("authorized="+secantAuthorized);
+				log.debug("authorized="+secantAuthorized);
             } catch (UserNotFoundException err) {
                 throw new ProfileNotFoundException(err.toString());
 			} catch (UserLockedOutException err) {
@@ -121,10 +124,10 @@ public class ProfileManager {
     public void changePassword(String userName, String oldPassword, String newPassword, boolean changeFlag) throws
         ProfileNotFoundException, ProfileManagementException, NotAuthorizedException {
             try {
-				System.out.println("call sec manager: changePassword");
+				log.debug("call sec manager: changePassword");
                 _securityMan.changePassword(userName, oldPassword, newPassword);
 				
-				System.out.println("turn off change password flag");
+				log.debug("turn off change password flag");
 				setPasswordChangeFlag(userName, false);
 			} catch(UserLockedOutException uloe) {
                 throw new NotAuthorizedException();

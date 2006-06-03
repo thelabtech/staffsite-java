@@ -3,10 +3,11 @@ package org.alt60m.linczone;
 import java.sql.*;
 import java.util.*;
 import org.alt60m.util.SendMessage;
-import org.alt60m.util.LogHelper;
-import org.apache.log4j.Priority;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class LinczoneProcessor {
+	private static Log log = LogFactory.getLog(LinczoneProcessor.class);
 	
 	private final String[] MINISTRIES = new String[] {"ccc", "nav", "iv", "fca", "bsu", "cacm", "efca", "gcm", "wesley"};
 
@@ -15,11 +16,6 @@ public class LinczoneProcessor {
 	private boolean _debug;
 	private String _baseDir;
 	
-	//Log Helper Code//
-	private static LogHelper logHelper = new LogHelper();
-	private void log(Priority p, String msg) { logHelper.log(this.getClass().toString(),p,msg); }
-	private void log(Priority p, String msg, java.lang.Throwable t) { logHelper.log(this.getClass().toString(),p,msg,t); }
-	//End of Log Helper Code//
 	
 	public LinczoneProcessor(String propertyFilePath, String baseDir) throws Exception {
 		this(propertyFilePath, baseDir, false);
@@ -40,11 +36,11 @@ public class LinczoneProcessor {
 	public void enterNewContact(Map values) throws Exception {
 		
 		try {
-			log(Priority.DEBUG,"Getting database driver '"+_props.getProperty("driver")+"'.");
+			log.debug("Getting database driver '"+_props.getProperty("driver")+"'.");
 			// Connect to requested data store
 			Class.forName(_props.getProperty("driver"));
 
-			log(Priority.DEBUG,"Connecting to URL '"+_props.getProperty("url")+"'.");
+			log.debug("Connecting to URL '"+_props.getProperty("url")+"'.");
 
 			_conn = DriverManager.getConnection(_props.getProperty("url"));
 			
@@ -88,7 +84,7 @@ public class LinczoneProcessor {
 			ps.setString(15+i, (selected ? "T" : "F"));
 		}
 
-		log(Priority.DEBUG,"Creating record.");
+		log.debug("Creating record.");
 		
 		// Insert new record
 		ps.executeUpdate();
@@ -224,7 +220,7 @@ public class LinczoneProcessor {
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 			recipients.add(rs.getString("email"));
-			log(Priority.DEBUG,"Adding Crusade email: " + rs.getString("email"));
+			log.debug("Adding Crusade email: " + rs.getString("email"));
 		}
 			
 		return recipients;
@@ -247,7 +243,7 @@ public class LinczoneProcessor {
 
 			if(selected) { 
 				recipients.add(_props.getProperty("email-"+MINISTRIES[i]));
-				log(Priority.DEBUG,"Adding email: " + _props.getProperty("email-"+MINISTRIES[i]) );
+				log.debug("Adding email: " + _props.getProperty("email-"+MINISTRIES[i]) );
 			}
 		}
 

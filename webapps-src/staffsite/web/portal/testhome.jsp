@@ -40,8 +40,7 @@
 %>
 <%
 	Hashtable profile = ObjectHashUtil.obj2hash(prof);
-	System.out.println("------------\n"+profile+"\n------------");
-	String profileId = "";
+		String profileId = "";
 	if (profile!=null){
 		profileId = (String)profile.get("StaffSiteProfileId");
 	}

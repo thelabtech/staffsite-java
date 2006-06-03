@@ -314,14 +314,14 @@ public class SIController extends org.alt60m.servlet.Controller {
 	
 	public void logout(ActionContext ctx)
 	{
-        System.out.println("Logging out user - invalidating session");
+        log.info("Logging out user - invalidating session");
         ctx.getSession().invalidate();
-        System.out.println("logout complete.");
+        log.debug("logout complete.");
         try {
 			ctx.getResponse().sendRedirect("/servlet/SIController");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -346,7 +346,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 	{
 		try
 		{
-			System.out.println("AfterLogin firing - clearing session values: "+ctx.getSessionValue("userID"));
+			log.debug("AfterLogin firing - clearing session values: "+ctx.getSessionValue("userID"));
 			//ctx.setSessionValue("SIPersonID","");
 			//ctx.setSessionValue("ApplicationID","");
 			// 2-26-03 kl: commented 2 lines, this was clearing the SIPersonID and we need those!
@@ -355,13 +355,13 @@ public class SIController extends org.alt60m.servlet.Controller {
 			ar.putValue("as", "student"); // no, really it gets used ... tells the 'submit a reference' page that we're coming as a student
 			ar.putValue("page", "apphome");
 			ctx.setReturnValue(ar);
-			System.out.println("sicontroller=page="+ar.getValue("page"));
+			log.debug("sicontroller=page="+ar.getValue("page"));
 			ctx.goToView("apphome");
 			
 
 		}catch(Exception e)
 		{
-			e.printStackTrace();	
+			log.error(e.getMessage(), e);	
 		}
 
 	}
@@ -426,7 +426,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 		if (val!=null)
 		{
 			ctx.setSessionValue(valname,val);
-			System.out.println("Setting in session: "+valname+ "=" + val);	
+			log.debug("Setting in session: "+valname+ "=" + val);	
 		}
 		
 		return val;
@@ -462,7 +462,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 			ctx.goToView(page);
 		}
 		catch (Exception e) {
-			System.out.println(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -475,8 +475,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 			ctx.goToView(view);
 		}
 		catch (Exception e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			ctx.goToView("error");
 		}
 	}
@@ -500,7 +499,7 @@ public class SIController extends org.alt60m.servlet.Controller {
             ctx.goToView("projecttool");
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -510,7 +509,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 			ctx.goToView("home");
 		}
 		catch (Exception e) {
-			System.out.println(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -546,9 +545,9 @@ public class SIController extends org.alt60m.servlet.Controller {
 	
 	private void getNotAuthorizedPage(ActionContext ctx)
 	{
-        System.out.println("in GetNotAuthorized Page--The user must not be authorized or logged in.");
+        log.debug("in GetNotAuthorized Page--The user must not be authorized or logged in.");
 		ctx.goToView("login");
-        System.out.println("returning login page");
+        log.debug("returning login page");
 	}	
 
 	/*************************  End of utility functions section  **************************/
