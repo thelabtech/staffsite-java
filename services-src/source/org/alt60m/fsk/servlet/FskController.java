@@ -25,15 +25,15 @@ public class FskController extends Controller {
     private Hashtable usersRoles = new Hashtable();
 
     public void init() {
-		log(Priority.DEBUG, "FskController.init()");
+		log.debug("FskController.init()");
 		try {
 			String pathToViews = getServletContext().getRealPath("/WEB-INF/FskViews.xml");
 			setViewsFile(pathToViews);
 			usersRoles = FskUsersProcessor.parse(getServletContext().getRealPath("WEB-INF/fskusers.xml"));
 			setDefaultAction("showIndex");
-			log(Priority.INFO, "init() completed.  Ready for action.");	     
+			log.debug("init() completed.  Ready for action.");	     
 		} catch (Exception e) {
-			log(Priority.ERROR, "failed to init");
+			log.error("failed to init");
 		}	
     }
 
@@ -145,7 +145,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform showIndex.", e);
+			log.error("Failed to perform showIndex.", e);
         }
     }
 
@@ -174,7 +174,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform allocKits().", e);
+			log.error("Failed to perform allocKits().", e);
         }
 	}
 
@@ -211,7 +211,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform allocStaffKits().", e);
+			log.error("Failed to perform allocStaffKits().", e);
         }
 	}
 
@@ -233,7 +233,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform viewOrders.", e);
+			log.error("Failed to perform viewOrders.", e);
         }
     }
 
@@ -255,7 +255,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform viewOrders.", e);
+			log.error("Failed to perform viewOrders.", e);
         }
     }
 
@@ -272,7 +272,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform enterOrder().", e);
+			log.error("Failed to perform enterOrder().", e);
         }
     }
 
@@ -290,7 +290,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform enterDistribution().", e);
+			log.error("Failed to perform enterDistribution().", e);
         }
     }
 
@@ -307,7 +307,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform saveOrder().", e);
+			log.error("Failed to perform saveOrder().", e);
         }
     }
 
@@ -324,7 +324,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform saveDistribution().", e);
+			log.error("Failed to perform saveDistribution().", e);
         }
     }
 	
@@ -346,7 +346,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform listStaff().", e);
+			log.error("Failed to perform listStaff().", e);
         }
     }
 
@@ -368,7 +368,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform saveAlloc.", e);
+			log.error("Failed to perform saveAlloc.", e);
         }
     }
 
@@ -390,7 +390,7 @@ public class FskController extends Controller {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform showOrder.", e);
+			log.error("Failed to perform showOrder.", e);
         }
 	}
 
@@ -413,7 +413,7 @@ public void showDistribution (ActionContext ctx) {
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
             e.printStackTrace();
-			log(Priority.ERROR, "Failed to perform showDistribution.", e);
+			log.error("Failed to perform showDistribution.", e);
         }
 	}
 }
