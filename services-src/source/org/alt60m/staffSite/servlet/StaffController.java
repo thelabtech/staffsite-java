@@ -507,7 +507,7 @@ public class StaffController extends Controller {
 			profileHash.put("region", "");
 		}
 
-		log.info("Profile: " + profileHash);
+		log.debug("Profile: " + profileHash);
 
 		ctx.setSessionValue("loggedIn", profileId);
 		ctx.setSessionValue("profile", profileHash);
