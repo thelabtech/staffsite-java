@@ -14,7 +14,6 @@
 			break;
 		}
 	}
-	if (pageNum == 0)
 
 	// check input string / form data for "skin" info
 	String ssurl = request.getParameter("ssurl");
