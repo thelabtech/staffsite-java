@@ -243,6 +243,11 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 
+	<servlet>
+		<servlet-name>MonitorController</servlet-name>
+		<servlet-class>org.alt60m.staffSite.servlet.MonitorController</servlet-class>
+	</servlet>
+	
 	<!-- Spring currently used only for fsk -->
 	<!--
 	<servlet>
@@ -261,6 +266,11 @@
 	</servlet-mapping>
 	-->
 
+	<servlet-mapping>
+        <servlet-name>MonitorController</servlet-name>
+        <url-pattern>/servlet/MonitorController</url-pattern>
+    </servlet-mapping>
+    
 	<servlet-mapping>
 		<servlet-name>ServletRedirector</servlet-name>
 		<url-pattern>/ServletRedirector</url-pattern>
