@@ -9,6 +9,16 @@ SPAN {cursor: hand ; }
 </STYLE>
 <body BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#336699" VLINK="#336699" leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' ONLOAD="header_init();">
 <%@ include file="/headers/overlib.jspf"%>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		preloadFlag = true;
+	}
+}
+// -->
+</SCRIPT>
 <CENTER>
 <TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0><!-- Whole Page table -->
 	<TR>
