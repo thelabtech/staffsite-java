@@ -1,20 +1,30 @@
 <%@ page import="org.alt60m.security.CAS.CASUser" %>
 <%@ page import="org.alt60m.gcx.ConnexionBar" %>
 <%
-String defaultContent = "<div><table><tr><td nowrap = \"true\">We're sorry, but the ConneXion Bar is unavailable. </td>"
-		+ "<td width=\"100%\" nowrap=\"true\" ></td>"
-		+ "<td nowrap = \"true\">| <a href = \"/servlet/StaffController?action=logOut\">Logout</a> |</td></tr></table></div>";
 
 		
 //import Connexion Bar
-CASUser user = (CASUser)session.getAttribute("CASUser");
-String pgtiou = user.getPgtIou();
+String pgtiou = null;
 String content = null;
-if (pgtiou == null || (content = ConnexionBar.render(pgtiou)) == null) {
-	content = defaultContent;
+CASUser user = (CASUser)session.getAttribute("CASUser");
+if (user == null || 
+	(pgtiou = user.getPgtIou()) == null || 
+	(content = ConnexionBar.render(pgtiou)) == null) {
+%>
+<div>
+<table>
+<tr>
+<td nowrap = "true">We're sorry, but the ConneXion Bar is unavailable. </td>
+<td width="100%" nowrap="true" ></td>
+<td nowrap = "true">| <a href = "/servlet/StaffController?action=logOut">Logout</a> |</td>
+</tr>
+</table>
+</div>
+<%
 }
-
-out.println(content);
+else {
+	out.println(content);	
+}
 %>
 
 
