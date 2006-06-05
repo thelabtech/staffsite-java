@@ -3139,9 +3139,9 @@ public class WsnSpController extends Controller
 						temp.put("VisaNo",          (person.getVisaNo()!=null ?             person.getVisaNo()      :""));
 
 						if (!person.getIsStaff()) {
-							System.out.print("Person = " + person.getLegalFirstName() + " " + person.getLegalLastName());
+							log.debug("Person = " + person.getLegalFirstName() + " " + person.getLegalLastName());
 							String tmpValue = helper.value(String.valueOf(person.getSupportBalance()));
-							System.out.print(" tmpValue = " + tmpValue);
+							log.debug(" tmpValue = " + tmpValue);
 							Double db1 = Double.valueOf(tmpValue);
 							log.debug(" db1 = " + db1);
 							double usableAcctBal = db1.doubleValue();
