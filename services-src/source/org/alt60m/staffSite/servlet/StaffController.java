@@ -225,7 +225,7 @@ public class StaffController extends Controller {
 			// initViews(true);
 			initUsers(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -279,7 +279,7 @@ public class StaffController extends Controller {
 
 			ctx.goToView("usageReport");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -397,31 +397,30 @@ public class StaffController extends Controller {
 		try {
 			profileId = _profileManager.authorize(newUser);
 		} catch (UserNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			// set a message needed for more help
 			log.info("User not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			// set a message needed for more help
 			log.info("Profile not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileManagementException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			log.error("Couldn't authenticate: "
 					+ newUser.getUsername() + " due to service problems.", e);
 			ctx.setSessionValue("ErrorCode", "unknown");
 			ctx.goToView("loginError");
 		} catch (MultipleProfilesFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			log.error("Multiple accounts found: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "multipleprofiles");
 			ctx.goToView("loginError");
 		} catch (UserNotVerifiedException e) {
-			//e.printStackTrace(); not really necessary
 			log.error("User GCX Account Not Verified: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "gcxnotverified");
@@ -470,13 +469,11 @@ public class StaffController extends Controller {
 				ctx.setSessionValue("ErrorCode", "notauthorized");
 				ctx.goToView("loginError");
 			} catch (ProfileManagementException pme) {
-				pme.printStackTrace();
 				log.error("Couldn't authenticate: " + userName
 						+ " do to service problems.", pme);
 				ctx.setSessionValue("ErrorCode", "unknown");
 				ctx.goToView("loginError");
 			} catch (Exception e) {
-				e.printStackTrace();
 				log.error("Unknown login error", e);
 				ctx.setSessionValue("ErrorCode", "unknown");
 				ctx.goToView("loginError");
@@ -800,7 +797,7 @@ public class StaffController extends Controller {
 			// to display regional articles", regionalNews);
 			// ctx.setSessionValue("regionalNews", regionalNews);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		ctx.goToView("home");
 	}
@@ -1019,7 +1016,7 @@ public class StaffController extends Controller {
 
 				tub.put("Option", ctx.getInputString("Option"));
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e.getMessage(), e);
 			}
 
 		}
@@ -1094,8 +1091,7 @@ public class StaffController extends Controller {
 					} catch (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException e) {
 						ErrorMsg += "You entered your old password incorrectly.<br>";
 					} catch (Exception e) {
-						log.info("Nope", e);
-						e.printStackTrace();
+						log.error("Unable to change pasword", e);
 						ErrorMsg += "The password change was not successful.  This may not be the last time you will have to change your password.<br>";
 					}
 				}
@@ -1647,7 +1643,7 @@ public class StaffController extends Controller {
 				ctx.goToView("loginPS");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 	}
@@ -1728,7 +1724,7 @@ public class StaffController extends Controller {
 				ctx.goToView("loginEmail");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		// _prefAdaptor.list
 	}
@@ -1817,13 +1813,13 @@ public class StaffController extends Controller {
 			ctx.goToView(goToView);
 
 		} catch (Exception e) {
-			System.err.println("Profile:"
+			log.error(e.getMessage(), e);
+			log.debug("Profile:"
 					+ (Hashtable) ctx.getSessionValue("profile"));
-			System.err.println("Session:"
+			log.debug("Session:"
 					+ ObjectHashUtil.obj2hash(ctx.getSession().toString()));
-			System.err.println("Request:"
+			log.debug("Request:"
 					+ ObjectHashUtil.obj2hash(ctx.getRequest().toString()));
-			e.printStackTrace();
 		}
 
 	}
