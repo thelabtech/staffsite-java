@@ -34,6 +34,11 @@ public class References implements java.io.Serializable {
 
  		        // display all MS references for this staff
  				refString = refString + "<font size=2><B>Summer Projects</B></font><BR>";
+ 				if (accountNo == null)
+ 				{
+ 					refString = refString + "<i>Currently Not Available</i><BR>";
+ 					log.warn("References initialized with null accountNo!");
+ 				}
  				if (accountNo.trim().length() == 0) {
  					// many staff login accounts do not have an AccountNo.  So don't pull up matching references; it would be all references without a staffnumber!
  					refString = refString + "<i>None</i><BR>";
