@@ -499,16 +499,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			}
 			ctx.setReturnValue(ar);
 			ctx.goToURL(loginPage);
-		} catch(org.alt60m.security.dbio.manager.NotAuthorizedException nae) {
-			log.info("Failed to complete AccountController.answerQuestion(). "+nae.getMessage(),nae);
+		} catch(NotAuthorizedException nae) {
+			log.info("User Not Authorized: "+nae.getMessage());
 			goToErrorPage(ctx, nae.getMessage());	
-		} catch(org.alt60m.security.dbio.manager.UserNotFoundException unfe) {
+		} catch(UserNotFoundException unfe) {
 			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
 			goToErrorPage(ctx, unfe.getMessage());	
-		} catch(org.alt60m.security.dbio.manager.UserLockedOutException uloe) {
+		} catch(UserLockedOutException uloe) {
 			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
 			goToErrorPage(ctx, uloe.getMessage());	
-		} catch(org.alt60m.security.dbio.manager.SecurityManagerFailedException smfe) {
+		} catch(SecurityManagerFailedException smfe) {
 			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+smfe.getMessage(),smfe);
 			goToErrorPage(ctx, "Failed to check your answer, because an internal error occured in the security manager during processing.");	
 /*		} catch(org.alt60m.security.manager.SecurityManagerException sme) {
