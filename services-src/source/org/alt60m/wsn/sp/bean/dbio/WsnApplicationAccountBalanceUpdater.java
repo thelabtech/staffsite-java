@@ -47,7 +47,7 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 				String WsnApplicationID = accounts.getString("WsnApplicationid");
 				// check for applicants with account numbers
 				if (!accountNo.equals("")) {
-					System.out.print("Updating " + accountNo + "...");
+					log.info("Updating " + accountNo + "...");
 					try {
 						double bal = fetchBalance(accountNo, sqlconn);
 						java.sql.Statement sqlstmt2 = sqlconn.createStatement();
