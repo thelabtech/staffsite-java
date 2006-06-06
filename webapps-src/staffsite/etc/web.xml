@@ -92,20 +92,60 @@
     <filter>
         <filter-name>maintenance</filter-name>
         <filter-class>org.alt60m.staffSite.filter.MaintenanceFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/maintenance.html</param-value>
+   		</init-param>
     </filter>
         
+    
+    <filter>
+        <filter-name>si_down_for_summer</filter-name>
+        <filter-class>org.alt60m.staffSite.filter.MaintenanceFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/hr_si/downforsummer.html</param-value>
+   		</init-param>
+    </filter>    
+    
+    <filter>
+        <filter-name>ms_down_for_summer</filter-name>
+        <filter-class>org.alt60m.staffSite.filter.MaintenanceFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/hr_ms/downforsummer.html</param-value>
+   		</init-param>
+    </filter>   
+       
 	<!--  Filter Mappings  -->
+<!-- 
 
-    <filter-mapping>
+
+	<filter-mapping>
         <filter-name>maintenance</filter-name>
+        <servlet-name>SIController</servlet-name>
+    </filter-mapping>
+    
+	<filter-mapping>
+        <filter-name>maintenance</filter-name>
+        <url-pattern>/hr_si/*</url-pattern>
+    </filter-mapping>	
+ -->
+	<filter-mapping>
+        <filter-name>ms_down_for_summer</filter-name>
         <servlet-name>MSController</servlet-name>
     </filter-mapping>
     
     <filter-mapping>
-        <filter-name>maintenance</filter-name>
+        <filter-name>ms_down_for_summer</filter-name>
         <url-pattern>/hr_ms/*</url-pattern>
     </filter-mapping>
-
+	
+	<filter-mapping>
+        <filter-name>si_down_for_summer</filter-name>
+        <url-pattern>/hr_si/*</url-pattern>
+    </filter-mapping>
+    
 	<!--  
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>

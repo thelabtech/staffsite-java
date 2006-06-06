@@ -12,7 +12,8 @@ import javax.servlet.ServletResponse;
 public class MaintenanceFilter implements Filter {
 	private String maintenancePage;
 	public void init(FilterConfig config) throws ServletException {
-		maintenancePage = "/maintenance.html";
+		
+		maintenancePage = config.getInitParameter("pageName");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response,
