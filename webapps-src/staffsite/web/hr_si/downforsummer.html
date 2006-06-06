@@ -1,0 +1,344 @@
+<script language="JavaScript"><!--
+    var timeOutClockDisabled = 1;
+// --></script>
+
+
+
+
+<html>
+<head>
+	<title>::: apply4stint.com > Home :::</title>
+	<link rel="stylesheet" type="text/css" href="/hr_si/themes/hr_si_application.css" />
+	<style type="text/css">
+		@import url("/hr_si/themes/hr_si_application.css"); /*IE and NN6x styles*/
+	</style>
+
+	<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function Highlight(e){
+		if(e.className == "required" || e.className == "reqfilled"){
+			e.className = "reqactive";
+		} else{
+			e.className = "active";
+		}
+	}
+
+	function UnHighlight(e){
+		if(e.className == "reqactive"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else if(e.className == "required"){
+			e.className = e.value ? "reqfilled" : "required";
+		} else
+			e.className = "empty";
+	}
+
+	function UnHighlightAll(){
+		for(var x = 0; x < document.forms.length; x++)
+			for(var y = 0; y < document.forms[x].elements.length; y++){
+				UnHighlight(document.forms[x].elements[y]);
+		}
+	}
+//-->
+<!--
+function popupWindow(cUrl,cName,cFeatures) {
+	var xWin = window.open(cUrl,cName,cFeatures)
+}
+
+var theDateElement;
+
+function pickdate(element) {
+	theDateElement = element;
+	myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+	var goTo = "/selday.jsp";
+	if (theDateElement.value!=null && theDateElement.value!="" && theDateElement.value !=" ")
+	{
+		goTo=goTo+'?date='+theDateElement.value;
+	}
+    myFloater.location.href = goTo;
+}
+
+// onBlur="checkEmail(this)"
+function checkEmail(objName) {
+    if(objName.value == "")
+        UnHighlight(objName);
+    else {
+		//convert email to lower case
+		objName.value = objName.value.toLowerCase();
+		if(!validEmail(objName.value)){
+			alert("You must enter a valid email address");
+			objName.focus();
+		}		
+        UnHighlight(objName);
+    }
+    return false;
+}
+function validEmail(email){
+	//var filter = new RegExp("^[a-z0-9]+([-_\.]?[a-z0-9])+@[a-z0-9]+([-_\.]?[a-z0-9])+\.[a-z]{2,4}");
+	var filter = new RegExp("^[a-z0-9\-\.%_&+]+@(([a-z0-9]|[a-z0-9]+[a-z0-9-]*[a-z0-9]+)\.)+[a-z0-9][a-z0-9]+$");
+	if (filter.test(email))
+		return true;
+	else
+		return false;
+}
+
+// onBlur="checkDate(this)"
+function checkDate(objName) {
+	var day = new Date(objName.value);
+    if(objName.value == "")
+        UnHighlight(objName);
+    else if(""+day == "NaN") {
+		objName.select();
+		alert("That date is invalid.  Please try again.");
+		objName.focus();
+    } else {
+		//note in the next line that the month that gets returned is -1 of the normal month (11=December)
+		objName.value = (day.getMonth()<9?"0":"") + (1+day.getMonth()) + "/" + (day.getDate()<10?"0":"") + day.getDate() + "/" ;
+		//fix 1903, etc (Y2K problem) -- we'll use 1950 as the pivot date. kb 2/14/2003
+		if(day.getFullYear()>9999) { // 3-10-03 kl: validate year, do not allow beyond 9999
+			objName.select();
+			alert("That date is invalid.  Please try again.");
+			objName.focus();
+		}
+		if(day.getFullYear()<1950) 
+			objName.value = objName.value + (day.getFullYear()+100); //add a century
+		else
+			objName.value = objName.value + day.getFullYear();
+			
+        UnHighlight(objName);
+    }
+    return false;
+}
+
+// onBlur="CheckPhones(this)"
+function CheckPhones(e){
+	if (isEmpty(e.value)) return true;
+	if (isAllBlanks(e.value) == true){
+		e.select();
+		alert("Invalid Phone Number");
+		e.focus();
+	}
+	UnHighlight(e);
+}
+//-----------------------------
+function isEmpty(s){
+	return ((s == null) || (s.length == 0))
+}
+//-----------------------------
+function isBlank(c){
+	var test = "" + c;
+	if (test == " "){
+	return true;
+	}
+	return false;
+}
+//-----------------------------
+function isAllBlanks(s){
+	var test = "" + s;
+	for (var k = 0; k < test.length; k++){
+		var c = test.substring(k, k+1);
+		if (isBlank(c) == false){
+		return false;
+		}
+	}
+	return true;
+}
+
+//modified kb 2/14/03
+function setdate(theDate) {
+	var finaldate="";
+    var day = new Date(theDate);
+	
+	//note in the next line that the month that gets returned is -1 of the normal month (11=December)
+	finaldate = (day.getMonth()<9?"0":"") + (1+day.getMonth()) + "/" + (day.getDate()<10?"0":"") + day.getDate() + "/" ;
+	//fix 1903, etc (Y2K problem) -- we'll use 1950 as the pivot date. kb 2/14/2003
+	if(day.getFullYear()<1950) 
+		finaldate = finaldate + (day.getFullYear()+100); //add a century
+	else
+		finaldate = finaldate + day.getFullYear();
+
+	theDateElement.value=finaldate;
+	theDateElement.blur();
+}
+
+
+// Greg's Color Picker System
+var theColorElement;
+
+function setColor(val) {
+	theColorElement.value=val;
+	theColorElement.blur();
+}
+function pickColor(element) {
+	theColorElement = element;
+    myFloater = window.open('','ColorPicker','resizable=no,scrollbars=no,width=177,height=110');
+	var goTo = "/sel_color.jsp";
+    myFloater.location.href = goTo;
+}
+//End color picker
+
+function newImage(arg) {
+	if (document.images) {
+		rslt = new Image();
+		rslt.src = arg;
+		return rslt;
+	}
+}
+
+function changeImages() {
+	if (document.images && (preloadFlag == true)) {
+		for (var i=0; i<changeImages.arguments.length; i+=2) {
+			document[changeImages.arguments[i]].src = changeImages.arguments[i+1];
+		}
+	}
+}
+var preloadFlag = false;
+function preloadImages() {
+	if (document.images) {
+		header_08_over = newImage("/images/header_08-over.gif");
+		header_09_over = newImage("/images/header_09-over.gif");
+		header_10_over = newImage("/images/header_10-over.gif");
+		header_11_over = newImage("/images/header_11-over.gif");
+		header_12_over = newImage("/images/header_12-over.gif");
+		preloadFlag = true;
+	}
+}
+
+var minutesTillLogout = 21
+function startTimeoutWarningClock(){
+    try { if(timeOutClockDisabled); } catch (temp) {
+        if(minutesTillLogout==1)    alert("Warning!  Your session is about to time out.  Please save your work soon.");
+        if(minutesTillLogout!=0)    minutesTillLogout = minutesTillLogout-1
+        if(minutesTillLogout>10)    document.all.outputdiv.innerHTML = "<a href=\"JavaScript: popupWindow('/hr_ms/helpTimeout.htm', 'StaffSiteHelp', 'height=200,width=350,dependent=yes,scrollbars=no,resizable')\"><b><font color='#FFFFFF'>Your session will end in " + minutesTillLogout + " minutes.</Font></B></A>";
+        else                        document.all.outputdiv.innerHTML = "<a href=\"JavaScript: popupWindow('/hr_ms/helpTimeout.htm', 'StaffSiteHelp', 'height=200,width=350,dependent=yes,scrollbars=no,resizable')\"><font color='#FF0000'><span style='font-weight: 700; background-color: #FFFF00'>Warning!  Your session will end in " + minutesTillLogout + "  minutes.</span></font></A>";
+        setTimeout("startTimeoutWarningClock()", 60000)
+    }
+}
+
+function init(){
+	UnHighlightAll();
+	preloadImages();
+//    startTimeoutWarningClock();
+}
+// -->
+</SCRIPT>
+</head>
+<body marginwidth="0" marginheight="0" leftmargin="0" rightmargin="0" topmargin="0" onLoad="init()">
+	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td class="header"><a href="http://www.apply4stint.com"><img src="/hr_si/images/pageheader.gif" border="0"></a></td>
+            <TD class="header" align="right" valign="top"><DIV name="outputdiv" id="outputdiv"></DIV></TD>
+        </tr>
+	</table><br /><br /><br />
+
+	<div style="text-align:center;">
+	<table cellspacing="0" cellpadding="0" border="0" width="760"><tr><td>
+	<div style="text-align:center;">
+	
+<!-- Begin generated table [ Home ] -->
+<TABLE WIDTH='90%' CELLSPACING='0'><TR><TD ALIGN='CENTER' NOWRAP CLASS='boxHeader'>Home</TD></TR>
+<TR><TD CLASS='boxHeader'>
+<TABLE WIDTH='100%' CELLSPACING='0' CLASS='box'>
+
+	<table cellspacing="0" cellpadding="1" border="0" width="100%">
+		<tr>
+
+			<td valign="top" class="appbar" width="20%">
+			<div style="text-align:center;">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="appbar"><div style="text-align:center;">Navigation</div></td>
+			</tr>
+				
+				<tr>
+					
+					<td class="menuactive"><nobr>Home</nobr></td>
+
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/instructions.jsp" class="menu" style="width: 100%;">Instructions</a></nobr></td>
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/faq.jsp" class="menu" style="width: 100%;">Frequently Asked Questions</a></nobr></td>
+					
+				</tr>
+				
+				<tr>
+
+					
+					<td class="menu"><nobr><a href="/hr_si/aboutUs.jsp" class="menu" style="width: 100%;">About Us</a></nobr></td>
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/contactUs.jsp" class="menu" style="width: 100%;">Contact Us</a></nobr></td>
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/opportunities.jsp" class="menu" style="width: 100%;">STINT/Internship Opportunities</a></nobr></td>
+
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/aPersonalStory.jsp" class="menu" style="width: 100%;">A Real Life Story</a></nobr></td>
+					
+				</tr>
+				
+				<tr>
+					
+					<td class="menu"><nobr><a href="/hr_si/privacyPolicy.jsp" class="menu" style="width: 100%;">Privacy Policy</a></nobr></td>
+					
+				</tr>
+				
+			</table>
+
+			</div>
+			<td class="app" width="80%" valign="top">
+
+
+
+The online application is offline for the summer. Please check back in the fall.
+
+			</td>
+		</tr>
+	</table>
+	</TABLE></TD></TR></TABLE>
+<!-- End generated table [ Home ] -->
+
+	</div>
+
+	<br /><br /><br />
+
+			</td>
+
+		</tr>
+	<!-- </table>
+	<table cellspacing="0" cellpadding="0" border="0" width="100%"> -->
+		<tr>
+			<td width="100%" colspan="2" rowspan="1">
+				<br /><br /><br /><hr />
+				<div style="text-align:center;"><nobr>&copy; 2002 Campus Crusade for Christ International.&nbsp;&nbsp;Questions? Comments? Bugs? <a href="/general/feedback.jsp" target="_blank">Send us feedback.</a></nobr></div>
+			</td>
+
+		</tr>
+	</table>
+ 	<!-- Begin Google Analytics code -->
+	<script src="/urchin.js" type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	_uacct = "UA-79392-3";
+	urchinTracker();
+	</script>
+	<!-- End Google Analytics code -->
+</body>
+</html>
