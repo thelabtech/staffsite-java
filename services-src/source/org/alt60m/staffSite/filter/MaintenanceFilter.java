@@ -9,7 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class MaintenanceFilter implements Filter {
+	private static Log log = LogFactory.getLog(MaintenanceFilter.class);
 	private String maintenancePage;
 	public void init(FilterConfig config) throws ServletException {
 		
@@ -18,11 +22,20 @@ public class MaintenanceFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		request.getRequestDispatcher(maintenancePage).forward(request, response);
+		log.debug("Doing filter");
+		if (blockUser(request))
+			request.getRequestDispatcher(maintenancePage).forward(request, response);
+		else
+			chain.doFilter(request, response);
 	}
 
 	public void destroy() {
-
+	}
+	
+	protected boolean blockUser(ServletRequest request)
+	{
+		log.debug("blocking user");
+		return true;
 	}
 
 }
