@@ -52,7 +52,8 @@ public class MonitorController extends Controller {
 		testPerson.setDateCreated(new Date());
 		String updateFieldName = "FirstName";
 		Object updateValue = "Test2";
-
+		
+		log.debug("Beginning person test");
 		boolean personFailure = testEntity(testPerson, updateFieldName, updateValue);
 			
 		long testTime = System.currentTimeMillis() - testStartTime;
@@ -69,6 +70,8 @@ public class MonitorController extends Controller {
 		updateFieldName = "Password";
 		updateValue = "testpassword2";
 
+
+		log.debug("Beginning user test");
 		boolean userFailure = testEntity(testUser, updateFieldName, updateValue);
 			
 		testTime = System.currentTimeMillis() - testStartTime;
@@ -86,6 +89,7 @@ public class MonitorController extends Controller {
 		updateFieldName = "LastName";
 		updateValue = "Test2";
 
+		log.debug("Beginning staff test");
 		boolean staffFailure = testEntity(testStaff, updateFieldName, updateValue);
 			
 		testTime = System.currentTimeMillis() - testStartTime;
