@@ -37,7 +37,7 @@ public class MonitorController extends Controller {
 		boolean failure = dbFailure || gcxFailure || casFailure;
 		String statusMessage = (failure ? "FAIL" : "OK");
 		results.put("statusMessage", statusMessage);
-		
+		log.info("Status page test complete; Status: " + statusMessage);
 		ctx.setReturnValue(results);
 		ctx.goToURL("/monitor.jsp");
 	}
@@ -108,11 +108,11 @@ public class MonitorController extends Controller {
 				log.error("Test object received no id on successful insertion!");
 				failure = true;
 			}
-			log.info("Successful insert");
+			log.debug("Successful insert");
 			entity.setFieldValue(updateFieldName, updateValue);
 			boolean successfulUpdate = entity.persist();
 			if (successfulUpdate) {
-				log.info("Successful update");
+				log.debug("Successful update");
 			}
 			else {
 				log.warn("Unsuccessful update");
@@ -120,7 +120,7 @@ public class MonitorController extends Controller {
 			}
 			boolean successfulDelete = entity.delete();
 			if (successfulDelete) {
-				log.info("Successful delete");
+				log.debug("Successful delete");
 			}
 			else {
 				log.warn("Unsuccessful delete");
