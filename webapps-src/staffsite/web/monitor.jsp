@@ -17,11 +17,8 @@ Status: ${tub.statusMessage }
 </h3>
 
 <h3>
-Database Tests:
+Database Tests: ${tub.dbMessage }
 </h3>
-<p>
-Status: ${tub.dbMessage }
-</p>
 <p>
 Person results:
 </br>
