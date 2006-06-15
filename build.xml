@@ -1,0 +1,140 @@
+<project name="USCM Staffsite" default="deploy" basedir=".">
+
+	<target name="usage">
+		<echo message=""/>
+		<echo message="USCM Staffsite build file"/>
+		<echo message="-------------------------------------------------------------"/>
+		<echo message=" Available targets are :"/>
+		<echo message=""/>
+		<echo message="   compile-common      --> compiles common code"/>
+		<echo message="   compile-services    --> compiles services"/>
+		<echo message="   clean      --> erases the build directory"/>
+		<echo message="   deploy     --> deploys the build to ../web"/>
+		<echo message=""/>
+	</target>
+
+  <property name="build" value="build" />
+  <property name="deploy.dir" value="../web" />
+	<property name="build.lib" value="${build}/lib" />
+
+<!-- Targets -->
+  <target name="clean">
+    <delete dir="${build}" />
+  </target>
+
+  <target name="prepare">
+    <echo message="Java version is ${java.version}"/>
+    <tstamp/>
+    <mkdir dir="${build}" />
+    <mkdir dir="${build.lib}" />
+  </target>
+
+
+	<!-- common -->
+	<property name="common-src" value="common-src/source"/>
+	<property name="auxclasses" value="classes" />
+	<property name="temp-dir"  value="${build}/tmp" />
+
+	<property name="services-src" value="services-src/source" />
+	<property name="config.dir" value="config" />
+
+	<property name="webapps-src" value="webapps-src/staffsite" />
+
+	<property name="javac.optimize" value="off"/>
+	<property name="javac.debug" value="on"/>
+	<property name="javc.deprecation" value="off"/>
+
+	<property name="etc.dir" value="${webapps-src}/etc"/>
+	<property name="web.dir" value="${webapps-src}/web"/>
+
+	<fileset id="lib.dir" dir="lib">
+		<include name="*.jar"/>
+	</fileset>
+	<fileset id="common-lib.dir" dir="common-lib">
+		<include name="*.jar"/>
+	</fileset>
+
+	<path id="classpath-common">
+		<fileset refid="common-lib.dir"/>
+		<fileset refid="lib.dir"/>
+		<pathelement location="${auxclasses}"/>
+	</path>
+
+	<path id="classpath-services">
+		<fileset dir="${build.lib}">
+			<include name="*.jar"/>
+		</fileset>
+		<path refid="classpath-common"/>
+	</path>
+
+	<target name="compile-common" depends="prepare">
+		<tstamp/>
+		<delete dir="${temp-dir}" />
+		<mkdir dir="${temp-dir}"/>
+		<javac srcdir="${common-src}" 
+			debug="${javac.debug}" 
+			optimize="${javac.optimize}" 
+			destdir="${temp-dir}" 
+			deprecation="${javac.deprecation}"
+		>      
+			<classpath refid="classpath-common"/>
+		</javac>
+		<jar jarfile="${build.lib}/staffsite-common.jar" basedir="${temp-dir}"/>
+		<delete dir="${temp-dir}" />
+	</target>
+
+
+	<!-- services -->
+
+
+	<target name="compile-services" depends="prepare">
+		<tstamp/>
+		<delete dir="${temp-dir}" />
+		<mkdir dir="${temp-dir}"/>
+		<javac srcdir="${services-src}" 
+			debug="${javac.debug}" 
+			optimize="${javac.optimize}" 
+			destdir="${temp-dir}" 
+			deprecation="${javac.deprecation}"
+		>
+			<classpath refid="classpath-services"/>
+		</javac>
+		<jar jarfile="${build.lib}/staffsite-services.jar" basedir="${temp-dir}"/>
+		<delete dir="${temp-dir}" />
+	</target>
+
+	<!-- webapps -->
+
+
+	
+	<target name="deploy" depends="compile-common, compile-services">
+		<tstamp/>
+		<mkdir  dir="${deploy.dir}"/>
+		<copy todir="${deploy.dir}">
+			<fileset dir="${web.dir}"/>
+		</copy>
+		
+		<mkdir dir="${deploy.dir}/WEB-INF/"/>
+		<copy todir="${deploy.dir}/WEB-INF/">
+			<fileset dir="${etc.dir}"/>
+		</copy>
+		
+		<mkdir dir="${deploy.dir}/WEB-INF/lib/"/>
+		<copy todir="${deploy.dir}/WEB-INF/lib/">
+			<fileset dir="${build.lib}"/>
+			<fileset refid="lib.dir"/>
+		</copy>
+		
+		<mkdir dir="${deploy.dir}/WEB-INF/classes/"/>
+		<copy todir="${deploy.dir}/WEB-INF/classes/">
+			<fileset dir="${auxclasses}"/>
+		</copy>
+
+		<copy todir="${deploy.dir}">
+			<fileset dir="${config.dir}"/>
+		</copy>
+
+	</target>
+
+</project>
+
