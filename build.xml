@@ -132,7 +132,7 @@
 			<fileset dir="${auxclasses}"/>
 		</copy>
 
-		<copy todir="${deploy.dir}">
+		<copy todir="${deploy.dir}" overwrite="true">
 			<fileset dir="${config.dir}"/>
 		</copy>
 
