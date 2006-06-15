@@ -9,7 +9,7 @@
 		<echo message="   compile-common      --> compiles common code"/>
 		<echo message="   compile-services    --> compiles services"/>
 		<echo message="   clean      --> erases the build directory"/>
-		<echo message="   deploy     --> deploys the build to ../web"/>
+		<echo message="   deploy     --> deploys the build to build.lib (defaults to ./web)"/>
 		<echo message=""/>
 	</target>
 
