@@ -14,7 +14,7 @@
 	</target>
 
   <property name="build" value="build" />
-  <property name="deploy.dir" value="../web" />
+  <property name="deploy.dir" value="web" />
 	<property name="build.lib" value="${build}/lib" />
 
 <!-- Targets -->
