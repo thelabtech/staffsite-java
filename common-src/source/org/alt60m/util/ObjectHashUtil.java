@@ -38,7 +38,7 @@ public class ObjectHashUtil {
 					(-1 == ";getEJBHome;getHandle;getPrimaryKey;getClass;getAttribute;getFieldValue;getHeaderName;getColumnName;getXML;getAutoCommit;getDBIOTableName;getDBIOTableDef;getCustomFields;getUltrasoft;getAutodetectProperties".indexOf(methodName)) ) {
 				String key = methodName.substring(3);
 				try {
-				  Method m = c.getMethod(methodName, null);
+				  Method m = c.getMethod(methodName, (Class []) null);
 				  if (checkReturnType(m.getReturnType())) {
                     Object result = m.invoke(o, arguments);
                     if(result==null && java.lang.String.class.isAssignableFrom(m.getReturnType())) {
@@ -67,7 +67,7 @@ public class ObjectHashUtil {
 		for (int i = 0; i < fields.length; i++) {
 			String methodName = "get" + fields[i];
 			try {
-			  Method m = c.getMethod(methodName, null);
+			  Method m = c.getMethod(methodName, (Class []) null);
 			  h.put(fields[i], m.invoke(o, new Object[] {} ));
 			} catch (IllegalAccessException e) {
 			  log.debug(e);
