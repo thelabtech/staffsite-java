@@ -76,6 +76,7 @@
 			optimize="${javac.optimize}" 
 			destdir="${temp-dir}" 
 			deprecation="${javac.deprecation}"
+			encoding="cp1252"
 		>      
 			<classpath refid="classpath-common"/>
 		</javac>
@@ -96,6 +97,7 @@
 			optimize="${javac.optimize}" 
 			destdir="${temp-dir}" 
 			deprecation="${javac.deprecation}"
+			encoding="cp1252"
 		>
 			<classpath refid="classpath-services"/>
 		</javac>
