@@ -33,12 +33,13 @@ public class CRSImportExport {
 
 	Hashtable returnVal;
 
-	//Be sure to include the final closing \\ in the path
-	private final String templatePath = "\\database\\template\\";
+	//Be sure to include the final closing / in the path
+	char separatorChar = File.separatorChar;
+	private final String templatePath = separatorChar + "database" + separatorChar + "template" + separatorChar;
 
-	private final String downloadPath = "\\database\\download\\";
+	private final String downloadPath = separatorChar + "database" + separatorChar + "download" + separatorChar;
 
-	private final String uploadPath = "\\database\\upload\\";
+	private final String uploadPath = separatorChar + "database" + separatorChar + "upload" + separatorChar;
 
 	private final int baseNewId = 5000000;
 
