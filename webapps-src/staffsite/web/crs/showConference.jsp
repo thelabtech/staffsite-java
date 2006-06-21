@@ -226,10 +226,10 @@ try{
 					COLSPAN="2">Web Presence</TD>
 			</TR>
 			<%
-			String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "https://" : "http://") + request.getServerName();
+			String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "http://" : "http://") + request.getServerName();
 					// changes Web Presence URL from staff.campuscrusade... to www.conferenceregistrationtool.com
 					if (conference.getIsCloaked()==true)
-						serverName = "https://www.conferenceregistrationtool.com";
+						serverName = "http://www.conferenceregistrationtool.com";
 
 		 /* iterate over all RegistrationTypes */
 		regTypes = regTypesV.iterator();

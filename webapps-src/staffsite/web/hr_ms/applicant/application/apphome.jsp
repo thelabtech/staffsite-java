@@ -1,7 +1,7 @@
 <jsp:useBean id="infoBean" class="org.alt60m.hr.ms.bean.dbio.MSInfoBean"/>
 <%@ include file="header.jspf" %>
 <%
-	String appStatus = "New";
+	String appStatus = "Not Submitted";
 	if (isSubmitted)
 		appStatus = "Submitted";
 %>
