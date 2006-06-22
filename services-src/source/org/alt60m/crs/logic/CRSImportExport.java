@@ -422,7 +422,7 @@ public class CRSImportExport {
 					"Appended the table Registrants_Custom to Registrants");
 			//TODO: drop Registrants_Custom?
 		} catch (Exception e) {
-			log.info(e, e);
+			log.info(e);
 			writeOutput(
 					1,
 					"Registrants_Custom table not found, continuing with database creation.");
