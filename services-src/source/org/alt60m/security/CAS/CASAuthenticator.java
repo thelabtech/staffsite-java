@@ -78,7 +78,7 @@ public class CASAuthenticator {
 		// TODO: for testing, don't request proxy (for connexion bar); our
 		// localhosts don't have https set up.
 		// In the future, we ought to. However...still might not be able to
-		// receive from cas server, on other side of the firewall...
+		// receive from cas server, which is in the dmz...
 		if (service.indexOf("https") != -1) {
 			sv.setProxyCallbackUrl(proxyCallback);
 		}
@@ -87,7 +87,9 @@ public class CASAuthenticator {
 		sv.setCasValidateUrl(CAS_VALIDATION_URL);
 		sv.setService(service);
 		sv.setServiceTicket(ticket);
-		 
+		
+		log.debug("Validating ticket " + ticket + " for service " + service);
+		
 		try {
 			// contact CAS and validate
 			sv.validate();

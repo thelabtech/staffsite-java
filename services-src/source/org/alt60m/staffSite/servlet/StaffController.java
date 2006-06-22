@@ -44,7 +44,7 @@ public class StaffController extends Controller {
 
 	final String USERS_FILE = "/WEB-INF/staffusers.xml";
 
-	final String HRQUERYUSERS_FILE = "/WEB-INF/hrqueryusers.xml";
+	final String HRQUERYUSERS_FILE = "/WEB-INF/HRQueryUsers.xml";
 
 	final String Log4JConfig_FILE = "/WEB-INF/classes/Log4JConfig.xml";
 
@@ -308,12 +308,14 @@ public class StaffController extends Controller {
 
 	public void logInGCX(ActionContext ctx) {
 		try {
-			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?"
-				+ "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx), "UTF-8") 
-				+ "&" + "service=" + URLEncoder.encode(getSecureService(ctx), "UTF-8");
+			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?" 
+			+ "service=" + URLEncoder.encode(getService(ctx), "UTF-8")
+			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx), "UTF-8");
+
+			log.debug("redirecting to: " + gcxLoginURL);
 			ctx.getResponse().sendRedirect(gcxLoginURL);
-			
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			log.info("Unable to Redirect");
 			ctx.setSessionValue("ErrorCode", "server error");
 			ctx.goToView("loginError");
@@ -343,8 +345,6 @@ public class StaffController extends Controller {
 
 	public void logIn(ActionContext ctx) {
 		if (ctx.getInputString(CASAuthenticator.CAS_TICKET_TOKEN) == null) {
-			log.debug(ctx.getRequest().getRequestURI() + " ** "
-					+ ctx.getRequest().getQueryString());
 			ctx.goToView("login");
 		} else {
 			String ticket = ctx
@@ -1908,18 +1908,20 @@ public class StaffController extends Controller {
 
 	private String getService(ActionContext ctx) {
 		return ctx.getRequest().getScheme() + "://"
-				+ ctx.getRequest().getServerName() + "/servlet/StaffController";
+				+ ctx.getRequest().getServerName() +
+				(ctx.getRequest().getLocalPort() != 80 ? ":" + ctx.getRequest().getLocalPort() : "") +
+				"/servlet/StaffController";
 	}
 
 	//note: this may not be the best way to do this...
-	private String getSecureService(ActionContext ctx) {
-		if (ctx.getRequest().getServerName().indexOf("localhost") == -1)
-			return "https" + "://"
-			+ ctx.getRequest().getServerName() + "/servlet/StaffController";
-		else
-			return getService(ctx);
-		 
-	}
+//	private String getSecureService(ActionContext ctx) {
+//		if (ctx.getRequest().getServerName().indexOf("localhost") == -1)
+//			return "https" + "://"
+//			+ ctx.getRequest().getServerName() + "/servlet/StaffController";
+//		else
+//			return getService(ctx);
+//		 
+//	}
 	
 	private String getLogoutCallbackService(ActionContext ctx) {
 		return getService(ctx);
@@ -1942,6 +1944,8 @@ public class StaffController extends Controller {
 	
 	private String getProxyCallbackService(ActionContext ctx) {
 		return ctx.getRequest().getScheme() + "://"
+		+ ctx.getRequest().getServerName() +
+		(ctx.getRequest().getLocalPort() != 80 ? ":" + ctx.getRequest().getLocalPort() : "") 
 		+ ctx.getRequest().getServerName() + "/servlet/CasProxyServlet";
 	}
 
