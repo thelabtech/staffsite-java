@@ -81,6 +81,7 @@ public class CASAuthenticator {
 		// receive from cas server, which is in the dmz...
 		if (service.indexOf("https") != -1) {
 			sv.setProxyCallbackUrl(proxyCallback);
+			log.debug("Using proxyCallback: " + proxyCallback);
 		}
 			
 		// set its parameters
@@ -88,7 +89,8 @@ public class CASAuthenticator {
 		sv.setService(service);
 		sv.setServiceTicket(ticket);
 		
-		log.debug("Validating ticket " + ticket + " for service " + service);
+		log.debug("Validating ticket: " + ticket);
+		log.debug("For service: " + service);
 		
 		try {
 			// contact CAS and validate
