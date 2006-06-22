@@ -1948,7 +1948,7 @@ public class StaffController extends Controller {
 		+ ctx.getRequest().getServerName() +
 		((ctx.getRequest().getLocalPort() != 80 && ctx.getRequest().getLocalPort() != 443) ? 
 			":" + ctx.getRequest().getLocalPort() : "") 
-		+ ctx.getRequest().getServerName() + "/servlet/CasProxyServlet";
+		+ "/servlet/CasProxyServlet";
 	}
 
 	private String getHomeUrl(ActionContext ctx) {
