@@ -1909,8 +1909,9 @@ public class StaffController extends Controller {
 	private String getService(ActionContext ctx) {
 		return ctx.getRequest().getScheme() + "://"
 				+ ctx.getRequest().getServerName() +
-				(ctx.getRequest().getLocalPort() != 80 ? ":" + ctx.getRequest().getLocalPort() : "") +
-				"/servlet/StaffController";
+				((ctx.getRequest().getLocalPort() != 80 && ctx.getRequest().getLocalPort() != 443) ? 
+						":" + ctx.getRequest().getLocalPort() : "") 
+				+ "/servlet/StaffController";
 	}
 
 	//note: this may not be the best way to do this...
@@ -1945,7 +1946,8 @@ public class StaffController extends Controller {
 	private String getProxyCallbackService(ActionContext ctx) {
 		return ctx.getRequest().getScheme() + "://"
 		+ ctx.getRequest().getServerName() +
-		(ctx.getRequest().getLocalPort() != 80 ? ":" + ctx.getRequest().getLocalPort() : "") 
+		((ctx.getRequest().getLocalPort() != 80 && ctx.getRequest().getLocalPort() != 443) ? 
+			":" + ctx.getRequest().getLocalPort() : "") 
 		+ ctx.getRequest().getServerName() + "/servlet/CasProxyServlet";
 	}
 
