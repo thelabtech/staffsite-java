@@ -60,6 +60,11 @@
 		<param-value>https://staff2.ccci.org/ss/ssoAuthorization</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>RequestProxyGrantingTicket</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
 	<!-- 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

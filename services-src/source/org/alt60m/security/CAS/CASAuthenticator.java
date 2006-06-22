@@ -35,6 +35,7 @@ public class CASAuthenticator {
 	
 	public static String CAS_VERIFICATION_URL;
 	
+	public static Boolean REQUEST_PROXY_GRANTING_TICKET;
 
 	public static void init(ServletContext app) throws ServletException
 	{
@@ -54,7 +55,11 @@ public class CASAuthenticator {
 		CAS_VERIFICATION_URL = (String) app.getInitParameter("CasVerificationURL");
 		if (CAS_VERIFICATION_URL == null)
 			throw new ServletException("need parameter CasVerificationURL");
-          
+        
+		REQUEST_PROXY_GRANTING_TICKET = Boolean.parseBoolean(app.getInitParameter("RequestProxyGrantingTicket"));
+		if (REQUEST_PROXY_GRANTING_TICKET == null) {
+			REQUEST_PROXY_GRANTING_TICKET = false;
+		}
 	}
 	
 
@@ -79,9 +84,11 @@ public class CASAuthenticator {
 		// localhosts don't have https set up.
 		// In the future, we ought to. However...still might not be able to
 		// receive from cas server, which is in the dmz...
-		if (service.indexOf("https") != -1) {
+		if (REQUEST_PROXY_GRANTING_TICKET) {
 			sv.setProxyCallbackUrl(proxyCallback);
 			log.debug("Using proxyCallback: " + proxyCallback);
+		} else {
+			log.debug("Not requesting PGT");
 		}
 			
 		// set its parameters
