@@ -1944,7 +1944,7 @@ public class StaffController extends Controller {
 	}
 	
 	private String getProxyCallbackService(ActionContext ctx) {
-		return ctx.getRequest().getScheme() + "://"
+		return "https://"
 		+ ctx.getRequest().getServerName() +
 		((ctx.getRequest().getLocalPort() != 80 && ctx.getRequest().getLocalPort() != 443) ? 
 			":" + ctx.getRequest().getLocalPort() : "") 
