@@ -49,6 +49,7 @@ public class ConnexionBar {
 	}
 
 	private static String getBar(String pgtiou, String barTicketService, String barService, String signinService) throws IOException, UnknownHostException {
+		log.debug("Getting connexion bar for pgtiou " + pgtiou);
 		String content = null;
 		String proxyticket = ProxyTicketReceptor.getProxyTicket(pgtiou,
 				barTicketService);

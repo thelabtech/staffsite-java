@@ -3,13 +3,22 @@
 <%
 
 		
-//import Connexion Bar
-String pgtiou = null;
-String content = null;
-CASUser user = (CASUser)session.getAttribute("CASUser");
-if (user == null || 
-	(pgtiou = user.getPgtIou()) == null || 
-	(content = ConnexionBar.render(pgtiou)) == null) {
+String cachedBar = (String) session.getAttribute("cachedConnexionBar");
+if (cachedBar != null) {
+	out.println(cachedBar);
+} else {
+	//	import Connexion Bar from GCX
+	String pgtiou = null;
+	String content = null;
+	CASUser user = (CASUser)session.getAttribute("CASUser");
+	if (user != null &&
+		(pgtiou = user.getPgtIou()) != null &&
+		(content = ConnexionBar.render(pgtiou)) != null) 
+	{
+		session.setAttribute("cachedConnexionBar", content);
+		out.println(content);
+	}
+	else {
 %>
 <div>
 <table>
@@ -21,9 +30,7 @@ if (user == null ||
 </table>
 </div>
 <%
-}
-else {
-	out.println(content);	
+	}
 }
 %>
 
