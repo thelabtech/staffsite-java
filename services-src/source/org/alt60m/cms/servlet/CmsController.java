@@ -71,6 +71,7 @@ public class CmsController extends Controller {
 		initFileSpecs(false);
 		contentPath = getServletContext().getRealPath(CONTENT_FOLDER);
 		CmsIndex.SetIndexPath(getServletContext().getRealPath(INDEX_FOLDER));
+		CmsIndex.setFileSpecsPath(getServletContext().getRealPath(CMS_FILESPECS));
 		log.debug("contentPath: " + contentPath);
 	}
 
@@ -246,6 +247,7 @@ public class CmsController extends Controller {
 			CmsIndex ci = new CmsIndex();
 			log.debug("Index created");
 			ci.populate();
+			ctx.getResponse().getWriter().print("Reindex complete");
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();

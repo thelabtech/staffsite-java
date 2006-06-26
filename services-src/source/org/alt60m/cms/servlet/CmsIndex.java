@@ -15,14 +15,17 @@ import org.apache.lucene.search.*;
 
 public class CmsIndex {
 
-	static String searchIndexPath = "./Tomcat/webapps/staffsite/cms/cmsIndex";
-	static String fileSpecsPath = "file:///D:/ade4_USCM/Tomcat/webapps/staffsite/WEB-INF/cmsfilespecs.xml";
+	static String searchIndexPath;
+	static String fileSpecsPath;
 
 	private static Log log = LogFactory.getLog(CmsIndex.class);
 	
 	public CmsIndex() {}
 	public static void SetIndexPath(String searchIndexPathIn) {
 		searchIndexPath = searchIndexPathIn;
+	}
+	public static void setFileSpecsPath(String fileSpecsPath) {
+		CmsIndex.fileSpecsPath = fileSpecsPath;
 	}
 
 	public void populate() {
@@ -32,7 +35,7 @@ public class CmsIndex {
 
 			// get all the files in the cms
 			org.alt60m.cms.model.File a = new org.alt60m.cms.model.File();
-			Vector fileSet = (Vector)ObjectHashUtil.list(a.selectList("order by CmsFileID"));
+			Vector fileSet = (Vector)ObjectHashUtil.list(a.selectList("1=1 order by CmsFileID"));
 
 			for (int i=0;i<fileSet.size();i++) {
 				Hashtable f = (Hashtable)fileSet.get(i);
@@ -43,8 +46,7 @@ public class CmsIndex {
 			writer.optimize();
 			writer.close();
 		} catch (Exception e) {
-			log.error(e);
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 
@@ -97,7 +99,12 @@ public class CmsIndex {
 				if ((d.get("submitType")!=null)&&(d.get("submitType").equals("web"))) { ext = ".html"; }
 				if (((String)d.get("Url")).startsWith("http://")) { ext = ".html"; }
 				Hashtable fileSpec = (Hashtable)fileSpecs.get(ext);
-				doc.add(Field.Keyword("type",(String)fileSpec.get("Group")));
+				if (fileSpec != null) {
+					doc.add(Field.Keyword("type",(String)fileSpec.get("Group")));
+				} else {
+					log.warn("File '" + d.get("Title") + "' with extension '" + ext + "' has no group");
+					doc.add(Field.Keyword("type","none"));
+				}
 			}
 			catch (StringIndexOutOfBoundsException sioobe)
 			{
