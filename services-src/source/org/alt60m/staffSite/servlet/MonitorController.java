@@ -1,5 +1,6 @@
 package org.alt60m.staffSite.servlet;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,10 @@ import org.alt60m.servlet.Controller;
 import com.kenburcham.framework.dbio.DBIOEntity;
 
 public class MonitorController extends Controller {
+	
+	public void getAlive(ActionContext ctx) throws IOException {
+		ctx.getResponse().getWriter().print("Status: OK");
+	}
 	
 	public void getStatus(ActionContext ctx)
 	{
