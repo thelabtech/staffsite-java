@@ -68,7 +68,7 @@
 	
 	<context-param>
 		<param-name>ClusteredServers</param-name>
-		<param-value>localhost</param-value>
+		<param-value>teststaff.uscm.org</param-value>
 	</context-param>
 	
 		
