@@ -70,6 +70,10 @@ public class StaffController extends Controller {
 
 	final String PREF_ENABLE_SSO_KEEP_ASKING = "Ask";
 
+	String proxyUrlSuffix;
+	
+	String logoutCallbackSuffix;
+	
 	/*
 	 * CODE TO CAPTURE HR INFO UPON LOGIN Added by S. Paulis 7/2005
 	 */
@@ -175,6 +179,11 @@ public class StaffController extends Controller {
 			initHRQueryUsers(true);
 			CASAuthenticator.init(config.getServletContext());
 
+			
+			proxyUrlSuffix = config.getInitParameter("ProxyUrlSuffix");
+			
+			logoutCallbackSuffix = config.getInitParameter("LogoutCallbackSuffix");
+			
 			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
 			log.fatal("init() failed", e);
@@ -343,7 +352,7 @@ public class StaffController extends Controller {
 	 * 
 	 */
 
-	public void logIn(ActionContext ctx) {
+	public void logIn(ActionContext ctx) throws IOException {
 		if (ctx.getInputString(CASAuthenticator.CAS_TICKET_TOKEN) == null) {
 			ctx.goToView("login");
 		} else {
@@ -357,10 +366,12 @@ public class StaffController extends Controller {
 						.get(ticket.substring(1)));
 				if (session != null) {
 					session.invalidate();
+					ctx.getResponse().getWriter().print("Logout Successful");
 				} else {
-					log.debug("Ticket not mapped to session: "
+					log.warn("Logout request received, but ticket not mapped to session: "
 							+ ticket);
-				}
+					ctx.getResponse().getWriter().print("Logout Unsuccessful");
+				};
 			}
 
 			else // otherwise, it's a gcx login
@@ -586,162 +597,6 @@ public class StaffController extends Controller {
 		}
 	}
 
-	/*
-	 * } catch (MissingRequestParameterException mpe) { ctx.goToView("login"); }
-	 * catch (UserLockedOutException err) { log.info("User locked out: " +
-	 * userName); ctx.setSessionValue("ErrorCode", "lockedout");
-	 * ctx.goToView("loginError"); } catch (ProfileNotFoundException pnfe) { //
-	 * set a message needed for more help log.info("Profile not found: " +
-	 * userName); ctx.setSessionValue("ErrorCode", "noprofile");
-	 * ctx.goToView("loginError"); } catch (MultipleProfilesFoundException mpfe) {
-	 * log.error("Multiple accounts found: " + userName);
-	 * ctx.setSessionValue("ErrorCode", "multipleprofiles");
-	 * ctx.goToView("loginError"); } catch
-	 * (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException nae) {
-	 * log.info("Not authorized: " + userName);
-	 * ctx.setSessionValue("ErrorCode", "notauthorized");
-	 * ctx.goToView("loginError"); } catch (ProfileManagementException pme) {
-	 * pme.printStackTrace(); log.error("Couldn't authenticate: " +
-	 * userName + " do to service problems.", pme);
-	 * ctx.setSessionValue("ErrorCode", "unknown"); ctx.goToView("loginError"); }
-	 * catch (Exception e) { e.printStackTrace(); log.error("Unknown
-	 * login error", e); ctx.setSessionValue("ErrorCode", "unknown");
-	 * ctx.goToView("loginError"); } }
-	 */
-	/** *** END NEW SSO CODE **** */
-
-	/***************************************************************************
-	 * OLD CODE TO DELETE *** public void logIn(ActionContext ctx) {
-	 * log.debug(ctx.getRequest().getRequestURI() + " ** " +
-	 * ctx.getRequest().getQueryString());
-	 * 
-	 * ctx.goToView("login"); }
-	 * 
-	 * public void authenticate(ActionContext ctx) {
-	 * 
-	 * String userName = new String(); String password = new String();
-	 * 
-	 * try {
-	 * 
-	 * userName = ctx.getInputString("UserName", true).toLowerCase() +
-	 * MAIL_SUFFIX; password = ctx.getInputString("Password", true); //
-	 * Authenticate based on credentials log.debug("username: " +
-	 * userName); log.debug("password: " + password); String profileId =
-	 * _profileManager.authenticate(userName, password); // Load profile
-	 * Hashtable profileHash = ObjectHashUtil.obj2hash(new
-	 * StaffSiteProfile(profileId)); Staff staff = new Staff(); String accountNo =
-	 * (String) profileHash.get("AccountNo"); staff.setAccountNo(accountNo); if
-	 * ((accountNo!= null) && (!staff.isPKEmpty()) && (staff.select())) { String
-	 * region = staff.getRegion(); if (region != null) {
-	 * profileHash.put("region", region); } else { profileHash.put("region",
-	 * ""); } } else { profileHash.put("region", ""); }
-	 * 
-	 * log.info("Profile: " + profileHash);
-	 * 
-	 * ctx.setSessionValue("loggedIn", profileId);
-	 * ctx.setSessionValue("profile", profileHash);
-	 * ctx.setSessionValue("userName", userName);
-	 * 
-	 * //profile information in here.........................
-	 * ctx.setSessionValue("zipCode", getPreference(profileId, "ZIPCODE",
-	 * "NO")); ctx.setSessionValue("boxStyle", getPreference(profileId,
-	 * "BOXSTYLE", "rounded")); ctx.setSessionValue("homePageArticlesToDisplay",
-	 * getPreference(profileId, "HOMEPAGEARTICLESTODISPLAY", "3"));
-	 * ctx.setSessionValue("campusOnly", getPreference(profileId,
-	 * "OCCASIONSCAMPUSONLY", "true")); ctx.setSessionValue("weatherType",
-	 * getPreference(profileId, "WEATHERTYPE", "today"));
-	 * //ctx.setSessionValue("regionalNews", getPreference(profileId,
-	 * "REGIONALNEWS", "Yes"));
-	 * 
-	 * ctx.setSessionValue("accountNo", profileHash.get("AccountNo")); //
-	 * ----------------------------------- boolean isHR = false; boolean
-	 * hasHRQueryAccess = false; boolean isStaff = ((Boolean)
-	 * profileHash.get("IsStaff")).booleanValue();
-	 * 
-	 * try {
-	 * 
-	 * if (isStaff) { StaffInfo si = new StaffInfo(); isHR =
-	 * si.isHumanResources(accountNo); } if
-	 * (isHR||HRQueryUsersRoles.containsKey(userName)) { hasHRQueryAccess=true; } }
-	 * catch (Exception e) { isHR = false; log.error("Couldn't
-	 * determine if HR. Setting to false.", e); }
-	 * 
-	 * ctx.setSessionValue("isHR", String.valueOf(isHR));
-	 * ctx.setSessionValue("hasHRQueryAccess",
-	 * String.valueOf(hasHRQueryAccess)); // -----------------------------------
-	 * 
-	 * //set cookie stuff in here......................... Cookie mainCookie =
-	 * new Cookie("UserName", userName);
-	 * 
-	 * int maxage = 60 * 60 * 24 * 30; // one month
-	 * mainCookie.setMaxAge(maxage);
-	 * 
-	 * String requestedURL = (String) ctx.getSessionValue("onLogInGoto");
-	 * ctx.getSession().removeAttribute("onLogInGoto"); log.debug("!!!!" +
-	 * requestedURL);
-	 * 
-	 * ctx.getResponse().addCookie(mainCookie);
-	 * 
-	 * boolean changePassword = ((Boolean)
-	 * profileHash.get("ChangePassword")).booleanValue();
-	 * 
-	 * if (changePassword) { Hashtable tub = new Hashtable();
-	 * tub.put("firstLogin", "true"); tub.put("userName", userName);
-	 * tub.put("ErrorMsg", ""); tub.put("ResultMsg", "");
-	 * ctx.setSessionValue("passwordChange", tub);
-	 * ctx.goToView("userChangePassword"); } /* CODE TO CAPTURE HR INFO UPON
-	 * LOGIN // This code is in the old authenticate section (non-SSO) but when
-	 * SSO gets turned on, it will need to be moved there also, which might else
-	 * if(ENABLE_CAPTURE_HR_INFO) { // if staff (and force capture flag not
-	 * already set from profile), do lookup by account number in StaffSnapshot
-	 * table // if not there, then make them enter their HR info
-	 * if(isStaff&&(ENABLE_FORCE_CAPTURE_BY_LOOKUP||ENABLE_FORCE_CAPTURE_BY_PROFILE_FLAG)) {
-	 * boolean profileForceCaptureFlag = ((Boolean)
-	 * profileHash.get("CaptureHRinfo")).booleanValue();
-	 * 
-	 * StaffSnapshot check= new StaffSnapshot(); check.setAccountNo(accountNo);
-	 * 
-	 * boolean oneFound= check.select(); boolean multFound=
-	 * check.getAccountNo()==null||check.getAccountNo().equals(""); // no matter
-	 * what, if multiple records found, don't capture HR info to avoid creating
-	 * more duplicates if(!multFound&&
-	 * ((ENABLE_FORCE_CAPTURE_BY_PROFILE_FLAG&&profileForceCaptureFlag)||
-	 * (ENABLE_FORCE_CAPTURE_BY_LOOKUP&&!oneFound) ) ) { // pass some info to
-	 * the page if we have it already to pre-fill the fields Hashtable tub = new
-	 * Hashtable(); tub.put("AccountNo",accountNo); tub.put("FirstName",(String)
-	 * profileHash.get("FirstName")); tub.put("LastName",(String)
-	 * profileHash.get("LastName"));
-	 * 
-	 * ctx.setSessionValue("HRinfo", tub); ctx.goToView("captureHRinfo"); } else { //
-	 * snapshot already exists for this staff person ctx.goToView("home"); } }
-	 * else { // user is not staff ctx.goToView("home"); } } /* END CODE TO
-	 * CAPTURE HR INFO UPON LOGIN
-	 * 
-	 * 
-	 * else if (requestedURL != null) { log.debug("Going to : " + requestedURL);
-	 * ctx.goToURL(requestedURL); } else { ctx.goToView("home"); } } catch
-	 * (MissingRequestParameterException mpe) { ctx.goToView("login"); } catch
-	 * (UserLockedOutException err) { log.info("User locked out: " +
-	 * userName); ctx.setSessionValue("ErrorCode", "lockedout");
-	 * ctx.goToView("loginError"); } catch (ProfileNotFoundException pnfe) { //
-	 * set a message needed for more help log.info("Profile not found: " +
-	 * userName); ctx.setSessionValue("ErrorCode", "noprofile");
-	 * ctx.goToView("loginError"); } catch (MultipleProfilesFoundException mpfe) {
-	 * log.error("Multiple accounts found: " + userName);
-	 * ctx.setSessionValue("ErrorCode", "multipleprofiles");
-	 * ctx.goToView("loginError"); } catch
-	 * (org.alt60m.staffSite.profiles.dbio.NotAuthorizedException nae) {
-	 * log.info("Not authorized: " + userName);
-	 * ctx.setSessionValue("ErrorCode", "notauthorized");
-	 * ctx.goToView("loginError"); } catch (ProfileManagementException pme) {
-	 * pme.printStackTrace(); log.error("Couldn't authenticate: " +
-	 * userName + " do to service problems.", pme);
-	 * ctx.setSessionValue("ErrorCode", "unknown"); ctx.goToView("loginError"); }
-	 * catch (Exception e) { e.printStackTrace(); log.error("Unknown
-	 * login error", e); ctx.setSessionValue("ErrorCode", "unknown");
-	 * ctx.goToView("loginError"); } } /***** END OLD CODE TO DELETE
-	 **************************************************************************/
-
 	/**
 	 * Action: showOccasions
 	 * 
@@ -808,7 +663,7 @@ public class StaffController extends Controller {
 	 */
 	public void AddUser(ActionContext ctx) {
 		// administration of users accounts in system
-		Hashtable tub = new Hashtable();
+		Hashtable<String, String> tub = new Hashtable<String, String>();
 		String Option = ctx.getInputString("Option");
 		String ErrorMsg = "";
 		String ResultMsg = "";
@@ -1925,7 +1780,9 @@ public class StaffController extends Controller {
 //	}
 	
 	private String getLogoutCallbackService(ActionContext ctx) {
-		return getService(ctx);
+		return "https://"
+		+ ctx.getRequest().getServerName() + logoutCallbackSuffix;
+		
 
 		//this is useful for testing logoutCallback for the
 		//dev cas servers, but the real one (signing.mygcx.org)
@@ -1946,7 +1803,7 @@ public class StaffController extends Controller {
 	private String getProxyCallbackService(ActionContext ctx) {
 		return "https://"
 		+ ctx.getRequest().getServerName() 
-		+ "/servlet/CasProxyServlet";
+		+ proxyUrlSuffix;
 	}
 
 	private String getHomeUrl(ActionContext ctx) {

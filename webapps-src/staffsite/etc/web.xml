@@ -45,7 +45,7 @@
 		<param-value>https://signin.mygcx.org/cas/login</param-value>
 	</context-param>
 
-		<context-param>
+	<context-param>
 		<param-name>CasLogoutURL</param-name>
 		<param-value>https://signin.mygcx.org/cas/logout</param-value>
 	</context-param>
@@ -65,33 +65,18 @@
 		<param-value>true</param-value>
 	</context-param>
 	
-	<!-- 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/fsk2-dao.xml</param-value>
-	</context-param>
-	 -->
 	
+	<context-param>
+		<param-name>ClusteredServers</param-name>
+		<param-value>localhost</param-value>
+	</context-param>
+	
+		
 	<!--  Listeners  -->
 
-	<!-- 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	-->
 
 	<!--  Filters  -->
 	<!--  
-	<filter>
-        <filter-name>hibernateFilter</filter-name>
-    	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-    </filter>
-	
-
-    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
 
     -->
     <filter>
@@ -151,20 +136,6 @@
         <url-pattern>/hr_si/*</url-pattern>
     </filter-mapping>
     
-	<!--  
-    <filter-mapping>
-        <filter-name>hibernateFilter</filter-name>
-        <url-pattern>/servlet/Fsk2Controller*</url-pattern>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
-    -->
-	<!--  Servlets  -->
 
 	<servlet>
 		<servlet-name>ServletRedirector</servlet-name>
@@ -176,9 +147,44 @@
 	</servlet>
 
 	<servlet>
+		<servlet-name>ProxyTicketReceptorGateway</servlet-name>
+		<servlet-class>org.alt60m.servlet.ClusterBroadcast</servlet-class>
+		<init-param>
+			<param-name>SuccessfulResponse</param-name>
+			<param-value>
+				<![CDATA[<casClient:proxySuccess xmlns:casClient="http://www.yale.edu/tp/casClient"/>]]>
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>BroadcastUrlSuffix</param-name>
+			<param-value>/servlet/CasProxyServlet</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>LogoutGateway</servlet-name>
+		<servlet-class>org.alt60m.servlet.ClusterBroadcast</servlet-class>
+		<init-param>
+			<param-name>SuccessfulResponse</param-name>
+			<param-value>Logout Successful</param-value>
+		</init-param>
+		<init-param>
+			<param-name>BroadcastUrlSuffix</param-name>
+			<param-value>/servlet/StaffController</param-value>
+		</init-param>
+		<init-param>
+			<param-name>FailureResponse</param-name>
+			<param-value>Logout Unsuccessful</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>CampusLocator</servlet-name>
 		<servlet-class>org.alt60m.html.CampusLocator</servlet-class>
 	</servlet>
+	
 	<servlet>
 		<servlet-name>MSController</servlet-name>
 		<servlet-class>org.alt60m.hr.ms.servlet.dbio.MSController</servlet-class>
@@ -271,6 +277,15 @@
 	<servlet>
 		<servlet-name>StaffController</servlet-name>
 		<servlet-class>org.alt60m.staffSite.servlet.StaffController</servlet-class>
+		<init-param>
+			<param-name>ProxyUrlSuffix</param-name>
+			<param-value>/servlet/ProxyTicketReceptorGateway</param-value>
+		</init-param>
+		<init-param>
+			<param-name>LogoutCallbackSuffix</param-name>
+			<param-value>/servlet/LogoutGateway</param-value>
+		</init-param>
+		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -307,25 +322,17 @@
 		<servlet-name>MonitorController</servlet-name>
 		<servlet-class>org.alt60m.staffSite.servlet.MonitorController</servlet-class>
 	</servlet>
-	
-	<!-- Spring currently used only for fsk -->
-	<!--
-	<servlet>
-		<servlet-name>fsk2</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
-	</servlet>
-	-->
-	
-	<!--  Servlet Mappings  -->
-
-	<!--  
+	    
 	<servlet-mapping>
-		<servlet-name>fsk2</servlet-name>
-		<url-pattern>/servlet/Fsk2Controller/*</url-pattern>
-	</servlet-mapping>
-	-->
-
+		<servlet-name>ProxyTicketReceptorGateway</servlet-name>
+        <url-pattern>/servlet/ProxyTicketReceptorGateway</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+		<servlet-name>LogoutGateway</servlet-name>
+        <url-pattern>/servlet/LogoutGateway</url-pattern>
+    </servlet-mapping>
+    
 	<servlet-mapping>
         <servlet-name>MonitorController</servlet-name>
         <url-pattern>/servlet/MonitorController</url-pattern>
