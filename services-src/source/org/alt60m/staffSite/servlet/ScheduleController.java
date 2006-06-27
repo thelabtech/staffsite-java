@@ -1,6 +1,8 @@
 package org.alt60m.staffSite.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.alt60m.servlet.Controller;
 import org.alt60m.staffSite.jobs.TestJob;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,9 +26,8 @@ import org.quartz.Trigger;
 import org.quartz.TriggerUtils;
 import org.quartz.xml.JobSchedulingDataProcessor;
 
-public class ScheduleController extends HttpServlet {
+public class ScheduleController extends Controller {
 
-	private static Log log = LogFactory.getLog(ScheduleController.class);
 
 	private SchedulerFactory factory;
 
@@ -87,6 +89,41 @@ public class ScheduleController extends HttpServlet {
 			}
 		} catch (SchedulerException e) {
 			log.error("Unable to shut down scheduler!", e);
+		}
+	}
+	
+	public void listJobs(ActionContext ctx) throws IOException, SchedulerException
+	{
+		PrintWriter out = ctx.getResponse().getWriter();
+		out.println("Scheduled Jobs:");
+		String[] jobGroups;
+		String[] jobsInGroup;
+		int i;
+		int j;
+
+		jobGroups = sched.getJobGroupNames();
+		for (i = 0; i < jobGroups.length; i++) {
+		   out.println("Group: " + jobGroups[i] + " contains the following jobs:");
+		   jobsInGroup = sched.getJobNames(jobGroups[i]);
+
+		   for (j = 0; j < jobsInGroup.length; j++) {
+		      out.println("- " + jobsInGroup[j]);
+		   }
+		}
+		out.println();
+		out.println("Scheduled Triggers:");
+		
+		String[] triggerGroups;
+		String[] triggersInGroup;
+
+		triggerGroups = sched.getTriggerGroupNames();
+		for (i = 0; i < triggerGroups.length; i++) {
+		   out.println("Group: " + triggerGroups[i] + " contains the following triggers");
+		   triggersInGroup = sched.getTriggerNames(triggerGroups[i]);
+		   
+		   for (j = 0; j < triggersInGroup.length; j++) {
+		      out.println("- " + triggersInGroup[j]);
+		   }
 		}
 	}
 
