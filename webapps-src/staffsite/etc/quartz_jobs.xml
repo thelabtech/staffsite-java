@@ -2,6 +2,8 @@
 <quartz xmlns="http://www.opensymphony.com/quartz/JobSchedulingData"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         overwrite-existing-jobs="true">
+    <!--  By default, don't turn on tasks.  -->
+	<!-- 
     <job>
         <job-detail>
             <name>AccountBalanceUpdater</name>
@@ -21,7 +23,7 @@
                 <group>STAFFSITE_TRIGGERS</group>
                 <job-name>AccountBalanceUpdater</job-name>
                 <job-group>STAFFSITE</job-group>
-                <!-- 5:45am week days -->
+                <!-- 5:45am week days 
                 <cron-expression>0 45 5 ? * MON-FRI</cron-expression>
             </cron>
         </trigger>
@@ -40,7 +42,7 @@
                 <group>STAFFSITE_TRIGGERS</group>
                 <job-name>ApplyStaffChanges</job-name>
                 <job-group>STAFFSITE</job-group>
-                <!-- 1am week days -->
+                <!-- 1am week days 
                 <cron-expression>0 0 1 ? * MON-FRI</cron-expression>
             </cron>
         </trigger>
@@ -59,7 +61,7 @@
                 <group>STAFFSITE_TRIGGERS</group>
                 <job-name>StaffUpdater</job-name>
                 <job-group>STAFFSITE</job-group>
-                <!-- 5:15am week days -->
+                <!-- 5:15am week days
                 <cron-expression>0 15 5 ? * MON-FRI</cron-expression>
             </cron>
         </trigger>
@@ -78,9 +80,10 @@
                 <group>STAFFSITE_TRIGGERS</group>
                 <job-name>StaffUpdater</job-name>
                 <job-group>STAFFSITE</job-group>
-                <!-- 6:15am weekdays -->
+                <!-- 6:15am weekdays
                 <cron-expression>0 15 6 ? * MON-FRI</cron-expression>
             </cron>
         </trigger>
     </job>
+     -->
 </quartz>
