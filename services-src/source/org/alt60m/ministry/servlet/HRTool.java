@@ -1,6 +1,9 @@
 package org.alt60m.ministry.servlet;
 
 import java.util.*;
+
+import org.alt60m.ministry.bean.AuthorizeChangeRequest;
+import org.alt60m.ministry.bean.QueueChangeRequest;
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.util.*;
 import org.apache.commons.logging.Log;

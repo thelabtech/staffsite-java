@@ -3,6 +3,7 @@ package org.alt60m.ministry.servlet;
 import java.io.*;
 import org.alt60m.util.SendMessage;
 import org.alt60m.ministry.*;
+import org.alt60m.ministry.bean.AuthorizeChangeRequest;
 import org.alt60m.ministry.model.dbio.*;
 import java.util.*;
 

@@ -1,6 +1,7 @@
-package org.alt60m.ministry.servlet;
+package org.alt60m.ministry.bean;
 
 import org.alt60m.ministry.model.dbio.*;
+import org.alt60m.ministry.servlet.StaffChangeRequestInfo;
 import org.alt60m.util.DBConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
