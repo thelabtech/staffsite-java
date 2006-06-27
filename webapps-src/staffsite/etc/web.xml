@@ -181,6 +181,12 @@
 	</servlet>
 	
 	<servlet>
+		<servlet-name>ScheduleController</servlet-name>
+		<servlet-class>org.alt60m.staffSite.servlet.ScheduleController</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>CampusLocator</servlet-name>
 		<servlet-class>org.alt60m.html.CampusLocator</servlet-class>
 	</servlet>
@@ -336,6 +342,11 @@
 	<servlet-mapping>
         <servlet-name>MonitorController</servlet-name>
         <url-pattern>/servlet/MonitorController</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+        <servlet-name>ScheduleController</servlet-name>
+        <url-pattern>/servlet/ScheduleController</url-pattern>
     </servlet-mapping>
     
 	<servlet-mapping>

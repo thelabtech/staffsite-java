@@ -1785,7 +1785,7 @@ public class StaffController extends Controller {
 		
 
 		//this is useful for testing logoutCallback for the
-		//dev cas servers, but the real one (signing.mygcx.org)
+		//dev cas servers, but the real one (signin.mygcx.org)
 		//is in the dmz, and can't contact us.  Local testing
 		//will have to go without the logoutCallback function.
 //		String serverName = ctx.getRequest().getServerName();
