@@ -740,7 +740,7 @@ public class WsnSpController extends Controller
 					whereClause=whereClause + " AND legalFirstName ='"+ctx.getInputString("LegalFirstName")+"'";
 					whereClause=whereClause + " ORDER BY legalLastName, legalFirstName";  //default
 				}
-				whereClause.replaceAll("'","\'");
+				whereClause = whereClause.replaceAll("'","\'");
 				Iterator sameperson = person.selectList(whereClause).iterator();
 
 				if (ctx.getInputString("saveAnyway") == null) {
