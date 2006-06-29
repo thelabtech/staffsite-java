@@ -1,0 +1,48 @@
+BODY {
+   font-family : helvetica, arial, verdana, sans-serif; 
+   }
+H2 {
+   background-color : #cccccc; 
+   font-size : small;
+   line-height : .8em;
+   font-weight : bold;
+   }
+H3 {
+   font-size : x-small;
+   line-height : .1em;
+   font-weight : bold;
+   }
+SIG {
+   font-family : "Times New Roman", serif;
+   color : blue;
+   }
+.tabletext {
+   font-family : helvetica, arial, verdana, sans-serif; 
+   font-size : .6em;
+}
+.code {
+   font-family : Courier, "Courier New", Monotype.com, monospace;
+}
+.boxheading {
+   font-weight : bold; 
+   font-size : x-small; 
+   line-height : 1.5em; 
+   font-family : verdana; 
+   color : white; 
+   background-color : black; 
+   text-align : center; 
+   padding : 2pt; 
+   border-width : 1pt; 
+   border-style : solid; 
+   border-color : black; 
+}
+.blackborder {
+   font-size : x-small; 
+   line-height : 0.99em; 
+   font-family : Arial; 
+   background-color : white; 
+   padding : 2pt; 
+   border-width : 1pt; 
+   border-style : solid; 
+   border-color : black; 
+}

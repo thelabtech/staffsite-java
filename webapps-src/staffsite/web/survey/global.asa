@@ -1,0 +1,17 @@
+<SCRIPT RUNAT=server LANGUAGE="VBScript">
+
+sub Application_OnStart()
+'Creates an application level connection string to database
+Application("Path")= Server.MapPath("/cmstaff/survey") & "\"
+Application("DSN")="filedsn=" & Application("Path") & "survey.dsn" & ";"
+end sub
+
+
+sub Session_OnStart
+'You need to lock the application for concurrency reasons
+'Application.Lock
+'Application("VisitorCount") = Application("VisitorCount") + 1
+'Application.UnLock
+end sub
+
+</SCRIPT> 

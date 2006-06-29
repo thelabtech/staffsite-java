@@ -1,0 +1,5 @@
+FILE DELETED
+------------
+
+Antigen for Exchange removed SURVEY.zip->validate.js since it
+was found to match the FILE FILTER= *.js file filter.
