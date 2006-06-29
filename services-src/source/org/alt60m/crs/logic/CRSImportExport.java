@@ -308,7 +308,7 @@ public class CRSImportExport {
 			if (!region.equals("NC")) {
 				exportTable(
 						"Schools",
-						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_locallevel ml INNER JOIN ministry_activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_targetarea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE 1=2 and ta.region = '"  //1=2 and 
+						"SELECT DISTINCT ta.name AS schoolName, ta.state, ml.lane, ml.name AS teamName FROM ministry_locallevel ml INNER JOIN ministry_activity ma ON ml.teamID = ma.fk_teamID RIGHT OUTER JOIN ministry_targetarea ta ON ma.fk_targetAreaID = ta.TargetAreaID WHERE ta.region = '"  
 								+ region
 								+ "' GROUP BY ta.name, ta.state, ml.lane, ml.name");
 			} else {
