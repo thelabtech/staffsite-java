@@ -457,7 +457,14 @@ public class Staff extends DBIOEntity {
 	}
 	
 	public String getLocalLevelId(){ return String.valueOf(getTeamId()); }
-    public void setLocalLevelId(String id){ setTeamId(Integer.parseInt(id)); }
+    public void setLocalLevelId(String id) {
+    	if (id == null || id.equals("")) {
+    		setTeamId(0);
+    	}
+    	else {
+    		setTeamId(Integer.parseInt(id));
+    	}
+    }
 	
 	public LocalLevel getLocalLevel(){ return new LocalLevel(getLocalLevelId()); }
 	public void setLocalLevel(LocalLevel ll){ setLocalLevelId(ll.getLocalLevelId()); }
