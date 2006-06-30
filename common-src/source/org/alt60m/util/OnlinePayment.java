@@ -27,7 +27,7 @@ Fields in Hashtable paymentInfoIn
  transaction with the card number 4222222222222. The system will return the response reason
  code equal to the amount of the submitted transaction. For example, to test response reason
  code number 27, a test transaction would be submitted with the credit card number,
- “4222222222222,” and the amount, “27.00.”
+ ï¿½4222222222222,ï¿½ and the amount, ï¿½27.00.ï¿½
 
  */
 public class OnlinePayment {
@@ -103,7 +103,7 @@ public class OnlinePayment {
         postData = testMode?"x_Test_Request=True,":"";  //Test mode?
 		postData += "x_ADC_Delim_Data=TRUE,x_ADC_URL=FALSE";				//specify our servlet connection (not a html redirect)
         postData += ",x_Login=" + merchantAcctNum;
-        postData += ",x_Password=" + merchantAcctPassword;
+        postData += ",x_tran_key=" + merchantAcctPassword;
 
         addValuePair("x_Description", "Description");
         addValuePair("x_Invoice_Num", "InvoiceNum");
@@ -131,6 +131,7 @@ public class OnlinePayment {
         addValuePair("x_Drivers_License_Num", "DLNum");
         addValuePair("x_Drivers_License_State", "DLState");
         addValuePair("x_Drivers_License_DOB", "DLDob");
+        addValuePair("x_version", "3.1");
     }
 
     private Hashtable doAuthNetPost() throws Exception {
