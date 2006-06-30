@@ -2,6 +2,8 @@ package org.alt60m.linczone;
 
 import java.sql.*;
 import java.util.*;
+
+import org.alt60m.util.DBConnectionFactory;
 import org.alt60m.util.SendMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,13 +38,13 @@ public class LinczoneProcessor {
 	public void enterNewContact(Map values) throws Exception {
 		
 		try {
-			log.debug("Getting database driver '"+_props.getProperty("driver")+"'.");
+			//log.debug("Getting database driver '"+_props.getProperty("driver")+"'.");
 			// Connect to requested data store
-			Class.forName(_props.getProperty("driver"));
+			//Class.forName(_props.getProperty("driver"));
 
-			log.debug("Connecting to URL '"+_props.getProperty("url")+"'.");
+			//log.debug("Connecting to URL '"+_props.getProperty("url")+"'.");
 
-			_conn = DriverManager.getConnection(_props.getProperty("url"));
+			_conn = DBConnectionFactory.getDatabaseConn(); //DriverManager.getConnection(_props.getProperty("url"));
 			
 			createRecord(values);
 			createEmails(values);
