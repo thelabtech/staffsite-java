@@ -1,6 +1,6 @@
 package org.alt60m.util;
 import java.util.Hashtable;
-
+import org.alt60m.util.AuthNet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -137,7 +137,7 @@ public class OnlinePayment {
     private Hashtable doAuthNetPost() throws Exception {
         Hashtable results = new Hashtable();
 
-        com.authnet.AuthNet authNetObj = new com.authnet.AuthNet();
+        AuthNet authNetObj = new AuthNet();
 		authNetObj.enableLogging();
 		authNetObj.doSSLPost(postData);
 
