@@ -368,7 +368,7 @@ try{
 				<TD
 					CLASS="hl"
 					ALIGN="RIGHT"
-					WIDTH="30%">Authnet Login ID</TD>
+					WIDTH="30%">Authnet API Login ID</TD>
 				<TD CLASS="cell"><INPUT
 					CLASS="empty"
 					onFocus="Highlight(this)"
@@ -384,7 +384,7 @@ try{
 			<TR>
 				<TD
 					CLASS="hl"
-					ALIGN="RIGHT">Authnet Password</TD>
+					ALIGN="RIGHT">Authnet Transaction Key</TD>
 				<TD CLASS="cell"><INPUT
 					CLASS="empty"
 					onFocus="Highlight(this)"
@@ -637,7 +637,7 @@ try{
 				If you will be accepting credit card payments for this event,
 				you must have a merchant account with our credit card processing
 				vendor, Authorize.net. To set up an Authorize.net merchant account
-				and receive your Authorize.net Login ID and Password, contact Steve
+				and receive your Authorize.net API Login ID and Transaction Key, contact Steve
 				Hackney in Campus Crusade for Christ's Financial Services Group. You
 				can email him at 
 				<A HREF="mailto:Steve.Hackney@ccci.org">Steve.Hackney@ccci.org</A>.

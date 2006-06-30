@@ -24,7 +24,7 @@ try{
 	String helpText_CoupleCost = "Event cost per married couple excluding discounts and scholarships";
 	String helpText_IndivCommuterCost = "Event cost for individuals not staying in designated housing, excluding discounts and scholarships";
 	String helpText_CoupleCommuterCost = "Event cost for married couples not staying in designated housing, excluding discounts and scholarships";
-	String helpText_CreditCards = "In order to accept credit cards, you must fill in the \"Authnet Login ID\" and \"Authnet Password\" fields.";
+	String helpText_CreditCards = "In order to accept credit cards, you must fill in the \"Authnet API Login ID\" and \"Authnet Transaction Key\" fields.";
     String helpText_Scholarships = "The registrant will be asked for the amount and the name of the CCC person who is responsible for the scholarship. Then this CCC person may go online to enter the account fields or you may get this info some other way.";
 	String helpText_Merchant = "See Instructions below for information on how to acquire an Authnet account.";
 	String helpText_leaveBlank = "Leave this blank if it is not required";
