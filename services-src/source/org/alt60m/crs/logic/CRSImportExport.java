@@ -562,7 +562,8 @@ public class CRSImportExport {
 			.replace('!', ' ').replace('.', '_').replace('-', '_')
 			.replace('`', '_').replace('"', '_').replace('\'', '_')
 			.replace('?', '_').replace(',', '_').replace(' ', '_')
-			.replace('/', '_').replace(";", "").replace(':', '_');
+			.replace('/', '_').replace(";", "").replace(':', '_')
+			.replace('#', '_').replace('&', '_').replace('\r', '_');
 		return columnName;
 	}
 
