@@ -47,12 +47,12 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 				String WsnApplicationID = accounts.getString("WsnApplicationid");
 				// check for applicants with account numbers
 				if (!accountNo.equals("")) {
-					log.info("Updating " + accountNo + "...");
+					log.debug("Updating " + accountNo + "...");
 					try {
 						double bal = fetchBalance(accountNo, sqlconn);
 						java.sql.Statement sqlstmt2 = sqlconn.createStatement();
 						sqlstmt2.executeUpdate("update wsn_sp_wsnapplication set supportbalance = " + bal + " where WsnApplicationID = '" + WsnApplicationID + "'");
-						log.info(" updated with " + bal);
+						log.debug(" updated with " + bal);
 						sqlstmt2.close();
 					} catch (SQLException e) {
 						log.error("Error fetching " + accountNo, e);
