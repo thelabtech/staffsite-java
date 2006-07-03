@@ -117,7 +117,7 @@
 									}
 									else {*/
 										a = new SIApplication();
-										a = siBean.getSIApplication(appID, yearID);
+										a = siBean.getSIApplication(appID);
 										p = new SIPerson();
 										p = siBean.getSIPerson(a.getFk_PersonIDString());
 										refS = new SIReference();
@@ -189,7 +189,6 @@
 										</td>
 										<td class="insideboxst">
 											<%=p.getRecentSchools()%><br>
-											[language scores]
 										</td>
 									</tr>
 

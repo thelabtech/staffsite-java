@@ -23,7 +23,7 @@ import java.util.Hashtable;
  */
 public class SIApplication extends DBIOEntity {
 
-	private static final String TABLENAME_BASE = "hr_si_application_";
+	private static final String TABLENAME_BASE = "hr_si_applications";
 
 	public SIApplication() {
 //		dc added 12-12-02: initialize some data fields when object is created
@@ -41,15 +41,7 @@ public class SIApplication extends DBIOEntity {
 	public boolean isPKEmpty() {
 		return applicationID == 0;
 	}
-	public void changeYear(String yearID) {
-		changeTargetTable(TABLENAME_BASE + yearID);
-	}
 	public SIApplication(String id) {
-		applicationID = (new Integer(id)).intValue();
-		select();
-	}
-	public SIApplication(String id, String yearid) {
-		changeYear(yearid);
 		applicationID = (new Integer(id)).intValue();
 		select();
 	}
@@ -59,7 +51,7 @@ public class SIApplication extends DBIOEntity {
 	}
 	
 	public void localinit() {
-		String table = TABLENAME_BASE + SIUtil.CURRENT_SI_YEAR;
+		String table = TABLENAME_BASE;
 
 		setMetadata("ApplicationIDInt", "applicationID", "IDENTITY");
 		setMetadata("LocationAInt", "locationA", table);

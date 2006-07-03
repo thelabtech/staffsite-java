@@ -47,41 +47,6 @@ public class SIInfoBean implements Serializable {
 	}
 
 	/**
-	 * DEPRECATED -- no longer use SSM to lookup application--only use siPersonID (kb 2/4/03)
-	 * returns an SIApplication for the user with the given ssmid
-	 *
-	 * @param userId
-	 * @param emailAddr
-	 * @return SIApplication
-	 */
-	/*
-	private SIApplication getSIApplicationBySSM(String userId, String emailAddr)
-	{
-		SIApplication a = null;
-		try
-		{
-			String appID = getApplicationIDBySSM(userId);
-			//if its empty then the app isn't created yet
-			if("".equals(appID)||appID==null)
-			{
-				a = SIUtil.createApplication(Integer.valueOf(userId).intValue(), getPersonIDBySSM(userId));				
-			}
-			else
-			{
-				a = (SIApplication) SIUtil.getObject(appID, "ApplicationID", org.alt60m.hr.si.servlet.dbio.SIAppHandler.APPLICATIONCLASS);
-			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return a;
-				
-	}
-	*/
-
-	/**
 	 * returns an siapplication looked up by the sipersonid
 	 * 
 	 * added kb 2/4/03
@@ -115,32 +80,9 @@ public class SIInfoBean implements Serializable {
 	 */
 	public SIApplication getSIApplication(String appid) {
 
-		return SIUtil.getSIApplication(appid, SIUtil.CURRENT_SI_YEAR);
+		return SIUtil.getSIApplication(appid);
 	}
 
-	public SIApplication getSIApplication(String appid, String yearid) {
-
-		return SIUtil.getSIApplication(appid, yearid);
-	}
-
-/*	public SIApplication_Archive2003 getSIApplication_Archive(String appid) {
-		return SIUtil.getSIApplication_Archive(appid);
-	}
-*/
-	/****
-	2003-03-24 kl: refactored out, replaced with getAppsCollections
-		public Collection getAppsReady(String regionID) {
-			return SIUtil.getSIAppsReady(regionID);
-	    }
-	
-	    public Collection getAppsInProcess(String regionID) {
-			return SIUtil.getSIAppsInProcess(regionID);
-	    }
-	
-	    public Collection getAppsStarted(String regionID) {
-	        return SIUtil.getSIAppsStarted(regionID);
-	    }
-	****/
 	public Collection getAppsCollections(String regionID, String yearID) {
 		return SIUtil.getSIAppsCollections(regionID, yearID);
 	}
@@ -154,8 +96,6 @@ public class SIInfoBean implements Serializable {
 	* Added 3 December 2002 RDH
 	*/
 	public SIProject getSIProject(int SIProjectID) {
-		//if (SIProjectID == 0)
-		//	return null; //early return 
 		SIProject a = new SIProject();
 
 		try {
@@ -304,17 +244,6 @@ public class SIInfoBean implements Serializable {
 
 	}
 	
-/*	public SIPerson getSIPerson(String sipersonid, String yearid) {
-
-		return SIUtil.getSIPerson(sipersonid, yearid);
-
-	}
-*/
-/*	public SIPerson_Archive2003 getSIPerson_Archive(String sipersonid) {
-        return SIUtil.getSIPerson_Archive(sipersonid);
-        
-	}
-*/
 	/**
 	 * DEPRECATED...  Use the methods that return objects instead.  
 	 *                 I'm keeping around just in case the references need them
@@ -375,37 +304,8 @@ public class SIInfoBean implements Serializable {
 		//IF THERE ARE MULTIPLE SIPERSONS WITH THIS SSMUSERID, THIS WILL NOT LIKE IT
 		if (p.select())
 			SIPersonID = p.getSIPersonID();
-		//			Iterator itr = ObjectHashUtil.list(p.selectList()).iterator();
-		//			if(itr.hasNext()) 
-		//				SIPersonID = (String)((Hashtable)itr.next()).get("SIPersonID"); 
 		return SIPersonID;
 	}
-
-	/**
-	 * DEPRECATED - kb 2/4/03 - should use SIPersonID to do lookups of applications instead of SSM
-	 * gets the applicationid of the given ssmid
-	 *
-	 * @param userId
-	 * @return String
-	 * @throws Exception
-	 */
-	/*
-	private String getApplicationIDBySSM(String userId) throws Exception
-	{
-			SIBroker b = ServiceFactory.getSIBroker();
-			b.begin();
-	
-			String AppId = "";
-	
-			Collection results = b.directSQLCall("select ApplicationID from hr_si_Application where fk_ssmUserID = "+ userId, new String[] {"ApplicationID"});
-			Iterator itr = results.iterator();
-			if(itr.hasNext()) 
-				AppId = (String)((Hashtable)itr.next()).get("ApplicationID"); 
-			b.commit();
-			
-			return AppId;
-	}
-	*/
 
 	/**
 	 * 2/4/03 kb - looks up appid by personid
@@ -421,9 +321,6 @@ public class SIInfoBean implements Serializable {
 		//IF THERE ARE MULTIPLE SIAPPLICATIONS WITH THIS SIPERSONID, THIS WILL NOT LIKE IT
 		if (a.select())
 			AppId = a.getApplicationID();
-		//			Iterator itr = ObjectHashUtil.list(a.selectList()).iterator();
-		//			if(itr.hasNext()) 
-		//				AppId = (String)((Hashtable)itr.next()).get("ApplicationID"); 
 		return AppId;
 	}
 
@@ -457,7 +354,6 @@ public class SIInfoBean implements Serializable {
 			if (SIReferenceID == "") {
 				SIReference r = new SIReference();
 				return r;
-				//return null;
 			}
 			return getSIReference(SIReferenceID);
 		} catch (Exception e) {
@@ -472,7 +368,6 @@ public class SIInfoBean implements Serializable {
 			if (SIReferenceID == "") {
 				SIReference r = new SIReference();
 				return r;
-				//return null;
 			}
 			return getSIReference(SIReferenceID, yearID);
 		} catch (Exception e) {
@@ -481,21 +376,6 @@ public class SIInfoBean implements Serializable {
 		}
 	}
 
-/*	public SIReference_Archive2003 getSIReferenceByType_Archive(String SIApplicationID, String referenceType) {
-		try {
-			String SIReferenceID = getReferenceIDByType_Archive(SIApplicationID, referenceType);
-			if (SIReferenceID == "") {
-				SIReference_Archive2003 r = new SIReference_Archive2003();
-				return r;
-				//return null;
-			}
-			return getSIReference_Archive(SIReferenceID);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-*/
 	/** added 11-25-02 DC
 	 * returns the ReferenceID of the reference with the given PersonID and ReferenceType
 	 * @param userId
@@ -524,17 +404,6 @@ public class SIInfoBean implements Serializable {
 		return SIReferenceID;
 	}
 
-/*	private String getReferenceIDByType_Archive(String SIApplicationID, String referenceType) throws Exception {
-		String SIReferenceID = "";
-		SIReference_Archive2003 r = new SIReference_Archive2003();
-		r.setFk_SIApplicationID(SIApplicationID);
-		r.setReferenceType(referenceType);
-		Iterator itr = ObjectHashUtil.list(r.selectList()).iterator();
-		if (itr.hasNext())
-			SIReferenceID = (String) ((Hashtable) itr.next()).get("ReferenceID");
-		return SIReferenceID;
-	}
-*/
 	/**
 	 * returns the SIReference object with the given SIReferenceID
 	 *
@@ -564,18 +433,6 @@ public class SIInfoBean implements Serializable {
 		return r;
 	}
 
-/*	public SIReference_Archive2003 getSIReference_Archive(String refID) {
-		if (refID == null)
-			return null; //early return
-		SIReference_Archive2003 r = null;
-		try {
-			r = (SIReference_Archive2003) SIUtil.getObject(refID, "ReferenceID", "org.alt60m.hr.si.model.dbio.SIReference_Archive2003");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return r;
-	}
-*/
 	public Collection getCurrentProjectsByType(char type) throws Exception {
 		String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
 		String whereClause = "projectType = '" + type + "' AND studentStartDate > \'" + today + "\' AND (onHold <> \'1\') ORDER BY name";
@@ -641,7 +498,7 @@ public class SIInfoBean implements Serializable {
 			maxSACheck =
 				" AND (project.maxNoStudentA >"
 					+ " (SELECT Count(application0.assignedToProject) as numSA"
-					+ " FROM hr_si_application_" + currYear + " as application0 "
+					+ " FROM hr_si_applications as application0 "
 					+ " WHERE ((application0.assignedToProject = project.SIProjectID) AND (application0.appStatus <> \'"
 					+ SIApplication.STATUS_WITHDRAWN
 					+ "\') AND (application0.siYear = \'"
@@ -651,7 +508,7 @@ public class SIInfoBean implements Serializable {
 			maxSAMCheck =
 				" AND (project.maxNoStudentAMale >"
 					+ " (SELECT Count(application2.assignedToProject) as numSAM"
-					+ " FROM hr_si_application_" + currYear + " as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
+					+ " FROM hr_si_applications as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
 					+ " WHERE ((person2.gender = \'"
 					+ maleValue
 					+ "\') AND (application2.assignedToProject = project.SIProjectID) AND (application2.appStatus <> \'"
@@ -663,7 +520,7 @@ public class SIInfoBean implements Serializable {
 			maxSAFCheck =
 				" AND (project.maxNoStudentAFemale >"
 					+ " (SELECT Count(application2.assignedToProject) as numSAM"
-					+ " FROM hr_si_application_" + currYear + " as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
+					+ " FROM hr_si_applications as application2 INNER JOIN ministry_person as person2 ON application2.fk_SIPersonID = person2.SIPersonID"
 					+ " WHERE ((person2.gender = \'"
 					+ femaleValue
 					+ "\') AND (application2.assignedToProject = project.SIProjectID) AND (application2.appStatus <> \'"
@@ -675,7 +532,7 @@ public class SIInfoBean implements Serializable {
 			maxSPCheck =
 				" AND (project.maxNoStudentP >"
 					+ " (SELECT Count(application3.finalProject) as numSP"
-					+ " FROM hr_si_application_" + currYear + " as application3 "
+					+ " FROM hr_si_applications as application3 "
 					+ " WHERE ((application3.finalProject=project.SIProjectID) AND (application3.appStatus <> \'"
 					+ SIApplication.STATUS_WITHDRAWN
 					+ "\') AND (application3.siYear = \'"
@@ -685,7 +542,7 @@ public class SIInfoBean implements Serializable {
 			maxSPMCheck =
 				" AND (project.maxNoStudentPMale >"
 					+ " (SELECT Count(application5.finalProject) as numSPF"
-					+ " FROM hr_si_application_" + currYear + " as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
+					+ " FROM hr_si_applications as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
 					+ " WHERE ( ( person5.gender = \'"
 					+ maleValue
 					+ "\') AND (application5.finalProject = project.SIProjectID) AND (application5.appStatus <> \'"
@@ -697,7 +554,7 @@ public class SIInfoBean implements Serializable {
 			maxSPFCheck =
 				" AND (project.maxNoStudentPFemale >"
 					+ " (SELECT Count(application5.finalProject) as numSPF"
-					+ " FROM hr_si_application_" + currYear + " as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
+					+ " FROM hr_si_applications as application5 INNER JOIN ministry_person as person5 ON application5.fk_SIPersonID = person5.SIPersonID"
 					+ " WHERE ( ( person5.gender = \'"
 					+ femaleValue
 					+ "\') AND (application5.finalProject = project.SIProjectID) AND (application5.appStatus <> \'"

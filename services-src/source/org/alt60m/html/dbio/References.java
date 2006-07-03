@@ -117,8 +117,7 @@ public class References implements java.io.Serializable {
 					strSQL = "SELECT r.referenceid, r.formworkflowstatus, p.firstname, p.lastname"
 							+ " FROM hr_si_reference_"
 							+ currYear
-							+ " as r INNER JOIN hr_si_application_"
-							+ currYear
+							+ " as r INNER JOIN hr_si_applications"
 							+ " as a ON r.fk_siapplicationid = a.applicationid"
 							+ " INNER JOIN ministry_person as p ON a.fk_personid = p.personid"
 							+ " WHERE r.staffnumber='"

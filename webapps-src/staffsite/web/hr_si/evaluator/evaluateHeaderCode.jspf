@@ -173,42 +173,25 @@ try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
 	SIReference refD = null;
 	SIReference refR = null;
 	SIReference refF = null;
-/*	if(yearID.equals("2003")){
-		app = new SIApplication_Archive2003();
-		app = infoBean.getSIApplication_Archive(ApplicationID);
-		p = new SIPerson_Archive2003();
-		p = infoBean.getSIPerson_Archive(app.getFk_PersonIDString());
-		refS = new SIReference_Archive2003();
-		refD = new SIReference_Archive2003();
-		refR = new SIReference_Archive2003();
-		refF = new SIReference_Archive2003();
-		refS = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "S");
-		refD = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "D");
-		refR = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "R");
-		refF = infoBean.getSIReferenceByType_Archive(app.getApplicationID(), "F");
-	}
-	else {*/
-		app = new SIApplication();
-		app = infoBean.getSIApplication(ApplicationID, yearID);
-		p = new SIPerson();
-		p = infoBean.getSIPerson(app.getFk_PersonIDString());
-		refS = new SIReference();
-		refD = new SIReference();
-		refR = new SIReference();
-		refF = new SIReference();
-		refS = infoBean.getSIReferenceByType(app.getApplicationID(), "S", yearID);
-		refD = infoBean.getSIReferenceByType(app.getApplicationID(), "D", yearID);
-		refR = infoBean.getSIReferenceByType(app.getApplicationID(), "R", yearID);
-		refF = infoBean.getSIReferenceByType(app.getApplicationID(), "F", yearID);
-//	}
 
-// 	SIApplication app = infoBean.getSIApplication(ApplicationID);
-//  SIPerson p = infoBean.getSIPerson(app.getFk_PersonIDString());
+	app = new SIApplication();
+	app = infoBean.getSIApplication(ApplicationID);
+	p = new SIPerson();
+	p = infoBean.getSIPerson(app.getFk_PersonIDString());
+	refS = new SIReference();
+	refD = new SIReference();
+	refR = new SIReference();
+	refF = new SIReference();
+	refS = infoBean.getSIReferenceByType(app.getApplicationID(), "S", yearID);
+	refD = infoBean.getSIReferenceByType(app.getApplicationID(), "D", yearID);
+	refR = infoBean.getSIReferenceByType(app.getApplicationID(), "R", yearID);
+	refF = infoBean.getSIReferenceByType(app.getApplicationID(), "F", yearID);
 
-    String projectName[] = new String[3];
-    projectName[0] = hasAValue(app.getLocationA())?infoBean.getSIProject(Integer.parseInt(app.getLocationA())).getDisplayLocation():"-";
-    projectName[1] = hasAValue(app.getLocationB())?infoBean.getSIProject(Integer.parseInt(app.getLocationB())).getDisplayLocation():"-";
-    projectName[2] = hasAValue(app.getLocationC())?infoBean.getSIProject(Integer.parseInt(app.getLocationC())).getDisplayLocation():"-";
+
+   String projectName[] = new String[3];
+   projectName[0] = hasAValue(app.getLocationA())?infoBean.getSIProject(Integer.parseInt(app.getLocationA())).getDisplayLocation():"-";
+   projectName[1] = hasAValue(app.getLocationB())?infoBean.getSIProject(Integer.parseInt(app.getLocationB())).getDisplayLocation():"-";
+   projectName[2] = hasAValue(app.getLocationC())?infoBean.getSIProject(Integer.parseInt(app.getLocationC())).getDisplayLocation():"-";
 
 	// Get each reference (stored in variables with reference type S, D, R, or F)
 //    refS = infoBean.getSIReferenceByType(app.getApplicationID(),"S");

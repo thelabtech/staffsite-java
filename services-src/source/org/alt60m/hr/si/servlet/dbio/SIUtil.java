@@ -724,9 +724,6 @@ public class SIUtil {
 	public static SIApplication getSIApplication(String appid) {
 		return new SIApplication(appid);
 	}
-	public static SIApplication getSIApplication(String appid, String yearid) {
-		return new SIApplication(appid, yearid);
-	}
 
 	public static SIReference getSIReference(String refid) {
 		return new SIReference(refid);
@@ -752,10 +749,9 @@ public class SIUtil {
 			String sql;
 
 			hr_si_Person = "ministry_person";
-			hr_si_Application = "hr_si_application_" + yearID;
+			hr_si_Application = "hr_si_applications";
 			hr_si_Reference = "hr_si_reference_" + yearID;
 			a = new SIApplication();
-			a.changeYear(yearID);
 			r = new SIReference();
 			r.changeYear(yearID);
 			sqlYear = yearID;
