@@ -27,7 +27,7 @@ Fields in Hashtable paymentInfoIn
  transaction with the card number 4222222222222. The system will return the response reason
  code equal to the amount of the submitted transaction. For example, to test response reason
  code number 27, a test transaction would be submitted with the credit card number,
- �4222222222222,� and the amount, �27.00.�
+ "4222222222222," and the amount, "27.00."
 
  */
 public class OnlinePayment {
