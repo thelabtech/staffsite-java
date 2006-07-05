@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.alt60m.util.LogHelper;
 
 /**
@@ -14,8 +15,6 @@ import org.alt60m.util.LogHelper;
  *
  */
 public abstract class Controller extends HttpServlet {
-
-	protected LogHelper Log = new LogHelper();
 
 	protected Log log = LogFactory.getLog(this.getClass());
 	
@@ -249,7 +248,7 @@ public abstract class Controller extends HttpServlet {
 		initViews(_viewsFile);
 	}
 	public void setLog4JConfigFile(String logConfFile) {
-		Log.setLog4JConfigFile(logConfFile);
+		DOMConfigurator.configure(logConfFile);
 	}
 
 	public String getViewsFile() { return _viewsFile; }

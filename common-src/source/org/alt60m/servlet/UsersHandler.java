@@ -4,6 +4,7 @@ import java.util.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.AttributeListImpl;
 
+@SuppressWarnings("deprecation")
 public class UsersHandler extends HandlerBase {
 
     private String currUserName = new String();
@@ -32,7 +33,8 @@ public class UsersHandler extends HandlerBase {
         users.put(currUserName, currUserRole);
     }
    
-    protected AttributeList sortAttributes(AttributeList attrs) {
+    
+	protected AttributeList sortAttributes(AttributeList attrs) {
         AttributeListImpl attributes = new AttributeListImpl();
         int len = (attrs != null) ? attrs.getLength() : 0;
         for (int i = 0; i < len; i++) {

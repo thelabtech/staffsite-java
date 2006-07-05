@@ -4,6 +4,7 @@ import java.util.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.AttributeListImpl;
 
+@SuppressWarnings("deprecation")
 public class ViewsHandler extends HandlerBase {
 
     private String currViewName = new String();
