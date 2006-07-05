@@ -84,7 +84,7 @@ try{
 			formatter.setHeaderWidths(new String[] {"", "", "", ""});
 			formatter.setHeaderAligns(new String[] {"LEFT", "LEFT", "CENTER", "RIGHT"});
 %>
-			<%=formatter.displayHeader( ar.getValue("order"), ar.getValue("orderCol"), ar.getValue("orderCol"), ar.getValue("order"), "Registrations Table", "/servlet/CRSAdmin?action=listRegistrations&view=" + view)%>
+			<%=formatter.displayHeader( ar.getValue("orderCol"), ar.getValue("order"), "Registrations Table", "/servlet/CRSAdmin?action=listRegistrations&view=" + view)%>
 			<%
 			for(int i = 0; registrations.hasNext(); i++){
 				Registration registration = (Registration)registrations.next();
