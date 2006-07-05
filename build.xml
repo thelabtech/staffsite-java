@@ -44,7 +44,6 @@
 	<property name="javac.debug" value="on"/>
 	<property name="javc.deprecation" value="off"/>
 
-	<property name="etc.dir" value="${webapps-src}/etc"/>
 	<property name="web.dir" value="${webapps-src}/web"/>
 
 	<fileset id="lib.dir" dir="lib">
@@ -117,9 +116,6 @@
 		</copy>
 		
 		<mkdir dir="${deploy.dir}/WEB-INF/"/>
-		<copy todir="${deploy.dir}/WEB-INF/">
-			<fileset dir="${etc.dir}"/>
-		</copy>
 		
 		<mkdir dir="${deploy.dir}/WEB-INF/lib/"/>
 		<copy todir="${deploy.dir}/WEB-INF/lib/">
