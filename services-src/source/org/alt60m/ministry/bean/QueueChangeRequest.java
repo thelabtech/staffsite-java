@@ -1,20 +1,29 @@
 package org.alt60m.ministry.bean;
 
-import org.alt60m.ministry.model.dbio.*;
-import org.alt60m.ministry.servlet.Notifier;
-import org.alt60m.ministry.*;
-import org.alt60m.util.DBConnectionFactory;
-
-import java.util.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.*;
+import java.text.DateFormat;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
+import org.alt60m.ministry.AuthorizerNotFoundException;
+import org.alt60m.ministry.BadRegionException;
+import org.alt60m.ministry.DuplicateRequestException;
+import org.alt60m.ministry.model.dbio.Authorization;
+import org.alt60m.ministry.model.dbio.Dependent;
+import org.alt60m.ministry.model.dbio.FieldChange;
+import org.alt60m.ministry.model.dbio.Note;
+import org.alt60m.ministry.model.dbio.OldAddress;
+import org.alt60m.ministry.model.dbio.Staff;
+import org.alt60m.ministry.model.dbio.StaffChangeRequest;
+import org.alt60m.ministry.servlet.Notifier;
+import org.alt60m.util.DBConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.*;
 
 public class QueueChangeRequest {
 	private static Log log = LogFactory.getLog(QueueChangeRequest.class);
@@ -73,7 +82,7 @@ public class QueueChangeRequest {
 					addrChangeRequest2.persist();
 					String addrChangeRequest2Id = addrChangeRequest2.getChangeRequestId();
 
-					Hashtable h = new Hashtable();
+					Hashtable<String, String> h = new Hashtable<String, String>();
 					java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("MM/dd/yyyy");
 					h.put("startDate", formatter.format(addrChangeRequest2.getEffectiveDate()));
 					h.put("primaryStartDate", formatter.format(addrChangeRequest2.getEffectiveDate()));
@@ -159,7 +168,7 @@ public class QueueChangeRequest {
 				String changeRequestSpouseId = changeRequestSpouse.getChangeRequestId();
 				String changeRequestTSSpouseId = changeRequestTSSpouse.getChangeRequestId();
 								
-				Hashtable values = new Hashtable();
+				Hashtable<String, Object> values = new Hashtable<String, Object>();
 				if (spouse.getIsMale()) {
 					values.put("spouseAccountNo", newValues.get("accountNo"));					
 					values.put("spouseFirstName", newValues.get("firstName"));
@@ -210,7 +219,7 @@ public class QueueChangeRequest {
 	public void dependentChangeRequest(final String staffId, final String requestorStaffId, final Map newValues) throws Exception {
 		Iterator iter = newValues.keySet().iterator();
 		while (iter.hasNext()) {
-			log(Priority.DEBUG, (String) iter.next());
+			log.debug((String) iter.next());
 		}
 
 		if (newValues.containsKey("newChild")) {
@@ -218,7 +227,7 @@ public class QueueChangeRequest {
 		}
 
 		if (newValues.containsKey("ineligibleDep")) {
-			log(Priority.DEBUG, "informing Staff Services of ineligible dependent");
+			log.debug("informing Staff Services of ineligible dependent");
 			new Notifier().emailStaffServices(newValues);
 		}
 	}
@@ -288,7 +297,7 @@ public class QueueChangeRequest {
 			if (parent.getSpouseAccountNo() != null && parent.getSpouseAccountNo().trim().length() > 0) {
 				newDep.assocStaffId(parent.getSpouseAccountNo());
 			} else {
-				log(Priority.ERROR, "No spouseAccountNo for " + parent.getAccountNo());
+				log.error("No spouseAccountNo for " + parent.getAccountNo());
 			}
 			
 			new Notifier().emailStaffServices(newValues);
@@ -358,7 +367,7 @@ public class QueueChangeRequest {
 		Set fields = initFieldNames();
 		
 		Iterator valuesIter = newValues.keySet().iterator();
-		Set matches = null;
+		Set<String> matches = null;
 		while( valuesIter.hasNext() && (matches == null || matches.size() > 0) ) {
 			String field = (String)valuesIter.next();
 			if ( fields.contains(field) ) {
@@ -372,12 +381,12 @@ public class QueueChangeRequest {
 				
 				rs = statement.executeQuery(sql);
 				if ( matches == null ) {
-					matches = new HashSet();
+					matches = new HashSet<String>();
 					while ( rs.next() ) {
 						matches.add(rs.getString(1));
 					}
 				} else {
-					Set tempMatches = new HashSet();
+					Set<String> tempMatches = new HashSet<String>();
 					while ( rs.next() ) {
 						if (matches.contains(rs.getString(1))) {
 							tempMatches.add(rs.getString(1));
@@ -395,7 +404,7 @@ public class QueueChangeRequest {
 	 * @return
 	 */
 	private Set initFieldNames() {
-		Set result = new HashSet();
+		Set<String> result = new HashSet<String>();
 		result.add("ministry");
 		result.add("jobStatus");
 		result.add("region");
@@ -599,12 +608,12 @@ public class QueueChangeRequest {
 				} else {
 					addDefaultAuthorization(changeRequestId);
 				}
-				log(Priority.DEBUG, "Executing the bypass");
+				log.debug("Executing the bypass");
 			} else if (
 				parent.getMinistry().equals("Campus Ministry")
 					&& (!((String) newValues.get("ministry")).equals("Campus Ministry"))) {
 				// Campus to Non-Campus	
-				log(Priority.DEBUG, "Executing campus to non-campus");
+				log.debug("Executing campus to non-campus");
 				auth1 = new Authorization();
 				auth1.setRole(StaffChangeRequest.HR_REGIONAL_DIR);
 				auth1.setSequence(1);
@@ -624,7 +633,7 @@ public class QueueChangeRequest {
 				auth3.persist();
 			} else {
 				// Non-Campus to Campus
-				log(Priority.DEBUG, "Executing non-campus to campus");
+				log.debug("Executing non-campus to campus");
 				auth1 = new Authorization();
 				auth1.setSequence(1);
 				auth1.setRole(StaffChangeRequest.HR_NON_CAMPUS);
@@ -670,12 +679,12 @@ public class QueueChangeRequest {
 		if ((parent.getRegion() == null)
 			|| (parent.getRegion().equals(" "))
 			|| (parent.getRegion().length() == 0)) {
-			log(Priority.DEBUG, "parent region is 0 length. pre-authorizing");
+			log.debug("parent region is 0 length. pre-authorizing");
 			auth1.setAuthorized("Y");
 			auth1.setAuthDate(new java.sql.Date(System.currentTimeMillis()));
 		} else {
-			log(Priority.DEBUG, "parent region is NOT 0 length");
-			log(Priority.DEBUG, "parent region is: " + parent.getRegion());
+			log.debug("parent region is NOT 0 length");
+			log.debug("parent region is: " + parent.getRegion());
 		}
 		auth2 = new Authorization();
 		auth2.setSequence(2);
@@ -877,7 +886,7 @@ public class QueueChangeRequest {
 
 		// Begin JobChange Section
 		if (newValues.get("ministry") != null) {
-			log(Priority.DEBUG, "The newValues-ministry is NOT NULL");
+			log.debug("The newValues-ministry is NOT NULL");
 			FieldChange ministry = new FieldChange();
 			ministry.setField("ministry");
 			ministry.setNewValue((String) newValues.get("ministry"));
@@ -1126,8 +1135,5 @@ public class QueueChangeRequest {
 
 	static private void log(String msg) {
 		log.debug(msg);
-	}
-	static private void log(org.apache.log4j.Priority p, String msg) {
-		log(msg);
 	}
 }
