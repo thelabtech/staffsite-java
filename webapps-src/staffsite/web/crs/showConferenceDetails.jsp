@@ -11,7 +11,7 @@
 <%
 try{
 	ActionResults ar = ActionResults.getActionResults(session);
-	CRSConference conference = (CRSConference)ar.getObject("conference");
+	Conference conference = (Conference)ar.getObject("conference");
 	if(ar==null){ 
 		response.sendRedirect("/servlet/CRSAdmin");
 	}
