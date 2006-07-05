@@ -46,7 +46,7 @@ public class StaffController extends Controller {
 
 	final String HRQUERYUSERS_FILE = "/WEB-INF/HRQueryUsers.xml";
 
-	final String Log4JConfig_FILE = "/WEB-INF/classes/Log4JConfig.xml";
+	final String Log4JConfig_FILE = "/WEB-INF/Log4JConfig.xml";
 
 	final String MAIL_HOST = "HART-E009V.campus.net.ccci.org";
 
