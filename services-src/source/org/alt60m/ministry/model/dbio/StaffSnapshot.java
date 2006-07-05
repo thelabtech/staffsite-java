@@ -129,7 +129,7 @@ public class StaffSnapshot extends DBIOEntity {
 		setAutodetectProperties(false);
 	}
 	public int getSnapshotID() { return snapshotID; }
-	public void setSnapshotID(int surferID) { this.snapshotID = snapshotID; }	
+	public void setSnapshotID(int surferID) {}	
 
 	public String getAccountNo() { return accountNo; }
 	public void setAccountNo(String accountNo) { this.accountNo = accountNo; }	
