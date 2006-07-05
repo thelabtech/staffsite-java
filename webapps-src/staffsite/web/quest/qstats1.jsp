@@ -67,7 +67,7 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 	}
 	else if (primaryColumn.equalsIgnoreCase("desirescale")){
 		tempCounter=returnComplicatedCount(quest,"(desirescale != 0)" + whereString);
-//				if (tempCounter > 0){
+				if (tempCounter > 0){
 		int tempCounter2=0;
 			for (int cnt=10 ; cnt>0 ; cnt--){
 				int records=returnComplicatedCount(quest,"desirescale = " + Integer.toString(cnt) + "" + whereString);
@@ -75,8 +75,8 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 				tempCounter2=tempCounter2+(records*cnt);
 			}
 			temp=temp+"<tr><td><font size='2' face='arial'><b>Average:</td>	<td> &nbsp; </td>	<td> &nbsp </td><td> <font size='2' face='arial'><b>" + (tempCounter2)/tempCounter + "." + ((tempCounter2*10)/tempCounter)%10 + "</td></tr>";
-//		}
-//		else { 	temp=temp+"<tr><td colspan = '2'><font size='2' face='arial'>No records to display</td></tr>";}
+		}
+		else { 	temp=temp+"<tr><td colspan = '2'><font size='2' face='arial'>No records to display</td></tr>";}
 	}
 	else if (secondaryTable != ""){
 		String tString="";
@@ -88,12 +88,12 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 		if (tempCounter>0) {
 			statmt = con.createStatement();
 			rst= statmt.executeQuery("Select * from " + secondaryTable + " WHERE ID != '" + tString + "' order by value");
-//						while(rst.next()){
+			while(rst.next()){
 				String restriction = rst.getString("ID");
 				int records=returnComplicatedCount(quest,"(" + primaryColumn + " = '" + restriction + "')" + whereString);
 				if (((records*100)/(tempCounter)) > cutOffPercentage) {
 					temp=temp+"<tr><td><font size='2' face='arial'>" + rst.getString("value") + "</td>		<td> &nbsp; </td>	<td><img src='/quest/images/reddot.gif' height='10' width='" + (records*100)/tempCounter + "'></td><td> <font size='2' face='arial'>" + (records*100)/tempCounter + "." + ((records*1000)/tempCounter)%10 + "<font size='1'>% </td></tr>";
-//								}
+				}
 			}
 			statmt.close();
 		}
