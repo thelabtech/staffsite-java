@@ -37,42 +37,7 @@ boolean hasMinistry = false;
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
 <HR COLOR="#D0DDEA">
-<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="95%" ALIGN="CENTER"><TR><TD WIDTH="90%" ALIGN="LEFT">
-<% 
 
-if(!((String)taTable.get("UrlToLogo")).equals("")) {
-	%>
-	<IMG alt='Target Area Logo' height=82 SRC="/servlet/ImageController?url=<%= taTable.get("UrlToLogo") %>"><%
-}
-else {
-	%>
-	<%= fontXXL %><B><%= taTable.get("Name") %></B></FONT><% 
-}
-if(!((String)taTable.get("Url")).equals("")) {
-		%>
-		<BR>
-		<%= font %>This Local Level Ministry has a website. Visit it <A HREF="<%= taTable.get("Url") %>">here</A>.</FONT>
-		<%
-} %></TD>
-<TD ALIGN="RIGHT"><%= font %><B>
-				<form name=bookmarkForm action='/servlet/InfoBaseController' method='post'>
-				    <input type=hidden name="action" value="changeBookmark">
-						<input type=hidden name="displayname" value="<%= taTable.get("Name") %>">
-						<input type=hidden name="type" value="targetarea">
-						<input type=hidden name="targetareaid" value="<%= request.getParameter("targetareaid") %>">
-						<input type=hidden name="value" value="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%= request.getParameter("targetareaid") %>">
-						<% 
-						   String mode;
-						   if(!((String)ar.getValue("bookmarkID")).equals(""))
-								 mode = "remove";
-							 else
-								 mode = "add";
-							%>
-						<INPUT TYPE=hidden name="bookmarkid" value="<%= ar.getValue("bookmarkID") %>">
-						<INPUT TYPE=hidden name="mode" value="<%= mode %>">
-				</form>
-<A HREF="javascript: document.bookmarkForm.submit()"><NOBR><% if(mode.equals("remove")){ out.print("Un-"); } %>Bookmark this Item</NOBR></A></B>
-</TD></TR></TABLE>
 <HR COLOR="#D0DDEA">
 <BR><TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="95%" ALIGN="CENTER"><TR><TD ALIGN="RIGHT" WIDTH="100%">
 <%= font %>[<A HREF="/servlet/InfoBaseController?action=createReport&targetareaid=<%= request.getParameter("targetareaid") %>&type=targetarea">Success Criteria Reporter</A>]</TD></TR></TABLE>
@@ -389,7 +354,13 @@ if(!((String)taTable.get("Url")).equals("")) {
 
 
 <TR><TD ALIGN="RIGHT"><%= font %>Fice:</TD><TD><%= font %><%= taTable.get("Fice") %></TD></TR>
-<!-- <TR><TD ALIGN="RIGHT"><%= font %>Secure?</TD><TD><%= font %><% if(((Boolean)taTable.get("IsSecure")).booleanValue()) { %>Yes<% } else { %>No<% } %></TD></TR> -->
+<%-- <TR><TD ALIGN="RIGHT"><%= font %>Secure?</TD><TD><%= font %>
+<% if (((Boolean)taTable.get("IsSecure")).booleanValue()) { 
+%>Yes<% 
+} else { 
+%>No<% 
+} %>
+</TD></TR> --%>
 <TR><TD ALIGN="RIGHT"><%= font %>Semester?</TD><TD><%= font %><% if(((Boolean)taTable.get("IsSemester")).booleanValue()) { %>Yes<% } else { %>No<% } %></TD></TR>
 <% if(taTable.get("MonthSchoolStarts") != null) { %>
 <TR><TD ALIGN="RIGHT"><%= font %>School year:</TD><TD><%= font %>

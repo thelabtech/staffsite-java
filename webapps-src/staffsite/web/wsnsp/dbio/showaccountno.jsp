@@ -28,7 +28,7 @@ Once you have the account numbers back from the Donations system in a <strong>co
 below to upload the file.<br />
 <input type="file" name="accountlist">
 <input type="submit" value="Upload File">
-<!--
+<%--
 <table width ='95%' border='1' bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
 <tr><td colspan='6'><center><input type='Submit' value='Save'></center></td></tr>
 
@@ -65,7 +65,7 @@ below to upload the file.<br />
 	}
 	%>
 </table><br>
--->
+--%>
 </form>
 
 <%@ include file="wsnspfooter.jspf" %>

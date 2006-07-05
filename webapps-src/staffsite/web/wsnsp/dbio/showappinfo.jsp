@@ -56,7 +56,7 @@
 
 <% } //End of protection code %>
 
-<!-- 4-24-03 kl: Commented Out section requiring SubmittedDate to Edit, added Edit button for everyone below
+<%-- 4-24-03 kl: Commented Out section requiring SubmittedDate to Edit, added Edit button for everyone below
 <%// if ((h.get("SubmittedDate") == null) && !(h.get("Role").equals("6"))){
 	if (h.get("SubmittedDate") == null){
 %>
@@ -70,7 +70,7 @@
 	<%=fontHLM%>If you wish to edit this person's record, click the "edit" button above.  Do not hit the back button on your browser.<font>
 <% }
 %>
--->
+--%>
 	<input type='submit' value='Edit'><b> or Finish Application Entry</b></font>
 	<p>
 	<%=fontHLM%>If you wish to edit this person's record, click the "edit" button above.  Do not hit the back button on your browser.<font>
