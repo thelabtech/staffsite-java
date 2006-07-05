@@ -75,8 +75,8 @@ String doStatsTable (String quest, String statTitle, String primaryColumn, Strin
 				tempCounter2=tempCounter2+(records*cnt);
 			}
 			temp=temp+"<tr><td><font size='2' face='arial'><b>Average:</td>	<td> &nbsp; </td>	<td> &nbsp </td><td> <font size='2' face='arial'><b>" + (tempCounter2)/tempCounter + "." + ((tempCounter2*10)/tempCounter)%10 + "</td></tr>";
-		}
-		else { 	temp=temp+"<tr><td colspan = '2'><font size='2' face='arial'>No records to display</td></tr>";}
+//		}
+//		else { 	temp=temp+"<tr><td colspan = '2'><font size='2' face='arial'>No records to display</td></tr>";}
 	}
 	else if (secondaryTable != ""){
 		String tString="";
