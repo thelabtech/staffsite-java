@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+
+<!--                        applicant                         -->
+    <view name="answerQuestion" url="/accounts/answerQuestion.jsp"></view>
+    <view name="changeEmail" url="/accounts/changeEmail.jsp"></view>
+    <view name="changePassword" url="/accounts/changePassword.jsp"></view>
+    <view name="popUpChangePassword" url="/accounts/popUpChangePassword.jsp"></view>
+    <view name="error" url="/accounts/error.jsp"></view>
+    <view name="genericLogin" url="/accounts/genericLogin.jsp"></view>
+    <view name="lookupQuestion" url="/accounts/lookupQuestion.jsp"></view>
+    <view name="register" url="/accounts/register.jsp"></view>
+    <view name="registerUsername" url="/accounts/registerUsername.jsp"></view>
+    <view name="registerUsernameMS" url="/accounts/registerUsernameMS.jsp"></view>
+    <view name="validateEmail" url="/accounts/emailvalidate.jsp"></view>
+    <view name="validateEmailError" url="/accounts/emailvalidateError.jsp"></view>
+
+</views>

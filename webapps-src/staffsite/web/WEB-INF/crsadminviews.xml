@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application:	Conference Registration System(CRS)
+	Controller:		org.alt60m.crs.servlet.CRSAdmin
+	Change log:		Name - date - type
+					Andy Stanberry - 3/4/2003 - Created
+					Greg Wilson	   -10/24/2004- modified edit /list registrations
+-->
+
+<views>
+	<view name="adminHome" url="/crs/adminHome.jsp"></view> <!-- for admins -->
+	<view name="listConferences" url="/crs/listConferences.jsp"></view>
+	<view name="listConferencesMigrate" url="/crs/listConferencesMigrate.jsp"></view>
+	<view name="showConference" url="/crs/showConference.jsp"></view>
+	<view name="cloneConference" url="/crs/cloneConference.jsp"></view>
+	<view name="editConferenceDetails" url="/crs/editConferenceDetails.jsp"></view>
+	<view name="editDisplayOptions" url="/crs/editDisplayOptions.jsp"></view>
+	<view name="listCustomItems" url="/crs/listCustomItems.jsp"></view>
+	<view name="editCustomItemDetails" url="/crs/editCustomItemDetails.jsp"></view>
+	<view name="listReports" url="/crs/listReports.jsp"></view>
+	<view name="showReport" url="/crs/showReport.jsp"></view>
+	<view name="editReportDetails" url="/crs/editReportDetails.jsp"></view>
+<!--	<view name="editRegistrationTypeDetails" url="/crs/editRegistrationTypeDetails.jsp"></view> deprecated 20041115-->
+	<view name="listRegistrationTypes" url="/crs/listRegistrationTypes.jsp"></view>
+	<view name="chooseNumRegTypes" url="/crs/chooseNumRegTypes.jsp"></view>
+	<view name="multRegTypesExplanation" url="/crs/multRegTypesExplanation.jsp"></view>
+	<view name="editRegistrationType" url="/crs/editRegistrationType.jsp"></view>
+	<view name="editFinancialDetails" url="/crs/editFinancialDetails.jsp"></view>
+	<view name="listRegTypeMerchandise" url="/crs/listRegTypeMerchandise.jsp"></view>
+	<view name="listRegTypeQuestions" url="/crs/listRegTypeQuestions.jsp"></view>
+
+<!--	<view name="listRegistrations" url="/crs/listRegistrations.jsp"></view>  deprecated 20041025-->
+	<view name="showRegistration" url="/crs/showRegistration.jsp"></view>
+	<view name="showChildRegistration" url="/crs/showChildRegistration.jsp"></view>
+	<view name="editRegistration" url="/crs/editRegistration.jsp"></view>
+	<view name="editChildRegistration" url="/crs/editChildRegistration.jsp"></view>
+	<view name="editRegistrationQuestions" url="/crs/editRegistrationQuestions.jsp"></view>
+	<view name="editRegistrationMerchandise" url="/crs/editRegistrationMerchandise.jsp"></view>
+	<view name="listRegistrationPayments" url="/crs/listRegistrationPayments.jsp"></view>
+	<view name="newPayment" url="/crs/newPayment.jsp"></view>
+	<view name="lookupPerson" url="/crs/lookupPerson.jsp"></view>
+	<view name="lookupRegistration" url="/crs/lookupRegistration.jsp"></view>
+	<view name="lookupAdvancedRegistration" url="/crs/lookupAdvancedRegistration.jsp"></view>
+	<view name="challengeLogin" url="/crs/challengeLogin.jsp"></view>
+	<view name="composeEmail" url="/crs/composeEmail.jsp"></view>
+
+	<view name="listMerchandise" url="/crs/listMerchandise.jsp"></view>
+	<view name="editMerchandiseDetails" url="/crs/editMerchandiseDetails.jsp"></view>
+	<view name="listRegTypeQuestions" url="/crs/listRegTypeQuestions.jsp"></view>
+	<view name="editQuestionDetails" url="/crs/editQuestionDetails.jsp"></view>
+	<view name="listCommonQuestions" url="/crs/listCommonQuestions.jsp"></view>
+	<view name="editProfileQuestions" url="/crs/editProfileQuestions.jsp"></view>
+<!--	<view name="editBuckets" url="/crs/editBuckets.jsp"></view> deprecated 20041025 -->
+	
+	<view name="prepDownload" url="/crs/prepDownload.jsp"></view>
+	<view name="downloadFile" url="/crs/downloadFile.jsp"></view>
+	<view name="uploadFile" url="/crs/uploadFile.jsp"></view>
+
+    <view name="adminError" url="/crs/adminError.jsp"></view>
+	<view name="error" url="/crs/error.jsp"></view>
+	<view name="confirm" url="/crs/confirm.jsp"></view>
+</views>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+<user name="mat.weiss@uscm.org" role="uberuser"></user>
+<user name="brock.zagel@uscm.org" role="reguser"></user>
+<user name="paul.payne@uscm.org" role="natluser"></user>
+<user name="dave.schlernitzauer@uscm.org" role="uberuser"></user>
+<user name="dan.hardaway@uscm.org" role="uberuser"></user>
+<user name="jim.layman@uscm.org" role="reguser"></user>
+<user name="tim.holcomb@uscm.org" role="reguser"></user>
+<user name="dave.patchin@uscm.org" role="reguser"></user>
+<user name="tom.goodwin@uscm.org" role="reguser"></user>
+<user name="sam.osterloh@uscm.org" role="reguser"></user>
+<user name="pete.henschel@uscm.org" role="reguser"></user>
+<user name="ken.miller@uscm.org" role="reguser"></user>
+<user name="stuart.dodds@uscm.org" role="reguser"></user>
+<user name="doug.shindler@uscm.org" role="reguser"></user>
+<user name="john.waidely@uscm.org" role="reguser"></user>
+<user name="fund.development@uscm.org" role="natluser"></user>
+<user name="sharon.denney@uscm.org" role="natluser"></user>
+<user name="john.cannon@uscm.org" role="natluser"></user>
+</users>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+
+<view name="home" url="/hr_si/index.jsp"></view>
+
+
+<!--                        applicant                         -->
+<view name="map" url="/hr_si/applicant/map.jsp"></view>
+<view name="info" url="/hr_si/applicant/info.jsp"></view>
+<view name="login" url="/hr_si/applicant/login.jsp"></view>
+<view name="status" url="/hr_si/applicant/status.jsp"></view>
+<view name="register" url="/hr_si/applicant/register.jsp"></view>
+<view name="warning" url="/hr_si/applicant/warning.jsp"></view>
+<view name="download" url="/hr_si/applicant/dlPage.jsp"></view>
+<view name="question" url="/hr_si/applicant/question.jsp"></view>
+<view name="forgot" url="/hr_si/applicant/forgot.jsp"></view>
+
+<view name="apphome" url="/hr_si/applicant/application/apphome.jsp"></view>
+<view name="instruct" url="/hr_si/applicant/application/instruct.jsp"></view>
+<view name="faq" url="/hr_si/applicant/application/faq.jsp"></view>
+<view name="contact" url="/hr_si/applicant/application/contact.jsp"></view>
+<view name="interests" url="/hr_si/applicant/application/interests.jsp"></view>
+<view name="stintonly" url="/hr_si/applicant/application/stintonly.jsp"></view>
+<view name="experience" url="/hr_si/applicant/application/experience.jsp"></view>
+<view name="church" url="/hr_si/applicant/application/church.jsp"></view>
+<view name="personal" url="/hr_si/applicant/application/personal.jsp"></view>
+<view name="ause" url="/hr_si/applicant/application/ause.jsp"></view>
+<view name="duse" url="/hr_si/applicant/application/duse.jsp"></view>
+<view name="tuse" url="/hr_si/applicant/application/tuse.jsp"></view>
+<view name="moral" url="/hr_si/applicant/application/moral.jsp"></view>
+<view name="financial" url="/hr_si/applicant/application/financial.jsp"></view>
+<view name="mpd" url="/hr_si/applicant/application/mpd.jsp"></view>
+<view name="bio" url="/hr_si/applicant/application/bio.jsp"></view>
+<view name="refs" url="/hr_si/applicant/application/refs.jsp"></view>
+<view name="belief" url="/hr_si/applicant/application/belief.jsp"></view>
+<view name="payment" url="/hr_si/applicant/application/payment.jsp"></view>
+<view name="submit" url="/hr_si/applicant/application/submit.jsp"></view>
+<view name="payccard" url="/hr_si/applicant/application/payccard.jsp"></view>
+<view name="paymail" url="/hr_si/applicant/application/paymail.jsp"></view>
+<view name="paystaff" url="/hr_si/applicant/application/paystaff.jsp"></view>
+<view name="paymentdone" url="/hr_si/applicant/application/paythanks.jsp"></view>
+<view name="paymentsoon" url="/hr_si/applicant/application/paysoon.jsp"></view>
+<view name="payfindstaff" url="/hr_si/applicant/application/payfindstaff.jsp"></view>
+<view name="finishA" url="/hr_si/applicant/application/finishLater.jsp"></view>
+<view name="submitapp" url="/hr_si/applicant/application/submitapp.jsp"></view>
+
+
+<!--                        references                         -->
+<view name="ref1" url="/hr_si/references/ref1.jsp"></view>
+<view name="ref2" url="/hr_si/references/ref2.jsp"></view>
+<view name="ref3" url="/hr_si/references/ref3.jsp"></view>
+<view name="ref4" url="/hr_si/references/ref4.jsp"></view>
+<view name="ref5" url="/hr_si/references/ref5.jsp"></view>
+<view name="ref6" url="/hr_si/references/ref6.jsp"></view>
+<view name="ref7" url="/hr_si/references/ref7.jsp"></view>
+<view name="ref8" url="/hr_si/references/ref8.jsp"></view>
+<view name="ref9" url="/hr_si/references/ref9.jsp"></view>
+<view name="ref10" url="/hr_si/references/ref10.jsp"></view>
+<view name="ref11" url="/hr_si/references/ref11.jsp"></view>
+<view name="ref12" url="/hr_si/references/ref12.jsp"></view>
+<view name="refAlreadySubmitted" url="/hr_si/references/refAlreadySubmitted.jsp"></view>
+<view name="refFinishLater" url="/hr_si/references/refFinishLater.jsp"></view>
+<view name="refFormSubmitted" url="/hr_si/references/refFormSubmitted.jsp"></view>
+<view name="refNotFound" url="/hr_si/references/refNotFound.jsp"></view>
+
+<!--                        evaluator                         -->
+
+<view name="projecttool" url="/hr_si/evaluator/projecttool.jsp"></view>
+<view name="projectview" url="/hr_si/evaluator/projectview.jsp"></view>
+<view name="studentview" url="/hr_si/evaluator/studentview.jsp"></view>
+<view name="evalcontact" url="/hr_si/evaluator/evalcontact.jsp"></view>
+<view name="evalinterests" url="/hr_si/evaluator/evalinterests.jsp"></view>
+<view name="evalexperience" url="/hr_si/evaluator/evalexperience.jsp"></view>
+<view name="evalrefrel" url="/hr_si/evaluator/evalrefrel.jsp"></view>
+<view name="evalrelgod" url="/hr_si/evaluator/evalrelgod.jsp"></view>
+<view name="evalrelothers" url="/hr_si/evaluator/evalrelothers.jsp"></view>
+<view name="evalrelself" url="/hr_si/evaluator/evalrelself.jsp"></view>
+<view name="evalminskills" url="/hr_si/evaluator/evalminskills.jsp"></view>
+<view name="evalleaderskills" url="/hr_si/evaluator/evalleaderskills.jsp"></view>
+<view name="evaloverall" url="/hr_si/evaluator/evaloverall.jsp"></view>
+<view name="evalpersonal" url="/hr_si/evaluator/evalpersonal.jsp"></view>
+<view name="evalmoral" url="/hr_si/evaluator/evalmoral.jsp"></view>
+<view name="evalfinmpd" url="/hr_si/evaluator/evalfinmpd.jsp"></view>
+<view name="evalworksheet" url="/hr_si/evaluator/evalworksheet.jsp"></view>
+<view name="evalacceptance" url="/hr_si/evaluator/evalacceptance.jsp"></view>
+<view name="evalsummary" url="/hr_si/evaluator/evalsummary.jsp"></view>
+<view name="evalsplit" url="/hr_si/evaluator/evalsplit.jsp"></view>
+<view name="evalworksheetframe" url="/hr_si/evaluator/evalworksheetframe.jsp"></view>
+<view name="evalacceptanceframe" url="/hr_si/evaluator/evalacceptanceframe.jsp"></view>
+<view name="evalsummaryframe" url="/hr_si/evaluator/evalsummaryframe.jsp"></view>
+<view name="pfapplication" url="/hr_si/evaluator/pfapplication.jsp"></view>
+<view name="pfrefs" url="/hr_si/evaluator/pfrefs.jsp"></view>
+<view name="pfappandrefs" url="/hr_si/evaluator/pfappandrefs.jsp"></view>
+<view name="pfappnoconf" url="/hr_si/evaluator/pfappnoconf.jsp"></view>
+<view name="pfrefindividual" url="/hr_si/evaluator/pfrefindividual.jsp"></view>
+
+<view name="evaluatehome" url="/hr_si/evaluator/evaluatehome.jsp"></view>
+<view name="evaluateappinfo" url="/hr_si/evaluator/evaluateappinfo.jsp"></view>
+<view name="evaluatetest" url="/hr_si/evaluator/evaltest.jsp"></view>
+<view name="evahometest" url="/hr_si/evaluator/apphome.jsp"></view>
+<view name="junktest" url="/hr_si/evaluator/junktest.jsp"></view>
+<view name="cvsfile" url="/hr_si/evaluator/cvsfile.jsp"></view>
+
+<!--                        admin                         -->
+<view name="adminhome" url="/hr_si/admin/adminhome.jsp"></view>
+<view name="adminEditProject" url="/hr_si/admin/adminEditProject.jsp"></view>
+<view name="addProjectConfirm" url="/hr_si/admin/addProjectConfirm.jsp"></view>
+<view name="searchProjects" url="/hr_si/admin/filterlistprojects.jsp"></view>
+<view name="listProjects" url="/hr_si/admin/listprojects.jsp"></view>
+<view name="tools" url="/tools.jsp"></view>
+
+<!--                        misc                         -->
+<view name="error" url="/hr_si/error.jsp"></view>
+
+<!--                        receive payments             -->
+
+<view name="receivepayment" url="/hr_si/coordinator/receivepayment.jsp"></view>
+
+
+<!--                        payment from StaffAcctXfer             -->
+
+<view name="paymentfromstaff" url="/hr_si/staff/receivepayment.jsp"></view>
+<view name="paymentfromstaffthanks" url="/hr_si/staff/receivepaymentdone.jsp"></view>
+
+
+</views>

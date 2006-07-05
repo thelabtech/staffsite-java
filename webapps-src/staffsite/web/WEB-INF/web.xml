@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2.2.dtd">
+
+<web-app>
+
+
+	<!--  Context Parameters  -->
+
+<!--
+	<context-param>
+		<param-name>edu.yale.its.tp.cas.proxyUrl</param-name>
+		<param-value>http://casdev.ccci.org:8080/cas/proxy</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasLoginURL</param-name>
+		<param-value>http://casdev.ccci.org:8080/cas/login</param-value>
+	</context-param>
+
+		<context-param>
+		<param-name>CasLogoutURL</param-name>
+		<param-value>http://casdev.ccci.org:8080/cas/logout</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasValidationURL</param-name>
+		<param-value>http://casdev.ccci.org:8080/cas/serviceValidate</param-value>
+	</context-param>
+
+-->
+
+
+
+
+	<context-param>
+		<param-name>edu.yale.its.tp.cas.proxyUrl</param-name>
+		<param-value>https://signin.mygcx.org/cas/proxy</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasLoginURL</param-name>
+		<param-value>https://signin.mygcx.org/cas/login</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasLogoutURL</param-name>
+		<param-value>https://signin.mygcx.org/cas/logout</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasValidationURL</param-name>
+		<param-value>https://signin.mygcx.org/cas/serviceValidate</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>CasVerificationURL</param-name>
+		<param-value>https://staff2.ccci.org/ss/ssoAuthorization</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>RequestProxyGrantingTicket</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	
+	<context-param>
+		<param-name>ClusteredServers</param-name>
+		<param-value>teststaff.uscm.org</param-value>
+	</context-param>
+	
+		
+	<!--  Listeners  -->
+
+
+	<!--  Filters  -->
+	<!--  
+
+    -->
+    <filter>
+        <filter-name>maintenance</filter-name>
+        <filter-class>org.alt60m.staffSite.filter.MaintenanceFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/maintenance.html</param-value>
+   		</init-param>
+    </filter>
+        
+    
+    <filter>
+        <filter-name>si_down_for_summer</filter-name>
+        <filter-class>org.alt60m.staffSite.filter.MaintenanceFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/hr_si/downforsummer.html</param-value>
+   		</init-param>
+    </filter>    
+    
+    <filter>
+        <filter-name>ms_down_for_summer</filter-name>
+        <filter-class>org.alt60m.staffSite.filter.RequireGCXFilter</filter-class>
+        <init-param>
+	       <param-name>pageName</param-name>
+    	   <param-value>/hr_ms/downforsummer.html</param-value>
+   		</init-param>
+    </filter>   
+       
+	<!--  Filter Mappings  -->
+<!-- 
+
+ 
+	<filter-mapping>
+        <filter-name>maintenance</filter-name>
+        <servlet-name>SIController</servlet-name>
+    </filter-mapping>
+    
+	<filter-mapping>
+        <filter-name>maintenance</filter-name>
+        <url-pattern>/hr_si/*</url-pattern>
+    </filter-mapping>	
+ -->
+	<filter-mapping>
+        <filter-name>ms_down_for_summer</filter-name>
+        <servlet-name>MSController</servlet-name>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>ms_down_for_summer</filter-name>
+        <url-pattern>/hr_ms/*</url-pattern>
+    </filter-mapping>
+    
+	<filter-mapping>
+        <filter-name>si_down_for_summer</filter-name>
+        <url-pattern>/hr_si/*</url-pattern>
+    </filter-mapping>
+    
+
+	<servlet>
+		<servlet-name>ServletRedirector</servlet-name>
+		<servlet-class>j2eeunit.server.ServletTestRedirector</servlet-class>
+		<init-param>
+			<param-name>param1</param-name>
+			<param-value>value1 used for testing</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ProxyTicketReceptorGateway</servlet-name>
+		<servlet-class>org.alt60m.servlet.ClusterBroadcast</servlet-class>
+		<init-param>
+			<param-name>SuccessfulResponse</param-name>
+			<param-value>
+				<![CDATA[<casClient:proxySuccess xmlns:casClient="http://www.yale.edu/tp/casClient"/>]]>
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>BroadcastUrlSuffix</param-name>
+			<param-value>/servlet/CasProxyServlet</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>LogoutGateway</servlet-name>
+		<servlet-class>org.alt60m.servlet.ClusterBroadcast</servlet-class>
+		<init-param>
+			<param-name>SuccessfulResponse</param-name>
+			<param-value>Logout Successful</param-value>
+		</init-param>
+		<init-param>
+			<param-name>BroadcastUrlSuffix</param-name>
+			<param-value>/servlet/StaffController</param-value>
+		</init-param>
+		<init-param>
+			<param-name>FailureResponse</param-name>
+			<param-value>Logout Unsuccessful</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ScheduleController</servlet-name>
+		<servlet-class>org.alt60m.staffSite.servlet.ScheduleController</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>CampusLocator</servlet-name>
+		<servlet-class>org.alt60m.html.CampusLocator</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>MSController</servlet-name>
+		<servlet-class>org.alt60m.hr.ms.servlet.dbio.MSController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SIController</servlet-name>
+		<servlet-class>org.alt60m.hr.si.servlet.dbio.SIController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AccountController</servlet-name>
+		<servlet-class>org.alt60m.accounts.servlet.dbio.AccountController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CRSRegister</servlet-name>
+		<servlet-class>org.alt60m.crs.servlet.CRSRegister</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ImageController</servlet-name>
+		<servlet-class>ImageController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>InfoBaseController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.InfoBaseController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GlobalInfoBaseController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.GlobalInfoBaseController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HRUpdateController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.HRUpdateController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HRQueryController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.HRQueryController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>EventController</servlet-name>
+		<servlet-class>EventController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Review360Controller</servlet-name>
+		<servlet-class>org.alt60m.hr.review360.servlet.Review360Controller</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Review360LightController</servlet-name>
+		<servlet-class>org.alt60m.hr.review360.servlet.Review360LightController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>WsnSpController</servlet-name>
+		<servlet-class>org.alt60m.wsn.sp.servlet.WsnSpController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>WsnSpAccountListController</servlet-name>
+		<servlet-class>org.alt60m.wsn.sp.servlet.WsnSpAccountListController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AuthorizeController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.AuthorizeController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>FskController</servlet-name>
+		<servlet-class>org.alt60m.fsk.servlet.FskController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>MinistryLocatorController</servlet-name>
+		<servlet-class>org.alt60m.ministry.servlet.MinistryLocatorController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CRSAdmin</servlet-name>
+		<servlet-class>org.alt60m.crs.servlet.CRSAdmin</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>StaffController</servlet-name>
+		<servlet-class>org.alt60m.staffSite.servlet.StaffController</servlet-class>
+		<init-param>
+			<param-name>ProxyUrlSuffix</param-name>
+			<param-value>/servlet/ProxyTicketReceptorGateway</param-value>
+		</init-param>
+		<init-param>
+			<param-name>LogoutCallbackSuffix</param-name>
+			<param-value>/servlet/LogoutGateway</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CmsController</servlet-name>
+		<servlet-class>org.alt60m.cms.servlet.CmsController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SuggestionController</servlet-name>
+		<servlet-class>SuggestionController</servlet-class>
+		<init-param>
+			<param-name>jdbcConnect</param-name>
+			<param-value>jdbc:oracle:thin:@thebiguy.ccci.org:1521:prod</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>JspRedirector</servlet-name>
+		<jsp-file>/test/redirector.jsp</jsp-file>
+		<init-param>
+			<param-name>param1</param-name>
+			<param-value>value1 used for testing</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ProxyTicketReceptor</servlet-name>
+		<servlet-class>edu.yale.its.tp.cas.proxy.ProxyTicketReceptor</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>MonitorController</servlet-name>
+		<servlet-class>org.alt60m.staffSite.servlet.MonitorController</servlet-class>
+	</servlet>
+	    
+	<servlet-mapping>
+		<servlet-name>ProxyTicketReceptorGateway</servlet-name>
+        <url-pattern>/servlet/ProxyTicketReceptorGateway</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+		<servlet-name>LogoutGateway</servlet-name>
+        <url-pattern>/servlet/LogoutGateway</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+        <servlet-name>MonitorController</servlet-name>
+        <url-pattern>/servlet/MonitorController</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+        <servlet-name>ScheduleController</servlet-name>
+        <url-pattern>/servlet/ScheduleController</url-pattern>
+    </servlet-mapping>
+    
+	<servlet-mapping>
+		<servlet-name>ServletRedirector</servlet-name>
+		<url-pattern>/ServletRedirector</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>StaffController</servlet-name>
+        <url-pattern>/servlet/StaffController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>ImageController</servlet-name>
+        <url-pattern>/servlet/ImageController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>HRUpdateController</servlet-name>
+        <url-pattern>/servlet/HRUpdateController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>HRQueryController</servlet-name>
+        <url-pattern>/servlet/HRQueryController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>CmsController</servlet-name>
+        <url-pattern>/servlet/CmsController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>EventController</servlet-name>
+        <url-pattern>/servlet/EventController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>Review360Controller</servlet-name>
+        <url-pattern>/servlet/Review360Controller</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>Review360LightController</servlet-name>
+        <url-pattern>/servlet/Review360LightController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>CRSRegister</servlet-name>
+        <url-pattern>/servlet/CRSRegister</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>CRSAdmin</servlet-name>
+        <url-pattern>/servlet/CRSAdmin</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>SuggestionController</servlet-name>
+        <url-pattern>/servlet/SuggestionController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>SuggestionController</servlet-name>
+        <url-pattern>/servlet/SuggestionsController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>CmsController</servlet-name>
+        <url-pattern>/servlet/CmsController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>AccountController</servlet-name>
+        <url-pattern>/servlet/AccountController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>CampusLocator</servlet-name>
+        <url-pattern>/servlet/CampusLocator</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>MSController</servlet-name>
+        <url-pattern>/servlet/MSController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>SIController</servlet-name>
+        <url-pattern>/servlet/SIController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>InfoBaseController</servlet-name>
+        <url-pattern>/servlet/InfoBaseController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>GlobalInfoBaseController</servlet-name>
+        <url-pattern>/servlet/GlobalInfoBaseController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>WsnSpController</servlet-name>
+        <url-pattern>/servlet/WsnSpController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>AuthorizeController</servlet-name>
+        <url-pattern>/servlet/AuthorizeController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>FskController</servlet-name>
+        <url-pattern>/servlet/FskController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+        <servlet-name>MinistryLocatorController</servlet-name>
+        <url-pattern>/servlet/MinistryLocatorController</url-pattern>
+    </servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>JspRedirector</servlet-name>
+		<url-pattern>/JspRedirector</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ProxyTicketReceptor</servlet-name>
+		<url-pattern>/servlet/CasProxyServlet</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>    <!-- 30 minutes -->
+	</session-config>
+
+	<resource-ref>
+		<description>
+    		Reference to a java.sql.Connection factory;
+    		configured in server.xml.
+  		</description>
+  		<res-ref-name>
+			jdbc/SQLServ
+		</res-ref-name>
+  		<res-type>
+    		javax.sql.DataSource
+  		</res-type>
+  		<res-auth>
+    		Container
+  		</res-auth>
+	</resource-ref>
+</web-app>

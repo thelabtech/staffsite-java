@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<users>
+<user name="mat.weiss@uscm.org" role="uberuser"></user>
+<user name="todd.gross@uscm.org" role="uberuser"></user>
+<user name="justin.sabelko@uscm.org" role="uberuser"></user>
+<user name="dave.schlernitzauer@uscm.org" role="uberuser"></user>
+<user name="dan.hardaway@uscm.org" role="uberuser"></user>
+<user name="kurt.bowerman@uscm.org" role="uberuser"></user>
+<user name="laura.viau@uscm.org" role="uberuser"></user>
+<user name="jonathan.haight@uscm.org" role="uberuser"></user>
+<user name="jacqueline.bland@uscm.org" role="uberuser"></user>
+<user name="kerri.louck@uscm.org" role="uberuser"></user>
+<user name="jermayne.chapman@uscm.org" role="uberuser"></user>
+
+<user name="fund.development@uscm.org" role="natluser"></user>
+
+<user name="john.waidley@uscm.org" role="reguser"></user>
+<user name="jim.layman@uscm.org" role="reguser"></user>
+<user name="ken.miller@uscm.org" role="reguser"></user>
+<user name="dave.patchin@uscm.org" role="reguser"></user>
+<user name="david.moles@uscm.org" role="reguser"></user>
+<user name="todd.pastor@uscm.org" role="reguser"></user>
+<user name="pete.henschel@uscm.org" role="reguser"></user>
+<user name="dave.smyth@uscm.org" role="reguser"></user>
+<user name="tim.holcomb@uscm.org" role="reguser"></user>
+<user name="colleen.burch@uscm.org" role="reguser"></user>
+<user name="great.lakes@uscm.org" role="reguser"></user>
+<user name="great.plains@uscm.org" role="reguser"></user>
+<user name="mid.atlantic@uscm.org" role="reguser"></user>
+<user name="mid.south@uscm.org" role="reguser"></user>
+<user name="north.east@uscm.org" role="reguser"></user>
+<user name="north.west@uscm.org" role="reguser"></user>
+<user name="red.river@uscm.org" role="reguser"></user>
+<user name="south.east@uscm.org" role="reguser"></user>
+<user name="south.west@uscm.org" role="reguser"></user>
+<user name="upper.midwest@uscm.org" role="reguser"></user>
+<user name="shannon.compere@uscm.org" role="uberuser"></user>
+<user name="jeff.hardy@uscm.org" role="reguser"></user>
+<user name="jeff.janasz@uscm.org" role="reguser"></user>
+<user name="millie.welsch@uscm.org" role="reguser"></user>
+<user name="steve.ellisen@uscm.org" role="reguser"></user>
+<user name="scott.welch@uscm.org" role="uberuser"></user>
+</users>

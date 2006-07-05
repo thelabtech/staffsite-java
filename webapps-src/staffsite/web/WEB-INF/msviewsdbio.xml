@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views>
+
+<view name="home" url="/hr_ms/dbio/index.jsp"></view>
+
+
+<!--                        applicant                         -->
+<view name="map" url="/hr_ms/dbio/applicant/map.jsp"></view>
+<view name="opportunities" url="/hr_ms/dbio/opportunities.jsp"></view>
+<view name="info" url="/hr_ms/dbio/info.jsp"></view>
+<view name="login" url="/hr_ms/dbio/applicant/login.jsp"></view>
+<view name="status" url="/hr_ms/dbio/applicant/status.jsp"></view>
+<view name="register" url="/hr_ms/dbio/applicant/register.jsp"></view>
+<view name="warning" url="/hr_ms/dbio/applicant/warning.jsp"></view>
+<view name="download" url="/hr_ms/dbio/applicant/dlPage.jsp"></view>
+<view name="home" url="/hr_ms/dbio/index.jsp"></view>
+<view name="projectTeam" url="/hr_ms/dbio/applicant/application/projectTeam.jsp"></view>
+
+<view name="apphome" url="/hr_ms/dbio/applicant/application/apphome.jsp"></view>
+<view name="instructions" url="/hr_ms/dbio/applicant/application/instructions.jsp"></view>
+<view name="faq" url="/hr_ms/dbio/applicant/application/faq.jsp"></view>
+<view name="app1" url="/hr_ms/dbio/applicant/application/app1.jsp"></view>
+<view name="app2" url="/hr_ms/dbio/applicant/application/app2.jsp"></view>
+<view name="app3" url="/hr_ms/dbio/applicant/application/app3.jsp"></view>
+<view name="app4" url="/hr_ms/dbio/applicant/application/app4.jsp"></view>
+<view name="app5" url="/hr_ms/dbio/applicant/application/app5.jsp"></view>
+<view name="app6" url="/hr_ms/dbio/applicant/application/app6.jsp"></view>
+<view name="app7" url="/hr_ms/dbio/applicant/application/app7.jsp"></view>
+<view name="app8" url="/hr_ms/dbio/applicant/application/app8.jsp"></view>
+<view name="app9" url="/hr_ms/dbio/applicant/application/app9.jsp"></view>
+<view name="reference" url="/hr_ms/dbio/applicant/application/reference.jsp"></view>
+<view name="payment" url="/hr_ms/dbio/applicant/application/payment.jsp"></view>
+<view name="payccard" url="/hr_ms/dbio/applicant/application/payccard.jsp"></view>
+<view name="paymail" url="/hr_ms/dbio/applicant/application/paymail.jsp"></view>
+<view name="paystaff" url="/hr_ms/dbio/applicant/application/paystaff.jsp"></view>
+<view name="paymentdone" url="/hr_ms/dbio/applicant/application/paythanks.jsp"></view>
+<view name="paymentsoon" url="/hr_ms/dbio/applicant/application/paysoon.jsp"></view>
+<view name="payfindstaff" url="/hr_ms/dbio/applicant/application/payfindstaff.jsp"></view>
+<view name="finishA" url="/hr_ms/dbio/applicant/application/finishLater.jsp"></view>
+<view name="thankyou" url="/hr_ms/dbio/thankyou.jsp"></view>
+<view name="appsubmit" url="/hr_ms/dbio/applicant/application/appsubmit.jsp"></view>
+<view name="appsubmitted" url="/hr_ms/dbio/applicant/application/appsubmitted.jsp"></view>
+
+
+<!--                        references                         -->
+
+<view name="email" url="/hr_ms/dbio/references/email.jsp"></view>
+<view name="nonemail" url="/hr_ms/dbio/references/nonemail.jsp"></view>
+<view name="staffsite" url="/hr_ms/dbio/references/login.jsp"></view>
+
+<view name="ref1" url="/hr_ms/dbio/references/ref1.jsp"></view>
+<view name="ref2" url="/hr_ms/dbio/references/ref2.jsp"></view>
+<view name="ref3" url="/hr_ms/dbio/references/ref3.jsp"></view>
+<view name="ref4" url="/hr_ms/dbio/references/ref4.jsp"></view>
+<view name="ref5" url="/hr_ms/dbio/references/ref5.jsp"></view>
+<view name="ref6" url="/hr_ms/dbio/references/ref6.jsp"></view>
+<view name="ref7" url="/hr_ms/dbio/references/ref7.jsp"></view>
+<view name="ref8" url="/hr_ms/dbio/references/ref8.jsp"></view>
+<view name="ref9" url="/hr_ms/dbio/references/ref9.jsp"></view>
+<view name="done" url="/hr_ms/dbio/references/done.jsp"></view>
+<view name="finishR" url="/hr_ms/dbio/references/finishLater.jsp"></view>
+<view name="refAlreadySubmitted" url="/hr_ms/dbio/references/refAlreadySubmitted.jsp"></view>
+<view name="refFinishLater" url="/hr_ms/dbio/references/refFinishLater.jsp"></view>
+<view name="refFormSubmitted" url="/hr_ms/dbio/references/refFormSubmitted.jsp"></view>
+<view name="refNotFound" url="/hr_ms/dbio/references/refNotFound.jsp"></view>
+
+<!--                        evaluator                         -->
+
+<view name="tools" url="/hr_ms/dbio/evaluator/tools.jsp"></view>
+<view name="projecttool" url="/hr_ms/dbio/evaluator/projecttool.jsp"></view>
+<view name="projectview" url="/hr_ms/dbio/evaluator/projectview.jsp"></view>
+<view name="studentview" url="/hr_ms/dbio/evaluator/studentview.jsp"></view>
+<view name="evalpersonschool" url="/hr_ms/dbio/evaluator/evalpersonschool.jsp"></view>
+<view name="evalprojpreference" url="/hr_ms/dbio/evaluator/evalprojpreference.jsp"></view>
+<view name="evalrefrel" url="/hr_ms/dbio/evaluator/evalrefrel.jsp"></view>
+<view name="evalattributes" url="/hr_ms/dbio/evaluator/evalattributes.jsp"></view>
+<view name="evalrefshortanswer" url="/hr_ms/dbio/evaluator/evalrefshortanswer.jsp"></view>
+<view name="evalexperience" url="/hr_ms/dbio/evaluator/evalexperience.jsp"></view>
+<view name="evalspiritual" url="/hr_ms/dbio/evaluator/evalspiritual.jsp"></view>
+<view name="evalconfidential" url="/hr_ms/dbio/evaluator/evalconfidential.jsp"></view>
+<view name="evalappshortanswer" url="/hr_ms/dbio/evaluator/evalappshortanswer.jsp"></view>
+<view name="evalpayments" url="/hr_ms/dbio/evaluator/evalpayments.jsp"></view>
+<view name="evalparents" url="/hr_ms/dbio/evaluator/evalparents.jsp"></view>
+<view name="evalsummary" url="/hr_ms/dbio/evaluator/evalsummary.jsp"></view>
+
+<view name="evalsplit" url="/hr_ms/dbio/evaluator/evalsplit.jsp"></view>
+<view name="evalworksheetframe" url="/hr_ms/dbio/evaluator/evalworksheetframe.jsp"></view>
+<view name="evalacceptanceframe" url="/hr_ms/dbio/evaluator/evalacceptanceframe.jsp"></view>
+<view name="evalsummaryframe" url="/hr_ms/dbio/evaluator/evalsummaryframe.jsp"></view>
+<view name="pfapplication" url="/hr_ms/dbio/evaluator/pfapplication.jsp"></view>
+<view name="pfrefs" url="/hr_ms/dbio/evaluator/pfrefs.jsp"></view>
+<view name="pfappandrefs" url="/hr_ms/dbio/evaluator/pfappandrefs.jsp"></view>
+
+
+<view name="evaluatehome" url="/hr_ms/dbio/evaluator/evaluatehome.jsp"></view>
+<view name="evaluateappinfo" url="/hr_ms/dbio/evaluator/evaluateappinfo.jsp"></view>
+<view name="evaluatetest" url="/hr_ms/dbio/evaluator/evaltest.jsp"></view>
+<view name="evahometest" url="/hr_ms/dbio/evaluator/apphome.jsp"></view>
+<view name="junktest" url="/hr_ms/dbio/evaluator/junktest.jsp"></view>
+
+<!--                        misc                         -->
+
+<view name="error" url="/hr_ms/dbio/error.jsp"></view>
+
+<!--                        receive payments             -->
+
+<view name="receivepayment" url="/hr_ms/dbio/coordinator/receivepayment.jsp"></view>
+
+
+<!--                        payment from StaffAcctXfer             -->
+
+<view name="paymentfromstaff" url="/hr_ms/dbio/staff/receivepayment.jsp"></view>
+<view name="paymentfromstaffthanks" url="/hr_ms/dbio/staff/receivepaymentdone.jsp"></view>
+
+</views>
