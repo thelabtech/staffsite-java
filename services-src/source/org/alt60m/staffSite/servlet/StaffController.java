@@ -1,34 +1,47 @@
 package org.alt60m.staffSite.servlet;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
-import java.net.InetAddress;
 import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 
-import javax.servlet.http.*;
-import javax.servlet.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
 
+import org.alt60m.ministry.model.dbio.Staff;
+import org.alt60m.ministry.model.dbio.StaffSnapshot;
+import org.alt60m.ministry.servlet.StaffInfo;
 import org.alt60m.security.CAS.CASAuthenticator;
 import org.alt60m.security.CAS.CASUser;
 import org.alt60m.security.CAS.NotAuthenticatedException;
 import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
-import org.alt60m.servlet.*;
-//import org.alt60m.servlet.Controller.ActionContext;
-import org.alt60m.ministry.servlet.StaffInfo;
-import org.alt60m.ministry.model.dbio.*;
-
-import org.apache.log4j.*;
-import org.alt60m.util.*;
-import org.alt60m.staffSite.bean.dbio.*;
-import org.alt60m.staffSite.profiles.dbio.*;
+import org.alt60m.servlet.ActionResults;
+import org.alt60m.servlet.Controller;
+import org.alt60m.servlet.MissingRequestParameterException;
+import org.alt60m.servlet.ServletLogging;
+import org.alt60m.servlet.UsersProcessor;
+import org.alt60m.staffSite.bean.dbio.EncryptedPreferences;
+import org.alt60m.staffSite.bean.dbio.UserPreferences;
+import org.alt60m.staffSite.model.dbio.StaffSitePref;
+import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
+import org.alt60m.staffSite.profiles.dbio.InvalidAccountNumberException;
+import org.alt60m.staffSite.profiles.dbio.MultipleProfilesFoundException;
 import org.alt60m.staffSite.profiles.dbio.NotAuthorizedException;
-import org.alt60m.staffSite.model.dbio.*;
-import org.alt60m.security.dbio.manager.*;
-
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+import org.alt60m.staffSite.profiles.dbio.ProfileAlreadyExistsException;
+import org.alt60m.staffSite.profiles.dbio.ProfileManagementException;
+import org.alt60m.staffSite.profiles.dbio.ProfileManager;
+import org.alt60m.staffSite.profiles.dbio.ProfileNotFoundException;
+import org.alt60m.util.EncryptorException;
+import org.alt60m.util.ObjectHashUtil;
 
 /**
  * Staff Controller 5/14/01 - Refactored to Controller2 by MDP
@@ -37,6 +50,11 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
  * 
  */
 public class StaffController extends Controller {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	final String MAPPING_FOLDER = "/WEB-INF/mapping";
 
@@ -498,7 +516,7 @@ public class StaffController extends Controller {
 	public void authorize(ActionContext ctx, CASUser user, String profileId) {
 		// Load profile
 		String userName = user.getUsername();
-		Hashtable profileHash = ObjectHashUtil.obj2hash(new StaffSiteProfile(
+		Hashtable<String, Object> profileHash = ObjectHashUtil.obj2hash(new StaffSiteProfile(
 				profileId));
 		Staff staff = new Staff();
 
@@ -901,7 +919,7 @@ public class StaffController extends Controller {
 	 * 
 	 */
 	public void changePassword(ActionContext ctx) {
-		Hashtable tub = new Hashtable();
+		Hashtable<String, String> tub = new Hashtable<String, String>();
 		String ErrorMsg = "";
 		String ResultMsg = "";
 
@@ -976,7 +994,7 @@ public class StaffController extends Controller {
 	 */
 	public void resetPassword(ActionContext ctx)
 			throws javax.transaction.SystemException {
-		Hashtable tub = new Hashtable();
+		Hashtable<String, String> tub = new Hashtable<String, String>();
 		String ErrorMsg = "";
 		String ResultMsg = "";
 
@@ -1024,11 +1042,10 @@ public class StaffController extends Controller {
 	 * 
 	 */
 	public void listUsers(ActionContext ctx) {
-		Hashtable tub = new Hashtable();
+		Hashtable<String, String> tub = new Hashtable<String, String>();
 		String[] users = null;
 		String ErrorMsg = "";
 		String username;
-		String key;
 		try {
 
 			users = _profileManager.listStaffSiteUsers(); // .listUsers("@uscm.org");
@@ -1058,7 +1075,6 @@ public class StaffController extends Controller {
 	 */
 	public void captureHRinfo(ActionContext ctx) {
 		try {
-			ActionResults results = new ActionResults();
 
 			// get info from jsp response
 			// save it to object and then have object persist it in the table
