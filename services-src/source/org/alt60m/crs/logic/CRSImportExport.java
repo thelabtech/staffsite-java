@@ -114,7 +114,7 @@ public class CRSImportExport {
 		FileWriter file = null;
 		try {
 			file = new FileWriter(basePath + downloadPath + fileName);
-			copyFile(basePath + templatePath + "blank.mdb", tempDatabaseName);
+			copyFile(basePath + templatePath + "Blank.mdb", tempDatabaseName);
 
 			openDatabases(tempDatabaseName);
 			/* export the conference Table */
