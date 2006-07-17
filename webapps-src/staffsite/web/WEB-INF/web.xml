@@ -536,6 +536,11 @@
 		<session-timeout>30</session-timeout><!-- 30 minutes -->
 	</session-config>
 
+    <mime-mapping>
+        <extension>csv</extension>
+        <mime-type>text/csv</mime-type>
+    </mime-mapping>
+    
 	<resource-ref>
 		<description>
 			Reference to a java.sql.Connection factory; configured in
