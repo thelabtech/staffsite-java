@@ -1,14 +1,22 @@
 package org.alt60m.crs.logic;
 
-import java.sql.*;
-import java.io.*;
-import java.util.Hashtable;
-import java.util.Date;
-import java.util.ArrayList;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
-import org.alt60m.cms.util.CatPathMaker;
+import org.alt60m.util.DBConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,9 +37,7 @@ public class CRSImportExport {
 
 	// includes errors, 3 , 4 , 5 everything
 
-	String output = "";
 
-	Hashtable<String, String> returnVal;
 
 	//Be sure to include the final closing / in the path
 	char separatorChar = File.separatorChar;
@@ -70,7 +76,7 @@ public class CRSImportExport {
 		CRSImportExport test = new CRSImportExport(
 				"Replace me with a real path for me to work");
 
-		//        test.exportToAccess("18","SW","Blank.mdb");
+		        test.exportToAccess("18","SW","Blank.mdb");
 		//log.debug(test.importFromAccess("Conference18.mdb", "18"));
 
 		log.debug("----End of of Import/Export Text----");
@@ -89,8 +95,8 @@ public class CRSImportExport {
 			instance = new CRSImportExport(basePath);
 			instances.put(basePath, instance);
 		}
-		//return instance; //don't really need
-		return new CRSImportExport(basePath);
+		return instance; //don't really need, except for synchronized blocks to be useful
+		//return new CRSImportExport(basePath);
 	}
 
 	public String getImportDirectory() {
@@ -106,145 +112,30 @@ public class CRSImportExport {
 		new File(basePath + uploadPath).mkdir();
 	}
 	
-	public synchronized Hashtable exportToCSV(String conferenceID) throws Exception {
-		returnVal = new Hashtable<String, String>();
+	public synchronized Hashtable exportToCSV(int conferenceID) throws Exception {
+
+		String output = "";
+		Hashtable<String, String> returnVal = new Hashtable<String, String>();
 		String fileName = "Conference" + conferenceID + ".csv";
-		String tempDatabaseName = basePath + downloadPath + "temp"
-				+ conferenceID + ".mdb";
-		FileWriter file = null;
+		File file = null;
 		try {
-			file = new FileWriter(basePath + downloadPath + fileName);
-			copyFile(basePath + templatePath + "Blank.mdb", tempDatabaseName);
-
-			openDatabases(tempDatabaseName);
-			/* export the conference Table */
-			exportTable(
-					"Conference",
-					"SELECT name, conferenceID, createDate, theme, region, contactName, contactEmail, contactPhone,"
-					+" contactAddress1, contactAddress2, contactCity, contactState, contactZip, splashPageURL, confImageId,"
-					+" fontFace, backgroundColor, foregroundColor, highlightColor,"
-					+" acceptVisa, acceptMasterCard, acceptDiscover, acceptAmericanExpress, checkPayableTo, "
-					+" preRegStart, preRegEnd, masterDefaultDateArrive, masterDefaultDateLeave FROM crs_conference WHERE conferenceID="
-							+ conferenceID);
-			/* export the RegistrationType Table */
-			exportTable(
-					"RegistrationTypes",
-					"SELECT label, description,defaultDateArrive, defaultDateLeave,preRegStart, preRegEnd,"+
-					"acceptCreditCards, acceptChecks, acceptEChecks, acceptMinistryAcctTransfer, acceptStaffAcctTransfer, acceptScholarships,"+
-					"singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment,singleDiscountEarlyReg, singleDiscountEarlyRegDate," +
-					"marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment,marriedDiscountEarlyReg, marriedDiscountEarlyRegDate,"+ 	
-					"askChildren, askSpouse registrationTypeID FROM crs_registrationtype WHERE fk_conferenceID="
-							+ conferenceID);
-			/* export all registrants */
-			exportRegistrantsCSV(conferenceID);
-
-			exportTable(
-					"Payments",
-					"SELECT paymentID, '' AS bagID, paymentDate, debit, credit, type, authCode, businessUnit, operatingUnit, dept AS departmentID, project AS projectID, accountNo, crs_payment.comment, posted, postedDate, fk_RegistrationID, fk_PersonID FROM crs_payment, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
-							+ conferenceID);
-			exportTable(
-					"ChildRegistration",
-					"SELECT childRegistrationID, FLOOR(DATEDIFF(NOW(), birthDate)/365) AS age, firstName, lastName, gender, crs_registration.arriveDate, birthDate, crs_registration.leaveDate, inChildCare, fk_RegistrationID FROM crs_childregistration, crs_registration WHERE registrationID=fk_RegistrationID AND fk_ConferenceID="
-							+ conferenceID);
-
-			file.write("Conference Info\n");
-			writeTableToFile("Conference", file);
-
-			file.write("\n\nRegistration Types\n");
-			writeTableToFile("RegistrationTypes", file);
-
-			file.write("\n\nRegistrants\n");
-			writeTableToFile("Registrants", file);
-
-			file.write("\n\nPayments\n");
-			writeTableToFile("Payments", file);
-
-			file.write("\n\nChild Registrations\n");
-			writeTableToFile("ChildRegistration", file);
-
-			closeDatabases();
-			file.close();
-			new File(tempDatabaseName).delete();
+			file = new File(basePath + downloadPath + fileName);
+			
+			SimpleExport simpleExport = new SimpleExport(conferenceID,
+					DBConnectionFactory.getDatabaseConn(),
+					new CSVExportWriter(), file);
+			
+			simpleExport.export();
+			
 			returnVal.put("Status", "Success");
 		} catch (Exception e) {
-			writeOutput(2, e.toString());
-			e.printStackTrace();
-			file.close();
+			log.error(e, e);
 			new File(basePath + downloadPath + fileName).delete();
-			new File(tempDatabaseName).delete();
 			returnVal.put("Status", "Error");
 		}
 		returnVal.put("FileName", fileName);
 		returnVal.put("Output", output);
 		return returnVal;
-	}
-
-	private void exportRegistrantsCSV(String conferenceID) throws Exception {
-		String query = "CREATE TABLE " + "Registrants" + " (";
-		String sourceQuery=
-				"SELECT person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo," +
-				" IF(SUM(pmt.debit),SUM(pmt.debit),0) AS TotalCharge, IF(SUM(pmt.credit),SUM(pmt.credit),0) AS TotalPaid," +
-				" IF(SUM(pmt.debit),SUM(pmt.debit),0) - IF(SUM(pmt.credit),SUM(pmt.credit), 0) AS AmtDue, person.campus, curr.homePhone," +
-				" reg.registrationDate," +
-				" regType.label," +
-				" reg.preRegistered," +
-				" person.birthDate, person.yearInSchool, person.graduationDate, person.greekAffiliation, person.gender," +
-				" curr.address1, curr.address2, curr.city, curr.state, curr.zip, curr.country," +
-				" perm.address1 AS permanentAddress1, perm.address2 AS permanentAddress2," +
-				" perm.city AS permanentCity, perm.state AS permanentState, perm.zip AS permanentZip," +
-				" perm.homePhone AS permanentPhone, perm.country AS permanentCountry," +
-				" IF(DERIVEDTBL.numberOfKids,DERIVEDTBL.numberOfKids, 0) AS numberOfkids, IF(person.maritalStatus,person.maritalStatus, '') AS mStatus, reg.registrationID" +
-				" FROM  crs_registrationtype regType, crs_registration reg" +
-				" INNER JOIN ministry_person person ON reg.fk_PersonID = person.personID" +
-				" INNER JOIN ministry_newaddress curr ON person.personID = curr.fk_PersonID" +
-				" INNER JOIN ministry_newaddress perm ON person.personID = perm.fk_PersonID" +
-				" LEFT OUTER JOIN crs_payment pmt ON reg.registrationID = pmt.fk_RegistrationID" +
-				" LEFT OUTER JOIN" +
-					" (SELECT COUNT(*) AS numberOfKids, reg.registrationID FROM crs_childregistration creg" +
-					" INNER JOIN crs_registration reg ON creg.fk_RegistrationID = reg.registrationID" +
-					" GROUP BY creg.fk_RegistrationID, reg.registrationID)" +
-				" DERIVEDTBL ON reg.registrationID = DERIVEDTBL.registrationID WHERE (reg.fk_ConferenceID = '"
-				+ conferenceID
-				+ "') and reg.fk_RegistrationTypeID = regType.registrationTypeID AND curr.addressType = 'current' AND perm.addressType = 'permanent'" +
-						" GROUP BY person.maritalStatus, person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo, person.birthDate, person.campus, person.yearInSchool, person.graduationDate, person.greekAffiliation, person.gender, curr.address1, curr.address2, curr.city, curr.state, curr.zip, curr.homePhone, curr.country, perm.address1, perm.address2, perm.city, perm.state, perm.zip, perm.homePhone, perm.country, DERIVEDTBL.numberOfKids, reg.registrationID, reg.registrationDate," +
-				//" reg.registrationType," +
-				" regType.label," +
-				" reg.preRegistered";
-		/* export all questions WRONG!!! */
-		//FIXME what does this report?
-		
-		
-		query = appendRegistrantsStandardDDL(query, sourceQuery);
-		
-
-		log.debug("Exporting Custom Question Answers");
-		Hashtable<Integer, String> fieldMapping = new Hashtable<Integer, String>();
-
-		//Alter Registrants to include customAnswers
-		query = appendCustomQuestionDDL(conferenceID, query, fieldMapping);
-		
-		//kill trailing ", ", and finish
-		query = query.substring(0, query.length() - 2);
-		query += ")";
-		try {
-			accessStatement.execute("DROP TABLE " + "Registrants");
-			log.debug("Dropped table Registrants");
-		} catch (Exception e1) { 
-			log.debug("Table Registrants does not already exist");
-			/*
-			 * We don't care if this query throws an
-			 * exception, it will most of the time... when
-			 * the table does not exist
-			 */
-		}
-
-		log.debug("Registrants table ddl: " + query);
-		accessStatement.execute(query);
-		
-		
-		copyTable(sourceQuery, "Registrants");
-
-		insertCustomAnswers(conferenceID, fieldMapping);
 	}
 
 	private String appendRegistrantsStandardDDL(String query, String sourceQuery) throws SQLException {
@@ -276,8 +167,10 @@ public class CRSImportExport {
 
 	public synchronized Hashtable exportToAccess(String conferenceID, String region,
 			String template) throws Exception {
+
+		String output = "";
+		Hashtable<String, String> returnVal = new Hashtable<String, String>();
 		try {
-			returnVal = new Hashtable<String, String>();
 			String fileName = "Conference" + conferenceID + ".mdb";
 			returnVal.put("FileName", fileName);
 			copyFile(basePath + templatePath + template, basePath
@@ -678,45 +571,6 @@ public class CRSImportExport {
 
 
 
-	//********************************************************************************//
-	private void writeTableToFile(String sourceTable, FileWriter outputFile)
-			throws Exception {
-		writeOutput(1, "Writing CSV File");
-		ResultSet rsSQL = accessStatement.executeQuery("Select * FROM "
-				+ sourceTable);
-		ResultSetMetaData rsmd = rsSQL.getMetaData();
-		int colCount = rsmd.getColumnCount();
-		String lineBuffer = "";
-		String tempString;
-		Date tempDate;
-
-		//Write Out Header Line
-		for (int i = 1; i <= colCount; i++)
-			lineBuffer += rsmd.getColumnName(i) + "\",\"";
-		outputFile.write("\"" + lineBuffer + "\"\n");
-
-		//Write out Data
-		while (rsSQL.next()) {
-			lineBuffer = "";
-			for (int i = 1; i <= colCount; i++) {
-				switch (rsmd.getColumnType(i)) {
-				case 93: //datetime
-					tempDate = rsSQL.getDate(rsmd.getColumnName(i));
-					if (tempDate != null)
-						lineBuffer += new SimpleDateFormat("MM/dd/yyyy")
-								.format(tempDate);
-					break;
-				default:
-					tempString = rsSQL.getString(i);
-					if (tempString != null)
-						lineBuffer += escapeString(tempString);
-				}
-				lineBuffer += "\",\"";
-			}
-			outputFile.write("\"" + lineBuffer + "\"\n");
-		}
-	}
-
 	
 	//********************************************************************************//
 	private void openDatabases(String accessFileName) throws Exception {
@@ -754,7 +608,6 @@ public class CRSImportExport {
 	//********************************************************************************//
 	private void writeOutput(int priority, String sourceString) {
 		if (priority <= verboseLevel) {
-			output += sourceString + "\n";
 			log.debug(sourceString);
 		}
 		if (priority > 4)

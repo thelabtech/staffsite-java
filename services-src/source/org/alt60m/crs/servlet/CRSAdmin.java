@@ -752,7 +752,7 @@ public class CRSAdmin extends Controller {
 		try {
 			CRSImportExport importExport = CRSImportExport.getInstance(baseFilePath);
 			if (ctx.getInputString("Format") != null && ctx.getInputString("Format").equals("CSV")) {
-				ar.addHashtable("Results", importExport.exportToCSV(eventId));
+				ar.addHashtable("Results", importExport.exportToCSV(Integer.parseInt(eventId)));
 			} else if (ctx.getInputString("Template") != null) {
 				Conference conf = crsApp.getConference(eventId);
 				ar.addHashtable("Results", importExport.exportToAccess(eventId, conf.getRegion(),
