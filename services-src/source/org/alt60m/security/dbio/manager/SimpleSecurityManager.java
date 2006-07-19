@@ -30,6 +30,10 @@ public class SimpleSecurityManager implements SecurityManager {
 
 	private static Log log = LogFactory.getLog(SimpleSecurityManager.class);
 	
+
+	private String membershipGroup = "Members";
+	private String membershipFullGroupName = "CampusStaff:_" + membershipGroup; 
+	
 	// max logins before locked out
 	private int maxFailedLogins = 5;
 	
@@ -547,20 +551,21 @@ public class SimpleSecurityManager implements SecurityManager {
 				}
 				if (groups == null) {
 					// log
-					if (cai == null) {
+					if (cai.getError() == null) {
 						log.error("Membership query failed; unknown cause");
 					} else {
 						log.warn("Membership query failed: "
-								+ cai.getMessage());
+								+ cai.getError());
 					}
 					// throw new SecurityManagerFailedException("Unable to
 					// perform GCX Community membership query");
 				}
-				if (groups != null && groups.contains("CampusStaff:_MEMBERS")){
+				if (groups != null && groups.contains(membershipFullGroupName)){
 					ssmUser = createProfile(user, guid);
 				}
 				else
-				{
+				{	
+					log.debug("User was not part of " + membershipFullGroupName);
 					ssmUser = addLegacy(user, username, acctNo);
 				}
 			}
@@ -593,6 +598,8 @@ public class SimpleSecurityManager implements SecurityManager {
 		// code for "legacy" users; i.e., had a profile, but not one
 		// created under SSO. Need to find their ssm/profile and
 		// store their guid.
+		
+		log.info("Completing ssm/profile for legacy user: " + user.getUsername());
 		
 		User ssmUser = null;
 		
@@ -671,6 +678,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @throws SecurityManagerFailedException
 	 */
 	User createProfile(CASUser user, String guid) throws SecurityManagerFailedException {
+		log.debug("Creating profile for user: " + user.getUsername());
 		User ssmUser;
 		//create a profile
 		ProfileManager pm = new ProfileManager();
@@ -842,7 +850,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			CommunityAdminInterface cai = new CommunityAdminInterface(
 					"CampusStaff");
 
-			if (cai.addToGroup(guid, "MEMBERS")) {
+			if (cai.addToGroup(guid, membershipGroup)) {
 				//add guid to ssm
 				ssmUser.setGloballyUniqueID(guid);
 				ssmUser.persist();
