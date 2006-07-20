@@ -46,12 +46,17 @@ public class AccessExportWriter implements ExportWriter {
 		}
 		log.debug("Url: " + connectionUrl);
 
-		//verify we can connect
-		connection = DriverManager.getConnection(connectionUrl);
-		Statement statement = connection.createStatement();
-		statement.close();
-		connection.close();
-		connection = null;
+		// verify we can connect
+		try {
+			connection = DriverManager.getConnection(connectionUrl);
+			Statement statement = connection.createStatement();
+			statement.close();
+		} finally {
+			if (connection == null) {
+				connection.close();
+				connection = null;
+			}
+		}
 	}
 
 	public void write() throws IOException, SQLException {
@@ -68,11 +73,14 @@ public class AccessExportWriter implements ExportWriter {
 		} finally {
 			if (connection != null) {
 				connection.close();
+				connection = null;
 			}
-			//You would think something like this is unnecessary, but
-			//it isn't.  Without it, repeated requests (for the same
-			//conference) cause failures.
-	        com.hxtt.sql.access.AccessDriver.releaseAll();
+			if (!useOdbc) {
+				// You would think something like this is unnecessary, but
+				// it isn't. Without it, repeated requests (for the same
+				// conference) cause failures.
+				com.hxtt.sql.access.AccessDriver.releaseAll();
+			}
 		}
 	}
 
@@ -91,14 +99,8 @@ public class AccessExportWriter implements ExportWriter {
 
 			String destinationTable = toLegalTableSyntax(table.getName());
 			log.debug("creating table: " + destinationTable);
-			ResultSet rs = table.getData();
-
-			String query = "CREATE TABLE " + destinationTable + " (";
-
-			ResultSetMetaData rsmd = rs.getMetaData();
-			query = appendAccessDDL(rsmd, query, true);
-			query = query.substring(0, query.length() - 2);
-			query += ")";
+			
+			String ddl = createTableDDL(table);
 			try {
 				statement = connection.createStatement();
 				int returnVal = statement.executeUpdate("DROP TABLE " + destinationTable);
@@ -114,10 +116,10 @@ public class AccessExportWriter implements ExportWriter {
 					statement.close();
 				}				
 			}
-			log.debug("DDL: " + query);
+			log.debug("DDL: " + ddl);
 
 			statement = connection.createStatement();
-			statement.executeUpdate(query);
+			statement.executeUpdate(ddl);
 		} finally {
 			if (statement != null) {
 				statement.close();
@@ -125,8 +127,17 @@ public class AccessExportWriter implements ExportWriter {
 		}
 	}
 
-	private String appendAccessDDL(ResultSetMetaData rsmd, String query1,
-			boolean searchForIdentity) throws SQLException {
+	/**
+	 * HXTT-specific
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
+	private String createTableDDL(Table table) throws SQLException {
+		ResultSetMetaData rsmd = table.getData().getMetaData();
+		StringBuffer ddl = new StringBuffer();
+		ddl.append("CREATE TABLE ").append(toLegalTableSyntax(table.getName())).append(" (");
+		
 		int count = rsmd.getColumnCount();
 		boolean identityFound = false;
 
@@ -135,41 +146,44 @@ public class AccessExportWriter implements ExportWriter {
 			int type = rsmd.getColumnType(i);
 			switch (type) {
 			case -7: // boolean
-				query1 += columnName + " BOOLEAN";
+				ddl.append(columnName).append(" BOOLEAN");
 				break;
 			case -5: // bigint?
 			case 5: //smallint
 			case 4: //int
-				if (searchForIdentity && !identityFound) { //identity
+				if (!identityFound) { //identity
 					identityFound = true;
-					query1 += columnName + " INTEGER PRIMARY KEY"; //Note: with hxtt driver, we can't do autoincrementing PKs
+					ddl.append(columnName).append(" INTEGER PRIMARY KEY"); //Note: with hxtt driver, we can't do autoincrementing PKs
 				} else
-					query1 += columnName + " INTEGER";
+					ddl.append(columnName).append(" INTEGER");
 				break;
 			case 1: //char
 			case 12: //varchar
 				if (rsmd.getColumnDisplaySize(i) < 256)
-					query1 += columnName + " VARCHAR("
-							+ rsmd.getColumnDisplaySize(i) + ")";
+					ddl.append(columnName).append(" VARCHAR(")
+							.append(rsmd.getColumnDisplaySize(i)).append(")");
 				else
-					query1 += columnName + " LONGVARCHAR";
+					ddl.append(columnName).append(" LONGVARCHAR");
 				break;
 			case 6: //float
 			case 8: //float
-				query1 += columnName + " " + rsmd.getColumnTypeName(i);
-				;
+				ddl.append(columnName).append(" ").append(rsmd.getColumnTypeName(i));
 				break;
 			case 93: //datetime
-				query1 += columnName + " " + "TIMESTAMP";
+				ddl.append(columnName).append(" ").append("TIMESTAMP");
 				break;
 			default:
 				log.error("Column: " + columnName + " with type: "
 						+ rsmd.getColumnTypeName(i) + " ("
 						+ rsmd.getColumnType(i) + ")" + " not yet handled!");
 			}
-			query1 += ", ";
+			ddl.append(", ");
 		}
-		return query1;
+		
+		ddl.setLength(ddl.length() - 2);
+		ddl.append(")");
+		
+		return ddl.toString();
 	}
 
 	private String toLegalColumnSyntax(String columnName) {
@@ -181,7 +195,7 @@ public class AccessExportWriter implements ExportWriter {
 	}
 
 	private String toLegalTableSyntax(String tableName) {
-		
+		//probably not an exhaustive list, but should usually work
 		tableName = tableName.replace('\n', '_').replace('\r', '_').replace(
 				'[', '|').replace(']', '|').replace('(', '_').replace(')', '_')
 				.replace('!', ' ').replace('.', '_').replace('-', '_').replace(
@@ -219,8 +233,6 @@ public class AccessExportWriter implements ExportWriter {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(insertQuery.toString());
-
-			//int[] handledTypes = new int[]{-5, 5, 4, 1, 12, 6, 8, 93};
 
 			while (rs.next()) {
 				ps.clearParameters();

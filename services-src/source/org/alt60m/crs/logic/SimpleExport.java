@@ -150,7 +150,7 @@ public class SimpleExport {
 				" perm.homePhone AS permanentPhone, perm.country AS permanentCountry," +
 				" IF(DERIVEDTBL.numberOfKids,DERIVEDTBL.numberOfKids, 0) AS numberOfkids, IF(person.maritalStatus,person.maritalStatus, '') AS mStatus, reg.registrationID";
 				
-		String registrantsWhereClause = " FROM  crs_registrationtype regType, crs_registration reg" +
+		String registrantsFromClause = " FROM  crs_registrationtype regType, crs_registration reg" +
 				" INNER JOIN ministry_person person ON reg.fk_PersonID = person.personID" +
 				" INNER JOIN ministry_newaddress curr ON person.personID = curr.fk_PersonID" +
 				" INNER JOIN ministry_newaddress perm ON person.personID = perm.fk_PersonID" +
@@ -169,6 +169,17 @@ public class SimpleExport {
 		
 		//build columns for custom questions
 		
+		StringBuffer customQuestionAnswersSelectClause = buildCustomAnswersSelectClause();
+		
+		if (customQuestionAnswersSelectClause.length() > 1) {
+			return registrantsSelectClause + ", "
+					+ customQuestionAnswersSelectClause + registrantsFromClause;
+		} else {
+			return registrantsSelectClause + registrantsFromClause;
+		}
+	}
+
+	private StringBuffer buildCustomAnswersSelectClause() throws SQLException {
 		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_registrationtype.label as RegistrationType, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID=registrationTypeID) AND (crs_question.fk_ConferenceID = "
 				+ conferenceID
 				+ ") AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
@@ -223,9 +234,12 @@ public class SimpleExport {
 							" and answer.fk_registrationId = reg.registrationId) as `")
 					.append(entry.getValue()).append("`, ");
 		}
-		//kill trailing ", "
-		customQuestionAnswersSelectClause.setLength(customQuestionAnswersSelectClause.length() - 2);
-		return registrantsSelectClause + ", " + customQuestionAnswersSelectClause + registrantsWhereClause;
+		if (customQuestionAnswersSelectClause.length() > 1) {
+			// kill trailing ", "
+			customQuestionAnswersSelectClause
+					.setLength(customQuestionAnswersSelectClause.length() - 2);
+		}
+		return customQuestionAnswersSelectClause;
 	}
 
 	/**

@@ -176,9 +176,14 @@ public class DetailedExport {
 		String registrantsFromClause = " FROM crs_registration reg where reg.fk_conferenceID = "
 				+ conferenceID + " AND reg.fk_registrationTypeID = " + regType.getRegistrationTypeID();
 
-		StringBuffer customQuestionAnswersSelectClause = buildCustomAnswersSelectClause(regType.getLabel());
-		return registrantsSelectClause + ", "
-				+ customQuestionAnswersSelectClause + registrantsFromClause;
+		StringBuffer customQuestionAnswersSelectClause = buildCustomAnswersSelectClause(regType
+				.getLabel());
+		if (customQuestionAnswersSelectClause.length() > 1) {
+			return registrantsSelectClause + ", "
+					+ customQuestionAnswersSelectClause + registrantsFromClause;
+		} else {
+			return registrantsSelectClause + registrantsFromClause;
+		}
 	}
 
 	private StringBuffer buildCustomAnswersSelectClause(String registrationType)
@@ -231,9 +236,11 @@ public class DetailedExport {
 							" and answer.fk_registrationId = reg.registrationId) as `")
 					.append(entry.getValue()).append("`, ");
 		}
-		// kill trailing ", "
-		customQuestionAnswersSelectClause
-				.setLength(customQuestionAnswersSelectClause.length() - 2);
+		if (customQuestionAnswersSelectClause.length() > 1) {
+			// kill trailing ", "
+			customQuestionAnswersSelectClause
+					.setLength(customQuestionAnswersSelectClause.length() - 2);
+		}
 		return customQuestionAnswersSelectClause;
 	}
 
