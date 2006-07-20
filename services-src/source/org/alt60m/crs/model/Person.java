@@ -139,10 +139,10 @@ public class Person extends DBIOEntity {
 		setMetadata("FirstName", "firstName", table);
 		setMetadata("LastName", "lastName", table);
 		setMetadata("MiddleInitial", "middleName", table);
-		setMetadata("BirthDate", "birthDate", table);
+		setMetadata("BirthDate", "birth_date", table);
 		setMetadata("Campus", "campus", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduationDate", table);
+		setMetadata("GraduationDate", "graduation_date", table);
 		setMetadata("GreekAffiliation", "greekAffiliation", table);
 		setMetadata("Gender", "gender", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
@@ -166,13 +166,13 @@ public class Person extends DBIOEntity {
 
 	private String middleInitial = "";
 
-	private String birthDate = "";
+	private Date birth_date = null;
 
 	private String campus = "";
 
 	private String yearInSchool = "";
 
-	private String graduationDate = "";
+	private Date graduation_date = null;
 
 	private String greekAffiliation = "";
 
@@ -246,12 +246,12 @@ public class Person extends DBIOEntity {
 		this.middleInitial = middleInitial;
 	}
 
-	public String getBirthDate() {
-		return birthDate;
+	public Date getBirthDate() {
+		return birth_date;
 	}
 
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date birth_date) {
+		this.birth_date = birth_date;
 	}
 
 	public String getCampus() {
@@ -278,12 +278,12 @@ public class Person extends DBIOEntity {
 		this.greekAffiliation = greekAffiliation;
 	}
 
-	public String getGraduationDate() {
-		return graduationDate;
+	public Date getGraduationDate() {
+		return graduation_date;
 	}
 
-	public void setGraduationDate(String graduationDate) {
-		this.graduationDate = graduationDate;
+	public void setGraduationDate(Date graduation_date) {
+		this.graduation_date = graduation_date;
 	}
 
 	public String getGender() {

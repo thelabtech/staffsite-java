@@ -143,7 +143,7 @@ public class SimpleExport {
 				" reg.registrationDate," +
 				" regType.label," +
 				" reg.preRegistered," +
-				" person.birthDate, person.yearInSchool, person.graduationDate, person.greekAffiliation, person.gender," +
+				" person.birth_date, person.yearInSchool, person.graduation_date, person.greekAffiliation, person.gender," +
 				" curr.address1, curr.address2, curr.city, curr.state, curr.zip, curr.country," +
 				" perm.address1 AS permanentAddress1, perm.address2 AS permanentAddress2," +
 				" perm.city AS permanentCity, perm.state AS permanentState, perm.zip AS permanentZip," +
@@ -162,7 +162,7 @@ public class SimpleExport {
 				" DERIVEDTBL ON reg.registrationID = DERIVEDTBL.registrationID WHERE (reg.fk_ConferenceID = '"
 				+ conferenceID
 				+ "') and reg.fk_RegistrationTypeID = regType.registrationTypeID AND curr.addressType = 'current' AND perm.addressType = 'permanent'" +
-						" GROUP BY person.maritalStatus, person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo, person.birthDate, person.campus, person.yearInSchool, person.graduationDate, person.greekAffiliation, person.gender, curr.address1, curr.address2, curr.city, curr.state, curr.zip, curr.homePhone, curr.country, perm.address1, perm.address2, perm.city, perm.state, perm.zip, perm.homePhone, perm.country, DERIVEDTBL.numberOfKids, reg.registrationID, reg.registrationDate," +
+						" GROUP BY person.maritalStatus, person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo, person.birth_date, person.campus, person.yearInSchool, person.graduation_date, person.greekAffiliation, person.gender, curr.address1, curr.address2, curr.city, curr.state, curr.zip, curr.homePhone, curr.country, perm.address1, perm.address2, perm.city, perm.state, perm.zip, perm.homePhone, perm.country, DERIVEDTBL.numberOfKids, reg.registrationID, reg.registrationDate," +
 				" regType.label," +
 				" reg.preRegistered";
 		

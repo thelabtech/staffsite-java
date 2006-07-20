@@ -45,8 +45,8 @@ public class Person extends DBIOEntity {
 		setMetadata("MiddleName", "middleName", table);
 		setMetadata("PreferredName", "preferredName", table);
 		setMetadata("Gender", "gender", table);
-		setMetadata("BirthDate", "birthdate", table);
-		setMetadata("DateBecameChristian", "dateBecameChristian", table);
+		setMetadata("BirthDate", "birth_date", table);
+		setMetadata("DateBecameChristian", "date_became_christian", table);
 		setMetadata("Region", "region", table);
 		setMetadata("WorkInUS", "workInUS", table);
 		setMetadata("UsCitizen", "usCitizen", table);
@@ -81,8 +81,8 @@ public class Person extends DBIOEntity {
 	private String middleName = "";
     private String preferredName="";
 	private String gender = "";
-	private String birthDate = null;
-	private String dateBecameChristian = null;
+	private Date birth_date = null;
+	private Date date_became_christian = null;
 	private String region = "";
 	private boolean workInUS;
 	private boolean usCitizen;
@@ -134,16 +134,16 @@ public class Person extends DBIOEntity {
 		this.accountNo = accountNo;
 	}
 	/**
-	 * @return Returns the birthDate.
+	 * @return Returns the birth_date.
 	 */
-	public String getBirthDate() {
-		return birthDate;
+	public Date getBirthDate() {
+		return birth_date;
 	}
 	/**
 	 * @param birthDate The birthDate to set.
 	 */
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date birth_date) {
+		this.birth_date = birth_date;
 	}
 	/**
 	 * @return Returns the campus.
@@ -201,14 +201,14 @@ public class Person extends DBIOEntity {
 	/**
 	 * @return Returns the dateBecameChristian.
 	 */
-	public String getDateBecameChristian() {
-		return dateBecameChristian;
+	public Date getDateBecameChristian() {
+		return date_became_christian;
 	}
 	/**
 	 * @param dateBecameChristian The dateBecameChristian to set.
 	 */
-	public void setDateBecameChristian(String dateBecameChristian) {
-		this.dateBecameChristian = dateBecameChristian;
+	public void setDateBecameChristian(Date date_became_christian) {
+		this.date_became_christian = date_became_christian;
 	}
 	/**
 	 * @return Returns the dateChanged.

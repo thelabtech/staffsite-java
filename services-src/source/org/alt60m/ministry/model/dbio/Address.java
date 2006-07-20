@@ -15,8 +15,8 @@ public class Address extends DBIOEntity {
 	 */
     private int addressId = 0;
     
-    private String startDate = null;
-    private String endDate = null;
+    private Date startDate = null;
+    private Date endDate = null;
     private String address1 = new String();
     private String address2 = new String();
     private String address3 = new String();
@@ -109,11 +109,11 @@ public class Address extends DBIOEntity {
 		this.toolName = toolName; 
 	}
 	
-    public String getStartDate() { return startDate; }
-	public void setStartDate(String startDate) { this.startDate = startDate; }
+    public Date getStartDate() { return startDate; }
+	public void setStartDate(Date startDate) { this.startDate = startDate; }
 		    
-	public String getEndDate() { return endDate; }
-	public void setEndDate(String endDate) { this.endDate = endDate; }
+	public Date getEndDate() { return endDate; }
+	public void setEndDate(Date endDate) { this.endDate = endDate; }
 	
 	public String getAddress1() { return address1; }
 	public void setAddress1(String address1) { this.address1 = address1; }

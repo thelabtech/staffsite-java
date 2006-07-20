@@ -163,7 +163,7 @@ public class SIPerson extends DBIOEntity {
 		setMetadata("Title", "title", table);
 		setMetadata("RecentSchools", "campus", table);
 		setMetadata("UniversityState", "universityState", table);	
-		setMetadata("GraduationDate", "graduationDate", table);
+		setMetadata("GraduationDate", "graduation_date", table);
 		setMetadata("Majors", "major", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
 		setMetadata("NumberChildren", "numberChildren", table);
@@ -190,7 +190,7 @@ public class SIPerson extends DBIOEntity {
     private String title = "";
     private String recentSchools="";
 	private String universityState = "";
-    private String graduationDate="";
+    private Date graduation_date = null;
     private String majors="";
 	private String maritalStatus="";
     private String numberChildren="";
@@ -486,7 +486,7 @@ public class SIPerson extends DBIOEntity {
 	 * Returns the lastDateAtAddress.
 	 * @return Date
 	 */
-	public String getLastDateAtAddress() {
+	public Date getLastDateAtAddress() {
 		return currAdd.getEndDate();
 	}
 
@@ -878,7 +878,7 @@ public class SIPerson extends DBIOEntity {
 	 * Sets the lastDateAtAddress.
 	 * @param lastDateAtAddress The lastDateAtAddress to set
 	 */
-	public void setLastDateAtAddress(String lastDateAtAddress) {
+	public void setLastDateAtAddress(Date lastDateAtAddress) {
 		currAdd.setEndDate(lastDateAtAddress);
 	}
 
@@ -1024,8 +1024,8 @@ public class SIPerson extends DBIOEntity {
 	 * Returns the graduationDate.
 	 * @return Date
 	 */
-	public String getGraduationDate() {
-		return graduationDate;
+	public Date getGraduationDate() {
+		return graduation_date;
 	}
 
 	/**
@@ -1061,11 +1061,11 @@ public class SIPerson extends DBIOEntity {
 	}
 
 	/**
-	 * Sets the graduationDate.
-	 * @param graduationDate The graduationDate to set
+	 * Sets the graduation_date.
+	 * @param graduation_date The graduation_date to set
 	 */
-	public void setGraduationDate(String graduationDate) {
-		this.graduationDate = graduationDate;
+	public void setGraduationDate(Date graduation_date) {
+		this.graduation_date = graduation_date;
 	}
 
 	/**

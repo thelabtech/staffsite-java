@@ -173,36 +173,6 @@ public class SIUtil {
 	}
 
 	/**
-	 * This method will create a new person, but will attempt to find 
-	 * a person with a matching email address in the other systems it knows about
-	 * 
-	 * @param userId
-	 * @param email
-	 * @return SIPerson
-	 */
-	public static SIPerson createPersonCheckOtherSystems(int userId, String email) throws Exception {
-		//first, check to see if this person is in the wsn system
-/*		WsnApplication w = getWsnApplicationByEmail(email);
-		if (w != null) {
-			return createSIPersonFromWsnApplication(w, userId);
-		}
-*/		//now check the conferencing system...
-		Person c = getCRSPersonByEmail(email);
-		if (c != null) {
-			return createSIPersonFromCRSPerson(c, userId);
-		}
-		//now check to see if they're staff members...
-		Staff s = getStaffPersonByEmail(email);
-		if (s != null) {
-			return createSIPersonFromStaffPerson(s, userId);
-		}
-		//if still here, then didn't find in the other systems...
-		//   so just go ahead and create a new one
-		return createPerson(userId);
-
-	}
-
-	/**
 	 *  Creates a new application and sets the fk_ssmUserid to the given ssmuserid
 	 *  and fk_sipersonid to given sipersonid
 	 *  NOTE: this should be called only once per ssmUserID
@@ -992,93 +962,7 @@ public class SIUtil {
 		return null;
 	}
 
-	/**
-	 * this method creates an SIPerson object/row from the information
-	 * contained in a given WsnApplication object. 
-	 * @param w
-	 * @return boolean
-	 */
-/*	public static SIPerson createSIPersonFromWsnApplication(WsnApplication w, int si_ssm_id) {
-		SIPerson p = new SIPerson();
-		try {
-			p.setFk_ssmUserID(si_ssm_id);
 
-			//set all other fields
-
-			p.setCurrentEmail(w.getCurrentEmail());
-			p.setFirstName(w.getLegalFirstName());
-			p.setLastName(w.getLegalLastName());
-			try {
-				p.setGraduationDate(new SimpleDateFormat("MM/dd/yyyy").parse(w.getGraduationDate()));
-			} catch (Exception ee) {
-				log.debug("Couldn't format GraduationDate: " + w.getGraduationDate());
-			}
-			p.setGender(w.getGender());
-			p.setCurrentAddress1(w.getCurrentAddress());
-			p.setCurrentAddress2(w.getCurrentAddress2());
-			p.setCurrentCity(w.getCurrentCity());
-			p.setCurrentState(w.getCurrentState());
-			p.setCurrentZip(w.getCurrentZip());
-			p.setEmerAddress1(w.getEmergAddress());
-			p.setEmerAddress2(w.getEmergAddress2());
-			p.setEmerCity(w.getEmergCity());
-			p.setEmerState(w.getEmergState());
-			p.setEmerZip(w.getEmergZip());
-			p.setCurrentHomePhone(w.getCurrentPhone());
-			p.setEmerHomePhone(w.getEmergPhone());
-			p.setMaritalStatus(w.getMaritalStatus());
-
-			p.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return null;
-		}
-		return p;
-	}
-*/
-	/**
-	 * this method creates an SIPerson object/row from the information
-	 * contained in a given CRSPerson object.
-	 * @param c
-	 * @return boolean
-	 */
-	public static SIPerson createSIPersonFromCRSPerson(Person c, int si_ssm_id) {
-		SIPerson p = new SIPerson();
-		try {
-			p.setFk_ssmUserID(si_ssm_id);
-
-			//set all other fields
-			p.setCurrentEmail(c.getEmail());
-			p.setFirstName(c.getFirstName());
-			p.setLastName(c.getLastName());
-			//p.setRecentSchools(c.getCampus());  Taken out because we don't get UnivState this way...
-			try {
-				p.setGraduationDate(c.getGraduationDate());
-			} catch (Exception ee) {
-				log.warn("Couldn't format GraduationDate: " + c.getGraduationDate());
-			}
-			p.setGender(translateGenderFromCRS(c.getGender()));
-			p.setCurrentAddress1(c.getAddress1());
-			p.setCurrentAddress2(c.getAddress2());
-			p.setCurrentCity(c.getCity());
-			p.setCurrentState(c.getState());
-			p.setCurrentZip(c.getZip());
-			p.setPermAddress1(c.getPermanentAddress1());
-			p.setPermAddress2(c.getPermanentAddress2());
-			p.setPermCity(c.getPermanentCity());
-			p.setPermState(c.getPermanentState());
-			p.setPermZip(c.getPermanentZip());
-			p.setCurrentHomePhone(c.getHomePhone());
-			p.setPermHomePhone(c.getPermanentPhone());
-			p.setMaritalStatus(c.getMaritalStatus());
-
-			p.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return null;
-		}
-		return p;
-	}
 	
 	private static String translateGenderFromCRS(String crsGender) {
 		String result = "0";

@@ -1049,61 +1049,6 @@ public class MSInfo {
 		return objHash;
 	}
 
-	/* Added 16 September 2002 by RDH */
-	public Hashtable getWsnApplicationInfoFromCRSPersonWithEmailAddress(String emailAddress) {
-		try {
-			org.alt60m.crs.model.Person crsPerson = new org.alt60m.crs.model.Person();
-			crsPerson.setEmail(emailAddress);
-			crsPerson.select();
-			if (crsPerson != null) {
-				Hashtable WsnApplicationHash = new Hashtable();
-				WsnApplicationHash.put("CurrentEmail", crsPerson.getEmail() == null ? "" : crsPerson.getEmail());
-				WsnApplicationHash.put("LegalFirstName", crsPerson.getFirstName() == null ? "" : crsPerson.getFirstName());
-				WsnApplicationHash.put("LegalLastName", crsPerson.getLastName() == null ? "" : crsPerson.getLastName());
-				if (crsPerson.getBirthDate() != null) {
-					WsnApplicationHash.put("Birthdate", crsPerson.getBirthDate());
-				}
-				WsnApplicationHash.put("YearInSchool", crsPerson.getYearInSchool() == null ? "" : crsPerson.getYearInSchool());
-
-				//kb 2/3/03
-				//following code added to ensure proper conversion of date...
-				//GraduationDate will be "" if conversion fails
-				try {
-					WsnApplicationHash.put("GraduationDate", crsPerson.getGraduationDate() == null ? "" : crsPerson.getGraduationDate());
-				} catch (Exception e) {
-					//Date was unparseable.
-					WsnApplicationHash.put("GraduationDate", "");
-				}
-
-				WsnApplicationHash.put("CurrentAddress", crsPerson.getAddress1() == null ? "" : crsPerson.getAddress1());
-				WsnApplicationHash.put("CurrentAddress2", crsPerson.getAddress2() == null ? "" : crsPerson.getAddress2());
-				WsnApplicationHash.put("CurrentCity", crsPerson.getCity() == null ? "" : crsPerson.getCity());
-				WsnApplicationHash.put("CurrentState", crsPerson.getState() == null ? "" : crsPerson.getState());
-				WsnApplicationHash.put("CurrentZip", crsPerson.getZip() == null ? "" : crsPerson.getZip());
-				WsnApplicationHash.put("CurrentPhone", crsPerson.getHomePhone() == null ? "" : crsPerson.getHomePhone());
-				WsnApplicationHash.put("EmergAddress", crsPerson.getPermanentAddress1() == null ? "" : crsPerson.getPermanentAddress1());
-				WsnApplicationHash.put("EmergAddress2", crsPerson.getPermanentAddress2() == null ? "" : crsPerson.getPermanentAddress2());
-				WsnApplicationHash.put("EmergCity", crsPerson.getPermanentCity() == null ? "" : crsPerson.getPermanentCity());
-				WsnApplicationHash.put("EmergState", crsPerson.getPermanentState() == null ? "" : crsPerson.getPermanentState());
-				WsnApplicationHash.put("EmergZip", crsPerson.getPermanentZip() == null ? "" : crsPerson.getPermanentZip());
-				WsnApplicationHash.put("EmergPhone", crsPerson.getPermanentPhone() == null ? "" : crsPerson.getPermanentPhone());
-				// WsnApplicationHash.put("Ssn", crsPerson.getSsn() == null ? "" : crsPerson.getSsn());
-				// 2003-01-20: Remove UniversityFullName since we can't load UniversityState too.  Force MS user to enter both.
-				//	WsnApplicationHash.put("UniversityFullName",crsPerson.getCampus() == null ? "" : crsPerson.getCampus());
-				// 2003-01-20: Remove Gender since since different formats between CRS and MS.
-				//	WsnApplicationHash.put("Gender",crsPerson.getGender() == null ? "" : crsPerson.getGender());
-				// 2003-01-20: Remove MaritalStatus since different formats between CRS and MS.
-				//	WsnApplicationHash.put("MaritalStatus",crsPerson.getMaritalStatus() == null ? "" : crsPerson.getMaritalStatus());
-				return WsnApplicationHash;
-			} else {
-				log.debug("getWsnApplicationInfoFromCRSPersonWithEmailAddress DID NOT find a person matching in CRS");
-				return null;
-			}
-		} catch (Exception e) {
-			log.error(e);
-			return null;
-		}
-	}
 	private WsnApplication getWsnApplicationObject(String id) {
 		if ((id != null) && (!id.equals("new")) && !id.equals("") && !id.equals("0")) {
 			return new WsnApplication(id);

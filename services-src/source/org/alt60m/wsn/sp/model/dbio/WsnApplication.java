@@ -113,7 +113,7 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("LegalLastName", "legalLastName", table);
 		setMetadata("LegalFirstName", "legalFirstName", table);
 		setMetadata("Birthdate", "birthdate", table);
-		setMetadata("DateBecameChristian", "dateBecameChristian", table);
+		setMetadata("DateBecameChristian", "date_became_christian", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
 		setMetadata("UniversityFullName", "universityFullName", table);
 		setMetadata("Major", "major", table);
@@ -582,11 +582,11 @@ public class WsnApplication extends DBIOEntity{
 	public void setBirthdate(String birthdate) {
 		person.setBirthdate(birthdate); 
 	}
-	public String getDateBecameChristian() {
+	public Date getDateBecameChristian() {
 		return person.getDateBecameChristian(); 
 	}
-	public void setDateBecameChristian(String dateBecameChristian) {
-		person.setDateBecameChristian(dateBecameChristian); 
+	public void setDateBecameChristian(Date date_became_christian) {
+		person.setDateBecameChristian(date_became_christian); 
 	}
 	public String getMaritalStatus() {
 		return person.getMaritalStatus(); 
@@ -1789,7 +1789,7 @@ public class WsnApplication extends DBIOEntity{
 			mc1++;
 			mcVal += "* Marital Status" + "<br>";
 		}
-		if (person.getDateBecameChristian() == null  ||  person.getDateBecameChristian().length() == 0) {
+		if (person.getDateBecameChristian() == null) {
 			mc1++;
 			mcVal += "* Date Received Christ" + "<br>";
 		}

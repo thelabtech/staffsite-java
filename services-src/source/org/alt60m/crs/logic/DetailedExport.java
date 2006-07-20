@@ -84,7 +84,7 @@ public class DetailedExport {
 					tableName,
 					"SELECT crs_registration.registrationID, ministry_person.personID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType,"
 							+ " crs_registration.preRegistered, curr.email, ministry_person.dateCreated,"
-							+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birthDate, ministry_person.graduationDate,"
+							+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date, ministry_person.graduation_date,"
 							+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1,"
 							+ " curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country,"
 							+ " ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip,"
