@@ -21,10 +21,10 @@ import org.apache.commons.logging.LogFactory;
  * 
  ******************************************************************************/
 
-public class CRSImportExport {
-	private static Log log = LogFactory.getLog(CRSImportExport.class); 
+public class CRSExport {
+	private static Log log = LogFactory.getLog(CRSExport.class); 
 
-	private static CRSImportExport instance;
+	private static CRSExport instance;
 	
 	char separatorChar = File.separatorChar;
 	private final String templatePath = separatorChar + "database" + separatorChar + "template" + separatorChar;
@@ -39,13 +39,13 @@ public class CRSImportExport {
 	//********************************************************************************//
 	// Public functions
 	//********************************************************************************//
-	private CRSImportExport(String basePath) {
+	private CRSExport(String basePath) {
 		this.basePath = basePath;
 	}
 
-	public static CRSImportExport getInstance(String basePath) {
+	public static CRSExport getInstance(String basePath) {
 		if ( instance == null ) {
-			instance = new CRSImportExport(basePath);
+			instance = new CRSExport(basePath);
 		}
 		return instance; //don't really need, except for synchronized blocks to be useful
 	}
