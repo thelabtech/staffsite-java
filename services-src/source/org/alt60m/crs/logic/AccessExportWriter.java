@@ -19,6 +19,10 @@ public class AccessExportWriter implements ExportWriter {
 
 	private Export export;
 
+	/**
+	 * While I think I'd like to someday support both odbc and hxtt, right now
+	 * we only support hxtt
+	 */
 	private static boolean useOdbc = false;
 
 	private Connection connection;
@@ -100,7 +104,12 @@ public class AccessExportWriter implements ExportWriter {
 			String destinationTable = toLegalTableSyntax(table.getName());
 			log.debug("creating table: " + destinationTable);
 			
-			String ddl = createTableDDL(table);
+			String ddl;
+			if (useOdbc) {
+				ddl = createTableDDLOdbc(table);
+			} else {
+				ddl = createTableDDLHxtt(table);
+			}
 			try {
 				statement = connection.createStatement();
 				int returnVal = statement.executeUpdate("DROP TABLE " + destinationTable);
@@ -133,7 +142,7 @@ public class AccessExportWriter implements ExportWriter {
 	 * @return
 	 * @throws SQLException
 	 */
-	private String createTableDDL(Table table) throws SQLException {
+	private String createTableDDLHxtt(Table table) throws SQLException {
 		ResultSetMetaData rsmd = table.getData().getMetaData();
 		StringBuffer ddl = new StringBuffer();
 		ddl.append("CREATE TABLE ").append(toLegalTableSyntax(table.getName())).append(" (");
@@ -186,6 +195,16 @@ public class AccessExportWriter implements ExportWriter {
 		return ddl.toString();
 	}
 
+	/**
+	 * Not yet implemented.  May never be implemented.
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
+	private String createTableDDLOdbc(Table table) throws SQLException {
+		return null;
+	}
+	
 	private String toLegalColumnSyntax(String columnName) {
 		
 		columnName = columnName.replace('\n', '_').replace('\r', '_').replace(
