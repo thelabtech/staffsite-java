@@ -142,11 +142,11 @@ public abstract class Controller extends HttpServlet {
 			return _session.getAttribute(key);
 		}
 		public void setError(String errorMsg) {
-			log.error("Error state set: "+errorMsg);
+			log.info("Error state set: "+errorMsg);
 			_session.setAttribute(ERR_TOKEN, errorMsg);
 		}
 		public void setError() {
-			log.error("Error state set");
+			log.info("Error state set");
 			_session.setAttribute(ERR_TOKEN, "Error processing request");
 		}
 
