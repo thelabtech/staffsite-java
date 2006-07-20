@@ -83,4 +83,17 @@ public class CASUser implements Serializable {
 	{
 		return (String) attributes.get(ATTR_LASTNAME);
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer out = new StringBuffer();
+		out.append("{");
+		out.append("username=").append(username).append("; ");
+		out.append("pgtIou=").append(pgtIou).append("; ");
+		out.append("attributes=").append(attributes);
+		out.append("}");
+		return out.toString();
+	}
+	
+	
 }
