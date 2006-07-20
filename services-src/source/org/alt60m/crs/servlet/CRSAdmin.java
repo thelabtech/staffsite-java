@@ -4,7 +4,7 @@ import org.alt60m.servlet.Controller;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.crs.model.*;
 import org.alt60m.crs.application.*;
-import org.alt60m.crs.logic.CRSImportExport;
+import org.alt60m.crs.logic.CRSExport;
 import org.alt60m.util.ArrayHelper;
 import org.alt60m.util.SendMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -750,7 +750,7 @@ public class CRSAdmin extends Controller {
 		String eventId = (String) ctx.getSessionValue("eventLoggedIn");
 		String baseFilePath = getServletContext().getRealPath(APP_FOLDER);
 		try {
-			CRSImportExport importExport = CRSImportExport.getInstance(baseFilePath);
+			CRSExport importExport = CRSExport.getInstance(baseFilePath);
 			if (ctx.getInputString("Format") != null && ctx.getInputString("Format").equals("CSV")) {
 				ar.addHashtable("Results", importExport.exportToCSV(Integer.parseInt(eventId)));
 			} else if (ctx.getInputString("Template") != null) {
@@ -2619,7 +2619,7 @@ public void newQuestion(ActionContext ctx) {
 		String eventId = (String) ctx.getSessionValue("eventLoggedIn");
 		try {
 			String baseFilePath = getServletContext().getRealPath(APP_FOLDER);
-			CRSImportExport.getInstance(baseFilePath).initFolders(); //Makes sure that
+			CRSExport.getInstance(baseFilePath).initFolders(); //Makes sure that
 			// the
 			// import/export
 			// directories
