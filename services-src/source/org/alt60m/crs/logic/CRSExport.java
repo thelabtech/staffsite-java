@@ -55,7 +55,7 @@ public class CRSExport {
 		new File(basePath + uploadPath).mkdir();
 	}
 	
-	public synchronized Hashtable exportToCSV(int conferenceID) throws Exception {
+	public synchronized Hashtable exportToCSV(int conferenceID) {
 
 		String output = "";
 		Hashtable<String, String> returnVal = new Hashtable<String, String>();
@@ -69,7 +69,22 @@ public class CRSExport {
 			simpleExport.export();
 			
 			returnVal.put("Status", "Success");
-		} catch (Exception e) {
+		} 
+		catch (SQLException e) {
+			log.error(e, e);
+			new File(fullFileName).delete();
+			
+			SQLException next = e.getNextException();
+			if (next == null) {
+				log.debug("No chained exceptions");
+			}
+			while (next != null) {
+				log.error("Next exception in chain: ", next);
+				next = next.getNextException();
+			}
+			returnVal.put("Status", "Error");
+		} catch(IOException e)
+		{
 			log.error(e, e);
 			new File(fullFileName).delete();
 			returnVal.put("Status", "Error");
@@ -81,11 +96,8 @@ public class CRSExport {
 
 
 	public synchronized Hashtable exportToAccess(int conferenceID, String region,
-			String template) throws IOException {
+			String template)  {
 
-		
-		
-		
 		String output = "";
 		Hashtable<String, String> returnVal = new Hashtable<String, String>();
 		try {
@@ -105,7 +117,6 @@ public class CRSExport {
 			returnVal.put("Status", "Success");
 		}
 		catch (SQLException e) {
-			
 			log.error(e, e);
 			
 			SQLException next = e.getNextException();
@@ -116,6 +127,10 @@ public class CRSExport {
 				log.error("Next exception in chain: ", next);
 				next = next.getNextException();
 			}
+			returnVal.put("Status", "Error");
+		} catch(IOException e)
+		{
+			log.error(e, e);
 			returnVal.put("Status", "Error");
 		}
 		returnVal.put("Output", output);
