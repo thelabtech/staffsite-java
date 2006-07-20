@@ -150,7 +150,8 @@ public class CmsController extends Controller {
 			if (usersRoles.size() == 0) {
 				initUsers(false);
 			}
-			if (usersRoles.containsKey(profile.get("UserName").toString().toLowerCase())) {
+			String username = (String) profile.get("UserName");
+			if (username != null && usersRoles.containsKey(username.toLowerCase())) {
 				tub.put("Moderator", "true");
 			} else {
 				tub.put("Moderator", "false");
