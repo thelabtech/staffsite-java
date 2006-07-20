@@ -16,6 +16,8 @@ import org.alt60m.util.LogHelper;
  */
 public abstract class Controller extends HttpServlet {
 
+	private final int MAX_HISTORY_SIZE = 20;
+	
 	protected Log log = LogFactory.getLog(this.getClass());
 	
 	// Mapping of views to URLs
@@ -291,6 +293,9 @@ public abstract class Controller extends HttpServlet {
 			if (user == null) {
 				user = "(anonymous)";
 			}
+			
+
+			MDC.put("username", user);
 			NDC.push(user);
 			if(req.getParameter("action") == null){
 				log.debug("Invoking default action: " +_defaultAction );
@@ -300,8 +305,32 @@ public abstract class Controller extends HttpServlet {
 				log.info("Invoking action: " + requestedAction);
 				actionName = requestedAction;
 			}
+			MDC.put("action", actionName);
 			NDC.push(actionName);
 
+			LinkedList<String> history = (LinkedList<String>) req.getSession().getAttribute("history");
+			if (history == null)
+			{
+				history = new LinkedList<String>();
+				req.getSession().setAttribute("history", history);
+			}
+			history.add(req.getRequestURL().append("?").append(req.getQueryString()).toString());
+
+			if (history.size() > MAX_HISTORY_SIZE) {
+				history.remove();
+			}
+			
+			HashMap<String, Object> sessionCopy = new HashMap<String, Object>();
+			for (Enumeration<String> attributeNames = (Enumeration<String>) req.getSession().getAttributeNames(); attributeNames.hasMoreElements();)
+			{
+				String attributeName = attributeNames.nextElement(); 
+				sessionCopy.put(attributeName, req.getSession().getAttribute(attributeName));
+			}
+			
+			MDC.put("session", sessionCopy);
+			
+			MDC.put("request", history.getLast());
+			
 			ctx.setLastAction(actionName);
 			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
 			long beginTime = System.currentTimeMillis();
@@ -324,6 +353,10 @@ public abstract class Controller extends HttpServlet {
 		} finally {
 			NDC.pop();
 			NDC.pop();
+			MDC.remove("username");
+			MDC.remove("action");
+			MDC.remove("session");
+			MDC.remove("request");
 			synchronized (this) { _thread_ctr--; }
 		}
 	}
