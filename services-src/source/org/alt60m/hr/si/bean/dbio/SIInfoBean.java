@@ -32,8 +32,8 @@ public class SIInfoBean implements Serializable {
 		try {
 			String SIPersonID = getPersonIDBySSM(userId);
 			if ("".equals(SIPersonID) || SIPersonID == null) {
-				//then the object doesn't exist so create it.
-				p = SIUtil.createPersonCheckOtherSystems(Integer.valueOf(userId).intValue(), emailAddr);
+				//then the object doesn't exist so freak out!
+				throw new RuntimeException("The code shouldn't get here.");
 			} else {
 				p = (SIPerson) SIUtil.getObject(SIPersonID, "SIPersonID", org.alt60m.hr.si.servlet.dbio.SIAppHandler.PERSONCLASS);
 			}
