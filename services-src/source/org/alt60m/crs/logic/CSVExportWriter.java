@@ -23,8 +23,9 @@ public class CSVExportWriter implements ExportWriter {
 	/**
 	 * @see org.alt60m.crs.logic.ExportWriter#setFile(java.io.File)
 	 */
-	public void setFile(File file) throws IOException {
-		fileWriter = new FileWriter(file);
+	public void init(String filename) throws IOException {
+		
+		fileWriter = new FileWriter(filename);
 	}
 
 	public Export getExport() {
@@ -42,6 +43,10 @@ public class CSVExportWriter implements ExportWriter {
 	 * @see org.alt60m.crs.logic.ExportWriter#write()
 	 */
 	public void write() throws IOException, SQLException {
+		if (export == null)
+		{
+			throw new NullPointerException("Export has not been set!");
+		}
 		try {
 			for (Table table : export.getTables()) {
 				writeTableToFile(table, fileWriter);
@@ -95,14 +100,13 @@ public class CSVExportWriter implements ExportWriter {
 	}
 
 	/**
-	 * Replaces "\n", "\r", and "#" with " ", and "'" with "''"
+	 * Replaces a double quote character with two double quotes
 	 * 
 	 * @param inputString
 	 * @return
 	 * @throws Exception
 	 */
 	private String escapeString(String inputString) {
-		return inputString.replace("\r", " ").replace("\n", " ").replace("#",
-				" ").replace("'", "''");
+		return inputString.replace("\"", "\"\"");
 	}
 }

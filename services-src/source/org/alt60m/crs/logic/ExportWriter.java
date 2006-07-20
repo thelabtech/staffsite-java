@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface ExportWriter {
 
-	public abstract void setFile(File file) throws IOException;
+	public abstract void init(String filename) throws IOException, SQLException;
 
 	public abstract void setExport(Export export);
 

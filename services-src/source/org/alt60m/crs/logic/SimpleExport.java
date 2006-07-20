@@ -46,11 +46,11 @@ public class SimpleExport {
 	 * @param file
 	 * @throws IOException
 	 */
-	public SimpleExport(int conferenceId, Connection connection, ExportWriter exportWriter, File file) throws IOException
+	public SimpleExport(int conferenceId, Connection connection, ExportWriter exportWriter, String filename) throws IOException, SQLException
 	{
 		this.conferenceID = conferenceId;
 		this.exportWriter = exportWriter;
-		exportWriter.setFile(file);
+		exportWriter.init(filename);
 		this.connection = connection;
 		
 	}
@@ -74,8 +74,6 @@ public class SimpleExport {
 					+" preRegStart, preRegEnd, masterDefaultDateArrive, masterDefaultDateLeave FROM crs_conference WHERE conferenceID="
 							+ conferenceID);
 			
-			/* export the RegistrationType Table */
-			
 			tableName = "RegistrationTypes";
 			log.debug("Getting data for table: " + tableName);
 			exportTable(
@@ -86,7 +84,6 @@ public class SimpleExport {
 					"marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment,marriedDiscountEarlyReg, marriedDiscountEarlyRegDate,"+ 	
 					"askChildren, askSpouse registrationTypeID FROM crs_registrationtype WHERE fk_conferenceID="
 							+ conferenceID);
-			/* export all registrants */
 			
 
 			tableName = "registrants";
