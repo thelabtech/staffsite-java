@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
 
-<log4j:configuration>
+<configuration xmlns="http://logging.apache.org/">
 	<!-- Reference levels (in order): OFF, FATAL, ERROR, WARN, INFO, DEBUG and ALL. -->
 
 	<!-- The "real" log file: -->
@@ -68,4 +68,4 @@
 		<appender-ref ref="StaffsiteAppender" />  
 	</root>
 
-</log4j:configuration>
+</configuration>
