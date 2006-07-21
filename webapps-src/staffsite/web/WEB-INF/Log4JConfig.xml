@@ -4,47 +4,66 @@
 <log4j:configuration>
 	<!-- Reference levels (in order): OFF, FATAL, ERROR, WARN, INFO, DEBUG and ALL. -->
 
-	<!-- Eventually, use only this: -->
+	<!-- The "real" log file: -->
 	<appender name="StaffsiteAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${catalina.home}/logs/staffsite.log"/>
 		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d %-5p (%x) %c{1}: %m%n"/>
-		</layout>      
+		</layout>
 	</appender>
 
 
-	<!-- for now, also use STDOUT, because most of our code dumps to System.out anyway -->
+	<!-- also use STDOUT, to have messages show up in eclipse -->
 	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p %-25.25c{1} %m%n"/>
 		</layout>      
 	</appender>
 
-	<category name="com.kenburcham">
-		<priority value="warn" />
-	</category>
+	<appender name="EMAIL"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512" />
+        <param name="SMTPHost" value="smtp1.ccci.org" />
+        <param name="From" value="staffsite_errors@uscm.org" />
+        <param name="To" value="matt.drees@uscm.org" />
+        <param name="Subject" value="[STAFFSITE] Application Error" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="[%d{ISO8601}]%n%n%-5p%n%nLog name: %c%n%nUsername: %X{username}%n%nAction: %X{action}%n%nMessage: %m%n%nRequest: %X{request}%n%nSession: %X{session}%n%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
 
-	<category name="com.kenburcham.framework.dbio">
-		<priority value="info" /> 
-	</category>
+	<logger name="com.kenburcham">
+		<level value="warn" />
+	</logger>
+
+	<logger name="com.kenburcham.framework.dbio">
+		<level value="info" /> 
+	</logger>
 
 
-	<category name="com.kenburcham.framework.dbio.DBIOFactory">
-		<priority value="warn" /> 
-	</category>
+	<logger name="com.kenburcham.framework.dbio.DBIOFactory">
+		<level value="warn" /> 
+	</logger>
 
-	<category name="org.appache.commons.httpclient">
-		<priority value="info" /> 
-	</category>
+	<logger name="org.appache.commons.httpclient">
+		<level value="info" /> 
+	</logger>
 
 
-	<category name="org.alt60m"> 
-		<priority value="debug" />
-	</category>
+	<logger name="org.alt60m"> 
+		<level value="debug" />
+		<!--
+        <appender-ref ref="EMAIL" />
+		-->
+	</logger>
 
 	<root>
-		<priority value ="info" />
+		<level value="info" />
 		<appender-ref ref="STDOUT" />  
 		<appender-ref ref="StaffsiteAppender" />  
 	</root>
