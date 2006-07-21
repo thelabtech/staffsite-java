@@ -1784,38 +1784,12 @@ public class StaffController extends Controller {
 						":" + ctx.getRequest().getLocalPort() : "") 
 				+ "/servlet/StaffController";
 	}
-
-	//note: this may not be the best way to do this...
-//	private String getSecureService(ActionContext ctx) {
-//		if (ctx.getRequest().getServerName().indexOf("localhost") == -1)
-//			return "https" + "://"
-//			+ ctx.getRequest().getServerName() + "/servlet/StaffController";
-//		else
-//			return getService(ctx);
-//		 
-//	}
 	
 	private String getLogoutCallbackService(ActionContext ctx) {
 		return "https://"
 		+ ctx.getRequest().getServerName() + logoutCallbackSuffix;
-		
-
-		//this is useful for testing logoutCallback for the
-		//dev cas servers, but the real one (signin.mygcx.org)
-		//is in the dmz, and can't contact us.  Local testing
-		//will have to go without the logoutCallback function.
-//		String serverName = ctx.getRequest().getServerName();
-//		if (serverName.toLowerCase().equals("localhost")) {
-//			return ctx.getRequest().getScheme() + "://"
-//					+ "10.10.82.55" //insert local ip here
-//					+ "/servlet/CasProxyServlet";
-//		} else {
-//			return ctx.getRequest().getScheme() + "://"
-//					+ ctx.getRequest().getServerName()
-//					+ "/servlet/CasProxyServlet";
-//		}
 	}
-	
+
 	private String getProxyCallbackService(ActionContext ctx) {
 		return "https://"
 		+ ctx.getRequest().getServerName() 
