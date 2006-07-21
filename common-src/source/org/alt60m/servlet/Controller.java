@@ -314,7 +314,12 @@ public abstract class Controller extends HttpServlet {
 				history = new LinkedList<String>();
 				req.getSession().setAttribute("history", history);
 			}
-			history.add(req.getRequestURL().append("?").append(req.getQueryString()).toString());
+			StringBuffer requestedUrl = req.getRequestURL();
+			String queryString = req.getQueryString();
+			if (queryString != null) {
+				requestedUrl.append("?").append(queryString);
+			}
+			history.add(requestedUrl.toString());
 
 			if (history.size() > MAX_HISTORY_SIZE) {
 				history.remove();
@@ -329,7 +334,7 @@ public abstract class Controller extends HttpServlet {
 			
 			MDC.put("session", sessionCopy);
 			
-			MDC.put("request", history.getLast());
+			MDC.put("request", ctx.getHashedRequest());
 			
 			ctx.setLastAction(actionName);
 			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
