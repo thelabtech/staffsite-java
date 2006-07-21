@@ -143,8 +143,6 @@ public class WsnApplicationAccountBalanceUpdater implements java.io.Serializable
 				oracleStatement.close();
 				oracleConnection.close();
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			System.err.println("Where having real problems if this gets thrown!");
 			System.err.println(e);
