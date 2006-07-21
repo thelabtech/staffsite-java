@@ -88,8 +88,12 @@ public class DBConnectionFactory {
 		return _getDatabaseConn(DEFAULT_DRIVER , DEFAULT_URL, username, password);
 	}
 
-    static public Connection getOracleDatabaseConn() throws ClassNotFoundException, SQLException {
-		return getOracleDatabaseConn(ORACLE_DEFAULT_USER, ORACLE_DEFAULT_PW);
+    static public Connection getOracleDatabaseConn() throws SQLException {
+		try {
+			return getOracleDatabaseConn(ORACLE_DEFAULT_USER, ORACLE_DEFAULT_PW);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Oracle Driver class not found!", e);
+		}
 	}
     static public Connection getOracleDatabaseConn(String username, String password) throws ClassNotFoundException, SQLException {
 		return _getDatabaseConn(ORACLE_DRIVER, ORACLE_PROD_URL, username, password);
