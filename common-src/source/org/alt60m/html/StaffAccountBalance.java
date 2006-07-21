@@ -3,6 +3,8 @@ package org.alt60m.html;
 import java.sql.*;
 import java.util.*;
 
+import org.alt60m.util.DBConnectionFactory;
+
 /*
 q#1
 select last_month_bal from staff_last_bal_vw where emplid = '9-digit account number';
@@ -28,8 +30,8 @@ public class StaffAccountBalance implements java.io.Serializable {
 	String staffAccountNo = acct.substring(0,9);
 
 	try {
-	    DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-	    Connection m_connection = DriverManager.getConnection("jdbc:oracle:thin:@(description=(address=(host=prddb1.ccci.org)(protocol=tcp)(port=1521))(connect_data=(sid=prod)))", "istcampus", "gocampus"); 
+	    
+	    Connection m_connection = DBConnectionFactory.getOracleDatabaseConn();
 	    
 	    if (m_connection != null) {
 		Statement statement = m_connection.createStatement();
