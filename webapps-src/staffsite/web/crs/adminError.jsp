@@ -1,9 +1,17 @@
 <%@ page
 	import="org.alt60m.servlet.*, java.util.*, org.alt60m.crs.model.*"%>
 <%
-    ActionResults ar = ActionResults.getActionResults(session);
+	ActionResults ar = null;
+	try {
+    	ar = ActionResults.getActionResults(session);
+	}
+	catch (Exception e)
+	{
+		//ignore
+	}
     if(ar==null){
         response.sendRedirect("/servlet/CRSAdmin");
+        return;
     }
     String pageTitle = "Conference Registration System Error";
 	Conference conference = new Conference();

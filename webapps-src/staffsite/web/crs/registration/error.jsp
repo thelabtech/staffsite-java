@@ -8,6 +8,7 @@
 	}
     if(ar==null){
         response.sendRedirect("/servlet/CRSRegister");
+        return;
     }
     String pageTitle = "Conference Registration System Error";
 	
