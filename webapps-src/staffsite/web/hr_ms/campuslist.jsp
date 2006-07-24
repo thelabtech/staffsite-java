@@ -106,7 +106,16 @@ function updateParent2(campusname) {
 		</FORM>
 <%
 	if(state!=null && !state.equals("")) {
-		String url = "http://" + request.getServerName() + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
+		String scheme;
+	}
+		if (request.getServerName().contains("campuscrusadeforchrist.com"))
+		{
+			scheme = "https";
+		}
+		else {
+			scheme = "http";
+		}
+		String url = scheme + "://" + request.getServerName() + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
 
 		URL xmlUrl = new URL(url);
 		Source xsl = new StreamSource(this.getServletConfig().getServletContext().getRealPath("/hr_ms/campuslist.xsl"));
