@@ -56,7 +56,7 @@ public class Person extends DBIOEntity {
 		setMetadata("Campus", "campus", table);
 		setMetadata("UniversityState", "universityState", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduationDate", table);
+		setMetadata("GraduationDate", "graduation_date", table);
 		setMetadata("Major", "major", table);
 		setMetadata("GreekAffiliation", "greekAffiliation", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
@@ -92,7 +92,7 @@ public class Person extends DBIOEntity {
     private String campus="";
     private String universityState="";
     private String yearInSchool = "";
-    private String graduationDate=null;
+    private String graduation_date=null;
     private String major="";
     private String greekAffiliation="";
     private String maritalStatus="";
@@ -312,13 +312,13 @@ public class Person extends DBIOEntity {
 	 * @return Returns the graduationDate.
 	 */
 	public String getGraduationDate() {
-		return graduationDate;
+		return graduation_date;
 	}
 	/**
 	 * @param graduationDate The graduationDate to set.
 	 */
 	public void setGraduationDate(String graduationDate) {
-		this.graduationDate = graduationDate;
+		this.graduation_date = graduationDate;
 	}
 	/**
 	 * @return Returns the greekAffiliation.
