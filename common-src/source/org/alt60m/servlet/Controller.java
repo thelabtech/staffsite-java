@@ -271,6 +271,7 @@ public abstract class Controller extends HttpServlet {
 		processRequest(request, response);
 	}
 
+		
 	/** Comment */
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res) {
 
@@ -367,6 +368,8 @@ public abstract class Controller extends HttpServlet {
 			MDC.remove("action");
 			MDC.remove("session");
 			MDC.remove("request");
+			MDC.remove("userIPAddress");
+			MDC.remove("userHost");
 			synchronized (this) { _thread_ctr--; }
 		}
 	}
