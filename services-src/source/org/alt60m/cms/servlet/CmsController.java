@@ -150,13 +150,15 @@ public class CmsController extends Controller {
 			if (usersRoles.size() == 0) {
 				initUsers(false);
 			}
-			String username = (String) profile.get("UserName");
+			String username = null;
+			if (profile != null) {
+				username = (String) profile.get("UserName");
+			}
 			if (username != null && usersRoles.containsKey(username.toLowerCase())) {
 				tub.put("Moderator", "true");
 			} else {
 				tub.put("Moderator", "false");
 			}
-			//session.putValue("cmsPath","<a href=\"/servlet/CmsController?action=home\">Home</a>");
 			ctx.setReturnValue(tub);
 			ctx.goToView("home");
 		} catch (Exception e) {
