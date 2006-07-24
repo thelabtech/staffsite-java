@@ -112,13 +112,13 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("Region", "region", table);
 		setMetadata("LegalLastName", "legalLastName", table);
 		setMetadata("LegalFirstName", "legalFirstName", table);
-		setMetadata("Birthdate", "birthdate", table);
+		setMetadata("Birthdate", "birth_date", table);
 		setMetadata("DateBecameChristian", "date_became_christian", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
 		setMetadata("UniversityFullName", "universityFullName", table);
 		setMetadata("Major", "major", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduationDate", table);
+		setMetadata("GraduationDate", "graduation_date", table);
 		setMetadata("UsCitizen", "usCitizen", table);
 		setMetadata("Citizenship", "citizenship", table);
 		setMetadata("AccountNo", "accountNo", table);
