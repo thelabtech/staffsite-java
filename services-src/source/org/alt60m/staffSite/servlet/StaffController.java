@@ -421,24 +421,23 @@ public class StaffController extends Controller {
 		}
 	}
 
-	public void authorize(ActionContext ctx, CASUser newUser) {
+	private void authorize(ActionContext ctx, CASUser newUser) {
 		String profileId = null;
 		try {
 			profileId = _profileManager.authorize(newUser);
 		} catch (UserNotFoundException e) {
-			log.error(e.getMessage(), e);
-			// set a message needed for more help
+			log.warn(e.toString());
 			log.info("User not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileNotFoundException e) {
-			log.error(e.getMessage(), e);
+			log.warn(e.toString());
 			// set a message needed for more help
 			log.info("Profile not found: " + newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "noprofile");
 			ctx.goToView("loginError");
 		} catch (ProfileManagementException e) {
-			log.error(e.getMessage(), e);
+			log.error(e, e);
 			log.error("Couldn't authenticate: "
 					+ newUser.getUsername() + " due to service problems.", e);
 			ctx.setSessionValue("ErrorCode", "unknown");
@@ -450,7 +449,7 @@ public class StaffController extends Controller {
 			ctx.setSessionValue("ErrorCode", "multipleprofiles");
 			ctx.goToView("loginError");
 		} catch (UserNotVerifiedException e) {
-			log.error("User GCX Account Not Verified: "
+			log.info("User GCX Account Not Verified: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "gcxnotverified");
 			ctx.goToView("loginError");
