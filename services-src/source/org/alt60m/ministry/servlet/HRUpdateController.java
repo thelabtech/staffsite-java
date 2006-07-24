@@ -867,7 +867,7 @@ public class HRUpdateController extends Controller {
 			ctx.setSessionValue("formData", newValues);
 			ctx.goToView("formConfirm");
 		} catch (NonCMJobChangeException e) {
-			log.error(e.getMessage(), e);
+			log.info(e.toString());
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText", "This form is only for job information changes involving the Campus Ministry.  " +
 					"If you currently are in the Campus Ministry, please indicate that on the first page of this form.  " +
