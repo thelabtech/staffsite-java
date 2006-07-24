@@ -463,41 +463,6 @@ public class MSInfo {
 		return objHash;
 	}
 
-	/* Returns a collection of hashtables containing the WsnProjectID, name, partnershipRegion, startDate, and endDate for all the WSN projects.
-	   Return null on failure.
-	   Created 10 September 2002 RDH */
-	public Collection getOpenProjects() throws Exception {
-		/* 5 Kinds of projects to get:
-				U.S. (u)
-				W.S.N. (w)
-				School of Leadership (s)
-				Regional (r)
-				Institute of Biblical Studies (i)
-		*/
-		Collection projects = getOpenProjectsByType('u'); // get US Summer Projects
-		projects.addAll(getOpenProjectsByType('w')); // add WSN Projects
-		projects.addAll(getOpenProjectsByType('s')); // add SOL Projects
-		projects.addAll(getOpenProjectsByType('r')); // add regional Projects
-		projects.addAll(getOpenProjectsByType('i')); // add IBS Projects
-
-		return ObjectHashUtil.list(projects);
-	}
-
-	/* Created 30 October 2002 RDH */
-	public Collection getOpenProjectsByType(char type) throws Exception {
-		try {
-			String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
-
-			// To do 23 October 2002: This query needs the bility to check maxStudentAMale / maxStudentAFemale limits. (RDH)
-			// To do 23 October 2002: This query also needs the bility to check region criteria. (RDH)
-			WsnProject project = new WsnProject();
-			project.changeTargetTable("wsn_sp_viewopenprojects");
-			return ObjectHashUtil.list(project.selectList("(projectType = '" + type + "')" + " AND (studentStartDate > " + today + ")" + " AND (onHold <> \'1\')" + " AND (wsnYear = '" + CURRENT_WSN_YEAR + "')" + " ORDER BY name"));
-		} catch (Exception e) {
-			log.error("Warning: Unable to perform MSInfo.getOpenProjects()!", e);
-			return null;
-		}
-	}
 
 	// Added 19 November 2002 RDH
 	public Collection getParticipants(String projectID) {
