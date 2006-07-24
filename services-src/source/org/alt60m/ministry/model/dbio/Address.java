@@ -49,8 +49,8 @@ public class Address extends DBIOEntity {
     	
     	setMetadata("AddressId","addressID","IDENTITY");
             
-        setMetadata("StartDate","startdate",table);
-        setMetadata("EndDate","enddate",table);
+        setMetadata("StartDate","start_date",table);
+        setMetadata("EndDate","end_date",table);
         setMetadata("Address1","address1",table);
         setMetadata("Address2","address2",table);
         setMetadata("Address3","address3",table);
