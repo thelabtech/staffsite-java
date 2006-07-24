@@ -286,6 +286,12 @@ public abstract class Controller extends HttpServlet {
 
 		String actionName = null;
 		try {
+
+			String userIPAddress = req.getRemoteAddr();
+			String userHost = req.getRemoteHost();
+			MDC.put("userIPAddress", userIPAddress);
+			MDC.put("userHost", userHost);
+			
 			String user = (String) req.getSession().getAttribute("userName");
 			if (user == null) {
 				user = (String) req.getSession().getAttribute("userLoggedIn");
@@ -294,7 +300,6 @@ public abstract class Controller extends HttpServlet {
 				user = "(anonymous)";
 			}
 			
-
 			MDC.put("username", user);
 			NDC.push(user);
 			if(req.getParameter("action") == null){
