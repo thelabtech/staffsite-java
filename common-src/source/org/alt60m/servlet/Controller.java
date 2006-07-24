@@ -314,6 +314,9 @@ public abstract class Controller extends HttpServlet {
 			MDC.put("action", actionName);
 			NDC.push(actionName);
 
+			Map<String, Object> requestMap = ctx.getHashedRequest();
+			MDC.put("request", requestMap);
+			
 			LinkedList<String> history = (LinkedList<String>) req.getSession().getAttribute("history");
 			if (history == null)
 			{
@@ -321,10 +324,7 @@ public abstract class Controller extends HttpServlet {
 				req.getSession().setAttribute("history", history);
 			}
 			StringBuffer requestedUrl = req.getRequestURL();
-			String queryString = req.getQueryString();
-			if (queryString != null) {
-				requestedUrl.append("?").append(queryString);
-			}
+			requestedUrl.append(" ").append(requestMap.toString());
 			history.add(requestedUrl.toString());
 
 			if (history.size() > MAX_HISTORY_SIZE) {
@@ -340,7 +340,6 @@ public abstract class Controller extends HttpServlet {
 			
 			MDC.put("session", sessionCopy);
 			
-			MDC.put("request", ctx.getHashedRequest());
 			
 			ctx.setLastAction(actionName);
 			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
