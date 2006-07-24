@@ -31,7 +31,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	// goes to the error page
 	public void goToErrorPage(ActionContext ctx, String errorString) {
 		try	{
-			log.error("Error encountered: " + errorString);
+			log.info("Error encountered: " + errorString);
 			ctx.setSessionValue("ErrorString", errorString);
 			ctx.goToView("error");
 		}
