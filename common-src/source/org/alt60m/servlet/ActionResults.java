@@ -35,10 +35,12 @@ public class ActionResults {
 	public static ActionResults getActionResults(HttpSession session)
 	{
 		Object actionResults = session.getAttribute("tub");
+		if (actionResults == null)
+			throw new RuntimeException("Session doesn't contain an instance of ActionResults");
 		if (actionResults instanceof ActionResults)
-			return(ActionResults) actionResults;	
+			return(ActionResults) actionResults;
 		else
-			throw new ClassCastException("Tub doesn't contain an instance of ActionResults");	
+			throw new ClassCastException("Session object labelled 'tub' is not an instance of ActionResults!");	 //like this will ever happen...
 	}
 
 	public boolean isEmpty() {
