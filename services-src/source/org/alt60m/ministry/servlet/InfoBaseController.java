@@ -1362,7 +1362,11 @@ public class InfoBaseController extends Controller {
                 dependentInfo.add(theDependent.getLastName() + ", " + theDependent.getFirstName() + " " +
                     theDependent.getMiddleName());
             }
-            results.putValue("isHR", (String)ctx.getSessionValue("isHR"));
+            String isHR =  (String)ctx.getSessionValue("isHR");
+            if (isHR == null) {
+            	isHR = "false";
+            }
+            results.putValue("isHR", isHR);
             results.addCollection("dependentInfo", dependentInfo);
             results.addHashtable("staffinfo", staffHash);
             ctx.setReturnValue(results);
