@@ -18,7 +18,7 @@ public class SecurityManagerFailedException extends SecurityManagerException {
 	}
 
     public SecurityManagerFailedException(Exception e) {
-        super(e.toString());
+        super("Failed due to exception", e);
     }
     
     public SecurityManagerFailedException(String message, Throwable t)
