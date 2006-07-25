@@ -24,8 +24,8 @@ public class ObjectHashUtil {
         }
         return results;
     }
-	static public Hashtable obj2hash(Object o) {
-		Hashtable h = new Hashtable();
+	static public Hashtable<String, Object> obj2hash(Object o) {
+		Hashtable<String, Object> h = new Hashtable<String, Object>();
 		Object[] arguments = new Object[] {};
 		Class c = o.getClass();
 		Method[] publicMethods = c.getMethods();
@@ -174,18 +174,16 @@ public class ObjectHashUtil {
 		try{
 			com.kenburcham.framework.dbio.DBIOTransaction tx = o.getTransaction();
 			tx.setSQL(qry);
-			if(tx.getRecords()){
-				java.sql.ResultSet mine = tx.getResultSet();
-				if(mine.next()){
-					return  mine.getInt(1);
-				} else {
-					return 0;
-				}
+			tx.getRecords();
+			java.sql.ResultSet mine = tx.getResultSet();
+			if (mine.next()) {
+				return mine.getInt(1);
 			} else {
 				return 0;
 			}
+			
 		} catch (Exception e){
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
