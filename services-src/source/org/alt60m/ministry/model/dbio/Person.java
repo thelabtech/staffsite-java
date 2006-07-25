@@ -1,6 +1,11 @@
 package org.alt60m.ministry.model.dbio;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.text.DateFormatter;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 //import com.kenburcham.framework.dbio.DBIOEntity;
@@ -45,8 +50,8 @@ public class Person extends DBIOEntity {
 		setMetadata("MiddleName", "middleName", table);
 		setMetadata("PreferredName", "preferredName", table);
 		setMetadata("Gender", "gender", table);
-		setMetadata("BirthDate", "birth_date", table);
-		setMetadata("DateBecameChristian", "date_became_christian", table);
+		setMetadata("RawBirthDate", "birth_date", table);
+		setMetadata("RawDateBecameChristian", "date_became_christian", table);
 		setMetadata("Region", "region", table);
 		setMetadata("WorkInUS", "workInUS", table);
 		setMetadata("UsCitizen", "usCitizen", table);
@@ -81,7 +86,7 @@ public class Person extends DBIOEntity {
 	private String middleName = "";
     private String preferredName="";
 	private String gender = "";
-	private Date birth_date = null;
+	private Date birthDate = null;
 	private Date date_became_christian = null;
 	private String region = "";
 	private boolean workInUS;
@@ -136,15 +141,38 @@ public class Person extends DBIOEntity {
 	/**
 	 * @return Returns the birth_date.
 	 */
-	public Date getBirthDate() {
-		return birth_date;
+	public Date getRawBirthDate() {
+		return birthDate;
 	}
 	/**
 	 * @param birthDate The birthDate to set.
 	 */
-	public void setBirthDate(Date birth_date) {
-		this.birth_date = birth_date;
+	public void setRawBirthDate(Date birth_date) {
+		this.birthDate = birth_date;
 	}
+	
+	public void setBirthDate(String birthDate) throws ParseException 
+	{
+		if (birthDate == null || birthDate.equals("")) {
+			this.birthDate = null;
+			return;
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		this.birthDate = simpleDateFormat.parse(birthDate);
+	}
+	
+	public String getBirthDate()
+	{
+		if (birthDate == null)
+		{
+			return "";
+		}
+		else {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+			return simpleDateFormat.format(birthDate);
+		}
+	}
+	
 	/**
 	 * @return Returns the campus.
 	 */
@@ -201,15 +229,28 @@ public class Person extends DBIOEntity {
 	/**
 	 * @return Returns the dateBecameChristian.
 	 */
-	public Date getDateBecameChristian() {
+	public Date getRawDateBecameChristian() {
 		return date_became_christian;
 	}
 	/**
 	 * @param dateBecameChristian The dateBecameChristian to set.
 	 */
-	public void setDateBecameChristian(Date date_became_christian) {
+	public void setRawDateBecameChristian(Date date_became_christian) {
 		this.date_became_christian = date_became_christian;
 	}
+	
+	public String getDateBecameChristian() {
+		return new SimpleDateFormat("MM/dd/yyyy").format(this.date_became_christian);
+	}
+	
+	public void setDateBecameChristian(String dateBecameChristian) throws ParseException{
+		if (dateBecameChristian == null || dateBecameChristian.equals("")){
+			this.date_became_christian = null;
+			return;
+		}
+		this.date_became_christian = new SimpleDateFormat("MM/dd/yyyy").parse(dateBecameChristian);
+	}
+	
 	/**
 	 * @return Returns the dateChanged.
 	 */

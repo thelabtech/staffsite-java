@@ -2,6 +2,9 @@ package org.alt60m.crs.model;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 import com.kenburcham.framework.dbio.DBIOEntityException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.alt60m.ministry.model.dbio.Address;
@@ -9,6 +12,9 @@ import org.alt60m.ministry.model.dbio.Address;
 public class Person extends DBIOEntity {
 	private Address currAdd = new Address();
 	private Address permAdd = new Address();
+	
+
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public boolean insert() {
 		setDateCreated(new Date());
@@ -139,10 +145,10 @@ public class Person extends DBIOEntity {
 		setMetadata("FirstName", "firstName", table);
 		setMetadata("LastName", "lastName", table);
 		setMetadata("MiddleInitial", "middleName", table);
-		setMetadata("BirthDate", "birth_date", table);
+		setMetadata("RawBirthDate", "birth_date", table);
 		setMetadata("Campus", "campus", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduation_date", table);
+		setMetadata("RawGraduationDate", "graduation_date", table);
 		setMetadata("GreekAffiliation", "greekAffiliation", table);
 		setMetadata("Gender", "gender", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
@@ -166,13 +172,13 @@ public class Person extends DBIOEntity {
 
 	private String middleInitial = "";
 
-	private Date birth_date = null;
+	private Date birthDate = null;
 
 	private String campus = "";
 
 	private String yearInSchool = "";
 
-	private Date graduation_date = null;
+	private Date graduationDate = null;
 
 	private String greekAffiliation = "";
 
@@ -246,14 +252,22 @@ public class Person extends DBIOEntity {
 		this.middleInitial = middleInitial;
 	}
 
-	public Date getBirthDate() {
-		return birth_date;
+	public Date getRawBirthDate() {
+		return birthDate;
 	}
 
-	public void setBirthDate(Date birth_date) {
-		this.birth_date = birth_date;
+	public void setRawBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
+	public String getBirthDate() {
+		return formatDate(birthDate);
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = parseDate(birthDate);
+	}
+	
 	public String getCampus() {
 		return this.campus;
 	}
@@ -278,14 +292,22 @@ public class Person extends DBIOEntity {
 		this.greekAffiliation = greekAffiliation;
 	}
 
-	public Date getGraduationDate() {
-		return graduation_date;
+	public Date getRawGraduationDate() {
+		return graduationDate;
 	}
 
-	public void setGraduationDate(Date graduation_date) {
-		this.graduation_date = graduation_date;
+	public void setRawGraduationDate(Date graduation_date) {
+		this.graduationDate = graduation_date;
+	}
+	
+	public String getGraduationDate() {
+		return formatDate(graduationDate);
 	}
 
+	public void setGraduationDate(String graduationDate) {
+		this.graduationDate = parseDate(graduationDate);
+	}
+	
 	public String getGender() {
 		return this.gender;
 	}
@@ -517,4 +539,24 @@ public class Person extends DBIOEntity {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	
+
+	private Date parseDate(String dateString) {
+		if (dateString == null || dateString.equals("")) {
+			return null;
+		}
+		try {
+		return simpleDateFormat.parse(dateString);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	private String formatDate(Date date) {
+		if (date == null) {
+			return "";
+		}
+		return simpleDateFormat.format(date);
+	}
+
 }

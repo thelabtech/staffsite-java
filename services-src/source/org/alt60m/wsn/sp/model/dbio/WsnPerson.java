@@ -1,5 +1,7 @@
 package org.alt60m.wsn.sp.model.dbio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Hashtable;
@@ -20,6 +22,9 @@ public class WsnPerson extends DBIOEntity{
 	
 	private static Hashtable translateMaritalStatusToTable = null;
 	private static Hashtable translateMaritalStatusToCode = null;
+	
+
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	private Address currAdd = new Address();
 	private Address emerAdd = new Address();
@@ -115,13 +120,13 @@ public class WsnPerson extends DBIOEntity{
 		setMetadata("Region", "region", table);
 		setMetadata("LastName", "lastName", table);
 		setMetadata("FirstName", "firstName", table);
-		setMetadata("Birthdate", "birthdate", table);
-		setMetadata("DateBecameChristian", "date_became_christian", table);
+		setMetadata("RawBirthdate", "birth_date", table);
+		setMetadata("RawDateBecameChristian", "date_became_christian", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
 		setMetadata("Campus", "campus", table);
 		setMetadata("Major", "major", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduationDate", table);
+		setMetadata("RawGraduationDate", "graduation_date", table);
 		setMetadata("UsCitizen", "usCitizen", table);
 		setMetadata("Citizenship", "citizenship", table);
 		setMetadata("AccountNo", "accountNo", table);
@@ -176,13 +181,13 @@ public class WsnPerson extends DBIOEntity{
 	private String region = "";
 	private String lastName = "";
 	private String firstName = "";
-	private String birthdate;
-	private Date date_became_christian = null;
+	private Date birthdate;
+	private Date dateBecameChristian = null;
 	private String maritalStatus = "";
 	private String campus = "";
 	private String major = "";
 	private String yearInSchool = "";
-	private String graduationDate;
+	private Date graduationDate;
 	private boolean usCitizen;
 	private String citizenship = "";
 	private String accountNo = "";
@@ -310,17 +315,36 @@ public class WsnPerson extends DBIOEntity{
 	public void setCurrentEmail(String currentEmail) {
 		currAdd.setEmail(currentEmail); 
 	}
-	public String getBirthdate() {
-		return birthdate; 
+	
+	public Date getRawBirthdate() {
+		return birthdate;
 	}
-	public void setBirthdate(String birthdate) {
+	
+	public void setRawBirthdate(Date birthdate)
+	{
 		this.birthdate = birthdate;
 	}
-	public Date getDateBecameChristian() {
-		return date_became_christian;
+	
+	public String getBirthdate() {
+		return formatDate(this.birthdate);
 	}
-	public void setDateBecameChristian(Date date_became_christian) {
-		this.date_became_christian = date_became_christian; 
+	public void setBirthdate(String birthdate) {
+		this.birthdate = parseDate(birthdate);
+	}
+	
+	public String getDateBecameChristian() {
+		return formatDate(this.dateBecameChristian);
+	}
+	
+	public void setDateBecameChristian(String dateBecameChristian) {
+		this.dateBecameChristian = parseDate(dateBecameChristian);
+	}
+	
+	public Date getRawDateBecameChristian() {
+		return dateBecameChristian;
+	}
+	public void setRawDateBecameChristian(Date dateBecameChristian) {
+		this.dateBecameChristian = dateBecameChristian; 
 	}
 	public String getMaritalStatus() {
 		return maritalStatus;
@@ -354,12 +378,22 @@ public class WsnPerson extends DBIOEntity{
 	public void setYearInSchool(String yearInSchool) {
 		this.yearInSchool = yearInSchool; 
 	}
+	
+	public Date getRawGraduationDate() {
+		return graduationDate;
+	}
+	
+	public void setRawGraduationDate(Date graduationDate) {
+		this.graduationDate = graduationDate;
+	}
+	
 	public String getGraduationDate() {
-		return graduationDate; 
+		return formatDate(this.graduationDate);
 	}
 	public void setGraduationDate(String graduationDate) {
-		this.graduationDate = graduationDate; 
+		this.graduationDate = parseDate(graduationDate);
 	}
+	
 	public boolean getUsCitizen() {
 		return usCitizen; 
 	}
@@ -756,4 +790,24 @@ public class WsnPerson extends DBIOEntity{
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	
+
+	private Date parseDate(String dateString) {
+		if (dateString == null || dateString.equals("")) {
+			return null;
+		}
+		try {
+		return simpleDateFormat.parse(dateString);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	private String formatDate(Date date) {
+		if (date == null) {
+			return "";
+		}
+		return simpleDateFormat.format(date);
+	}
+
 }

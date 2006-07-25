@@ -112,13 +112,13 @@ public class WsnApplication extends DBIOEntity{
 		setMetadata("Region", "region", table);
 		setMetadata("LegalLastName", "legalLastName", table);
 		setMetadata("LegalFirstName", "legalFirstName", table);
-		setMetadata("Birthdate", "birth_date", table);
-		setMetadata("DateBecameChristian", "date_became_christian", table);
+		setMetadata("RawBirthdate", "birth_date", table);
+		setMetadata("RawDateBecameChristian", "date_became_christian", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
 		setMetadata("UniversityFullName", "universityFullName", table);
 		setMetadata("Major", "major", table);
 		setMetadata("YearInSchool", "yearInSchool", table);
-		setMetadata("GraduationDate", "graduation_date", table);
+		setMetadata("RawGraduationDate", "graduation_date", table);
 		setMetadata("UsCitizen", "usCitizen", table);
 		setMetadata("Citizenship", "citizenship", table);
 		setMetadata("AccountNo", "accountNo", table);
@@ -575,19 +575,40 @@ public class WsnApplication extends DBIOEntity{
 	}
 	public void setCurrentEmail(String currentEmail) {
 		person.setCurrentEmail(currentEmail); 
+	
 	}
+	
+
+	public Date getRawBirthdate() {
+		return person.getRawBirthdate();
+	}
+	
+	public void setRawBirthdate(Date birthdate) {
+		person.setRawBirthdate(birthdate);
+	}
+	
 	public String getBirthdate() {
 		return person.getBirthdate(); 
 	}
+	
 	public void setBirthdate(String birthdate) {
 		person.setBirthdate(birthdate); 
 	}
-	public Date getDateBecameChristian() {
+	public String getDateBecameChristian() {
 		return person.getDateBecameChristian(); 
 	}
-	public void setDateBecameChristian(Date date_became_christian) {
-		person.setDateBecameChristian(date_became_christian); 
+	public void setDateBecameChristian(String dateBecameChristian) {
+		person.setDateBecameChristian(dateBecameChristian); 
 	}
+	
+	public Date getRawDateBecameChristian() {
+		return person.getRawDateBecameChristian();
+	}
+	
+	public void setRawDateBecameChristian(Date dateBecameChristian) {
+		person.setRawDateBecameChristian(dateBecameChristian);
+	}
+
 	public String getMaritalStatus() {
 		return person.getMaritalStatus(); 
 	}
@@ -618,6 +639,15 @@ public class WsnApplication extends DBIOEntity{
 	public void setGraduationDate(String graduationDate) {
 		person.setGraduationDate(graduationDate); 
 	}
+	
+	public Date getRawGraduationDate() {
+		return person.getRawGraduationDate();
+	}
+
+	public void setRawGraduationDate(Date graduationDate) {
+		person.setRawGraduationDate(graduationDate);
+	}
+
 	public String getEarliestAvailableDate() {
 		return earliestAvailableDate; 
 	}
