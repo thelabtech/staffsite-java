@@ -357,8 +357,7 @@ public abstract class Controller extends HttpServlet {
 
         } catch (java.lang.Exception e) {
         	log.error("Error invoking action " + actionName, e );
-        	e.printStackTrace();
-            ctx.setError();
+        	ctx.setError();
             ctx.goToErrorView();
 		} finally {
 			NDC.pop();
