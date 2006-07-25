@@ -107,7 +107,6 @@ function updateParent2(campusname) {
 <%
 	if(state!=null && !state.equals("")) {
 		String scheme;
-	}
 		if (request.getServerName().contains("campuscrusadeforchrist.com"))
 		{
 			scheme = "https";
