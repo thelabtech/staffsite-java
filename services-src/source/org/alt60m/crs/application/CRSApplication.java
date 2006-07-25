@@ -1,5 +1,6 @@
 package org.alt60m.crs.application;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -2241,15 +2242,13 @@ public class CRSApplication {
 				Registration r = new Registration();
 
 				com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
-				tx.setSQL("SELECT SUM(credit) FROM crs_payment WHERE fk_RegistrationID = '"
-						+ registrationID + "'");
-				if (tx.getRecords()) {
-					java.sql.ResultSet mine = tx.getResultSet();
-					if (mine.next()) {
-						return mine.getFloat(1);
-					} else {
-						return 0;
-					}
+				tx
+						.setSQL("SELECT SUM(credit) FROM crs_payment WHERE fk_RegistrationID = '"
+								+ registrationID + "'");
+				tx.getRecords();
+				java.sql.ResultSet mine = tx.getResultSet();
+				if (mine.next()) {
+					return mine.getFloat(1);
 				} else {
 					return 0;
 				}
@@ -2258,7 +2257,7 @@ public class CRSApplication {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
@@ -2276,12 +2275,11 @@ public class CRSApplication {
 				tx.setSQL("SELECT SUM(credit) FROM crs_payment WHERE fk_RegistrationID = '"
 						+ registrationID
 						+ "' or fk_RegistrationID = '"
-						+ spouseRegistrationID + "'");
-				if (tx.getRecords()) {
-					java.sql.ResultSet mine = tx.getResultSet();
-					if (mine.next()) {
-						credits = mine.getFloat(1);
-					}
+								+ spouseRegistrationID + "'");
+				tx.getRecords();
+				java.sql.ResultSet mine = tx.getResultSet();
+				if (mine.next()) {
+					credits = mine.getFloat(1);
 				}
 			}
 			return credits;
@@ -2303,18 +2301,21 @@ public class CRSApplication {
 			throws DBIOException, java.sql.SQLException {
 		Registration r = new Registration();
 
-		com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
-		tx.setSQL("SELECT SUM(debit) FROM crs_payment WHERE fk_RegistrationID = '"
-				+ registrationID + "'");
-		if (tx.getRecords()) {
+		try {
+			com.kenburcham.framework.dbio.DBIOTransaction tx = r
+					.getTransaction();
+			tx
+					.setSQL("SELECT SUM(debit) FROM crs_payment WHERE fk_RegistrationID = '"
+							+ registrationID + "'");
+			tx.getRecords();
 			java.sql.ResultSet mine = tx.getResultSet();
 			if (mine.next()) {
 				return mine.getFloat(1);
 			} else {
 				return 0;
 			}
-		} else {
-			return 0;
+		} finally {
+			r.close();
 		}
 	}
 
@@ -2322,22 +2323,25 @@ public class CRSApplication {
 			String spouseRegistrationID) throws DBIOException,
 			java.sql.SQLException {
 		Registration r = new Registration();
-
+		try {
 		com.kenburcham.framework.dbio.DBIOTransaction tx = r.getTransaction();
 		tx.setSQL("SELECT SUM(debit) FROM crs_payment WHERE fk_RegistrationID = '"
 				+ registrationID
 				+ "' or fk_RegistrationID = '"
 				+ spouseRegistrationID + "'");
-		if (tx.getRecords()) {
+		tx.getRecords();
 			java.sql.ResultSet mine = tx.getResultSet();
 			if (mine.next()) {
 				return mine.getFloat(1);
 			} else {
 				return 0;
 			}
-		} else {
-			return 0;
+		} 
+		finally
+		{
+			r.close();
 		}
+	
 	}
 
 	//Created: 7/18/02, DMB
@@ -2763,19 +2767,18 @@ public class CRSApplication {
 		try {
 			com.kenburcham.framework.dbio.DBIOTransaction tx = o.getTransaction();
 			tx.setSQL(qry);
-			if (tx.getRecords()) {
+			tx.getRecords();
 				java.sql.ResultSet mine = tx.getResultSet();
 				if (mine.next()) {
 					return mine.getInt(1);
 				} else {
 					return 0;
 				}
-			} else {
-				return 0;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			log.error(e, e);
 			return 0;
+		} finally {
+			o.close();
 		}
 	}
 
