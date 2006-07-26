@@ -174,7 +174,8 @@ function MM_validateForm() { //v4.0
 	String state = request.getParameter("state");
 	if(state!=null && !state.equals("")) { 
 		//String url = "file:///C:/Program Files/Apache Tomcat 4.0/webapps/linczone/MinistryLocatorController.xml";
-		String url = "http://staff.campuscrusadeforchrist.com/servlet/MinistryLocatorController?action=campusLocate&searchby=state&searchtext="+request.getParameter("state");
+		
+		String url = "https://staff.campuscrusadeforchrist.com/servlet/MinistryLocatorController?action=campusLocate&searchby=state&searchtext="+request.getParameter("state");
 
 		URL xmlUrl = new URL(url);
 		Source xsl = new StreamSource(getServletContext().getRealPath("/linczone/campuslist.xsl"));
