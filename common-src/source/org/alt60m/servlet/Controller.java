@@ -330,7 +330,7 @@ public abstract class Controller extends HttpServlet {
 				req.getSession().setAttribute("history", history);
 			}
 			String path = req.getRequestURI();
-			path += " " + requestMap.toString();
+			path += " " + requestMap.toString() + lineSep;
 			history.add(path);
 
 			if (history.size() > MAX_HISTORY_SIZE) {
