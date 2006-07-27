@@ -47,7 +47,7 @@ public class MonitorController extends Controller {
 		ctx.goToURL("/monitor.jsp");
 	}
 
-	private boolean testDatabase(Map<String, String> results) {
+	private synchronized boolean testDatabase(Map<String, String> results) {
 		//Ministry Person
 		long testStartTime = System.currentTimeMillis();
 		Person testPerson = new Person();
