@@ -215,7 +215,7 @@ public class LinczoneProcessor {
 
 		Vector recipients = new Vector();
 
-		String cccEmails = "SELECT ministry_targetarea.TargetAreaID, ministry_staff.email FROM ministry_targetarea INNER JOIN ministry_activity ON ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID INNER JOIN ministry_assoc_activitycontact INNER JOIN ministry_staff ON ministry_assoc_activitycontact.accountNo = ministry_staff.accountNo ON ministry_activity.ActivityID = ministry_assoc_activitycontact.ActivityID WHERE ministry_targetarea.TargetAreaID like ?";
+		String cccEmails = "SELECT ministry_targetarea.TargetAreaID, ministry_staff.email FROM ministry_targetarea INNER JOIN ministry_activity ON ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID INNER JOIN ministry_assoc_activitycontact INNER JOIN ministry_staff ON ministry_assoc_activitycontact.accountNo = ministry_staff.accountNo AND ministry_activity.ActivityID = ministry_assoc_activitycontact.ActivityID WHERE ministry_targetarea.TargetAreaID like ?";
 
 		PreparedStatement ps = _conn.prepareStatement(cccEmails);
 		ps.setString(1, targetAreaID);
