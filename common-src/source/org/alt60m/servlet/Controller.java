@@ -18,7 +18,7 @@ import org.alt60m.util.LogHelper;
  */
 public abstract class Controller extends HttpServlet {
 
-	private final int MAX_HISTORY_SIZE = 20;
+	private final int MAX_HISTORY_SIZE = 15;
 	
 	protected Log log = LogFactory.getLog(this.getClass());
 	
@@ -317,7 +317,11 @@ public abstract class Controller extends HttpServlet {
 			NDC.push(actionName);
 
 			Map<String, Object> requestMap = ctx.getHashedRequest();
-			MDC.put("request", requestMap);
+			StringBuffer url = req.getRequestURL();
+
+			String lineSep = System.getProperty("line.separator");
+			lineSep = (lineSep == null ? "\n" : lineSep);
+			MDC.put("request", url.append(lineSep).append(requestMap.toString()).toString());
 			
 			LinkedList<String> history = (LinkedList<String>) req.getSession().getAttribute("history");
 			if (history == null)
@@ -325,9 +329,9 @@ public abstract class Controller extends HttpServlet {
 				history = new LinkedList<String>();
 				req.getSession().setAttribute("history", history);
 			}
-			StringBuffer requestedUrl = req.getRequestURL();
-			requestedUrl.append(" ").append(requestMap.toString());
-			history.add(requestedUrl.toString());
+			String path = req.getRequestURI();
+			path += " " + requestMap.toString();
+			history.add(path);
 
 			if (history.size() > MAX_HISTORY_SIZE) {
 				history.remove();
@@ -340,7 +344,7 @@ public abstract class Controller extends HttpServlet {
 				sessionCopy.put(attributeName, req.getSession().getAttribute(attributeName));
 			}
 			
-			MDC.put("session", sessionCopy);
+			MDC.put("session", sessionCopy.toString());
 			
 			
 			ctx.setLastAction(actionName);
