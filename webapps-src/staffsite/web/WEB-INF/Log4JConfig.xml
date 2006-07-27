@@ -29,7 +29,7 @@
         <param name="Subject" value="[STAFFSITE] Application Error" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-              value="[%d{ISO8601}]%n%n%-5p%n%nLog name: %c%n%nUsername: %X{username}%n%nUser IP Address: %X{userIPAddress}%n%nUser Host: %X{userHost}%n%nAction: %X{action}%n%nMessage: %m%n%nRequest: %X{request}%n%nSession: %X{session}%n%n" />
+              value="[%d{ISO8601}]%n%n%-5p%n%nLog name: %c%n%nUsername: %X{username}%n%nUser IP Address: %X{userIPAddress}%n%nServer Name: %X{machineName}%n%nAction: %X{action}%n%nMessage: %m%n%nRequest: %X{request}%n%nSession: %X{session}%n%n" />
         </layout>
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMin" value="ERROR"/>
