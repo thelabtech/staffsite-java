@@ -2,6 +2,8 @@ package org.alt60m.servlet;
 
 import java.util.*;
 import java.lang.reflect.*;
+import java.net.InetAddress;
+
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.Log;
@@ -289,9 +291,9 @@ public abstract class Controller extends HttpServlet {
 		try {
 
 			String userIPAddress = req.getRemoteAddr();
-			String userHost = req.getRemoteHost();
 			MDC.put("userIPAddress", userIPAddress);
-			MDC.put("userHost", userHost);
+			String machineName = InetAddress.getLocalHost().getHostName();
+			MDC.put("machineName", machineName);
 			
 			String user = (String) req.getSession().getAttribute("userName");
 			if (user == null) {
@@ -367,7 +369,7 @@ public abstract class Controller extends HttpServlet {
 			MDC.remove("session");
 			MDC.remove("request");
 			MDC.remove("userIPAddress");
-			MDC.remove("userHost");
+			MDC.remove("machineName");
 			synchronized (this) { _thread_ctr--; }
 		}
 	}
