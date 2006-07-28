@@ -14,6 +14,7 @@ import org.alt60m.staffSite.profiles.dbio.ProfileNotFoundException;
 import org.alt60m.staffSite.profiles.dbio.ProfileManager;
 import org.alt60m.gcx.CommunityAdminInterface;
 import org.alt60m.gcx.CommunityAdminInterfaceException;
+import org.alt60m.gcx.ConnexionBar;
 import org.gcx.cas.CASProxyURLConnection;
 import edu.yale.its.tp.cas.proxy.ProxyTicketReceptor;
 import org.alt60m.security.CAS.CASUser;
@@ -773,67 +774,18 @@ public class SimpleSecurityManager implements SecurityManager {
 
 		boolean success = false;
 		if (pgtiou != null) {
-			String proxyticket = "";
-			// TODO: at some point, the GCX guys need to fix their system so we
-			// can request a ticket for the same URL we use to get the bar
-			// itself
-			String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
-			String barService = "https://www.mygcx.org/module/global/omnibar/omnibarExternal";
-			String signinService = "signin.mygcx.org";
-			String content = "";
-			try {
-				proxyticket = ProxyTicketReceptor.getProxyTicket(pgtiou,
-						barTicketService);
-				if (proxyticket != null) {
-					CASProxyURLConnection proxyCon = new CASProxyURLConnection(
-							signinService);
-					content = proxyCon.getURL(barService, proxyticket);
-					if (proxyCon.wasSuccess() && content != null) {
-						success = true;
-						log.debug("Proxy request succeeded; "
-								+ "User likely in GCX already");
-					} else {
-						// TODO: retry with real service url?
-						log.warn("Unable to retrieve connexion bar: " + proxyCon.getError());
-					}
-				}
-				else
-				{
-					log.warn("proxyTicket is null!");
-				}
-			} catch (Exception e) {
-				
-				// TODO: if it's the first time a user logs in, GCX doesn't like
-				// to
-				// send the toolbar. So rerequest the toolbar. Remove this when
-				// GCX
-				// team fixes their server.
-				if (e.getMessage().indexOf(
-						"Server returned HTTP response code: 401") != -1) {
-					log.debug("User was not in GCX; hopefully is now.  Retrying...");
-					try {
-						// proxy ticket can't be null, or we wouldn't be here..
-						CASProxyURLConnection proxyCon = new CASProxyURLConnection(
-								signinService);
-						content = proxyCon.getURL(barService, proxyticket);
-						if (proxyCon.wasSuccess() && content != null) {
-							success = true;
-							log.info("Proxy request succeeded; "
-									+ "User is now in GCX");
-
-						} else {
-							// TODO: retry with real service url?
-							log.warn("Unable to retrieve connexion bar: " + proxyCon.getError());
-						}
-						
-					} catch (Exception e2) {
-						log.error("Exception Occurred " +
-								"(again) getting content: ", e2);
-					}
-				}
-				else
-				{
-					log.error("Exception Occurred getting content: ", e);
+			String content = ConnexionBar.getBar(pgtiou);
+			if (content != null) {
+				success = true;
+				log.info("successfully retrieved connexion bar");
+			} else {
+				log.warn("first attempt failed; trying again...");
+				content = ConnexionBar.getBar(pgtiou);
+				if (content != null) {
+					log.info("successfully retrieved connexion bar");
+					success = true;
+				} else {
+					log.warn("second attempt failed");
 				}
 			}
 		} 
@@ -901,7 +853,7 @@ public class SimpleSecurityManager implements SecurityManager {
 								+ replacedPerson.getPersonID()
 								+ "; some cleanup is probably needed");
 			}
-			log.warn("Deleting existing user object to avoid username collision");
+			log.warn("To avoid username collision deleting existing user record: " + replacedUser.getUserID());
 			replacedUser.delete();
 		}
 		
