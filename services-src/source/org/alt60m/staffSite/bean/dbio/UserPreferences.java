@@ -22,22 +22,16 @@ public class UserPreferences
 		pref.setProfileID(profileID);
 		pref.setName(name);
 		return pref.selectList();
-//		return _doQuery("select pref from org.alt60m.staffSite.model.StaffSitePref as pref where pref.profile.StaffSiteProfileID = $1 and pref.name like $2", new Object[] {profileID, name.toUpperCase()});
 	}
 	public String getPreferenceValue(String profileID, String name) {
+		if (profileID == null || profileID.equals("")) {
+			return null;
+		}
 		StaffSitePref pref = new StaffSitePref();
 		pref.setProfileID(profileID);
 		pref.setName(name);
 		pref.select();
 		return pref.getValue();
-//		Collection pref = _doQuery("CALL SQL SELECT value from staffsite_staffsitepref as pref where pref.fk_StaffSiteProfile = '"+profileID+"' and pref.name like '"+name+"' AS org.alt60m.persistence.castor.util.SingleField");
-//		Iterator prefIt = pref.iterator();
-//		String value = null;
-//		if (prefIt.hasNext()) {
-//			org.alt60m.persistence.castor.util.SingleField field = (org.alt60m.persistence.castor.util.SingleField)prefIt.next();
-//			value = field.getField1();
-//		}
-//		return value;
 	}
 	public Collection getPreferences(String profileID, String name, String value) {
 		StaffSitePref pref = new StaffSitePref();
