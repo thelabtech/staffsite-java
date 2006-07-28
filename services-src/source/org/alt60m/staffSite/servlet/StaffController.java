@@ -1,6 +1,7 @@
 package org.alt60m.staffSite.servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
+import org.alt60m.gcx.ConnexionBar;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.StaffSnapshot;
 import org.alt60m.ministry.servlet.StaffInfo;
@@ -202,6 +204,8 @@ public class StaffController extends Controller {
 			
 			logoutCallbackSuffix = config.getInitParameter("LogoutCallbackSuffix");
 			
+			ConnexionBar.setStaffController(this);
+			
 			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
 			log.fatal("init() failed", e);
@@ -317,7 +321,7 @@ public class StaffController extends Controller {
 		try {
 
 			String gcxVerifyURL = CASAuthenticator.CAS_VERIFICATION_URL + "?"
-					+ "service=" + URLEncoder.encode(getService(ctx), "UTF-8");
+					+ "service=" + URLEncoder.encode(getService(ctx.getRequest()), "UTF-8");
 
 			String gcxSigninURL = CASAuthenticator.CAS_LOGIN_URL + "?"
 					+ "service=" + URLEncoder.encode(gcxVerifyURL, "UTF-8");
@@ -336,8 +340,8 @@ public class StaffController extends Controller {
 	public void logInGCX(ActionContext ctx) {
 		try {
 			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?" 
-			+ "service=" + URLEncoder.encode(getService(ctx), "UTF-8")
-			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx), "UTF-8");
+			+ "service=" + URLEncoder.encode(getService(ctx.getRequest()), "UTF-8")
+			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx.getRequest()), "UTF-8");
 
 			log.debug("redirecting to: " + gcxLoginURL);
 			ctx.getResponse().sendRedirect(gcxLoginURL);
@@ -351,9 +355,7 @@ public class StaffController extends Controller {
 
 	public void logOut(ActionContext ctx) {
 		try {
-			String gcxLogoutURL = CASAuthenticator.CAS_LOGOUT_URL + "?"
-				+ "service=" + URLEncoder.encode(getService(ctx), "UTF-8")
-				+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx), "UTF-8");
+			String gcxLogoutURL = getLogoutUrl(ctx.getRequest());
 
 			ctx.getResponse().sendRedirect(gcxLogoutURL);
 			ctx.getSession().invalidate();
@@ -362,6 +364,18 @@ public class StaffController extends Controller {
 			log.info("Unable to Redirect");
 			ctx.setSessionValue("ErrorCode", "server error");
 			ctx.goToView("loginError");
+		}
+	}
+
+	public String getLogoutUrl(HttpServletRequest request) {
+		try {
+		String gcxLogoutURL = CASAuthenticator.CAS_LOGOUT_URL + "?"
+			+ "service=" + URLEncoder.encode(getService(request), "UTF-8")
+			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(request), "UTF-8");
+		return gcxLogoutURL;
+		} catch (UnsupportedEncodingException e) {
+			log.error("Somehow managed to mess up UTF-8 encoding...?", e);
+			return null;
 		}
 	}
 
@@ -396,7 +410,7 @@ public class StaffController extends Controller {
 			{
 				CASUser newUser = null;
 				try {
-					String service = getService(ctx);
+					String service = getService(ctx.getRequest());
 					String proxyCallback = getProxyCallbackService(ctx);
 					newUser = CASAuthenticator.authenticate(service, proxyCallback, ticket);
 					HttpSession session = ctx.getSession();
@@ -602,7 +616,7 @@ public class StaffController extends Controller {
 				ctx.goToView("loginError");
 			}
 		} else {
-			String home = getHomeUrl(ctx);
+			String home = getHomeUrl(ctx.getRequest());
 			try {
 				// clear ticket; need to send redirect
 				ctx.getResponse().sendRedirect(home);
@@ -1738,8 +1752,7 @@ public class StaffController extends Controller {
 
 	private String getPreference(String profileID, String name) {
 		// StaffSitePref pref = _preferences.getPreference(profileID, name);
-		String value = _preferences.getPreferenceValue(profileID, name);
-		return (value != null) ? value : null;
+		return _preferences.getPreferenceValue(profileID, name);
 	}
 
 	private String getPreference(String profileID, String name,
@@ -1776,17 +1789,17 @@ public class StaffController extends Controller {
 		return !(string != null && string.length() > 0);
 	}
 
-	private String getService(ActionContext ctx) {
-		return ctx.getRequest().getScheme() + "://"
-				+ ctx.getRequest().getServerName() +
-				((ctx.getRequest().getLocalPort() != 80 && ctx.getRequest().getLocalPort() != 443) ? 
-						":" + ctx.getRequest().getLocalPort() : "") 
+	private String getService(HttpServletRequest request) {
+		return request.getScheme() + "://"
+				+ request.getServerName() +
+				((request.getLocalPort() != 80 && request.getLocalPort() != 443) ? 
+						":" + request.getLocalPort() : "") 
 				+ "/servlet/StaffController";
 	}
 	
-	private String getLogoutCallbackService(ActionContext ctx) {
+	private String getLogoutCallbackService(HttpServletRequest request) {
 		return "https://"
-		+ ctx.getRequest().getServerName() + logoutCallbackSuffix;
+		+ request.getServerName() + logoutCallbackSuffix;
 	}
 
 	private String getProxyCallbackService(ActionContext ctx) {
@@ -1795,8 +1808,12 @@ public class StaffController extends Controller {
 		+ proxyUrlSuffix;
 	}
 
-	private String getHomeUrl(ActionContext ctx) {
-		return getService(ctx) + "?action=showHome";
+	private String getHomeUrl(HttpServletRequest request) {
+		return getService(request) + "?action=showHome";
+	}
+	
+	public void clearConnexionBarCache(ActionContext ctx) {
+		ConnexionBar.clearCache();
 	}
 	
 }

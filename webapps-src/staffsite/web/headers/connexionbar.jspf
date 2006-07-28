@@ -1,24 +1,13 @@
 <%@ page import="org.alt60m.security.CAS.CASUser" %>
 <%@ page import="org.alt60m.gcx.ConnexionBar" %>
 <%
-
-		
-String cachedBar = (String) session.getAttribute("cachedConnexionBar");
-if (cachedBar != null) {
-	out.println(cachedBar);
+String content = null;
+CASUser user = (CASUser)session.getAttribute("CASUser");
+if (user != null &&
+	(content = new ConnexionBar(user, request).render()) != null) 
+{
+	out.println(content);
 } else {
-	//	import Connexion Bar from GCX
-	String pgtiou = null;
-	String content = null;
-	CASUser user = (CASUser)session.getAttribute("CASUser");
-	if (user != null &&
-		(pgtiou = user.getPgtIou()) != null &&
-		(content = ConnexionBar.render(pgtiou)) != null) 
-	{
-		session.setAttribute("cachedConnexionBar", content);
-		out.println(content);
-	}
-	else {
 %>
 <div>
 <table>
@@ -30,8 +19,5 @@ if (cachedBar != null) {
 </table>
 </div>
 <%
-	}
 }
 %>
-
-
