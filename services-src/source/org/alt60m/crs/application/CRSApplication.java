@@ -2610,7 +2610,7 @@ public class CRSApplication {
 
 	public Conference getConference(String conferenceIDString)
 			throws DBIOEntityException {
-		return conferenceIDString != null ? getConference(Integer.parseInt(conferenceIDString.trim()))
+		return (conferenceIDString != null && !conferenceIDString.equals("")) ? getConference(Integer.parseInt(conferenceIDString.trim()))
 				: null;
 	}
 
