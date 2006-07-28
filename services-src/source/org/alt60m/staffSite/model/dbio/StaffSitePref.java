@@ -61,7 +61,7 @@ public class StaffSitePref extends DBIOEntity {
 
 // Associations
 	public String getProfileID() { return fk_StaffSiteProfile; }
-	public void setProfileID(String conferenceID) { this.fk_StaffSiteProfile = conferenceID; }
+	public void setProfileID(String staffsitePrefID) { this.fk_StaffSiteProfile = staffsitePrefID; }
 
 	public StaffSiteProfile getProfile() {
 		StaffSiteProfile ssp = new StaffSiteProfile();
