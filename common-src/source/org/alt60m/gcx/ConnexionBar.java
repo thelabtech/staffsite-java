@@ -1,16 +1,14 @@
 package org.alt60m.gcx;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.alt60m.security.CAS.CASUser;
-import org.alt60m.staffSite.servlet.StaffController;
+import org.alt60m.cas.CASHelper;
+import org.alt60m.cas.CASUser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.gcx.cas.CASProxyURLConnection;
@@ -22,13 +20,13 @@ public class ConnexionBar {
 
 	private static Map<String, CacheEntry> cache = new HashMap<String, CacheEntry>();
 	
-	private static StaffController staffController;
+	private static CASHelper helper;
 	
 	//Yeah, I don't really like this...but it's kind hard to get the
 	//logoutCallback url otherwise without some refactoring I'm not willing 
 	//to commit to
-	public static void setStaffController(StaffController staffController) {
-		ConnexionBar.staffController = staffController;
+	public static void setCasHelper(CASHelper helper) {
+		ConnexionBar.helper = helper;
 	}
 	
 	private CASUser user;
@@ -65,7 +63,7 @@ public class ConnexionBar {
 			throw new IllegalArgumentException("Must be initialized with a non-null user");
 		}
 		this.user = user;
-		logoutUrl = staffController.getLogoutUrl(request);
+		logoutUrl = helper.getLogoutUrl(request);
 	}
 	
 	public String render()

@@ -3,6 +3,7 @@ package org.alt60m.staffSite.profiles.dbio;
 //import org.alt60m.security.CAS.CASUser;
 import java.util.Collection;
 
+import org.alt60m.cas.CASUser;
 import org.alt60m.ministry.model.dbio.OldAddress;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.security.dbio.manager.SecurityManager;
@@ -15,7 +16,6 @@ import org.alt60m.security.dbio.manager.UserNotVerifiedException;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.staffSite.bean.dbio.UserPreferences;
 import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
-import org.alt60m.security.CAS.CASUser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 /**

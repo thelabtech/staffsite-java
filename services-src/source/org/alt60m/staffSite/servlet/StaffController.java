@@ -17,13 +17,14 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
+import org.alt60m.cas.CASAuthenticator;
+import org.alt60m.cas.CASHelper;
+import org.alt60m.cas.CASUser;
+import org.alt60m.cas.NotAuthenticatedException;
 import org.alt60m.gcx.ConnexionBar;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.StaffSnapshot;
 import org.alt60m.ministry.servlet.StaffInfo;
-import org.alt60m.security.CAS.CASAuthenticator;
-import org.alt60m.security.CAS.CASUser;
-import org.alt60m.security.CAS.NotAuthenticatedException;
 import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
 import org.alt60m.servlet.ActionResults;
@@ -92,7 +93,7 @@ public class StaffController extends Controller {
 
 	String proxyUrlSuffix;
 	
-	String logoutCallbackSuffix;
+	public String logoutCallbackSuffix;
 	
 	/*
 	 * CODE TO CAPTURE HR INFO UPON LOGIN Added by S. Paulis 7/2005
@@ -129,6 +130,9 @@ public class StaffController extends Controller {
 	private Hashtable usersRoles = new Hashtable();
 
 	private Hashtable HRQueryUsersRoles = new Hashtable();
+	
+	private CASHelper helper = new CASHelper();
+	;
 
 	/**
 	 * used for CAS logouts; maps tickets to sessions
@@ -199,12 +203,9 @@ public class StaffController extends Controller {
 			initHRQueryUsers(true);
 			CASAuthenticator.init(config.getServletContext());
 
+			helper.init(config, "/servlet/StaffController");
 			
-			proxyUrlSuffix = config.getInitParameter("ProxyUrlSuffix");
-			
-			logoutCallbackSuffix = config.getInitParameter("LogoutCallbackSuffix");
-			
-			ConnexionBar.setStaffController(this);
+			ConnexionBar.setCasHelper(helper);
 			
 			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
@@ -321,7 +322,7 @@ public class StaffController extends Controller {
 		try {
 
 			String gcxVerifyURL = CASAuthenticator.CAS_VERIFICATION_URL + "?"
-					+ "service=" + URLEncoder.encode(getService(ctx.getRequest()), "UTF-8");
+					+ "service=" + URLEncoder.encode(helper.getService(ctx.getRequest()), "UTF-8");
 
 			String gcxSigninURL = CASAuthenticator.CAS_LOGIN_URL + "?"
 					+ "service=" + URLEncoder.encode(gcxVerifyURL, "UTF-8");
@@ -340,8 +341,8 @@ public class StaffController extends Controller {
 	public void logInGCX(ActionContext ctx) {
 		try {
 			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?" 
-			+ "service=" + URLEncoder.encode(getService(ctx.getRequest()), "UTF-8")
-			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(ctx.getRequest()), "UTF-8");
+			+ "service=" + URLEncoder.encode(helper.getService(ctx.getRequest()), "UTF-8")
+			+ "&" + "logoutCallback=" + URLEncoder.encode(helper.getLogoutCallbackService(ctx.getRequest()), "UTF-8");
 
 			log.debug("redirecting to: " + gcxLoginURL);
 			ctx.getResponse().sendRedirect(gcxLoginURL);
@@ -355,7 +356,7 @@ public class StaffController extends Controller {
 
 	public void logOut(ActionContext ctx) {
 		try {
-			String gcxLogoutURL = getLogoutUrl(ctx.getRequest());
+			String gcxLogoutURL = helper.getLogoutUrl(ctx.getRequest());
 
 			ctx.getResponse().sendRedirect(gcxLogoutURL);
 			ctx.getSession().invalidate();
@@ -367,17 +368,7 @@ public class StaffController extends Controller {
 		}
 	}
 
-	public String getLogoutUrl(HttpServletRequest request) {
-		try {
-		String gcxLogoutURL = CASAuthenticator.CAS_LOGOUT_URL + "?"
-			+ "service=" + URLEncoder.encode(getService(request), "UTF-8")
-			+ "&" + "logoutCallback=" + URLEncoder.encode(getLogoutCallbackService(request), "UTF-8");
-		return gcxLogoutURL;
-		} catch (UnsupportedEncodingException e) {
-			log.error("Somehow managed to mess up UTF-8 encoding...?", e);
-			return null;
-		}
-	}
+
 
 	/**
 	 * Action: logIn
@@ -410,8 +401,8 @@ public class StaffController extends Controller {
 			{
 				CASUser newUser = null;
 				try {
-					String service = getService(ctx.getRequest());
-					String proxyCallback = getProxyCallbackService(ctx);
+					String service = helper.getService(ctx.getRequest());
+					String proxyCallback = helper.getProxyCallbackService(ctx.getRequest());
 					newUser = CASAuthenticator.authenticate(service, proxyCallback, ticket);
 					HttpSession session = ctx.getSession();
 					if (ctx.getSessionValue("ticketKeeper") == null) {
@@ -1789,27 +1780,10 @@ public class StaffController extends Controller {
 		return !(string != null && string.length() > 0);
 	}
 
-	private String getService(HttpServletRequest request) {
-		return request.getScheme() + "://"
-				+ request.getServerName() +
-				((request.getLocalPort() != 80 && request.getLocalPort() != 443) ? 
-						":" + request.getLocalPort() : "") 
-				+ "/servlet/StaffController";
-	}
-	
-	private String getLogoutCallbackService(HttpServletRequest request) {
-		return "https://"
-		+ request.getServerName() + logoutCallbackSuffix;
-	}
 
-	private String getProxyCallbackService(ActionContext ctx) {
-		return "https://"
-		+ ctx.getRequest().getServerName() 
-		+ proxyUrlSuffix;
-	}
 
 	private String getHomeUrl(HttpServletRequest request) {
-		return getService(request) + "?action=showHome";
+		return helper.getService(request) + "?action=showHome";
 	}
 	
 	public void clearConnexionBarCache(ActionContext ctx) {

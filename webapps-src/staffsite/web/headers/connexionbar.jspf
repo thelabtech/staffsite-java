@@ -1,4 +1,4 @@
-<%@ page import="org.alt60m.security.CAS.CASUser" %>
+<%@ page import="org.alt60m.cas.CASUser" %>
 <%@ page import="org.alt60m.gcx.ConnexionBar" %>
 <%
 String content = null;

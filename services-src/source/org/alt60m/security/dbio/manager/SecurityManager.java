@@ -1,7 +1,7 @@
 package org.alt60m.security.dbio.manager;
 
+import org.alt60m.cas.CASUser;
 import org.alt60m.security.dbio.model.User;
-import org.alt60m.security.CAS.CASUser;
 
 public interface SecurityManager {
 	/**

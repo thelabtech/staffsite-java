@@ -62,6 +62,21 @@ public class DetailedExport {
 
 			String tableName;
 
+			
+
+			// build answer tables for each registrationType
+
+			RegistrationType regTypeTemplate = new RegistrationType();
+			regTypeTemplate.setConferenceID(conferenceID);
+			Vector<RegistrationType> regTypes = (Vector<RegistrationType>) regTypeTemplate.selectList();
+			for (RegistrationType regType : regTypes) {
+
+				tableName = "CustomAnswers_" + regType.getLabel();
+				log.debug("Getting data for table: " + tableName);
+				exportTable(tableName, buildCustomAnswersQuery(regType));
+			}
+
+			
 			tableName = "Conference";
 			log.debug("Getting data for table: " + tableName);
 			exportTable(
@@ -77,6 +92,9 @@ public class DetailedExport {
 					tableName,
 					"SELECT registrationTypeID, label, description, defaultDateArrive, defaultDateLeave, preRegStart, preRegEnd, singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment, singleDiscountEarlyReg, singleDiscountEarlyRegDate, marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment, marriedDiscountEarlyReg, marriedDiscountEarlyRegDate, acceptEChecks, acceptScholarships, acceptStaffAcctTransfer, acceptMinistryAcctTransfer, acceptCreditCards, askChildren, askSpouse, allowCommute, displayOrder, profileNumber, profileReqNumber, registrationType, fk_ConferenceID, acceptChecks from crs_registrationtype WHERE fk_ConferenceID = "
 							+ conferenceID);
+
+
+			
 
 			tableName = "Registrants";
 			log.debug("Getting data for table: " + tableName);
@@ -104,18 +122,6 @@ public class DetailedExport {
 							+ " WHERE curr.addressType = 'current' AND perm.addressType = 'permanent'"
 							+ " AND crs_registration.fk_ConferenceID = "
 							+ conferenceID);
-
-			// build answer tables for each registrationType
-
-			RegistrationType regTypeTemplate = new RegistrationType();
-			regTypeTemplate.setConferenceID(conferenceID);
-			Vector<RegistrationType> regTypes = (Vector<RegistrationType>) regTypeTemplate.selectList();
-			for (RegistrationType regType : regTypes) {
-
-				tableName = "CustomAnswers_" + regType.getLabel();
-				log.debug("Getting data for table: " + tableName);
-				exportTable(tableName, buildCustomAnswersQuery(regType));
-			}
 
 			tableName = "Payments";
 			log.debug("Getting data for table: " + tableName);

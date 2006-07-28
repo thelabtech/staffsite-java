@@ -12,12 +12,12 @@ import org.alt60m.staffSite.profiles.dbio.ProfileAlreadyExistsException;
 import org.alt60m.staffSite.profiles.dbio.ProfileManagementException;
 import org.alt60m.staffSite.profiles.dbio.ProfileNotFoundException;
 import org.alt60m.staffSite.profiles.dbio.ProfileManager;
+import org.alt60m.cas.CASUser;
 import org.alt60m.gcx.CommunityAdminInterface;
 import org.alt60m.gcx.CommunityAdminInterfaceException;
 import org.alt60m.gcx.ConnexionBar;
 import org.gcx.cas.CASProxyURLConnection;
 import edu.yale.its.tp.cas.proxy.ProxyTicketReceptor;
-import org.alt60m.security.CAS.CASUser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
