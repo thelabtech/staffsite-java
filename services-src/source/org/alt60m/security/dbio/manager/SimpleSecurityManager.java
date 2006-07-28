@@ -836,7 +836,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		log.info("Changing username from " + oldUsername + " to " + username);
 
 		User replacedUser = new User();
-		replacedUser.setUsername(oldUsername);
+		replacedUser.setUsername(username);
 		if (replacedUser.select()) {
 			//usually, occurs when a new staff person is changing their gcx account
 			//name from their campus email address to staff email address, but a
