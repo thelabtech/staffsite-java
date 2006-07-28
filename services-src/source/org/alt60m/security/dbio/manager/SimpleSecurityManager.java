@@ -872,8 +872,6 @@ public class SimpleSecurityManager implements SecurityManager {
 			log.error("Exception adding user to CampusStaff", e);
 			log.info("User not added to CampusStaff");
 		}
-		
-
 	}
 
 	/**
@@ -885,18 +883,34 @@ public class SimpleSecurityManager implements SecurityManager {
 		
 		log.info("Changing username from " + oldUsername + " to " + username);
 
+		User replacedUser = new User();
+		replacedUser.setUsername(oldUsername);
+		if (replacedUser.select()) {
+			//usually, occurs when a new staff person is changing their gcx account
+			//name from their campus email address to staff email address, but a
+			//staffsite profile has already been created for them.  Usually this
+			//does not have anything associated with it (person, etc).
+			Person replacedPerson = new Person();
+			replacedPerson.setFk_ssmUserID(replacedUser.getUserID());
+			if (replacedPerson.select()) {
+				//log.error() because it should be emailed, even though it isn't
+				//technically an error
+				log
+						.error("username change collides with user with person record; "
+								+ "orphaning person record "
+								+ replacedPerson.getPersonID()
+								+ "; some cleanup is probably needed");
+			}
+			log.warn("Deleting existing user object to avoid username collision");
+			replacedUser.delete();
+		}
+		
 		// Change in SSM
 		ssmUser.setUsername(username);
 		ssmUser.persist();
 
 		// Change in SSP
 		changeProfileUsername(oldUsername, username);
-
-		// Change in CRS - Not Necessary Anymore
-		/*
-		 * Person crs = new Person(); crs.setUsername(oldUsername); if
-		 * (crs.select()) { crs.setUsername(username); crs.persist(); }
-		 */
 	}
 
 	private void changeProfileUsername(String oldUsername, String username) {
@@ -936,12 +950,6 @@ public class SimpleSecurityManager implements SecurityManager {
 		} catch (MultipleProfilesFoundException e) {
 			throw e;
 		}
-		// catch (Exception e) {
-		// if (!(e instanceof ProfileNotFoundException) && !(e instanceof
-		// MultipleProfilesFoundException)) {
-		// throw new ProfileManagementException(e.toString());
-		// }
-		// }
 		return (StaffSiteProfile) profiles.iterator().next();
 	}
 
