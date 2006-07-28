@@ -58,7 +58,7 @@ if (h.get("Access").equals("Denied")){
 			<td width="25%" valign=top align=right>
 				<p align='right'><%=font%>
 				<li><a href="JavaScript: popupWindow('/cms/content/00000129400.htm', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Q & A</a></li>
-				<li><A HREF="/servlet/CmsController?action=browse&catID=1000029" target='_blank'>Resource Center</a></li>
+				<li><A HREF="/servlet/CmsController?action=browse&catId=1000029" target='_blank'>Resource Center</a></li>
 				<li><A HREF="/servlet/CmsController?action=browse&catId=00000056972" target='_blank'>Leader's Notebook</a></li>
 				<li><a href='/wsnsp/dbio/info_old.jsp'>Old Announcements</a></li>
 				</font></p><br>

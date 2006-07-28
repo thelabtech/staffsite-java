@@ -29,7 +29,7 @@
 			<p>
 
 			<b>Documents</b><br>
-				<A HREF="https://staff.campuscrusadeforchrist.com/servlet/CmsController?action=browse&catID=1000029" target='_blank'>Resource Center<br> (WSN section)</a><br>
+				<A HREF="https://staff.campuscrusadeforchrist.com/servlet/CmsController?action=browse&catId=1000029" target='_blank'>Resource Center<br> (WSN section)</a><br>
 			<p>
 			</ul>
 		</td>

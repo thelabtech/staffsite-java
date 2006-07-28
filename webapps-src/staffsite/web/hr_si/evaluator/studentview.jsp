@@ -157,7 +157,7 @@ function preloadImages() {
 	<FONT FACE="Arial" SIZE="3" COLOR="#000000"><b>Links</font></b><br>
 	<table width='100%' border='1' bgcolor="#bbbb88" bordercolor="#bbbb88" BORDERCOLORLIGHT="#cccc99">
 <tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><a href="JavaScript: popupWindow('/cms/content/00000129400.htm', 'WSNSPTHelp', 'scrollbars=yes,resizable')">Q & A</a></font></TD></tr>
-<tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><A HREF="/servlet/CmsController?action=browse&catID=1000029" target='_blank'>Resource Center</a></font></TD></tr>
+<tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><A HREF="/servlet/CmsController?action=browse&catId=1000029" target='_blank'>Resource Center</a></font></TD></tr>
 <tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><a href="/servlet/CmsController?action=browse&catId=00000056972" target='_blank'>Leader's Notebook</a></font></TD></tr>
 <tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><a href="/cms/content/00000038954.doc" target='_blank'>Applicant Flowchart</a></font></TD></tr>
 <tr valign='top'><td colspan=2><FONT FACE="Arial" SIZE="2" COLOR="#000000"><a href='/wsnsp/info_old.jsp'>Old Announcements</a></font></TD></tr>
