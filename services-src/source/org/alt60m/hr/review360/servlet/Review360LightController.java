@@ -1460,7 +1460,7 @@ public class Review360LightController extends Controller
 					review.put("ReviewedByName", so.getPreferredName() + " " + so.getLastName());
                 }
 			} catch (Exception notfound) {
-				log.error("Didn't find staff: " + my360.getReviewedById(), notfound);
+				log.warn("Didn't find staff: " + my360.getReviewedById(), notfound);
 
 				review.put("PsEmail", "".equals(my360.getReviewedByEmail())?"<not available>":my360.getReviewedByEmail());
                 review.put("ReviewedByName", "".equals(my360.getReviewedByFirstName()+my360.getReviewedByLastName())?"<not available>":my360.getReviewedByFirstName()+" "+my360.getReviewedByLastName());
