@@ -124,10 +124,10 @@
 										refD = new SIReference();
 										refR = new SIReference();
 										refF = new SIReference();
-										refS = siBean.getSIReferenceByType(appID, "S", yearID);
-										refD = siBean.getSIReferenceByType(appID, "D", yearID);
-										refR = siBean.getSIReferenceByType(appID, "R", yearID);
-										refF = siBean.getSIReferenceByType(appID, "F", yearID);
+										refS = siBean.getSIReferenceByType(appID, "S");
+										refD = siBean.getSIReferenceByType(appID, "D");
+										refR = siBean.getSIReferenceByType(appID, "R");
+										refF = siBean.getSIReferenceByType(appID, "F");
 //									}
 
 									// get the names of projects application is applying to:
