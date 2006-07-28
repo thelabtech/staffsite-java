@@ -93,8 +93,7 @@ public class ConnexionBar {
 		
 	private String replaceLogoutLink(String bar) {
 		String wrongLogoutUrl = "&quot;https://signin.mygcx.org/cas/logout&quot";
-		bar.replace(wrongLogoutUrl, "&quot;" + logoutUrl + "&quot;");
-		return bar;
+		return bar.replace(wrongLogoutUrl, "&quot;" + logoutUrl + "&quot;");
 	}
 
 	public static String getBar(String pgtiou) {
