@@ -1425,7 +1425,7 @@ public class HRUpdateController extends Controller {
 			}
 			ctx.goToView("index");
 		} catch (AccountNumberNullException e) {
-			log.error("AccountNumberNullException thrown.", e);
+			log.warn("AccountNumberNullException thrown: " + e);
 			ActionResults ar = new ActionResults();
 			ar.putValue("exceptionText","Your Account Number is not available in your Staff Site profile.  " +
 					"Please email <a href=\"mailto:help@campuscrusadeforchrist.com\">help@campuscrusadeforchrist.com</a> " +
