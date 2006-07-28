@@ -23,8 +23,7 @@ public class SIUtil {
 	private static boolean debug = true;
 	
 	/*
-	 * To change the STINT year, all that is needed to do is to change this variable
-	 * and add three new tables to the database in the same pattern as previous years.
+	 * To change the STINT year, all that is needed to do is to change this variable.
 	 */
 	public static final String CURRENT_SI_YEAR = "2006";
 	public static final int CURRENT_SI_YEAR_INT = Integer.parseInt(CURRENT_SI_YEAR);
@@ -580,7 +579,7 @@ public class SIUtil {
 		}
 		try {
 			SIReference ref = new SIReference();
-			String qry = "select count(*) as refcount from hr_si_reference_" + CURRENT_SI_YEAR + " where fk_siapplicationid = " + appid;
+			String qry = "select count(*) as refcount from hr_si_reference where fk_siapplicationid = " + appid;
 			numrefs = ObjectHashUtil.countIt(ref, qry);
 
 			log.debug("getNumberOfReferences found(int): " + numrefs);
@@ -684,10 +683,7 @@ public class SIUtil {
 	public static SIPerson getSIPerson(String id) {
 		return new SIPerson(id);
 	}
-/*	public static SIPerson getSIPerson(String id, String yearid) {
-		return new SIPerson(id, yearid);
-	}
-*/
+
 	/**
 	*  returns the siapplication with the given id.  returns null on fail/error/notfound
 	*/
@@ -697,9 +693,6 @@ public class SIUtil {
 
 	public static SIReference getSIReference(String refid) {
 		return new SIReference(refid);
-	}
-	public static SIReference getSIReference(String refid, String yearid) {
-		return new SIReference(refid, yearid);
 	}
 	
 	public static Collection getSIAppsCollections(String regionID, String yearID) {
@@ -720,10 +713,9 @@ public class SIUtil {
 
 			hr_si_Person = "ministry_person";
 			hr_si_Application = "hr_si_applications";
-			hr_si_Reference = "hr_si_reference_" + yearID;
+			hr_si_Reference = "hr_si_reference";
 			a = new SIApplication();
 			r = new SIReference();
-			r.changeYear(yearID);
 			sqlYear = yearID;
 
 			sql = "SELECT a.* FROM " + hr_si_Application + " as a INNER JOIN " + hr_si_Person + " as p ON a.fk_PersonID = p.PersonID and a.siYear = '" + sqlYear + "' WHERE ";
@@ -754,7 +746,6 @@ public class SIUtil {
 					// get references for each ApplicationID
 					String whereClause = "fk_SIApplicationID = " + appid;
 					r = new SIReference();
-					r.changeYear(yearID);
 					Collection refID = ObjectHashUtil.list((r).selectList(whereClause));
 					//Collection refID = ObjectHashUtil.list((new SIReference_Parent()).selectList(whereClause));
 

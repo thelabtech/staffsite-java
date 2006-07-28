@@ -361,20 +361,6 @@ public class SIInfoBean implements Serializable {
 			return null;
 		}
 	}
-	public SIReference getSIReferenceByType(String SIApplicationID, String referenceType, String yearID) {
-		log.debug("SIInfoBean.getSIReferenceByType(" + SIApplicationID + ", " + referenceType + ")");
-		try {
-			String SIReferenceID = getReferenceIDByType(SIApplicationID, referenceType, yearID);
-			if (SIReferenceID == "") {
-				SIReference r = new SIReference();
-				return r;
-			}
-			return getSIReference(SIReferenceID, yearID);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	/** added 11-25-02 DC
 	 * returns the ReferenceID of the reference with the given PersonID and ReferenceType
@@ -384,18 +370,6 @@ public class SIInfoBean implements Serializable {
 	public String getReferenceIDByType(String SIApplicationID, String referenceType) throws Exception {
 		String SIReferenceID = "";
 		SIReference r = new SIReference();
-		r.setFk_SIApplicationID(SIApplicationID);
-		r.setReferenceType(referenceType);
-		Iterator itr = ObjectHashUtil.list(r.selectList()).iterator();
-		if (itr.hasNext())
-			SIReferenceID = (String) ((Hashtable) itr.next()).get("ReferenceID");
-		return SIReferenceID;
-	}
-
-	private String getReferenceIDByType(String SIApplicationID, String referenceType, String yearid) throws Exception {
-		String SIReferenceID = "";
-		SIReference r = new SIReference();
-		r.changeYear(yearid);
 		r.setFk_SIApplicationID(SIApplicationID);
 		r.setReferenceType(referenceType);
 		Iterator itr = ObjectHashUtil.list(r.selectList()).iterator();
@@ -416,17 +390,6 @@ public class SIInfoBean implements Serializable {
 		SIReference r = null;
 		try {
 			r = (SIReference) SIUtil.getSIReference(refID);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return r;
-	}
-	public SIReference getSIReference(String refID, String yearID) {
-		if (refID == null)
-			return null; //early return
-		SIReference r = null;
-		try {
-			r = (SIReference) SIUtil.getSIReference(refID, yearID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

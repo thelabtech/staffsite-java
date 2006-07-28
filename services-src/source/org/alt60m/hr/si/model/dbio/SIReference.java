@@ -26,7 +26,7 @@ public class SIReference extends DBIOEntity {
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
 	public static final String REFERENCECLASS = "org.alt60m.hr.si.model.dbio.SIReference";
-	private static final String TABLENAME_BASE = "hr_si_reference_";
+	private static final String TABLENAME_BASE = "hr_si_reference";
 	
 	public SIReference() {
 //      createDate = DateUtils.clearTimeFromDate(new Date());
@@ -42,28 +42,20 @@ public class SIReference extends DBIOEntity {
 		return referenceID == 0;
 	}
 	
-	public void changeYear(String yearID) {
-		changeTargetTable(TABLENAME_BASE + yearID);
-	}
-	
 	public SIReference(String id) {
 		if ( id != null && !id.equals("") ) {
 			referenceID= (new Integer(id)).intValue();
 			select();
 		}
 	}
-	public SIReference(String id, String yearid) {
-		changeYear(yearid);
-		referenceID= (new Integer(id)).intValue();
-		select();
-	}
+
 	public SIReference(int id) {
 		referenceID= id;
 		select();
 	}
 
 	public void localinit() {
-		String table = TABLENAME_BASE + SIUtil.CURRENT_SI_YEAR;
+		String table = TABLENAME_BASE;
 
 		setMetadata("ReferenceIDInt", "referenceID", "IDENTITY");
 		setMetadata("FormWorkflowStatus", "formWorkflowStatus", table);
