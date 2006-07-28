@@ -1,6 +1,9 @@
 package org.alt60m.servlet;
 
 import java.util.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.*;
 import java.net.InetAddress;
 
@@ -9,6 +12,8 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.*;
+import org.apache.log4j.joran.JoranConfigurator;
+import org.apache.log4j.spi.LoggerRepository;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.alt60m.util.LogHelper;
 
@@ -158,8 +163,62 @@ public abstract class Controller extends HttpServlet {
 			goToView(getLastAction());
 		}
 
+		
+		
 		public void goToErrorView() {
-			goToView(_defaultErrorView);
+			log.debug("going to error view: " + _defaultErrorView);
+
+			// remember view as last view
+			setLastView(_defaultErrorView);
+
+			String url = (String) _views.get(_defaultErrorView);
+			try {
+				if (url != null) {
+					log.debug("Forwarding to default error view: " + url);
+					getServletConfig().getServletContext()
+							.getRequestDispatcher(url).forward(_request,
+									_response);
+				} else {
+
+					log.warn("Couldn't locate default error view: "
+							+ _defaultErrorView);
+					displayGlobalErrorPage();
+				}
+			} catch (Exception e) {
+				log.error("Exception caught forwarding to default error page: "
+						+ url + "; displaying global error page", e);
+				displayGlobalErrorPage();
+
+			}
+		}
+
+		private void displayGlobalErrorPage() {
+			try {
+				String url = "/Error.jsp";
+				getServletConfig().getServletContext()
+						.getRequestDispatcher(url).forward(_request, _response);
+			} catch (Exception e2) {
+				try {
+					log.error("Unable to display global error page", e2);
+					PrintWriter out = _response.getWriter();
+					out.print(
+						"A error has occured; the Campus Ministry IT team " +
+						"has been notified.  If you need assistance, please email " +
+						"help@campuscrusadeforchrist.com");
+				} catch (IOException ioe) {
+					log.error(
+						"Unable to get output stream! Attempting to send 500",
+									ioe);
+					try {
+						_response
+								.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					} catch (IOException ioe2) {
+						log.error(
+						"Unable to send 500; Can't display error to user",
+										ioe2);
+					}
+				}
+			}
 		}
 
 		public void goToView(String view) {
@@ -174,6 +233,7 @@ public abstract class Controller extends HttpServlet {
 				goToURL(url);
 			} else {
 				log.error("Couldn't locate view: " + view);
+				goToErrorView();
 			}
 		}
 
@@ -191,7 +251,9 @@ public abstract class Controller extends HttpServlet {
 			}
 			catch (Exception e)
 			{
-				log.error(e.toString(), e);
+				log.error("Exception forwarding to: " + url, e);
+				goToErrorView();
+				
 			}
 		}
 
@@ -252,7 +314,10 @@ public abstract class Controller extends HttpServlet {
 		initViews(_viewsFile);
 	}
 	public void setLog4JConfigFile(String logConfFile) {
-		DOMConfigurator.configure(logConfFile);
+		JoranConfigurator configurator = new JoranConfigurator();
+		LoggerRepository repository = LogManager.getLoggerRepository();
+		configurator.doConfigure(logConfFile, repository);
+		
 	}
 
 	public String getViewsFile() { return _viewsFile; }
@@ -330,7 +395,7 @@ public abstract class Controller extends HttpServlet {
 				req.getSession().setAttribute("history", history);
 			}
 			String path = req.getRequestURI();
-			path += " " + requestMap.toString() + lineSep;
+			path = lineSep + path + " " + requestMap.toString() + lineSep;
 			history.add(path);
 
 			if (history.size() > MAX_HISTORY_SIZE) {
