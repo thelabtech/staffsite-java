@@ -681,12 +681,12 @@ public class Registration extends DBIOEntity {
 
 	public void assocPayment(Payment p) {
 		p.setRegistrationID(registrationID);
-		p.update();
+		p.persist();
 	}
 
 	public void dissocPayment(Payment p) {
 		p.setRegistrationID(0);
-		p.update();
+		p.persist();
 	}
 
 	public Vector getChildRegistrations() {
@@ -703,12 +703,12 @@ public class Registration extends DBIOEntity {
 
 	public void assocChildRegistration(ChildRegistration cr) {
 		cr.setRegistrationID(registrationID);
-		cr.update();
+		cr.persist();
 	}
 
 	public void dissocChildRegistration(ChildRegistration cr) {
 		cr.setRegistrationID(0);
-		cr.update();
+		cr.persist();
 	}
 	
 	public Registration getSpouse(){

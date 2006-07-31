@@ -1783,7 +1783,7 @@ public class CRSApplication {
 			payment.setPaymentDate(new Date());
 			payment.setPostedDate(new Date());
 			registration.assocPayment(payment);
-			payment.insert();
+			payment.persist();
 			paymentHash.put("PaymentID", String.valueOf(payment.getPaymentID()));
 
 			addPreRegDiscount(registrationID);
