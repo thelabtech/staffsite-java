@@ -1783,7 +1783,6 @@ public class CRSApplication {
 			payment.setPaymentDate(new Date());
 			payment.setPostedDate(new Date());
 			registration.assocPayment(payment);
-			payment.persist();
 			paymentHash.put("PaymentID", String.valueOf(payment.getPaymentID()));
 
 			addPreRegDiscount(registrationID);
@@ -1828,7 +1827,6 @@ public class CRSApplication {
 		payment.setPaymentDate(new Date());
 
 		reg.assocPayment(payment);
-		payment.insert();
 		paymentHash.put("PaymentID", String.valueOf(payment.getPaymentID()));
 
 		org.alt60m.crs.util.EmailConfirm email = new org.alt60m.crs.util.EmailConfirm();
@@ -1862,7 +1860,6 @@ public class CRSApplication {
 		payment.setPaymentDate(new Date());
 
 		reg.assocPayment(payment);
-		payment.insert();
 		paymentHash.put("PaymentID", String.valueOf(payment.getPaymentID()));
 
 		org.alt60m.crs.util.EmailConfirm email = new org.alt60m.crs.util.EmailConfirm();
@@ -1901,7 +1898,6 @@ public class CRSApplication {
 		payment.setPaymentDate(new Date());
 
 		reg.assocPayment(payment);
-		payment.insert();
 		paymentHash.put("PaymentID", String.valueOf(payment.getPaymentID()));
 
 		org.alt60m.crs.util.EmailConfirm email = new org.alt60m.crs.util.EmailConfirm();
@@ -2128,7 +2124,6 @@ public class CRSApplication {
 			discountFullPayment.setPaymentDate(new Date());
 			discountFullPayment.setPostedDate(new Date());
 			reg.assocPayment(discountFullPayment);
-			discountFullPayment.insert();
 		}
 	}
 
@@ -2156,7 +2151,6 @@ public class CRSApplication {
 			discountFullPayment.setPaymentDate(new Date());
 			discountFullPayment.setPostedDate(new Date());
 			reg.assocPayment(discountFullPayment);
-			discountFullPayment.insert();
 		}
 	}
 
