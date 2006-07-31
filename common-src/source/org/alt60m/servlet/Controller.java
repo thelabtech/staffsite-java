@@ -166,6 +166,11 @@ public abstract class Controller extends HttpServlet {
 		
 		
 		public void goToErrorView() {
+			if (_response.isCommitted()) {
+				displaySimpleErrorMessage();
+				return;
+			}
+			
 			log.debug("going to error view: " + _defaultErrorView);
 
 			// remember view as last view
@@ -198,26 +203,24 @@ public abstract class Controller extends HttpServlet {
 				getServletConfig().getServletContext()
 						.getRequestDispatcher(url).forward(_request, _response);
 			} catch (Exception e2) {
-				try {
-					log.error("Unable to display global error page", e2);
-					PrintWriter out = _response.getWriter();
-					out.print(
-						"A error has occured; the Campus Ministry IT team " +
-						"has been notified.  If you need assistance, please email " +
-						"help@campuscrusadeforchrist.com");
-				} catch (IOException ioe) {
-					log.error(
-						"Unable to get output stream! Attempting to send 500",
-									ioe);
-					try {
-						_response
-								.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-					} catch (IOException ioe2) {
-						log.error(
-						"Unable to send 500; Can't display error to user",
-										ioe2);
-					}
-				}
+
+				log.error("Unable to display global error page", e2);
+					displaySimpleErrorMessage();
+			}
+		}
+
+		private void displaySimpleErrorMessage() {
+			try {
+				PrintWriter out = _response.getWriter();
+				out
+						.print("A error has occured; the Campus Ministry IT team "
+								+ "has been notified.  If you need assistance, please email "
+								+ "help@campuscrusadeforchrist.com");
+			} catch (IOException ioe) {
+				log
+						.error(
+								"Unable to get output stream! Can't display error to user",
+								ioe);
 			}
 		}
 
