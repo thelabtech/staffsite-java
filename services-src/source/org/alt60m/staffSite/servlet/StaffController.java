@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -486,7 +487,7 @@ public class StaffController extends Controller {
 			log.debug("password: " + password);
 			try {
 				profileId = _profileManager.authenticate(userName, password);
-				authorize(ctx, new CASUser(userName, null, null), profileId);
+				authorize(ctx, new CASUser(userName, null, new HashMap<String, String>()), profileId);
 			} catch (ProfileNotFoundException e1) {
 				// set a message needed for more help
 				log.info("Profile not found: " + userName);

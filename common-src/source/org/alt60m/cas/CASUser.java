@@ -6,20 +6,21 @@
  */
 package org.alt60m.cas;
 
+import java.util.Collections;
 import java.util.Map;
 import java.io.Serializable;
 
 /**
  * @author justin.sabelko
  *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class CASUser implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String username;
 	private String pgtIou;
-	private Map attributes;
+	private Map<String, String> attributes;
 	private static final String ATTR_GUID = "ssoGuid";
 	private static final String ATTR_ACCT_NO = "emplid";
 	private static final String ATTR_FIRSTNAME = "firstName";
@@ -29,22 +30,20 @@ public class CASUser implements Serializable {
 	 * @param user
 	 * @param attributes
 	 */
-	public CASUser(String user, String pgtiou, Map attr) {
+	public CASUser(String user, String pgtiou, Map<String, String> attr) {
 		username = user;
 		pgtIou = pgtiou;
+		if (attr == null) {
+			throw new IllegalArgumentException("attribute map cannot be null!");
+		}
 		attributes = attr;
-		
-		// FOR TESTING PURPOSES ONLY
-/*		if (username.equals("s0544639")) {
-			username = "s0544639.mouse@uscm.org";
-		}*/
 	}
 	
 	/**
 	 * @return Returns the attributes.
 	 */
 	public Map getAttributes() {
-		return attributes;
+		return Collections.unmodifiableMap(attributes);
 	}
 	/**
 	 * @return Returns the username.
@@ -57,31 +56,30 @@ public class CASUser implements Serializable {
 		return pgtIou;
 	}	
 	
-	
 	//convenience methods
 	
 	/**
 	 * @return
 	 */
 	public String getGUID() {
-		return (String)attributes.get(ATTR_GUID);
+		return attributes.get(ATTR_GUID);
 	}
 
 	/**
 	 * @return
 	 */
 	public String getAcctNo() {
-		return (String)attributes.get(ATTR_ACCT_NO);
+		return attributes.get(ATTR_ACCT_NO);
 	}
 	
 	public String getFirstName()
 	{
-		return (String) attributes.get(ATTR_FIRSTNAME);
+		return attributes.get(ATTR_FIRSTNAME);
 	}
 	
 	public String getLastName()
 	{
-		return (String) attributes.get(ATTR_LASTNAME);
+		return attributes.get(ATTR_LASTNAME);
 	}
 
 	@Override
