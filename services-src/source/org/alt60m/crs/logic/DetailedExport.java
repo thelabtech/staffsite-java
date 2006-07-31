@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Vector;
 
 import org.alt60m.crs.logic.Export.Table;
@@ -23,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class DetailedExport {
-	private static final int MAX_COLUMN_LENGTH = 62;
 
 	private static Log log = LogFactory.getLog(DetailedExport.class);
 
@@ -34,6 +31,10 @@ public class DetailedExport {
 	private int conferenceID;
 
 	private Export export = new Export();
+
+	private ExportHelper helper = new ExportHelper();
+	
+
 
 	/**
 	 * This class is responsible for closing the db connection it is given
@@ -61,8 +62,6 @@ public class DetailedExport {
 			/* export the conference Table */
 
 			String tableName;
-
-			
 
 			// build answer tables for each registrationType
 
@@ -181,9 +180,32 @@ public class DetailedExport {
 
 		String registrantsFromClause = " FROM crs_registration reg where reg.fk_conferenceID = "
 				+ conferenceID + " AND reg.fk_registrationTypeID = " + regType.getRegistrationTypeID();
+		
+		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_questiontext.answerType, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID) AND (crs_question.fk_ConferenceID = "
+				+ conferenceID
+				+ ") AND (crs_registrationtype.label = '"
+				+ regType
+								.getLabel()
+				+ "') AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
+		
+		log.debug("customQuestionsQuery: " + customQuestionsQuery);
+		StringBuffer customQuestionAnswersSelectClause = new StringBuffer();
+		Statement statement = null;
+		ResultSet rs = null; 
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery(customQuestionsQuery);
+			customQuestionAnswersSelectClause = 
+				helper.buildCustomAnswersSelectClause(rs);
+		} finally {
+			if (rs != null) {
+				rs.close();	
+			}
+			if (statement != null) {
+				statement.close();
+			}
+		}
 
-		StringBuffer customQuestionAnswersSelectClause = buildCustomAnswersSelectClause(regType
-				.getLabel());
 		if (customQuestionAnswersSelectClause.length() > 1) {
 			return registrantsSelectClause + ", "
 					+ customQuestionAnswersSelectClause + registrantsFromClause;
@@ -192,75 +214,12 @@ public class DetailedExport {
 		}
 	}
 
-	private StringBuffer buildCustomAnswersSelectClause(String registrationType)
-			throws SQLException {
-		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID) AND (crs_question.fk_ConferenceID = "
-				+ conferenceID
-				+ ") AND (crs_registrationtype.label = '"
-				+ registrationType
-				+ "') AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
 
-		log.debug("customQuestionsQuery: " + customQuestionsQuery);
-		Statement statement = connection.createStatement();
-		ResultSet rs = statement.executeQuery(customQuestionsQuery);
 
-		// map questionIds to new column names
-		Map<Integer, String> fieldMapping = new LinkedHashMap<Integer, String>();
 
-		int extension = 0;
-		while (rs.next()) {
-			String fieldName = toLegalSyntax(rs.getString("question").trim());
-			Integer qNumber = rs.getInt("questionId");
 
-			if (fieldName.length() > 0) {
-				if (fieldName.length() > MAX_COLUMN_LENGTH - 1)
-					fieldName = fieldName.substring(0, MAX_COLUMN_LENGTH - 2);
-				// simple catch; fails for some (unusual) input
-				if (fieldMapping.containsValue(fieldName)) {
-					fieldName += ++extension;
-				}
-				if (!fieldMapping.containsKey(qNumber)) {
-					fieldMapping.put(qNumber, fieldName);
-				} else {
-					log
-							.warn("custom questions query returned multiple questions "
-									+ "with the same questionID!");
-				}
-			}
-		}
-		rs.close();
-		statement.close();
 
-		StringBuffer customQuestionAnswersSelectClause = new StringBuffer();
 
-		for (Map.Entry entry : fieldMapping.entrySet()) {
-			customQuestionAnswersSelectClause
-					.append(
-							"(select answer.body from crs_answer answer where answer.fk_questionId = ")
-					.append(entry.getKey())
-					.append(
-							" and answer.fk_registrationId = reg.registrationId) as `")
-					.append(entry.getValue()).append("`, ");
-		}
-		if (customQuestionAnswersSelectClause.length() > 1) {
-			// kill trailing ", "
-			customQuestionAnswersSelectClause
-					.setLength(customQuestionAnswersSelectClause.length() - 2);
-		}
-		return customQuestionAnswersSelectClause;
-	}
 
-	/**
-	 * This is somewhat MySql dependent; remove characters that can't (or
-	 * shouldn't) be in an escaped column name
-	 * 
-	 * @param columnName
-	 * @return
-	 */
-	private String toLegalSyntax(String columnName) {
-		columnName = columnName.replace('\n', ' ').replace('\r', ' ').replace(
-				'`', '\'');
-		return columnName;
-	}
 
 }

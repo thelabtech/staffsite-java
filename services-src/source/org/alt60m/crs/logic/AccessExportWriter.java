@@ -17,12 +17,6 @@ import org.apache.commons.logging.LogFactory;
 public class AccessExportWriter implements ExportWriter {
 	private static Log log = LogFactory.getLog(AccessExportWriter.class);
 
-	private static int maxColumnNameLength = 25;
-	private static int maxTableNameLength = 25;
-	
-
-	private static int maxColumns = 28;
-	
 	private Export export;
 
 	/**
@@ -34,7 +28,6 @@ public class AccessExportWriter implements ExportWriter {
 	private Connection connection;
 
 	private String connectionUrl;
-
 
 	public void setExport(Export export) {
 		this.export = export;
@@ -152,83 +145,54 @@ public class AccessExportWriter implements ExportWriter {
 	private String createTableDDLHxtt(Table table) throws SQLException {
 		ResultSetMetaData rsmd = table.getData().getMetaData();
 		StringBuffer ddl = new StringBuffer();
+		ddl.append("CREATE TABLE ").append(toLegalTableSyntax(table.getName())).append(" (");
+		
+		int count = rsmd.getColumnCount();
+		boolean identityFound = false;
 
-		int totalCount = rsmd.getColumnCount();
-		
-//		hxtt driver can't handle tables with too many columns, so create
-		//multiple tables
-		
-		
-		int numTables = (totalCount / maxColumns);
-		if (numTables == 0 || totalCount % maxColumns != 0) {
-			numTables++;
+		for (int i = 1; i <= count; i++) {
+			String columnName = toLegalColumnSyntax(rsmd.getColumnName(i));
+			int type = rsmd.getColumnType(i);
+			switch (type) {
+			case -7: // boolean
+				ddl.append(columnName).append(" BOOLEAN");
+				break;
+			case -5: // bigint?
+			case 5: //smallint
+			case 4: //int
+				if (!identityFound) { //identity
+					identityFound = true;
+					ddl.append(columnName).append(" INTEGER PRIMARY KEY"); //Note: with hxtt driver, we can't do autoincrementing PKs
+				} else
+					ddl.append(columnName).append(" INTEGER");
+				break;
+			case 1: //char
+			case 12: //varchar
+				if (rsmd.getColumnDisplaySize(i) < 256)
+					ddl.append(columnName).append(" VARCHAR(")
+							.append(rsmd.getColumnDisplaySize(i)).append(")");
+				else
+					ddl.append(columnName).append(" LONGVARCHAR");
+				break;
+			case 6: //float
+			case 8: //float
+				ddl.append(columnName).append(" ").append(rsmd.getColumnTypeName(i));
+				break;
+			case 93: //datetime
+				ddl.append(columnName).append(" ").append("TIMESTAMP");
+				break;
+			default:
+				log.error("Column: " + columnName + " with type: "
+						+ rsmd.getColumnTypeName(i) + " ("
+						+ rsmd.getColumnType(i) + ")" + " not yet handled!");
+			}
+			ddl.append(", ");
 		}
 		
-		int currentColumn = 1;
-		for (int currentTable = 1; currentTable <= numTables; currentTable++) {
-
-			int endColumn = (currentTable == numTables ? totalCount
-					: maxColumns * currentTable);
-
-			String tableName = toLegalTableSyntax(table.getName())
-					+ (currentTable == 1 ? "" : ("_" + currentTable));
-
-			ddl.append("CREATE TABLE ").append(tableName).append(" (");
-
-			boolean identityFound = false;
-
-			while (currentColumn <= endColumn) {
-				String columnName = toLegalColumnSyntax(rsmd
-						.getColumnName(currentColumn));
-				int type = rsmd.getColumnType(currentColumn);
-				switch (type) {
-				case -7: // boolean
-					ddl.append(columnName).append(" BOOLEAN");
-					break;
-				case -5: // bigint?
-				case 5: // smallint
-				case 4: // int
-					if (!identityFound) { // identity
-						identityFound = true;
-						ddl.append(columnName).append(" INTEGER PRIMARY KEY");
-						// Note: with hxtt driver,
-						// we can't do autoincrementing PKs
-					} else
-						ddl.append(columnName).append(" INTEGER");
-					break;
-				case 1: // char
-				case 12: // varchar
-					if (rsmd.getColumnDisplaySize(currentColumn) < 256)
-						ddl.append(columnName).append(" VARCHAR(").append(
-								rsmd.getColumnDisplaySize(currentColumn))
-								.append(")");
-					else
-						ddl.append(columnName).append(" LONGVARCHAR");
-					break;
-				case 6: // float
-				case 8: // float
-					ddl.append(columnName).append(" ").append(
-							rsmd.getColumnTypeName(currentColumn));
-					break;
-				case 93: // datetime
-					ddl.append(columnName).append(" ").append("TIMESTAMP");
-					break;
-				default:
-					log.error("Column: " + columnName + " with type: "
-							+ rsmd.getColumnTypeName(currentColumn) + " ("
-							+ rsmd.getColumnType(currentColumn) + ")"
-							+ " not yet handled!");
-				}
-				ddl.append(", ");
-
-				currentColumn++;
-			}
-			if (totalCount != 0) {
-				ddl.setLength(ddl.length() - 2);
-			}
-			ddl.append(")");
-			ddl.append("; ");
+		if (count != 0) {
+			ddl.setLength(ddl.length() - 2);
 		}
+		ddl.append(")");
 		
 		return ddl.toString();
 	}
@@ -245,22 +209,10 @@ public class AccessExportWriter implements ExportWriter {
 	
 	private String toLegalColumnSyntax(String columnName) {
 		
-		columnName = columnName.replace('\n', '_').replace('\r', '_').replace(
-				'[', '|').replace(']', '|').trim();
-		
-//		columnName = columnName.replace('\n', '_').replace('\r', '_').replace(
-//				'[', '|').replace(']', '|').replace('(', '_').replace(')', '_')
-//				.replace('!', ' ').replace('.', '_').replace('-', '_').replace(
-//						'`', '_').replace('"', '_').replace('\'', '_').replace(
-//						'?', '_').replace(',', '_').replace(' ', '_').replace(
-//						'/', '_').replace(";", "").replace(':', '_').replace(
-//						'#', '_').replace('&', '_').replace('<', '_').replace(
-//						'>', '_');
-		
-		if (columnName.length() > maxColumnNameLength) {
-			columnName = columnName.substring(0, maxColumnNameLength);
-		}
-		
+		columnName = columnName.replace('\n', '_').replace('\r', '_')
+		.replace('[', '|').replace(']', '|')
+		.replace(".", "").replace("!", "").trim();
+		//hxtt doesn't nicely handle . and !, even when escaped
 		return "[" + columnName + "]";
 	}
 
@@ -274,10 +226,6 @@ public class AccessExportWriter implements ExportWriter {
 						'/', '_').replace(";", "").replace(':', '_').replace(
 						'#', '_').replace('&', '_').replace('<', '_').replace(
 						'>', '_');
-		
-		if (tableName.length() > maxTableNameLength) {
-			tableName = tableName.substring(0, maxTableNameLength);
-		}
 		
 		return tableName;
 	}
@@ -312,7 +260,9 @@ public class AccessExportWriter implements ExportWriter {
 				ps.clearParameters();
 
 				for (int i = 1; i <= colCount; i++) {
-					ps.setObject(i, rs.getObject(i), rsmd.getColumnType(i));
+					Object value = rs.getObject(i);
+					int type = rsmd.getColumnType(i);
+					ps.setObject(i, value, type);
 				}
 				ps.executeUpdate();
 			}
