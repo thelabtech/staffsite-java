@@ -9,31 +9,33 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 public class ExportHelper {
 	private static Log log = LogFactory.getLog(ExportHelper.class);
-	
+
 	private static final int MAX_COLUMN_LENGTH = 62;
-	
+
 	public class Question {
-		
+
 		public String name;
+
 		public String type;
-		
+
 		public Question(String name, String type) {
 			this.name = name;
 			this.type = type;
 		}
 	}
-	
-	public StringBuffer buildCustomAnswersSelectClause(ResultSet rs) throws SQLException {
+
+	public StringBuffer buildCustomAnswersSelectClause(ResultSet rs)
+			throws SQLException {
 
 		Map<Integer, Question> fieldMapping = buildFieldMapping(rs);
 		StringBuffer customQuestionAnswersSelectClause = buildCustomQuestionAnswersSelectClause(fieldMapping);
 		return customQuestionAnswersSelectClause;
 	}
-	
-	public Map<Integer, Question> buildFieldMapping(ResultSet rs) throws SQLException {
+
+	public Map<Integer, Question> buildFieldMapping(ResultSet rs)
+			throws SQLException {
 		// map questionIds to new column names & types
 		Map<Integer, Question> fieldMapping = new LinkedHashMap<Integer, Question>();
 
@@ -42,7 +44,7 @@ public class ExportHelper {
 			String fieldName = toLegalSyntax(rs.getString("question").trim());
 			Integer qNumber = rs.getInt("questionId");
 			String answerType = rs.getString("answerType");
-			
+
 			if (fieldName.length() > 0) {
 				if (fieldName.length() > MAX_COLUMN_LENGTH - 1)
 					fieldName = fieldName.substring(0, MAX_COLUMN_LENGTH - 2);
@@ -63,15 +65,18 @@ public class ExportHelper {
 		}
 		return fieldMapping;
 	}
-	
 
-	public StringBuffer buildCustomQuestionAnswersSelectClause(Map<Integer, Question> fieldMapping) {
+	public StringBuffer buildCustomQuestionAnswersSelectClause(
+			Map<Integer, Question> fieldMapping) {
 		StringBuffer customQuestionAnswersSelectClause = new StringBuffer();
 
 		for (Map.Entry<Integer, Question> entry : fieldMapping.entrySet()) {
 			customQuestionAnswersSelectClause
 					.append(
-							"(select " + convertType(entry.getValue().type, "answer.body") + " from crs_answer answer where answer.fk_questionId = ")
+							"(select "
+									+ convertType(entry.getValue().type,
+											"answer.body")
+									+ " from crs_answer answer where answer.fk_questionId = ")
 					.append(entry.getKey())
 					.append(
 							" and answer.fk_registrationId = reg.registrationId) as `")
@@ -84,7 +89,6 @@ public class ExportHelper {
 		}
 		return customQuestionAnswersSelectClause;
 	}
-	
 
 	public boolean containsName(Collection<Question> questions, String fieldName) {
 		for (Question question : questions) {
@@ -94,19 +98,18 @@ public class ExportHelper {
 		}
 		return false;
 	}
-	
-	
-	//could do some more exotic things like dates and shorter varchars for Y/N etc,
-	//but probably more hassle than it's worth.
-	//The reason for shortening fields where possible is the hxtt driver can't 
-	//handle a large number of LONGVARCHAR fields.
-	private String convertType(String questionType, String value)
-	{
+
+	// could do some more exotic things like dates and shorter varchars for Y/N
+	// etc,
+	// but probably more hassle than it's worth.
+	// The reason for shortening fields where possible is the hxtt driver can't
+	// handle a large number of LONGVARCHAR fields.
+	private String convertType(String questionType, String value) {
 		if (questionType.equals("textL")) {
 			return value;
-		} else return "LEFT(" + value + ", 255)";
+		} else
+			return "LEFT(" + value + ", 255)";
 	}
-	
 
 	/**
 	 * This is somewhat MySql dependent; remove characters that can't (or

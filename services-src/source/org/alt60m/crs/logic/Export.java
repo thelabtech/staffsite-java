@@ -10,8 +10,9 @@ public class Export {
 
 	public class Table {
 		private String name;
+
 		private ResultSet data;
-		
+
 		public Table(String name, ResultSet data) {
 			this.name = name;
 			this.data = data;
@@ -20,13 +21,13 @@ public class Export {
 		public ResultSet getData() {
 			return data;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 	}
-	
+
 	private List<Table> tables = new ArrayList<Table>();
 
 	public boolean add(Table o) {
@@ -49,9 +50,8 @@ public class Export {
 		return tables.size();
 	}
 
-	public List<Table> getTables()
-	{
+	public List<Table> getTables() {
 		return Collections.unmodifiableList(tables);
 	}
-	
+
 }

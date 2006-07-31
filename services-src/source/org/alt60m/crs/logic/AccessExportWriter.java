@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 
 import org.alt60m.crs.logic.Export.Table;
 import org.apache.commons.logging.Log;
@@ -94,7 +93,7 @@ public class AccessExportWriter implements ExportWriter {
 		copyTable(table, connection);
 	}
 
-	//Given a query, createTable creates a new table to accommodate the data
+	// Given a query, createTable creates a new table to accommodate the data
 	private void createTable(Table table, Connection connection)
 			throws SQLException {
 
@@ -103,7 +102,7 @@ public class AccessExportWriter implements ExportWriter {
 
 			String destinationTable = toLegalTableSyntax(table.getName());
 			log.debug("creating table: " + destinationTable);
-			
+
 			String ddl;
 			if (useOdbc) {
 				ddl = createTableDDLOdbc(table);
@@ -112,8 +111,10 @@ public class AccessExportWriter implements ExportWriter {
 			}
 			try {
 				statement = connection.createStatement();
-				int returnVal = statement.executeUpdate("DROP TABLE " + destinationTable);
-				log.debug("Dropped table " + destinationTable + "; " + "return val: " + returnVal);
+				int returnVal = statement.executeUpdate("DROP TABLE "
+						+ destinationTable);
+				log.debug("Dropped table " + destinationTable + "; "
+						+ "return val: " + returnVal);
 			} catch (SQLException e) {
 				log.debug(e);
 				/*
@@ -123,7 +124,7 @@ public class AccessExportWriter implements ExportWriter {
 			} finally {
 				if (statement != null) {
 					statement.close();
-				}				
+				}
 			}
 			log.debug("DDL: " + ddl);
 
@@ -138,6 +139,7 @@ public class AccessExportWriter implements ExportWriter {
 
 	/**
 	 * HXTT-specific
+	 * 
 	 * @param table
 	 * @return
 	 * @throws SQLException
@@ -145,8 +147,9 @@ public class AccessExportWriter implements ExportWriter {
 	private String createTableDDLHxtt(Table table) throws SQLException {
 		ResultSetMetaData rsmd = table.getData().getMetaData();
 		StringBuffer ddl = new StringBuffer();
-		ddl.append("CREATE TABLE ").append(toLegalTableSyntax(table.getName())).append(" (");
-		
+		ddl.append("CREATE TABLE ").append(toLegalTableSyntax(table.getName()))
+				.append(" (");
+
 		int count = rsmd.getColumnCount();
 		boolean identityFound = false;
 
@@ -158,27 +161,36 @@ public class AccessExportWriter implements ExportWriter {
 				ddl.append(columnName).append(" BOOLEAN");
 				break;
 			case -5: // bigint?
-			case 5: //smallint
-			case 4: //int
-				if (!identityFound) { //identity
+			case 5: // smallint
+			case 4: // int
+				if (!identityFound) { // identity
 					identityFound = true;
-					ddl.append(columnName).append(" INTEGER PRIMARY KEY"); //Note: with hxtt driver, we can't do autoincrementing PKs
+					ddl.append(columnName).append(" INTEGER PRIMARY KEY"); // Note:
+																			// with
+																			// hxtt
+																			// driver,
+																			// we
+																			// can't
+																			// do
+																			// autoincrementing
+																			// PKs
 				} else
 					ddl.append(columnName).append(" INTEGER");
 				break;
-			case 1: //char
-			case 12: //varchar
+			case 1: // char
+			case 12: // varchar
 				if (rsmd.getColumnDisplaySize(i) < 256)
-					ddl.append(columnName).append(" VARCHAR(")
-							.append(rsmd.getColumnDisplaySize(i)).append(")");
+					ddl.append(columnName).append(" VARCHAR(").append(
+							rsmd.getColumnDisplaySize(i)).append(")");
 				else
 					ddl.append(columnName).append(" LONGVARCHAR");
 				break;
-			case 6: //float
-			case 8: //float
-				ddl.append(columnName).append(" ").append(rsmd.getColumnTypeName(i));
+			case 6: // float
+			case 8: // float
+				ddl.append(columnName).append(" ").append(
+						rsmd.getColumnTypeName(i));
 				break;
-			case 93: //datetime
+			case 93: // datetime
 				ddl.append(columnName).append(" ").append("TIMESTAMP");
 				break;
 			default:
@@ -188,17 +200,18 @@ public class AccessExportWriter implements ExportWriter {
 			}
 			ddl.append(", ");
 		}
-		
+
 		if (count != 0) {
 			ddl.setLength(ddl.length() - 2);
 		}
 		ddl.append(")");
-		
+
 		return ddl.toString();
 	}
 
 	/**
-	 * Not yet implemented.  May never be implemented.
+	 * Not yet implemented. May never be implemented.
+	 * 
 	 * @param table
 	 * @return
 	 * @throws SQLException
@@ -206,18 +219,18 @@ public class AccessExportWriter implements ExportWriter {
 	private String createTableDDLOdbc(Table table) throws SQLException {
 		return null;
 	}
-	
+
 	private String toLegalColumnSyntax(String columnName) {
-		
-		columnName = columnName.replace('\n', '_').replace('\r', '_')
-		.replace('[', '|').replace(']', '|')
-		.replace(".", "").replace("!", "").trim();
-		//hxtt doesn't nicely handle . and !, even when escaped
+
+		columnName = columnName.replace('\n', '_').replace('\r', '_').replace(
+				'[', '|').replace(']', '|').replace(".", "").replace("!", "")
+				.trim();
+		// hxtt doesn't nicely handle . and !, even when escaped
 		return "[" + columnName + "]";
 	}
 
 	private String toLegalTableSyntax(String tableName) {
-		//probably not an exhaustive list, but should usually work
+		// probably not an exhaustive list, but should usually work
 		tableName = tableName.replace('\n', '_').replace('\r', '_').replace(
 				'[', '|').replace(']', '|').replace('(', '_').replace(')', '_')
 				.replace('!', ' ').replace('.', '_').replace('-', '_').replace(
@@ -226,10 +239,10 @@ public class AccessExportWriter implements ExportWriter {
 						'/', '_').replace(";", "").replace(':', '_').replace(
 						'#', '_').replace('&', '_').replace('<', '_').replace(
 						'>', '_');
-		
+
 		return tableName;
 	}
-	
+
 	private void copyTable(Table table, Connection connection)
 			throws SQLException {
 		String destinationTable = toLegalTableSyntax(table.getName());
@@ -242,7 +255,8 @@ public class AccessExportWriter implements ExportWriter {
 				+ destinationTable + " (");
 
 		for (int i = 1; i <= colCount; i++) {
-			insertQuery.append(toLegalColumnSyntax(rsmd.getColumnName(i)) + ", ");
+			insertQuery.append(toLegalColumnSyntax(rsmd.getColumnName(i))
+					+ ", ");
 		}
 		insertQuery.setLength(insertQuery.length() - 2);
 		insertQuery.append(") VALUES (");
@@ -266,12 +280,11 @@ public class AccessExportWriter implements ExportWriter {
 				}
 				ps.executeUpdate();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			log.info("insert query failed:" + insertQuery);
 			throw e;
 		}
-		
+
 		finally {
 			if (ps != null) {
 				ps.close();

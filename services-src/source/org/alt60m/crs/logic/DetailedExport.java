@@ -33,8 +33,6 @@ public class DetailedExport {
 	private Export export = new Export();
 
 	private ExportHelper helper = new ExportHelper();
-	
-
 
 	/**
 	 * This class is responsible for closing the db connection it is given
@@ -67,7 +65,8 @@ public class DetailedExport {
 
 			RegistrationType regTypeTemplate = new RegistrationType();
 			regTypeTemplate.setConferenceID(conferenceID);
-			Vector<RegistrationType> regTypes = (Vector<RegistrationType>) regTypeTemplate.selectList();
+			Vector<RegistrationType> regTypes = (Vector<RegistrationType>) regTypeTemplate
+					.selectList();
 			for (RegistrationType regType : regTypes) {
 
 				tableName = "CustomAnswers_" + regType.getLabel();
@@ -75,7 +74,6 @@ public class DetailedExport {
 				exportTable(tableName, buildCustomAnswersQuery(regType));
 			}
 
-			
 			tableName = "Conference";
 			log.debug("Getting data for table: " + tableName);
 			exportTable(
@@ -91,9 +89,6 @@ public class DetailedExport {
 					tableName,
 					"SELECT registrationTypeID, label, description, defaultDateArrive, defaultDateLeave, preRegStart, preRegEnd, singlePreRegDeposit, singleOnsiteCost, singleCommuteCost, singleDiscountFullPayment, singleDiscountEarlyReg, singleDiscountEarlyRegDate, marriedPreRegDeposit, marriedOnsiteCost, marriedCommuteCost, marriedDiscountFullPayment, marriedDiscountEarlyReg, marriedDiscountEarlyRegDate, acceptEChecks, acceptScholarships, acceptStaffAcctTransfer, acceptMinistryAcctTransfer, acceptCreditCards, askChildren, askSpouse, allowCommute, displayOrder, profileNumber, profileReqNumber, registrationType, fk_ConferenceID, acceptChecks from crs_registrationtype WHERE fk_ConferenceID = "
 							+ conferenceID);
-
-
-			
 
 			tableName = "Registrants";
 			log.debug("Getting data for table: " + tableName);
@@ -179,27 +174,28 @@ public class DetailedExport {
 		String registrantsSelectClause = "select reg.registrationID";
 
 		String registrantsFromClause = " FROM crs_registration reg where reg.fk_conferenceID = "
-				+ conferenceID + " AND reg.fk_registrationTypeID = " + regType.getRegistrationTypeID();
-		
+				+ conferenceID
+				+ " AND reg.fk_registrationTypeID = "
+				+ regType.getRegistrationTypeID();
+
 		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_questiontext.answerType, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID) AND (crs_question.fk_ConferenceID = "
 				+ conferenceID
 				+ ") AND (crs_registrationtype.label = '"
-				+ regType
-								.getLabel()
+				+ regType.getLabel()
 				+ "') AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
-		
+
 		log.debug("customQuestionsQuery: " + customQuestionsQuery);
 		StringBuffer customQuestionAnswersSelectClause = new StringBuffer();
 		Statement statement = null;
-		ResultSet rs = null; 
+		ResultSet rs = null;
 		try {
 			statement = connection.createStatement();
 			rs = statement.executeQuery(customQuestionsQuery);
-			customQuestionAnswersSelectClause = 
-				helper.buildCustomAnswersSelectClause(rs);
+			customQuestionAnswersSelectClause = helper
+					.buildCustomAnswersSelectClause(rs);
 		} finally {
 			if (rs != null) {
-				rs.close();	
+				rs.close();
 			}
 			if (statement != null) {
 				statement.close();
@@ -213,13 +209,5 @@ public class DetailedExport {
 			return registrantsSelectClause + registrantsFromClause;
 		}
 	}
-
-
-
-
-
-
-
-
 
 }

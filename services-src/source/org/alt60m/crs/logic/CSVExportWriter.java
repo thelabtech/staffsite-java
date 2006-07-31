@@ -1,6 +1,5 @@
 package org.alt60m.crs.logic;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -24,7 +23,7 @@ public class CSVExportWriter implements ExportWriter {
 	 * @see org.alt60m.crs.logic.ExportWriter#setFile(java.io.File)
 	 */
 	public void init(String filename) throws IOException {
-		
+
 		fileWriter = new FileWriter(filename);
 	}
 
@@ -43,8 +42,7 @@ public class CSVExportWriter implements ExportWriter {
 	 * @see org.alt60m.crs.logic.ExportWriter#write()
 	 */
 	public void write() throws IOException, SQLException {
-		if (export == null)
-		{
+		if (export == null) {
 			throw new NullPointerException("Export has not been set!");
 		}
 		try {
@@ -69,18 +67,18 @@ public class CSVExportWriter implements ExportWriter {
 		String tempString;
 		Date tempDate;
 
-		//Write Out Header Line
+		// Write Out Header Line
 		for (int i = 1; i <= colCount; i++) {
 			lineBuffer.append(rsmd.getColumnName(i)).append("\",\"");
 		}
 		fileWriter.write("\"" + lineBuffer + "\"\n");
 
-		//Write out Data
+		// Write out Data
 		while (rs.next()) {
 			lineBuffer.setLength(0);
 			for (int i = 1; i <= colCount; i++) {
 				switch (rsmd.getColumnType(i)) {
-				case 93: //datetime
+				case 93: // datetime
 					tempDate = rs.getDate(rsmd.getColumnName(i));
 					if (tempDate != null)
 						lineBuffer.append(new SimpleDateFormat("MM/dd/yyyy")
