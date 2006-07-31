@@ -174,7 +174,7 @@ public class CmsController extends Controller {
 			Hashtable profile = (Hashtable) ctx.getSessionValue("profile");
 			if ((profile == null) && ((ctx.getSession() == null) || ctx.getSession().isNew() || (ctx.getSessionValue("loggedIn") == null))) {
 				ctx.goToURL("/login.jsp");
-			} else if (catId.equals("0")) {
+			} else if (catId == null || catId.equals("0")) {
 				home(ctx);
 			} else {
 				Hashtable tub = new Hashtable();
