@@ -17,7 +17,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	
 
 	private final String VIEWS_FILE = "/WEB-INF/accountviews.xml";
-	private final String DEFAULT_ACTION = "goToLogin";
+	private final String DEFAULT_ACTION = "goToPage";
 	private Random randGen = new Random(System.currentTimeMillis());
 	private final String GENERIC_FROM_ADDRESS = "help@campuscrusadeforchrist.com";
 	private final long coefficient = 2125551212L;  // largest long integer is: 214 748 3647
