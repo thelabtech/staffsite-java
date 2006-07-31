@@ -869,6 +869,13 @@ public class SimpleSecurityManager implements SecurityManager {
 		StaffSiteProfile ssp = new StaffSiteProfile();
 		ssp.setUserName(oldUsername);
 		if (ssp.select()) {
+			StaffSiteProfile replacedProfile = new StaffSiteProfile();
+			replacedProfile.setUserName(oldUsername);
+			if (!oldUsername.equalsIgnoreCase(username) && replacedProfile.select()){
+				log.warn("To avoid username collision deleting existing profile record: " + replacedProfile.getStaffSiteProfileID());
+				replacedProfile.delete();
+			}
+			
 			ssp.setUserName(username);
 			ssp.persist();
 		}
