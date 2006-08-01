@@ -174,18 +174,12 @@ try {	// big try-catch for evaluation pages  (see evaluatefooter.jsp for catch)
 	SIReference refR = null;
 	SIReference refF = null;
 
-	app = new SIApplication();
 	app = infoBean.getSIApplication(ApplicationID);
-	p = new SIPerson();
 	p = infoBean.getSIPerson(app.getFk_PersonIDString());
-	refS = new SIReference();
-	refD = new SIReference();
-	refR = new SIReference();
-	refF = new SIReference();
-	refS = infoBean.getSIReferenceByType(app.getApplicationID(), "S", yearID);
-	refD = infoBean.getSIReferenceByType(app.getApplicationID(), "D", yearID);
-	refR = infoBean.getSIReferenceByType(app.getApplicationID(), "R", yearID);
-	refF = infoBean.getSIReferenceByType(app.getApplicationID(), "F", yearID);
+	refS = infoBean.getSIReferenceByType(app.getApplicationID(), "S");
+	refD = infoBean.getSIReferenceByType(app.getApplicationID(), "D");
+	refR = infoBean.getSIReferenceByType(app.getApplicationID(), "R");
+	refF = infoBean.getSIReferenceByType(app.getApplicationID(), "F");
 
 
    String projectName[] = new String[3];
