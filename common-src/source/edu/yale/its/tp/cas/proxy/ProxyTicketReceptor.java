@@ -80,7 +80,11 @@ public class ProxyTicketReceptor extends HttpServlet {
 			out.writeObject(pgt);
 			out.close();
 		} catch (IOException ex) {
+			System.err.println("IO Exception saving proxyTicket cache");
 			ex.printStackTrace();
+		} catch (Exception e) { //don't think this is possible, but I'm seeing some goofy behavior, so...
+			System.err.println("Non-IO Exception saving proxyTicket cache");
+			e.printStackTrace();
 		}
 	}
 
