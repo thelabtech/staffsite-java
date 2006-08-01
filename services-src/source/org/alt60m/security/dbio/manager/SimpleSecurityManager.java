@@ -336,9 +336,17 @@ public class SimpleSecurityManager implements SecurityManager {
 			User user = getUserObjectByUsername(username);// (User)
 															// ob.getObject(User.class,
 															// username);
+ 
 
-			match = passwordAnswer.trim().equalsIgnoreCase(
-					user.getPasswordAnswer().trim());
+			String realAnswer = user.getPasswordAnswer();
+			if (realAnswer == null) { // we did something stupid somewhere;
+										// don't punish them. This code is going
+										// away anyway.
+				match = true;
+			} else {
+				match = passwordAnswer.trim().equalsIgnoreCase(
+						realAnswer.trim());
+			}
 			if (match) {
 				user.setPassword(clear2hash(newPassword.getBytes()));
 				user.hadSuccessfulLogin();
