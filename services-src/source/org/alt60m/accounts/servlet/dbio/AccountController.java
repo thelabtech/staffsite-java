@@ -502,10 +502,10 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			log.info("User Not Authorized: "+nae.getMessage());
 			goToErrorPage(ctx, nae.getMessage());	
 		} catch(UserNotFoundException unfe) {
-			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
+			log.info("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
 			goToErrorPage(ctx, unfe.getMessage());	
 		} catch(UserLockedOutException uloe) {
-			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
+			log.info("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
 			goToErrorPage(ctx, uloe.getMessage());	
 		} catch(SecurityManagerFailedException smfe) {
 			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+smfe.getMessage(),smfe);
