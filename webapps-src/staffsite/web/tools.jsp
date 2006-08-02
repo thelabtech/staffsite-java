@@ -86,7 +86,7 @@ int curr_tab = 3; %>
 			<td>
 		</tr>
 		<%// if (isStudent.equals("false")) { %>
-		<!-- COMMENT THIS CODE OUT TO TURN OFF FSK ORDER LINK -->
+		<%-- COMMENT THIS CODE OUT TO TURN OFF FSK ORDER LINK 
  		<tr>
  			<td valign="center" align="center">
  				<a href="http://fsk.campuscrusadeforchrist.com">
@@ -96,17 +96,17 @@ int curr_tab = 3; %>
 				<%=fontS%>View contents <a href='http://fsk.campuscrusadeforchrist.com/customer/product/public_list' onClick="window.open('http://fsk.campuscrusadeforchrist.com/customer/product/public_list', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable'); return false">here.</a></font>
  			</td>
  		</tr>
-		<!-- ************* -->
+		************* --%>
 		
-		<!-- UNCOMMENT THIS CODE TO TURN OFF THE FSK ORDER LINK 
+		<%-- UNCOMMENT THIS CODE TO TURN OFF THE FSK ORDER LINK --%>
  		<tr>
 			<td valign="center" align="center">
 				<img src="/images/logo_fsk.gif"></td><td>
 				<%=font%><b>FSK Ordering Tool</b></font></td><td>
-				<%=fontS%>The FSK order site is no longer available.  <br>Questions about an order?  <a href="mailto:Dave.Schlernitzauer@uscm.org">Email Dave Schlernitzauer</a> or call 407-826-2557.<br>View contents <a href='#1' onClick="window.open('/fsk/Descrip.htm#bagtoy', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable')">here.</a></font>
+				<%=fontS%>The FSK order site is no longer available.  <br>If you have questions about materials or an order please contact Dave Schlernitzauer at <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call 407-826-2557.</font>
 			</td>
 		</tr>
-		******** -->
+		<%--  ******** --%>
 		
 		<%// } %>			
 		<tr>
