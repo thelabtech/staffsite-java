@@ -19,8 +19,8 @@ public class DBConnectionFactory {
 
 	protected static Log log = LogFactory.getLog(DBConnectionFactory.class);
 	
-	private static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(description=(address=(host=hart-ca803v)(protocol=tcp)(port=1526))(connect_data=(sid=prod)))";
+	private static final String ORACLE_DRIVER = "oracle.jdbc.OracleDriver";
+    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@hart-a811v.ccci.org:1521:prod2";
 	private static final String ORACLE_DEFAULT_USER = "istcampus";
 	private static final String ORACLE_DEFAULT_PW = "gocampus";
 
