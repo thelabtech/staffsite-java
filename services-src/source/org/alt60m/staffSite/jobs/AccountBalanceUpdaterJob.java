@@ -20,11 +20,11 @@ public class AccountBalanceUpdaterJob implements Job {
 		Boolean verbose = Boolean.parseBoolean((String) context.getJobDetail().getJobDataMap().get("verbose")); 
 		if (verbose) {
 			log.debug("Performing update (verbose)");
-			//abu.performUpdate(true);
+			abu.performUpdate(true);
 		}
 		else {
 			log.debug("Performing update (not verbose)");
-			//abu.performUpdate(false);
+			abu.performUpdate(false);
 		}
 		} catch (Exception e)
 		{
