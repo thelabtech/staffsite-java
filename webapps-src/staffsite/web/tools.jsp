@@ -86,7 +86,10 @@ int curr_tab = 3; %>
 			<td>
 		</tr>
 		<%// if (isStudent.equals("false")) { %>
-		<%-- COMMENT THIS CODE OUT TO TURN OFF FSK ORDER LINK 
+		<%
+		boolean fskEnabled = true;
+		if (fskEnabled) { 
+		%>
  		<tr>
  			<td valign="center" align="center">
  				<a href="http://fsk.campuscrusadeforchrist.com">
@@ -96,9 +99,9 @@ int curr_tab = 3; %>
 				<%=fontS%>View contents <a href='http://fsk.campuscrusadeforchrist.com/customer/product/public_list' onClick="window.open('http://fsk.campuscrusadeforchrist.com/customer/product/public_list', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable'); return false">here.</a></font>
  			</td>
  		</tr>
-		************* --%>
-		
-		<%-- UNCOMMENT THIS CODE TO TURN OFF THE FSK ORDER LINK --%>
+		<%
+		} else {
+		%>
  		<tr>
 			<td valign="center" align="center">
 				<img src="/images/logo_fsk.gif"></td><td>
@@ -107,8 +110,9 @@ int curr_tab = 3; %>
 				<br>If you have questions about materials or an order please contact Dave Schlernitzauer at <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call 407-443-0073.</font>
 			</td>
 		</tr>
-		<%--  ******** --%>
-		
+		<%
+		}
+		%>
 		<%// } %>			
 		<tr>
 			<td valign="center" align="center">
