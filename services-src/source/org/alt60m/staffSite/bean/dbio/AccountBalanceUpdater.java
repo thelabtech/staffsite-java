@@ -50,7 +50,6 @@ public class AccountBalanceUpdater {
 			String accountNo;
 			String profileID;
 			int balance;
-			Hashtable profile;
 
 			while (rs.next()) {
 				accountNo = (String) rs.getString("accountNo");
@@ -102,7 +101,7 @@ public class AccountBalanceUpdater {
 		ResultSet rs1 = statement.executeQuery(query);
 		log.info("[" + new java.util.Date() +"]after executing query .....");
 		
-		Hashtable allBalances = new Hashtable();
+		Hashtable<String, Integer> allBalances = new Hashtable<String, Integer>();
 		
 		while(rs1.next()) {
 			allBalances.put(rs1.getString("emplid"), new Integer(rs1.getInt("cur_bal")));
