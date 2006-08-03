@@ -27,10 +27,10 @@ public class StaffUpdater {
     Connection _connection;
     boolean _verbose = true;
     boolean _stopOnFail = false;
-	Hashtable luMinistry = new Hashtable();
-	Hashtable luStrategy = new Hashtable();
-    Hashtable luRegion = new Hashtable();
-    Hashtable luRespScope = new Hashtable();
+	Hashtable<String, String> luMinistry = new Hashtable<String, String>();
+	Hashtable<String, String> luStrategy = new Hashtable<String, String>();
+    Hashtable<String, String> luRegion = new Hashtable<String, String>();
+    Hashtable<String, String> luRespScope = new Hashtable<String, String>();
 //    Hashtable luWorkLoc = new Hashtable();
 
 
@@ -208,14 +208,14 @@ public class StaffUpdater {
 
 		String qry = "select distinct accountNo from " + STAFF_TBL + " order by accountNo desc";
 		sqlrs = sqlstatement.executeQuery(qry);
-		ArrayList sqlResults = new ArrayList();
+		ArrayList<String> sqlResults = new ArrayList<String>();
 		while (sqlrs.next()) {
 			sqlResults.add(sqlrs.getString("accountNo"));
 		}
 
 		String psqry = "select distinct "+PS_EMPL_ID+" from "+PS_EMPL_TBL+" order by "+PS_EMPL_ID+" desc";
 		psrs = psstatement.executeQuery(psqry);	
-		ArrayList psResults = new ArrayList();
+		ArrayList<String> psResults = new ArrayList<String>();
 		while (psrs.next()) {
 			psResults.add(psrs.getString(PS_EMPL_ID));
 		}
@@ -231,8 +231,8 @@ public class StaffUpdater {
 		int i = 0;
 		int j = 0;
 		
-		Vector inserts = new Vector();
-		Vector removals = new Vector();
+		Vector<String> inserts = new Vector<String>();
+		Vector<String> removals = new Vector<String>();
 		while (!((i+1) > sqlSize) && !((j+1) > psSize)) {
 			String accountNo = (String)sql[i];
 			String psAccount = (String)ps[j];
@@ -529,16 +529,22 @@ public class StaffUpdater {
 	    	// If husband account
 	    	if ((accountNo.length() == 9) && (accountNo.toCharArray()[8] != 'S')) {
 				String wifeAccountNo = accountNo + "S";
-				Staff wife = new Staff(wifeAccountNo);
-				staff.setSpouseAccountNo(wifeAccountNo);			
-				wife.setSpouseAccountNo(accountNo);
-				wife.persist();
+				Staff wife = new Staff();
+				wife.setAccountNo(wifeAccountNo);
+				if (wife.select()){
+					staff.setSpouseAccountNo(wifeAccountNo);			
+					wife.setSpouseAccountNo(accountNo);
+					wife.persist();
+				}
 		    } else if ((accountNo.length() == 10) && (accountNo.toCharArray()[9] == 'S')) {
 				String husbandAccountNo = accountNo.substring(0,9);
-				Staff husband = new Staff(husbandAccountNo);
-				staff.setSpouseAccountNo(husbandAccountNo);			
-				husband.setSpouseAccountNo(accountNo);
-				husband.persist();
+				Staff husband = new Staff();
+				husband.setAccountNo(husbandAccountNo);
+				if (husband.select()){
+					staff.setSpouseAccountNo(husbandAccountNo);			
+					husband.setSpouseAccountNo(accountNo);
+					husband.persist();
+				}
 		    }
 		} catch (Exception e) {
 		    log.error("The spouse object was not found", e);
