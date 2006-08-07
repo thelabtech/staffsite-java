@@ -147,7 +147,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 	public void selectEvent(ActionContext ctx) {
 		try {
 			ActionResults ar = new ActionResults();
-			if (ctx.getInputString("ConferenceID") == null
+			if ((ctx.getInputString("ConferenceID") == null || ctx.getInputString("ConferenceID").equals(""))
 					&& ctx.getSessionValue("selectedEvent") == null) {
 				ar.putValue(
 						"errorMsg",
