@@ -2,9 +2,15 @@
 
 package org.alt60m.staffSite.profiles.dbio;
 
+
 /** This exception is thrown when condition occurred */
 public class ProfileManagementException extends Exception {
-    /** Constructs an Exception without a message. */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/** Constructs an Exception without a message. */
     public ProfileManagementException() {
         super();
     }
@@ -16,4 +22,18 @@ public class ProfileManagementException extends Exception {
     public ProfileManagementException(String message) {
         super(message);
     }
+
+	public ProfileManagementException(String message, Exception cause) {
+		super(message, cause);
+	}
+
+	public ProfileManagementException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public ProfileManagementException(Throwable cause) {
+		super(cause);
+	}
+	
+	
 }

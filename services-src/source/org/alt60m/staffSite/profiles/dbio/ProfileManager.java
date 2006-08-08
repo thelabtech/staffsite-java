@@ -459,7 +459,7 @@ public class ProfileManager {
 		catch (SecurityManagerFailedException e)
 		{
 			e.printStackTrace();
-			throw new ProfileManagementException("Unable to authorize");
+			throw new ProfileManagementException("Unable to authorize", e);
 		}
 		// Get profile
 		StaffSiteProfile ssp = getProfile(user.getUsername());
