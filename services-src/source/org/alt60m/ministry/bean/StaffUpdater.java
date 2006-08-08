@@ -555,7 +555,7 @@ public class StaffUpdater {
 		OldAddress add1 = staff.getPrimaryAddress();
 		if (add1 == null) {
 		    add1 = new OldAddress();
-		    log.info("Address1 not persistant");
+		    log.info("Address1 for " + staff.getFirstName() + " " + staff.getLastName() + " not persistant; creating new one");
 		}
 		add1.setAddress1(rs.getString("address1"));
 		add1.setAddress2(rs.getString("address2"));						
@@ -571,7 +571,7 @@ public class StaffUpdater {
 		OldAddress add2 = staff.getSecondaryAddress();
 		if (add2 == null) {
 		    add2 = new OldAddress();
-		    log.error("Address2 not persistant");
+		    log.info("Address2 for " + staff.getFirstName() + " " + staff.getLastName() + " not persistant; creating new one");
 		}
 		add2.setAddress1(rs.getString("address1_other"));
 		add2.setAddress2(rs.getString("address2_other"));
