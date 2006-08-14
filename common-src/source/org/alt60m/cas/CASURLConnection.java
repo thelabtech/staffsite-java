@@ -46,7 +46,7 @@ public class CASURLConnection {
 	private static final String RENEW_TOKEN = "renew";
 	
 
-    protected static final int READ_TIMEOUT_DEFAULT = 4000;  //4 seconds
+    protected static final int READ_TIMEOUT_DEFAULT = 15000;  //in ms
     protected static final int CONNECT_TIMEOUT_DEFAULT = 4000; 
     
     protected static int redirectLimit = 5;
