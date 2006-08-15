@@ -60,7 +60,7 @@ try{
 			<%=formatter.displayHeader( request.getParameter("orderCol"), request.getParameter("order"), "Report Table", "/servlet/CRSAdmin?action=showReport&view=" + ar.getValue("view") + "&reportID=" + report.getReportID())%>
 			<%
 		String scheme = request.getServerName().contains("campuscrusadeforchrist") ? "https" : "http";
-		String url = scheme + "//" + request.getServerName() +
+		String url = scheme + "://" + request.getServerName() +
 			"/servlet/CRSAdmin?action=reportXML&reportID=" + report.getReportID() +
 			"&offset=" + ar.getValue("offset") +
 			"&size=" + ar.getValue("size") +
