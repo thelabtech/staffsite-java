@@ -468,7 +468,12 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ar.putValue("errorMessage", sme.getMessage());
 			ctx.setReturnValue(ar);
 			ctx.goToView("lookupQuestion");
-*/		} catch(Exception e) {
+*/		} 
+		catch (UserNotFoundException e) {
+			log.info("Username not found: " + username);
+			goToErrorPage(ctx, "That username does not exist");
+		} 
+		catch(Exception e) {
 			log.error("Failed to complete AccountController.lookupQuestion()!",e);
 			goToErrorPage(ctx, "Failed to retrieve your question, because an internal error occured during processing.");			
 		}
