@@ -255,8 +255,8 @@ There are two ways to add a new team to the InfoBase.<P>
 <LI>On the Search Results screen, click the name of the campus in the column entitled "campus name." This brings up a page that shows details about the campus.
 <LI>Under "What's going on at this campus?" if there is not a ministry strategy recorded, simply follow the instructions (above) for Adding a Strategy to a Campus. This process gives you a way to add a new team.
 <LI>If there IS a ministry strategy in existence click the word "Change" in the Status section of the Strategy Box.
-<LI>Click the link near the bottom of the following page in order to add a new team.  Follow the instructions displayed on the screen.
-<LI>Once you have added the new team, you will need to go back to the Change Status page to assign the campus to the new team.
+<LI>Click the link near the bottom of the following page in order to request to add a new team.  Follow the instructions displayed on the screen.
+<LI>This will send a request to add the new team to the region.
 </OL>
 <P ALIGN="RIGHT">
 <A HREF="#top"><I>Back to top</I></A>
