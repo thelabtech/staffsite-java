@@ -36,7 +36,7 @@ while(metros.hasNext()) {
 }
 %>
 
-<center><a href="/servlet/InfoBaseController?action=editTeam&mode=add&region=<%=region%>&from=localLevelMetros">[Create a new team to add to this region]</a>
+<center><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[Request to add a new team to this region]</a>
 
 </font>
 <%= box.printBottom() %>
