@@ -6,7 +6,7 @@
 
 	<!-- The "real" log file: -->
 	<appender name="StaffsiteAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${catalina.home}/logs/staffsite.log"/>
+		<param name="File" value="${catalina.base}/logs/staffsite.log"/>
 		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d %-5p (%x) %c{1}: %m%n"/>
