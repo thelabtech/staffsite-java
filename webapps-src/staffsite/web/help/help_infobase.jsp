@@ -265,8 +265,8 @@ OR...<P>
 <OL>
 <LI>Select the region from the InfoBase homepage.
 <LI>Click on the "List Teams in this Region" link.
-<LI>Near the bottom of the following screen click the "Create a new team to add to this region" link.  Follow the instructions displayed on the screen.  
-<LI>Once you have added the new team, you will need to go back to the Change Status page to assign the campus to the new team.
+<LI>Near the bottom of the following screen click the "Request to add a new team to this region" link.  Follow the instructions displayed on the screen.  
+<LI>This will send a request to add the new team to the region.
 <P ALIGN="RIGHT">
 <A HREF="#top"><I>Back to top</I></A>
 <P>
