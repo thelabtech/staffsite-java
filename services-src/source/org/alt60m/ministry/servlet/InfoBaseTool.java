@@ -1,33 +1,15 @@
 package org.alt60m.ministry.servlet;
 
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.*;
+import java.text.*;
 
-import org.alt60m.ministry.ActivityExistsException;
-import org.alt60m.ministry.model.dbio.Activity;
-import org.alt60m.ministry.model.dbio.LocalLevel;
-import org.alt60m.ministry.model.dbio.NonCccMin;
-import org.alt60m.ministry.model.dbio.OldAddress;
-import org.alt60m.ministry.model.dbio.RegionalStat;
-import org.alt60m.ministry.model.dbio.RegionalTeam;
-import org.alt60m.ministry.model.dbio.Staff;
-import org.alt60m.ministry.model.dbio.Statistic;
-import org.alt60m.ministry.model.dbio.TargetArea;
-import org.alt60m.servlet.ActionResults;
-import org.alt60m.util.CountryCodes;
-import org.alt60m.util.ObjectHashUtil;
-import org.alt60m.util.SendMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.*;
+import org.alt60m.servlet.*;
+import org.alt60m.util.*;
+import org.alt60m.ministry.model.dbio.*;
+import org.alt60m.ministry.ActivityExistsException;
 
 /**
  * Web controller for InfoBase Tool: 5/27/03	MAB	Initial Coding Completeness (0 - 5): 3 Known Issues:<p>
@@ -39,7 +21,7 @@ public class InfoBaseTool {
 	
     class StaffByRegionCache {
         Date lastUpdated;
-		Hashtable<String, Collection<Hashtable<String, Object>>> staffByRegion = new Hashtable<String, Collection<Hashtable<String, Object>>>();
+		Hashtable staffByRegion = new Hashtable();
     }
 
     private final String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW" };
@@ -116,8 +98,8 @@ public class InfoBaseTool {
 			stat.persist();
 			return stat;
 		} catch (Exception e) {
-            log.error("Failed to perform createStatObject().");
-			throw e;
+            log.error("Failed to perform createStatObject().", e);
+			throw new Exception(e);
 		}
 	}
 
@@ -158,8 +140,8 @@ public class InfoBaseTool {
                 results.addHashtable("statistic", stat);
             } else if ((lastStatId != null) && (!lastStatId.equals("null")) && lastStatId != "") {
                 Statistic statistic = new Statistic();
-//                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-//                Date periodBegin = format.parse(periodBeginString,(new ParsePosition(0)));
+                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+                Date periodBegin = format.parse(periodBeginString,(new ParsePosition(0)));
 //                Date periodEnd = format.parse(periodEndString,(new ParsePosition(0)));
                 statistic.setStatisticId(lastStatId);
                 /*statistic.setPeriodBegin(periodBegin);
@@ -181,8 +163,8 @@ public class InfoBaseTool {
         }
     }
 
-    private Hashtable<String, Object> emulateOldStaffStructure(Staff staff) throws Exception {
-    	Hashtable<String, Object> staffHash = ObjectHashUtil.obj2hash(staff);
+    private Hashtable emulateOldStaffStructure(Staff staff) throws Exception {
+        Hashtable staffHash = ObjectHashUtil.obj2hash(staff);
         OldAddress pa = staff.getPrimaryAddress();
         if (pa != null) {
             staffHash.put("Address1", pa.getAddress1());
@@ -348,7 +330,7 @@ public class InfoBaseTool {
 		}
 	}
 	//TODO: THIS METHOD IS HERE ONLY BECAUSE THE CAMPUS LIST PAGE TAKES TOO LONG TO LOAD UP.  THIS VASTLY SHORTENS THE TIME TO LOAD UP THAT PAGE.  HOWEVER, IT SHOULD BE REFACTORED.
-	public Collection<Hashtable<String, String>> getCampusListDirectly(String searchBy, String searchText) throws Exception {
+	public Collection getCampusListDirectly(String searchBy, String searchText) throws Exception {
 		String query = null;
 		try {
 			String whereClause = "";
@@ -390,16 +372,16 @@ public class InfoBaseTool {
 			java.sql.Statement stmt = conn.createStatement();
 			java.sql.ResultSet rs = stmt.executeQuery(query);
 		
-			Vector<Hashtable<String, String>> colTAs = new Vector<Hashtable<String, String>>();
+			Vector colTAs = new Vector();
 			while (rs.next()) {
-				Hashtable<String, String> theTargetAreaHash = new Hashtable<String, String>();
+				Hashtable theTargetAreaHash = new Hashtable();
 				theTargetAreaHash.put("TargetAreaId",isNull(rs.getString(1)));
 				theTargetAreaHash.put("Name",isNull(rs.getString(2)));
 				theTargetAreaHash.put("City",isNull(rs.getString(3)));
 				theTargetAreaHash.put("State",isNull(rs.getString(4)));
 				theTargetAreaHash.put("Zip",isNull(rs.getString(5)));
 				theTargetAreaHash.put("Region",isNull(rs.getString(6)));
-				theTargetAreaHash.put("Strategy",(rs.getString(7)==null?"":org.alt60m.ministry.Strategy.expandStrategy(rs.getString(7))));
+				theTargetAreaHash.put("Strategy",(rs.getString(7)==null?"":org.alt60m.ministry.Strategies.expandStrategy(rs.getString(7))));
 				theTargetAreaHash.put("Status",(rs.getString(8)==null?"":getStatusFullName(rs.getString(8))));
 				theTargetAreaHash.put("LocalLevelId",isNull(rs.getString(9)));
 				theTargetAreaHash.put("TeamName",isNull(rs.getString(10)));
@@ -485,9 +467,10 @@ public class InfoBaseTool {
         }
     }
 
-	public Collection<Hashtable<String, Object>> getRegionalStats(String region, List<Hashtable<String, Object>> allDates) throws Exception {
+	public Collection getRegionalStats(String region, Hashtable[] allDates) throws Exception {
         try {
-			Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(InfoBaseQueries.getRegionalStats(region.toUpperCase(), (Date) allDates.get(0).get("PeriodBegin"), (Date) allDates.get(15).get("PeriodEnd")));
+ 			Object[] params = new Object[] { region.toUpperCase(), allDates[0].get("PeriodBegin"), allDates[15].get("PeriodEnd") };
+			Collection c = ObjectHashUtil.list(InfoBaseQueries.getRegionalStats(params));
 			return c;
 		}
         catch (Exception e) {
@@ -516,14 +499,14 @@ public class InfoBaseTool {
         }
     }
 
-    public Collection<Hashtable<String, Object>> getStaffListForRegion(String region) throws Exception {
+    public Collection getStaffListForRegion(String region) throws Exception {
         Calendar cal = java.util.Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, -1);
 		if (staffByRegionCache.lastUpdated == null || cal.after(staffByRegionCache.lastUpdated)) {
 	        for(int cnt=0;cnt<_abbrevRegion.length;cnt++) {
 	            String thisRegion =_abbrevRegion[cnt];
-				Collection<Staff> staff = InfoBaseQueries.listStaffByRegion(thisRegion);
-				Collection<Hashtable<String, Object>> list = new Vector<Hashtable<String, Object>>();
+				Collection staff = InfoBaseQueries.listStaffByRegion(thisRegion);
+				Collection list = new Vector();
 				for (Iterator i = staff.iterator(); i.hasNext(); ) {
 				    list.add(emulateOldStaffStructure((Staff)i.next()));
 				}
@@ -531,7 +514,7 @@ public class InfoBaseTool {
 	        }
             staffByRegionCache.lastUpdated = new Date();
         }
-        return staffByRegionCache.staffByRegion.get(region);
+        return (Collection) staffByRegionCache.staffByRegion.get(region);
     }
 
     public Staff getStaffObject(String staffId) throws Exception {
@@ -581,10 +564,10 @@ public class InfoBaseTool {
         }
     }
 
-	public Collection<Hashtable<String, Object>> getTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates) throws Exception {
+	public Collection getTargetAreaStats(String targetAreaId, Hashtable[] allDates) throws Exception {
         try {
-			Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(InfoBaseQueries.listStatsForTargetArea(targetAreaId, (Date)allDates.get(0).get("PeriodBegin"),
-                (Date)allDates.get(15).get("PeriodEnd")));
+			Collection c = ObjectHashUtil.list(InfoBaseQueries.listStatsForTargetArea(targetAreaId, (Date)allDates[0].get("PeriodBegin"),
+                (Date)allDates[15].get("PeriodEnd")));
 			return c;
 		}
         catch (Exception e) {
@@ -594,10 +577,10 @@ public class InfoBaseTool {
 
 	}
 
-	public Collection<Hashtable<String, Object>> getTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates, List strategies) throws Exception {
+	public Collection getTargetAreaStats(String targetAreaId, Hashtable[] allDates, List strategies) throws Exception {
         try {
-			Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(InfoBaseQueries.listStatsForTargetArea(targetAreaId, (Date)allDates.get(0).get("PeriodBegin"),
-                (Date)allDates.get(15).get("PeriodEnd"), strategies));
+			Collection c = ObjectHashUtil.list(InfoBaseQueries.listStatsForTargetArea(targetAreaId, (Date)allDates[0].get("PeriodBegin"),
+                (Date)allDates[15].get("PeriodEnd"), strategies));
 			return c;
 		}
         catch (Exception e) {
@@ -629,12 +612,12 @@ public class InfoBaseTool {
     // History:
     //		3/19/01		MDP		Initial coding
     // *************************************************************************
-    public Collection<Hashtable<String, Object>> listStaff(String searchBy, String searchText) throws Exception {
+    public Collection listStaff(String searchBy, String searchText) throws Exception {
 		try {
-			Collection<Hashtable<String, Object>> list = null;
+			Collection list = null;
 			if (searchBy.equals("lastname")) {
 				Vector staffList = InfoBaseQueries.listStaffByLastName(searchText);
-                list = new Vector<Hashtable<String, Object>>();
+                list = new Vector();
                 for (Iterator i = staffList.iterator(); i.hasNext(); ) {
  					Staff thisStaff = (Staff)i.next();
 					list.add(emulateOldStaffStructure(thisStaff));
@@ -817,29 +800,23 @@ public class InfoBaseTool {
     }
 
     
-    synchronized static public void saveEditActivity(String activityId, String periodEnd, String strategy, String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException{
+    synchronized static public void saveEditActivity(String activityId, String periodEnd, String strategy, String updateOption, String profileId, String newTeamId) throws Exception, ActivityExistsException{
         //TODO: add history capabilities to preserve all previous states
     	
     	try {
             Activity activity = new Activity(activityId);
             activity.setTransUsername(profileId);
             
-//            LocalLevel newTeam = null;
+            LocalLevel newTeam = null;
             boolean changeTeam = false;
             
             if (!newTeamId.equals("none")) {
                 changeTeam = true;
-//                newTeam = new LocalLevel(newTeamId);
+                newTeam = new LocalLevel(newTeamId);
             }
            
             // if there is no change in status or strategy (only team maybe)
-            boolean noChange = false;
-            noChange = newStatus.equals("nc");
-            String oldStatus = activity.getStatus();
-            noChange = oldStatus.equals(newStatus);
-            
-            
-            if (noChange) {
+            if (updateOption.equals("nc")) {
                 if (changeTeam) {
                 	activity.setPeriodEnd(parseSimpleDate(periodEnd));
                 	Activity newTeamActivity = new Activity();
@@ -862,13 +839,13 @@ public class InfoBaseTool {
 					//else - no change to old activity - GOOD!
 				}               
             // if status is being changed to INACTIVE
-            } else if (newStatus.equals("IN")) {
+            } else if (updateOption.equals("rm")) {
                 activity.setStatus("IN");
                 activity.setPeriodEnd(parseSimpleDate(periodEnd));
                 activity.persist();
                 
             // if strategy is being changed to Staffed Campus from something else (status ACTIVE)
-            } else if (newStatus.equals("SC")) {
+            } else if (updateOption.equals("sc")) {
                 
             	Activity checkActivity = new Activity();
 				checkActivity.setStatus("AC");
@@ -912,71 +889,51 @@ public class InfoBaseTool {
 				}
                 
             // if status is being changed to a catalytic status: Forerunner, Pioneering, Key Contact, Launched, or Transformational
-            } else if (newStatus.equals("IN") || newStatus.equals("AC") || newStatus.equals("PI") ||
-                newStatus.equals("KE") || newStatus.equals("LA") || newStatus.equals("TR") || newStatus.equals("FR")) {
-				
-            	if (strategy.equals("SC")) {
+            } else if (updateOption.equals("IN") || updateOption.equals("AC") || updateOption.equals("PI") ||
+                updateOption.equals("KE") || updateOption.equals("LA") || updateOption.equals("TR") || updateOption.equals("FR")) {
+					
             	Activity checkActivity = new Activity();
-					checkActivity.setTargetAreaId(activity.getTargetAreaId());
-					checkActivity.setStrategy("CA");
-
-					// a different active CA activity exists at this target area
-					// for some team
-					// don't activate (if inactive) an activity if there is
-					// already one active at that target area
-					if (checkActivity
-							.select("fk_targetAreaID= "
-									+ activity.getTargetAreaId()
-									+ " AND strategy= 'CA' AND status<>'IN' AND ActivityID<>"
-									+ activityId)) {
-						throw new ActivityExistsException(
-								"There is already an active catalytic activity at this target area.");
-					} else // no active CA activity at this target area for ANY
-							// team
-					{
-						if (changeTeam) {
-							activity.setPeriodEnd(parseSimpleDate(periodEnd));
-							Activity newTeamActivity = new Activity();
-
-							newTeamActivity.setTargetAreaId(activity
-									.getTargetAreaId());
-							newTeamActivity.setStrategy("CA");
-							newTeamActivity.setStatus(newStatus); // activate
-																		// new
-																		// team's
-																		// activity
-
-							activity.setStatus("IN"); // inactivate old team's
-														// activity
-							activity.persist(); // update old activity
-
-							newTeamActivity.setTransUsername(profileId);
-							newTeamActivity.setPeriodBeginString(periodEnd);
-							newTeamActivity.setLocalLevelId(newTeamId);
-
-							// be sure not to CREATE the new activity if it has
-							// already exists (to avoid identical duplicates)
-							newTeamActivity.select();
-							newTeamActivity.persist(); // add new team's
-														// activity
-
-						} else {
-							// update activity
-							activity.setStrategy("CA");
-							activity.setStatus(newStatus);
-							activity.persist();
-							// }
-							// else
-							// throw new ActivityExistsException("Strategy is
-							// already active for this target area.");
-						}
+				checkActivity.setTargetAreaId(activity.getTargetAreaId());
+				checkActivity.setStrategy("CA");
+				
+				// a different active CA activity exists at this target area for some team
+				// don't activate (if inactive) an activity if there is already one active at that target area
+				if(checkActivity.select("fk_targetAreaID= "+activity.getTargetAreaId()+" AND strategy= 'CA' AND status<>'IN' AND ActivityID<>"+activityId))
+				{
+					throw new ActivityExistsException("There is already an active catalytic activity at this target area.");
+				}
+				else	// no active CA activity at this target area for ANY team
+				{
+					if (changeTeam) {
+						activity.setPeriodEnd(parseSimpleDate(periodEnd));
+						Activity newTeamActivity = new Activity();
+						
+						newTeamActivity.setTargetAreaId(activity.getTargetAreaId());
+						newTeamActivity.setStrategy("CA");
+						newTeamActivity.setStatus(updateOption);	// activate new team's activity
+						
+						activity.setStatus("IN");	// inactivate old team's activity
+						activity.persist();			// update old activity
+						
+						newTeamActivity.setTransUsername(profileId);
+						newTeamActivity.setPeriodBeginString(periodEnd);
+						newTeamActivity.setLocalLevelId(newTeamId);
+						
+						// be sure not to CREATE the new activity if it has already exists (to avoid identical duplicates)
+						newTeamActivity.select();
+						newTeamActivity.persist();	// add new team's activity
+						
+                    } else {
+                    	// update activity
+                    	activity.setStrategy("CA");
+                    	activity.setStatus(updateOption);
+    					activity.persist();
+                    	//}
+    					//else
+    					//	throw new ActivityExistsException("Strategy is already active for this target area.");
 					}
-            	} else
-            	{
-					activity.setStatus(newStatus);
-					activity.persist();
-            	}
-            }        
+				}
+            }          
         }
         catch (ActivityExistsException aee) {
         	log.error("Failed to perform saveEditActivity().", aee);

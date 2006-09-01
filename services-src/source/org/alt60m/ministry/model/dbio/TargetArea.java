@@ -188,8 +188,7 @@ public class TargetArea extends DBIOEntity {
 	public String getInfoUrl() { return infoUrl; }
 	public void setInfoUrl(String infoUrl) { this.infoUrl = infoUrl; }
 
-	@SuppressWarnings("unchecked")
-	public Vector<Activity> getActivities() {
+	public Vector getActivities() {
 		Activity a = new Activity();
 		a.setTargetAreaId(this.targetAreaId);
 		return a.selectList();

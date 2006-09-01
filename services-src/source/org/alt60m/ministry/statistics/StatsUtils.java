@@ -3,7 +3,7 @@
 package org.alt60m.ministry.statistics;
 import java.util.*;
 //import org.alt60m.util.TextUtils;
-import org.alt60m.ministry.Strategy;
+import org.alt60m.ministry.Strategies;
 public class StatsUtils {
 
 	// Takes a bunch of stats for a campus, and separates them into individual strategies collecions
@@ -14,7 +14,7 @@ public class StatsUtils {
 		Iterator iStats = statistics.iterator();
 		while(iStats.hasNext()) {
 			Hashtable stat = (Hashtable) iStats.next();
-			String strategy = Strategy.expandStrategy((String) stat.get("Strategy"));
+			String strategy = Strategies.expandStrategy((String) stat.get("Strategy"));
 			Collection stats = (Collection) strategiesStats.get(strategy);
 			if (stats == null) {
 				stats = new Vector();

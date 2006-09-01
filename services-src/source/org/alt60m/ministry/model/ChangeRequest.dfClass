@@ -1,0 +1,104 @@
+package id19a1scuwql60tcuwqvdc0;
+
+/**
+@version 2.0
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.FieldChange:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference51 {
+}/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference52 {
+}/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.ChangeRequest:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference53 {
+}/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Staff:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference54 {
+}/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Note:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference55 {
+}/**
+@__ref <oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Authorization:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference56 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#loaNote:oiref>=511,538,28,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#hasAuthorization:oiref>=417,184,28,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#hasAuthorization:oiref>=418,329,99,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasFieldChanges:oiref>=1393,454,28,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasRequestedBy:oiref>=661,454,28,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=866,509,120,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=1078,509,28,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#resignationLetter:oiref>=511,496,28,16,0:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#hasAuthorization:oiref>=462,184,78,16,0:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasRequestedBy:oiref>=1045,168,77,16,0:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#authorizationNote:oiref>=404,184,69,474:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=1110,529,743,529:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasFieldChanges:oiref>=1135,168,1445,474:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Note:oiref>=10,474,114,126,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#hasAuthorization:oiref>=552,454,28,16,0:oigroup>
+<oigroup:Composite#supplierRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#loaNote:oiref>=128,558,89,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasFieldChanges:oiref>=1294,301,107,16,0:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasAuthorizations:oiref>=1005,89,545,89:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=1036,529,70,16,0:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest:oiref>=1110,474,200,110,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#resignationLetter:oiref>=128,496,28,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasFieldChanges:oiref>=1103,168,28,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#loaNote:oiref>=128,538,28,16,0:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.FieldChange:oiref>=1347,474,196,142,1:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasFieldChanges:oiref>=1159,168,82,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#resignationLetter:oiref>=283,496,101,16,0:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#resignationLetter:oiref>=438,516,101,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#authorizationNote:oiref>=128,309,104,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#authorizationNote:oiref>=37,454,28,16,0:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#loaNote:oiref>=308,538,51,16,0:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Staff:oiref>=543,474,200,1518,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#loaNote:oiref>=543,558,124,558:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Staff#resignationLetter:oiref>=543,516,124,516:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasRequestedBy:oiref>=760,301,103,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasRequestedBy:oiref>=987,168,28,16,0:oigroup>
+<oigroup:<oiref:java#Extends#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#Logical_View.org.alt60m.ministry.ejb.ChangeRequest:oiref>=1210,474,1097,168:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#hasAuthorization:oiref>=449,184,593,474:oigroup>
+<oigroup:Composite#label#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasAuthorizations:oiref>=722,69,106,16,0:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#authorizationNote:oiref>=349,184,28,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasAuthorizations:oiref>=549,69,28,16,0:oigroup>
+<oigroup:Composite#supplierRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=747,529,93,16,0:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasRequestedBy:oiref>=1041,168,693,474:oigroup>
+<oigroup:Composite#clientCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasAuthorizations:oiref>=973,69,28,16,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.StaffChangeRequest#hasChangeRequest:oiref>=747,509,28,16,0:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.ChangeRequest:oiref>=1005,10,187,158,1:oigroup>
+<oigroup:Composite#clientRole#MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.ChangeRequest#hasAuthorizations:oiref>=916,89,85,16,0:oigroup>
+<oigroup:<oiref:java#Class#Logical_View.org.alt60m.ministry.ejb.Authorization:oiref>=358,10,187,174,1:oigroup>
+<oigroup:MemberLink#<oiref:java#Member#Logical_View.org.alt60m.ministry.ejb.Authorization#lnkStaff:oiref>=535,184,643,474:oigroup>
+*/
+class __positions {
+}

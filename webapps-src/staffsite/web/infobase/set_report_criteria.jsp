@@ -9,20 +9,6 @@ ar = ActionResults.getActionResults(session);
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
-<br/>
-<center>
-<%=fontB%>
-The report viewer will not be available until later this Fall. <br>
-We're sorry for the inconvenience.
-</font>
-</center>
-<br/>
-
-
-
-
-<%--
-
 <TABLE width="100%">
 	<TR>
 		<TD align=right><%=fontB%><a href="JavaScript: popupWindow('/help/help_success_criteria_reports.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help with Success Criteria Reports</a></font></TD>
@@ -172,7 +158,7 @@ We're sorry for the inconvenience.
 	<%= box.printBottom() %>
 	</center>
 </form>
- --%>
+
 <!-- <%=fontB%><%=ar.toHTML()%> -->
 <%@ include file="/infobase/ibfooter.jspf" %>
 </html>

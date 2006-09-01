@@ -1,37 +1,15 @@
 package org.alt60m.ministry.servlet;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import org.alt60m.ministry.ActivityExistsException;
-import org.alt60m.ministry.MissingTargetAreaIdException;
-import org.alt60m.ministry.Regions;
-import org.alt60m.ministry.Strategies;
-import org.alt60m.ministry.model.dbio.Activity;
-import org.alt60m.ministry.model.dbio.Dependent;
-import org.alt60m.ministry.model.dbio.LocalLevel;
-import org.alt60m.ministry.model.dbio.NonCccMin;
-import org.alt60m.ministry.model.dbio.OldAddress;
-import org.alt60m.ministry.model.dbio.RegionalStat;
-import org.alt60m.ministry.model.dbio.RegionalTeam;
-import org.alt60m.ministry.model.dbio.Staff;
-import org.alt60m.ministry.model.dbio.Statistic;
-import org.alt60m.ministry.model.dbio.TargetArea;
-import org.alt60m.servlet.ActionResults;
-import org.alt60m.servlet.Controller;
+import java.util.*;
+import java.text.*;
+import org.apache.log4j.*;
+import org.alt60m.servlet.*;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
-import org.alt60m.staffSite.model.dbio.StaffSitePref;
-import org.alt60m.util.CountryCodes;
-import org.alt60m.util.ObjectHashUtil;
+import org.alt60m.ministry.Regions;
+import org.alt60m.util.*;
+import org.alt60m.ministry.model.dbio.*;
+import org.alt60m.staffSite.model.dbio.*;
+import org.alt60m.ministry.*;
 
 /**
  * Web controller for InfoBase History: 4/10/01	MDP	Initial Coding Completeness (0 - 5): 3 Known Issues:<p>
@@ -41,19 +19,17 @@ import org.alt60m.util.ObjectHashUtil;
  */
 public class InfoBaseController extends Controller {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	class StaffByRegionCache {
+    class StaffByRegionCache {
         Date lastUpdated;
 		Hashtable staffByRegion = new Hashtable();
     }
     private final String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW" };
 
+    private final String[] _abbrevStrategy = new String[] { "CA", "SC", "IE", "ID", "II", "WI", "WS", "BR", "MM", "AA", "GR", "CL", "KC" };
+
     private Bookmarks _bookmarks;
     private final String[] _expandRegion = new String[] { "Northeast", "Mid-Atlantic", "MidSouth", "Southeast", "Great Lakes", "Upper Midwest", "Great Plains Int'l", "Red River", "Greater Northwest", "Pacific Southwest" };
+    private final String[] _expandStrategy = new String[] { "Catalytic", "Staffed Campus", "ESM-Epic", "ESM-Destino", "ESM-Impact", "WSN ICS", "WSN STInt", "Bridges", "Military Ministry", "AIA", "Grad Resources", "CLM (Christian Leadership U)", "Korean CCC" };
 
     final String[] _reportTypes = new String[] { "locallevel", "targetarea", "regional", "national" };
     private final String LOCAL_LEVEL_ID_TOKEN = "locallevelid";
@@ -77,7 +53,7 @@ public class InfoBaseController extends Controller {
             LocalLevel ll = ibt.getLocalLevelTeam(localLevelId);
             results.putValue("teamName", ll.getName());
             Collection tasInRegion = ibt.getTargetAreasByRegion(ll.getRegion());
-            Vector<Hashtable<String, Object>> tasInRegionHash = new Vector<Hashtable<String, Object>>();
+            Vector tasInRegionHash = new Vector();
             for (Iterator iTA = tasInRegion.iterator(); iTA.hasNext(); ) {
                 TargetArea ta = (TargetArea)iTA.next();
                 Iterator activitiesIter = ta.getActivities().iterator();
@@ -208,11 +184,11 @@ public class InfoBaseController extends Controller {
             TargetArea target = ibt.getTargetArea(targetAreaId);
 
             Collection teams = ibt.getLocalLevelTeamsByRegion(target.getRegion()!=null?target.getRegion():"");
-            Vector<Hashtable<String, Object>> hashedTeams = new Vector<Hashtable<String, Object>>();
+            Vector hashedTeams = new Vector();
 
             for (Iterator iTeams = teams.iterator(); iTeams.hasNext(); ) {
                 LocalLevel ll = (LocalLevel)iTeams.next();
-                Hashtable<String, Object> hash = ObjectHashUtil.obj2hash(ll);
+                Hashtable hash = ObjectHashUtil.obj2hash(ll);
                 hash.put("LocalLevelID", ll.getLocalLevelId());
                 hashedTeams.add(hash);
             }
@@ -252,20 +228,20 @@ public class InfoBaseController extends Controller {
         }
     }
 
-    private List<Hashtable<String, Object>> blankStatsCalendar(String statId) {
+    private Hashtable[] blankStatsCalendar(String statId) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 		calendar.add(Calendar.WEEK_OF_YEAR, -15);
-		List<Hashtable<String, Object>> allDates = new ArrayList<Hashtable<String,Object>>();
+		Hashtable[] allDates = new Hashtable[16];
 		for (int cnt = 0; cnt < 16; cnt++) {
-			Hashtable<String, Object> noEntry = new Hashtable<String, Object>();
+			Hashtable noEntry = new Hashtable();
 			noEntry.put("PeriodBegin", calendar.getTime());
 			calendar.add(Calendar.DAY_OF_MONTH, 6);
 			noEntry.put("PeriodEnd", calendar.getTime());
 			calendar.add(Calendar.DAY_OF_MONTH, 1);
 			noEntry.put(statId, "");
-			allDates.add(noEntry);
+			allDates[cnt] = noEntry;
 		}
 		return allDates;
 	}
@@ -521,21 +497,21 @@ public class InfoBaseController extends Controller {
 			Hashtable regionalHash = ObjectHashUtil.obj2hash(regionalTeam);
             results.addHashtable("regionalteam", regionalHash);
             
-			List<Hashtable<String, Object>> allDates = blankStatsCalendar("RegionalStatId");
-			Collection<Hashtable<String, Object>> c = ibt.getRegionalStats(region, allDates);
+			Hashtable[] allDates = blankStatsCalendar("RegionalStatId");
+			Collection c = ibt.getRegionalStats(region, allDates);
             allDates = populateStatsCalendar(c.iterator(), allDates);
 
 			SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
             SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
             for (int cnt = 0; cnt < 16; cnt++) {
-                Hashtable<String, Object> row = allDates.get(cnt);
+                Hashtable row = allDates[cnt];
                 row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
                 row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
             }
 
-            results.addCollection("regionalInfo", allDates);
+            results.addCollection("regionalInfo", Arrays.asList(allDates));
             ctx.setReturnValue(results);
             ctx.goToView("regionInfo");
         }
@@ -631,8 +607,8 @@ public class InfoBaseController extends Controller {
         }
     }
 
-    private Hashtable<String, Object> emulateOldStaffStructure(Staff staff) throws Exception {
-        Hashtable<String, Object> staffHash = ObjectHashUtil.obj2hash(staff);
+    private Hashtable emulateOldStaffStructure(Staff staff) throws Exception {
+        Hashtable staffHash = ObjectHashUtil.obj2hash(staff);
         OldAddress pa = staff.getPrimaryAddress();
         if (pa != null) {
             staffHash.put("Address1", pa.getAddress1());
@@ -669,22 +645,22 @@ public class InfoBaseController extends Controller {
             results.putValue("activityid", activityId);            
 			results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
             results.putValue("displayname", targetArea.getName());
-			List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
+			Hashtable[] allDates = blankStatsCalendar("StatisticId");
 			Collection stats = ibt.getTargetAreaStats(targetAreaId, allDates);
-            Collection<Hashtable<String, Object>> hashedStats = ObjectHashUtil.list(stats);
+            Collection hashedStats = ObjectHashUtil.list(stats);
             allDates = populateStatsCalendar(hashedStats.iterator(), allDates);
 
 			SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
             SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
             for (int cnt = 0; cnt < 16; cnt++) {
-                Hashtable<String, Object> row = allDates.get(cnt);
+                Hashtable row = allDates[cnt];
                 row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
                 row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
             }
 
-            results.addCollection("statistics", allDates);
+            results.addCollection("statistics", Arrays.asList(allDates));
             ctx.setReturnValue(results);
             ctx.goToView("enterSuccessCriteria");
         }
@@ -701,32 +677,32 @@ public class InfoBaseController extends Controller {
             InfoBaseTool ibt = new InfoBaseTool();
             String activityId = ctx.getInputString("activityid", true);
             Activity activity = ibt.getActivityObject(activityId);
-            List<String> strategies = new Vector<String>();
+            List strategies = new Vector();
             strategies.add(activity.getStrategy());
             TargetArea targetArea = activity.getTargetArea();
             String targetAreaId = targetArea.getTargetAreaId();
             if(targetAreaId==null || targetAreaId.equals(""))
             {
-            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+            	throw new MissingTargetAreaIdException();
             }
             results.putValue("targetareaid", targetAreaId);
             results.putValue("activityid", activityId);
             results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
             results.putValue("displayname", targetArea.getName());
-            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
-            Collection<Hashtable<String, Object>> stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+            Hashtable[] allDates = blankStatsCalendar("StatisticId");
+            Collection stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
             allDates = populateStatsCalendar(stats.iterator(), allDates);
 
             SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
             SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
             for (int cnt = 0; cnt < 16; cnt++) {
-                Hashtable<String, Object> row = allDates.get(cnt);
+                Hashtable row = allDates[cnt];
                 row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
                 row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
                 row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
             }
-            results.addCollection("statistics", allDates);
+            results.addCollection("statistics", Arrays.asList(allDates));
 
             ctx.setReturnValue(results);
             ctx.goToView("enterSuccessCriteria");
@@ -753,6 +729,14 @@ public class InfoBaseController extends Controller {
 		return results;
 	}
 
+    // *************************************************************************
+    // Expectatations:
+    //		
+    //	Returns:
+    //		
+    // History:
+    //		3/19/01		MDP		Initial coding
+    // *************************************************************************
     public void init() {
         log.debug("InfoBaseController.init()");
         try {
@@ -795,10 +779,10 @@ public class InfoBaseController extends Controller {
             }
             if (searchText.length() > 0) {
                 Collection colTAs = ibt.getCampusListLocator(searchBy, searchText);
-                Collection<Hashtable<String, Object>> colOfHashes = new Vector<Hashtable<String, Object>>();
+                Collection colOfHashes = new Vector();
                 for (Iterator i = colTAs.iterator(); i.hasNext(); ) {
                     TargetArea ta = (TargetArea)i.next();
-                    Hashtable<String, Object> theHash = ObjectHashUtil.obj2hash(ta);
+                    Hashtable theHash = ObjectHashUtil.obj2hash(ta);
                     //WORKAROUND FOR JSP PAGES THAT ARE LOOKING FOR OLD ID NAME
                     theHash.put("TargetAreaID",ta.getTargetAreaId());
                     colOfHashes.add(theHash);
@@ -884,14 +868,14 @@ public class InfoBaseController extends Controller {
         return new java.sql.Date(c.getTime().getTime());
     }
 
-	private List<Hashtable<String, Object>> populateStatsCalendar(Iterator<Hashtable<String, Object>> enteredStats, List<Hashtable<String, Object>> allDates) {
+	private Hashtable[] populateStatsCalendar(Iterator enteredStats, Hashtable[] allDates) {
 		SimpleDateFormat sqlFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		while (enteredStats.hasNext()) {
-			Hashtable<String, Object> row = enteredStats.next();
+			Hashtable row = (Hashtable)enteredStats.next();
 			for (int cnt = 0; cnt < 16; cnt++) {
 				Date begin = (Date)row.get("PeriodBegin");
-				if (sqlFormat.format(begin).equals(sqlFormat.format(allDates.get(cnt).get("PeriodBegin"))))
-					allDates.set(cnt, row);
+				if (sqlFormat.format(begin).equals(sqlFormat.format(allDates[cnt].get("PeriodBegin"))))
+					allDates[cnt] = row;
 			}
 		}
 		return allDates;	
@@ -1112,7 +1096,7 @@ public class InfoBaseController extends Controller {
         try {
             String activityId = ctx.getInputString("activityid", true);
             String periodEnd = ctx.getInputString("datechanged", true);
-            String strategy = ctx.getInputString("strategy", Strategies.strategiesArray());
+            String strategy = ctx.getInputString("strategy", _abbrevStrategy);
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
             String updateOption = ctx.getInputString("updateoption", true);
@@ -1227,6 +1211,21 @@ public class InfoBaseController extends Controller {
                 stat = ibt.getStatObject(statisticId);
             }
             Hashtable request = ctx.getHashedRequest();
+            //BEGIN NEW CODE FOR NEW SUCCESS CRITERIA CATEGORIES
+			/*
+			int exposuresViaMedia = new Integer(request.get("MediaExposures").toString()).intValue();
+			int exposuresOneOnOne = new Integer(request.get("IndividualPresentations").toString()).intValue();
+			int exposuresGroup = new Integer(request.get("GroupPresentations").toString()).intValue();
+			int ongoingEvangelisticRelationships  = new Integer(request.get("OngoingRelationships").toString()).intValue();
+			request.put("Exposures", (new Integer(exposuresViaMedia + exposuresOneOnOne + exposuresGroup + ongoingEvangelisticRelationships)).toString());
+			
+			int decisionsViaMedia = new Integer(request.get("MediaDecisions").toString()).intValue();
+			int decisionsOneOnOne = new Integer(request.get("IndividualDecisions").toString()).intValue();
+			int decisionsGroup = new Integer(request.get("GroupDecisions").toString()).intValue();
+			int decisionsOngoing  = new Integer(request.get("OngoingDecisions").toString()).intValue();
+			request.put("Decisions", (new Integer(decisionsViaMedia + decisionsOneOnOne + decisionsGroup + decisionsOngoing)).toString());
+			*/
+			//END NEW CODE FOR NEW SUCCESS CRITERIA CATEGORIES
             
             ibt.saveStatObjectWithActivity(request, stat, activityId);
             enterSuccessCriteriaForActivity(ctx);
@@ -1260,6 +1259,7 @@ public class InfoBaseController extends Controller {
             String from;
             String localLevelId = null;
             if (ctx.getInputString("locallevelid")!=null) { localLevelId = ctx.getInputString("locallevelid", true); } 
+  			InfoBaseTool ibt = new InfoBaseTool();
   			InfoBaseTool.saveTeam(ctx.getHashedRequest(), localLevelId, mode);
             if (mode.equals("add")) {
                 from = ctx.getInputString("from", true);
@@ -1353,10 +1353,10 @@ public class InfoBaseController extends Controller {
             String staffId = ctx.getInputString("staffid", true);
 			InfoBaseTool ibt = new InfoBaseTool();
             Staff staff = ibt.getStaffObject(staffId);
-            Hashtable<String, Object> staffHash = emulateOldStaffStructure(staff);
+            Hashtable staffHash = emulateOldStaffStructure(staff);
 			if (staff.getMembership()!=null) {staffHash.put("Team", staff.getMembership().getName());}
 			else {staffHash.put("Team", "");}
-            Collection<String> dependentInfo = new Vector<String>();
+            Collection dependentInfo = new Vector();
             for (Iterator iDependents = staff.getDependents().iterator(); iDependents.hasNext(); ) {
                 Dependent theDependent = (Dependent)iDependents.next();
                 dependentInfo.add(theDependent.getLastName() + ", " + theDependent.getFirstName() + " " +
@@ -1404,9 +1404,10 @@ public class InfoBaseController extends Controller {
             results.addHashtable("target", targetAreaInfo);
             Collection nonCCCMinInfo = ObjectHashUtil.list(ta.getOtherMinistries());
             results.addCollection("noncccmin", nonCCCMinInfo);
-	        for (Activity activity : ta.getActivities()) {
+	        for (Iterator i = ta.getActivities().iterator(); i.hasNext(); ) {
+                Activity activity = (Activity)i.next();
 				if(activity.isActive()) {
-					Hashtable<String, Object> activityHash = ObjectHashUtil.obj2hash(activity);
+					Hashtable activityHash = ObjectHashUtil.obj2hash(activity);
 					activityHash.put("activityID", activity.getActivityId());
 					activityHash.put("teamID", activity.getTeam().getLocalLevelId());
 					activityHash.put("name", activity.getTeam().getName());
@@ -1414,9 +1415,9 @@ public class InfoBaseController extends Controller {
 					activityHash.put("strategy", activity.getStrategy());
 					activityHash.put("strategyName", activity.getStrategyFullName());
 					activityHash.put("statusName", activity.getStatusFullName());
-					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
-					for (Staff staff : activity.getActivityContacts()) {
-						contacts.add(ObjectHashUtil.obj2hash(staff));
+					Vector contacts = new Vector();
+					for (Iterator iStaff = activity.getActivityContacts().iterator(); iStaff.hasNext(); ) {
+						contacts.add(ObjectHashUtil.obj2hash((Staff)iStaff.next()));
 					}
 					activityHash.put("contacts", contacts);
 					results.addHashtable(activity.getStrategy(), activityHash);
@@ -1441,26 +1442,26 @@ public class InfoBaseController extends Controller {
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 			
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
-            Hashtable<String, Object> teamInfo = ObjectHashUtil.obj2hash(ll);
+            Hashtable teamInfo = ObjectHashUtil.obj2hash(ll);
 
             teamInfo.put("RegionName", Regions.expandRegion(ll.getRegion()));
-            teamInfo.put("Lane", Strategies.expandStrategy(ll.getLane()));
+            teamInfo.put("Lane", translate(_abbrevStrategy, _expandStrategy, ll.getLane()));
             
             results.addHashtable("team", teamInfo);
 
-            Collection<Hashtable<String, Object>> members = new Vector<Hashtable<String, Object>>();
+            Collection members = new Vector();
             for (Iterator iMembers = ll.getMembers().iterator(); iMembers.hasNext(); ) {
                 members.add(ObjectHashUtil.obj2hash(iMembers.next()));
             }
             results.addCollection("staff", members);
 
-			Vector<Hashtable<String, Object>> activeTargetInfo = new Vector<Hashtable<String, Object>>();
-			Vector<Hashtable<String, Object>> inactiveTargetInfo = new Vector<Hashtable<String, Object>>();
-			Vector<Hashtable<String, Object>> forerunnerTargetInfo = new Vector<Hashtable<String, Object>>();
+			Vector activeTargetInfo = new Vector();
+			Vector inactiveTargetInfo = new Vector();
+			Vector forerunnerTargetInfo = new Vector();
             for (Iterator iActivities = ll.getSortedActivities().iterator(); iActivities.hasNext(); ) {
 				Activity activity = (Activity)iActivities.next();
 				TargetArea ta = activity.getTargetArea();
-				Hashtable<String, Object> row = new Hashtable<String, Object>();
+				Hashtable row = new Hashtable();
 				ObjectHashUtil.obj2hash(activity);
 				if (ta != null) {
 					row.put("ActivityId",(activity.getActivityId() != null) ? activity.getActivityId() : "");
