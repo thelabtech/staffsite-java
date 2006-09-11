@@ -188,7 +188,7 @@ int curr_tab = 3; %>
 		-->
 		
 		<tr>
-			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
+			<td valign="center" align="center"><a href="http://sp.campuscrusadeforchrist.com/admin"><img src="/images/logo_allsp.gif"></a></td>
 			<td>
 				<!--
 			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
@@ -196,7 +196,9 @@ int curr_tab = 3; %>
 				
 				<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
 				<%=font%><b>The<br>Summer<br>Project<br>Tool</b></font></td>
-			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the ability to automatically generate new account numbers for accepted students, track their balances,  evaluate applications, etc.</font><font size="1"><a href="/servlet/MSController?action=goToPage&page=projecttool">demo site</a></font></td>
+			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the 
+						ability to automatically generate new account numbers for accepted students, 
+						track their balances,  evaluate applications, etc.</font></td>
 		</tr>
 		<tr>
 			<td valign="center" align="center">
