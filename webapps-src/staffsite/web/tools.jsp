@@ -188,7 +188,7 @@ int curr_tab = 3; %>
 		-->
 		
 		<tr>
-			<td valign="center" align="center"><a href="http://sp.campuscrusadeforchrist.com/admin"><img src="/images/logo_allsp.gif"></a></td>
+			<td valign="center" align="center"><a href="http://sp.uscm.org/admin"><img src="/images/logo_allsp.gif"></a></td>
 			<td>
 				<!--
 			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
