@@ -100,7 +100,7 @@ public class HomePageArticles implements java.io.Serializable {
 					File recent = (File) iter.next();
 					
 					//print out the rest of the headlines without the summary
-					if(i != 0 || 1) {
+					if(i < 2) {
 						
 						if(i == 2) {
 							stringBuffer = stringBuffer + "				<br>"+ authorFont + "More Headlines:" + "</font>";
