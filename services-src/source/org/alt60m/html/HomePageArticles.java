@@ -84,6 +84,7 @@ public class HomePageArticles implements java.io.Serializable {
 		String stringBuffer = "<!--  --------------------Recent Articles MODULE ------------------- --> ";
 		
 		int numToDisplay = new Integer(numOfArticles).intValue();
+		int numHeadersToDisplay = 2;    // specify the Number of Headlines to display in full.
 
 		//grab the files
 		try {
@@ -100,9 +101,9 @@ public class HomePageArticles implements java.io.Serializable {
 					File recent = (File) iter.next();
 					
 					//print out the rest of the headlines without the summary
-					if(i > 1) {
+					if(i > (numHeadersToDisplay - 1)) {
 						
-						if(i == 2) {
+						if(i == numHeadersToDisplay) {
 							stringBuffer = stringBuffer + "				<br>"+ authorFont + "More Headlines:" + "</font>";
 							stringBuffer = stringBuffer + "<UL TYPE= " + type + ">";
 						}
