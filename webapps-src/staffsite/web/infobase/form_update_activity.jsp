@@ -1,5 +1,5 @@
-<%@ page import="org.alt60m.servlet.*, java.util.*" %>
-<jsp:useBean id="status" class="org.alt60m.html.SelectStatus" />
+<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.ministry.Strategy" %>
+<jsp:useBean id="statusHelper" class="org.alt60m.ministry.html.SelectStatus" />
 <%
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
@@ -8,20 +8,16 @@ String targetAreaID = new String (request.getParameter("targetareaid"));
 String strategy = new String (request.getParameter("strategy"));
 String currentTeamID = new String (request.getParameter("locallevelid"));
 String referrer = new String (request.getParameter("referrer"));
+String status = new String (request.getParameter("status"));
 
 //expand name of the current strategy type
-String strategyName = new String();
-if (request.getParameter("strategy").equals("SC")) {strategyName = "Staffed Campus";}
-else if (strategy.equals("CA")) {strategyName = "Catalytic";}
-else if (strategy.equals("WS")) {strategyName = "WSN STInt";}
-else if (strategy.equals("WI")) {strategyName = "WSN ICS";}
-else if (strategy.equals("ID")) {strategyName = "Destino";}
-else if (strategy.equals("IE")) {strategyName = "Epic";}
-else if (strategy.equals("II")) {strategyName = "Impact";}
-else if (strategy.equals("BR")) {strategyName = "Bridges";}
+String strategyName;
+strategyName = Strategy.expandStrategy((String) request.getParameter("strategy"));
 %>
 <%
 String pageTitle= "Update "+ request.getParameter("strategy") + " strategy at " + ar.getValue("targetareaname"); %>
+<%@page import="org.alt60m.ministry.Status"%>
+<%@page import="org.alt60m.ministry.Strategy"%>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -40,7 +36,7 @@ var active = "Indicates that the campus has an active CCC<BR>movement, usually w
 var inactive = "Indicates that there is currently no active<BR>Campus Ministry strategy or potential<BR>student leader on the campus.";
 var pioneering = "Catalytic is actively doing something<BR>to start a ministry on this campus.";
 var keycontact = "Catalytic has found a key contact on this<BR>campus - student, volunteer, or partner.";
-var launched = "Catalytic has a critical mass of ten<BR>students, staff coach, etc.";
+var launched = "Catalytic has a critical mass of five<BR>students, staff coach, etc.";
 var transformational = "Movement of 50 or more students<BR>involved, or 1% of the student body.";
 var forerunner = "Catalytic has a person who can resource<BR>this campus to move it to the next level.";
 var staffed = "There are staff assigned to this campus<BR>who report through the Staffed Campuses lane.";
@@ -84,19 +80,22 @@ function setDefinition(setTo) {
 	<%=fontB%><b>Use the radio buttons to change the status below:<BR>
 <BR>
 </b></font></td></tr>
+<%-- handle Staffed Campus and Catalytic separately, because of goofy "sc" fake status --%>
 	<%if (request.getParameter("strategy").equals("SC")) { %>
 		<tr>
 			<td>
 				<%=fontB%>
 				<b>This campus is a(n)...</B><BR>
 	
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"sc":"nc CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				<input type=radio name=updateoption value=FR> <SPAN NAME="forerunner" onMouseOver="setDefinition(forerunner)" onMouseOut="setDefinition(empty)">FORERUNNER</SPAN> Catalytic campus.<br>
-				<input type=radio name=updateoption value=PI> <SPAN NAME="pioneering" onMouseOver="setDefinition(pioneering)" onMouseOut="setDefinition(empty)">PIONEERING</SPAN> Catalytic campus.<br>
-				<input type=radio name=updateoption value=KE> <SPAN NAME="keycontact" onMouseOver="setDefinition(keycontact)" onMouseOut="setDefinition(empty)">KEY CONTACT</SPAN> Catalytic campus.<br>
-				<input type=radio name=updateoption value=LA> <SPAN NAME="launched" onMouseOver="setDefinition(launched)" onMouseOut="setDefinition(empty)">LAUNCHED</SPAN> Catalytic campus.<br>
-				<input type=radio name=updateoption value=TR> <SPAN NAME="transformational" onMouseOver="setDefinition(transformational)" onMouseOut="setDefinition(empty)">TRANSFORMATIONAL</SPAN> Catalytic campus.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals(status))?"SC":"SC CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed campus.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals(status))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<%
+					statusHelper.setName("updateoption");
+					statusHelper.setCurrentValue((String)ar.getValue("status"));
+					statusHelper.setStrategyName("Catalytic");
+					statusHelper.setStatuses(Status.catalyticStatuses());
+				%>
+				<%=statusHelper.printRadio()%>
 				</font>
 			</td>
 	<%}%>
@@ -105,75 +104,49 @@ function setDefinition(setTo) {
 			<td>
 				<%=fontB%>
 				<b>This campus is a(n)...</B><BR>
-					<%
-					status.setName("status");
-					status.setCurrentValue((String)ar.getValue("status"));
-					%><%=status.printRadio()%>
-				<input type=radio name=updateoption value=sc> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<input type=radio name=updateoption value=SC> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> campus.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<%
+					statusHelper.setName("updateoption");
+					statusHelper.setCurrentValue((String)ar.getValue("status"));
+					statusHelper.setStrategyName("Catalytic");
+					statusHelper.setStatuses(Status.catalyticStatuses());
+				%>
+				<%=statusHelper.printRadio()%>
 				</font>
 			</td>
 	<%}%>
-	<%if (request.getParameter("strategy").equals("WS")) { %>
+	<%
+	EnumSet<Strategy> strategies = EnumSet.allOf(Strategy.class);
+	strategies.remove(Strategy.SC);
+	strategies.remove(Strategy.CA);
+	for (Strategy strategyItr : strategies) {
+		EnumSet<Status> statusOptions;
+		if (Strategy.campusStrategies().contains(strategyItr)) {
+			statusOptions = EnumSet.allOf(Status.class);
+		} else {
+			statusOptions = EnumSet.of(Status.AC, Status.IN);
+		}
+		
+		if (strategy.equals(strategyItr.toString())) { %>
 		<tr>
 			<td>
 				<%=fontB%>
 				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN>WSN STInt campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<%
+					statusHelper.setName("updateoption");
+					statusHelper.setCurrentValue((String)ar.getValue("status"));
+					statusHelper.setStrategyName(strategyName);
+					statusHelper.setStatuses(statusOptions);
+				%>
+				<%=statusHelper.printRadio()%>
 				</font>
 			</td>
-	<%}%>
-	<%if (request.getParameter("strategy").equals("WI")) { %>
-		<tr>
-			<td>
-				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> WSN ICS campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				</font>
-			</td>
-	<%}%>
-	<%if (request.getParameter("strategy").equals("ID")) { %>
-		<tr>
-			<td>
-				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Destino campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				</font>
-			</td>
-	<%}%>
-	<%if (request.getParameter("strategy").equals("IE")) { %>
-		<tr>
-			<td>
-				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Epic campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				</font>
-			</td>
-	<%}%>
-	<%if (request.getParameter("strategy").equals("II")) { %>
-		<tr>
-			<td>
-				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Impact campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				</font>
-			</td>
-	<%}%>
-	<%if (request.getParameter("strategy").equals("BR")) { %>
-		<tr>
-			<td>
-				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=nc CHECKED> <SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Bridges campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"nc CHECKED":"rm"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
-				</font>
-			</td>
-	<%}%>
+	<%
+		}
+	}
+	%>
+	
 			<TD>
 						<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0"><TR><TD CLASS="definition"><%=font%><SPAN ID="definition">Move your mouse pointer over a <BR>capitalized word to see a short explanation.</SPAN></FONT></TD></TR></TABLE>
 			</TD>

@@ -8,9 +8,9 @@ import org.apache.commons.logging.LogFactory;
 
 public class ObjectHashUtil {
 	private static Log log = LogFactory.getLog(ObjectHashUtil.class);
-    static public Collection list(Collection colObjects) { //throws Exception {
+    static public Collection<Hashtable<String, Object>> list(Collection colObjects) { //throws Exception {
  
-		Collection results = new Vector();
+		Collection<Hashtable<String, Object>> results = new Vector<Hashtable<String, Object>>();
         for(Iterator iObjects = colObjects.iterator();iObjects.hasNext();) {
 			results.add(obj2hash(iObjects.next()));
         }
@@ -18,7 +18,7 @@ public class ObjectHashUtil {
     }
     static public Collection list(Collection colObjects, String[] fields) throws Exception {
 
-		Collection results = new Vector();
+		Collection<Hashtable<String, Object>> results = new Vector<Hashtable<String, Object>>();
         for(Iterator iObjects = colObjects.iterator();iObjects.hasNext();) {
 			results.add(obj2hash(iObjects.next(), fields));
         }
@@ -61,8 +61,8 @@ public class ObjectHashUtil {
 	  }
 	  return h;
 	}
-	static public Hashtable obj2hash(Object o, String[] fields) {
-		Hashtable h = new Hashtable();
+	static public Hashtable<String, Object> obj2hash(Object o, String[] fields) {
+		Hashtable<String, Object> h = new Hashtable<String, Object>();
 		Class c = o.getClass();
 		for (int i = 0; i < fields.length; i++) {
 			String methodName = "get" + fields[i];
@@ -86,8 +86,8 @@ public class ObjectHashUtil {
 		Class c = o.getClass();                
 		Object[] arguments = null;
 		Method[] methods = c.getMethods();        
-		Hashtable parameterTypes = new Hashtable();
-		Hashtable theReturns = new Hashtable();
+		Hashtable<String, Object[]> parameterTypes = new Hashtable<String, Object[]>();
+		Hashtable<String, Class<?>> theReturns = new Hashtable<String, Class<?>>();
 		for (int i = 0; i < methods.length; i++) {
 			if (methods[i].getName().startsWith("set")) {                                
 				parameterTypes.put(methods[i].getName(), methods[i].getParameterTypes());

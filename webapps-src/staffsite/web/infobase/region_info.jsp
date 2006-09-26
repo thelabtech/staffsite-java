@@ -3,7 +3,6 @@
 <jsp:useBean id="states" class="org.alt60m.html.SelectState" />
 <jsp:useBean id="lanes" class="org.alt60m.html.SelectLane" />
 <jsp:useBean id="strategies" class="org.alt60m.html.SelectLane" />
-<jsp:useBean id="status" class="org.alt60m.html.SelectStatus" />
 <jsp:useBean id="country" class="org.alt60m.html.SelectCountry" />
 
 <%

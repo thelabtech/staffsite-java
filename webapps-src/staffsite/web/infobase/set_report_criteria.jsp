@@ -9,6 +9,8 @@ ar = ActionResults.getActionResults(session);
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
+
+
 <TABLE width="100%">
 	<TR>
 		<TD align=right><%=fontB%><a href="JavaScript: popupWindow('/help/help_success_criteria_reports.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help with Success Criteria Reports</a></font></TD>
@@ -58,6 +60,7 @@ ar = ActionResults.getActionResults(session);
 					<input type="checkbox" name="II" value="true" CHECKED>ESM-Impact<br>
 					<input type="checkbox" name="IE" value="true" CHECKED>ESM-Epic<br>
 					<input type="checkbox" name="ID" value="true" CHECKED>ESM-Destino<br>
+					<input type="checkbox" name="IN" value="true" CHECKED>ESM-Nations<br>
 					<input type="checkbox" name="BR" value="true" CHECKED>Bridges<br>
 					<input type="checkbox" name="WS" value="true" CHECKED>WSN STInt<br>
 					<input type="checkbox" name="WI" value="true" CHECKED>WSN ICS<br>
@@ -158,7 +161,6 @@ ar = ActionResults.getActionResults(session);
 	<%= box.printBottom() %>
 	</center>
 </form>
-
 <!-- <%=fontB%><%=ar.toHTML()%> -->
 <%@ include file="/infobase/ibfooter.jspf" %>
 </html>
