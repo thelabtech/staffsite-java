@@ -37,10 +37,7 @@ public class InfoBaseQueries {
 		return TextUtils.listToCommaDelimitedQuotedString(rs, "'");
 	}
 	
-	public static Vector getRegionalStats(Object[] params) {
-		String region = params[0].toString();
-		Date periodBegin = (Date)params[1];
-		Date periodEnd = (Date)params[2];
+	public static Vector getRegionalStats(String region, Date periodBegin, Date periodEnd) {
 				
 		RegionalTeam rt = new RegionalTeam();
 		rt.setAbbrv(region);
@@ -76,17 +73,18 @@ public class InfoBaseQueries {
 		}
 	}
 	
-	public static Collection listStaffByRegion(String region) {
+	@SuppressWarnings("unchecked")
+	public static Collection<Staff> listStaffByRegion(String region) {
 		try {
 			Staff s = new Staff();
-			return s.selectList("region = '" + region.toUpperCase() + "' AND (removedFromPeopleSoft='N') ORDER BY lastName");
+			return (Collection<Staff>) s.selectList("region = '" + region.toUpperCase() + "' AND (removedFromPeopleSoft='N') ORDER BY lastName");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static Collection listStaffHashByLastName(String lastName) {
+	public static Collection<Hashtable<String, Object>> listStaffHashByLastName(String lastName) {
 		try {
 			Staff s = new Staff();
 			return org.alt60m.util.ObjectHashUtil.list(s.selectList("UPPER(lastName) like '" + lastName.toUpperCase() + "%' AND (removedFromPeopleSoft='N') ORDER BY lastName, firstName"));
@@ -96,37 +94,39 @@ public class InfoBaseQueries {
 		}
 	}	
 	
-	public static Vector listStatsForTargetArea(String targetAreaId, Date start, Date end) {
+	@SuppressWarnings("unchecked")
+	public static Vector<Statistic> listStatsForTargetArea(String targetAreaId, Date start, Date end) {
 		Activity a = new Activity();
 		a.setTargetAreaId(targetAreaId);
 		Vector activityList = a.selectList("fk_targetAreaID IN (" + targetAreaId + ")");
-		List activityIdList = new Vector();
+		List<String> activityIdList = new Vector<String>();
 		for (Iterator i = activityList.iterator(); i.hasNext();) {
 			Activity act = (Activity)i.next();
 			activityIdList.add(act.getActivityId()); 
 		}
 		String activityIdString = org.alt60m.util.TextUtils.listToCommaDelimitedQuotedString(activityIdList);
 		Statistic stat = new Statistic();
-		Vector v = stat.selectList("fk_Activity IN (" + activityIdString + ") "
+		Vector<Statistic> v = (Vector<Statistic>) stat.selectList("fk_Activity IN (" + activityIdString + ") "
 										+ "AND periodBegin >= '" + org.alt60m.util.DateUtils.toSQLDate(start) + "' "
 										+ "AND periodEnd <= '" + org.alt60m.util.DateUtils.toSQLDate(end) + "' "
 										+ "ORDER BY periodEnd");
 		return  v;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Vector listStatsForTargetArea(String targetAreaId, Date start, Date end, List strategies){
 		String strategyList = org.alt60m.util.TextUtils.listToCommaDelimitedQuotedString(strategies);
 		Activity a = new Activity();
 		Vector activityList = a.selectList("fk_targetAreaID = " + targetAreaId + " " +
 											"AND strategy in (" + strategyList + ")");
-		List activityIdList = new Vector();
+		List<String> activityIdList = new Vector<String>();
 		for (Iterator i = activityList.iterator(); i.hasNext();) {
 			Activity act = (Activity)i.next();
 			activityIdList.add(act.getActivityId()); 
 		}
 		String activityIdString = org.alt60m.util.TextUtils.listToCommaDelimitedQuotedString(activityIdList);
 		Statistic stat = new Statistic();
- 		Vector v = stat.selectList("fk_Activity IN (" + activityIdString + ") "
+ 		Vector<Statistic> v = (Vector<Statistic>) stat.selectList("fk_Activity IN (" + activityIdString + ") "
 										+ "AND periodBegin >= '" + org.alt60m.util.DateUtils.toSQLDate(start) + "' "
 										+ "AND periodEnd <= '" + org.alt60m.util.DateUtils.toSQLDate(end) + "' "
 										+ "ORDER BY periodEnd");

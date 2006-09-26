@@ -14,4 +14,25 @@ package org.alt60m.ministry;
  */
 public class MissingTargetAreaIdException extends Exception {
 
+	public MissingTargetAreaIdException() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public MissingTargetAreaIdException(String message, Throwable cause) {
+		super(message, cause);
+		// TODO Auto-generated constructor stub
+	}
+
+	public MissingTargetAreaIdException(String message) {
+		super(message);
+		// TODO Auto-generated constructor stub
+	}
+
+	public MissingTargetAreaIdException(Throwable cause) {
+		super(cause);
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }
