@@ -22,7 +22,7 @@ public class SelectAoA implements java.io.Serializable {
 
 	sb.append("<select name=\"" + name + "\">");
 
-	for (i = 0; i < 13; ++i) {
+	for (i = 0; i < 15; ++i) {
 		if (AoAs[i].equals(currentAoA)) {
 			sb.append("<option value=\"" + AoAs[i] + "\" selected>" + AoAs[i] + "</option>");
 	    } else {
