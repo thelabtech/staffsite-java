@@ -25,7 +25,7 @@ public class SIUtil {
 	/*
 	 * To change the STINT year, all that is needed to do is to change this variable.
 	 */
-	public static final String CURRENT_SI_YEAR = "2006";
+	public static final String CURRENT_SI_YEAR = "2007";
 	public static final int CURRENT_SI_YEAR_INT = Integer.parseInt(CURRENT_SI_YEAR);
 	/* Generalized save function that can save any of the forms, like staff application or STINT or whatever, not just the WSN application.
 	  Created: RDH
