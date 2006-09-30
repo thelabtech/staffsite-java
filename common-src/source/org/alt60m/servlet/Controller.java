@@ -424,7 +424,7 @@ public abstract class Controller extends HttpServlet {
 			log.info("Finished action: " + actionName + " in " + (endTime - beginTime)+ " ms");
 			
 		} catch (java.lang.NoSuchMethodException e) {
-			log.error("Action doesn't exist", e );
+			log.warn("Action doesn't exist", e );
 
 			ctx.setError();
 			ctx.goToErrorView();
