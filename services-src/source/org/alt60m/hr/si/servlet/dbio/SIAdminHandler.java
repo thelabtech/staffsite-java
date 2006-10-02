@@ -178,20 +178,11 @@ public class SIAdminHandler {
 				} else {
 					temp.put("StopDate","-");
 				}
-				String getIsPDId = project.getFk_isPD();
-				if (getIsPDId ==null || getIsPDId.equals("")) {
-					temp.put("PD","-");
-				} else {
-					SIPerson pd = new SIPerson(project.getFk_isPD());
-					temp.put("PD",helper.value((String)pd.getFirstName())+" "+helper.value((String)pd.getLastName()));
-				}
-				String getIsAPDId = project.getFk_isAPD();
-				if (getIsAPDId ==null || getIsAPDId.equals("")) {
-					temp.put("APD","-");
-				} else {
-					SIPerson apd = new SIPerson(project.getFk_isAPD());
-					temp.put("APD",helper.value((String)apd.getFirstName())+" "+helper.value((String)apd.getLastName()));
-				}
+				
+				temp.put("AOA",helper.value((String)project.getAOA()));
+				
+				temp.put("SiYear",helper.value((String)project.getSiYear()));
+				
 				String getIsCoordId = project.getFk_isCoord();
 				if (getIsCoordId ==null || getIsCoordId.equals("")) {
 					temp.put("Coord","-");
