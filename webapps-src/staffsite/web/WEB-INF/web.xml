@@ -92,7 +92,7 @@
 		</init-param>
 	</filter>
 
-
+	<!-- 
 	<filter>
 		<filter-name>si_down_for_summer</filter-name>
 		<filter-class>
@@ -103,7 +103,7 @@
 			<param-value>/hr_si/downforsummer.html</param-value>
 		</init-param>
 	</filter>
-
+	-->
 	<filter>
 		<filter-name>ms_down_for_summer</filter-name>
 		<filter-class>
