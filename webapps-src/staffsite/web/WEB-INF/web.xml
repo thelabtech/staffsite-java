@@ -139,11 +139,12 @@
 		<url-pattern>/hr_ms/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 
 	<filter-mapping>
 		<filter-name>si_down_for_summer</filter-name>
 		<url-pattern>/hr_si/*</url-pattern>
 	</filter-mapping>
-
+	-->
 
 	<servlet>
 		<servlet-name>ServletRedirector</servlet-name>
