@@ -54,7 +54,7 @@
 				<td><%=fontTextS%><% if (proj.get("Country")!=null){ selCountry.setCurrentValue((String)proj.get("Country"));%><%=selCountry.display()%><%}%>&nbsp;</td>
 				<td><%=fontText%><%=proj.get("PD")%>&nbsp;</td>
 				<td><%=fontText%><%=proj.get("APD")%>&nbsp;</a></td>
-				<td><%=fontText%><%=proj.get("Coord")%>&nbsp;</td>
+				<td><%=fontText%><%=proj.get("Coord")%>&nbsp;</a></td>
 				<td><%=fontTextS%><% if (proj.get("PartnershipRegion")!=null){ selRegion.setCurrentValue((String)proj.get("PartnershipRegion"));%><%=selRegion.display()%><%}%>&nbsp;</td>
 			</tr>
 			<%
