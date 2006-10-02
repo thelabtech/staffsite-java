@@ -33,7 +33,7 @@
 </table>
 </P>
 <table width='100%' border='1' bordercolor="<%=bordercolor%>" BORDERCOLORLIGHT="<%=bordercolorlight%>">
-<tr><th><%=fontS%>view</th><th><%=font%>Name</th><th><%=font%>Start Date</th><th><%=font%>End Date</th><th><%=font%>City</th><th><%=font%>Country</th><th><%=font%>Director</th><th><%=font%>Asst. Director</th><th><%=font%>Coordinator</th><th><%=font%>Partnership Region</th></tr></tr>
+<tr><th><%=fontS%>view</th><th><%=font%>Name</th><th><%=font%>Start Date</th><th><%=font%>End Date</th><th><%=font%>City</th><th><%=font%>Country</th><th><%=font%>AOA</th><th><%=font%>SI Year</th><th><%=font%>Partnership Region</th></tr></tr>
 	<%
 	if (!h.containsKey("0")) {
 		%>
@@ -51,11 +51,10 @@
 				<td><%=fontText%><%=proj.get("Name")%>&nbsp;</td>
 				<td><%=fontTextS%><%=proj.get("StartDate")%>&nbsp;</td>
 				<td><%=fontTextS%><%=proj.get("StopDate")%>&nbsp;</td>
-				<td><%=fontText%><%=proj.get("City")%>&nbsp;</td>
+				<td><%=fontText%><%=proj.get("Country")%>&nbsp;</td>
 				<td><%=fontTextS%><% if (proj.get("Country")!=null){ selCountry.setCurrentValue((String)proj.get("Country"));%><%=selCountry.display()%><%}%>&nbsp;</td>
-				<td><%=fontText%><%=proj.get("PD")%>&nbsp;</td>
-				<td><%=fontText%><%=proj.get("APD")%>&nbsp;</a></td>
-				<td><%=fontText%><%=proj.get("Coord")%>&nbsp;</td>
+				<td><%=fontText%><%=proj.get("AOA")%>&nbsp;</td>
+				<td><%=fontText%><%=proj.get("SiYear")%>&nbsp;</a></td>
 				<td><%=fontTextS%><% if (proj.get("PartnershipRegion")!=null){ selRegion.setCurrentValue((String)proj.get("PartnershipRegion"));%><%=selRegion.display()%><%}%>&nbsp;</td>
 			</tr>
 			<%
