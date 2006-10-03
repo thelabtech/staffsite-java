@@ -19,8 +19,8 @@ public class HttpHelper {
 	private static Log log = LogFactory.getLog(HttpHelper.class);
 
 	//at some point read these as init parameters?
-    protected static final int READ_TIMEOUT_DEFAULT = 4000;  //4 seconds
-    protected static final int CONNECT_TIMEOUT_DEFAULT = 4000; 
+    protected static final int READ_TIMEOUT_DEFAULT = 10000;  //in ms
+    protected static final int CONNECT_TIMEOUT_DEFAULT = 10000; 
     
     
 	// Create an instance of HttpClient.
