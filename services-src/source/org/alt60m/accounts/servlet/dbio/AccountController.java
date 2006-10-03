@@ -55,7 +55,12 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ar.putValue("destinationPage", destinationPage);
 			ar.putValue("username", username);
 			ctx.setReturnValue(ar);
-			if (url != null && !url.equals("")) ctx.goToURL(url); else ctx.goToView(page);
+			if (url != null && !url.equals("")) 
+				ctx.goToURL(url);
+			else if(destinationPage != null && !destinationPage.equals("")) 
+				ctx.goToURL(destinationPage);
+			else 
+				ctx.goToView(page);
 		} catch (Exception e) {
 			log.error(e.toString(),e);
 		}
