@@ -397,8 +397,7 @@ public class SIInfoBean implements Serializable {
 	}
 
 	public Collection getCurrentProjectsByType(char type) throws Exception {
-		String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
-		String whereClause = "projectType = '" + type + "' AND studentStartDate > \'" + today + "\' AND (onHold <> \'1\') ORDER BY name";
+		String whereClause = "projectType = '" + type + "' AND siYear = \'" + SIUtil.CURRENT_SI_YEAR + "\' AND (onHold <> \'1\') ORDER BY name";
 		Collection projects = ObjectHashUtil.list((new SIProject()).selectList(whereClause));
 		return projects;
 	}
@@ -407,16 +406,13 @@ public class SIInfoBean implements Serializable {
 	/* This is to work with thisiswhereilive.info */
 	public Collection getCurrentProjectsByRegion(String _region, String _type) {
 		try {
-			String today = (new SimpleDateFormat("MM/dd/yyyy")).format(new Date());
 			String whereClause =
 				"upper(partnershipRegion) = upper('"
 					+ _region
 					+ "') AND projectType = '"
-					+ _type
-					+ "' AND studentStartDate > \'"
-					+ today
-					+ "\' AND studentEndDate > "
-					+ today
+					+ _type 
+					+ "' AND siYear = \'"
+					+ SIUtil.CURRENT_SI_YEAR
 					+ " AND onHold <> \'1\' ORDER BY name";
 			Collection projects = ObjectHashUtil.list((new SIProject()).selectList(whereClause));
 			return projects;
