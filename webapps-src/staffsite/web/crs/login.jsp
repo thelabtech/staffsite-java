@@ -59,7 +59,16 @@
 					CLASS="button"
 					COLSPAN="2"
 					ALIGN="CENTER"><A
-					HREF="/servlet/CRSRegister?action=userLogin&ConferenceID=<%=request.getParameter("ConferenceID")%>&type=<%=request.getParameter("type")%>"
+					<%
+					String parameters = "";
+					if (request.getParameter("ConferenceID") != null) {
+						parameters += "&ConferenceID=" + request.getParameter("ConferenceID");
+					}
+					if (request.getParameter("type") != null) {
+						parameters += "&type=" + request.getParameter("type");
+					}
+					%>
+					HREF="/servlet/CRSRegister?action=userLogin<%= parameters %>"
 					CLASS="button">Continue to login</A><A
 					HREF="JavaScript:window.close()"
 					CLASS="button">Close this window</A></TD>
