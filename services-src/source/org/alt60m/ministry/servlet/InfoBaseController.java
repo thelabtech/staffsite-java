@@ -149,7 +149,6 @@ public class InfoBaseController extends Controller {
             ctx.goToView("addContact");
         }
         catch (Exception e) {
-			e.printStackTrace();
 			ctx.setError();
             ctx.goToErrorView();
             log.error("Failed to perform addContact().", e);
@@ -865,10 +864,9 @@ public class InfoBaseController extends Controller {
             ctx.goToView("staffList");
         }
         catch (Exception e) {
-			e.printStackTrace();
+            log.error("Failed to perform listStaff().", e);
             ctx.setError();
             ctx.goToErrorView();
-            log.error("Failed to perform listStaff().", e);
         }
     }
 
@@ -1444,7 +1442,7 @@ public class InfoBaseController extends Controller {
             Hashtable<String, Object> teamInfo = ObjectHashUtil.obj2hash(ll);
 
             teamInfo.put("RegionName", Regions.expandRegion(ll.getRegion()));
-            teamInfo.put("Lane", Strategies.expandStrategy(ll.getLane()));
+            teamInfo.put("Lane", ll.getLane());
             
             results.addHashtable("team", teamInfo);
 
@@ -1488,10 +1486,9 @@ public class InfoBaseController extends Controller {
             ctx.goToView("teamInfo");
         }
         catch (Exception e) {
-			e.printStackTrace();
+            log.error("Failed to perform showTeam().", e);
             ctx.setError();
             ctx.goToErrorView();
-            log.error("Failed to perform showTeam().", e);
         }
     }
 
