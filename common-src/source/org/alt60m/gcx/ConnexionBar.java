@@ -104,7 +104,7 @@ public class ConnexionBar {
 		String content = null;
 		//TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
 		String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
-		String barService = "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
+		String barService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
 		// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
 		String signinService = "signin.mygcx.org";
 		try {
