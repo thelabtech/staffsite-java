@@ -58,7 +58,6 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 	//Created: 10/29/2002 DMB
 	//default error page handler
 	private void goToErrorPage(ActionContext ctx, Exception e, String methodName) {
-		e.printStackTrace();
 		ActionResults ar = new ActionResults();
 		String exceptionText = e + "<BR>\n"; //+ e.getStackTrace()[0];
 		//for(int i=1; !e.getStackTrace()[i].toString().startsWith("sun"); i++)
@@ -230,10 +229,18 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				
 				Conference conference = crsApp.getConference(conferenceID);
 				Date thisDay = new Date();
-				boolean conferenceOpen = (thisDay.after(conference.getPreRegStart()) 
-						|| org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegStart())) 
-					&& (thisDay.before(conference.getPreRegEnd()) 
-							|| org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegEnd()));
+				Date preRegStartDate = conference.getPreRegStart(); 
+				Date preRegEnd = conference.getPreRegEnd();
+				boolean conferenceOpen;
+				if (preRegStartDate != null && preRegEnd != null) {
+					conferenceOpen = ((preRegStartDate != null) && (thisDay.after(preRegStartDate))
+						|| org.alt60m.util.DateUtils.isSameDay(thisDay, preRegStartDate)) 
+					&& (thisDay.before(preRegEnd) 
+							|| org.alt60m.util.DateUtils.isSameDay(thisDay, preRegEnd)); 
+				} else
+				{
+					conferenceOpen = false;
+				}
 				if (ctx.getProfile() != null && conferenceOpen) {	// user logged in
 					
 					if ("Y".equals(ctx.getInputString("preview"))) {
