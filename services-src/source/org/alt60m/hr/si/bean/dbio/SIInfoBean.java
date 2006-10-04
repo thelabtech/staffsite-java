@@ -318,6 +318,7 @@ public class SIInfoBean implements Serializable {
 		String AppId = "";
 		SIApplication a = new SIApplication();
 		a.setFk_PersonIDString(sipersonid);
+		a.setSiYear(SIUtil.CURRENT_SI_YEAR);
 		//IF THERE ARE MULTIPLE SIAPPLICATIONS WITH THIS SIPERSONID, THIS WILL NOT LIKE IT
 		if (a.select())
 			AppId = a.getApplicationID();
