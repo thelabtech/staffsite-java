@@ -414,7 +414,7 @@ public class SIInfoBean implements Serializable {
 					+ _type 
 					+ "' AND siYear = \'"
 					+ SIUtil.CURRENT_SI_YEAR
-					+ " AND onHold <> \'1\' ORDER BY name";
+					+ "' AND onHold <> \'1\' ORDER BY name";
 			Collection projects = ObjectHashUtil.list((new SIProject()).selectList(whereClause));
 			return projects;
 		} catch (Exception e) {
