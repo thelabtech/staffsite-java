@@ -110,7 +110,9 @@ function doSubmit() {
 		</FORM>
 <%
 	if(state!=null && !state.equals("")) {
-		String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "https://" : "http://") + request.getServerName() + ":" + request.getServerPort();
+		//ick.  I think specifying the url to use in a config file would be better.
+		boolean production = (request.getServerName().endsWith("campuscrusadeforchrist.com"));
+		String serverName = (production ? "https://" : "http://") + request.getServerName() + (production ? "" : ":" + request.getServerPort());
 		String url = serverName  + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
 
 		URL xmlUrl = new URL(url);
