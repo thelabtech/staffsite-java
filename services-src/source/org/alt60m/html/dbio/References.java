@@ -98,7 +98,7 @@ public class References implements java.io.Serializable {
 
 						}
 					} catch (java.sql.SQLException sqle) {
-						sqle.printStackTrace();
+						log.error(sqle, sqle);
 					}
 					// end new query
 				}
@@ -167,7 +167,7 @@ public class References implements java.io.Serializable {
 						siResults.close();
 						stmt1.close();
 						conn.close();
-						sqle.printStackTrace();
+						log.error(sqle, sqle);
 					}
 				}
 

@@ -18,7 +18,6 @@ public class Menu implements java.io.Serializable {
 	boolean _menuHelp; // Requires [/menus/overLib.jsp]
 
     public Menu() {
-		try{
 			// Sorting Header Defaults
 			_menuNames = new String[]{"menu"};
 			_menuURLs = new String[]{"#"};
@@ -31,9 +30,6 @@ public class Menu implements java.io.Serializable {
 			_boxClass = "box";
 			_menuWidth = "100%";
 			_menuHelp = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-        }
 	}
 	
 	// Sorting Header Builder

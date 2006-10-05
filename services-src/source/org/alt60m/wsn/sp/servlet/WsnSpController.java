@@ -447,7 +447,7 @@ public class WsnSpController extends Controller
 			appHash.put("LegalLastName","<br>This record cannot be displayed because it contains an error. <br>Please press the 'MyWSNHome' and notify wsn@uscm.org of the problem.</font>");
 			ctx.goToView("error");
 			ctx.setSessionValue("tub", appHash);
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 
@@ -525,7 +525,7 @@ public class WsnSpController extends Controller
 				} catch (StaffSelectException sse){
 					log.error(sse.toString());
 				} catch (Exception e) {
-					e.printStackTrace();
+					log.error(e, e);
 					throw e;
 				}
 			}
@@ -708,7 +708,7 @@ public class WsnSpController extends Controller
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			ctx.goToView("error");
 		}
     }
@@ -826,7 +826,7 @@ public class WsnSpController extends Controller
 			adminEditApp(ctx);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			ctx.goToView("error");
 		}
     }
@@ -1126,7 +1126,7 @@ public class WsnSpController extends Controller
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		session.setAttribute("WsnApplicationID", personID);
 		return personID;
@@ -1357,7 +1357,7 @@ public class WsnSpController extends Controller
             }
             return authorized;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e, e);
             return false;
         }
     }
@@ -1787,7 +1787,7 @@ public class WsnSpController extends Controller
 			} else
 				return null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -1816,7 +1816,7 @@ public class WsnSpController extends Controller
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -2384,7 +2384,7 @@ public class WsnSpController extends Controller
                 } catch (IllegalArgumentException e) {
                     log.debug(methodName + " " + e);
                 } catch (NullPointerException e) {
-                    //e.printStackTrace();
+                    //log.error(e, e);
                 }
             }
         }
@@ -2790,7 +2790,7 @@ public class WsnSpController extends Controller
 					ctx.setSessionValue("tub", h);
 					ctx.goToView("index");
 				} catch (Exception e) {
-					e.printStackTrace();
+					log.error(e, e);
 				}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

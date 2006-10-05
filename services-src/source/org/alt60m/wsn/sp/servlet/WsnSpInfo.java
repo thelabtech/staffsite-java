@@ -3,6 +3,8 @@ package org.alt60m.wsn.sp.servlet;
 import org.alt60m.wsn.sp.model.dbio.*;
 import org.alt60m.util.*;
 import org.alt60m.hr.ms.servlet.dbio.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 //import org.apache.log4j.Priority;
 //import org.exolab.castor.jdo.OQLQuery;
 //import org.exolab.castor.jdo.QueryResults;
@@ -21,7 +23,7 @@ import java.util.*;
  */
 public class WsnSpInfo {
 
-
+	private static Log log = LogFactory.getLog(WsnApplication.class);
 	public WsnSpInfo()  {
 
 	}
@@ -37,10 +39,10 @@ public class WsnSpInfo {
 				wsn.setWsnYear(year);
 				projects = wsn.selectList().iterator();
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error(e, e);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return projects;
 	}
@@ -61,7 +63,7 @@ public class WsnSpInfo {
 				project.persist();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 

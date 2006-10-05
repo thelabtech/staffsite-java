@@ -3,12 +3,14 @@ package org.alt60m.html;
 import java.util.*;
 import javax.servlet.*;
 import org.alt60m.servlet.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /* -          Displays a little text saying how many people have sessions in the last 30 minutes  - */
 /* -          Initial Coding: gdw 2002/01/18  - */
 
 public class LoggedInToStaffsite implements java.io.Serializable {
-
+	private static Log log = LogFactory.getLog(LoggedInToStaffsite.class);
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 
 	public LoggedInToStaffsite() {  }
@@ -38,7 +40,7 @@ public class LoggedInToStaffsite implements java.io.Serializable {
 
 		} catch (Exception e) {
 				stringBuffer = stringBuffer + bodyFont + "Temporarily unavailable";
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		stringBuffer = stringBuffer + "</center>";
 		return stringBuffer;

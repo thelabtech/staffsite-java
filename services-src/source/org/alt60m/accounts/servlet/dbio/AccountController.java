@@ -122,7 +122,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				}
 				catch(Exception e)
 				{
-					e.printStackTrace();
+					log.error(e, e);
 					ar.putValue("errorMessage","There was a problem completing your request: "+e.getMessage());
 					ctx.setReturnValue(ar);
 					if(loginPage!=null)	
@@ -229,7 +229,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				log.error(e, e);
 				ar.putValue("errorMessage","There was a problem completing your request: "+e.getMessage());
 				ctx.setReturnValue(ar);
 				if(loginPage!=null)	
@@ -281,7 +281,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			log.error(e, e);
 			ar.putValue("errorMessage","There was a problem completing your request: "+e.getMessage());
 			ctx.setReturnValue(ar);
 			if(loginPage!=null)	

@@ -138,7 +138,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -152,7 +152,7 @@ public class CRSApplication {
 
 			return c.getConferenceID();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
@@ -329,7 +329,7 @@ public class CRSApplication {
 	 * values.remove("registrationTypeID"); rt.setMappedValues(values);
 	 * 
 	 * return rt.persist(); } else return false; } catch (Exception e) {
-	 * e.printStackTrace(); return false; } }
+	 * log.error(e, e); return false; } }
 	 */
 	public int createRegistrationType(int cID, String type) {
 		try {
@@ -339,7 +339,7 @@ public class CRSApplication {
 			rt.insert();
 			return rt.getRegistrationTypeID();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
@@ -384,7 +384,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -564,7 +564,6 @@ public class CRSApplication {
 				return false;
 		} catch (Exception e) {
 			log.error("Failed to save merchandise", e);
-			e.printStackTrace();
 			return false;
 		}
 	}
@@ -603,7 +602,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -724,7 +723,7 @@ public class CRSApplication {
 			} else
 				return null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -753,7 +752,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -823,7 +822,7 @@ public class CRSApplication {
 				return false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -852,7 +851,7 @@ public class CRSApplication {
 			boolean result = q.persist();
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -880,7 +879,7 @@ public class CRSApplication {
 				return false;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -911,7 +910,7 @@ public class CRSApplication {
 				return null;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -929,7 +928,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -1225,7 +1224,7 @@ public class CRSApplication {
 			
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -1266,7 +1265,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -1284,7 +1283,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -1365,7 +1364,7 @@ public class CRSApplication {
 			return listRegistrationPayments(registrationID, orderField,
 					orderDirection);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return new Vector();
 		}
 	}
@@ -1381,7 +1380,7 @@ public class CRSApplication {
 			return listRegistrationPaymentsWithSpouse(registrationID,
 					spouseRegistrationID, orderField, orderDirection);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return new Vector();
 		}
 	}
@@ -2279,7 +2278,7 @@ public class CRSApplication {
 			return credits;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		} finally
 		{
@@ -2576,7 +2575,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -2854,7 +2853,7 @@ public class CRSApplication {
 			}
 			return returnString.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return "";
 		}
 	}
@@ -2964,7 +2963,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -2984,7 +2983,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -3022,7 +3021,7 @@ public class CRSApplication {
 			} else
 				return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return false;
 		}
 	}

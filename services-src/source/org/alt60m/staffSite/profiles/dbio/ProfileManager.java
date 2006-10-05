@@ -343,7 +343,7 @@ public class ProfileManager {
             } catch (InvalidAccountNumberException e) {
                 throw e;
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e, e);
                 throw new ProfileManagementException(e.toString());
             }
             profileID.append(newProfileID);
@@ -458,7 +458,7 @@ public class ProfileManager {
 		}
 		catch (SecurityManagerFailedException e)
 		{
-			e.printStackTrace();
+			log.error(e, e);
 			throw new ProfileManagementException("Unable to authorize", e);
 		}
 		// Get profile

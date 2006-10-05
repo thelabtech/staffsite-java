@@ -3,10 +3,13 @@ package org.alt60m.crs.util;
 import org.alt60m.util.SendMessage;
 //import org.alt60m.crs.*;
 import org.alt60m.crs.model.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.text.SimpleDateFormat;
 
 public class EmailConfirm implements java.io.Serializable {
-
+	private static Log log = LogFactory.getLog(EmailConfirm.class);
 	private Conference conference;
 
 	private Payment payment;
@@ -54,7 +57,7 @@ public class EmailConfirm implements java.io.Serializable {
 					+ " pre-registration confirmation");
 			msg.setBody(body.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 
@@ -150,7 +153,7 @@ public class EmailConfirm implements java.io.Serializable {
 					+ " payment receipt");
 			msg.setBody(body.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 
@@ -158,7 +161,7 @@ public class EmailConfirm implements java.io.Serializable {
 		try {
 			msg.send();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 }

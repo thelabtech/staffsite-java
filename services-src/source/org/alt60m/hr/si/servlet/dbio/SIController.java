@@ -361,7 +361,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 
 		}catch(Exception e)
 		{
-			log.error(e.getMessage(), e);	
+			log.error(e, e);
 		}
 
 	}

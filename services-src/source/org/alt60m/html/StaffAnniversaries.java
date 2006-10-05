@@ -46,7 +46,7 @@ public class StaffAnniversaries implements java.io.Serializable {
 			theCampusFile		= new File(_pathToFile, p.getProperty("_anniv_c")).getAbsolutePath();
 			theCampusWeekFile	= new File(_pathToFile, p.getProperty("_anniv_c_w")).getAbsolutePath();
 		} catch (Exception e) {	    
-			e.printStackTrace();
+			log.error(e, e);
 		}
     }
 
@@ -190,11 +190,9 @@ public class StaffAnniversaries implements java.io.Serializable {
 		}
 		catch (IOException e){
 			log.error("IO:StaffAnniversariesError:",e);
-			e.printStackTrace();
 		}
 		catch (Exception e){
 			log.error("StaffAnniversariesError:",e);
-			e.printStackTrace();
 		}
 	}
 	

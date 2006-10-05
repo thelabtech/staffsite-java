@@ -1,7 +1,12 @@
 package  org.alt60m.html;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class CRSCustomQuestionHelper implements java.io.Serializable
 {
+	private static Log log = LogFactory.getLog(CRSCustomQuestionHelper.class);
+	
 	private String answerType = new String();
 	private String html = new String();
 	private String bgcolor = new String();
@@ -209,7 +214,7 @@ public class CRSCustomQuestionHelper implements java.io.Serializable
 		}
 		rowNum++;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 
 		}
 		return html;

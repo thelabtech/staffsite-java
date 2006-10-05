@@ -1113,8 +1113,7 @@ public class SIReference extends DBIOEntity {
 
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailRefInvite(): Exception=" + e);
-			e.printStackTrace();
+			log.error("sendEmailRefInvite()", e);
 			return false;
 		}
 	}
@@ -1147,8 +1146,7 @@ public class SIReference extends DBIOEntity {
 				return true;
 			}
 		} catch(Exception e) {
-			System.err.println("sendEmailRefComplete(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailRefComplete(): send email failed.", e);
 			return false;
 		}
 	}
@@ -1190,8 +1188,7 @@ public class SIReference extends DBIOEntity {
 			msg.send();
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailReminder(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailReminder(): send email failed.", e);
 			return false;
 		}
 	}
@@ -1216,8 +1213,7 @@ public class SIReference extends DBIOEntity {
 			msg.send();
 			return true;
 		} catch(Exception e) {
-			System.err.println("sendEmailThankYou(): send email failed.");
-			e.printStackTrace();
+			log.error("sendEmailThankYou(): send email failed.", e);
 			return false;
 		}
 	}

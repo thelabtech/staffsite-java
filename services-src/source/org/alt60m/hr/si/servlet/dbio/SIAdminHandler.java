@@ -198,7 +198,7 @@ public class SIAdminHandler {
 			ar.setView("listProjects");
 		} catch (Exception e) {
 			ar.putValue("ErrorMessage", "Internal Error saving STINT/Internship Location Info: " + e.getMessage());
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return ar;
 	}
@@ -213,7 +213,7 @@ public class SIAdminHandler {
 			if(debug) log.debug("******** SIAdminHandler.getRole(): role is: "+role);
 		} catch (Exception e) {
 			log.error("Exception encountered in SIAdminHandler.getRole(): "+e);
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return role;
 	}

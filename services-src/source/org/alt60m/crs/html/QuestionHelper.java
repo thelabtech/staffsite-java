@@ -1,8 +1,11 @@
 package org.alt60m.crs.html;
 
 import org.alt60m.html.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class QuestionHelper implements java.io.Serializable {
+	private static Log log = LogFactory.getLog(QuestionHelper.class);
 	private String answerType = new String();
 
 	private String html = new String();
@@ -261,7 +264,7 @@ public class QuestionHelper implements java.io.Serializable {
 			}
 			rowNum++;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 
 		}
 		return html;

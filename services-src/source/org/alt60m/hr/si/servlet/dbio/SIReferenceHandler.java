@@ -611,7 +611,6 @@ public class SIReferenceHandler {
 		catch(Exception e) {
 			String sErr = "Exception encountered in SIController.postRefFormSave(): "+e;
 			log.error(sErr, e);
-			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;
@@ -678,7 +677,6 @@ public class SIReferenceHandler {
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.refFormSubmit(): "+e;
 			log.error(sErr, e);
-			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;
@@ -708,7 +706,6 @@ public class SIReferenceHandler {
 		} catch(Exception e) {
 			String sErr = "Exception encountered in SIController.refFormFinishLater(): "+e;
 			log.error(sErr, e);
-			e.printStackTrace();
 			ar.putValue("ErrorString", sErr);
 			ar.setView("error");
 			return ar;

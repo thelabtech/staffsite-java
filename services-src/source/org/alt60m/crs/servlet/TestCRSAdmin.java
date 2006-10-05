@@ -28,7 +28,6 @@ public class TestCRSAdmin extends Controller {
 	//Created: 10/29/2002 DMB
 	//default error page handler
 	public void goToErrorPage(ActionContext ctx, Exception e, String methodName) {
-		e.printStackTrace();
 		ActionResults ar = new ActionResults();
 		String exceptionText = e + "<BR>\n"; //+ e.getStackTrace()[0];
 		//for(int i=1; !e.getStackTrace()[i].toString().startsWith("sun"); i++)

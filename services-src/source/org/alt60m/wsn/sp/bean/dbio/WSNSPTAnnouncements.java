@@ -3,9 +3,13 @@ package org.alt60m.wsn.sp.bean.dbio;
 import java.util.*;
 import org.alt60m.util.*;
 import org.alt60m.cms.model.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class WSNSPTAnnouncements implements java.io.Serializable {
 
+	private static Log log = LogFactory.getLog(WSNSPTAnnouncements.class);
+	
 	String titleFont = "<FONT FACE=\"Arial\" SIZE=\"3\" COLOR=\"#336699\">";
 	String dateFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#00000\">";
 	String authorFont = "<FONT FACE=\"Arial\" SIZE=\"2\" COLOR=\"#336699\">";
@@ -56,7 +60,8 @@ public class WSNSPTAnnouncements implements java.io.Serializable {
 			}
 		} catch (Exception e) {
 			// should handle better!
-			e.printStackTrace();
+
+            log.error(e, e);
 		}
 		return stringBuffer;
 	}

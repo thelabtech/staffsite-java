@@ -46,7 +46,7 @@ public class Birthdays implements java.io.Serializable {
 			theCampusFile		= new File(_pathToFile, p.getProperty("_birthdays_c")).getAbsolutePath();
 			theCampusWeekFile	= new File(_pathToFile, p.getProperty("_birthdays_c_w")).getAbsolutePath();
 		} catch (Exception e) {	    
-			e.printStackTrace();
+			log.error(e, e);
 		}
     }
 

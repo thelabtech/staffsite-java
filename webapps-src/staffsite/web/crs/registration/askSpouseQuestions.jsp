@@ -1,5 +1,7 @@
 <%@ page
 	import="org.alt60m.servlet.*, org.alt60m.util.ArrayHelper, org.alt60m.crs.model.*"%>
+<%@page import="org.apache.commons.logging.LogFactory"%>
+<%@page import="org.apache.commons.logging.Log"%>
 <jsp:useBean
 	id="selState"
 	class="org.alt60m.html.SelectState"
@@ -9,6 +11,7 @@
 	class="org.alt60m.html.SelectYearInSchool"
 	scope="request" />
 <%
+Log log = LogFactory.getLog("org.alt60m.jsp.crs.registration.askSpouseQuestions");
 try{
 	ActionResults ar = ActionResults.getActionResults(session);
 	Registration registration = (Registration)ar.getObject("registration");
@@ -181,7 +184,7 @@ otherOptionsMenu.setActives(new boolean[]{
 <%@ include file="/crs/e_user_footer.jspf"%>
 <%
 } catch (Exception e) {
-	e.printStackTrace();
-	throw new Exception(e);
+	log.error(e, e);
+	throw e;
 }
 %>

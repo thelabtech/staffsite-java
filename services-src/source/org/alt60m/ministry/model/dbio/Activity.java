@@ -9,6 +9,8 @@ import java.util.*;
 
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.Status;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Activity extends DBIOEntity {
 
@@ -39,6 +41,8 @@ public class Activity extends DBIOEntity {
 	private Strategy strategy;
 
 	private String transUsername = "";
+
+	private static Log log = LogFactory.getLog(Activity.class);
 
 	public boolean isPKEmpty() {
 		return activityId.equals("");
@@ -113,7 +117,7 @@ public class Activity extends DBIOEntity {
 		try {
 			this.periodEnd = dateFormat.parse(periodEnd);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 
@@ -121,7 +125,7 @@ public class Activity extends DBIOEntity {
 		try {
 			this.periodBegin = dateFormat.parse(periodBegin);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 

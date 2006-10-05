@@ -58,7 +58,7 @@ public class Occasions implements java.io.Serializable {
 			theFullAnnivWeekFile	= new File(_pathToFile, p.getProperty("_anniv_w")).getAbsolutePath();
 			theCampusAnnivWeekFile	= new File(_pathToFile, p.getProperty("_anniv_c_w")).getAbsolutePath();
 		} catch (Exception e) {	    
-			e.printStackTrace();
+			log.error(e, e);
 		}
     }
 

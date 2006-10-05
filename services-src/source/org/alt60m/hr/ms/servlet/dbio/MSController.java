@@ -66,7 +66,6 @@ public class MSController extends org.alt60m.servlet.Controller {
 		}
 		catch (Exception e) {
 			log.error(e);
-			e.printStackTrace();
 		}
 	}
 
@@ -88,7 +87,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			appFormEdit(ctx);
 		}catch(Exception e)
 		{
-			e.printStackTrace();	
+			log.error(e, e);	
 		}
 	}
 
@@ -188,7 +187,6 @@ public class MSController extends org.alt60m.servlet.Controller {
 			ctx.goToView(page);
 		} catch(Exception e) {
 			log.error("Exception encountered in MSController.save():", e);
-			e.printStackTrace();
 			goToErrorPage(ctx, EXCEPTION_DURING_SAVE);
 		}
 	}
@@ -612,8 +610,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			}
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.appFormSave(): "+e;
-			log.error(sErr);
-			e.printStackTrace();
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -673,8 +670,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			ctx.goToView(page);
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.appFormRefDelCreateBlnk(): "+e;
-			log.error(sErr);
-			e.printStackTrace();
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -879,8 +875,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			ctx.goToView(page);
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.appFormRefResendEmailInvite(): "+e;
-			log.error(sErr);
-			e.printStackTrace();
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -1154,8 +1149,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			ctx.goToView(page);
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.refFormEncEdit(): "+e;
-			log.error(sErr);
-			e.printStackTrace();
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -1302,7 +1296,6 @@ public class MSController extends org.alt60m.servlet.Controller {
 
 		catch(Exception e) {
 			log.error("Exception encountered in MSController.refFormSave()", e);
-			e.printStackTrace();
 			goToErrorPage(ctx, EXCEPTION_DURING_SAVE);
 		}
 	}
@@ -1651,7 +1644,6 @@ public class MSController extends org.alt60m.servlet.Controller {
         catch (Exception e) {
 			String sErr = "Exception encountered in MSController.getStaffList(): "+e;
 			log.error(sErr, e);
-			e.printStackTrace();
 			goToErrorPage(ctx, sErr);
 		}
 
@@ -1741,8 +1733,7 @@ public class MSController extends org.alt60m.servlet.Controller {
 			ctx.goToView(nextParm);
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.evalFormEdit(): "+e;
-            e.printStackTrace();
-			log.error(sErr);
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -1756,8 +1747,7 @@ public void evalFormEditBottom(ActionContext ctx) {
 			ctx.goToView(page);
 		} catch(Exception e) {
 			String sErr = "Exception encountered in MSController.evalFormEditBottom(): "+e;
-            e.printStackTrace();
-			log.error(sErr);
+			log.error(sErr, e);
 			goToErrorPage(ctx, sErr);
 		}
 	}
@@ -1863,8 +1853,7 @@ public void evalFormEditBottom(ActionContext ctx) {
             evalFormEdit(ctx); //pass off controll to evalFormEdit
         }
         catch(Exception e) {
-            log.error("Exception encountered in MSController.evalFormSave(): "+e);
-            e.printStackTrace();
+            log.error("Exception encountered in MSController.evalFormSave(): "+e, e);
             goToErrorPage(ctx, EXCEPTION_DURING_SAVE);
         }
     }

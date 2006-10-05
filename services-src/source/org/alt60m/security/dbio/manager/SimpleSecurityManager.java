@@ -167,7 +167,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			return users.toStringArray();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			throw new SecurityManagerFailedException(e);
 		}
 	}
@@ -192,7 +192,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			}
 			return users.toStringArray();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			throw new SecurityManagerFailedException(e);
 		}
 	}
@@ -231,7 +231,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	// } catch (UserAlreadyExistsException uaee) {
 	// throw uaee;
 	// } catch (Exception e) {
-	// e.printStackTrace();
+	// log.error(e, e);
 	// throw new SecurityManagerFailedException(e);
 	// }
 	// }
@@ -260,7 +260,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		} catch (UserAlreadyExistsException uaee) {
 			throw uaee;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			throw new SecurityManagerFailedException(e);
 		}
 	}

@@ -44,7 +44,7 @@ public class CatPathMaker {
 			}
 
 		} catch (java.lang.Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}	 
 
 	}

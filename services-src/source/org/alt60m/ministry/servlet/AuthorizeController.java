@@ -46,7 +46,7 @@ public class AuthorizeController extends Controller {
 	    ctx.setReturnValue(ar);
 	    ctx.goToView("pendingRequests");
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    log.error(e, e);
 	    ActionResults ar =  new ActionResults();
 	    ar.putValue("exceptionText", "AuthorizeController:showPage:" + e.toString());
 	    ctx.setReturnValue(ar);
@@ -159,7 +159,7 @@ public class AuthorizeController extends Controller {
 	    ctx.setReturnValue(ar);
 	    ctx.goToView("request");
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    log.error(e, e);
 	    ActionResults ar =  new ActionResults();
 	    ar.putValue("exceptionText", "AuthorizeController:viewChangeRequest:"+e.toString());
 	    ctx.setReturnValue(ar);

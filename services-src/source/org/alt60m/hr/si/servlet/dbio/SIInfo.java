@@ -2,6 +2,9 @@ package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.hr.si.model.dbio.*;
 import org.alt60m.util.ObjectHashUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -10,6 +13,7 @@ import java.util.*;
 
 
 public class SIInfo {
+	private static Log log = LogFactory.getLog(SIInfo.class);
 	/***** Storage Functions *****/
 	/*
 	public String saveApplication(Hashtable formData, String applicationID) {
@@ -26,7 +30,7 @@ public class SIInfo {
 			applicationID = (new Integer(application.getApplicationID())).toString();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return applicationID;
 	}
@@ -63,8 +67,7 @@ public class SIInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -81,8 +84,7 @@ public class SIInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -98,9 +100,7 @@ public class SIInfo {
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
-		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+		} catch (Exception e) {log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -117,8 +117,7 @@ public class SIInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -135,8 +134,7 @@ public class SIInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -153,8 +151,7 @@ public class SIInfo {
 			obj.persist();
 			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
-			System.err.println("e=" + e);
-			e.printStackTrace();
+			log.error(e, e);
 			objHash = null;
 		}
 		return objHash;
@@ -173,7 +170,7 @@ public class SIInfo {
 			} else return new Hashtable();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}*/

@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import org.alt60m.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class InfoBaseQueries {
-	
+	private static Log log = LogFactory.getLog(InfoBaseController.class);
 	public static Vector getLocalLevelTeamsByRegion(String region) {
 		LocalLevel ll = new LocalLevel();
 		Vector v = ll.selectList("region = '" + region + "' AND isActive = 'T' ORDER BY name");
@@ -68,7 +70,7 @@ public class InfoBaseQueries {
 		try {
 			return org.alt60m.util.ObjectHashUtil.list(listStaffByRegion(region));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -79,7 +81,7 @@ public class InfoBaseQueries {
 			Staff s = new Staff();
 			return (Collection<Staff>) s.selectList("region = '" + region.toUpperCase() + "' AND (removedFromPeopleSoft='N') ORDER BY lastName");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -89,7 +91,7 @@ public class InfoBaseQueries {
 			Staff s = new Staff();
 			return org.alt60m.util.ObjectHashUtil.list(s.selectList("UPPER(lastName) like '" + lastName.toUpperCase() + "%' AND (removedFromPeopleSoft='N') ORDER BY lastName, firstName"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}	
@@ -139,7 +141,7 @@ public class InfoBaseQueries {
 			String qry = "SELECT count(*) from ministry_activity WHERE status in ('AC', 'PI', 'KE', 'LA', 'TR')";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
@@ -149,7 +151,7 @@ public class InfoBaseQueries {
 			String qry = "SELECT count(*) from ministry_activity WHERE status in ('AC', 'LA', 'TR')";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}
@@ -159,7 +161,7 @@ public class InfoBaseQueries {
 			String qry = "SELECT count(*) from ministry_activity WHERE periodBegin > '" + org.alt60m.util.DateUtils.toSQLDate(since) + "'";
 			return org.alt60m.util.ObjectHashUtil.countIt(act, qry);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return 0;
 		}
 	}

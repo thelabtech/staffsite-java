@@ -24,7 +24,6 @@ public class Formatter implements java.io.Serializable {
 	boolean _selectDisabled;
 
     public Formatter() {
-		try{
 			// Date Format defaults
 			_dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			_noDate = "No Date";
@@ -46,9 +45,6 @@ public class Formatter implements java.io.Serializable {
 			_selectName = "";
 			_selectClass = "empty";
 			_selectDisabled = false;
-		} catch (Exception e) {
-			e.printStackTrace();
-        }
 	}
 
 

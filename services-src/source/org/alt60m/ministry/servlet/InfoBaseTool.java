@@ -412,7 +412,6 @@ public class InfoBaseTool {
 			return colTAs;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
 			log.error("Failed to perform getCampusList().  Offending query:" + query, e);
 			throw new Exception(e);
 		}
@@ -979,7 +978,7 @@ public class InfoBaseTool {
             }        
         }
         catch (ActivityExistsException aee) {
-        	log.error("Failed to perform saveEditActivity().", aee);
+        	log.warn("Failed to perform saveEditActivity().", aee);
  			throw aee;
         }
         catch (Exception e) {

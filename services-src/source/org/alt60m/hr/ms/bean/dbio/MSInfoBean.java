@@ -50,8 +50,7 @@ public class MSInfoBean implements java.io.Serializable
 			}
 			return objectHash;
 		} catch (Exception e) {
-			//log(Priority.ERROR, "Failed to perform getWsnApplicationHash(). ", e);
-			e.printStackTrace();
+			log.error("Failed to perform getWsnApplicationHash(). ", e);
 			return null;
 		}
 	}
@@ -71,8 +70,7 @@ public class MSInfoBean implements java.io.Serializable
 				log.debug("MSInfoBean.getWsnReferenceHash objectHash!=null, wsnreference FOUND!");
 			return objectHash;
 		} catch (Exception e) {
-			//log(Priority.ERROR, "Failed (). ", e);
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -172,7 +170,7 @@ public class MSInfoBean implements java.io.Serializable
 			objectHash = info.getObjectHash(WsnProjectClassName, WsnProjectID);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return objectHash;
@@ -213,7 +211,7 @@ public class MSInfoBean implements java.io.Serializable
 		try {
 			return info.getParticipants(projectID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -222,7 +220,7 @@ public class MSInfoBean implements java.io.Serializable
 		try {
 			return info.getProjectCoordinator(projectID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -230,7 +228,7 @@ public class MSInfoBean implements java.io.Serializable
 		try {
 			return info.getProjectDirector(projectID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -238,7 +236,7 @@ public class MSInfoBean implements java.io.Serializable
 		try {
 			return info.getAssosciateProjectDirector(projectID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}

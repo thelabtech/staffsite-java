@@ -205,4 +205,9 @@ document.appForm.action.value="postAppHome";
 </FORM>
 <small>P=<%=p.getSIPersonID()%> A=<%=AppID%></small>
 <%@ include file="/hr_si/siMainFooter.jspf" %>
-<%}catch(Exception e){e.printStackTrace();}%>
+<%}
+catch (Exception e)
+{
+	e.printStackTrace();
+	throw e;
+}%>

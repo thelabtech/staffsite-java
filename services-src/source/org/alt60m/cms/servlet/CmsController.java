@@ -240,7 +240,6 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			e.printStackTrace();
 			log.error("Failed to perform browse() action.", e);
 		}
 	}
@@ -596,7 +595,7 @@ public class CmsController extends Controller {
 			ctx.setReturnValue(tub);
 			ctx.goToView("fileTypeNotSupported");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 	}
@@ -707,7 +706,6 @@ public class CmsController extends Controller {
 			ctx.setError();
 			ctx.goToErrorView();
 			log.error("Failed to perform moderate action.", e);
-			e.printStackTrace();
 		}
 
 	}
@@ -879,7 +877,6 @@ public class CmsController extends Controller {
 		} catch (Exception e) {
 			ctx.setError();
 			ctx.goToErrorView();
-			e.printStackTrace();
 			log.error("Failed to perform fileInfo action.", e);
 		}
 	}
@@ -986,8 +983,8 @@ public class CmsController extends Controller {
 				}
 				coChild.persist();
 
-			} catch (java.lang.Exception e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				log.error(e, e);
 			}
 			Hashtable tub = new Hashtable();
 			tub.put("View", "/servlet/CmsController?action=browse&catId=" + ctx.getInputString("catId"));
@@ -1109,7 +1106,7 @@ public class CmsController extends Controller {
 					fo.setLastAccessed(new java.sql.Date(new Date().getTime()));
 					fo.persist();
 				} catch (java.lang.Exception e) {
-					e.printStackTrace();
+					log.error(e, e);
 				}
 
 				response.sendRedirect(Url);
@@ -1148,7 +1145,7 @@ public class CmsController extends Controller {
 					fo.setLastAccessed(new java.sql.Date(new Date().getTime()));
 					fo.persist();
 				} catch (java.lang.Exception e) {
-					e.printStackTrace();
+					log.error(e, e);
 				}
 
 				ar.putValue("url", Url);

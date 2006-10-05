@@ -147,8 +147,7 @@ public class CASURLConnection {
 			}
 		}
 		catch (Exception e) {
-			System.err.println("Error:" + e);
-			e.printStackTrace();
+			log.error(e, e);
 		}
 	}
 	

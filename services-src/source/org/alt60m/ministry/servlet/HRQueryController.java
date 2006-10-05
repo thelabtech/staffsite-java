@@ -73,7 +73,7 @@ public class HRQueryController extends Controller {
 				results.put(values[i]==null?"":values[i], values[i]==null?"":values[i]);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return results;
 	}
@@ -87,7 +87,7 @@ public class HRQueryController extends Controller {
 				results.add(values[i]);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return results;
 	}
