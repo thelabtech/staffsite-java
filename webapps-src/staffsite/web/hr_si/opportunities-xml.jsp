@@ -14,8 +14,18 @@ private String projectsInfoXML(Collection projects, String title) {
 			returnString += "\n<projectList id=\""+title+"\">";
 			while (itr.hasNext()) {
 				Hashtable project = (Hashtable)itr.next();
-				project.put("StudentStartDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentStartDate")).toString());
-				project.put("StudentEndDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentEndDate")).toString());
+				if (project.get("StudentStartDate") == null)
+				{
+					project.put("StudentStartDate", "Unavailable");
+				} else {
+					project.put("StudentStartDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentStartDate")).toString());
+				}
+				if (project.get("StudentEndDate") == null)
+				{
+					project.put("StudentEndDate", "Unavailable");
+				} else {
+					project.put("StudentEndDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentEndDate")).toString());
+				}
 				returnString += "\n<project id=\""+Escape.textToXML(((Integer)project.get("SIProjectID")).toString())+"\" ";
 				returnString += "partner=\""+ Escape.textToXML((String)project.get("PartnershipRegion")) +"\">";
 				returnString += "\n\t<projectName>"+Escape.textToXML((String)project.get("Name"))+"</projectName>";

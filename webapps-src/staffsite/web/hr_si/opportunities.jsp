@@ -24,8 +24,18 @@ private String prettyPrintProjects(Collection projects, String title) {
 		returnString += "\n\t\t<td><font size=\"-1\">&nbsp;</font></td>\n\t</tr>";
 		while (itr.hasNext()) {
 			Hashtable project = (Hashtable)itr.next();
-			project.put("StudentStartDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentStartDate")).toString());
-			project.put("StudentEndDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentEndDate")).toString());
+			if (project.get("StudentStartDate") == null)
+			{
+				project.put("StudentStartDate", "Unavailable");
+			} else {
+				project.put("StudentStartDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentStartDate")).toString());
+			}
+			if (project.get("StudentEndDate") == null)
+			{
+				project.put("StudentEndDate", "Unavailable");
+			} else {
+				project.put("StudentEndDate", new SimpleDateFormat("MMM d yyyy").format(project.get("StudentEndDate")).toString());
+			}
 			returnString += "\n\t<tr>\n\t\t<td><div style=\"text-align:left;\"><font size=\"-1\"><nobr><a href=\"/hr_si/info.jsp?SIProjectID="+project.get("SIProjectID")+"\" style=\"width: 100%\">"+project.get("DisplayLocation")+"</a></nobr></font></div></td>";
 			returnString += "\n\t\t<td><div style=\"text-align:right;\"><font size=\"-1\"><nobr>"+project.get("StudentStartDate")+"</nobr></font></div></td>";
 			returnString += "\n\t\t<td><div style=\"text-align:center;\"><font size=\"-1\"><nobr>-</nobr></font></div></td>";
