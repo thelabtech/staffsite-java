@@ -110,7 +110,8 @@ function doSubmit() {
 		</FORM>
 <%
 	if(state!=null && !state.equals("")) {
-		String url = "http://" + request.getServerName() + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
+		String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "https://" : "http://") + request.getServerName() + ":" + request.getServerPort();
+		String url = serverName  + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
 
 		URL xmlUrl = new URL(url);
 		Source xsl = new StreamSource(this.getServletConfig().getServletContext().getRealPath("/hr_ms/campuslist.xsl"));
