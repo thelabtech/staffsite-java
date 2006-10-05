@@ -21,7 +21,7 @@ public class SIInfoBean implements Serializable {
 	private static Log log = LogFactory.getLog(SIInfoBean.class);
 	/**
 	 * returns person object with given ssmid.
-	 * returns null if person not found.
+	 * creates and returns a new person object if the person is not found.
 	 * 
 	 * @param userId
 	 * @param emailAddr
@@ -32,14 +32,14 @@ public class SIInfoBean implements Serializable {
 		try {
 			String SIPersonID = getPersonIDBySSM(userId);
 			if ("".equals(SIPersonID) || SIPersonID == null) {
-				//then the object doesn't exist so freak out!
-				throw new RuntimeException("The code shouldn't get here.");
+				int userIdInt = Integer.parseInt(userId);
+				p = SIUtil.createPerson(userIdInt);
 			} else {
 				p = (SIPerson) SIUtil.getObject(SIPersonID, "SIPersonID", org.alt60m.hr.si.servlet.dbio.SIAppHandler.PERSONCLASS);
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return p;
@@ -65,7 +65,7 @@ public class SIInfoBean implements Serializable {
 				a = (SIApplication) SIUtil.getObject(appID, "ApplicationID", org.alt60m.hr.si.servlet.dbio.SIAppHandler.APPLICATIONCLASS);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return a;
@@ -124,7 +124,7 @@ public class SIInfoBean implements Serializable {
 			objectHash = SIUtil.getObjectHash(SIProjectID, "SIProjectID", SIProjectHandler.PROJECTCLASS);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return objectHash;
@@ -178,7 +178,7 @@ public class SIInfoBean implements Serializable {
 			*/
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		objectHash.put("fk_ssmUserID", userId);
@@ -226,7 +226,7 @@ public class SIInfoBean implements Serializable {
 			*/
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return objectHash;
@@ -286,7 +286,7 @@ public class SIInfoBean implements Serializable {
 			//objectHash.put("PersonID", personID); need this?
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 
 		return objectHash;
@@ -338,7 +338,7 @@ public class SIInfoBean implements Serializable {
 				return null;
 			objectHash = SIUtil.getObjectHash(SIReferenceID, "ReferenceID", "org.alt60m.hr.si.model.dbio.SIReference");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 		return objectHash;
@@ -358,7 +358,7 @@ public class SIInfoBean implements Serializable {
 			}
 			return getSIReference(SIReferenceID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 			return null;
 		}
 	}
@@ -392,7 +392,7 @@ public class SIInfoBean implements Serializable {
 		try {
 			r = (SIReference) SIUtil.getSIReference(refID);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e, e);
 		}
 		return r;
 	}
