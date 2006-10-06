@@ -57,10 +57,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			ctx.setReturnValue(ar);
 			if (url != null && !url.equals("")) 
 				ctx.goToURL(url);
-			else 
-				ctx.goToView(page);
+			else {
+				if (page != null && !page.equals("")) {
+					ctx.goToView(page);
+				} else {
+					log.warn("No url or page specified");
+					ctx.goToErrorView();
+				}
+			}
 		} catch (Exception e) {
-			log.error(e.toString(),e);
+			log.error(e, e);
 		}
 	}
 
