@@ -1791,5 +1791,27 @@ public class StaffController extends Controller {
 		ConnexionBar.clearCache();
 	}
 	
+	
+	public static void recordLocation(HttpServletRequest request) {
+		//The following is done to make this work on both Tomcat 4 and Tomcat 5.5
+		StringBuffer location;
+		//in Tomcat 5.5, the following gets what we want (but is only part of servlet spec 2.4):
+		String locationStr = (String) request.getAttribute("javax.servlet.forward.request_uri");
+		if (locationStr == null)
+			// in Tomcat 4 this works (in Tomcat 5, this will return the path to this jsp; not what we want):
+			location = request.getRequestURL();	
+		else
+			location = new StringBuffer(locationStr);
+		
+		//same reasoning as above
+		String queryString = (String) request.getAttribute("javax.servlet.forward.query_string");
+		if (queryString == null)
+			queryString = request.getQueryString();
+		if (queryString != null)
+			location.append('?').append(queryString);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("onLogInGoto", location.toString());
+	}
 }
 

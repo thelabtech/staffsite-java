@@ -6,6 +6,7 @@ import org.alt60m.cms.model.Category;
 import org.alt60m.cms.model.FileCategory;
 import org.alt60m.cms.util.*;
 import org.alt60m.servlet.*;
+import org.alt60m.staffSite.servlet.StaffController;
 import org.alt60m.util.ObjectHashUtil;
 import org.apache.log4j.*;
 import javax.servlet.*;
@@ -172,8 +173,10 @@ public class CmsController extends Controller {
 		try {
 			String catId = ctx.getInputString("catId");
 			Hashtable profile = (Hashtable) ctx.getSessionValue("profile");
-			if ((profile == null) && ((ctx.getSession() == null) || ctx.getSession().isNew() || (ctx.getSessionValue("loggedIn") == null))) {
-				ctx.goToURL("/login.jsp");
+			if ((profile == null) && ((ctx.getSession() == null) || (ctx.getSessionValue("loggedIn") == null))) {
+
+				StaffController.recordLocation(ctx.getRequest());
+				ctx.getResponse().sendRedirect("/servlet/StaffController");
 			} else if (catId == null || catId.equals("0")) {
 				home(ctx);
 			} else {
