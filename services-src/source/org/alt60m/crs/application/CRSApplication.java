@@ -471,9 +471,15 @@ public class CRSApplication {
 				MerchandiseChoice mc = new MerchandiseChoice();
 				mc.setMerchandiseID(m.getMerchandiseID());
 				mc.delete();  /* something wrong here */
-/*				ERR:DBIO.tableDelete: Aborting delete because no key specified.
-				ERR:Error during DBIOEntity.delete: system.dbio.aborteddeletenokeys
-				com.kenburcham.framework.dbio.DBIOException: system.dbio.aborteddeletenokeys*/
+				/* ERR:DBIO.tableDelete: Aborting delete because no key specified.
+				 * ERR:Error during DBIOEntity.delete: system.dbio.aborteddeletenokeys
+				 * com.kenburcham.framework.dbio.DBIOException: system.dbio.aborteddeletenokeys
+				 */
+				/* this error happens because MerchandiseChoice doesn't have the 
+				 * foreign key for Merchandise set to "KEY" in the localinit().
+				 * And for the moment we can't set that because DBIO doesn't handle tables
+				 * with all "KEY" types at the moment.  ~JCS 10/9/2006
+				 */
 				m.delete();
 			}
 
