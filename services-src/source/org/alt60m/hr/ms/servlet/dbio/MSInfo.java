@@ -818,45 +818,7 @@ public class MSInfo {
 		}
 	}
 
-	// 2/5/2003 AS Looks up a list of possible staff members for the application reference page
-	public Collection getReferenceFindStaff(String firstName, String preferredName, String lastName, String city, String state) {
-		Vector v = new Vector();
-		Collection c = v;
-		log.debug("info.getReferenceFindStaff(first=" + firstName + ", pref=" + preferredName + ", last=" + lastName + ", city=" + city + ", state=" + state + ")");
 
-		try {
-			if (lastName == null || "".equals(lastName)) {
-				return c;
-			}
-			// if either name has an apostrophe in it, change to '' instead.
-			firstName = doubleApostrophe(firstName, 0);
-			preferredName = doubleApostrophe(preferredName, 0);
-			lastName = doubleApostrophe(lastName, 0);
-			city = doubleApostrophe(city, 0);
-
-			// find matching staff, but be sure to exclude "secure" staff (those in closed countries)
-			// also exclude people removed from peoplesoft (old records) to avoid duplicates like before marriage
-			// This should be working the same as the FindStaff on the Payment pages.
-			Staff staff = new Staff();
-			Iterator staffiter = staff.selectList("isSecure <> 'T' AND removedFromPeopleSoft<>'Y' AND firstname like '" + firstName + "%' AND lastname like '" + lastName + "%' AND preferredname like '" + preferredName + "%' ORDER BY lastname").iterator();
-			while (staffiter.hasNext()) {
-				staff = (Staff) staffiter.next();
-				if (staff.getPrimaryAddress() != null) {
-					OldAddress address = staff.getPrimaryAddress();
-					if (address.getCity().startsWith(city) && address.getState().startsWith(state)) {
-						Hashtable staffHash = ObjectHashUtil.obj2hash(staff);
-						staffHash.put("City", address.getCity());
-						staffHash.put("State", address.getState());
-						c.add(staffHash);
-					}
-				}
-			}
-			return c;
-		} catch (Exception e) {
-			log.error(e);
-			return null;
-		}
-	}
 
 	// added dc 10/30/02 - looks up a staff person, and returns their info for loading into a reference
 	public Hashtable getReferenceStaffMember(String staffNo) {

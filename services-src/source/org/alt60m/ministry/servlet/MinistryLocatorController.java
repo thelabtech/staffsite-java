@@ -44,6 +44,8 @@ public class MinistryLocatorController extends Controller {
 		}
    }
 	
+   private StaffInfo info = new StaffInfo();
+   
 
 	public void outputCampusList (HttpServletResponse res, String searchBy, String searchText, String searchState, boolean showAllCampuses) throws Exception {
 		MinistryLocatorInfo mlInfo = new MinistryLocatorInfo();
@@ -265,5 +267,65 @@ public class MinistryLocatorController extends Controller {
         } catch (Exception e) {
 			log.error("Failed to perform ministryInfo().", e);
 		}
+	}
+	
+
+	/*
+	 * Added 2003-01-27 DC
+	 * Used to look up a list of matching staff from the staffList.JSP file for the stint
+	 * app tool.
+	 */
+	public void getStaffList(ActionContext ctx) {
+		log.trace("In getStaffList()");
+        try {
+       		String firstName = ctx.getInputString("firstName");
+			String preferredName = ctx.getInputString("preferredName");
+      		String lastName = ctx.getInputString("lastName");
+       		String city = ctx.getInputString("city");
+       		String state = ctx.getInputString("state");
+       		String reftype = ctx.getInputString("reftype");
+			log.debug("first=" + firstName + "pref=" + preferredName + ", last=" + lastName +", city=" + city + ", state=" +state+")");
+			outputStaffList(ctx.getResponse(), firstName, preferredName, lastName, city, state, reftype);
+        }
+        catch (Exception e) {
+			String sErr = "Exception encountered in MinistryLocatorController.getStaffList(): "+e;
+			log.error(sErr, e);
+			ctx.goToErrorView();
+		}
+	}
+
+	public void outputStaffList (javax.servlet.http.HttpServletResponse res, String firstName, String preferredName, String lastName, String city, String state, String reftype) throws Exception
+	{
+		Collection staffs = info.getReferenceFindStaff(firstName, preferredName, lastName, city, state);
+		if (staffs == null) {
+			// nothing found, or not enough criteria specified
+			return;
+		}
+		Iterator staffList = staffs.iterator();
+		res.setContentType( "text/xml" );
+		java.io.PrintWriter out = res.getWriter();
+		out.println("<staffList>");
+
+		while(staffList.hasNext()) {
+			Hashtable h = (Hashtable)staffList.next();
+			String newAccountNo = (String)h.get("AccountNo");
+			String newFirst = (String)h.get("FirstName");
+			String newPref = (String)h.get("PreferredName");
+			String newLast = (String)h.get("LastName");
+			String newCity = (String)h.get("City");
+			String newState = (String)h.get("State");
+			log.debug("name="+ newFirst+"account="+newAccountNo);
+			out.println("<staff " +
+				"account=\"" + ((newAccountNo != null) ? org.alt60m.util.Escape.textToXML(newAccountNo) : "") + 
+				"\" first=\"" +	((newFirst != null) ? org.alt60m.util.Escape.textToXML(newFirst) : "") + 
+				"\" pref=\"" +	((newPref != null) ? org.alt60m.util.Escape.textToXML(newPref) : "") + 
+				"\" last=\"" + ((newLast != null) ? org.alt60m.util.Escape.textToXML(newLast) : "") +
+				"\" city=\"" + ((newCity != null) ? org.alt60m.util.Escape.textToXML(newCity) : "") +
+				"\" state=\"" + ((newState != null) ? org.alt60m.util.Escape.textToXML(newState) : "") +
+				"\" reftype=\"" + reftype +
+				"\" />");
+		}
+		out.println("</staffList>");
+		out.flush();
 	}
 }

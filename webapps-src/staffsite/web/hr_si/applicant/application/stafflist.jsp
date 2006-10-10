@@ -193,7 +193,9 @@ function updateReference(refType, accountNo) {
 			</form>
 <%
 	if(!lastName.equals("")) {
-		String url = "http://" + request.getServerName() + "/servlet/MSController?action=getStaffList&"+
+		boolean production = (request.getServerName().endsWith("staff.campuscrusadeforchrist.com"));
+		String serverName = (production ? "https://" : "http://") + request.getServerName() + (production ? "" : ":" + request.getServerPort());
+		String url = serverName + "/servlet/MinistryLocatorController?action=getStaffList&"+
 			"&firstName="+firstName+"&preferredName="+preferredName+"&lastName="+lastName+"&city="+city+"&state="+state+"&reftype="+refType;
 		URL xmlUrl = new URL(url);
 		Source xsl = new StreamSource(this.getServletConfig().getServletContext().getRealPath("/hr_ms/applicant/application/stafflist.xsl"));
