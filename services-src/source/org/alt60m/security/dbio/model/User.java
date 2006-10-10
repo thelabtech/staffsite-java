@@ -105,7 +105,7 @@ public class User extends DBIOEntity {
 		}
 
 	public void setLastLogin(Date lastLogin){
-			this.lastLogin = org.alt60m.util.DateUtils.clearTimeFromDate(lastLogin);
+			this.lastLogin = lastLogin;
 		}
 
     public Date getCreatedOn(){
@@ -113,7 +113,7 @@ public class User extends DBIOEntity {
         }
 
     public void setCreatedOn(Date createdOn){
-            this.createdOn = org.alt60m.util.DateUtils.clearTimeFromDate(createdOn);
+            this.createdOn = createdOn;
         }
 
 	public boolean getEmailVerified(){
