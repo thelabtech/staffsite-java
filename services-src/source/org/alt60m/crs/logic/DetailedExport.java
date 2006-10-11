@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Vector;
 
 import org.alt60m.crs.logic.Export.Table;
@@ -92,30 +94,33 @@ public class DetailedExport {
 
 			tableName = "Registrants";
 			log.debug("Getting data for table: " + tableName);
+			String query = 					"SELECT crs_registration.registrationID, ministry_person.personID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType,"
+				+ " crs_registration.preRegistered, curr.email, ministry_person.dateCreated,"
+				+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date, ministry_person.graduation_date,"
+				+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1,"
+				+ " curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country,"
+				+ " ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip,"
+				+ "  perm.city AS permanentCity, perm.address2 AS permanentAddress2, perm.address1 AS permanentAddress1,  perm.state AS permanentState,"
+				+ " perm.homePhone AS permanentPhone, ministry_person.accountNo, crs_registration.additionalRooms, crs_registration.leaveDate,"
+				+ " crs_registration.arriveDate, ministry_person.fk_spouseID AS spouseID, crs_registration.spouseComing,"
+				+ " crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite,"
+				+ " DERIVEDTBL.numberOfKids, 0 as AttendanceFlag, true as NameTagNeedsPrinting, false as Staff, false as SpecialCase, '' as SpecialCaseInfo," 
+				+ " false as GivenKey, 0 as RoomNumber, false as `Walk-In`, false as WSNGive, 0 as WSNAmount, '' as WSNCode, 'N' as `Will you be staying at the hotel_`"
+				+ " FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID"
+				+ " INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID"
+				+ " INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID"
+				+ " INNER JOIN crs_registrationtype ON crs_registration.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID"
+				+ " LEFT OUTER JOIN (SELECT COUNT(*) AS numberOfKids, crs_registration.registrationID FROM crs_childregistration"
+				+ " INNER JOIN crs_registration ON crs_childregistration.fk_RegistrationID = crs_registration.registrationID"
+				+ " GROUP BY crs_childregistration.fk_RegistrationID, crs_registration.registrationID) DERIVEDTBL"
+				+ " ON  crs_registration.registrationID = DERIVEDTBL.registrationID"
+				+ " WHERE curr.addressType = 'current' AND perm.addressType = 'permanent'"
+				+ " AND crs_registration.fk_ConferenceID = "
+				+ conferenceID;
+			Collection<String> booleanColumns = Arrays.asList(
+					new String[]{"NameTagNeedsPrinting", "Staff", "SpecialCase", "GivenKey", "Walk-In", "WSNGive"});
 			exportTable(
-					tableName,
-					"SELECT crs_registration.registrationID, ministry_person.personID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType,"
-							+ " crs_registration.preRegistered, curr.email, ministry_person.dateCreated,"
-							+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date, ministry_person.graduation_date,"
-							+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1,"
-							+ " curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country,"
-							+ " ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip,"
-							+ "  perm.city AS permanentCity, perm.address2 AS permanentAddress2, perm.address1 AS permanentAddress1,  perm.state AS permanentState,"
-							+ " perm.homePhone AS permanentPhone, ministry_person.accountNo, crs_registration.additionalRooms, crs_registration.leaveDate,"
-							+ " crs_registration.arriveDate, ministry_person.fk_spouseID AS spouseID, crs_registration.spouseComing,"
-							+ " crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite,"
-							+ " DERIVEDTBL.numberOfKids"
-							+ " FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID"
-							+ " INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID"
-							+ " INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID"
-							+ " INNER JOIN crs_registrationtype ON crs_registration.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID"
-							+ " LEFT OUTER JOIN (SELECT COUNT(*) AS numberOfKids, crs_registration.registrationID FROM crs_childregistration"
-							+ " INNER JOIN crs_registration ON crs_childregistration.fk_RegistrationID = crs_registration.registrationID"
-							+ " GROUP BY crs_childregistration.fk_RegistrationID, crs_registration.registrationID) DERIVEDTBL"
-							+ " ON  crs_registration.registrationID = DERIVEDTBL.registrationID"
-							+ " WHERE curr.addressType = 'current' AND perm.addressType = 'permanent'"
-							+ " AND crs_registration.fk_ConferenceID = "
-							+ conferenceID);
+					tableName, query, booleanColumns);
 
 			tableName = "Payments";
 			log.debug("Getting data for table: " + tableName);
@@ -159,13 +164,22 @@ public class DetailedExport {
 
 	}
 
+	private void exportTable(String tableName, String query,
+			Collection<String> booleanColumns) throws SQLException {
+		log.debug("exporting data from query: " + query);
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery(query);
+
+		Table table = export.new Table(tableName, rs);
+		if (booleanColumns != null) {
+			table.setColumnsAsBoolean(booleanColumns);
+		}
+		export.add(table);
+	}
+
 	private void exportTable(String name, String sourceQuery)
 			throws SQLException {
-		log.debug("exporting data from query: " + sourceQuery);
-		Statement statement = connection.createStatement();
-		ResultSet rs = statement.executeQuery(sourceQuery);
-
-		export.add(export.new Table(name, rs));
+		exportTable(name, sourceQuery, null);
 	}
 
 	private String buildCustomAnswersQuery(RegistrationType regType)

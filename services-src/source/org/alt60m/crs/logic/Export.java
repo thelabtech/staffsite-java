@@ -2,6 +2,7 @@ package org.alt60m.crs.logic;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,8 @@ public class Export {
 		private String name;
 
 		private ResultSet data;
+
+		private Collection<String> booleanColumns = new ArrayList<String>();
 
 		public Table(String name, ResultSet data) {
 			this.name = name;
@@ -26,6 +29,19 @@ public class Export {
 			return name;
 		}
 
+		public boolean isColumnBoolean(String columnName) {
+			return booleanColumns.contains(columnName);
+		}
+
+		public void setColumnAsBoolean(String columnName) {
+			booleanColumns.add(columnName);
+		}
+
+		public void setColumnsAsBoolean(Collection<String> columnNames) {
+			if (columnNames != null) {
+				booleanColumns.addAll(columnNames);
+			}
+		}
 	}
 
 	private List<Table> tables = new ArrayList<Table>();

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import org.alt60m.crs.logic.Export.Table;
 import org.apache.commons.logging.Log;
@@ -64,7 +65,7 @@ public class AccessExportWriter implements ExportWriter {
 
 	public void write() throws IOException, SQLException {
 		if (export == null) {
-			throw new NullPointerException("Export has not been set!");
+			throw new IllegalStateException("Export has not been set!");
 		}
 
 		try {
@@ -154,15 +155,19 @@ public class AccessExportWriter implements ExportWriter {
 		boolean identityFound = false;
 
 		for (int i = 1; i <= count; i++) {
-			String columnName = toLegalColumnSyntax(rsmd.getColumnName(i));
+			String sourceColumnName = rsmd.getColumnName(i);
 			int type = rsmd.getColumnType(i);
+			if (table.isColumnBoolean(sourceColumnName)) {
+				type = Types.BOOLEAN;
+			}
+			String columnName = toLegalColumnSyntax(sourceColumnName);
 			switch (type) {
-			case -7: // boolean
+			case Types.BOOLEAN:
 				ddl.append(columnName).append(" BOOLEAN");
 				break;
-			case -5: // bigint?
-			case 5: // smallint
-			case 4: // int
+			case Types.BIGINT: 
+			case Types.SMALLINT: 
+			case Types.INTEGER: 
 				if (!identityFound) { // identity
 					identityFound = true;
 					ddl.append(columnName).append(" INTEGER PRIMARY KEY"); // Note:
@@ -177,20 +182,20 @@ public class AccessExportWriter implements ExportWriter {
 				} else
 					ddl.append(columnName).append(" INTEGER");
 				break;
-			case 1: // char
-			case 12: // varchar
-				if (rsmd.getColumnDisplaySize(i) < 256)
+			case Types.CHAR: 
+			case Types.VARCHAR:
+				if (rsmd.getColumnDisplaySize(i) < 250)
 					ddl.append(columnName).append(" VARCHAR(").append(
-							rsmd.getColumnDisplaySize(i)).append(")");
+							rsmd.getColumnDisplaySize(i) + 6).append(")");
 				else
 					ddl.append(columnName).append(" LONGVARCHAR");
 				break;
-			case 6: // float
-			case 8: // float
+			case Types.FLOAT: 
+			case Types.DOUBLE: 
 				ddl.append(columnName).append(" ").append(
 						rsmd.getColumnTypeName(i));
 				break;
-			case 93: // datetime
+			case Types.TIMESTAMP: 
 				ddl.append(columnName).append(" ").append("TIMESTAMP");
 				break;
 			default:

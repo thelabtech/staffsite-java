@@ -115,6 +115,7 @@ public class SimpleExport {
 
 	private void exportTable(String name, String sourceQuery)
 			throws SQLException {
+		log.debug("exportTable query: " + sourceQuery);
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(sourceQuery);
 
