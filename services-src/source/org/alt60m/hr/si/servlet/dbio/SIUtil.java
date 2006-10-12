@@ -1008,11 +1008,16 @@ public class SIUtil {
 		return p;
 	}
 
-	private static String getCampusRegionByName(String universityFullName) {
+	private static String getCampusRegionByName(String universityFullName, String universityState) {
 		TargetArea ta = new TargetArea();
 		ta.setName(universityFullName);
-		if (ta.select()) return ta.getRegion();
-		else return null;		
+		ta.setState(universityState);
+		try {
+			ta.select();
+			return ta.getRegion();
+		} catch (Exception e) { //likely because multiple campuses returned
+			 return null;
+		}		
 	}
 
 	/* Added 12 December 2002 by RDH */
@@ -1027,7 +1032,7 @@ public class SIUtil {
 		try {
 			String theRegion = "";
 			if ((universityFullName != null) && !(universityFullName.trim()).equals("")) {
-				theRegion = getCampusRegionByName(universityFullName);
+				theRegion = getCampusRegionByName(universityFullName, universityState);
 			}
 			if (((theRegion == null) || (theRegion.equals(""))) && (universityState != null) && !(universityState.trim()).equals("")) {
 				/* Okay, I know this isn't the best (i.e., most accurate) way to do this.
