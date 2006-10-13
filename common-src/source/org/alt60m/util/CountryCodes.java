@@ -22,7 +22,7 @@ public class CountryCodes
 			"Guadeloupe","GLP","Guam","GUM","Guatemala","GTM","Guinea","GIN","Guinea-Bissau","GNB","Guyana","GUY","Haiti","HTI",
 			"Heard and McDonald Islands","HMD","Honduras","HND","Hong Kong","HKG","Hungary","HUN","HZA","HZA","HZB","HZB","HZC","HZC",
 			"HZD","HZD","HZE","HZE","HZG","HZG","HZH","HZH","HZI","HZI","HZJ","HZJ","HZK","HZK","HZR","HZR","HZS","HZS",
-			"HZT","HZT","Iceland","ISL","India","IND","Indonesia","IDN","Ireland","IRL","Italy","ITA","Jamaica","JAM",
+			"Lebanon","HZT","Iceland","ISL","India","IND","Indonesia","IDN","Ireland","IRL","Italy","ITA","Jamaica","JAM",
 			"Japan","JPN","Jordan","JOR","Kazakhstan","KAZ","Kenya","KEN","Kiribati","KIR","Korea (South)","KOR","Kuwait","KWT",
 			"Kyrgyzstan","KGZ","Latin America","XLA","Latvia","LVA","Lesotho","LSO","Liberia","LBR","Liechtenstein","LIE",
 			"Lithuania","LTU","Luxembourg","LUX","Macau","MAC","Macedonia","MKD","Madagascar","MDG","Malawi","MWI",
