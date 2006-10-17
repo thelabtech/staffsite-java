@@ -142,7 +142,7 @@ function updateParent2(campusname) {
 
 	String state = request.getParameter("state");
 	if(state!=null && !state.equals("")) {
-		String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "https://" : "http://") + request.getServerName();
+		String serverName = (request.getServerName().endsWith("staff.campuscrusadeforchrist.com") ? "https://" : "http://") + request.getServerName();
 		String url = serverName + "/servlet/CRSRegister?action=campusLocate&searchtext="+request.getParameter("state");
 
 		URL xmlUrl = new URL(url);
