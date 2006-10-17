@@ -595,6 +595,9 @@ public class SimpleSecurityManager implements SecurityManager {
 
 
 	/**
+	 * code for "legacy" users; i.e., had a profile, but not one
+	 * created under SSO. Need to find their ssm/profile and
+	 * store their guid.
 	 * @param user
 	 * @param username
 	 * @param acctNo
@@ -604,9 +607,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @throws UserNotFoundException
 	 */
 	User addLegacy(CASUser user, String username, String acctNo) throws UserNotVerifiedException, UserNotFoundException {
-		// code for "legacy" users; i.e., had a profile, but not one
-		// created under SSO. Need to find their ssm/profile and
-		// store their guid.
+
 		
 		log.info("Completing ssm/profile for legacy user: " + user.getUsername());
 		
@@ -746,7 +747,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		{
 			throw new SecurityManagerFailedException("Unspecified error", e1);
 		}
-		ssmUser.clear();
+		ssmUser = new User();
 		ssmUser.setUsername(user.getUsername());
 		ssmUser.select();
 		if (!digestedPassword.equals("")) {
