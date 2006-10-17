@@ -1731,6 +1731,9 @@ public class CRSApplication {
 		Registration r = getRegistration(registrationID);
 
 		Question q = new Question();
+		if (r.getConferenceID() == 0) {
+			return 3;
+		}
 		q.setConferenceID(r.getConferenceID());
 		q.setQuestionTextID(2);
 		q.setRegistrationTypeID(r.getRegistrationTypeID());
