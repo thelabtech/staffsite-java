@@ -29,6 +29,7 @@ import org.alt60m.crs.model.Report;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.security.dbio.manager.SimpleSecurityManager;
 import org.alt60m.security.dbio.model.User;
+import org.alt60m.util.DBHelper;
 import org.alt60m.util.OnlinePayment;
 import org.alt60m.util.SendMessage;
 import org.apache.commons.logging.Log;
@@ -3047,12 +3048,16 @@ public class CRSApplication {
 		boolean DESC = orderDirection.equals("DESC");
 		Person p = new Person();
 		Vector retval = new Vector();
-		Vector ps = p.selectList("firstName LIKE '" + firstName
-				+ "%' AND lastName LIKE '" + lastName + "%' ORDER BY "
+		Vector ps = p.selectList("firstName LIKE '" + DBHelper.escape(firstName)
+				+ "%' AND lastName LIKE '" + DBHelper.escape(lastName) + "%' ORDER BY "
 				+ fixOrderBy(orderField, (DESC ? "DESC" : "ASC")));
 		retval.add(new Integer(ps.size()));
 		retval.addAll(fixList(ps, offset, size));
 		return retval;
+	}
+
+	public static String escape(String string) {
+		return DBHelper.escape(string);
 	}
 
 	public Collection searchSpouses(String firstName, String lastName,
@@ -3062,9 +3067,9 @@ public class CRSApplication {
 		Person p = new Person();
 		Vector retval = new Vector();
 		Vector ps = p.selectList("(fk_spouseID IS NULL OR fk_spouseID < 1) AND firstName LIKE '"
-				+ firstName
+				+ DBHelper.escape(firstName)
 				+ "%' AND lastName LIKE '"
-				+ lastName
+				+ DBHelper.escape(lastName)
 				+ "%' AND personID <> "
 				+ personID
 				+ " ORDER BY "
