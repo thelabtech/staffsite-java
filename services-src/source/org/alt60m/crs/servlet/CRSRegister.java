@@ -683,7 +683,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				listQuestions(ctx);
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
+			goToErrorPage(ctx, e, "saveSpouseDetails");
 		}// probably failed to find this event
 	}
 
@@ -775,7 +775,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
+			goToErrorPage(ctx, e, "savePersonDetails");
 		}// probably failed to find this event
 	}
 
@@ -2190,12 +2190,15 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					check.setUsername(ctx.getInputString("email"));
 					if (!check.select()) {  // Don't add double
 						User old = new User();
+						User spouse = new User();
 						old.setUsername(p.getEmail());
 						old.select();
-						old.setUsername(ctx.getInputString("email"));
-						old.setCreatedOn(new Date());
-						old.setUserID(0);
-						old.insert();
+						spouse.setUsername(ctx.getInputString("email"));
+						spouse.setCreatedOn(new Date());
+						spouse.setPassword(old.getPassword());
+						spouse.setPasswordQuestion("what is your spouse's first name?");
+						spouse.setPasswordAnswer(p.getFirstName());
+						spouse.insert();
 						crsApp.sendSpouseEmail((String) ctx.getSessionValue("registrationID"), (String)ctx.getInputString("email"));
 					}
 					addSpouse(ctx);
