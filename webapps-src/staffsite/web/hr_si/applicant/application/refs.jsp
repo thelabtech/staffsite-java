@@ -221,11 +221,11 @@ document.appForm.action.value="postReferenceInfo";
 		</TR>
 		<TR>
 			<TD CLASS="app" ALIGN="RIGHT">Address 1</TD>
-			<TD CLASS="app"><INPUT <%=pDisabled%> <%=pDisabledByStaff%> CLASS="required" onFocus="Highlight(this)" onBlur="UnHighlight(this)" TYPE="TEXT" name="<%=prefix%>CurrentAddress1" maxlength=50 size=30<%=(String)refpHash.get("CurrentAddress1") == null ? "" : " value= \""+(String)refpHash.get("CurrentAddress1")+"\""%>></TD>
+			<TD CLASS="app"><INPUT <%=pDisabled%> <%=pDisabledByStaff%> CLASS="required" onFocus="Highlight(this)" onBlur="UnHighlight(this)" TYPE="TEXT" name="<%=prefix%>CurrentAddress1" maxlength=35 size=30<%=(String)refpHash.get("CurrentAddress1") == null ? "" : " value= \""+(String)refpHash.get("CurrentAddress1")+"\""%>></TD>
 		</TR>
 		<TR>
 			<TD CLASS="app" ALIGN="RIGHT">Address 2</TD>
-			<TD CLASS="app"><INPUT <%=pDisabled%> <%=pDisabledByStaff%> onFocus="Highlight(this)" onBlur="UnHighlight(this)" TYPE="TEXT" name="<%=prefix%>CurrentAddress2" maxlength=50 size=30<%=(String)refpHash.get("CurrentAddress2") == null ? "" : " value= \""+(String)refpHash.get("CurrentAddress2")+"\""%>></TD>
+			<TD CLASS="app"><INPUT <%=pDisabled%> <%=pDisabledByStaff%> onFocus="Highlight(this)" onBlur="UnHighlight(this)" TYPE="TEXT" name="<%=prefix%>CurrentAddress2" maxlength=35 size=30<%=(String)refpHash.get("CurrentAddress2") == null ? "" : " value= \""+(String)refpHash.get("CurrentAddress2")+"\""%>></TD>
 		</TR>
 		<TR>
 			<TD CLASS="app" ALIGN="RIGHT">City/State/Zip</TD>
