@@ -142,7 +142,7 @@ public class CmsIndex {
 			Query query = QueryParser.parse(queryString, "all", new StopAnalyzer());
 			h = CmsIndex.search(query);
 		} catch (ParseException pe) {
-			log.error(pe);
+			log.warn(pe);
 		}
 		return h;
 
