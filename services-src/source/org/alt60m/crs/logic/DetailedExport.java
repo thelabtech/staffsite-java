@@ -96,7 +96,7 @@ public class DetailedExport {
 			log.debug("Getting data for table: " + tableName);
 			String query = 					"SELECT crs_registration.registrationID, ministry_person.personID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType,"
 				+ " crs_registration.preRegistered, curr.email, ministry_person.dateCreated,"
-				+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date, ministry_person.graduation_date,"
+				+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date as birthDate, ministry_person.graduation_date as graduationDate,"
 				+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1,"
 				+ " curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country,"
 				+ " ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip,"
@@ -105,7 +105,8 @@ public class DetailedExport {
 				+ " crs_registration.arriveDate, ministry_person.fk_spouseID AS spouseID, crs_registration.spouseComing,"
 				+ " crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite,"
 				+ " DERIVEDTBL.numberOfKids, 0 as AttendanceFlag, true as NameTagNeedsPrinting, false as Staff, false as SpecialCase, '' as SpecialCaseInfo," 
-				+ " false as GivenKey, 0 as RoomNumber, false as `Walk-In`, false as WSNGive, 0 as WSNAmount, '' as WSNCode, 'N' as `Will you be staying at the hotel_`"
+				+ " false as GivenKey, 0 as RoomNumber, false as `Walk-In`, false as WSNGive, 0 as WSNAmount, '' as WSNCode, " 
+				+ " ifnull(crs_answer.body, 'N') as `Will you be staying at the hotel_`"
 				+ " FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID"
 				+ " INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID"
 				+ " INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID"
@@ -114,6 +115,8 @@ public class DetailedExport {
 				+ " INNER JOIN crs_registration ON crs_childregistration.fk_RegistrationID = crs_registration.registrationID"
 				+ " GROUP BY crs_childregistration.fk_RegistrationID, crs_registration.registrationID) DERIVEDTBL"
 				+ " ON  crs_registration.registrationID = DERIVEDTBL.registrationID"
+				+ " LEFT OUTER JOIN crs_question on (crs_question.fk_registrationTypeID = crs_registration.fk_registrationTypeID and crs_question.fk_questionTextId = 2) " 
+				+ " LEFT OUTER JOIN crs_answer on (crs_answer.fk_registrationID = crs_registration.registrationID  and crs_answer.fk_questionID = crs_question.questionID) "
 				+ " WHERE curr.addressType = 'current' AND perm.addressType = 'permanent'"
 				+ " AND crs_registration.fk_ConferenceID = "
 				+ conferenceID;

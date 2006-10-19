@@ -56,7 +56,7 @@ public class AccessExportWriter implements ExportWriter {
 			Statement statement = connection.createStatement();
 			statement.close();
 		} finally {
-			if (connection == null) {
+			if (connection != null) {
 				connection.close();
 				connection = null;
 			}
@@ -94,14 +94,17 @@ public class AccessExportWriter implements ExportWriter {
 		copyTable(table, connection);
 	}
 
-	// Given a query, createTable creates a new table to accommodate the data
+	/**
+	 * Given a query, createTable creates a new table to accommodate the data If
+	 * the table exists, it is dropped.
+	 */
 	private void createTable(Table table, Connection connection)
 			throws SQLException {
 
 		Statement statement = null;
+		String destinationTable = toLegalTableSyntax(table.getName());
 		try {
 
-			String destinationTable = toLegalTableSyntax(table.getName());
 			log.debug("creating table: " + destinationTable);
 
 			String ddl;
@@ -110,33 +113,19 @@ public class AccessExportWriter implements ExportWriter {
 			} else {
 				ddl = createTableDDLHxtt(table);
 			}
-			try {
-				statement = connection.createStatement();
-				int returnVal = statement.executeUpdate("DROP TABLE "
-						+ destinationTable);
-				log.debug("Dropped table " + destinationTable + "; "
-						+ "return val: " + returnVal);
-			} catch (SQLException e) {
-				log.debug(e);
-				/*
-				 * We don't care if this query throws an exception, it will most
-				 * of the time... when the table does not exist
-				 */
-			} finally {
-				if (statement != null) {
-					statement.close();
-				}
-			}
 			log.debug("DDL: " + ddl);
 
 			statement = connection.createStatement();
 			statement.executeUpdate(ddl);
+		} catch (SQLException e) { // table probably already exists
+			log.debug("can't create table: " + e);
 		} finally {
 			if (statement != null) {
 				statement.close();
 			}
 		}
 	}
+
 
 	/**
 	 * HXTT-specific
