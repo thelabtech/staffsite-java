@@ -104,9 +104,9 @@ public class DetailedExport {
 				+ " perm.homePhone AS permanentPhone, ministry_person.accountNo, crs_registration.additionalRooms, crs_registration.leaveDate,"
 				+ " crs_registration.arriveDate, ministry_person.fk_spouseID AS spouseID, crs_registration.spouseComing,"
 				+ " crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite,"
-				+ " DERIVEDTBL.numberOfKids, 0 as AttendanceFlag, true as NameTagNeedsPrinting, false as Staff, false as SpecialCase, '' as SpecialCaseInfo," 
-				+ " false as GivenKey, 0 as RoomNumber, false as `Walk-In`, false as WSNGive, 0 as WSNAmount, '' as WSNCode, " 
-				+ " ifnull(crs_answer.body, 'N') as `Will you be staying at the hotel_`"
+				+ " DERIVEDTBL.numberOfKids, 0 as AttendanceFlag, true as NameTagNeedsPrinting, " 
+				+ " 0 as RoomNumber, false as `Walk-In`, " 
+				+ " ifnull(crs_answer.body, 'Y') as `Will you be staying at the hotel_`"
 				+ " FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID"
 				+ " INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID"
 				+ " INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID"
@@ -121,7 +121,7 @@ public class DetailedExport {
 				+ " AND crs_registration.fk_ConferenceID = "
 				+ conferenceID;
 			Collection<String> booleanColumns = Arrays.asList(
-					new String[]{"NameTagNeedsPrinting", "Staff", "SpecialCase", "GivenKey", "Walk-In", "WSNGive"});
+					new String[]{"NameTagNeedsPrinting", "Walk-In"});
 			exportTable(
 					tableName, query, booleanColumns);
 

@@ -53,6 +53,11 @@ try{
 				<BR>
 				<A
 					CLASS="button"
+					HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">Improved Christmas
+				Conference Access Template</A><BR>
+				<BR>
+				<A
+					CLASS="button"
 					HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">Download
 				Excel Compatible CSV</A></BLOCKQUOTE>
 				</TD>

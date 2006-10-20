@@ -261,12 +261,13 @@ public class AccessExportWriter implements ExportWriter {
 		insertQuery.setLength(insertQuery.length() - 2);
 		insertQuery.append(")");
 		PreparedStatement ps = null;
+		String id = "(none)";
 		try {
 			ps = connection.prepareStatement(insertQuery.toString());
 
 			while (rs.next()) {
 				ps.clearParameters();
-
+				id = rs.getObject(1).toString();
 				for (int i = 1; i <= colCount; i++) {
 					Object value = rs.getObject(i);
 					int type = rsmd.getColumnType(i);
@@ -275,7 +276,8 @@ public class AccessExportWriter implements ExportWriter {
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
-			log.info("insert query failed:" + insertQuery);
+			//assume id is the first column
+			log.error("insert query failed for id " + id + ":" + insertQuery, e);
 			throw e;
 		}
 
