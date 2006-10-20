@@ -106,7 +106,7 @@ public class DetailedExport {
 				+ " crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite,"
 				+ " DERIVEDTBL.numberOfKids, 0 as AttendanceFlag, true as NameTagNeedsPrinting, " 
 				+ " 0 as RoomNumber, false as `Walk-In`, " 
-				+ " ifnull(crs_answer.body, 'Y') as `Will you be staying at the hotel_`"
+				+ " if(crs_answer.body = 'N', 'No', 'Yes') as `Will you be staying at the hotel_`"
 				+ " FROM crs_registration INNER JOIN ministry_person ON crs_registration.fk_PersonID = ministry_person.personID"
 				+ " INNER JOIN ministry_newaddress curr ON ministry_person.personID = curr.fk_PersonID"
 				+ " INNER JOIN ministry_newaddress perm ON ministry_person.personID = perm.fk_PersonID"
