@@ -70,7 +70,7 @@ try{
 				<TD CLASS="cell">If you run into any problems downloading the
 				database, email us at <a
 					href="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</a>.
-				Copy the information below and paste it into your email <PRE>
+					 <PRE>
 			<%=results.get("Output")%>
 			<B>Status: <%=results.get("Status")%></B></PRE></TD>
 			</TR>
