@@ -56,8 +56,7 @@ try{
 					CLASS="button"
 					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas
 				Conference Access Template</A>
-				 - Also a Microsoft Access template. Being phased-out in Spring 2007. Some helpful 
-				guides are available in the 
+				 - Also a Microsoft Access template. Some helpful guides are available in the 
 				<a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a>. 
 				<BR>
 				<br>
