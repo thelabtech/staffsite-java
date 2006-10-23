@@ -41,25 +41,40 @@ try{
 			<TR>
 				<TD CLASS="cell">Please select the database template you wish to
 				download.
-				<BLOCKQUOTE><A
+				<br>
+				<br>
+				<A
 					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank
-				Access Template</A><BR>
+					HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A>
+				 - Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference 
+					 Access Template" option listed below. A Microsoft Access template. See 
+					 <a href="http://bluemango.gpiregion.com" target="_blank">http://bluemango.gpiregion.com</a> 
+					 for help on how to use BlueMango at your conference. 
+				<BR>
 				<BR>
 				<A
 					CLASS="button"
 					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas
-				Conference Access Template</A><BR>
+				Conference Access Template</A>
+				 - Also a Microsoft Access template. Being phased-out in Spring 2007. Some helpful 
+				guides are available in the 
+				<a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a>. 
 				<BR>
+				<br>
 				<A
 					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">Improved Christmas
-				Conference Access Template</A><BR>
+					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank
+				Access Template</A>
+				- No frills, just your conference data in a Microsoft Access database file. 
 				<BR>
+				<BR>
+
 				<A
 					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">Download
-				Excel Compatible CSV</A></BLOCKQUOTE>
+					HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">
+				Excel Compatible CSV</A>
+				- Don't need Access? Here's your conference data in Excel-friendly CSV (comma separated values) format. 
+				<br>
 				</TD>
 			</TR>
 			<TR>
