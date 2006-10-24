@@ -43,37 +43,24 @@ try{
 				download.
 				<br>
 				<br>
-				<A
-					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A>
-				 - Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference 
-					 Access Template" option listed below. A Microsoft Access template. See 
-					 <a href="http://bluemango.gpiregion.com" target="_blank">http://bluemango.gpiregion.com</a> 
-					 for help on how to use BlueMango at your conference. 
-				<BR>
-				<BR>
-				<A
-					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas
-				Conference Access Template</A>
-				 - Also a Microsoft Access template. Some helpful guides are available in the 
-				<a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a>. 
-				<BR>
-				<br>
-				<A
-					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank
-				Access Template</A>
-				- No frills, just your conference data in a Microsoft Access database file. 
-				<BR>
-				<BR>
-
-				<A
-					CLASS="button"
-					HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">
-				Excel Compatible CSV</A>
-				- Don't need Access? Here's your conference data in Excel-friendly CSV (comma separated values) format. 
-				<br>
+				<table border="1">
+<tr>
+<td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A></td>
+<td>Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference Access Template" option listed below. A Microsoft Access template. See <a href="http://bluemango.gpiregion.com" target="_blank">http://bluemango.gpiregion.com</a> for help on how to use BlueMango at your conference.</td>
+</tr>
+<tr>
+<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas Conference Access Template</A></td>
+<td>Also a Microsoft Access template. Some helpful guides are available in the <a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a>.</td>
+</tr>
+<tr>
+<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank Access Template</A></td>
+<td>No frills, just your conference data in a Microsoft Access database file.</td>
+</tr>
+<tr>
+<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">Excel-Compatible CSV</A></td>
+<td>Don't need Access? Here's your conference data in Excel-friendly CSV (comma separated values) format.</td>
+</tr>
+</table> 
 				</TD>
 			</TR>
 			<TR>
