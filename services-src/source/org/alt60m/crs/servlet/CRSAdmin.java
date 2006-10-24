@@ -747,25 +747,36 @@ public class CRSAdmin extends Controller {
 	//Created: 7/25/02, DMB
 	public void downloadDB(ActionContext ctx) {
 		ActionResults ar = new ActionResults("adminPrepDownload");
-		String eventId = (String) ctx.getSessionValue("eventLoggedIn");
-		String baseFilePath = getServletContext().getRealPath(APP_FOLDER);
-		try {
-			CRSExport importExport = CRSExport.getInstance(baseFilePath);
-			if (ctx.getInputString("Format") != null && ctx.getInputString("Format").equals("CSV")) {
-				ar.addHashtable("Results", importExport.exportToCSV(Integer.parseInt(eventId)));
-			} else if (ctx.getInputString("Template") != null) {
-				Conference conf = crsApp.getConference(eventId);
-				ar.addHashtable("Results", importExport.exportToAccess(Integer.parseInt(eventId), conf.getRegion(),
-						ctx.getInputString("Template") + ".mdb"));
-			} else {
-				ar.addHashtable("Results", new Hashtable());
-			}
-			ar.putObject("conference", crsApp.getConference(eventId));
-			ar.putValue("ConferenceID", eventId);
+		if (ctx.getSessionValue("eventLoggedIn") == null) {
+			ar.putValue("errorMsg", ERR_conferenceNotFound);
+			ar.putValue("nextAction", "adminHome");
 			ctx.setReturnValue(ar);
-			ctx.goToView("downloadFile");
-		} catch (Exception e) {
-			goToErrorPage(ctx, e, "adminDownload");
+			ctx.goToView("error");
+		} else {
+			String eventId = (String) ctx.getSessionValue("eventLoggedIn");
+			String baseFilePath = getServletContext().getRealPath(APP_FOLDER);
+			try {
+				CRSExport importExport = CRSExport.getInstance(baseFilePath);
+				if (ctx.getInputString("Format") != null
+						&& ctx.getInputString("Format").equals("CSV")) {
+					ar.addHashtable("Results", importExport.exportToCSV(Integer
+							.parseInt(eventId)));
+				} else if (ctx.getInputString("Template") != null) {
+					Conference conf = crsApp.getConference(eventId);
+					ar.addHashtable("Results", importExport.exportToAccess(
+							Integer.parseInt(eventId), conf.getRegion(), ctx
+									.getInputString("Template")
+									+ ".mdb"));
+				} else {
+					ar.addHashtable("Results", new Hashtable());
+				}
+				ar.putObject("conference", crsApp.getConference(eventId));
+				ar.putValue("ConferenceID", eventId);
+				ctx.setReturnValue(ar);
+				ctx.goToView("downloadFile");
+			} catch (Exception e) {
+				goToErrorPage(ctx, e, "adminDownload");
+			}
 		}
 	}
 
@@ -2616,19 +2627,28 @@ public void newQuestion(ActionContext ctx) {
 	public void prepDownload(ActionContext ctx) {
 		ActionResults ar = new ActionResults("adminPrepDownload");
 		String eventId = (String) ctx.getSessionValue("eventLoggedIn");
-		try {
-			String baseFilePath = getServletContext().getRealPath(APP_FOLDER);
-			CRSExport.getInstance(baseFilePath).initFolders(); //Makes sure that
-			// the
-			// import/export
-			// directories
-			// exsist.
-			ar.putObject("conference", crsApp.getConference((String) ctx.getSessionValue("eventLoggedIn")));
-			ar.putValue("ConferenceID", eventId);
+		if (eventId == null) {
+			ar.putValue("errorMsg", ERR_conferenceNotFound);
+			ar.putValue("nextAction", "adminHome");
 			ctx.setReturnValue(ar);
-			ctx.goToView("prepDownload");
-		} catch (Exception e) {
-			goToErrorPage(ctx, e, "adminPrepDownload");
+			ctx.goToView("error");
+		} else {
+			try {
+				String baseFilePath = getServletContext().getRealPath(
+						APP_FOLDER);
+				CRSExport.getInstance(baseFilePath).initFolders(); // Makes
+																	// sure that
+				// the
+				// import/export
+				// directories
+				// exsist.
+				ar.putObject("conference", crsApp.getConference(eventId));
+				ar.putValue("ConferenceID", eventId);
+				ctx.setReturnValue(ar);
+				ctx.goToView("prepDownload");
+			} catch (Exception e) {
+				goToErrorPage(ctx, e, "adminPrepDownload");
+			}
 		}
 	}
 
