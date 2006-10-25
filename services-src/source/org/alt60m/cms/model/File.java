@@ -10,7 +10,9 @@ public class File extends DBIOEntity {
 
 	public File(String id) {
 		FileId = id;
-		select();
+		if (!select()) {
+			throw new IllegalArgumentException("A File with id " + id + " does not exist!" );
+		}
 	}
 	public File() { }
 
