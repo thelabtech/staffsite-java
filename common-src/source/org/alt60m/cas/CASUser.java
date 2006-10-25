@@ -21,10 +21,12 @@ public class CASUser implements Serializable {
 	private String username;
 	private String pgtIou;
 	private Map<String, String> attributes;
-	private static final String ATTR_GUID = "ssoGuid";
-	private static final String ATTR_ACCT_NO = "emplid";
-	private static final String ATTR_FIRSTNAME = "firstName";
-	private static final String ATTR_LASTNAME = "lastName";
+	public static final String ATTR_GUID = "ssoGuid";
+	public static final String ATTR_DESIGNATION_NO = "designation";
+	public static final String ATTR_EMPLOYEE_ID = "emplid";
+	public static final String ATTR_PEOPLE_ID = "peopleid";
+	public static final String ATTR_FIRSTNAME = "firstName";
+	public static final String ATTR_LASTNAME = "lastName";
 
 	/**
 	 * @param user
@@ -69,7 +71,13 @@ public class CASUser implements Serializable {
 	 * @return
 	 */
 	public String getAcctNo() {
-		return attributes.get(ATTR_ACCT_NO);
+		String designation = attributes.get(ATTR_DESIGNATION_NO);
+		if (designation == null || designation.equals("")) {
+			String employeeId = attributes.get(ATTR_EMPLOYEE_ID);
+			return employeeId;
+		} else {
+			return designation;
+		}
 	}
 	
 	public String getFirstName()
@@ -92,6 +100,4 @@ public class CASUser implements Serializable {
 		out.append("}");
 		return out.toString();
 	}
-	
-	
 }
