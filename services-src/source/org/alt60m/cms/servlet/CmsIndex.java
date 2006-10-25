@@ -180,8 +180,7 @@ public class CmsIndex {
 			searcher.close();
 
 		} catch (Exception e) {
-			log.error(" caught a " + e.getClass() +
-				 "\n with message: " + e.getMessage());
+			log.error(e, e);
 		}
 		return results;
 	}
