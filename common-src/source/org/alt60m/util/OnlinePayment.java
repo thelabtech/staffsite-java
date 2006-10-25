@@ -138,7 +138,7 @@ public class OnlinePayment {
         Hashtable results = new Hashtable();
 
         AuthNet authNetObj = new AuthNet();
-		authNetObj.enableLogging();
+		//authNetObj.enableLogging();
 		authNetObj.doSSLPost(postData);
 
         results.put("Status","Could not connect to payment system. Please try again later.");
