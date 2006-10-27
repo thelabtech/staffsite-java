@@ -44,13 +44,15 @@ try{
 				<br>
 				<br>
 				<table border="1">
+<!--
 <tr>
 <td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A></td>
-<td>Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference Access Template" option listed below. A Microsoft Access template. See <a href="http://bluemango.gpiregion.com" target="_blank">http://bluemango.gpiregion.com</a> for help on how to use BlueMango at your conference.</td>
+<td>Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference Access Template" option listed below. A Microsoft Access template. See <u><a href="http://bluemango.gpiregion.com" target="_blank">http://bluemango.gpiregion.com</a></u> for help on how to use BlueMango at your conference.</td>
 </tr>
+-->
 <tr>
 <td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas Conference Access Template</A></td>
-<td>Also a Microsoft Access template. Some helpful guides are available in the <a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a>.</td>
+<td>Also a Microsoft Access template. Some helpful guides are available in the <u><a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a></u>.</td>
 </tr>
 <tr>
 <td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank Access Template</A></td>
