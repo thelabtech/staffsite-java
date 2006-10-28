@@ -993,9 +993,7 @@ public class StaffController extends Controller {
 	}
 
 	/**
-	 * Action: resetPassword Notes: because the password is stored separately
-	 * from the user info, we can delete and recreate the secant user account
-	 * without affecting the user profile
+	 * Reset the password for the given username.
 	 */
 	public void resetPassword(ActionContext ctx)
 			throws javax.transaction.SystemException {
@@ -1020,7 +1018,11 @@ public class StaffController extends Controller {
 					ResultMsg += "Your password must be changed upon next login.<br>";
 				}
 
-			} catch (Exception e) {
+			} catch (ProfileNotFoundException e) {
+				log.warn("username not found: " + userName);
+				ErrorMsg += "Could not reset password; cannot find user with username " + userName;
+			}
+			catch (Exception e) {
 				log.error("Could not reset password: " + e);
 				ErrorMsg += "Could not reset password: " + e.getMessage();
 				ErrorMsg += "<P> Please notify Alt60M about this error and the UserName that gave the error.";
