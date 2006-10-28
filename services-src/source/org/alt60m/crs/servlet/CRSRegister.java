@@ -587,7 +587,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					Person spouse = new Person(r.getPerson().getSpouseID());
 					Registration spouseReg = new Registration();
 					spouseReg.setConference(c);
-					spouseReg.setPerson(spouse);
+					spouseReg.setPersonID(spouse.getPersonID());
 					spouseReg.select();
 					// Check for unique spouses based on conferenceID and
 					// personID
