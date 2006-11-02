@@ -51,15 +51,15 @@ try{
 </tr>
 -->
 <tr>
-<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas Conference Access Template</A></td>
+<td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas Conference Access Template</A></td>
 <td>Also a Microsoft Access template. Some helpful guides are available in the <u><a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a></u>.</td>
 </tr>
 <tr>
-<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank Access Template</A></td>
+<td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank Access Template</A></td>
 <td>No frills, just your conference data in a Microsoft Access database file.</td>
 </tr>
 <tr>
-<td><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">Excel-Compatible CSV</A></td>
+<td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Format=CSV">Excel-Compatible CSV</A></td>
 <td>Don't need Access? Here's your conference data in Excel-friendly CSV (comma separated values) format.</td>
 </tr>
 </table> 
