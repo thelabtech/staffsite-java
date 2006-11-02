@@ -68,16 +68,22 @@ public class CASUser implements Serializable {
 	}
 
 	/**
-	 * @return
+	 * @return a valid account number
 	 */
 	public String getAcctNo() {
-		String designation = attributes.get(ATTR_DESIGNATION_NO);
-		if (designation == null || designation.equals("")) {
-			String employeeId = attributes.get(ATTR_EMPLOYEE_ID);
-			return employeeId;
-		} else {
-			return designation;
+		String accountNo = attributes.get(ATTR_EMPLOYEE_ID);
+		if (accountNo == null || accountNo.equals("")) {
+			accountNo = attributes.get(ATTR_DESIGNATION_NO);
 		}
+		if (accountNo.length() == 7
+				|| (accountNo.length() == 8 && accountNo.endsWith("S"))) {
+			accountNo = "00" + accountNo;
+		}
+		if (accountNo.length() != 9 && !(accountNo.length() == 10 && accountNo
+				.endsWith("S"))) {
+			throw new RuntimeException("Invalid account no: " + accountNo);
+		}
+		return accountNo;
 	}
 	
 	public String getFirstName()
