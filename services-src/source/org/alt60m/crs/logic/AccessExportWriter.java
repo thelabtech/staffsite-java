@@ -150,6 +150,7 @@ public class AccessExportWriter implements ExportWriter {
 				type = Types.BOOLEAN;
 			}
 			String columnName = toLegalColumnSyntax(sourceColumnName);
+			int columnDisplaySize = rsmd.getColumnDisplaySize(i);
 			switch (type) {
 			case Types.BOOLEAN:
 				ddl.append(columnName).append(" BOOLEAN");
@@ -173,9 +174,11 @@ public class AccessExportWriter implements ExportWriter {
 				break;
 			case Types.CHAR: 
 			case Types.VARCHAR:
-				if (rsmd.getColumnDisplaySize(i) < 250)
+				if (columnDisplaySize < 256) {
+					columnDisplaySize = Math.max((int) (columnDisplaySize * 1.5), 255);
 					ddl.append(columnName).append(" VARCHAR(").append(
-							rsmd.getColumnDisplaySize(i) + 6).append(")");
+							columnDisplaySize).append(")");
+				}
 				else
 					ddl.append(columnName).append(" LONGVARCHAR");
 				break;
