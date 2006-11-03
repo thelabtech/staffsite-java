@@ -68,12 +68,15 @@ public class CASUser implements Serializable {
 	}
 
 	/**
-	 * @return a valid account number
+	 * @return a valid account number, or null if the user has none
 	 */
 	public String getAcctNo() {
 		String accountNo = attributes.get(ATTR_EMPLOYEE_ID);
 		if (accountNo == null || accountNo.equals("")) {
 			accountNo = attributes.get(ATTR_DESIGNATION_NO);
+			if (accountNo == null || accountNo.equals("")) {
+				return null;
+			}
 		}
 		if (accountNo.length() == 7
 				|| (accountNo.length() == 8 && accountNo.endsWith("S"))) {
