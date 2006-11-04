@@ -19,7 +19,7 @@ public class SIPaymentHandler {
 	private static final boolean debug = false;
 	private static final boolean PAYMENTTESTMODE = false;
 	private static final String MERCHANTACCTNUM = "stint*1";
-	private static final String AUTHNETPASSWORD = "Campusstint1";
+	private static final String AUTHNETPASSWORD = "66VFfK9Z8Wn74ax9";
 	private static final String EMAILFROM = "help@campuscrusadeforchrist.com";
 	private static final String APPYEAR = SIUtil.CURRENT_SI_YEAR;
 
