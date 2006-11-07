@@ -235,7 +235,7 @@ public class AccessExportWriter implements ExportWriter {
 						'?', '_').replace(',', '_').replace(' ', '_').replace(
 						'/', '_').replace(";", "").replace(':', '_').replace(
 						'#', '_').replace('&', '_').replace('<', '_').replace(
-						'>', '_');
+						'>', '_').replace('@', '_');
 
 		return tableName;
 	}
