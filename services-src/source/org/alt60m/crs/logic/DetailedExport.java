@@ -97,7 +97,7 @@ public class DetailedExport {
 			String query = 					"SELECT crs_registration.registrationID, ministry_person.personID, crs_registration.registrationDate, crs_registrationtype.label AS registrationType,"
 				+ " crs_registration.preRegistered, curr.email, ministry_person.dateCreated,"
 				+ " ministry_person.firstName, ministry_person.lastName, ministry_person.middleName, ministry_person.birth_date as birthDate, ministry_person.graduation_date as graduationDate,"
-				+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, ministry_person.gender, curr.address1,"
+				+ " ministry_person.greekAffiliation, ministry_person.yearInSchool,  ministry_person.campus, if(ministry_person.gender = '0', 'F', 'M') as gender, curr.address1,"
 				+ " curr.address2, curr.city,  curr.state, curr.zip, curr.homePhone, curr.country,"
 				+ " ministry_person.maritalStatus, perm.country AS permanentCountry, perm.zip AS permanentZip,"
 				+ "  perm.city AS permanentCity, perm.address2 AS permanentAddress2, perm.address1 AS permanentAddress1,  perm.state AS permanentState,"
