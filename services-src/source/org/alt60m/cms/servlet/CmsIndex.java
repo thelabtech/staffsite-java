@@ -2,6 +2,7 @@ package org.alt60m.cms.servlet;
 
 import org.alt60m.util.ObjectHashUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -26,6 +27,20 @@ public class CmsIndex {
 	}
 	public static void setFileSpecsPath(String fileSpecsPath) {
 		CmsIndex.fileSpecsPath = fileSpecsPath;
+	}
+	
+	public void clear() {
+		File searchDir = new File(searchIndexPath);
+		if (!searchDir.exists()) {
+			if (!searchDir.mkdirs()) {
+				log.error("Unable to create index directory: " + searchDir);
+			}
+		}
+		for (File file : searchDir.listFiles()) {
+			if (!file.delete()) {
+				log.warn("Unable to delete file: " + file);
+			}
+		}
 	}
 
 	public void populate() {
@@ -123,12 +138,12 @@ public class CmsIndex {
 		CmsIndex.add(d, fileSpecs);
 	}
 
-	public static void remove(String id) {
+	public static void remove(String url) {
 		try {
 			IndexReader reader = IndexReader.open(searchIndexPath);
 			//this should work but there is a bug in Lucene with using an int as a value for the term
 			//Term term = new Term("cmsFileId", id);
-			Term term = new Term("url", id);
+			Term term = new Term("url", url);
 			reader.delete(term);
 			reader.close();
 		} catch (IOException ioe) {

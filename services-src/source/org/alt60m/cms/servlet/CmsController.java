@@ -251,7 +251,10 @@ public class CmsController extends Controller {
 		try {
 			CmsIndex ci = new CmsIndex();
 			log.debug("Index created");
+			ci.clear();
+			log.debug("index cleared");
 			ci.populate();
+			log.debug("index populated");
 			ctx.getResponse().getWriter().print("Reindex complete");
 		} catch (Exception e) {
 			ctx.setError();
