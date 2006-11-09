@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.alt60m.util.DBConnectionFactory;
 import org.apache.commons.logging.Log;
@@ -97,8 +99,8 @@ public class CRSExport {
 	public synchronized Hashtable exportToAccess(int conferenceID,
 			String region, String template) {
 
-		String output = "";
-		Hashtable<String, String> returnVal = new Hashtable<String, String>();
+		List<String> errors = new ArrayList<String>();
+		Hashtable<String, Object> returnVal = new Hashtable<String, Object>();
 		try {
 			String fileName = "Conference" + conferenceID + ".mdb";
 			String fullFileName = basePath + downloadPath + fileName;
@@ -106,13 +108,16 @@ public class CRSExport {
 			copyFile(basePath + templatePath + template, basePath
 					+ downloadPath + fileName);
 
-			DetailedExport simpleExport = new DetailedExport(conferenceID,
+			DetailedExport detailedExport = new DetailedExport(conferenceID,
 					DBConnectionFactory.getDatabaseConn(),
 					new AccessExportWriter(), fullFileName);
 
-			simpleExport.export(region);
-
-			returnVal.put("Status", "Success");
+			errors = detailedExport.export(region);
+			if (errors.size() > 0) {
+				returnVal.put("Status", "Partial Success");
+			} else {
+				returnVal.put("Status", "Success");
+			}
 		} catch (SQLException e) {
 			log.error(e, e);
 
@@ -129,7 +134,7 @@ public class CRSExport {
 			log.error(e, e);
 			returnVal.put("Status", "Error");
 		}
-		returnVal.put("Output", output);
+		returnVal.put("Output", errors);
 		return returnVal; // Filename of created database
 	}
 

@@ -2,6 +2,7 @@ package org.alt60m.crs.logic;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface ExportWriter {
 
@@ -9,6 +10,6 @@ public interface ExportWriter {
 
 	public abstract void setExport(Export export);
 
-	public abstract void write() throws IOException, SQLException;
+	public abstract List<String> write() throws IOException, SQLException;
 
 }

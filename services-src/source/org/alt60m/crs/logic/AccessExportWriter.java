@@ -9,6 +9,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.alt60m.crs.logic.Export.Table;
 import org.apache.commons.logging.Log;
@@ -63,7 +65,8 @@ public class AccessExportWriter implements ExportWriter {
 		}
 	}
 
-	public void write() throws IOException, SQLException {
+	public List<String> write() throws IOException, SQLException {
+		List<String> errors = new ArrayList<String>();
 		if (export == null) {
 			throw new IllegalStateException("Export has not been set!");
 		}
@@ -72,7 +75,8 @@ public class AccessExportWriter implements ExportWriter {
 			connection = DriverManager.getConnection(connectionUrl);
 
 			for (Table table : export.getTables()) {
-				writeTable(table, connection);
+				List<String> writeErrors = writeTable(table, connection);
+				errors.addAll(writeErrors);
 			}
 		} finally {
 			if (connection != null) {
@@ -86,12 +90,13 @@ public class AccessExportWriter implements ExportWriter {
 				com.hxtt.sql.access.AccessDriver.releaseAll();
 			}
 		}
+		return errors;
 	}
 
-	private void writeTable(Table table, Connection connection)
+	private List<String> writeTable(Table table, Connection connection)
 			throws SQLException {
 		createTable(table, connection);
-		copyTable(table, connection);
+		return copyTable(table, connection);
 	}
 
 	/**
@@ -240,8 +245,9 @@ public class AccessExportWriter implements ExportWriter {
 		return tableName;
 	}
 
-	private void copyTable(Table table, Connection connection)
+	private List<String> copyTable(Table table, Connection connection)
 			throws SQLException {
+		List<String> errors = new ArrayList<String>();
 		String destinationTable = toLegalTableSyntax(table.getName());
 
 		ResultSet rs = table.getData();
@@ -281,7 +287,15 @@ public class AccessExportWriter implements ExportWriter {
 		} catch (SQLException e) {
 			//assume id is the first column
 			log.error("insert query failed for id " + id + ":" + insertQuery, e);
-			throw e;
+			if (e.getMessage().contains("Failed to insert a")) {
+				if (table.getName().equals("Registrants")) {
+					errors.add("There is a problem with registration " + id + " (" + rs.getString("firstName") + " " + rs.getString("lastName") + ")");
+				} else {
+					errors.add("There is a problem with record " + id + " in table " + table.getName());
+				}
+			} else {
+				throw e;
+			}
 		}
 
 		finally {
@@ -289,5 +303,6 @@ public class AccessExportWriter implements ExportWriter {
 				ps.close();
 			}
 		}
+		return errors;
 	}
 }

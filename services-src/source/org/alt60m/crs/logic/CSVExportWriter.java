@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.alt60m.crs.logic.Export.Table;
 import org.apache.commons.logging.Log;
@@ -41,9 +43,10 @@ public class CSVExportWriter implements ExportWriter {
 	/**
 	 * @see org.alt60m.crs.logic.ExportWriter#write()
 	 */
-	public void write() throws IOException, SQLException {
+	public List<String> write() throws IOException, SQLException {
+		List<String> errors = new ArrayList<String>();
 		if (export == null) {
-			throw new NullPointerException("Export has not been set!");
+			throw new IllegalStateException("Export has not been set!");
 		}
 		try {
 			for (Table table : export.getTables()) {
@@ -52,6 +55,7 @@ public class CSVExportWriter implements ExportWriter {
 		} finally {
 			fileWriter.close();
 		}
+		return errors;
 	}
 
 	private void writeTableToFile(Table table, FileWriter fileWriter)

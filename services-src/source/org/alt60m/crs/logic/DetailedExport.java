@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 
 import org.alt60m.crs.logic.Export.Table;
@@ -56,8 +57,8 @@ public class DetailedExport {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void export(String region) throws SQLException, IOException {
-
+	public List<String> export(String region) throws SQLException, IOException {
+		List<String> message;
 		try {
 			/* export the conference Table */
 
@@ -156,7 +157,7 @@ public class DetailedExport {
 			exportWriter.setExport(export);
 
 			log.debug("Writing export");
-			exportWriter.write();
+			message = exportWriter.write();
 
 			for (Table table : export.getTables()) {
 				table.getData().close();
@@ -164,7 +165,7 @@ public class DetailedExport {
 		} finally {
 			connection.close();
 		}
-
+		return message;
 	}
 
 	private void exportTable(String tableName, String query,
