@@ -67,12 +67,27 @@ try{
 				<TD CLASS="boxheader">Export Results</TD>
 			</TR>
 			<TR>
-				<TD CLASS="cell">If you run into any problems downloading the
+				<TD CLASS="cell">
+			<% 
+			List<String> errors = (List<String>) results.get("Output");
+			for (String error : errors) {
+			%>
+				<%= error %><br>
+			<%
+			}
+			if (errors.size() > 0) {
+			%>
+				Please check for duplicate registrations.  
+				Problematic registration records are not included in the download.  <br><br>
+			<% 
+			}
+			%>
+			<B>Status: <%=results.get("Status")%></B><br><br>
+				
+				If you run into any problems downloading the
 				database, email us at <a
 					href="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</a>.
-					 <PRE>
-			<%=results.get("Output")%>
-			<B>Status: <%=results.get("Status")%></B></PRE></TD>
+				</TD>
 			</TR>
 		</TABLE>
 		<%@ include file="/crs/e_footer_help.jspf" %>
