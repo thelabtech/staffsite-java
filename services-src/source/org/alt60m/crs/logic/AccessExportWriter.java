@@ -282,22 +282,23 @@ public class AccessExportWriter implements ExportWriter {
 					int type = rsmd.getColumnType(i);
 					ps.setObject(i, value, type);
 				}
+				try {
 				ps.executeUpdate();
-			}
-		} catch (SQLException e) {
-			//assume id is the first column
-			log.error("insert query failed for id " + id + ":" + insertQuery, e);
-			if (e.getMessage().contains("Failed to insert a")) {
-				if (table.getName().equals("Registrants")) {
-					errors.add("There is a problem with registration " + id + " (" + rs.getString("firstName") + " " + rs.getString("lastName") + ")");
-				} else {
-					errors.add("There is a problem with record " + id + " in table " + table.getName());
+				} catch (SQLException e) {
+					//assume id is the first column
+					log.error("insert query failed for id " + id + ":" + insertQuery, e);
+					if (e.getMessage().contains("Failed to insert")) {
+						if (table.getName().equals("Registrants")) {
+							errors.add("There is a problem with registration " + id + " (" + rs.getString("firstName") + " " + rs.getString("lastName") + ")");
+						} else {
+							errors.add("There is a problem with record " + id + " in table " + table.getName());
+						}
+					} else {
+						throw e;
+					}
 				}
-			} else {
-				throw e;
 			}
 		}
-
 		finally {
 			if (ps != null) {
 				ps.close();
