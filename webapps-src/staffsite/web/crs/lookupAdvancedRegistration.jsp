@@ -196,8 +196,8 @@ try{
 			passURLb += "&view=" + ar.getValue("view");
 			Iterator registrations = ar.getCollection("Registrations").iterator();
 			Hashtable gender = new Hashtable();
-			gender.put("M", "Male");
-			gender.put("F", "Female");
+			gender.put("1", "Male");
+			gender.put("0", "Female");
 			gender.put("", "");
 %>
 			<TR>
