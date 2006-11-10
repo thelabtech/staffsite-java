@@ -985,49 +985,42 @@ public class CRSApplication {
 		boolean DESC = orderDirection.equals("DESC");
 		Registration r = new Registration();
 		Vector rv = new Vector();
-		Vector regs = new Vector();
+		List regs = new ArrayList();
+		String query = "select crs_registration.registrationID, crs_registration.registrationDate, crs_registration.registrationType, crs_registration.preRegistered, crs_registration.fk_PersonID, crs_registration.fk_ConferenceID, ministry_person.lastName, ministry_person.personID, ministry_person.dateCreated, ministry_person.firstName, ministry_person.middleName, ministry_person.birth_date, ministry_person.campus, ministry_person.yearInSchool ,ministry_person.graduation_date, ministry_person.greekAffiliation, ministry_person.gender, currentaddress.address1, currentaddress.address2, currentaddress.city, currentaddress.state, currentaddress.zip, currentaddress.homePhone, currentaddress.country, currentaddress.email, permanentaddress.address1 AS permanentAddress1, permanentaddress.address2 AS permanentAddress2, permanentaddress.city AS permanentCity, permanentaddress.state AS permanentState,permanentaddress.zip AS permanentZip,permanentaddress.homePhone AS permanentPhone, permanentaddress.country AS permanentCountry, ministry_person.maritalStatus, ministry_person.numberChildren AS numberOfKids, ministry_targetarea.name AS campusName, ministry_targetarea.state AS tastate, crs_registration.additionalRooms, crs_registration.leaveDate, crs_registration.arriveDate, ministry_person.accountNo, crs_registration.fk_RegistrationTypeID, crs_registration.spouseComing, crs_registration.spouseRegistrationID, crs_registration.registeredFirst, crs_registration.isOnsite, ministry_person.fk_spouseID AS spouseID, crs_registration.newPersonID, ministry_locallevel.teamID AS localLevelId, ministry_locallevel.region, ministry_locallevel.state AS llstate from ministry_person join crs_registration on (ministry_person.personID = crs_registration.fk_PersonID) join ministry_targetarea on (ministry_person.campus = ministry_targetarea.name) join ministry_activity on (ministry_activity.fk_targetAreaID = ministry_targetarea.TargetAreaID) join ministry_locallevel on(ministry_activity.fk_teamID = ministry_locallevel.teamID) join ministry_newaddress currentaddress on (ministry_person.personID = currentaddress.fk_PersonID) join ministry_newaddress permanentaddress on (ministry_person.personID = permanentaddress.fk_PersonID) where (ministry_activity.status <> 'IN') and permanentaddress.addressType = 'permanent' and currentaddress.addressType = 'current'";
 		String subQuery = "";
 		if (!"".equals(firstName.trim()))
 			subQuery += " AND firstName LIKE '" + firstName + "%'";
 		if (!"".equals(lastName.trim()))
 			subQuery += " AND lastName LIKE '" + lastName + "%'";
 
-		boolean localLevel = false;
-
 		if (!"".equals(region.trim())) {
-			subQuery += " AND region = '" + region + "'";
-			localLevel = true;
-		} else if (!"".equals(localLevelID.trim())) {
-			subQuery += " AND localLevelID = '" + localLevelID + "'";
-			localLevel = true;
-		} else if (!"".equals(state.trim())) {
-			subQuery += " AND tastate = '" + state + "'";
-		} else if (!"".equals(Campus.trim())) {
-			subQuery += " AND campusName = '" + Campus + "'";
+			subQuery += " AND ministry_targetarea.region = '" + region + "'";
+		} 
+		if (!"".equals(localLevelID.trim())) {
+			subQuery += " AND ministry_locallevel.teamID = '" + localLevelID + "'";
+		} 
+		if (!"".equals(state.trim())) {
+			subQuery += " AND ministry_targetarea.state = '" + state + "'";
+		} 
+		if (!"".equals(Campus.trim())) {
+			subQuery += " AND ministry_targetarea.name = '" + Campus + "'";
 		}
-
-		if (localLevel)
-			r.changeTargetTable("crs_viewregistrationlocallevel");
-		else
-			r.changeTargetTable("crs_viewregistrationtargetarea");
-
-		if (type == -1)
-			regs = r.selectList("fk_ConferenceID = '" + conferenceID + "' "
-					+ subQuery + " ORDER BY "
-					+ fixOrderBy(orderField, (DESC ? "DESC" : "ASC")));
-		else
-			regs = r.selectList("fk_RegistrationTypeID = '" + type
-					+ "' AND fk_ConferenceID = '" + conferenceID + "' "
-					+ subQuery + " ORDER BY "
-					+ fixOrderBy(orderField, (DESC ? "DESC" : "ASC")));
+		
+		query = query + " and fk_ConferenceID = '" + conferenceID + "' ";
+		if (type != -1) {
+			query = query + " and fk_RegistrationTypeID = '" + type + "'";
+		}
+		query = query + subQuery + " ORDER BY "
+		+ fixOrderBy(orderField, (DESC ? "DESC" : "ASC"));
+		regs = r.selectSQLList(query);
 		regs = removeDupRegistrations(regs);
 		rv.add(new Integer(regs.size()));
 		rv.addAll(fixList(regs, offset, size));
 		return rv;
 	}
 
-	private Vector removeDupRegistrations(Vector vector) {
-		Vector newVector = new Vector();
+	private List removeDupRegistrations(List vector) {
+		List newVector = new ArrayList();
 		Iterator iter = vector.iterator();
 		ArrayList ids = new ArrayList();
 		while (iter.hasNext()) {
