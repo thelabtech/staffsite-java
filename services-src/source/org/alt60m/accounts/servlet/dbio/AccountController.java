@@ -511,7 +511,11 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				ar.putValue("errorMessage", "Your identity was verified, and your password was reset. Unfortunately, an error occured during processing, and we were unable to send your password via email. You should click <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">here</a></span> to <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">request a new password</a></span>. We apologize for the inconvenience.");
 			}
 			ctx.setReturnValue(ar);
-			ctx.goToURL(loginPage);
+			if (loginPage.startsWith("/")){
+				ctx.goToURL(loginPage);
+			} else {
+				ctx.getResponse().sendRedirect(loginPage);
+			}
 		} catch(NotAuthorizedException nae) {
 			log.info("User Not Authorized: "+nae.getMessage());
 			goToErrorPage(ctx, nae.getMessage());	
