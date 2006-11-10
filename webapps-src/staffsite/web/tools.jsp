@@ -87,7 +87,7 @@ int curr_tab = 3; %>
 		</tr>
 		<%// if (isStudent.equals("false")) { %>
 		<%
-		boolean fskEnabled = true;
+		boolean fskEnabled = false;
 		if (fskEnabled) { 
 		%>
  		<tr>
@@ -106,8 +106,7 @@ int curr_tab = 3; %>
 			<td valign="center" align="center">
 				<img src="/images/logo_fsk.gif"></td><td>
 				<%=font%><b>FSK Ordering Tool</b></font></td><td>
-				<%=fontS%>The FSK order site is no longer available.  
-				<br>If you have questions about materials or an order please contact Dave Schlernitzauer at <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call 407-443-0073.</font>
+				<%=fontS%>The FSK order site is no longer available.  If you would like to order FSK material please email <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call him @ 407-826-2557.</font>
 			</td>
 		</tr>
 		<%
