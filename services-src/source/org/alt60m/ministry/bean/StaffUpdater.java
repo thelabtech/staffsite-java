@@ -88,7 +88,7 @@ public class StaffUpdater {
 		Statement statement = conn.createStatement();
 		ResultSet rs;
 	
-		String qry = "SELECT FIELDVALUE, XLATLONGNAME FROM SYSADM.XLATTABLE where FIELDNAME = 'RESPONS_SCOPE'";
+		String qry = "SELECT FIELDVALUE, XLATLONGNAME FROM SYSADM.PSXLATITEM where FIELDNAME = 'RESPONS_SCOPE'";
 	
 		log.info("preparing to execute query...");
 		rs = statement.executeQuery(qry);
