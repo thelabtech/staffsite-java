@@ -71,13 +71,14 @@
   targetAreaName = tars.getString(1);
   region = tars.getString(2);
 
-  String qry = "SELECT ministry_statistic.*, ministry_activity.strategy ";
+  String qry = "SELECT ministry_activity.ActivityID, ministry_activity.strategy, " + 
+  	"ministry_activity.status, ministry_activity.periodBegin as activityPeriodBegin, ministry_activity.periodEnd as activityPeriodEnd, ministry_statistic.* ";
   qry += "FROM ministry_statistic INNER JOIN ministry_activity ON ministry_statistic.fk_activity = ministry_activity.activityid ";
   qry += "WHERE ministry_activity.strategy in (" + qStrategyList + ") ";
   qry += "AND ministry_statistic.periodend < '" + periodEnd + "' ";
   qry += "AND ministry_activity.fk_targetareaid = '" + targetAreaID + "' ";
   qry += "AND ministry_statistic.periodbegin >= '" + periodBegin + "' ";
-  qry += "ORDER BY strategy, ministry_statistic.periodend";
+  qry += "ORDER BY strategy, activityID, ministry_statistic.periodend";
 
   log.debug("Query: " + qry);
   java.sql.Statement stmt = conn.createStatement();
@@ -113,42 +114,34 @@
     <CENTER>
 
 <%
-  if (rs.first()) {
-	  
-	rs.beforeFirst();
-    boolean printHeader = false;
-    boolean printFooter = false;
-    boolean firstTime = true;
-    String currentStrategy = "initial";
+  if (!rs.first()) {
+	out.print(fontB + "<B>No Results.</B></FONT>");
+  } else { 
+
     int counter = 1;
+    
+    boolean moreTables = true;
+	while (moreTables) {
+		//always on first row of new table
+		//get strategy name (& dates, if necessary)
 
-    while (rs.next()) {
-      String strategy = new String();
-      Date periodbegin = new Date();
-      Date periodend = new Date();
-      
-      periodbegin = rs.getDate("periodBegin");
-      periodend = rs.getDate("periodEnd");
-      int exposuresViaMedia = rs.getInt("exposuresViaMedia");
-      int evangelisticOneOnOne = rs.getInt("evangelisticOneOnOne");
-      int evangelisticGroup = rs.getInt("evangelisticGroup");
-      int decisions = rs.getInt("decisions");
-      int laborersSent = rs.getInt("laborersSent");
-      int multipliers = rs.getInt("multipliers");
-      int newBlvrs = rs.getInt("invldNewBlvrs");
-      int students = rs.getInt("invldStudents");
-      int studentLeaders = rs.getInt("studentLeaders");
-      strategy = rs.getString("strategy");
+		//fill variables
+	    String strategy = rs.getString("strategy");
+    	String status = rs. getString("status");
+    	int activityID = rs.getInt("ActivityID");
+    	Date activityPeriodbegin = rs.getDate("activityPeriodBegin");
+	    Date activityPeriodend = rs.getDate("activityPeriodEnd");
+	    
+    	//print header
+	    String title = Strategy.valueOf(strategy).getName();
+	    if (status.equals("IN")) {
+	    	title += " (active from " + activityPeriodbegin + " to " + activityPeriodend + ")";
+	    } 
+	    %>
+	    
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><TR><TD BGCOLOR="<%= color1 %>">&nbsp;<B><%= font4 %><%=title %></B><BR>
 
-      if (!strategy.equals(currentStrategy)) {
-          currentStrategy = strategy;
-        
-        if (firstTime) {
-          firstTime = false;
-%>
-<TABLE WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><TR><TD BGCOLOR="<%= color1 %>">&nbsp;<B><%= font4 %><%=Strategy.valueOf(currentStrategy).getName() %></B><BR>
-
-	<table width="860px" border="0" cellpadding="2" cellspacing="0" align="center">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0" align="center">
 	<tr>
 
 		<td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>From</td>
@@ -162,9 +155,65 @@
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
 	</tr>
-<%
-        } else {
-%>
+		<%
+
+	    boolean continueTable = true;
+	    while (continueTable) {
+	    	//fill current statistic's variables
+	    	Date periodbegin = rs.getDate("periodBegin");
+		    Date periodend = rs.getDate("periodEnd");
+		    int exposuresViaMedia = rs.getInt("exposuresViaMedia");
+	    	int evangelisticOneOnOne = rs.getInt("evangelisticOneOnOne");
+		    int evangelisticGroup = rs.getInt("evangelisticGroup");
+	    	int decisions = rs.getInt("decisions");
+		    int laborersSent = rs.getInt("laborersSent");
+	    	int multipliers = rs.getInt("multipliers");
+		    int newBlvrs = rs.getInt("invldNewBlvrs");
+	    	int students = rs.getInt("invldStudents");
+		    int studentLeaders = rs.getInt("studentLeaders");
+		    
+	    	// add to summary and print
+	    	totMediaExposures += exposuresViaMedia;
+			totIndividualPresentations += evangelisticOneOnOne;
+			totGroupPresentations += evangelisticGroup;
+			totDecisions += decisions;
+			totLaborersSent += laborersSent;
+			totNewBlvrs = newBlvrs;
+			totMultipliers = multipliers;
+			totStudents = students;
+			totStudentLeaders = studentLeaders;
+
+	        boolean tempBool = true;
+	        if(counter%2 == 0) tempBool = false;
+			boolean tempBool2 = false;
+			%>
+			<tr>
+				<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodbegin)%></td>
+				<td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodend)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticOneOnOne%></td>
+		 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticGroup%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=exposuresViaMedia%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=decisions%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=laborersSent%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=multipliers%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=studentLeaders%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=students%></td>
+			</tr>
+			<%
+			counter++;
+	    	boolean more = rs.next();
+	    	if (!more) {
+	    		moreTables = false;
+	    		continueTable = false;
+	    	} else {
+				int nextActivityID = rs.getInt("ActivityID");
+	        	if (nextActivityID != activityID) {
+	        		continueTable = false;
+	        	}
+	    	}
+	    }
+	    //print footer
+	    %>
 
 	<tr <%=bgcolorL%>>
           <td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Summary</B></td>
@@ -185,96 +234,24 @@
 
 </TABLE>
 </TD></TR></TABLE><BR>
+		<%
 
-<TABLE WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><TR><TD BGCOLOR="<%= color1 %>">&nbsp;<B><%= font4 %><%=Strategy.valueOf(currentStrategy).getName() %></B><BR>
+	   	//clear summary variables
 
-	<table width="100%" border="0" cellpadding="2" cellspacing="0" align="center">
-	<tr>
-		<td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>From</td>
-		<td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>To</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Personal Evangelism</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Group Evangelism</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Media Exposures</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Decisions</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Laborers Sent</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Multipliers</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
-		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
-	</tr>
-
-<%
-        }
-
-
-        totMediaExposures = 0;
-        totIndividualPresentations = 0;
-        totGroupPresentations = 0;
-        totDecisions = 0;
-        totLaborersSent = 0;
-        totNewBlvrs = 0; 
-        totMultipliers = 0; 
-        totStudents = 0; 
-        totStudentLeaders = 0;
-   } //end of ctrl-break
-
-        //display and total data
-	totMediaExposures += exposuresViaMedia;
-	totIndividualPresentations += evangelisticOneOnOne;
-	totGroupPresentations += evangelisticGroup;
-	totDecisions += decisions;
-	totLaborersSent += laborersSent;
-
-	totNewBlvrs = newBlvrs;
-	totMultipliers = multipliers;
-	totStudents = students;
-	totStudentLeaders = studentLeaders;
-
-        boolean tempBool = true;
-        if(counter%2 == 0) tempBool = false;
-	boolean tempBool2 = false;
-%>
-		<tr>
-			<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodbegin)%></td>
-			<td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodend)%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticOneOnOne%></td>
-	 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticGroup%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=exposuresViaMedia%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=decisions%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=laborersSent%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=multipliers%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=studentLeaders%></td>
-		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=students%></td>
-		</tr>
-<%
-	counter++;
-
-
-
-    } //end of while rs
-%>
-	<tr <%=bgcolorL%>>
-          <td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Summary</B></td>
-
-		<td ALIGN="CENTER"><%=fontB1%><%=totIndividualPresentations%></td> 
-	 	<td ALIGN="CENTER"><%=fontB1%><%=totGroupPresentations%></td>       
-		<td ALIGN="CENTER"><%=fontB1%><%=totMediaExposures%></td>     
-		<td ALIGN="CENTER"><%=fontB1%><%=totDecisions%></td>       
-		<td ALIGN="CENTER"><%=fontB1%><%=totLaborersSent%></td>
-		<td COLSPAN="3" ALIGN="CENTER">&nbsp;</td></TR>
-	<TR <%=bgcolorL%>>
-	<td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Demographics</B></TD>
-	<TD COLSPAN="5">&nbsp;</TD>
-		<td ALIGN="CENTER"><%=fontB1%><%=totMultipliers%></td>
-		<td ALIGN="CENTER"><%=fontB1%><%=totStudentLeaders%></td>      
-		<td ALIGN="CENTER"><%=fontB1%><%=totStudents%></td>   
-	</tr>
-</TABLE>
-</TD></TR></TABLE><BR>
-<% 
+		totMediaExposures = 0;
+		totIndividualPresentations = 0;
+		totGroupPresentations = 0;
+		totDecisions = 0;
+		totLaborersSent = 0;
+		totNewBlvrs = 0; 
+		totMultipliers = 0; 
+		totStudents = 0; 
+		totStudentLeaders = 0;
+	}
+}
     stmt.close();
     conn.close();
-
-} else out.print(fontB + "<B>No Results.</B></FONT>"); %>
+%>
 <P>
 
 
