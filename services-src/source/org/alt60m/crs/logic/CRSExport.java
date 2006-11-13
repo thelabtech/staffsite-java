@@ -60,9 +60,9 @@ public class CRSExport {
 	}
 
 	public synchronized Hashtable exportToCSV(int conferenceID) {
+		List<String> errors = new ArrayList<String>();
+		Hashtable<String, Object> returnVal = new Hashtable<String, Object>();
 
-		String output = "";
-		Hashtable<String, String> returnVal = new Hashtable<String, String>();
 		String fileName = "Conference" + conferenceID + ".csv";
 		String fullFileName = basePath + downloadPath + fileName;
 		try {
@@ -92,7 +92,7 @@ public class CRSExport {
 			returnVal.put("Status", "Error");
 		}
 		returnVal.put("FileName", fileName);
-		returnVal.put("Output", output);
+		returnVal.put("Output", errors);
 		return returnVal;
 	}
 
