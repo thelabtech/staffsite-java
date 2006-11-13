@@ -870,8 +870,8 @@ public class SIPaymentHandler {
 		}
 	}
 	/**
-	 * emails matt griffith about the staff having paid.
-	 * I know that hard coding matt griffith's name is bad, but there it is
+	 * emails Sarah clemens about the staff having paid.
+	 * I know that hard coding email addresses is bad, but there it is
 	 * @param personid
 	 * @return boolean
 	 */
@@ -890,7 +890,7 @@ public class SIPaymentHandler {
 			text.append("Campus Crusade for Christ\n\n\n");
 
 			SendMessage msg = new SendMessage(); 
-			msg.setTo("matt.griffith@uscm.org"); // HARD CODED!!!
+			msg.setTo("sarah.clemens@uscm.org"); // HARD CODED!!!
 			msg.setFrom(EMAILFROM);
 			msg.setSubject("Application Payment Notification");
 			msg.setBody(text.toString());
