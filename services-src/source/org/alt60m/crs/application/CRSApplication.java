@@ -1777,9 +1777,11 @@ public class CRSApplication {
 		Hashtable paymentHash = new Hashtable();
 
 		if (results.get("Status").equals("Success")) {
+			String authCode = (String) results.get("AuthCode");
+			log.info("Successful credit card transaction; AuthCode:" + authCode);
 			Payment payment = new Payment();
 			payment.setCredit(Float.parseFloat((String) ccPaymentInfo.get("PaymentAmt")));
-			payment.setAuthCode((String) results.get("AuthCode"));
+			payment.setAuthCode(authCode);
 			payment.setType("Credit card payment");
 			payment.setPosted(true);
 			payment.setPaymentDate(new Date());
@@ -1803,13 +1805,15 @@ public class CRSApplication {
 					ccPaymentInfo.get("PaymentAmt"));
 			email.send();
 		} else {
+			String response = (String) results.get("Response");
 			//TODO: Throws exception when it can't connect..
 			//Results: {Status=Could not connect to payment system. Please try
 			// again later.}
+			log.info("Unable to process credit card.  Reason from authnet: " + response);
 			paymentHash.put(
 					"ErrorMessage",
-					results.get("Response") == null ? "Could not connect to payment system. Please try again later."
-							: results.get("Response"));
+					response == null ? "Could not connect to payment system. Please try again later."
+							: response);
 		}
 
 		paymentHash.put("Status", results.get("Status"));
