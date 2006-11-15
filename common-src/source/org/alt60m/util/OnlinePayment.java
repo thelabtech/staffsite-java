@@ -135,27 +135,42 @@ public class OnlinePayment {
     }
 
     private Hashtable doAuthNetPost() throws Exception {
-        Hashtable results = new Hashtable();
+        Hashtable<String, String> results = new Hashtable<String, String>();
 
         AuthNet authNetObj = new AuthNet();
-		//authNetObj.enableLogging();
+		authNetObj.enableLogging();
 		authNetObj.doSSLPost(postData);
 
         results.put("Status","Could not connect to payment system. Please try again later.");
 
         if (authNetObj.postSuccess()) {
-            results.put("Response",String.valueOf(authNetObj.getField(4)));
-            if (authNetObj.getField(1).equals("1")){
+            String responseReasonText = authNetObj.getField(4);
+			results.put("Response",String.valueOf(responseReasonText));
+            
+            String responseCode = authNetObj.getField(1);
+			if (responseCode.equals("1")){ //Approved
                 results.put("Status","Success");
-                results.put("AuthCode",authNetObj.getField(5));
-            }
-            else {
+                String authCode = authNetObj.getField(5);
+				results.put("AuthCode",authCode);
+                log.info("Successful credit card transaction; AuthCode: " + authCode);
+            } else if (responseCode.equals("2")) { //Declined
                 results.put("Status","Error");
-                results.put("ErrorCode",String.valueOf(authNetObj.getErrorCode()));
-                results.put("ErrorMessage",authNetObj.getErrorMessage());
+                log.info("Credit card transaction declined; reason: " + responseReasonText);
+            } else if ((responseCode.equals("3"))) { // Error
+				String errorInfo = "Response Subcode: "
+						+ authNetObj.getField(2) + "; "
+						+ "Response Reason Code: " + authNetObj.getField(3)
+						+ "; " + "Response Reason Text: " + responseReasonText;
+				log.error("Error processing credit card: " + errorInfo);
+            	results.put("Status","Error");
+            } else {
+            	log.error("unknown response code: " + responseCode);
+            	results.put("Status","Error");
             }
 
             postResponse = authNetObj.getResponseString();
+        } else {
+        	log.error("Failure to connect with authnet: " + authNetObj.getErrorMessage() + " (" + authNetObj.getErrorCode() + ")");
         }
         if(testMode) log.debug("postData: " + postData);
         if(testMode) log.debug("postResponse: " + postResponse);
