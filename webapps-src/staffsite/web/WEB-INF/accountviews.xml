@@ -14,5 +14,6 @@
     <view name="registerUsernameMS" url="/accounts/registerUsernameMS.jsp"></view>
     <view name="validateEmail" url="/accounts/emailvalidate.jsp"></view>
     <view name="validateEmailError" url="/accounts/emailvalidateError.jsp"></view>
+    <view name="externalRedirect" url="/accounts/externalRedirect.jsp"></view>
 
 </views>
