@@ -1,5 +1,6 @@
 package org.alt60m.accounts.servlet.dbio;
 
+import java.io.IOException;
 import java.util.*;
 
 import org.alt60m.servlet.*;
@@ -13,6 +14,9 @@ import org.apache.log4j.Priority;
 import org.alt60m.crs.model.Conference;
 
 public class AccountController extends org.alt60m.servlet.Controller {
+	private static final String redirectPage = "/accounts/messagePage";
+
+
 	protected static Log log = LogFactory.getLog(AccountController.class);
 	
 
@@ -468,16 +472,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				ctx.setReturnValue(ar);
 				ctx.goToView("lookupQuestion");
 			}
-/*		} catch(org.alt60m.security.manager.SecurityManagerFailedException smfe) {
-			log.error("Security Manager failed. Execution of AccountController.lookupQuestion() aborted: "+smfe.getMessage(),smfe);
-			goToErrorPage(ctx, "Failed to retrieve your question, because an internal error occured in the security manager during processing.");	
-		} catch(org.alt60m.security.manager.SecurityManagerException sme) {
-			ar.putValue("username", username);
-			ar.putValue("loginPage", loginPage);
-			ar.putValue("errorMessage", sme.getMessage());
-			ctx.setReturnValue(ar);
-			ctx.goToView("lookupQuestion");
-*/		} 
+		} 
 		catch (UserNotFoundException e) {
 			log.info("Username not found: " + username);
 			goToErrorPage(ctx, "That username does not exist");
@@ -489,57 +484,106 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	}
 
 	public void answerQuestion(ActionContext ctx) {
-		ActionResults ar = new ActionResults("lookupQuestion");
-		String username = ctx.getInputString("username");
+		ActionResults ar = new ActionResults("answerQuestion");
+		String username;
+		String newPassword; 
+		String newPasswordVerify;
+		boolean internal;
+		try {
+			username = ctx.getInputString("username", true);
+			newPassword = ctx.getInputString("newPassword", true);
+			newPasswordVerify = ctx.getInputString("newPasswordVerify", true);
+		} catch (MissingRequestParameterException e1) {
+			log.error(e1, e1);
+			goToErrorPage(ctx, e1.toString());
+			return;
+		}
 		String loginPage = ctx.getInputString("loginPage");
-		if (loginPage == null || loginPage.equals("")) loginPage = "/accounts/genericLogin.jsp";
+		if (!newPassword.equals(newPasswordVerify)) {
+			ar.putValue("errorMessage", "Your passwords do not match");
+			lookupQuestion(ctx);
+			return;
+		}
+		if (loginPage == null || loginPage.equals(""))
+			loginPage = "/accounts/genericLogin.jsp";
+		internal = loginPage.startsWith("/");
+		
 		ar.putValue("loginPage", loginPage);
-		String passwordQuestion = ctx.getInputString("passwordQuestion");
 		String passwordAnswer = ctx.getInputString("passwordAnswer");
-		try { // checks answer, SimpleSecurityManager will throw an exception if it doesn't match
-			String newPassword = generatePassword(14);
+		try { // checks answer, SimpleSecurityManager will throw an
+			// exception if it doesn't match
 			manager.resetPasswordQA(username, passwordAnswer, newPassword);
 			String email = username;
 			try { // send email
 				if (isUserGeneric(ctx)) {
-					sendGenericPasswordEmail(username, email, newPassword, loginPage, ctx);
+					sendGenericPasswordEmail(username, email, newPassword,
+							loginPage, ctx);
 				} else {
-					sendPasswordEmail(username, email, newPassword, loginPage, ctx);
+					sendPasswordEmail(username, email, newPassword, loginPage,
+							ctx);
 				}
-				ar.putValue("errorMessage", "Your identity has been verified, and a new password has been emailed to you at " + email + ".");
+				ar.putValue(
+								"errorMessage",
+								"Your identity has been verified, your new password has been emailed to you at "
+										+ email + ".");
 			} catch (Exception e) {
-				ar.putValue("errorMessage", "Your identity was verified, and your password was reset. Unfortunately, an error occured during processing, and we were unable to send your password via email. You should click <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">here</a></span> to <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="+username+"&loginPage="+loginPage+"\">request a new password</a></span>. We apologize for the inconvenience.");
+				ar.putValue(
+								"errorMessage",
+								"Your identity was verified, and your password was reset. Unfortunately, an error occured during processing, and we were unable to send your password via email. You should click <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="
+										+ username
+										+ "&loginPage="
+										+ loginPage
+										+ "\">here</a></span> to <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="
+										+ username
+										+ "&loginPage="
+										+ loginPage
+										+ "\">request a new password</a></span>. We apologize for the inconvenience.");
 			}
 			ctx.setReturnValue(ar);
-			if (loginPage.startsWith("/")){
+			if (internal) {
 				ctx.goToURL(loginPage);
 			} else {
-				ctx.getResponse().sendRedirect(loginPage);
+				ctx.goToView("externalRedirect");
 			}
-		} catch(NotAuthorizedException nae) {
-			log.info("User Not Authorized: "+nae.getMessage());
-			goToErrorPage(ctx, nae.getMessage());	
-		} catch(UserNotFoundException unfe) {
-			log.info("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+unfe.getMessage(),unfe);
-			goToErrorPage(ctx, unfe.getMessage());	
-		} catch(UserLockedOutException uloe) {
-			log.info("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+uloe.getMessage(),uloe);
-			goToErrorPage(ctx, uloe.getMessage());	
-		} catch(SecurityManagerFailedException smfe) {
-			log.error("Security Manager failed. Execution of AccountController.answerQuestion() aborted: "+smfe.getMessage(),smfe);
-			goToErrorPage(ctx, "Failed to check your answer, because an internal error occured in the security manager during processing.");	
-/*		} catch(org.alt60m.security.manager.SecurityManagerException sme) {
-			ar.putValue("username", username);
-			ar.putValue("passwordQuestion", passwordQuestion);
-			ar.putValue("errorMessage", sme.getMessage());
-			ctx.setReturnValue(ar);
-			ctx.goToView("answerQuestion");
-*/		} catch(Exception e) {
-			log.error("Failed to complete AccountController.answerQuestion().",e);
-			goToErrorPage(ctx, "Failed to check your answer, because an internal error occured during processing.");			
+		} catch (NotAuthorizedException nae) {
+			log.info("User Not Authorized: " + nae.getMessage());
+			goToErrorPage(ctx, nae.getMessage());
+		} catch (UserNotFoundException unfe) {
+			log
+					.info(
+							"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "
+									+ unfe.getMessage(), unfe);
+			goToErrorPage(ctx, unfe.getMessage());
+		} catch (UserLockedOutException uloe) {
+			log
+					.info(
+							"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "
+									+ uloe.getMessage(), uloe);
+			goToErrorPage(ctx, uloe.getMessage());
+		} catch (SecurityManagerFailedException smfe) {
+			log
+					.error(
+							"Security Manager failed. Execution of AccountController.answerQuestion() aborted: "
+									+ smfe.getMessage(), smfe);
+			goToErrorPage(
+					ctx,
+					"Failed to check your answer, because an internal error occured in the security manager during processing.");
+		} catch (Exception e) {
+			log.error("Failed to complete AccountController.answerQuestion().",
+					e);
+			goToErrorPage(
+					ctx,
+					"Failed to check your answer, because an internal error occured during processing.");
+			
 		}
 	}
+	
+	public void redirectToExternalPage(ActionContext ctx) throws IOException {
+		String loginPage = ctx.getInputString("loginPage");
+		ctx.getResponse().sendRedirect(loginPage);
+	}
 
+		
 	public void changePassword(ActionContext ctx) {
 		ActionResults ar = new ActionResults("lookupQuestion");
 		String username = ctx.getInputString("username");
@@ -658,8 +702,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nYou recently requested that your password be changed."+
 					"\n\nYour username is: "+username+
 					"\nYour new password is: "+newPassword+
-				    "\n\nFor security reasons & ease of remembering, we encourage you to login and change the above password to a new one of your choice."+
-					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
+				    "\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ" +
 					"\nhttp://www.campuscrusadeforchrist.com";
 			sendEmail(userEmail, GENERIC_FROM_ADDRESS, subject, body, "text/plain");
@@ -676,7 +719,6 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nYou recently requested that your password be changed."+
 					"\n\nYour username is: "+username+
 					"\nYour new password is: "+newPassword+
-				    "\n\nFor security reasons & ease of remembering, we encourage you to login and change the above password to a new one of your choice."+
 				    "\n\nIf you have any questions please contact the administrator for the conference you are registering for."+
 				    "\n\nThe Conference Registration Tool Team";
 			sendEmail(userEmail, "info@conferenceregistrationtool.com", subject, body, "text/plain");
