@@ -321,11 +321,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			String loginPage = ctx.getInputString("loginPage");
 			String username = ctx.getInputString("username");
 			String username2 = ctx.getInputString("usernameVerify");
-			String registerUsername = ctx.getInputString("registerUsername"); // 11-14-03 kl: added
-			//String email = ctx.getInputString("email");
+			String registerUsername = ctx.getInputString("registerUsername"); 
 			String password = ctx.getInputString("password");
 			String passwordVerify = ctx.getInputString("passwordVerify");
-			String password2 = passwordVerify;
 			String passwordQuestion = ctx.getInputString("passwordQuestion");
 			String passwordAnswer = ctx.getInputString("passwordAnswer");
 
@@ -336,19 +334,19 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			if (username != null && !username.equals(""))
 				ar.putValue("username", username);
 			else {
-				userErrors.add("* You did not specify a username.<br>");
+				userErrors.add("You did not specify a username.");
 				username = "";
 			}
-				if (!username.equals(username2)) {
-					userErrors.add("* We detected that the usernames you entered did not match.<br>");
-				}
+			if (!username.equals(username2)) {
+				userErrors.add("The usernames you entered did not match.");
+			}
 			
 			log.debug("new username: " + username);
 			String email = username;
 			
 			if (registerUsername.equals("false")) {				
 				if (!Validate.validateEmail(email)) {
-					userErrors.add("* We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>");
+					userErrors.add("The email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.");
 				}
 				try {
 					javax.mail.internet.InternetAddress.parse(email);
@@ -356,21 +354,21 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					// javax.mail.internet.InternetAddress.parse(email, true);
 				}
 				catch (javax.mail.internet.AddressException ae) {
-					userErrors.add("We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>");
+					userErrors.add("The email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.");
 				}				
 				log.debug("new email: " + email);
 			}			
 			if (manager.userExists(username)) {
-				userErrors.add("* The username you specified already exists.<br>");
+				userErrors.add("The username you specified already exists.<br>");
 			}
 			if (password == null || password.equals("")) {
-				userErrors.add("* You must provide a password<br>");
+				userErrors.add("You must provide a password");
 			}
 			if (passwordQuestion == null || passwordQuestion.equals("")) {
-				userErrors.add("* You must provide a secret question<br>");
+				userErrors.add("You must provide a secret question");
 			}
 			if (passwordAnswer == null || passwordAnswer.equals("")) {
-				userErrors.add("* You must provide an answer to your secret question<br>");
+				userErrors.add("You must provide an answer to your secret question");
 			}
 
 			List<String> passwordErrors = PasswordValidator.validate(password,passwordVerify);
@@ -416,7 +414,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			} else {
 				String errorString = buildErrorString(userErrors);
 				log.info("Account not created; Errors:" + errorString);
-				ar.putValue("errorMessage", "Your account was not created for the following" + reasonText + "<div class=\"indent\">"+userErrors+"</div>");
+				ar.putValue("errorMessage", "Your account was not created for the following" + reasonText + "<div class=\"indent\">"+errorString+"</div>");
 				ar.putValue("passwordQuestion", passwordQuestion);
 				ar.putValue("passwordAnswer", passwordAnswer);
 				ar.putValue("loginPage", loginPage);
@@ -437,10 +435,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	public void lookupQuestion(ActionContext ctx) {
 		
 		ActionResults ar ;
-		ActionResults previousResults = ActionResults.getActionResults(ctx.getSession());
-		if (previousResults != null) {
-			ar = previousResults;
-		} else {
+		try {
+			ar = ActionResults.getActionResults(ctx.getSession());
+		} catch (Exception e) {
 			ar = new ActionResults("lookupQuestion");
 		}
 		String username = ctx.getInputString("username");
@@ -765,11 +762,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nPlease use following link to verify your email address. Since it is a very long address and may have been split up into more than one line, it might not work as a link. If not, you will need to copy the entire address(including both/all of the lines) into your web browser's address bar."+
 					"\n\nhttp://"+ctx.getRequest().getServerName()+"/servlet/AccountController?action=verifyEmail&auth="+encode(userid)+"&username="+username+"&url="+loginPage+
 					"\n\nYour username is:\t"+username+
-					// "\nYour password is:\t"+password+"<BR>"+
 					"\nYour secret question is:\t"+passwordQuestion+
 					"\nThe answer you provided was:\t"+passwordAnswer+
 					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above."+
-					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above."+
 					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
 			log.debug(body);
@@ -787,11 +782,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nPlease use following link to verify your email address. Since it is a very long address and may have been split up into more than one line, it might not work as a link. If not, you will need to copy the entire address(including both/all of the lines) into your web browser's address bar."+
 					"\n\nhttp://"+ctx.getRequest().getServerName()+"/servlet/AccountController?action=verifyEmail&auth="+encode(userid)+"&username="+username+"&url="+loginPage+
 					"\n\nYour username is:\t"+username+
-					// "\nYour password is:\t"+password+"<BR>"+
 					"\nYour secret question is:\t"+passwordQuestion+
 					"\nThe answer you provided was:\t"+passwordAnswer+
 					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above."+
-					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above."+
 					"\n\nIf you have any questions please contact the administrator for the conference you are registering for.";
 			log.debug(body);
 			sendEmail(username, "info@conferenceregistrationtool.com", subject, body, "text/plain");

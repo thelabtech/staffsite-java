@@ -12,7 +12,7 @@ public class PasswordValidator {
 	public static List<String> validate(String newPassword, String newPasswordVerify) {
 		List<String> errors = new ArrayList<String>();
 		if (!newPassword.equals(newPasswordVerify)) {
-			errors.add("Your passwords do not match");
+			errors.add("Your passwords do not match.");
 		}
 		if (!Pattern.matches(".*[a-z]+.*[A-Z]+.*|.*[A-Z]+.*[a-z]+.*",
 				newPassword)) {
