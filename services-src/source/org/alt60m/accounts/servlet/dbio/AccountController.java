@@ -2,6 +2,7 @@ package org.alt60m.accounts.servlet.dbio;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import org.alt60m.servlet.*;
 import org.alt60m.staffSite.bean.PasswordValidator;
@@ -316,45 +317,38 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	public void register(ActionContext ctx) {
 		try {
 			ActionResults ar = new ActionResults("createNewSSMUser");
-			String userErrors = "";
+			List<String> userErrors = new ArrayList<String>();
 			String loginPage = ctx.getInputString("loginPage");
 			String username = ctx.getInputString("username");
 			String username2 = ctx.getInputString("usernameVerify");
 			String registerUsername = ctx.getInputString("registerUsername"); // 11-14-03 kl: added
 			//String email = ctx.getInputString("email");
 			String password = ctx.getInputString("password");
-			String password2 = ctx.getInputString("passwordVerify");
+			String passwordVerify = ctx.getInputString("passwordVerify");
+			String password2 = passwordVerify;
 			String passwordQuestion = ctx.getInputString("passwordQuestion");
 			String passwordAnswer = ctx.getInputString("passwordAnswer");
 
-			StringBuffer f = new StringBuffer(); //f=field counter to determine case, KL: added 11/05/03
 			String sText = " reason:"; //sText=singular
 			String pText = " reasons:"; //pText=plural
 			String reasonText = ""; //text variable
-			String userErrsRetrn = "";
 
 			if (username != null && !username.equals(""))
 				ar.putValue("username", username);
 			else {
-				userErrors += "* You did not specify a username.<br>";
-				f.append("1");
+				userErrors.add("* You did not specify a username.<br>");
 				username = "";
 			}
-			// 11-14-03 kl: do not check for username match for registerUsername
-//			if ((registerUsername!=null)&&(registerUsername.equalsIgnoreCase("true"))){
 				if (!username.equals(username2)) {
-					userErrors += "* We detected that the usernames you entered did not match.<br>";
-					f.append("1");
+					userErrors.add("* We detected that the usernames you entered did not match.<br>");
 				}
-//			}
 			
 			log.debug("new username: " + username);
 			String email = username;
 			
 			if (registerUsername.equals("false")) {				
 				if (!Validate.validateEmail(email)) {
-					userErrors += "* We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>";
-					f.append("1");				
+					userErrors.add("* We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>");
 				}
 				try {
 					javax.mail.internet.InternetAddress.parse(email);
@@ -362,45 +356,35 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					// javax.mail.internet.InternetAddress.parse(email, true);
 				}
 				catch (javax.mail.internet.AddressException ae) {
-					userErrors += "We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>";
-					f.append("1");
+					userErrors.add("We detected that the email address you entered was not valid. Since your account registration is confirmed via email, we require a valid email address to send your feedback.<br>");
 				}				
 				log.debug("new email: " + email);
 			}			
 			if (manager.userExists(username)) {
-				userErrors += "* The username you specified already exists.<br>";
-				f.append("1");
+				userErrors.add("* The username you specified already exists.<br>");
 			}
 			if (password == null || password.equals("")) {
-				userErrors += "* You must provide a password<br>";
-				f.append("1");
+				userErrors.add("* You must provide a password<br>");
 			}
 			if (passwordQuestion == null || passwordQuestion.equals("")) {
-				userErrors += "* You must provide a secret question<br>";
-				f.append("1");
+				userErrors.add("* You must provide a secret question<br>");
 			}
 			if (passwordAnswer == null || passwordAnswer.equals("")) {
-				userErrors += "* You must provide an answer to your secret question<br>";
-				f.append("1");
+				userErrors.add("* You must provide an answer to your secret question<br>");
 			}
 
-			userErrsRetrn = PasswordValidator.validate(password,ctx.getInputString("passwordVerify"), username, username);
-			
-			//determine if userErrsRetrn contains a string
-			if(userErrsRetrn.length()>0) {
-						f.append("1");
-				userErrors += userErrsRetrn;
-			}
+			List<String> passwordErrors = PasswordValidator.validate(password,passwordVerify);
+			userErrors.addAll(passwordErrors);
 
 			//determine if text string is plural or not
-			if(f.length()>1) {
+			if(userErrors.size() > 1) {
 				reasonText = pText;
 			}
-			else if(f.length()>0) {
+			else if(userErrors.size() > 0) {
 				reasonText = sText;
 			}
 
-			if (userErrors.equals("")) { // everything was set up okay.
+			if (userErrors.isEmpty()) { // everything was set up okay.
 				log.info("Attempting to create account for " + username);
 				manager.createUser(username, password, passwordQuestion, passwordAnswer.toLowerCase());
 					log.debug("*****registerUsername=" + registerUsername);
@@ -430,7 +414,8 @@ public class AccountController extends org.alt60m.servlet.Controller {
 				log.info("Account created successfully. Forwarding to: \""+loginPage+"\"");
 				ctx.goToURL(loginPage);
 			} else {
-				log.info("Account not created; Errors:" + userErrors);
+				String errorString = buildErrorString(userErrors);
+				log.info("Account not created; Errors:" + errorString);
 				ar.putValue("errorMessage", "Your account was not created for the following" + reasonText + "<div class=\"indent\">"+userErrors+"</div>");
 				ar.putValue("passwordQuestion", passwordQuestion);
 				ar.putValue("passwordAnswer", passwordAnswer);
@@ -450,7 +435,14 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	}
 
 	public void lookupQuestion(ActionContext ctx) {
-		ActionResults ar = new ActionResults("lookupQuestion");
+		
+		ActionResults ar ;
+		ActionResults previousResults = ActionResults.getActionResults(ctx.getSession());
+		if (previousResults != null) {
+			ar = previousResults;
+		} else {
+			ar = new ActionResults("lookupQuestion");
+		}
 		String username = ctx.getInputString("username");
 		String loginPage = ctx.getInputString("loginPage");
 		ar.putValue("loginPage", loginPage);
@@ -499,18 +491,27 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			return;
 		}
 		String loginPage = ctx.getInputString("loginPage");
-		if (!newPassword.equals(newPasswordVerify)) {
-			ar.putValue("errorMessage", "Your passwords do not match");
-			lookupQuestion(ctx);
-			return;
-		}
 		if (loginPage == null || loginPage.equals(""))
 			loginPage = "/accounts/genericLogin.jsp";
 		internal = loginPage.startsWith("/");
 		
 		ar.putValue("loginPage", loginPage);
 		String passwordAnswer = ctx.getInputString("passwordAnswer");
-		try { // checks answer, SimpleSecurityManager will throw an
+		try {
+			List<String> errors = PasswordValidator.validate(newPassword, newPasswordVerify);
+			boolean valid = (errors.size() == 0);
+			if (!valid) {
+				log.debug("Invalid password: " + newPassword);
+				String errorMessage = "";
+				for (String error : errors) {
+					errorMessage += error + " <br>";
+				}
+				ar.putValue("errorMessage", errorMessage);
+				ctx.setReturnValue(ar);
+				lookupQuestion(ctx);
+				return;
+			}
+			// checks answer, SimpleSecurityManager will throw an
 			// exception if it doesn't match
 			manager.resetPasswordQA(username, passwordAnswer, newPassword);
 			String email = username;
@@ -547,7 +548,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			}
 		} catch (NotAuthorizedException nae) {
 			log.info("User Not Authorized: " + nae.getMessage());
-			goToErrorPage(ctx, nae.getMessage());
+			ar.putValue("errorMessage", nae.getMessage());
+			ctx.setReturnValue(ar);
+			lookupQuestion(ctx);
 		} catch (UserNotFoundException unfe) {
 			log
 					.info(
@@ -593,19 +596,13 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		String newPasswordVerify = ctx.getInputString("newPasswordVerify");
 		if (username == null) username = "";
 		ar.putValue("username", username);
-		try { // change password, SimpleSecurityManager will throw an exception if it didn't work
-			String errorMessage = "";
-				//if ((ctx.getInputString("simple")!=null) && (ctx.getInputString("simple").equals("true"))) {
-				//	PasswordValidator.simpleValidate(newPassword,newPasswordVerify, username, username);
-				//} else {
-			errorMessage += PasswordValidator.validate(newPassword,newPasswordVerify, username, username);					
-				//}
-			if (errorMessage.equals("")) { // 
+		try { 
+			List<String> errors = PasswordValidator.validate(newPassword, newPasswordVerify);
+			String errorMessage = buildErrorString(errors);
+			if (errorMessage.equals("")) { 
 				manager.changePassword(username, password, newPassword);
 				String email = username;
 				try { // send email
-					// sendPasswordEmail(username, email, newPassword, loginPage, ctx);
-					// ar.putValue("errorMessage", "Your password was successfully changed, and a copy of your new login information has been emailed to you. You may now login with your new information.");
 				    ar.putValue("errorMessage", "Your password was successfully changed to the new password just entered.");
 				} catch (Exception e) {
 					ar.putValue("errorMessage", "Your password was successfully changed.");
@@ -652,6 +649,14 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			log.error("Failed to complete AccountController.changePassword().",e);
 			goToErrorPage(ctx, "Failed to change your password, because an internal error occured during processing.");			
 		}
+	}
+
+	private String buildErrorString(List<String> errors) {
+		String errorMessage = "";
+		for (String error : errors) {
+			errorMessage += error + "<br>"; 					
+		}
+		return errorMessage;
 	}
 
 	public void verifyEmail(ActionContext ctx) {
