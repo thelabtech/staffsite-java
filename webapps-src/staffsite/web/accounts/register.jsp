@@ -8,12 +8,7 @@
 		loginPage = (String)ar.getValue("loginPage");
 	}
 	if (loginPage == null) loginPage = "/accounts/genericLogin.jsp";
-	// 01-15-04 kl: Summer Projects required email field process for account creation page
-/*	String pageRedirect = "registerUsername";
-	String msEmailRequired = "false";
-	if (loginPage.equals("/hr_ms/applicant/login.jsp")) msEmailRequired = "true";
-	if (loginPage.equals("/hr_si/applicant/login.jsp")) msEmailRequired = "true";
-	if (msEmailRequired.equals("true")) pageRedirect = "registerUsernameMS";*/
+
 %>
 <SCRIPT LANGUAGE="JavaScript">
 <!--
@@ -55,16 +50,8 @@ Answer to your Secret Question<br /><span class="note">(If you ever forget your 
 Passwords
 <div class="indent">
 <nobr>- must be at least 8 characters long.</nobr><br>
-<nobr>- cannot contain the word &quot;password.&quot;</nobr><br>
-<nobr>- cannot contain your username.</nobr><br>
-<nobr>- must have at least two of the following:</nobr>
-<div class="indent">
-<nobr>* Lower-case letters.</nobr><br>
-<nobr>* Upper-case (capital) letters.</nobr><br>
-<nobr>* Numbers.</nobr><br>
-<nobr>* Special characters </nobr>
-<div class="indent"><nobr>(e.g., punctuation like &quot;!@#$%^&amp;*?/,.\|&quot;)</nobr>
-</div></div></div>
+<nobr>- must include upper and lower case letters</nobr><br>
+</div>
 </td>
 </tr>
 </table>

@@ -17,17 +17,9 @@ Confirm New Password<br />
 <td valign="top"><span class="note"><b><u>A Note About Passwords:</u></b><br />
 Passwords
 <div class="indent">
-<nobr>- must be at least 8 characters long.</nobr><br />
-<nobr>- cannot contain the word &quot;password.&quot;</nobr><br />
-<nobr>- cannot contain your username.</nobr><br />
-<nobr>- must have at least two of the following:</nobr>
-<div class="indent">
-<nobr>* Lower-case letters.</nobr><br />
-<nobr>* Upper-case (capital) letters.</nobr><br />
-<nobr>* Numbers.</nobr><br />
-<nobr>* Special characters </nobr>
-<div class="indent"><nobr>(e.g., punctuation like &quot;!@#$%^&amp;*?/,.\|&quot;)</nobr>
-</div></div></div>
+<nobr>- must be at least 8 characters long.</nobr><br>
+<nobr>- must include upper and lower case letters</nobr><br>
+</div>
 </td>
 </tr>
 </table>

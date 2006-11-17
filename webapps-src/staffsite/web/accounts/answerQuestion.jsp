@@ -10,11 +10,7 @@
 	if (loginPage == null || loginPage.equals("")) loginPage = "/accounts/genericLogin.jsp";
 	if (passwordQuestion == null || passwordQuestion.equals("")) { ar.putValue("errorString","An error occurred while trying to process your information. Please log-in again."); response.sendRedirect(loginPage); }
 %>
-<%
-errorMessage = ar.getValue("errorMessage");
-if (errorMessage != null) { %>
-<span class="note2"><%=errorMessage%></span>
-<%} %>
+
 <form name="registrationForm" action="/servlet/AccountController" method=post>
 <input type="hidden" name="action" value="answerQuestion">
 <input type="hidden" name="username" value="<%=username%>">
