@@ -24,7 +24,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 	private final String VIEWS_FILE = "/WEB-INF/accountviews.xml";
 	private final String DEFAULT_ACTION = "goToPage";
 	private Random randGen = new Random(System.currentTimeMillis());
-	private final String GENERIC_FROM_ADDRESS = "help@campuscrusadeforchrist.com";
+	private static final String USCM_FROM_ADDRESS = "help@campuscrusadeforchrist.com";
 	private final long coefficient = 2125551212L;  // largest long integer is: 214 748 3647
 	private SimpleSecurityManager manager = null;
 
@@ -327,8 +327,8 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			String passwordQuestion = ctx.getInputString("passwordQuestion");
 			String passwordAnswer = ctx.getInputString("passwordAnswer");
 
-			String sText = " reason:"; //sText=singular
-			String pText = " reasons:"; //pText=plural
+			String singularText = " reason:"; //sText=singular
+			String pluralText = " reasons:"; //pText=plural
 			String reasonText = ""; //text variable
 
 			if (username != null && !username.equals(""))
@@ -376,16 +376,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 
 			//determine if text string is plural or not
 			if(userErrors.size() > 1) {
-				reasonText = pText;
+				reasonText = pluralText;
 			}
 			else if(userErrors.size() > 0) {
-				reasonText = sText;
+				reasonText = singularText;
 			}
 
 			if (userErrors.isEmpty()) { // everything was set up okay.
 				log.info("Attempting to create account for " + username);
 				manager.createUser(username, password, passwordQuestion, passwordAnswer.toLowerCase());
-					log.debug("*****registerUsername=" + registerUsername);
+					log.debug("registerUsername=" + registerUsername);
 					if (registerUsername.equals("true"))
 						ar.putValue("errorMessage", "Thank you for creating a new Campus Crusade for Christ personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences or apply for Summer Projects or STINT/Internships.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.");
 					else{
@@ -400,7 +400,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 							}
 							
 						} catch(Exception e) {
-							//Why are we doing this if it's in a catch block?
+							//Sending email failed
 							if (isUserGeneric(ctx)) {
 								ar.putValue("errorMessage", "Thank you for creating a Conference Registration Tool personal login account. Please write down your username and password and keep them in a safe place, as you will need them in the future if you register for additional conferences.<p>You may now log in and register for your conference by clicking \"Continue to Login,\" below.<p>To verify that the email address associated with your account ("+email+") is correct, please also access your email and visit the verification url that we have provided. ");
 							} else {
@@ -512,30 +512,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			// exception if it doesn't match
 			manager.resetPasswordQA(username, passwordAnswer, newPassword);
 			String email = username;
-			try { // send email
-				if (isUserGeneric(ctx)) {
-					sendGenericPasswordEmail(username, email, newPassword,
-							loginPage, ctx);
-				} else {
-					sendPasswordEmail(username, email, newPassword, loginPage,
-							ctx);
-				}
+			try {
+				sendPasswordEmail(ctx, username, loginPage, newPassword, email);
 				ar.putValue(
 								"errorMessage",
-								"Your identity has been verified, your new password has been emailed to you at "
+								"Your new password has been set, and has been emailed to you at "
 										+ email + ".");
 			} catch (Exception e) {
 				ar.putValue(
 								"errorMessage",
-								"Your identity was verified, and your password was reset. Unfortunately, an error occured during processing, and we were unable to send your password via email. You should click <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="
-										+ username
-										+ "&loginPage="
-										+ loginPage
-										+ "\">here</a></span> to <span style=\"font-weight:bold;text-decoration:underline;\"><a href=\"/servlet/AccountController?action=goToPage&page=lookupQuestion&username="
-										+ username
-										+ "&loginPage="
-										+ loginPage
-										+ "\">request a new password</a></span>. We apologize for the inconvenience.");
+								"Your new password has been set. Unfortunately, an error occured during processing, and we were unable to send your password via email.");
 			}
 			ctx.setReturnValue(ar);
 			if (internal) {
@@ -599,10 +585,11 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			if (errorMessage.equals("")) { 
 				manager.changePassword(username, password, newPassword);
 				String email = username;
-				try { // send email
-				    ar.putValue("errorMessage", "Your password was successfully changed to the new password just entered.");
+				try { // send email					
+					sendPasswordEmail(ctx, username, loginPage, newPassword, email);
+				    ar.putValue("errorMessage", "Your password was successfully changed.");
 				} catch (Exception e) {
-					ar.putValue("errorMessage", "Your password was successfully changed.");
+					ar.putValue("errorMessage", "Your password was successfully changed.  Unfortunately, an error occured during processing, and we were unable to send your password via email.");
 				}
 				ctx.setReturnValue(ar);
 				if (loginPage!=null) {
@@ -649,6 +636,16 @@ public class AccountController extends org.alt60m.servlet.Controller {
 		}
 	}
 
+	private void sendPasswordEmail(ActionContext ctx, String username, String loginPage, String newPassword, String email) throws Exception {
+		if (isUserGeneric(ctx)) {
+			sendGenericPasswordEmail(username, email, newPassword,
+					loginPage, ctx);
+		} else {
+			sendUscmPasswordEmail(username, email, newPassword, loginPage,
+					ctx);
+		}
+	}
+
 	private String buildErrorString(List<String> errors) {
 		String errorMessage = "";
 		for (String error : errors) {
@@ -690,25 +687,23 @@ public class AccountController extends org.alt60m.servlet.Controller {
 
 	private String generatePassword(int passLength) {
 		char[] chars = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','0','!','$','?' };
-		int _CHARS_ARRAY_SIZE = chars.length;
 		String newPassword = "";
 		for (int i = 0; i < passLength; i++) {
-			newPassword += chars[randGen.nextInt(_CHARS_ARRAY_SIZE)]; 
+			newPassword += chars[randGen.nextInt(chars.length)]; 
 		}
 		return newPassword;
 	}
 
-	private void sendPasswordEmail(String username, String userEmail, String newPassword, String loginPage, ActionContext ctx) throws Exception {
+	private void sendUscmPasswordEmail(String username, String userEmail, String newPassword, String loginPage, ActionContext ctx) throws Exception {
 		try {
-			String subject = "New Campus Crusade for Christ User Account Change";
+			String subject = "Campus Crusade for Christ User Account Change";
 			String body = "This is a confirmation of your recent request to change your Campus Crusade for Christ user password."+
 					"\n\nYou recently requested that your password be changed."+
-					"\n\nYour username is: "+username+
 					"\nYour new password is: "+newPassword+
 				    "\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ" +
 					"\nhttp://www.campuscrusadeforchrist.com";
-			sendEmail(userEmail, GENERIC_FROM_ADDRESS, subject, body, "text/plain");
+			sendEmail(userEmail, USCM_FROM_ADDRESS, subject, body, "text/plain");
 		} catch(Exception e) {
 			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
@@ -717,10 +712,9 @@ public class AccountController extends org.alt60m.servlet.Controller {
 
 	private void sendGenericPasswordEmail(String username, String userEmail, String newPassword, String loginPage, ActionContext ctx) throws Exception {
 		try {
-			String subject = "New Conference Registration Tool Account Change";
+			String subject = "Conference Registration Tool Account Change";
 			String body = "This is a confirmation of your recent request to change your password."+
 					"\n\nYou recently requested that your password be changed."+
-					"\n\nYour username is: "+username+
 					"\nYour new password is: "+newPassword+
 				    "\n\nIf you have any questions please contact the administrator for the conference you are registering for."+
 				    "\n\nThe Conference Registration Tool Team";
@@ -769,7 +763,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
 			log.debug(body);
-			sendEmail(username, GENERIC_FROM_ADDRESS, subject, body, "text/plain");
+			sendEmail(username, USCM_FROM_ADDRESS, subject, body, "text/plain");
 		} catch(Exception e) {
 			log.error("Failed to send password email for user "+username+"!",e);
 			throw e;
