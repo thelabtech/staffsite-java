@@ -1,5 +1,8 @@
 package org.alt60m.util;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
+
 import org.alt60m.util.AuthNet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -157,11 +160,17 @@ public class OnlinePayment {
                 results.put("Status","Error");
                 log.info("Credit card transaction declined; reason: " + responseReasonText);
             } else if ((responseCode.equals("3"))) { // Error
-				String errorInfo = "Response Subcode: "
-						+ authNetObj.getField(2) + "; "
-						+ "Response Reason Code: " + authNetObj.getField(3)
-						+ "; " + "Response Reason Text: " + responseReasonText;
-				log.error("Error processing credit card: " + errorInfo);
+				String responseReasonCode = authNetObj.getField(3);
+            	if (worthyOfError(responseReasonCode)) {
+					String errorInfo = "Response Subcode: "
+							+ authNetObj.getField(2) + "; "
+							+ "Response Reason Code: " + responseReasonCode
+							+ "; " + "Response Reason Text: "
+							+ responseReasonText;
+					log.error("Error processing credit card: " + errorInfo);
+            	} else {
+            		log.info("Error processing credit card; reason: " + responseReasonText);
+            	}
             	results.put("Status","Error");
             } else {
             	log.error("unknown response code: " + responseCode);
@@ -178,4 +187,9 @@ public class OnlinePayment {
 
         return results;
     }
+
+	private boolean worthyOfError(String responseReasonCode) {
+		List<String> ignoreCodes = Arrays.asList(new String[]{"6", "11"}); //invalid credit card number, duplicate transaction
+		return ! ignoreCodes.contains(responseReasonCode);
+	}
 }
