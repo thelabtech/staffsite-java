@@ -611,7 +611,6 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					} else {
 						ar.putValue("loginPage", loginPage);
 						ctx.goToView("externalRedirect");
-						//ctx.getResponse().sendRedirect(loginPage);
 					}
 				} else {
 					ctx.goToURL("/accounts/passwordChangeConfirm.jsp");
