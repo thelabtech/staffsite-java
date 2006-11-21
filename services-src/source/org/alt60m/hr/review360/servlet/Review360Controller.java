@@ -1570,28 +1570,21 @@ public class Review360Controller extends Controller
 
 			java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yyyy");
 
-			log.debug("looking up staff " + my360.getReviewedById());							
-			
-			try {
-				if("".equals(my360.getReviewedById()))
-						throw new Exception();
-				else
-				{
-					Staff so = my360.getReviewedBy();
-	
-					log.debug("found staff " + so.getPreferredName() + " " + so.getLastName());
-					
-					review.put("PsEmail", so.getEmail());
-					review.put("ReviewedByName", so.getPreferredName() + " " + so.getLastName());
-				}
-			} catch (Exception notfound) {
-				log.error("Didn't find staff: " + my360.getReviewedById());
+			log.debug("looking up staff " + my360.getReviewedById());
 
+			if ("".equals(my360.getReviewedById())) {
 				review.put("PsEmail", my360.getReviewedByEmail());
-                review.put("ReviewedByName",my360.getReviewedByFirstName()+" "+my360.getReviewedByLastName());
+				review.put("ReviewedByName", my360.getReviewedByFirstName()
+						+ " " + my360.getReviewedByLastName());
+			} else {
+				Staff so = my360.getReviewedBy();
 
-                //review.put("PsEmail", "<not available>");
-				//review.put("ReviewedByName", "<not available>");
+				log.debug("found staff " + so.getPreferredName() + " "
+						+ so.getLastName());
+
+				review.put("PsEmail", so.getEmail());
+				review.put("ReviewedByName", so.getPreferredName() + " "
+						+ so.getLastName());
 			}
 
 			// Catch if copmlete date is null
