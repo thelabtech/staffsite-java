@@ -1,5 +1,5 @@
-<% } catch (Exception e) {e.printStackTrace();} %>
+<% } catch (Exception e) {throw e;} %>
 <% box.setStyle("rounded"); %>
 <%=box.printBottom()%>
-<%} catch (Exception e) {e.printStackTrace();}%>
+<%} catch (Exception e) {throw e;}%>
 <%@ include file="/footer.jspf"%>
