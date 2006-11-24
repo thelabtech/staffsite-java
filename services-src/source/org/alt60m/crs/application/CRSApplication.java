@@ -167,7 +167,7 @@ public class CRSApplication {
 			// Registrations -> ChildRegistration
 			// RegistrationTypes
 			// Payments
-			//FIXME: QuestionTexts, are they properly deleted along with the question?
+			
 			int conferenceID = Integer.parseInt(conferenceIDString);
 
 			Conference c = getConference(conferenceID);
@@ -183,19 +183,6 @@ public class CRSApplication {
 				a.setQuestionID(q.getQuestionID());
 				a.delete();
 				deleteQuestion(String.valueOf(q.getQuestionID()));
-			}
-
-			Iterator ms = c.getMerchandise().iterator();
-			while (ms.hasNext()) {
-				Merchandise m = (Merchandise) ms.next();
-				MerchandiseChoice mc = new MerchandiseChoice();
-				mc.setMerchandiseID(m.getMerchandiseID());
-				mc.delete();  /* something wrong here */
-/*				ERR:DBIO.tableDelete: Aborting delete because no key specified.
-				ERR:Error during DBIOEntity.delete: system.dbio.aborteddeletenokeys
-				com.kenburcham.framework.dbio.DBIOException: system.dbio.aborteddeletenokeys*/
-
-				m.delete();
 			}
 
 			Iterator rs = listRegistrations(conferenceIDString,
@@ -222,6 +209,10 @@ public class CRSApplication {
 				r.delete();
 			}
 
+			//remove any merchandise not deleted above (not associated with a registration)
+			Iterator<Merchandise> ms = c.getMerchandise().iterator();
+			deleteMerchandise(ms);
+			
 			Iterator rts = c.getRegistrationTypes().iterator();
 			while (rts.hasNext()) {
 				RegistrationType rt = (RegistrationType) rts.next();
@@ -238,6 +229,25 @@ public class CRSApplication {
 		} catch (Exception e) {
 			log.error(e,e);
 			return false;
+		}
+	}
+
+	private void deleteMerchandise(Iterator<Merchandise> ms) {
+		while (ms.hasNext()) {
+			Merchandise m = (Merchandise) ms.next();
+			MerchandiseChoice prototype = new MerchandiseChoice();
+			prototype.setMerchandiseID(m.getMerchandiseID());
+			List<MerchandiseChoice> merchandiseChoices = prototype.selectList();
+			for (MerchandiseChoice mc : merchandiseChoices) {
+				mc.delete();
+				/* Note: it would be faster to do prototype.delete(), but this can't be done, because
+				 * MerchandiseChoice doesn't have the 
+				 * foreign key for Merchandise set to "KEY" in the localinit().
+				 * And for the moment we can't set that because DBIO doesn't handle tables
+				 * with all "KEY" types at the moment.  ~JCS 10/9/2006
+				 */  
+			}
+			m.delete();
 		}
 	}
 
@@ -467,24 +477,6 @@ public class CRSApplication {
 				deleteQuestion(String.valueOf(q.getQuestionID()));
 			}
 
-			Iterator ms = rt.getMerchandise().iterator();
-			while (ms.hasNext()) {
-				Merchandise m = (Merchandise) ms.next();
-				MerchandiseChoice mc = new MerchandiseChoice();
-				mc.setMerchandiseID(m.getMerchandiseID());
-				mc.delete();  /* something wrong here */
-				/* ERR:DBIO.tableDelete: Aborting delete because no key specified.
-				 * ERR:Error during DBIOEntity.delete: system.dbio.aborteddeletenokeys
-				 * com.kenburcham.framework.dbio.DBIOException: system.dbio.aborteddeletenokeys
-				 */
-				/* this error happens because MerchandiseChoice doesn't have the 
-				 * foreign key for Merchandise set to "KEY" in the localinit().
-				 * And for the moment we can't set that because DBIO doesn't handle tables
-				 * with all "KEY" types at the moment.  ~JCS 10/9/2006
-				 */
-				m.delete();
-			}
-
 			Iterator rs = listRegistrations(conferenceIDString, regTypeIDString,
 					"registrationID", "DESC").iterator();
 			while (rs.hasNext()) {
@@ -509,10 +501,15 @@ public class CRSApplication {
 				r.delete();
 			}
 			
+			//remove any merchandise not deleted above (not associated with a registration)
+			Iterator<Merchandise> ms = rt.getMerchandise().iterator();
+			deleteMerchandise(ms);
+			
 			rt.delete();
 
 			return true;
 		} catch (Exception e) {
+			log.error(e, e);
 			return false;
 		}
 	}
@@ -766,20 +763,16 @@ public class CRSApplication {
 	}
 
 	public boolean deleteQuestion(String questionID) {
-		try {
-			Question q = getQuestion(questionID);
-			Answer a = new Answer();
-			a.setQuestion(q);
-			if ("common".equals(q.getQuestionText().getStatus())) {
-				return q.delete() && a.delete();
-			} else {
-				if (q.getQuestionText().delete())
-					return a.delete() && q.delete();
-				else
-					return false;
-			}
-		} catch (Exception e) {
-			return false;
+		Question q = getQuestion(questionID);
+		Answer a = new Answer();
+		a.setQuestion(q);
+		if ("common".equals(q.getQuestionText().getStatus())) {
+			return q.delete() && a.delete();
+		} else {
+			if (q.getQuestionText().delete())
+				return a.delete() && q.delete();
+			else
+				return false;
 		}
 	}
 
