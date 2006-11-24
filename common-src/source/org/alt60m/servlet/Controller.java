@@ -358,21 +358,6 @@ public abstract class Controller extends HttpServlet {
 		String actionName = null;
 		try {
 
-			String userIPAddress = req.getRemoteAddr();
-			MDC.put("userIPAddress", userIPAddress);
-			String machineName = InetAddress.getLocalHost().getHostName();
-			MDC.put("machineName", machineName);
-			
-			String user = (String) req.getSession().getAttribute("userName");
-			if (user == null) {
-				user = (String) req.getSession().getAttribute("userLoggedIn");
-			}
-			if (user == null) {
-				user = "(anonymous)";
-			}
-			
-			MDC.put("username", user);
-			NDC.push(user);
 			if(req.getParameter("action") == null){
 				log.debug("Invoking default action: " +_defaultAction );
 				actionName = _defaultAction;
@@ -381,40 +366,6 @@ public abstract class Controller extends HttpServlet {
 				log.info("Invoking action: " + requestedAction);
 				actionName = requestedAction;
 			}
-			MDC.put("action", actionName);
-			NDC.push(actionName);
-
-			Map<String, Object> requestMap = ctx.getHashedRequest();
-			StringBuffer url = req.getRequestURL();
-
-			String lineSep = System.getProperty("line.separator");
-			lineSep = (lineSep == null ? "\n" : lineSep);
-			MDC.put("request", url.append(lineSep).append(requestMap.toString()).toString());
-			
-			LinkedList<String> history = (LinkedList<String>) req.getSession().getAttribute("history");
-			if (history == null)
-			{
-				history = new LinkedList<String>();
-				req.getSession().setAttribute("history", history);
-			}
-			String path = req.getRequestURI();
-			path = lineSep + path + " " + requestMap.toString() + lineSep;
-			history.add(path);
-
-			if (history.size() > MAX_HISTORY_SIZE) {
-				history.remove();
-			}
-			
-			HashMap<String, Object> sessionCopy = new HashMap<String, Object>();
-			for (Enumeration<String> attributeNames = (Enumeration<String>) req.getSession().getAttributeNames(); attributeNames.hasMoreElements();)
-			{
-				String attributeName = attributeNames.nextElement(); 
-				sessionCopy.put(attributeName, req.getSession().getAttribute(attributeName));
-			}
-			
-			MDC.put("session", sessionCopy.toString());
-			
-			
 			ctx.setLastAction(actionName);
 			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
 			long beginTime = System.currentTimeMillis();
@@ -434,14 +385,6 @@ public abstract class Controller extends HttpServlet {
         	ctx.setError();
             ctx.goToErrorView();
 		} finally {
-			NDC.pop();
-			NDC.pop();
-			MDC.remove("username");
-			MDC.remove("action");
-			MDC.remove("session");
-			MDC.remove("request");
-			MDC.remove("userIPAddress");
-			MDC.remove("machineName");
 			synchronized (this) { _thread_ctr--; }
 		}
 	}

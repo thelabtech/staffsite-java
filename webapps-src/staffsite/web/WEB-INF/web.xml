@@ -114,6 +114,13 @@
 			<param-value>/hr_ms/downforsummer.html</param-value>
 		</init-param>
 	</filter>
+	
+	<filter>
+		<filter-name>logging</filter-name>
+		<filter-class>
+			org.alt60m.servlet.LoggingFilter
+		</filter-class>
+	</filter>
 
 	<!--  Filter Mappings  -->
 	<!-- 
@@ -137,6 +144,11 @@
 	<filter-mapping>
 		<filter-name>ms_down_for_summer</filter-name>
 		<url-pattern>/hr_ms/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>logging</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<!-- 
