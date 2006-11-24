@@ -236,6 +236,7 @@ public class CRSApplication {
 
 			return true;
 		} catch (Exception e) {
+			log.error(e,e);
 			return false;
 		}
 	}

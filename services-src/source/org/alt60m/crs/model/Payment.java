@@ -16,7 +16,7 @@ public class Payment extends DBIOEntity {
 		String table = "crs_payment";
 		setMetadata("PaymentID", "paymentID", "IDENTITY");
 
-		setMetadata("RegistrationID", "fk_RegistrationID", table);
+		setMetadata("RegistrationID", "fk_RegistrationID", "KEY");
 
 		setMetadata("PaymentDate", "paymentDate", table);
 		setMetadata("Credit", "credit", table);

@@ -756,7 +756,7 @@ public class Registration extends DBIOEntity {
 		String table = "crs_registration";
 
 		setMetadata("RegistrationID", "registrationID", "IDENTITY");
-		setMetadata("ConferenceID", "fk_ConferenceID", table);
+		setMetadata("ConferenceID", "fk_ConferenceID", "KEY");
 		setMetadata("PersonID", "fk_PersonID", table);
 		setMetadata("RegistrationDate", "registrationDate", table);
 		setMetadata("PreRegisteredString", "preRegistered", table);
