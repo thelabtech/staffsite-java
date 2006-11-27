@@ -68,7 +68,7 @@ public class LoggingFilter implements Filter {
 			MDC.put("request", url.append(lineSep)
 					.append(requestMap.toString()).toString());
 
-			List<String> history = (LinkedList<String>) req.getSession()
+			List<String> history = (List<String>) req.getSession()
 					.getAttribute("history");
 			if (history == null) {
 				history = Collections.synchronizedList(new LinkedList<String>());
