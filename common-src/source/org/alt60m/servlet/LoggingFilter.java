@@ -3,10 +3,12 @@ package org.alt60m.servlet;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.text.DateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -66,10 +68,10 @@ public class LoggingFilter implements Filter {
 			MDC.put("request", url.append(lineSep)
 					.append(requestMap.toString()).toString());
 
-			LinkedList<String> history = (LinkedList<String>) req.getSession()
+			List<String> history = (LinkedList<String>) req.getSession()
 					.getAttribute("history");
 			if (history == null) {
-				history = new LinkedList<String>();
+				history = Collections.synchronizedList(new LinkedList<String>());
 				req.getSession().setAttribute("history", history);
 			}
 			String currentTime = DateFormat.getTimeInstance().format(new Date());
@@ -78,7 +80,7 @@ public class LoggingFilter implements Filter {
 			history.add(path);
 
 			if (history.size() > MAX_HISTORY_SIZE) {
-				history.remove();
+				history.remove(0);
 			}
 
 			Map<String, Object> sessionCopy = getHashedSession(req);
