@@ -2,11 +2,9 @@ package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.servlet.Action;
 import org.alt60m.servlet.ActionResults;
-//import org.alt60m.servlet.Controller.ActionContext;
 
 import java.io.IOException;
 import java.util.*;
-//import java.util.Hashtable;
 
 public class SIController extends org.alt60m.servlet.Controller {
 
@@ -28,6 +26,7 @@ public class SIController extends org.alt60m.servlet.Controller {
 	private SIPaymentHandler    	paymenthandler = new SIPaymentHandler();
 	private SIReferenceHandler  	referencehandler = new SIReferenceHandler();
 	private SIAdminHandler			adminhandler = new SIAdminHandler();
+	private final SIInfo 			info = new SIInfo();
 
 	//constructor
 	public SIController() {}
@@ -78,6 +77,23 @@ public class SIController extends org.alt60m.servlet.Controller {
         postProcess(ctx, ar);
     }
     
+    public void getProject(ActionContext ctx) {
+		// 2003-01-06: dc: Do NOT make sure the person is logged in to permit this action.  It is done before they login.
+		//	if(!isLoggedIn(ctx)){getNotAuthorizedPage(ctx);return;} //Added kb-12/18/02 - checks security
+		//
+		ActionResults ar = new ActionResults();
+		String projectID = ctx.getInputString("projectID");
+		log.info("Looking up project: " + projectID);
+		String url = ctx.getInputString("url");
+		Hashtable project = null;
+		if (projectID != null && projectID.length() < 8) {  //Don't accept old Castor IDs
+			project = info.getProject(projectID);
+		}
+		log.debug("project info: " + project);
+		if (project != null) ar.addHashtable("project",project);
+		ctx.setReturnValue(ar);
+		ctx.goToURL(url);
+	}
     
     public void postAppHome(ActionContext ctx)
     {
