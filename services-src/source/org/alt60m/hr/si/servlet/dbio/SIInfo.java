@@ -2,14 +2,11 @@ package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.hr.si.model.dbio.*;
 import org.alt60m.util.ObjectHashUtil;
+import org.alt60m.wsn.sp.model.dbio.WsnProject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
-//import org.exolab.castor.jdo.OQLQuery;
-//import org.exolab.castor.jdo.QueryResults;
 
 
 public class SIInfo {
@@ -40,6 +37,16 @@ public class SIInfo {
 	not just the WSN application. But I ended up not doing that for time reasons (I wrote this
 	on the morning of my last day on OSP). This is untested, but it should work fine. --RDH 15 August 2002 */
 	// returns null on failure
+	
+	public Hashtable getProject(String projectID) {
+		try {
+			return ObjectHashUtil.obj2hash(new WsnProject(projectID));
+		} catch (Exception e) {
+			log.error("Warning: Unable to perform MSInfo.getProject()!", e);
+			return null;
+		}
+	}
+	
 	public Hashtable saveObject(Hashtable formData, String id, String idName, String className) {
 		if (className.equals("org.alt60m.hr.si.model.dbio.SIApplication")) {
 			return saveSIApplication(formData, id, idName);
