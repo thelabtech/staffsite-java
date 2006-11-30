@@ -46,11 +46,11 @@ try{
 				<table border="1">
 <tr>
 <td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A></td>
-<td>Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference Access Template" option listed below. A Microsoft Access template. See the <u><a href="http://conf_admin.mygcx.org">GCX Conference Administrator’s Community</a><u> for help on how to use BlueMango at your conference.</td>
+<td>Sleek, svelte and ready to roll. An upgrade of the "Christmas Conference Access Template" option listed below. A Microsoft Access template. See the <u><a href="http://conf_admin.mygcx.org">GCX Conference Administrator’s Community</a></u> for help on how to use BlueMango at your conference.</td>
 </tr>
 <tr>
 <td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Christmas Conference">Christmas Conference Access Template</A></td>
-<td>Also a Microsoft Access template. Some helpful guides are available in the <u><a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a></u>. See the <u><a href="http://conf_admin.mygcx.org">GCX Conference Administrator’s Community</a><u> for information about the planned “phase out” of this version in early spring 2007.</td>
+<td>Also a Microsoft Access template. Some helpful guides are available in the <u><a href="/servlet/CmsController?action=browse&catId=1000078" target="_blank">Resource Center</a></u>. See the <u><a href="http://conf_admin.mygcx.org">GCX Conference Administrator’s Community</a></u> for information about the planned “phase out” of this version in early spring 2007.</td>
 </tr>
 <tr>
 <td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=Blank">Blank Access Template</A></td>
