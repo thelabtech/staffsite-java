@@ -1,0 +1,120 @@
+id	oldColumnName	valueMappingId	
+33			"the old app has howOftenCheckEmail, but it was freeform, and not worth converting"
+34	preferredContactMethod	4	
+53	earliestAvailableDate		
+54	dateMustReturn		
+57	inSchoolNextFall		
+66	campusHasOtherDetails		
+73	participateImpact		
+74	participateDestino		
+75	participateEpic		
+76	participateCCC		
+77	participateNone		
+78	campusHasStaffTeam		
+79	campusHasStaffCoach		
+80	campusHasMetroTeam		
+81	campusHasOther		
+88	willingForDifferentProject
+90	_1a
+91	_1b
+92	_1c
+93	_1d
+94	_1e
+97	_1f
+103	_2c
+106	_3a
+107	_3b
+108	_3c
+109	_3d
+110	_3e
+111	_3f
+112	_3g
+113	_3h
+116	_4a
+117	_4b
+118	_4c
+119	_4d
+120	_4e
+121	_4f
+122	_4g
+123	_4h
+124	_4i
+127	_5a
+128	_5b
+129	_5d
+130	_5e
+132	_5c
+133	_5f
+134	_5g
+136	_6	
+138	_7	
+140	_8a	
+141	_8b	
+144	_9	
+146	_10	
+148	_11a	
+149	_11b	
+151	_12a	
+152	_12b	
+155	_13a	
+156	_13b	
+157	_13c	
+159	_14	
+161	_15	
+163	_16	1
+165	_17	2
+167	_18	3
+170	_19a	
+171	_19b	
+172	_19c	
+173	_19d	
+174	_19e	
+175	_19f	
+178	_20a	
+179	_20b	
+180	_20c	
+182	_21j	8
+184	_21a	
+185	_21b	
+186	_21c	
+187	_21d	
+188	_21e
+189	_21f
+190	_21g
+191	_21h
+192	_21i
+194	ciPhoneCallRequested
+197	ciPhoneNumber
+198	ciBestTimeToCall
+199	ciTimeZone
+201	_22a
+202	_22b
+203	_23b
+204	_24b
+205	_25
+206	_26b
+207	_27b
+208	_28b
+215	_24a
+216	_26a
+217	_27a
+218	_28a
+220	_29a
+221	_29b
+222	_29c
+224	_29d
+225	_29e
+231	_30
+232	_31
+233	_32
+234	_33
+235	_34
+241	electronicSignature
+244
+245
+246
+248
+249
+250
+253
+255
