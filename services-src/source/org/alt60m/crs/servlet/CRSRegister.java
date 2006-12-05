@@ -8,6 +8,8 @@ import org.alt60m.servlet.*;
 import java.util.*;
 //import org.alt60m.factory.ServiceFactory;
 import org.alt60m.security.dbio.manager.SimpleSecurityManager;
+import org.alt60m.security.dbio.manager.UserLockedOutException;
+import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.crs.application.*;
 import org.alt60m.crs.model.*;
 import org.alt60m.ministry.model.dbio.TargetArea;
@@ -59,9 +61,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 	//default error page handler
 	private void goToErrorPage(ActionContext ctx, Exception e, String methodName) {
 		ActionResults ar = new ActionResults();
-		String exceptionText = e + "<BR>\n"; //+ e.getStackTrace()[0];
-		//for(int i=1; !e.getStackTrace()[i].toString().startsWith("sun"); i++)
-		// exceptionText += "<BR>\n" + e.getStackTrace()[i];
+		String exceptionText = e + "<BR>\n";
 		ar.putValue("errorMsg", exceptionText);
 		ar.putValue("nextAction", "");
 		ctx.setReturnValue(ar);
@@ -139,7 +139,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("showEventDetails");
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
+			goToErrorPage(ctx, e, "showEventDetails");
 		}
 	}
 
@@ -182,7 +182,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.goToView("selectRegistrationType");
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "selectEvent");
 		}
 	}
 
@@ -287,6 +287,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 
 	public void userAuthenticate(ActionContext ctx) {
 		ActionResults ar = new ActionResults("userAuthenticate");
+		String username = "(none)";
 		try {
 			if (ctx.getInputString("ConferenceID") == null
 					&& ctx.getSessionValue("selectedEvent") == null) {
@@ -305,7 +306,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				ctx.setReturnValue(ar);
 				ctx.goToView("error");
 			} else {
-				String username = ctx.getInputString("Username").toLowerCase();
+				username = ctx.getInputString("Username").toLowerCase();
 				String password = ctx.getInputString("Password");
 
 				SimpleSecurityManager manager = new SimpleSecurityManager();
@@ -317,7 +318,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 							+ " failed.");
 					ar.putValue(
 							"errorMsg",
-							"Incorrect password. Click continue try again. You will be locked out for 24 hours after 5 incorrect attempts.");
+							"Incorrect password. Click continue try again. You will be locked out after " + manager.getMaxFailedLogins() +" incorrect attempts.");
 					ar.putValue("nextAction", "userLogin&type="
 							+ ctx.getInputString("regTypeID") + "&regTypeID="
 							+ ctx.getInputString("regTypeID"));
@@ -345,14 +346,16 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					userAuthenticated(ctx);
 				}
 			}
-		} catch (org.alt60m.security.dbio.manager.UserLockedOutException e) {
-			ar.putValue("errorMsg", "Incorrect password.  Click continue try again.  You will be locked out for 24 hours after 5 incorrect attempts.");
+		} catch (UserLockedOutException e) {
+			log.info("user " + username + "'s account has been locked");
+			ar.putValue("errorMsg", "This account has been locked.");
 			ar.putValue("nextAction", "userLogin&type="
 					+ ctx.getInputString("regTypeID") + "&regTypeID="
 					+ ctx.getInputString("regTypeID"));
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
-		} catch (org.alt60m.security.dbio.manager.UserNotFoundException userexception) {
+		} catch (UserNotFoundException e) {
+			log.info("user " + username + " was not found");
 			ar.putValue("errorMsg",
 					"User not found, please go back and try again.");
 			ar.putValue("nextAction", "userLogin");
@@ -360,7 +363,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 			ctx.goToView("error");
 		} catch (Exception e) {
 			goToErrorPage(ctx, e, "userAuthenticate");
-		}// probably failed to find this event
+		}
 	}
 
 	public void userAuthenticated(ActionContext ctx) throws Exception {
@@ -497,8 +500,8 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
-		}// probably failed to find this event
+			goToErrorPage(ctx, e, "editPersonDetails");
+		}
 	}
 
 	public void askSpouseQuestions(ActionContext ctx) {
@@ -562,8 +565,8 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
-		}// probably failed to find this event
+			goToErrorPage(ctx, e, "askSpouseQuestions");
+		}
 	}
 
 	public void saveSpouseQuestions(ActionContext ctx) {
@@ -634,8 +637,8 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "userAuthenticate");
-		}// probably failed to find this event
+			goToErrorPage(ctx, e, "saveSpouseQuestions");
+		}
 	}
 
 	public void saveSpouseDetails(ActionContext ctx) {
@@ -684,7 +687,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 			}
 		} catch (Exception e) {
 			goToErrorPage(ctx, e, "saveSpouseDetails");
-		}// probably failed to find this event
+		}
 	}
 
 	public void savePersonDetails(ActionContext ctx) {
@@ -776,7 +779,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 			}
 		} catch (Exception e) {
 			goToErrorPage(ctx, e, "savePersonDetails");
-		}// probably failed to find this event
+		}
 	}
 
 	public void listQuestions(ActionContext ctx) {
@@ -819,7 +822,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "listQuestions");
 		}
 	}
 
@@ -875,7 +878,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "editChildRegistrations");
 		}
 	}
 
@@ -959,7 +962,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "saveChildRegistrations");
 		}
 	}
 
@@ -1019,7 +1022,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "saveRegistrationQuestions");
 		}
 	}
 
@@ -1064,7 +1067,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "listMerchandise");
 		}
 	}
 
@@ -1218,7 +1221,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "reviewPayments");
 		}
 	}
 
@@ -1504,7 +1507,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				}
 			}
 		} catch (Exception e) {
-			goToErrorPage(ctx, e, "showConference");
+			goToErrorPage(ctx, e, "reviewRegistration");
 		}
 	}
 
