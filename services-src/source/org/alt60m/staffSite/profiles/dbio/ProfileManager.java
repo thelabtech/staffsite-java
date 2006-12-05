@@ -1,13 +1,11 @@
 package org.alt60m.staffSite.profiles.dbio;
 
-//import org.alt60m.security.CAS.CASUser;
 import java.util.Collection;
 
 import org.alt60m.cas.CASUser;
 import org.alt60m.ministry.model.dbio.OldAddress;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.security.dbio.manager.SecurityManager;
-import org.alt60m.security.dbio.manager.SecurityManagerException;
 import org.alt60m.security.dbio.manager.SecurityManagerFailedException;
 import org.alt60m.security.dbio.manager.SimpleSecurityManager;
 import org.alt60m.security.dbio.manager.UserLockedOutException;
@@ -25,43 +23,9 @@ import org.apache.commons.logging.LogFactory;
 public class ProfileManager {
 	private static Log log = LogFactory.getLog(ProfileManager.class);
 
-    public ProfileManager() { //String secantAdminUserName, String secantAdminPassword) throws ProfileManagementException {
-            _securityMan = new SimpleSecurityManager();// org.alt60m.factory.ServiceFactory.getSimpleSecurityManager(); //new org.alt60m.security.manager.SimpleSecurityManager();//org.alt60m.security.manager.TransitionalSecurityManager(secantAdminUserName, secantAdminPassword);
+    public ProfileManager() { 
+            _securityMan = new SimpleSecurityManager();
     }
-
-//    public static void main(String[] args) throws Exception {
-//        ProfileManager pMan = new ProfileManager("","");
-//
-//        if(args[0].equalsIgnoreCase("-authenticate")) {
-//			String result = pMan.authenticate(args[1], args[2]);
-//			System.out.println("Authenticate: " + result);
-//
-//        } else if(args[0].equalsIgnoreCase("-create")) {
-//            ProfileValues pVals = new ProfileValues();
-//            pVals.isStaff = false;
-//			pVals.firstName= args[1];
-//			pVals.lastName = args[2];
-//            pVals.userName = args[3];
-//			pVals.password =args[4] ;
-//			pVals.verifyPassword=args[4];
-//
-//            StringBuffer profileID = new StringBuffer();
-//            StringBuffer errors = new StringBuffer();
-//
-//			boolean result = pMan.createProfile(pVals, profileID, errors);
-//
-//            if(result=true) {
-//				System.out.println("Create new account.");
-//				System.out.println("  ProfileID: "+profileID);
-//				System.out.println("  errors: "+errors);
-//            } else {
-//				System.out.println("Failed!");
-//				System.out.println("  errors: "+errors);
-//            }
-//
-//        }
-//
-//    }
 
     /** Handle requests for authentication from the Staff Controller. Returns the profile ID if successful... */
     public String authenticate(String userName, String password) throws ProfileNotFoundException,
@@ -82,36 +46,10 @@ public class ProfileManager {
             if (!secantAuthorized) {
                 throw new NotAuthorizedException();
             } else {
-            	
-//*****  NEW SSO CODE  
             	return getProfile(userName).getStaffSiteProfileID();
             }
     }  
-//*****  END NEW SSO CODE */
             	
-/*****  OLD CODE TO DELETE  *****
-              try {
-                    // if successful, continue for 2nd check (profile info)
-//                    String query = "select obj from org.alt60m.staffSite.model.StaffSiteProfile as obj where obj.userName = $1";
-//                    System.out.println("OQL: " + query);
-	                StaffSiteProfile ssp = new StaffSiteProfile();
-	                ssp.setUserName(userName);
-                    Collection profiles = ObjectHashUtil.list(ssp.selectList());// _profileAdaptor.listWithParams(query, new Object[] {userName});
-                    if (profiles.size() == 0) {
-                        throw new ProfileNotFoundException();
-                    } else if (profiles.size() > 1) {
-                        throw new MultipleProfilesFoundException();
-                    } else {
-                        Hashtable profileHash = (Hashtable)profiles.iterator().next();
-                        return (String)profileHash.get("StaffSiteProfileID");
-                    }
-                } catch (Exception e) {
-                    throw new ProfileManagementException();
-                }
-            }
-    }
-/*****  END OLD CODE TO DELETE  *****/
-    
     
     public void changePassword(String userName, String oldPassword, String newPassword) throws
         ProfileNotFoundException, ProfileManagementException, NotAuthorizedException {
@@ -153,19 +91,15 @@ public class ProfileManager {
 				    setPasswordChangeFlag(userName, flagForPasswordChange);
 
             } catch (UserNotFoundException unfe) {
-                throw new ProfileNotFoundException("Username: '" + userName + "' was not found.");
+            	throw new ProfileNotFoundException("Username: '" + userName + "' was not found.", unfe);
             } catch (SecurityManagerFailedException smfe) {
-                throw new ProfileManagementException(smfe.toString());
+                throw new ProfileManagementException(smfe.toString(), smfe);
             }
     }
 
     private void setPasswordChangeFlag(String userName, boolean flag) { // throws ProfileNotFoundException, ProfileManagementException {
 		// Set the password change flag...
 
-//		try
-//		{
-//			org.alt60m.staffSite.StaffSiteBroker ssb = org.alt60m.factory.ServiceFactory.getStaffSiteBroker();
-//			ssb.begin();
 		StaffSiteProfile spo = new StaffSiteProfile();
 		spo.setUserName(userName);
 		if(spo.select())
@@ -173,15 +107,6 @@ public class ProfileManager {
 			spo.setChangePassword(flag);
 			spo.persist();
 		}
-//		} catch (.ObjectNotFoundException onfe) {
-//			throw new ProfileNotFoundException("ProfileID '" + userName + "' was not found.");
-//		} catch (Exception e) {
-//			throw new ProfileManagementException(e.toString());
-//		}
-
-//		ProfileValues profile = getProfile(userName);
-//		profile.changePassword = flag;
-//		updateProfile(profile);
     }
 
     public void setCaptureHRinfoFlag(String userName, boolean flag) { // throws ProfileNotFoundException, ProfileManagementException {
@@ -226,12 +151,10 @@ public class ProfileManager {
 
         try {
 
-            // Delete from Secant
             _securityMan.removeUser(username);
 
             // Remove profile
             getProfile(username).delete();
-//            _profileAdaptor.delete(profile.profileID);
 
         } catch (UserNotFoundException unfe) {
             throw new ProfileNotFoundException("Username: '" + username + "' was not found.  Couldn't delete.");
@@ -267,7 +190,7 @@ public class ProfileManager {
         try {
 	        StaffSiteProfile ssp = new StaffSiteProfile();
 	        ssp.setUserName(username);
-            profiles = ssp.selectList(); //_profileAdaptor.listWithParams(query, new Object[] {userName});
+            profiles = ssp.selectList(); 
             if (profiles.size() == 0) {
                 throw new ProfileNotFoundException("Profile with username '" + username + "' was not found.");
             }
@@ -304,10 +227,9 @@ public class ProfileManager {
             }
             // Passed validation
             try {
-//                String query = "select obj from org.alt60m.staffSite.model.StaffSiteProfile as obj where obj.userName = $1";
 	            StaffSiteProfile ssp = new StaffSiteProfile();
 	            ssp.setUserName(profile.getUserName());
-                Collection profiles = ssp.selectList(); // _profileAdaptor.listWithParams(query, new Object[] {profile.getUserName()} );
+                Collection profiles = ssp.selectList(); 
                 if (profiles.size() > 0) {
                     throw new org.alt60m.staffSite.profiles.dbio.ProfileAlreadyExistsException("Username '" + profile.getUserName() + "' already exists.");
                 } else {
@@ -353,14 +275,9 @@ public class ProfileManager {
     private void addDefaultStaffPrefs(String profileID, String accountNo) throws Exception {
         try {
 
-//			MinistryBroker mb = org.alt60m.factory.ServiceFactory.getMinistryBroker();
-//            mb.begin();
-			Staff staff = new Staff(accountNo); // (Staff) mb.getObject(Staff.class, accountNo);
-            //StaffObject staff = hmStaff.findByPrimaryKey(new StaffKey(accountNo));
+			Staff staff = new Staff(accountNo); 
 			OldAddress address = staff.getPrimaryAddress();
             String zipCode = address.getZip();
-//			mb.rollback();
-            //client.rollback();
             // Can it be parsed?
             try {
                 Integer.parseInt(zipCode);
@@ -374,7 +291,6 @@ public class ProfileManager {
             preferences.savePreference(profileID, "ZIPCODE", "Zip Code", zipCode);
         }
         catch (Exception e) {
-           //try { client.rollback(); } catch (Exception ignore) { };
             throw e;
         }
     }
@@ -478,23 +394,4 @@ public class ProfileManager {
 		return ssp.getStaffSiteProfileID();
 	}
 
-    /**
-     * @link
-     * @shapeType PatternLink
-     * @pattern TestCase
-     * @clientRole tested
-     * @supplierRole tests
-     * @hidden 
-     */
-    /*# private TestProfileManager _testProfileManager; */
-
-    /**
-     * @link
-     * @shapeType PatternLink
-     * @pattern TestCase
-     * @clientRole tested
-     * @supplierRole tests
-     * @hidden 
-     */
-    /*# private TestProfileManager _testProfileManager1; */
 }

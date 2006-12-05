@@ -2,6 +2,8 @@
 
 package org.alt60m.staffSite.profiles.dbio;
 
+import org.alt60m.security.dbio.manager.UserNotFoundException;
+
 /** This exception is thrown when condition occurred */
 public class ProfileNotFoundException extends Exception {
     /** Constructs an Exception without a message. */
@@ -16,4 +18,8 @@ public class ProfileNotFoundException extends Exception {
     public ProfileNotFoundException(String message) {
         super(message);
     }
+
+	public ProfileNotFoundException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }
