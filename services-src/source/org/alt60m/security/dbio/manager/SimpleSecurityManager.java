@@ -16,12 +16,9 @@ import org.alt60m.cas.CASUser;
 import org.alt60m.gcx.CommunityAdminInterface;
 import org.alt60m.gcx.CommunityAdminInterfaceException;
 import org.alt60m.gcx.ConnexionBar;
-import org.gcx.cas.CASProxyURLConnection;
-import edu.yale.its.tp.cas.proxy.ProxyTicketReceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-//import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
 
 /**
  * @stereotype tested
@@ -47,6 +44,10 @@ public class SimpleSecurityManager implements SecurityManager {
 
 	public void setMaxFailedLogins(int max) {
 		maxFailedLogins = max;
+	}
+	
+	public int getMaxFailedLogins() {
+		return maxFailedLogins;
 	}
 
 	public boolean authenticate(String username, String password)
