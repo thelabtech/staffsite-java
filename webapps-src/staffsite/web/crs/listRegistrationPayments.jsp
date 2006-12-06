@@ -613,10 +613,9 @@ if ("admin".equals(session.getValue("authLevel")) || "uber".equals(session.getVa
 				<TD><SELECT
 					SIZE="1"
 					NAME="Type">
-					<% if (regType.getAcceptScholarships()){%>
+					<%-- always give scholarship options --%>
 					<option	value="Scholarship - Campus Accnt">Scholarship - Campus Accnt</option>
 					<option value="Scholarship - Staff Accnt.">Scholarship - Staff Accnt.</option>
-					<%}%>
 					<% if (regType.getAcceptStaffAcctTransfer()){%>
 					<option value="Staff Account Transfer">Staff Account Transfer</option>
 					<%}%>
