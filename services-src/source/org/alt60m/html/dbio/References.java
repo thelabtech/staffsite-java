@@ -35,13 +35,15 @@ public class References implements java.io.Serializable {
 			String strSQL = "";
 			String refString = "<!--  -------------------- References MODULE ------------------- --> ";
 
-			// display all MS references for this staff
-			refString = refString
-					+ "<font size=2><B>Summer Projects</B></font><BR>";
+			// display all MS references for this staff -- Commentted out cause Josh didn't implement this because he's a bastard.
+			
 			if (accountNo == null) {
 				refString = refString + "<i>Currently Not Available</i><BR>";
 				log.warn("References initialized with null accountNo!");
 			} else {
+				/*
+				refString = refString
+						+ "<font size=2><B>Summer Projects</B></font><BR>";
 				if (accountNo.trim().length() == 0) {
 					// many staff login accounts do not have an AccountNo. So
 					// don't pull up matching references; it would be all
@@ -102,10 +104,11 @@ public class References implements java.io.Serializable {
 					}
 					// end new query
 				}
+				*/
 
 				// display all SI references for this staff
 				refString = refString
-						+ "<BR><font size=2><B>STINT</B></font><BR>";
+						+ /*"<BR>*/"<font size=2><B>STINT</B></font><BR>";
 				if (accountNo.trim().length() == 0) {
 					// many staff login accounts do not have an AccountNo. So
 					// don't
