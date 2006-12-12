@@ -2,6 +2,7 @@ package org.alt60m.crs.logic;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,7 +61,6 @@ public class DetailedExport {
 	public List<String> export(String region) throws SQLException, IOException {
 		List<String> message;
 		try {
-			/* export the conference Table */
 
 			String tableName;
 
@@ -84,7 +84,6 @@ public class DetailedExport {
 					"SELECT conferenceID, createDate, name, theme, region, contactName, contactEmail, contactPhone, contactAddress1, contactAddress2, contactCity, contactState, contactZip, splashPageURL, confImageId, fontFace, backgroundColor, foregroundColor, highlightColor, acceptCreditCards, acceptEChecks, acceptScholarships, preRegStart, preRegEnd, defaultDateStaffArrive, defaultDateStaffLeave, onsiteCost, commuterCost, preRegDeposit, discountFullPayment, discountEarlyReg, discountEarlyRegDate, checkPayableTo FROM crs_conference WHERE conferenceID="
 							+ conferenceID);
 
-			/* export the RegistrationType Table */
 
 			tableName = "RegistrationTypes";
 			log.debug("Getting data for table: " + tableName);
@@ -192,23 +191,25 @@ public class DetailedExport {
 		String registrantsSelectClause = "select reg.registrationID";
 
 		String registrantsFromClause = " FROM crs_registration reg where reg.fk_conferenceID = "
-				+ conferenceID
-				+ " AND reg.fk_registrationTypeID = "
-				+ regType.getRegistrationTypeID();
+			+ conferenceID
+			+ " AND reg.fk_registrationTypeID = "
+			+ regType.getRegistrationTypeID();
 
 		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_questiontext.answerType, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID) AND (crs_question.fk_ConferenceID = "
-				+ conferenceID
-				+ ") AND (crs_registrationtype.label = '"
-				+ regType.getLabel()
-				+ "') AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
+			+ "?"
+			+ ") AND (crs_registrationtype.label = "
+			+ "?"
+			+ ") AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
 
 		log.debug("customQuestionsQuery: " + customQuestionsQuery);
 		StringBuffer customQuestionAnswersSelectClause = new StringBuffer();
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
-			statement = connection.createStatement();
-			rs = statement.executeQuery(customQuestionsQuery);
+			statement = connection.prepareStatement(customQuestionsQuery);
+			statement.setInt(1, conferenceID);
+			statement.setString(2, regType.getLabel());
+			rs = statement.executeQuery();
 			customQuestionAnswersSelectClause = helper
 					.buildCustomAnswersSelectClause(rs);
 		} finally {
