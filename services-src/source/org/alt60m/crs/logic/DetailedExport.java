@@ -197,7 +197,7 @@ public class DetailedExport {
 
 		String customQuestionsQuery = "SELECT DISTINCT crs_questiontext.body AS question, crs_question.fk_QuestionTextID AS questionTextId, crs_questiontext.answerType, crs_questiontext.status, crs_question.questionId FROM crs_registrationtype, crs_question INNER JOIN crs_questiontext ON crs_question.fk_QuestionTextID = crs_questiontext.questionTextID WHERE (crs_question.fk_RegistrationTypeID = crs_registrationtype.registrationTypeID) AND (crs_question.fk_ConferenceID = "
 			+ "?"
-			+ ") AND (crs_registrationtype.label = "
+			+ ") AND (crs_registrationtype.registrationTypeID = "
 			+ "?"
 			+ ") AND (crs_questiontext.answerType NOT LIKE 'Divider') AND (crs_questiontext.answerType NOT LIKE 'Info')  AND (crs_questiontext.answerType NOT LIKE 'hide')";
 
@@ -208,7 +208,7 @@ public class DetailedExport {
 		try {
 			statement = connection.prepareStatement(customQuestionsQuery);
 			statement.setInt(1, conferenceID);
-			statement.setString(2, regType.getLabel());
+			statement.setInt(2, regType.getRegistrationTypeID());
 			rs = statement.executeQuery();
 			customQuestionAnswersSelectClause = helper
 					.buildCustomAnswersSelectClause(rs);
