@@ -39,12 +39,25 @@ public class MonitorController extends Controller {
 		
 		boolean casFailure = testCAS(results);
 		
-		boolean failure = dbFailure || gcxFailure || casFailure;
+		boolean memoryFailure = testMemory(results);
+		
+		boolean failure = dbFailure || gcxFailure || casFailure || memoryFailure;
 		String statusMessage = (failure ? "FAIL" : "OK");
 		results.put("statusMessage", statusMessage);
 		log.info("Status page test complete; Status: " + statusMessage);
 		ctx.setReturnValue(results);
 		ctx.goToURL("/monitor.jsp");
+	}
+
+	private boolean testMemory(Map<String, String> results) {
+		Runtime runtime = Runtime.getRuntime();
+		long totalMemory = runtime.totalMemory();
+		long maxMemory = runtime.maxMemory();
+		double usage = (double) totalMemory / maxMemory;
+		String memoryResult = "Max memory: " + maxMemory + "; Total memory: " + totalMemory + " (usage: " + usage + ")";
+		log.info(memoryResult);
+		results.put("memoryResult", memoryResult);
+		return false;
 	}
 
 	private synchronized boolean testDatabase(Map<String, String> results) {

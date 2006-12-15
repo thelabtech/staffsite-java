@@ -15,7 +15,12 @@ Staffsite Status
 <h3>
 Status: ${tub.statusMessage }
 </h3>
-
+<h3>
+Memory Test:
+</h3>
+<p>
+${tub.memoryResult }
+</p>
 <h3>
 Database Tests: ${tub.dbMessage }
 </h3>
