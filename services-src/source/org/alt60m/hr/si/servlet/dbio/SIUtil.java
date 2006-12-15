@@ -6,11 +6,14 @@ import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.wsn.sp.model.dbio.WsnApplication;
 import org.alt60m.security.dbio.manager.*;
+import org.alt60m.util.DBConnectionFactory;
 import org.alt60m.util.ObjectHashUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
 /**
@@ -226,6 +229,15 @@ public class SIUtil {
 		a.setIsCommittedDevelopPartners(2);
 		
 		a.persist();
+		
+		//set up applicant in SITracker
+		
+		Connection connection = DBConnectionFactory.getDatabaseConn();
+		Statement statement = connection.createStatement();
+		log.debug("Inserting applicant into SITracker");
+		statement.executeUpdate("insert into sitrack_tracking (application_id, status) values (" + a.getApplicationID() + ", 'Applicant')");
+		statement.close();
+		connection.close();
 		return a;
 	}
 
