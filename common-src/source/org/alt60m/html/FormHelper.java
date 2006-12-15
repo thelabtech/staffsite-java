@@ -11,18 +11,10 @@ public class FormHelper implements java.io.Serializable {
 /* ------------------    STANDARD ENTRY BOX          ------------------------*/
 	public String value(String value1) { 
 		
-		String s = new String();
-		try {
-			if (value1!=null) {
-				s = value1;
-			} else {
-				s = "";
-			}
-		}
-		catch (Exception e) {
-			s="";
-		}
-		return s;
+		if (value1 != null)
+			return value1;
+		else 
+			return "";
     }
 
 /* ------------------    SELECT FORMS          ------------------------*/
