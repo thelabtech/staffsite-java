@@ -592,10 +592,6 @@ log.debug("***********************");
     }
 
 
-    static private void log(org.apache.log4j.Priority p, String msg) {
-	log(msg);
-    }
-
     static private void log(String msg) {
 	log.debug(msg);
     }
