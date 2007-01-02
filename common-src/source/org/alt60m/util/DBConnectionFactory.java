@@ -58,7 +58,7 @@ public class DBConnectionFactory {
 			ds = (DataSource) ctx.lookup(POOL_NAME);
 			ConnectionManager.getInstance().addDataSource(POOL_NAME, ds);
 		} catch (NamingException e) {
-			log.warn("JDNI lookup failed; using default datasource");
+			log.warn("JNDI lookup failed; using default datasource");
 			getConfigProperties();
 			BasicDataSource bds = new BasicDataSource();
 			bds.setUsername(DEFAULT_USER);
@@ -84,7 +84,6 @@ public class DBConnectionFactory {
 	}
     
     static public Connection getDatabaseConn(String username, String password) throws ClassNotFoundException, SQLException {
-		//return _getDatabaseConn(MSSQL_DRIVER, MSSQL_A022_URL, username, password);
 		return _getDatabaseConn(DEFAULT_DRIVER , DEFAULT_URL, username, password);
 	}
 
