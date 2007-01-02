@@ -50,6 +50,7 @@ public class MonitorController extends Controller {
 	}
 
 	private boolean testMemory(Map<String, String> results) {
+		System.gc();
 		Runtime runtime = Runtime.getRuntime();
 		long totalMemory = runtime.totalMemory();
 		long maxMemory = runtime.maxMemory();
