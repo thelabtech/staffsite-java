@@ -95,8 +95,10 @@ public class MinistryLocatorController extends Controller {
 			
 		} else if(searchBy.equalsIgnoreCase("country"))  {
 			campuses = mlInfo.getTargetAreasByCountry(searchText);
-		} else {
+		} else if(searchBy.equalsIgnoreCase("strategy"))  {
 			campuses = mlInfo.getTargetAreasByStrategy(searchText, searchState);
+		} else {
+			throw new RuntimeException("Invalid searchby: " + searchBy);
 		}
 
 		Iterator campusList = campuses.iterator();
@@ -153,16 +155,7 @@ public class MinistryLocatorController extends Controller {
 	 *		<none>
 	 */
 	public void campusLocate (ActionContext ctx) {
-        try {
-			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country", "strategy"});
-       		String searchText = ctx.getInputString("searchtext", true);
-       		String searchState = ctx.getInputString("state", false);
-
-			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
-
-        } catch (Exception e) {
-			log.error("Failed to perform ministryLocate().", e);
-		}
+		ministryLocate(ctx);
 	}
 	
 	
@@ -176,6 +169,11 @@ public class MinistryLocatorController extends Controller {
 			String searchBy = ctx.getInputString("searchby", new String[] {"state", "country", "strategy"});
        		String searchText = ctx.getInputString("searchtext", true);
        		String searchState = ctx.getInputString("state", false);
+       		
+       		if (searchText.equals("")) {
+       			log.warn("searchText parameter is empty");
+       			return;
+       		}
 
 			outputCampusList(ctx.getResponse(), searchBy, searchText, searchState, true);						
 			
@@ -188,6 +186,10 @@ public class MinistryLocatorController extends Controller {
 
         try {
 			String campusid = ctx.getInputString("campusid", true);
+       		if (campusid.equals("")) {
+       			log.warn("campusid parameter is empty");
+       			return;
+       		}
   			HttpServletResponse res = ctx.getResponse();
 
 			MinistryLocatorInfo mlInfo = new MinistryLocatorInfo();

@@ -75,12 +75,12 @@ public abstract class Controller extends HttpServlet {
 
 		public String getInputString(String key, boolean required) throws MissingRequestParameterException {
 
-			Object value = _request.getParameter(key);
+			String value = _request.getParameter(key);
 
 			if ((value == null) && (required == true))
 				throw new MissingRequestParameterException(key);
 			else
-				return (String) value;
+				return value;
 		}
 		public String getInputString(String key, String[] acceptableValues)
 			throws MissingRequestParameterException, UnexpectedParameterValueException {

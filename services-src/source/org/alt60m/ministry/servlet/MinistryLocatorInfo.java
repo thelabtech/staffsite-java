@@ -26,6 +26,9 @@ public class MinistryLocatorInfo {
 		return getTargetAreas("UPPER(country) LIKE '%"+country.toUpperCase()+"%'");
 	}
 	public Collection getTargetAreasByStrategy(String strategy, String state) throws Exception {
+		if (state == null || state.equals("")) {
+			return new ArrayList<TargetArea>();
+		}
 		TargetArea ta = new TargetArea();
 		return ta.selectSQLList("SELECT * FROM  istprod.ministry_targetarea, ministry_activity WHERE ministry_activity.fk_targetAreaID = ministry_targetarea.TargetAreaID AND (ministry_activity.strategy = '"+strategy.toUpperCase()+"') AND UPPER(state) LIKE '%"+state.toUpperCase()+"%' AND status = 'AC' ORDER BY name");
 	}
