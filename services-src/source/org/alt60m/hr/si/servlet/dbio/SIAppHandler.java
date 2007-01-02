@@ -260,10 +260,12 @@ public class SIAppHandler {
 		// dc 2003-01-23: special processing.  Need to update the REGION field based on the student's universityState.
 		// Anytime the universityState is modified, also persist the REGION field using the correct value.
 		String universityState = (String) parms.get("UniversityState");
-		if (!(universityState == null || "".equals(universityState))) {
+		String university = (String) parms.get("RecentSchools");
+		if (universityState != null && !universityState.equals("")) {
+			
 			// universityState field was on this page.  So, add the REGION field to the hash table
-			String newRegion = SIUtil.getRegionForState(universityState);
-			log.debug("calling info.getRegionForState(" + universityState + ") region=" + newRegion + "=");
+			String newRegion = SIUtil.getCampusRegion(university, universityState);
+			log.debug("info.getRegionForState(" + universityState + ") = " + newRegion);
 			parms.put("Region", newRegion);
 		}
 

@@ -8,6 +8,7 @@ import org.alt60m.wsn.sp.model.dbio.WsnApplication;
 import org.alt60m.security.dbio.manager.*;
 import org.alt60m.util.DBConnectionFactory;
 import org.alt60m.util.ObjectHashUtil;
+import org.alt60m.util.Regions;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -1028,6 +1029,7 @@ public class SIUtil {
 			ta.select();
 			return ta.getRegion();
 		} catch (Exception e) { //likely because multiple campuses returned
+			log.error(e, e);
 			 return null;
 		}		
 	}
@@ -1041,101 +1043,13 @@ public class SIUtil {
 			log.debug("university name: " + universityFullName);
 			log.debug("university state: " + universityState);
 		}
-		try {
-			String theRegion = "";
-			if ((universityFullName != null) && !(universityFullName.trim()).equals("")) {
-				theRegion = getCampusRegionByName(universityFullName, universityState);
-			}
-			if (((theRegion == null) || (theRegion.equals(""))) && (universityState != null) && !(universityState.trim()).equals("")) {
-				/* Okay, I know this isn't the best (i.e., most accurate) way to do this.
-					I don't know if there is code somewhere else to do this or not. I was told
-					this may have come up elsewhere (getting staff from peoplesoft?) but I
-					couldn't find it anywhere. So we're stuck with this unless someone else
-					knows a better way to do this --RDH */
-				Hashtable stateRegions = new Hashtable();
-				// Regions::= "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW", "NC"
-				stateRegions.put("AK", "NW");
-				stateRegions.put("AL", "SE");
-				stateRegions.put("AR", "RR");
-				stateRegions.put("AZ", "SW");
-				stateRegions.put("CA", "SW");
-				stateRegions.put("CO", "GP");
-				stateRegions.put("CT", "NE");
-				stateRegions.put("DE", "MA");
-				stateRegions.put("FL", "SE");
-				stateRegions.put("GA", "SE");
-				stateRegions.put("HI", "SW");
-				stateRegions.put("IA", "UM");
-				stateRegions.put("ID", "NW");
-				stateRegions.put("IL", "GL");
-				stateRegions.put("IN", "GL");
-				stateRegions.put("KS", "GP");
-				stateRegions.put("KY", "MS");
-				stateRegions.put("LA", "RR");
-				stateRegions.put("MA", "NE");
-				stateRegions.put("MD", "MA");
-				stateRegions.put("ME", "NE");
-				stateRegions.put("MI", "GL");
-				stateRegions.put("MN", "UM");
-				stateRegions.put("MO", "GP");
-				stateRegions.put("MS", "SE");
-				stateRegions.put("MT", "NW");
-				stateRegions.put("NC", "MS");
-				stateRegions.put("ND", "UM");
-				stateRegions.put("NE", "GP");
-				stateRegions.put("NH", "NE");
-				stateRegions.put("NJ", "MA");
-				stateRegions.put("NM", "GP");
-				stateRegions.put("NV", "NW");
-				stateRegions.put("NY", "NE");
-				stateRegions.put("OH", "GL");
-				stateRegions.put("OK", "RR");
-				stateRegions.put("OR", "NW");
-				stateRegions.put("PA", "MA");
-				stateRegions.put("RI", "NE");
-				stateRegions.put("SC", "MS");
-				stateRegions.put("SD", "UM");
-				stateRegions.put("TN", "MS");
-				stateRegions.put("TX", "RR");
-				stateRegions.put("UT", "NW");
-				stateRegions.put("VA", "MA");
-				stateRegions.put("VT", "NE");
-				stateRegions.put("WA", "NW");
-				stateRegions.put("WI", "UM");
-				stateRegions.put("WV", "MA");
-				stateRegions.put("WY", "GP");
-				stateRegions.put("DC", "MA"); // I think ... 
-				// All that for this line ...
-				if (stateRegions.containsKey(universityState))
-					theRegion = (String) stateRegions.get(universityState.toUpperCase());
-				else
-					theRegion = null;
-			}
-			return theRegion;
-		} catch (Exception e) {
-			log.error("Exception encountered in SIUtil.getCampusRegion()", e);
+		if ((universityFullName != null) && !(universityFullName.trim()).equals("")) {
+			return getCampusRegionByName(universityFullName, universityState);
+		} else if (universityState != null && !(universityState.trim()).equals("")) {
+			return Regions.getRegion(universityState);
+		} else {
 			return null;
 		}
-	}
-
-	// added dc 01/23/03 - looks up the region for a state.  Uses the ministry_target_area table.
-	// Assumes all universities in a state are the same region, so first record found is used.
-	// This may not always be true, but this was decided by Scott to be close enough.
-	public static String getRegionForState(String state) {
-		String result = "";
-			if (state == null)
-				return result;
-			String whereClause = "region is not NULL AND state='" + state + "'";
-			Collection c = ObjectHashUtil.list((new TargetArea()).selectList(whereClause));
-			Iterator i = c.iterator();
-			if (i.hasNext()) {
-				Hashtable h = (Hashtable) i.next();
-				result = (h.get("Region") == null) ? "" : (String) h.get("Region");
-				String name = (String) h.get("Name");
-				log.debug("State: " + state);
-				log.debug("Region: " + name);
-			}
-		return result;
 	}
 
 	public boolean isUserAuthorized(String userName, String role) {
