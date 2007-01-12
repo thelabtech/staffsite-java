@@ -248,7 +248,8 @@ public class ProfileManager {
                     //client.commit();
                     // Is staff and has valid account no
                     // create default prefs
-                    if (!"".equals(profile.getAccountNo())) {
+                    String accountNo = profile.getAccountNo();
+                    if (accountNo != null && !accountNo.equals("")) {
 	                    Staff s= new Staff(profile.getAccountNo());
 	                    if(!s.select()){
 	                    	throw new InvalidAccountNumberException();
@@ -265,8 +266,7 @@ public class ProfileManager {
             } catch (InvalidAccountNumberException e) {
                 throw e;
             } catch (Exception e) {
-                log.error(e, e);
-                throw new ProfileManagementException(e.toString());
+                throw new ProfileManagementException(e);
             }
             profileID.append(newProfileID);
             return true;
