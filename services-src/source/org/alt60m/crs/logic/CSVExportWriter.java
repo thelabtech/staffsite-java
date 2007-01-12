@@ -14,19 +14,20 @@ import org.alt60m.crs.logic.Export.Table;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.csvreader.CsvWriter;
+
 public class CSVExportWriter implements ExportWriter {
 	private static Log log = LogFactory.getLog(CSVExportWriter.class);
 
 	private Export export;
-
-	private FileWriter fileWriter;
-
+	private CsvWriter csvWriter;
+	
 	/**
 	 * @see org.alt60m.crs.logic.ExportWriter#setFile(java.io.File)
 	 */
 	public void init(String filename) throws IOException {
 
-		fileWriter = new FileWriter(filename);
+		csvWriter = new CsvWriter(new FileWriter(filename), ',');
 	}
 
 	public Export getExport() {
@@ -50,65 +51,53 @@ public class CSVExportWriter implements ExportWriter {
 		}
 		try {
 			for (Table table : export.getTables()) {
-				writeTableToFile(table, fileWriter);
+				writeTableToFile(table, csvWriter);
 			}
 		} finally {
-			fileWriter.close();
+			csvWriter.close();
 		}
 		return errors;
 	}
 
-	private void writeTableToFile(Table table, FileWriter fileWriter)
+	private void writeTableToFile(Table table, CsvWriter csvWriter)
 			throws IOException, SQLException {
 
 		log.debug("Writing table " + table.getName());
 
-		fileWriter.write(table.getName() + "\n");
+		csvWriter.write(table.getName());
+		csvWriter.endRecord();
 		ResultSet rs = table.getData();
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int colCount = rsmd.getColumnCount();
-		StringBuffer lineBuffer = new StringBuffer();
-		String tempString;
+		String data;
 		Date tempDate;
 
 		// Write Out Header Line
 		for (int i = 1; i <= colCount; i++) {
-			lineBuffer.append(rsmd.getColumnName(i)).append("\",\"");
+			csvWriter.write(rsmd.getColumnName(i));
 		}
-		fileWriter.write("\"" + lineBuffer + "\"\n");
-
+		csvWriter.endRecord();
+		
 		// Write out Data
 		while (rs.next()) {
-			lineBuffer.setLength(0);
 			for (int i = 1; i <= colCount; i++) {
+				data = null;
 				switch (rsmd.getColumnType(i)) {
 				case 93: // datetime
 					tempDate = rs.getDate(rsmd.getColumnName(i));
-					if (tempDate != null)
-						lineBuffer.append(new SimpleDateFormat("MM/dd/yyyy")
-								.format(tempDate));
+					if (tempDate != null) {
+						data = new SimpleDateFormat("MM/dd/yyyy")
+								.format(tempDate);
+					}
 					break;
 				default:
-					tempString = rs.getString(i);
-					if (tempString != null)
-						lineBuffer.append(escapeString(tempString));
+					data = rs.getString(i);
 				}
-				lineBuffer.append("\",\"");
+				csvWriter.write(data);
 			}
-			fileWriter.write("\"" + lineBuffer + "\"\n");
+			csvWriter.endRecord();
 		}
-		fileWriter.write("\n\n");
-
-	}
-
-	/**
-	 * Replaces a double quote character with two double quotes
-	 * 
-	 * @param inputString
-	 * @return
-	 * @throws Exception
-	 */
-	private String escapeString(String inputString) {
-		return inputString.replace("\"", "\"\"");
+		csvWriter.endRecord();
+		csvWriter.endRecord();
 	}
 }
