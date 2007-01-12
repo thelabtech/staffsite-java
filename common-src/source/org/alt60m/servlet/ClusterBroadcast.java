@@ -123,7 +123,7 @@ public class ClusterBroadcast extends HttpServlet  {
 			}
 			catch (IOException e)
 			{
-				log.error("Unable to rebroadcast logout request to " + server, e);
+				log.error("Unable to rebroadcast request to " + server, e);
 			}
 		}
 		return responses;
