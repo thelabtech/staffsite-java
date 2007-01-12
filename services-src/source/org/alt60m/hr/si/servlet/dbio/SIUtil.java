@@ -1029,8 +1029,12 @@ public class SIUtil {
 			ta.select();
 			return ta.getRegion();
 		} catch (Exception e) { //likely because multiple campuses returned
-			log.error(e, e);
-			 return null;
+			if (universityState != null && !(universityState.trim()).equals("")) {
+				return Regions.getRegion(universityState);
+			} else {
+				log.error("Cannot get region for university: " + universityFullName + "; state: " + universityState, e);
+				return null;
+			}
 		}		
 	}
 
