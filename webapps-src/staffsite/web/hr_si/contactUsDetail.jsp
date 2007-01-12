@@ -55,10 +55,11 @@
 				      } else if (_region.equals("se")) {
 						%>
 							<p>
-							Southeast - Joe Bucha<br>
-							1010 Holly Point Way<br>
-							Watkinsville, GA 30677<br>
-							706-254-7734<br>
+							Southeast - Ashley Jenkins<br>
+							120 Interstate North Pkwy Ste 455<br>
+							Atlanta, GA 30339<br>
+							<a 
+							href="mailto:Ashley.Jenkins@uscm.org">Ashley.Jenkins@uscm.org</a>&nbsp;(770) 434-1004 x238<br>
 							</p>
 						<%
 				      } else if (_region.equals("gl")) {
