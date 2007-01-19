@@ -64,7 +64,7 @@ document.appForm.action.value="postReferenceInfo";
 				refpType = "D";
                 prefix = "Refd9";
                 refpTitle1 = "Discipler Reference";
-				refpTitle2 = "Please select your current discipler or Bible study leader. If this is the same person as your Staff Member Reference, choose another staff member, summer project leader, or someone who knows you well in ministry.";
+				refpTitle2 = "Please select your current discipler or Bible study leader. If this is the same person as your Staff Member Reference, choose another staff member, summer project leader, or someone who knows you well in ministry. Do not choose a spouse or relative.";
                 break;
 			
 			case 2:
@@ -78,7 +78,7 @@ document.appForm.action.value="postReferenceInfo";
 				refpType = "F";
            		prefix = "Reff9";
             	refpTitle1 = "Friend Reference";
-				refpTitle2 = "Select a friend who knows you well. If you already chose a friend in place of the roommate reference, choose another friend who knows you well.";
+				refpTitle2 = "Select a friend who knows you well. If you already chose a friend in place of the roommate reference, choose another friend who knows you well. Do not choose a spouse or relative.";
             	break;                
         	
         }

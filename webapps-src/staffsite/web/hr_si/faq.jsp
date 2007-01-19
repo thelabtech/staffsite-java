@@ -26,13 +26,7 @@
 <tr>
 <td align="left">
 
-<div id="InternLink"  style="display: none;">
-<a href="JavaScript:showIntern()"><font color="#ff6666"><b>Display Intern/STINT FAQ</b></font>
-</div>
-
-<div id="ImpactLink"  style="display: block;">
-<a href="JavaScript:showImpact()"><font color="#ff6666"><b>Display Impact STINT FAQ</b></font>
-</div>
+<a href=http://www.impactopportunities.com/>Click here for Impact Stint</a>
 
 </td>
 </tr>

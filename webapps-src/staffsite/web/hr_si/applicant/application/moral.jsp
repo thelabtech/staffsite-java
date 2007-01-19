@@ -124,7 +124,7 @@ document.appForm.action.value="postMoralConvictions";
 	<%=sihtmlutils.printInputArea("If so, what has been the extent of your physical relationship with them?","", "textarea", 500, "SingleImmoralityResultsExplanation", a.getSingleImmoralityResultsExplanation(), false)%>
 	<div><strong>Married:</strong></div>
 	<%=sihtmlutils.printInputArea("How has this affected your relationship with your spouse?","", "textarea", 500, "MarriedImmoralityResultsExplanation", a.getMarriedImmoralityResultsExplanation(), false)%></td></tr>
-	<%=sihtmlutils.printInputArea("If \"yes\" to 4, 5, or 6, what in your life has changed to prevent a similar incident from reoccurring?  If \"no,\" skip to question 9.","7", "textarea", 500, "ImmoralityLifeChangeExplanation", a.getImmoralityLifeChangeExplanation(), false)%></td></tr>
+	<%=sihtmlutils.printInputArea("If \"yes\" to 4, 5, or 6, what in your life has changed to prevent a similar incident from reoccurring?","7", "textarea", 500, "ImmoralityLifeChangeExplanation", a.getImmoralityLifeChangeExplanation(), false)%></td></tr>
 	<%=sihtmlutils.printInputArea("Are you currently having any struggles in the moral area such as a habitually impure thought life, homosexual desires, or difficulty applying your guidelines/convictions, etc.?","8", "textarea", 500, "ImmoralityCurrentStrugglesExplanation", a.getImmoralityCurrentStrugglesExplanation(), false)%></td></tr>
 	<%=sihtmlutils.printInputArea("Do you have any additional comments or clarifications?","9", "textarea", 2000, "AdditionalMoralComments", a.getAdditionalMoralComments(), false)%></td></tr>
 <%@ include file="bnav2way.jspf" %>

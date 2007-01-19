@@ -10,9 +10,9 @@
 			<p><b>Contact Us</b></p>
 			<p>When trying to decide where to go on STINT, the first thing you want to figure out is where your campus's partnership is located. A partnership is about your school (plus a few others) pulling together the manpower to start a new ministry in another part of the world. Partnerships are designed to pioneer new campus ministries on strategic universities around the world, with the vision to see a movement led by nationals.</p>
 			<p>By participating in your partnership, you can be a part of seeing students raised up from your partnership campus to go to the world themselves.  
-			<b><a href="http://www.thisiswhereilive.info/stint-partnership.html" target="_blank">Learn more about why partnerships are so important.</a></b></p>
+			<b><a href="http://campuscrusadeforchrist.com/wsn/stint_partnership.html" target="_blank">Learn more about why partnerships are so important.</a></b></p>
 			<p>Like STINT, Internships are for one year, and specific Internships have been designed in your area.</p>
-			<p>Click on your state to find information about who to contact about partnership locations and/or Internship opportunities near you.  This person can also help you obtain a paper application.</p>
+			<p>Click on your state to find information about who to contact about partnership locations and/or Internship opportunities near you.</p>
 			<p align="center"><img src="/hr_si/images/USA.gif" width="350" height="240" usemap="#Map" border="0"></p>
 			<p>If you have general question about a STINT or Internship, you can also contact the same person who knows abouts specific partnerships and Internships near you.  You can also <a href="mailto:stintandinternships@uscm.org">email</a> us to obtain general information @ <a href="mailto:stintandinternships@uscm.org">stintandinternships@uscm.org</a>.</p>
 			<p>You can also <a href="/general/feedback.jsp" target="_blank">send us feedback</a> or call 1-888-222-5462 for further assistance.</p>
