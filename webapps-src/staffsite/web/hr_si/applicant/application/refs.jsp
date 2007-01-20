@@ -57,7 +57,7 @@ document.appForm.action.value="postReferenceInfo";
 				refpType = "S";
                 prefix = "Refs9";
                 refpTitle1 = "Staff Member Reference";
-				refpTitle2 = "A reference who is a staff member of Campus Crusade for Christ.";
+				refpTitle2 = "A reference who is a staff member of Campus Crusade for Christ - not a spouse or a relative.";
                 break;
                 
             case 1:
