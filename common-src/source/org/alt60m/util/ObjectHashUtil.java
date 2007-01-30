@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 public class ObjectHashUtil {
 	private static Log log = LogFactory.getLog(ObjectHashUtil.class);
     static public Collection<Hashtable<String, Object>> list(Collection colObjects) { //throws Exception {
- 
+
 		Collection<Hashtable<String, Object>> results = new Vector<Hashtable<String, Object>>();
         for(Iterator iObjects = colObjects.iterator();iObjects.hasNext();) {
 			results.add(obj2hash(iObjects.next()));
@@ -55,7 +55,7 @@ public class ObjectHashUtil {
 				  log.debug("Method does not exist: "+methodName);
 				} catch (IllegalArgumentException e) {
 				  log.debug(methodName + " " + e);
-				} catch (NullPointerException e) {                    
+				} catch (NullPointerException e) {
 				}
 			}
 	  }
@@ -77,22 +77,22 @@ public class ObjectHashUtil {
 			  log.debug(e);
 			} catch (IllegalArgumentException e) {
 			  log.debug(methodName + " " + e);
-			} catch (NullPointerException e) {                    
+			} catch (NullPointerException e) {
 			}
 	  }
 	  return h;
 	}
 	static public void hash2obj(Hashtable request, Object o) {
-		Class c = o.getClass();                
+		Class c = o.getClass();
 		Object[] arguments = null;
-		Method[] methods = c.getMethods();        
+		Method[] methods = c.getMethods();
 		Hashtable<String, Object[]> parameterTypes = new Hashtable<String, Object[]>();
 		Hashtable<String, Class<?>> theReturns = new Hashtable<String, Class<?>>();
 		for (int i = 0; i < methods.length; i++) {
-			if (methods[i].getName().startsWith("set")) {                                
+			if (methods[i].getName().startsWith("set")) {
 				parameterTypes.put(methods[i].getName(), methods[i].getParameterTypes());
 			}
-			if (methods[i].getName().startsWith("get")) {                                
+			if (methods[i].getName().startsWith("get")) {
 				theReturns.put(methods[i].getName().substring(3), methods[i].getReturnType());
 			}
 		}
@@ -155,10 +155,12 @@ public class ObjectHashUtil {
                 }
 
 				m.invoke(o, arguments);
-			} catch (Exception e) {
+			} catch (NoSuchElementException e) {
 				//really, this ought to be a log.error, but our code breaks the contract so frequently and
 				//I don't want it to spit stack traces everwhere
 				log.debug("Couldn't set: '" + attr + "', Value: " + request.get(attr) + ", because: " + e);
+			} catch (Exception e) {
+				log.error("Couldn't set: '" + attr + "', Value: " + request.get(attr) + ", because: " + e);
 			}
 		}
 	}
@@ -181,7 +183,7 @@ public class ObjectHashUtil {
 			} else {
 				return 0;
 			}
-			
+
 		} catch (Exception e){
 			log.error(e, e);
 			return 0;
