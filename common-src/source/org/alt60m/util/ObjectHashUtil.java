@@ -82,7 +82,7 @@ public class ObjectHashUtil {
 	  }
 	  return h;
 	}
-	static public void hash2obj(Hashtable request, Object o) {
+	static public void hash2obj(Map<String, String> request, Object o) {
 		Class c = o.getClass();
 		Object[] arguments = null;
 		Method[] methods = c.getMethods();
@@ -96,8 +96,7 @@ public class ObjectHashUtil {
 				theReturns.put(methods[i].getName().substring(3), methods[i].getReturnType());
 			}
 		}
-		for (Enumeration enumer = request.keys(); enumer.hasMoreElements();) {
-			String attr = (String) enumer.nextElement();
+		for (String attr : request.keySet()) {
 			try {
 				Method m = c.getMethod("set" + attr, (Class[]) parameterTypes.get("set" + attr));
 				if (((Class)theReturns.get(attr)).toString().equals("boolean")) {
@@ -112,47 +111,27 @@ public class ObjectHashUtil {
 						arguments = new Object[] {request.get(attr).getClass()};
 						arguments[0] = request.get(attr);
 					}
-				} else if ((Class)theReturns.get(attr) == java.util.Date.class) {
-                    try {
-                        arguments = new Object[] {java.util.Date.class};
-//                        java.util.Date date = (Date)request.get(attr);
-//                        if (!request.get(attr).getClass().equals(java.util.Date.class)) {
-	                        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	                        java.util.Date date = format.parse((String)request.get(attr));
-//                        }
-                        arguments[0] = date;
-                    } catch(java.text.ParseException e) {
-                    	try {
-	                        arguments = new Object[] {java.util.Date.class};
-	//                        java.util.Date date = (Date)request.get(attr);
-	//                        if (!request.get(attr).getClass().equals(java.util.Date.class)) {
-	                        	java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
-	                        	java.util.Date date = format.parse((String)request.get(attr));
-	//                        }
-	                        arguments[0] = date;
-                    	} catch(java.text.ParseException e1) {
-	                        arguments = new Object[] {java.util.Date.class};
-	//                        java.util.Date date = (Date)request.get(attr);
-	//                        if (!request.get(attr).getClass().equals(java.util.Date.class)) {
-	                       	java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("MM/dd/yyyy");
-	                       	java.util.Date date = format.parse((String)request.get(attr));
-	//                        }
-	                        arguments[0] = date;
-                       	}
-                    }
-				} else if ((Class)theReturns.get(attr) == java.sql.Time.class) {
-					arguments = new Object[] {request.get(attr).getClass()};
-					arguments[0] = java.sql.Time.valueOf((String)request.get(attr));
-				} else if (((Class)theReturns.get(attr)).toString().equals("int")) {
-					arguments = new Object[] {Integer.class};
-					arguments[0] = new Integer(request.get(attr).toString());
-				} else if (((Class)theReturns.get(attr)).toString().equals("long")) {
-					arguments = new Object[] {Long.class};
-					arguments[0] = new Long((String)request.get(attr));
-				} else if (((Class)theReturns.get(attr)).toString().equals("float")) {
-                    arguments = new Object[] {Float.class};
-                    arguments[0] = new Float((String)request.get(attr));
-                }
+				} else {
+					String dateString = (String) request.get(attr);
+					if ((Class) theReturns.get(attr) == java.util.Date.class) {
+						arguments = new Object[] { java.util.Date.class };
+						Date date = DateUtils.parseDate(dateString);
+						arguments[0] = date;
+
+					} else if ((Class) theReturns.get(attr) == java.sql.Time.class) {
+						arguments = new Object[] {request.get(attr).getClass()};
+						arguments[0] = java.sql.Time.valueOf(dateString);
+					} else if (((Class)theReturns.get(attr)).toString().equals("int")) {
+						arguments = new Object[] {Integer.class};
+						arguments[0] = new Integer(request.get(attr).toString());
+					} else if (((Class)theReturns.get(attr)).toString().equals("long")) {
+						arguments = new Object[] {Long.class};
+						arguments[0] = new Long(dateString);
+					} else if (((Class)theReturns.get(attr)).toString().equals("float")) {
+					    arguments = new Object[] {Float.class};
+					    arguments[0] = new Float(dateString);
+					}
+				}
 
 				m.invoke(o, arguments);
 			} catch (NoSuchElementException e) {

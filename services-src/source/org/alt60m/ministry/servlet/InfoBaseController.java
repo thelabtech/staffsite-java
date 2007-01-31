@@ -3,12 +3,16 @@ package org.alt60m.ministry.servlet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -31,6 +35,7 @@ import org.alt60m.servlet.Controller;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.CountryCodes;
+import org.alt60m.util.DateUtils;
 import org.alt60m.util.ObjectHashUtil;
 
 /**
@@ -42,7 +47,7 @@ import org.alt60m.util.ObjectHashUtil;
 public class InfoBaseController extends Controller {
 
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -103,7 +108,7 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform addActivity ().", e);
         }
     }
-    
+
     public void addCampusToMin(ActionContext ctx) {
 	try {
 		ActionResults results = new ActionResults("addCampusToMin");
@@ -355,7 +360,7 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform createReport().", e);
         }
     }
-	
+
 	public void deleteTargetArea (ActionContext ctx) {
 		try
 		{
@@ -386,7 +391,7 @@ public class InfoBaseController extends Controller {
 			ctx.goToErrorView();
 			log.error("Failed to perform deleteTeam().", e);
 		}
-	}	
+	}
 
     /** @param ctx ActionContext object */
     public void detailedListCampus(ActionContext ctx) {
@@ -397,7 +402,7 @@ public class InfoBaseController extends Controller {
             String searchText = ctx.getInputString("searchstring", true);
             String nextView = ctx.getInputString("view", true);
 			InfoBaseTool ibt = new InfoBaseTool();
-						
+
 			if (searchBy.equals("country")) {
                 String countryCode = CountryCodes.nameToCode(searchText);
                 searchText = (countryCode != null) ? countryCode : searchText;
@@ -487,7 +492,7 @@ public class InfoBaseController extends Controller {
             InfoBaseTool ibt = new InfoBaseTool();
 			SimpleDateFormat userFormat = new SimpleDateFormat("MM/dd/yyyy");
             results.putValue("region", ctx.getInputString("region", true));
-            
+
 			if (ctx.getInputString("statisticid") != null) {
                 String statId = ctx.getInputString("statisticid");
                 RegionalStat stat = ibt.getRegionalStatObject(statId);
@@ -519,7 +524,7 @@ public class InfoBaseController extends Controller {
 
 			Hashtable regionalHash = ObjectHashUtil.obj2hash(regionalTeam);
             results.addHashtable("regionalteam", regionalHash);
-            
+
 			List<Hashtable<String, Object>> allDates = blankStatsCalendar("RegionalStatId");
 			Collection<Hashtable<String, Object>> c = ibt.getRegionalStats(region, allDates);
             allDates = populateStatsCalendar(c.iterator(), allDates);
@@ -665,7 +670,7 @@ public class InfoBaseController extends Controller {
             TargetArea targetArea = activity.getTargetArea();
             String targetAreaId = targetArea.getTargetAreaId();
             results.putValue("targetareaid", targetAreaId);
-            results.putValue("activityid", activityId);            
+            results.putValue("activityid", activityId);
 			results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
             results.putValue("displayname", targetArea.getName());
 			List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
@@ -787,7 +792,7 @@ public class InfoBaseController extends Controller {
             String searchText = ctx.getInputString("searchstring", true);
             String nextView = ctx.getInputString("view", true);
 			InfoBaseTool ibt = new InfoBaseTool();
-						
+
 			if (searchBy.equals("country")) {
                 String countryCode = CountryCodes.nameToCode(searchText);
                 searchText = (countryCode != null) ? countryCode : searchText;
@@ -892,7 +897,7 @@ public class InfoBaseController extends Controller {
 					allDates.set(cnt, row);
 			}
 		}
-		return allDates;	
+		return allDates;
 	}
 
 	/** @param ctx ActionContext object */
@@ -1000,11 +1005,11 @@ public class InfoBaseController extends Controller {
             String strategy = ctx.getInputString("strategy", true);
             String status = ctx.getInputString("status", true);
             String periodBegin = ctx.getInputString("periodbegin", true);
-            
+
             if("none".equals(targetAreaId)) {
             	throw new Exception("Didn't choose a target area.");
             }
-            
+
    			InfoBaseTool ibt = new InfoBaseTool();
 			ibt.saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin);
             showTeam(ctx);
@@ -1036,11 +1041,11 @@ public class InfoBaseController extends Controller {
         try {
             String targetAreaId = ctx.getInputString("targetareaid", true);
             String nonCccMinId = ctx.getInputString("noncccminid", true);
-            
+
             if("none".equals(nonCccMinId)) {
             	throw new Exception("Didn't choose a ministry.");
             }
-            
+
    			InfoBaseTool ibt = new InfoBaseTool();
 			ibt.saveAddMinToCampus(targetAreaId, nonCccMinId);
             showTargetArea(ctx);
@@ -1114,7 +1119,7 @@ public class InfoBaseController extends Controller {
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
             String updateOption = ctx.getInputString("updateoption", true);
-   			
+
             InfoBaseTool.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"));
             if (referrer.equals("targetarea"))
                 showTargetArea(ctx);
@@ -1219,14 +1224,29 @@ public class InfoBaseController extends Controller {
 			InfoBaseTool ibt = new InfoBaseTool();
             Statistic stat;
             if (ctx.getInputString("statisticid") == null) {
-                stat = ibt.createStatObject();
+            	stat = new Statistic();
+            	stat.setPeriodEnd(DateUtils.parseDate(ctx.getInputString("PeriodBegin")));
+            	stat.setActivityId(activityId);
+            	if (!stat.select()) {
+                    stat = ibt.createStatObject();
+                    stat.setActivityId(activityId);
+            	}
             } else {
                 String statisticId = ctx.getInputString("statisticid", true);
                 stat = ibt.getStatObject(statisticId);
-            }
-            Hashtable request = ctx.getHashedRequest();
-            
-            ibt.saveStatObjectWithActivity(request, stat, activityId);
+			}
+			Hashtable request = ctx.getHashedRequest();
+			List<String> keys = Arrays.asList(new String[] { "PeriodBegin",
+					"PeriodEnd", "PersonalEvangelismExposures",
+					"GroupEvangelismExposures", "MediaExposures", "Decisions",
+					"Multipliers", "StudentLeaders", "InvolvedStudents",
+					"LaborersSent" });
+			Map<String, String> statMap = new HashMap<String, String>();
+			for (String key : keys) {
+				statMap.put(key, (String) request.get(key));
+			}
+
+            ibt.saveStatObjectWithActivity(statMap, stat);
             enterSuccessCriteriaForActivity(ctx);
         } catch (Exception e) {
             ctx.setError();
@@ -1257,7 +1277,7 @@ public class InfoBaseController extends Controller {
                 new String[] { "add", "update" });
             String from;
             String localLevelId = null;
-            if (ctx.getInputString("locallevelid")!=null) { localLevelId = ctx.getInputString("locallevelid", true); } 
+            if (ctx.getInputString("locallevelid")!=null) { localLevelId = ctx.getInputString("locallevelid", true); }
   			InfoBaseTool.saveTeam(ctx.getHashedRequest(), localLevelId, mode);
             if (mode.equals("add")) {
                 from = ctx.getInputString("from", true);
@@ -1437,13 +1457,13 @@ public class InfoBaseController extends Controller {
             InfoBaseTool ibt = new InfoBaseTool();
             String llId = ctx.getInputString(LOCAL_LEVEL_ID_TOKEN, true);
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
-			
+
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
             Hashtable<String, Object> teamInfo = ObjectHashUtil.obj2hash(ll);
 
             teamInfo.put("RegionName", Regions.expandRegion(ll.getRegion()));
             teamInfo.put("Lane", ll.getLane());
-            
+
             results.addHashtable("team", teamInfo);
 
             Collection<Hashtable<String, Object>> members = new Vector<Hashtable<String, Object>>();
@@ -1469,9 +1489,9 @@ public class InfoBaseController extends Controller {
 					row.put("StrategyName", activity.getStrategyFullName());
 					row.put("StatusName", activity.getStatusFullName());
 					if (activity.getStatus().equals("FR")) {
-						forerunnerTargetInfo.add(row);					
+						forerunnerTargetInfo.add(row);
 					} else if (activity.getStatus().equals("IN")) {
-						inactiveTargetInfo.add(row);							
+						inactiveTargetInfo.add(row);
 					} else {
 						activeTargetInfo.add(row);
 					}
