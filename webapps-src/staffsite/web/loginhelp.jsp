@@ -48,7 +48,7 @@
 	Your<B> password</B> is one of two possibilities: if you have recently requested a new email address, your 
 	password for this site is the same as your email password.  Or, passwords on older accounts on this 
 	site were pre-set to the first name of our misistry's co-founder in lowercase letters. If you don't 
-	know this, ask a staff member or email <a href="mailto:Systems.Feedback@uscm.org">Systems.Feedback</a>. 
+	know this, ask a staff member or email <a href="mailto:help@campuscrusadeforchrist.com">Systems.Feedback</a>. 
 	<BR>
 	If you have a uscm.org email account and still can't log in, please skip to the next section and keep reading.
 	<BR><BR>
@@ -61,7 +61,7 @@
 
 <%=fontB3%><li><B><a name=password>Forgot your staff.uscm.org password:</a></B></font><br>
 	We can reset your password to whatever you’d like.  
-	Just <a href="mailto:Systems.Feedback@uscm.org?Subject=Reset staff.uscm.org Password (include Account # and Username)">email us</a> 
+	Just <a href="mailto:help@campuscrusadeforchrist.com?Subject=Reset staff.uscm.org Password (include Account # and Username)">email us</a> 
 	and be sure to include your Username and Staff Account #. Please follow the password guidelines 
 	<a href='#' onClick="window.open('/loginhelppassword.jsp', 'PasswordCriteria', 'height=450,width=600,dependent=yes,scrollbars=yes,resizable')">here.</a>
 	</li><br><br><br>
@@ -91,7 +91,7 @@
 	</li><br><br>
 </ul>
 If you try all of these and still can't log in, please 
-<a href="mailto:Systems.Feedback@uscm.org?Subject=staff.uscm.org log in - none of these 5 helped me, now what...">email us</a>. 
+<a href="mailto:help@campuscrusadeforchrist.com?Subject=staff.uscm.org log in - none of these 5 helped me, now what...">email us</a>. 
 Be sure to include your username and the password you are trying.
 <BR>
 	<BR><BR>

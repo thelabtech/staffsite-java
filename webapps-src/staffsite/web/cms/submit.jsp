@@ -27,7 +27,7 @@
 					<%
                 } 
                 else{
-					%><%=fontR%>The resource has a type that is not recognized by our server. You can e-mail <A HREF="mailto:systems.feedback@uscm.org?subject=Add_file_extension_for_Resource_Center">systems.feedback@uscm.org</A> with the extension of your file if you believe that it should be added to the Resource Center valid filetypes otherwise Please click back and re-select the file.</FONT><%
+					%><%=fontR%>The resource has a type that is not recognized by our server. You can e-mail <A HREF="mailto:help@campuscrusadeforchrist.com?subject=Add_file_extension_for_Resource_Center">help@campuscrusadeforchrist.com</A> with the extension of your file if you believe that it should be added to the Resource Center valid filetypes otherwise Please click back and re-select the file.</FONT><%
                 }
 			%>
             </FONT>

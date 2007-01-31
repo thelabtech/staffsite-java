@@ -114,7 +114,7 @@ style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></
   zero.  </p>
 <p><blockquote><b><span style='font-size:10.0pt;
 font-family:Arial'>No, that didn’t help. It’s something else:</span></b><span>  
-  </span><a href="mailto:systems.feedback@uscm.org">Email us.</a> Please include a description of what happens or any error 
+  </span><a href="mailto:help@campuscrusadeforchrist.com">Email us.</a> Please include a description of what happens or any error 
   messages that appear. We will help you figure out what’s going on.</blockquote></p>
 <p align=right style='text-align:right'><i><span
 style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>

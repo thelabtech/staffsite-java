@@ -29,7 +29,7 @@ String homePageArticlesToDisplay = (String)session.getValue("homePageArticlesToD
 	<TR><TD ALIGN="CENTER"><BR>
 
 <%=fontL%><div align=left>
-This page will contain an ever expanding array of home page customization option. The currently available options are listed below. If you have any suggestions, make sure to <A HREF="mailto:systems.feedback@uscm.org?subject=home+page+customization+suggestions">let us know</A>.</div>
+This page will contain an ever expanding array of home page customization option. The currently available options are listed below. If you have any suggestions, make sure to <A HREF="mailto:help@campuscrusadeforchrist.com?subject=home+page+customization+suggestions">let us know</A>.</div>
 </font>
 
 <form method="POST" action="/servlet/StaffController?action=Customize" NAME="submitForm">
