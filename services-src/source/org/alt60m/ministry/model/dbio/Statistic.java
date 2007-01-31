@@ -2,6 +2,8 @@ package org.alt60m.ministry.model.dbio;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 import com.kenburcham.framework.dbio.DBIOEntityException;
+
+import java.sql.Timestamp;
 import java.util.*;
 
 public class Statistic extends DBIOEntity {
@@ -12,7 +14,7 @@ public class Statistic extends DBIOEntity {
 
 	private Date periodBegin;
 	private Date periodEnd;
-	
+
 	private int decisions;
 	private int mediaExposures;
 	private int personalEvangelismExposures;
@@ -24,7 +26,11 @@ public class Statistic extends DBIOEntity {
 	private int multipliers;
 	private int studentLeaders;
 	private int involvedStudents;
-	
+
+	private Timestamp updatedAt;
+
+	private String updatedBy;
+
 	public Statistic(String id) {
 		statisticId = id;
 		select();
@@ -40,19 +46,22 @@ public class Statistic extends DBIOEntity {
 
 		setMetadata("PeriodBegin", "periodBegin", table);
 		setMetadata("PeriodEnd", "periodEnd", table);
-		
-		
+
+
 		setMetadata("Decisions", "decisions", table);
 		setMetadata("MediaExposures", "exposuresViaMedia", table);
 		setMetadata("PersonalEvangelismExposures", "evangelisticOneOnOne", table);
 		setMetadata("GroupEvangelismExposures", "evangelisticGroup", table);
 		setMetadata("LaborersSent", "laborersSent", table);
-		
+
 		setMetadata("GrowthGroupMembers", "invldNewBlvrs", table);
 		setMetadata("Multipliers", "multipliers", table);
 		setMetadata("StudentLeaders", "studentLeaders", table);
 		setMetadata("InvolvedStudents", "invldStudents", table);
-				
+
+		setMetadata("UpdatedBy", "updated_by", table);
+		setMetadata("UpdatedAt", "updated_at", table);
+
 		setAutodetectProperties(false);
 	}
 
@@ -86,22 +95,22 @@ public class Statistic extends DBIOEntity {
 
 	public Date getPeriodBegin() { return periodBegin; }
 	public void setPeriodBegin(Date periodBegin) { this.periodBegin = org.alt60m.util.DateUtils.clearTimeFromDate(periodBegin); }
-	
+
 	public Date getPeriodEnd() { return periodEnd; }
 	public void setPeriodEnd(Date periodEnd) { this.periodEnd = org.alt60m.util.DateUtils.clearTimeFromDate(periodEnd); }
-	
+
 	public int getMediaExposures() { return mediaExposures; }
 	public void setMediaExposures(int i) { mediaExposures = i; }
-	
+
 	public int getDecisions() { return decisions; }
 	public void setDecisions(int decisions) { this.decisions = decisions; }
-	
+
 	public int getGrowthGroupMembers() { return growthGroupMembers; }
 	public void setGrowthGroupMembers(int invldNewBlvrs) { this.growthGroupMembers = invldNewBlvrs; }
-	
+
 	public int getInvolvedStudents() { return involvedStudents; }
 	public void setInvolvedStudents(int invldStudents) { this.involvedStudents = invldStudents; }
-	
+
 	public int getStudentLeaders() { return studentLeaders; }
 	public void setStudentLeaders(int i) { studentLeaders = i; }
 
@@ -115,11 +124,23 @@ public class Statistic extends DBIOEntity {
 		return fk_activityId;
 	}
 	public void setActivityIdInternal(int fk_activityId) {
-		this.fk_activityId = fk_activityId;  
+		this.fk_activityId = fk_activityId;
 	}
 	public String getActivityId() { return String.valueOf(getActivityIdInternal()); }
 	public void setActivityId(String activityId) { setActivityIdInternal(Integer.parseInt(activityId)); }
 	public Activity getActivity() { return new Activity(getActivityId()); }
 	public void setActivity(Activity a) { setActivityId(a.getActivityId()); }
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
 
 }

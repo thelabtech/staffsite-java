@@ -1,17 +1,19 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
+<%@page import="org.alt60m.util.DateUtils"%>
 <%
-	ActionResults ar; 
+	ActionResults ar;
 	ar = ActionResults.getActionResults(session);
 	Hashtable<String, Integer> statistic = new Hashtable<String, Integer>();
 	String current = request.getParameter("current");
-	
+	String updatedBy = null;
+	String updatedAt = null;
 	if(ar.getHashtable("statistic") == null){
 		statistic.put("Decisions", 0);
 		statistic.put("MediaExposures", 0);
 		statistic.put("PersonalEvangelismExposures", 0);
 		statistic.put("GroupEvangelismExposures", 0);
 		statistic.put("LaborersSent", 0);
-				
+
 		statistic.put("GrowthGroupMembers", 0);
 		statistic.put("Multipliers", 0);
 		statistic.put("StudentLeaders", 0);
@@ -19,7 +21,7 @@
 
 	} else {
 		Hashtable<String, Integer> editStat = (Hashtable<String, Integer>) ar.getHashtable("statistic");
-		
+
 		if (current.equals("true"))
 		{
 			statistic.put("Decisions", editStat.get("Decisions"));
@@ -27,6 +29,9 @@
 			statistic.put("PersonalEvangelismExposures", editStat.get("PersonalEvangelismExposures"));
 			statistic.put("GroupEvangelismExposures", editStat.get("GroupEvangelismExposures"));
 			statistic.put("LaborersSent", editStat.get("LaborersSent"));
+			updatedBy = ar.getValue("updatedBy");
+			Date updatedAtDate = (Date) ar.getObject("updatedAt");
+			updatedAt = updatedAtDate == null ? null : updatedAtDate.toString();
 		} else {
 			statistic.put("Decisions", 0);
 			statistic.put("MediaExposures", 0);
@@ -34,14 +39,16 @@
 			statistic.put("GroupEvangelismExposures", 0);
 			statistic.put("LaborersSent", 0);
 		}
-		
+
 		statistic.put("GrowthGroupMembers", editStat.get("GrowthGroupMembers"));
 		statistic.put("Multipliers", editStat.get("Multipliers"));
 		statistic.put("StudentLeaders", editStat.get("StudentLeaders"));
 		statistic.put("InvolvedStudents", editStat.get("InvolvedStudents"));
-		
+
 	}
 
+	String targetAreaName = ar.getValue("targetAreaName");
+	String strategyName = ar.getValue("strategyName");
 %>
 <% String pageTitle="Entering Success Criteria"; %>
 <html>
@@ -57,7 +64,7 @@
 	</TR>
 </TABLE>
 
-<%=fontB3%><b>Campus Success Criteria Form:</b></font>
+<%=fontB3%><b><%= targetAreaName %> - <%= strategyName %></b></font>
 <TABLE WIDTH="100%"><TR><TD <%=bgcolorW%>>
 <TABLE BORDER="0" CELLPADDING="3" CELLSPACING="1" WIDTH="100%">
 	<form method="post" name="ll_stat" action="/servlet/InfoBaseController?action=saveSuccessCriteria">
@@ -70,8 +77,14 @@
 <%
 	}
 %>
+		<% if (current.equals("true") && updatedBy != null && updatedAt != null) { %>
 	<tr>
-		<td valign="top"></td>
+		<%=fontB%>These statistics were last updated by <%= updatedBy %> at <%= updatedAt %></font><br/>
+	</tr>
+		<% } %>
+	<tr>
+		<td valign="top">
+		</td>
 		<td>
 			<img src="/infobase/images/1.gif"><%=fontB%>Make sure this is the correct time period for which you are entering statistics:</font><p>
 			<table border="0" cellpadding="3" cellspacing="2">
@@ -79,14 +92,14 @@
 					<th width="75" align=center <%=bgcolorB%>><%=fontW%>From
 					<th width="75" align=center <%=bgcolorB%>><%=fontW%>To
 				</tr>
-				<tr <%=bgcolorW%>>  
+				<tr <%=bgcolorW%>>
 					<td width="50" <%=bgcolorL%> align="center">
 						<%=fontB%><%=ar.getValue("periodbegin")%></font>
 <%
 						// fix dates for putting into the object:
 						java.text.SimpleDateFormat myDate = new java.text.SimpleDateFormat();
-						myDate.applyPattern("MM/dd/yyyy"); 						
-						
+						myDate.applyPattern("MM/dd/yyyy");
+
 %>
 						<input type="hidden" name="PeriodBegin" value="<%=new java.sql.Date(myDate.parse((String)ar.getValue("periodbegin")).getTime())%>">
 					</td>
@@ -121,7 +134,7 @@
 					<td><input type="text" name="MediaExposures" value="<%=statistic.get("MediaExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
 					<td width="90%"><i><%=fontB1%>How many people have been exposed to significant gospel content with opportunities to respond in the last month through media exposures? (For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)</font></i></td>
 				</tr>
-				<tr align="left" valign="middle"> 
+				<tr align="left" valign="middle">
 					<th><%=fontB%>Decisions for Christ</font></th>
 					<td><input type="text" name="Decisions" value="<%=statistic.get("Decisions")%>" size="10" onBlur="isInteger(this, this.value)"></td>
 					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord?</font></i></td>
@@ -149,7 +162,7 @@
 			<table width="100%" cellpadding="5" cellspacing="1" <%=bgcolorL%>>
 				<tr><th <%=tableRightB%> colspan=3><%=fontW3%>Semester/Quarter Criteria</font></th></tr>
 				<tr><th <%=bgcolorL%> colspan=3><%=fontB1%>The following numbers should be updated at the end of the semester/quarter or as changes occur:</font></th></tr>
-				<tr <%=bgcolorL%> align="left" valign="middle"> 
+				<tr <%=bgcolorL%> align="left" valign="middle">
 					<th><%=fontB%>Students Involved</font></th>
 					<td><input type="text" name="InvolvedStudents" size="10" value="<%=statistic.get("InvolvedStudents")%>" onBlur="isInteger(this, this.value)"></td>
 					<td><i><%=fontB1%>How many students are regularly involved in Campus Crusade for Christ?</font></i>
@@ -162,7 +175,7 @@
 				</tr>
 
 			</table>
-			
+
 			<br>
 			<img src="/infobase/images/3.gif"><%=fontB%>When you're finished, click this button:</font>
 			<A HREF="JavaScript: document.ll_stat.submit()" onMouseOver="document.submitbutton.src='/images/submit_bon.gif';" onMouseOut="document.submitbutton.src='/images/submit_boff.gif';"><IMG NAME="submitbutton" SRC="/images/submit_boff.gif" BORDER="0" ALIGN="BOTTOM"></A>

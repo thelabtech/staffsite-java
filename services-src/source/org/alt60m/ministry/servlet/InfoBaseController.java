@@ -557,10 +557,15 @@ public class InfoBaseController extends Controller {
 			InfoBaseTool ibt = new InfoBaseTool();
             String targetAreaId = ctx.getInputString("targetareaid", true);
             String activityId = ctx.getInputString("activityid", true);
+            TargetArea ta = new TargetArea(targetAreaId);
+            Activity act = new Activity(activityId);
+
             String statisticId = ctx.getInputString("statisticid", false);
 			String lastStatId = ctx.getInputString("laststatid", false);
             results.putValue("targetareaid", targetAreaId);
             results.putValue("activityid", activityId);
+            results.putValue("targetAreaName", ta.getName());
+            results.putValue("strategyName", act.getStrategyFullName());
 			results = ibt.editSuccessCriteria(results, statisticId, lastStatId, ctx.getInputString("periodbegin", true), ctx.getInputString("periodend", true));
             ctx.setReturnValue(results);
             ctx.goToView("editSuccessCriteriaInfo");
@@ -1245,7 +1250,8 @@ public class InfoBaseController extends Controller {
 			for (String key : keys) {
 				statMap.put(key, (String) request.get(key));
 			}
-
+        	String username = (String) ctx.getSessionValue("userName");
+        	stat.setUpdatedBy(username);
             ibt.saveStatObjectWithActivity(statMap, stat);
             enterSuccessCriteriaForActivity(ctx);
         } catch (Exception e) {

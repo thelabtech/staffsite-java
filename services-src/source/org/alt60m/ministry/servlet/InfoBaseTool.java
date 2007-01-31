@@ -1,5 +1,6 @@
 package org.alt60m.ministry.servlet;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.util.CountryCodes;
+import org.alt60m.util.DateUtils;
 import org.alt60m.util.ObjectHashUtil;
 import org.alt60m.util.SendMessage;
 import org.apache.commons.logging.Log;
@@ -146,9 +148,8 @@ public class InfoBaseTool {
         try {
             if (statisticId != null && statisticId != "") {
                 Statistic statistic = new Statistic();
-                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-                Date periodBegin = format.parse(periodBeginString,(new ParsePosition(0)));
-                Date periodEnd = format.parse(periodEndString,(new ParsePosition(0)));
+                Date periodBegin = DateUtils.parseDate(periodBeginString);
+                Date periodEnd = DateUtils.parseDate(periodEndString);
                 statistic.setStatisticId(statisticId);
                 statistic.setPeriodBegin(periodBegin);
                 statistic.setPeriodEnd(periodEnd);
@@ -157,18 +158,22 @@ public class InfoBaseTool {
                 results.putValue("periodend", periodEndString);
                 Hashtable stat = ObjectHashUtil.obj2hash(statistic);
                 results.addHashtable("statistic", stat);
+
+                String updatedBy = statistic.getUpdatedBy();
+                if (updatedBy != null) {
+    				results.putValue("updatedBy", updatedBy);
+                }
+                Timestamp updatedAt = statistic.getUpdatedAt();
+                if (updatedAt != null) {
+                	results.putObject("updatedAt", updatedAt);
+                }
             } else if ((lastStatId != null) && (!lastStatId.equals("null")) && lastStatId != "") {
-                Statistic statistic = new Statistic();
-//                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-//                Date periodBegin = format.parse(periodBeginString,(new ParsePosition(0)));
-//                Date periodEnd = format.parse(periodEndString,(new ParsePosition(0)));
-                statistic.setStatisticId(lastStatId);
-                /*statistic.setPeriodBegin(periodBegin);
-                statistic.setPeriodEnd(periodEnd);*/
-                statistic.select();
+                Statistic lastStatistic = new Statistic();
+                lastStatistic.setStatisticId(lastStatId);
+                lastStatistic.select();
                 results.putValue("periodbegin", periodBeginString);
                 results.putValue("periodend", periodEndString);
-                Hashtable stat = ObjectHashUtil.obj2hash(statistic);
+                Hashtable stat = ObjectHashUtil.obj2hash(lastStatistic);
                 results.addHashtable("statistic", stat);
             } else {
 			    results.putValue("periodbegin", periodBeginString);
@@ -1053,6 +1058,7 @@ public class InfoBaseTool {
     public void saveStatObjectWithActivity(Map<String, String> statMap, Statistic stat) throws Exception {
         try {
 			ObjectHashUtil.hash2obj(statMap, stat);
+			stat.setUpdatedAt(new Timestamp(new Date().getTime()));
 			String logMessage = "Saving stat;";
 			for (String key : statMap.keySet()) {
 				logMessage += " " + key + ": " + statMap.get(key);
