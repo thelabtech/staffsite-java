@@ -1057,8 +1057,8 @@ public class InfoBaseTool {
 
     public void saveStatObjectWithActivity(Map<String, String> statMap, Statistic stat) throws Exception {
         try {
-			ObjectHashUtil.hash2obj(statMap, stat);
-			stat.setUpdatedAt(new Timestamp(new Date().getTime()));
+        	ObjectHashUtil.hash2obj(statMap, stat);
+        	stat.setUpdatedAt(new Timestamp(new Date().getTime()));
 			String logMessage = "Saving stat;";
 			for (String key : statMap.keySet()) {
 				logMessage += " " + key + ": " + statMap.get(key);

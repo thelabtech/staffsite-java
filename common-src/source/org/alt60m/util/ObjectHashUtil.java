@@ -1,5 +1,6 @@
 package org.alt60m.util;
 
+import java.sql.Time;
 import java.util.*;
 import java.lang.reflect.*;
 
@@ -82,69 +83,70 @@ public class ObjectHashUtil {
 	  }
 	  return h;
 	}
-	static public void hash2obj(Map<String, String> request, Object o) {
-		Class c = o.getClass();
+	static public void hash2obj(Map<String, String> request, Object object) {
+		Class objClass = object.getClass();
 		Object[] arguments = null;
-		Method[] methods = c.getMethods();
-		Hashtable<String, Object[]> parameterTypes = new Hashtable<String, Object[]>();
-		Hashtable<String, Class<?>> theReturns = new Hashtable<String, Class<?>>();
-		for (int i = 0; i < methods.length; i++) {
-			if (methods[i].getName().startsWith("set")) {
-				parameterTypes.put(methods[i].getName(), methods[i].getParameterTypes());
+		Method[] methods = objClass.getMethods();
+		Hashtable<String, Class<?>[]> parameterTypes = new Hashtable<String, Class<?>[]>();
+		Hashtable<String, Class<?>> returnTypes = new Hashtable<String, Class<?>>();
+		for (Method method : methods) {
+			String methodName = method.getName();
+			if (methodName.startsWith("set")) {
+				parameterTypes.put(methodName, method.getParameterTypes());
 			}
-			if (methods[i].getName().startsWith("get")) {
-				theReturns.put(methods[i].getName().substring(3), methods[i].getReturnType());
+			if (methodName.startsWith("get")) {
+				returnTypes.put(methodName.substring(3), method.getReturnType());
 			}
 		}
-		for (String attr : request.keySet()) {
+		for (String property : request.keySet()) {
+			String value = request.get(property);
 			try {
-				Method m = c.getMethod("set" + attr, (Class[]) parameterTypes.get("set" + attr));
-				if (((Class)theReturns.get(attr)).toString().equals("boolean")) {
-					arguments = new Object[] {Boolean.class};
-					arguments[0] = new Boolean(request.get(attr).toString());
-				} else if ((Class)theReturns.get(attr) == String.class) {
-					Class[] args = m.getParameterTypes();
-					if (args[0].equals(int.class)) {
-						arguments = new Object[] {Integer.class};
-						arguments[0] = new Integer(request.get(attr).toString());
+				String setterMethodName = "set" + property;
+				Method setterMethod = objClass.getMethod(setterMethodName, parameterTypes.get(setterMethodName));
+				Class<?> getterReturnType = returnTypes.get(property);
+				Object argument = null;
+				if (getterReturnType.equals(boolean.class)) {
+					argument = new Boolean(value);
+				} else if (getterReturnType == String.class) {
+					Class setterArgType = setterMethod.getParameterTypes()[0];
+					if (setterArgType.equals(int.class)) {
+						//I'm not sure why you'd have a String getter and an int setter, but for (potential) legacy code...
+						argument = new Integer(value);
 					} else {
-						arguments = new Object[] {request.get(attr).getClass()};
-						arguments[0] = request.get(attr);
+						argument = value;
 					}
-				} else {
-					String dateString = (String) request.get(attr);
-					if ((Class) theReturns.get(attr) == java.util.Date.class) {
-						arguments = new Object[] { java.util.Date.class };
-						Date date = DateUtils.parseDate(dateString);
-						arguments[0] = date;
-
-					} else if ((Class) theReturns.get(attr) == java.sql.Time.class) {
-						arguments = new Object[] {request.get(attr).getClass()};
-						arguments[0] = java.sql.Time.valueOf(dateString);
-					} else if (((Class)theReturns.get(attr)).toString().equals("int")) {
-						arguments = new Object[] {Integer.class};
-						arguments[0] = new Integer(request.get(attr).toString());
-					} else if (((Class)theReturns.get(attr)).toString().equals("long")) {
-						arguments = new Object[] {Long.class};
-						arguments[0] = new Long(dateString);
-					} else if (((Class)theReturns.get(attr)).toString().equals("float")) {
-					    arguments = new Object[] {Float.class};
-					    arguments[0] = new Float(dateString);
-					}
+				} else if (getterReturnType == Date.class) {
+					argument = DateUtils.parseDate(value);
+				} else if (getterReturnType == Time.class) {
+					argument = Time.valueOf(value);
+				} else if (getterReturnType == int.class) {
+					argument = new Integer(value.toString()
+							.replace(",", ""));
+				} else if (getterReturnType == long.class) {
+					argument = new Long(value);
+				} else if (getterReturnType == float.class) {
+					argument = new Float(value);
 				}
+				arguments = new Object[1];
+				arguments[0] = argument;
 
-				m.invoke(o, arguments);
-			} catch (NoSuchElementException e) {
+
+				setterMethod.invoke(object, arguments);
+			} catch (NoSuchMethodException e) {
 				//really, this ought to be a log.error, but our code breaks the contract so frequently and
 				//I don't want it to spit stack traces everwhere
-				log.debug("Couldn't set: '" + attr + "', Value: " + request.get(attr) + ", because: " + e);
+				log.debug("Couldn't set: '" + property + "', Value: " + value + ", because: " + e);
+			} catch (NumberFormatException e) {
+				//needs to cause error page for user, or be caught to let app display formatting message
+				throw e;
 			} catch (Exception e) {
-				log.error("Couldn't set: '" + attr + "', Value: " + request.get(attr) + ", because: " + e);
+				log.error("Couldn't set: '" + property + "', Value: " + value + ", because: " + e);
+				throw new RuntimeException(e);
 			}
 		}
 	}
 	static boolean checkReturnType(Class returnType) {
-		if (returnType.isPrimitive() || java.lang.String.class.isAssignableFrom(returnType) || java.util.Date.class.isAssignableFrom(returnType)) {
+		if (returnType.isPrimitive() || java.lang.String.class.isAssignableFrom(returnType) || Date.class.isAssignableFrom(returnType)) {
 			return true;
 		} else {
 			return false;

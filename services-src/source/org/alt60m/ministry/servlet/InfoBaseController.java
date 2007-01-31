@@ -1252,9 +1252,9 @@ public class InfoBaseController extends Controller {
 			}
         	String username = (String) ctx.getSessionValue("userName");
         	stat.setUpdatedBy(username);
-            ibt.saveStatObjectWithActivity(statMap, stat);
-            enterSuccessCriteriaForActivity(ctx);
-        } catch (Exception e) {
+			ibt.saveStatObjectWithActivity(statMap, stat);
+			enterSuccessCriteriaForActivity(ctx);
+		} catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
             log.error("Failed to perform saveSuccessCriteria().", e);
