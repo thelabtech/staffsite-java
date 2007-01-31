@@ -1,6 +1,6 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
 <%
-ActionResults ar; 
+ActionResults ar;
 ar = ActionResults.getActionResults(session);
 %>
 <% String pageTitle="Success Criteria Reports"; %>
@@ -15,8 +15,15 @@ ar = ActionResults.getActionResults(session);
 	<TR>
 		<TD align=right><%=fontB%><a href="JavaScript: popupWindow('/help/help_success_criteria_reports.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help with Success Criteria Reports</a></font></TD>
 	</TR>
+	<tr>
+		<td>
+		<br/>
+		<%=fontB%>If you experience any technical problems while either entering your success criteria or running a report, please give us as much information as possible about the problem by using this <A href="/general/feedback.jsp">Help Request form</A>.</font>
+		</td>
+	</tr>
 </TABLE>
 
+<br/>
 <form method="post" action="/servlet/InfoBaseController">
 <input type="hidden" name="action" value="showReport">
 <%
@@ -47,10 +54,10 @@ ar = ActionResults.getActionResults(session);
 		out.print(box.printTop());
 		%>
 	<table width="90%" border="0" cellpadding="0" cellspacing="0">
-		<tr> 
+		<tr>
 		  <td valign="top"><img src="/infobase/images/1.gif" width="32" height="48"></td>
 		  <td>
-			<p><%=fontB%><i>Select which CCC ministries you would like included 
+			<p><%=fontB%><i>Select which CCC ministries you would like included
 			  in your report:</font></p>
 
 			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
@@ -69,23 +76,23 @@ ar = ActionResults.getActionResults(session);
 			<p>
 		  </td>
 		</tr>
-		<tr> 
+		<tr>
 		  <td valign="top"><img src="/infobase/images/2.gif" width="35" height="47"></td>
-		  <td> 
+		  <td>
 			<p><%=fontB%><i>Select a date range for your report:</i></font></p>
 			<table width="200" border="0" cellpadding="5" cellspacing="5">
-			  <tr <%=bgcolorB%>> 
+			  <tr <%=bgcolorB%>>
 				<td colspan="2"><b><%=fontW%>From</b></td>
 				<td colspan="2"><b><%=fontW%>To</b></td>
 			  </tr>
-			  <tr <%=bgcolorL%>> 
+			  <tr <%=bgcolorL%>>
 				<td><%=fontB%>Year</td>
 				<td><%=fontB%>Month</td>
 				<td><%=fontB%>Year</td>
 				<td><%=fontB%>Month</td>
 			  </tr>
-			  <tr <%=bgcolorL%>> 
-				<td> 
+			  <tr <%=bgcolorL%>>
+				<td>
 				  <select name="fromyear">
 					<option value='1998'>1998</option>
 					<option value='1999'>1999</option>
@@ -99,7 +106,7 @@ ar = ActionResults.getActionResults(session);
 					<option value='2007'<% if(((String)ar.getValue("fromYear")).equals("2007")) out.print(" SELECTED"); %>>2007</option>
 				  </select>
 				</td>
-				<td> 
+				<td>
 				  <select name="frommonth">
 				  <option value='1'<% if(((String)ar.getValue("fromMonth")).equals("1")) out.print(" SELECTED"); %>>Jan</option>
 				  <option value='2'<% if(((String)ar.getValue("fromMonth")).equals("2")) out.print(" SELECTED"); %>>Feb</option>
@@ -115,7 +122,7 @@ ar = ActionResults.getActionResults(session);
 				  <option value='12'<% if(((String)ar.getValue("fromMonth")).equals("12")) out.print(" SELECTED"); %>>Dec</option>
 				  </select>
 				</td>
-				<td> 
+				<td>
 				  <select name="toyear">
 					<option value='1998'>1998</option>
 					<option value='1999'>1999</option>
@@ -129,7 +136,7 @@ ar = ActionResults.getActionResults(session);
 					<option value='2007'<% if(((String)ar.getValue("toYear")).equals("2007")) out.print(" SELECTED"); %>>2007</option>
 				  </select>
 				</td>
-				<td> 
+				<td>
 				  <select name="tomonth">
 				  <option value='1'<% if(((String)ar.getValue("toMonth")).equals("1")) out.print(" SELECTED"); %>>Jan</option>
 				  <option value='2'<% if(((String)ar.getValue("toMonth")).equals("2")) out.print(" SELECTED"); %>>Feb</option>
@@ -150,9 +157,9 @@ ar = ActionResults.getActionResults(session);
 			<p>&nbsp;</p>
 		  </td>
 		</tr>
-		<tr> 
+		<tr>
 		  <td valign="top"><img src="/infobase/images/3.gif" width="34" height="45"></td>
-		  <td> 
+		  <td>
 			<p><%=fontB%><i>Click here to view your report:</i></font></p>
 			<p>
 		  <input type="submit" value="Make My Report">

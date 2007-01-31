@@ -1,6 +1,6 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
 <%
-	ActionResults ar; 
+	ActionResults ar;
 	ar = ActionResults.getActionResults(session);
 	Collection statistics = ar.getCollection("statistics");
 %>
@@ -25,7 +25,7 @@
 		<input type=hidden name="type" value="statistic">
 		<input type=hidden name="value" value="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%= ar.getValue("activityid") %>&targetareaid=<%= ar.getValue("targetareaid") %>">
 		<input type=hidden name="activityid" value="<%= ar.getValue("activityid") %>">
-<% 
+<%
 	   String mode;
 		if(!((String)ar.getValue("bookmarkID")).equals("")) {
 			mode = "remove";
@@ -34,7 +34,7 @@
 		else
 			mode = "add";
 %>
-    
+
 		<INPUT TYPE=hidden name="bookmarkid" value="<%= ar.getValue("bookmarkID") %>">
 		<INPUT TYPE=hidden name="mode" value="<%= mode %>">
 		</form>
@@ -91,8 +91,8 @@
 			<A HREF="/servlet/InfoBaseController?action=editSuccessCriteria&periodbegin=<%=criteria.get("PeriodBegin")%>&periodend=<%=criteria.get("PeriodEnd")%>&statisticid=<%=criteria.get("StatisticId")%>&targetareaid=<%=ar.getValue("targetareaid")%>&activityid=<%=ar.getValue("activityid")%>&current=true"><IMG SRC="/infobase/images/greendot.gif" BORDER="0"></A>
 <%			lastStatID = (String)criteria.get("StatisticId");
 
-		
-		} 
+
+		}
 %>
 </TD>
 
@@ -104,5 +104,7 @@
 </TR>
 </TABLE>
 <P>
-<%=fontB%>[<A HREF="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=ar.getValue("targetareaid")%>"><%=fontB%>Return</FONT></A>]</FONT>
+<%=fontB%>[<A HREF="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=ar.getValue("targetareaid")%>"><%=fontB%>Return</FONT></A>]</FONT><br/>
+<br/>
+<%=fontB%>If you experience any technical problems while either entering your success criteria or running a report, please give us as much information as possible about the problem by using this <A href="/general/feedback.jsp">Help Request form</A>.</font>
 <%@ include file="/infobase/ibfooter.jspf" %>
