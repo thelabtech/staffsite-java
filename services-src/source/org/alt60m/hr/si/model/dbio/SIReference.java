@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 /**
- * @persistent 
+ * @persistent
  * @table si_SIReference
  * @cache-type none
  * @access shared
@@ -21,13 +21,13 @@ import com.kenburcham.framework.dbio.DBIOEntity;
 public class SIReference extends DBIOEntity {
 
 	private static Log log = LogFactory.getLog(SIReference.class);
-	
+
 	public final static String DEFAULT_FROM_EMAIL = "help@campuscrusadeforchrist.com";
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
 	public static final String REFERENCECLASS = "org.alt60m.hr.si.model.dbio.SIReference";
 	private static final String TABLENAME_BASE = "hr_si_reference";
-	
+
 	public SIReference() {
 //      createDate = DateUtils.clearTimeFromDate(new Date());
 //		formWorkflowStatus = "N";	// status of "new"
@@ -41,7 +41,7 @@ public class SIReference extends DBIOEntity {
 	public boolean isPKEmpty() {
 		return referenceID == 0;
 	}
-	
+
 	public SIReference(String id) {
 		if ( id != null && !id.equals("") ) {
 			referenceID= (new Integer(id)).intValue();
@@ -190,8 +190,8 @@ public class SIReference extends DBIOEntity {
 		setMetadata("_re4", "_re4", table);
 		setMetadata("_re5", "_re5", table);
 		setMetadata("Fk_SIApplicationIntID", "fk_SIApplicationID", table);
-		
-		setAutodetectProperties(false);		
+
+		setAutodetectProperties(false);
 	}
 
 
@@ -261,7 +261,7 @@ public class SIReference extends DBIOEntity {
 
 	/**
 	 * @sql-type varchar
-	 * @sql-size 
+	 * @sql-size
 	 */
 	private String staffNumber = "";
 
@@ -318,7 +318,7 @@ public class SIReference extends DBIOEntity {
 	 * @sql-size 32
 	 */
 	private String currentEmail = "";
-	
+
 	/**
 	 * @sql-type varchar
 	 * @sql-size 64
@@ -348,7 +348,7 @@ public class SIReference extends DBIOEntity {
 	 * @sql-size 4
 	 */
 	private int howWellComm;
-	
+
 	private int _rg1;
 	private int _rg2;
 	private int _rg3;
@@ -465,7 +465,7 @@ public class SIReference extends DBIOEntity {
 	private String _re5 = "";
 
 	private int fk_SIApplicationID;
-	
+
 	// The following are not in the database, but can be in the object if someone loads them into the object using ref.loadRelated()
 	private SIApplication application;
 	private String fk_SIPersonID = "";
@@ -473,9 +473,13 @@ public class SIReference extends DBIOEntity {
 
 	/**
 	 * get & set methods
-	*/	
+	*/
 	public String getReferenceID() { return String.valueOf(referenceID); }
-	public void setReferenceID(String referenceID) { this.referenceID = Integer.parseInt(referenceID); }
+	public void setReferenceID(String referenceID) {
+		if (referenceID != null && ! referenceID.equals("")) {
+			this.referenceID = Integer.parseInt(referenceID);
+		}
+	}
 
 	public int getReferenceIDInt() { return referenceID; }
 	public void setReferenceIDInt(int referenceID) { this.referenceID = referenceID; }
@@ -894,7 +898,7 @@ public class SIReference extends DBIOEntity {
 
 	public String getFk_SIPersonID() { return fk_SIPersonID; }
 	public void setFk_SIPersonID(String fk_SIPersonID) {this.fk_SIPersonID = fk_SIPersonID; }
-	
+
 	public SIPerson getSIPerson() { return person; }
 	public void setSIPerson(SIPerson person) {this.person = person; }
 
@@ -904,14 +908,14 @@ public class SIReference extends DBIOEntity {
 		//	load the SIPersonID into self
 		//	load the person object into self
 		try {
-			this.application = (SIApplication) SIUtil.getObject(String.valueOf(this.fk_SIApplicationID), "SIApplicationID", APPLICATIONCLASS);			
+			this.application = (SIApplication) SIUtil.getObject(String.valueOf(this.fk_SIApplicationID), "SIApplicationID", APPLICATIONCLASS);
 			if (application != null) {
 				this.fk_SIPersonID = application.getFk_PersonIDString();
 				this.person = (SIPerson) SIUtil.getObject(String.valueOf(this.fk_SIPersonID), "SIPersonID", PERSONCLASS);
 			}
 		}
 		catch (Exception e) {
-		} 
+		}
 	}
 
 	public String loadWorkflowStatusText() {
@@ -1037,7 +1041,7 @@ public class SIReference extends DBIOEntity {
 				returnVal += ec + ". There are " + mc + " fields that have not been entered. These are highlighted in Yellow.<BR>";
 			return returnVal;
 		}
-		
+
 		// submission allowed!
 		// caller must update the object and persist it!
 		return returnVal;
@@ -1078,7 +1082,7 @@ public class SIReference extends DBIOEntity {
 
 			if (this.isStaff) {
 				text += "Login to the staff site at " + staffsiteLink + " and click on the applicant's name ('" + applicantFullName + "') in the list of references on your home page.\n\n";
-				text += "If the above link does not work or you cannot get into the staff site, please use the following link to get to the reference form.  ";  
+				text += "If the above link does not work or you cannot get into the staff site, please use the following link to get to the reference form.  ";
 			}
 			else {
 				text += "Please use the following link.  ";
@@ -1125,12 +1129,12 @@ public class SIReference extends DBIOEntity {
 			SIPerson person = this.getSIPerson();
 			String applicantFullName = person.getFirstName() + " " + person.getLastName();
 			String applicantEmailAddress = person.getCurrentEmail();
-			
+
 			String text = "Dear " + applicantFullName + ":\n\n";
 			text += "A reference form filled out by " + refFullName + " recommending you for a STINT/Internship has been completed and was submitted on " + (new SimpleDateFormat("MM/dd/yyyy")).format(getFormSubmittedDate()) + ".  You are now one step closer to finding out the decision about your internship application!   When a final decision is reached, we will let you know.  We trust that God will use this time of waiting as you continue to seek His will.\n\n";
 			text += "Sincerely,\n";
 			text += "Campus Crusade for Christ\n\n\n";
-			
+
 			// check for applicant email
 			if (applicantEmailAddress == null  ||  applicantEmailAddress.trim().equals("")){
 				log.warn("applicantEmailAddress does not exist, disregard SendMessage to applicant");
