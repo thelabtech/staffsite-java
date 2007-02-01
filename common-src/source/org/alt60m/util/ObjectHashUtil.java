@@ -25,10 +25,10 @@ public class ObjectHashUtil {
         }
         return results;
     }
-	static public Hashtable<String, Object> obj2hash(Object o) {
+	static public Hashtable<String, Object> obj2hash(Object object) {
 		Hashtable<String, Object> h = new Hashtable<String, Object>();
 		Object[] arguments = new Object[] {};
-		Class c = o.getClass();
+		Class c = object.getClass();
 		Method[] publicMethods = c.getMethods();
 		for (int i = 0; i < publicMethods.length; i++) {
 			Method method = publicMethods[i];
@@ -41,7 +41,7 @@ public class ObjectHashUtil {
 				try {
 				  Method m = c.getMethod(methodName, (Class []) null);
 				  if (checkReturnType(m.getReturnType())) {
-                    Object result = m.invoke(o, arguments);
+                    Object result = m.invoke(object, arguments);
                     if(result==null && java.lang.String.class.isAssignableFrom(m.getReturnType())) {
 						h.put(key, "");
                     } else {
@@ -84,58 +84,59 @@ public class ObjectHashUtil {
 	  return h;
 	}
 	static public void hash2obj(Map<String, String> request, Object object) {
-		Class objClass = object.getClass();
+		Class objectClass = object.getClass();
 		Object[] arguments = null;
-		Method[] methods = objClass.getMethods();
-		Hashtable<String, Class<?>[]> parameterTypes = new Hashtable<String, Class<?>[]>();
-		Hashtable<String, Class<?>> returnTypes = new Hashtable<String, Class<?>>();
+		Method[] methods = objectClass.getMethods();
+		Map<String, Class<?>> getterReturnTypes = new HashMap<String, Class<?>>();
+		Map<String, Method> setterMethods = new HashMap<String, Method>();
 		for (Method method : methods) {
 			String methodName = method.getName();
-			if (methodName.startsWith("set")) {
-				parameterTypes.put(methodName, method.getParameterTypes());
-			}
-			if (methodName.startsWith("get")) {
-				returnTypes.put(methodName.substring(3), method.getReturnType());
+			if (methodName.length() > 3) {
+				String property = methodName.substring(3);
+				if (methodName.startsWith("set")) {
+					setterMethods.put(property, method);
+				}
+				if (methodName.startsWith("get")) {
+					getterReturnTypes.put(property, method.getReturnType());
+				}
 			}
 		}
 		for (String property : request.keySet()) {
 			String value = request.get(property);
 			try {
-				String setterMethodName = "set" + property;
-				Method setterMethod = objClass.getMethod(setterMethodName, parameterTypes.get(setterMethodName));
-				Class<?> getterReturnType = returnTypes.get(property);
-				Object argument = null;
-				if (getterReturnType.equals(boolean.class)) {
-					argument = new Boolean(value);
-				} else if (getterReturnType == String.class) {
-					Class setterArgType = setterMethod.getParameterTypes()[0];
-					if (setterArgType.equals(int.class)) {
-						//I'm not sure why you'd have a String getter and an int setter, but for (potential) legacy code...
-						argument = new Integer(value);
-					} else {
-						argument = value;
+				Method setterMethod = setterMethods.get(property);
+				if (setterMethod == null) {
+					log.debug("Property " + property
+							+ " does not exist for class" + objectClass);
+					// but otherwise silently ignore it
+				} else {
+					Class<?> getterReturnType = getterReturnTypes.get(property);
+					Object argument = null;
+					if (getterReturnType.equals(boolean.class)) {
+						argument = new Boolean(value);
+					} else if (getterReturnType == String.class) {
+						Class setterArgType = setterMethod.getParameterTypes()[0];
+						if (setterArgType.equals(int.class)) {
+							// I'm not sure why you'd have a String getter and
+							// an int setter, but for (potential) legacy code...
+							argument = new Integer(value);
+						} else {
+							argument = value;
+						}
+					} else if (getterReturnType == Date.class) {
+						argument = DateUtils.parseDate(value);
+					} else if (getterReturnType == Time.class) {
+						argument = Time.valueOf(value);
+					} else if (getterReturnType == int.class) {
+						argument = new Integer(value.replace(",", ""));
+					} else if (getterReturnType == long.class) {
+						argument = new Long(value.replace(",", ""));
+					} else if (getterReturnType == float.class) {
+						argument = new Float(value.replace(",", ""));
 					}
-				} else if (getterReturnType == Date.class) {
-					argument = DateUtils.parseDate(value);
-				} else if (getterReturnType == Time.class) {
-					argument = Time.valueOf(value);
-				} else if (getterReturnType == int.class) {
-					argument = new Integer(value.toString()
-							.replace(",", ""));
-				} else if (getterReturnType == long.class) {
-					argument = new Long(value);
-				} else if (getterReturnType == float.class) {
-					argument = new Float(value);
+					arguments = new Object[] { argument };
+					setterMethod.invoke(object, arguments);
 				}
-				arguments = new Object[1];
-				arguments[0] = argument;
-
-
-				setterMethod.invoke(object, arguments);
-			} catch (NoSuchMethodException e) {
-				//really, this ought to be a log.error, but our code breaks the contract so frequently and
-				//I don't want it to spit stack traces everwhere
-				log.debug("Couldn't set: '" + property + "', Value: " + value + ", because: " + e);
 			} catch (NumberFormatException e) {
 				//needs to cause error page for user, or be caught to let app display formatting message
 				throw e;
