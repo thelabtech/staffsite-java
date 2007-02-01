@@ -72,6 +72,12 @@ public enum Strategy {
 		return strategies.toArray(new String[values().length]);
 	}
 	
-	
+	public static String formatStrategies(ArrayList<String> strategies) {
+		String result = "";
+		for (int i = 0; i < strategies.size(); i++) {
+			result += "'" + strategies.get(i) + "', ";
+		}
+		return result.substring(0, result.length() - 2);  //Chop off last ", "
+	}
 
 }
