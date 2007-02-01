@@ -3,6 +3,7 @@ package org.alt60m.ministry.bean;
 import java.sql.*;
 import java.util.*;
 //import org.alt60m.ministry.*;
+import org.alt60m.util.DBConnectionFactory;
 import org.alt60m.util.ObjectHashUtil;
 import org.alt60m.ministry.model.dbio.*;
 //import org.alt60m.util.TextUtils;
@@ -589,38 +590,11 @@ public class StaffUpdater {
 	public static void main(String[] args) {
 		try {
 			StaffUpdater su = new StaffUpdater();
-			org.alt60m.servlet.ObjectMapping.setConfigPath(args[0]);
-			//org.alt60m.util.DBConnectionFactory.setConfigProperties(args[0]);
-			//log.info("Removing Former Staff");
-			//su.removeStaffObject();
+			DBConnectionFactory.setDefaultProperties(args[0], args[1], args[2]);
 			log.info("Updating Staff");
 			su.performUpdate();
 		} catch (Exception e) {
 			log.fatal("Failed!", e);
 		}
 	}
-
-/*
-	private String getCmdLineValue(String[] list, String arg) {
-		for (int cnt = 0; cnt < list.length; cnt++)
-			if (list[cnt].equalsIgnoreCase(arg))
-				if ((list.length - 1) != cnt)
-					return list[cnt + 1];
-		return null;
-	}
-
-	private boolean isSet(int mode, int flag) {
-		if ((mode & flag) == flag)
-			return true;
-		else
-			return false;
-	}
-
-	private boolean inList(String[] list, String arg) {
-		for (int cnt = 0; cnt < list.length; cnt++)
-			if (list[cnt].equalsIgnoreCase(arg))
-				return true;
-		return false;
-	}
-*/
 }

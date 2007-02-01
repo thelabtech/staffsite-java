@@ -44,6 +44,7 @@ import org.alt60m.staffSite.profiles.dbio.ProfileAlreadyExistsException;
 import org.alt60m.staffSite.profiles.dbio.ProfileManagementException;
 import org.alt60m.staffSite.profiles.dbio.ProfileManager;
 import org.alt60m.staffSite.profiles.dbio.ProfileNotFoundException;
+import org.alt60m.util.DBConnectionFactory;
 import org.alt60m.util.EncryptorException;
 import org.alt60m.util.ObjectHashUtil;
 
@@ -182,6 +183,7 @@ public class StaffController extends Controller {
 					.getRealPath(Log4JConfig_FILE));
 			log.info("StaffController: Starting Init");
 
+			// for hr updater/notifier email addresses
 			String servicesConfigPath = getServletContext().getRealPath(
 					MAPPING_FOLDER);
 			if (servicesConfigPath != null && servicesConfigPath.length() > 0) {
@@ -193,6 +195,8 @@ public class StaffController extends Controller {
 				log.info("No ServicesConfigPath was specified.");
 			}
 
+			DBConnectionFactory.setupPool();
+			
 			_profileManager = new ProfileManager();
 			_preferences = new UserPreferences();
 			_encryptedPreferences = new EncryptedPreferences();

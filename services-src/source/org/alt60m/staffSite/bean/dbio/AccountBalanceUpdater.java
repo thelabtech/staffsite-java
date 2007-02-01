@@ -113,15 +113,16 @@ public class AccountBalanceUpdater {
 	}
 
 	public static void main(String[] args) throws Exception {
-		if (args.length<1) {
-			log.info("Usage: AccountBalanceUpdater [-verbose]");
+		if (args.length<3) {
+			log.info("Usage: AccountBalanceUpdater username password database [-verbose]");
 			return;
 		}
-		org.alt60m.servlet.ObjectMapping.setConfigPath(args[1]);
-	
+
+		DBConnectionFactory.setDefaultProperties(args[0], args[1], args[2]);
+		DBConnectionFactory.setupPool();
 		AccountBalanceUpdater abu = new AccountBalanceUpdater();
 		
-		if (args.length>=1 && "-verbose".equalsIgnoreCase(args[0]))
+		if (args.length>=1 && "-verbose".equalsIgnoreCase(args[4]))
 			abu.performUpdate(true);
 		else
 			abu.performUpdate(false);

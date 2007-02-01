@@ -15,7 +15,7 @@ public class WsnAccountBalanceUpdaterJob implements Job {
 		try {
 			log.info("Running WsnAccountBalanceUpdater Job");
 			WsnApplicationAccountBalanceUpdater updater = new WsnApplicationAccountBalanceUpdater();
-			updater.doIt();
+			updater.run();
 			log.info("Finished WsnAccountBalanceUpdater Job");
 		} 
 		catch (Exception e)

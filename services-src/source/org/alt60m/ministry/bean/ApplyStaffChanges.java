@@ -259,7 +259,7 @@ public class ApplyStaffChanges {
 
     public static void main (String[] args) {
 		try {
-			org.alt60m.servlet.ObjectMapping.setConfigPath(args[0]);
+			DBConnectionFactory.setDefaultProperties(args[0], args[1], args[2]);
 			DBConnectionFactory.setupPool();
 		    applyChanges(); 	     
 		} catch (Exception e) {	log.error(e.getMessage(), e); }
