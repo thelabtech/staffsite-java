@@ -167,7 +167,7 @@ function setDefinition(setTo) {
 				while(teams.hasNext()) {
 					Hashtable h = (Hashtable)teams.next();
 				%>
-					<option value="<%=h.get("LocalLevelId")%>"><%=h.get("Name")%></option>
+					<option value='<%=h.get("LocalLevelId")%>'<%=((String)h.get("LocalLevelId")).equals(currentTeamID)?" selected='selected'":""%>><%=h.get("Name")%></option>
 				<%
 				}
 				%>
