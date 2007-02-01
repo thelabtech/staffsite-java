@@ -125,7 +125,7 @@ public class ObjectHashUtil {
 							argument = value;
 						}
 					} else if (getterReturnType == Date.class) {
-						if (value.trim().equals("")) {
+						if (value == null || value.trim().equals("")) {
 							ignore = true;
 						} else {
 							argument = DateUtils.parseDate(value);
@@ -133,7 +133,7 @@ public class ObjectHashUtil {
 					} else if (getterReturnType == Time.class) {
 						argument = Time.valueOf(value);
 					} else if (getterReturnType == int.class) {
-						if (value.trim().equals("")) {
+						if (value == null || value.trim().equals("")) {
 							ignore = true;
 						} else {
 							argument = new Integer(value.replace(",", ""));
@@ -152,7 +152,7 @@ public class ObjectHashUtil {
 				//needs to cause error page for user, or be caught to let app display formatting message
 				throw e;
 			} catch (Exception e) {
-				log.error("Couldn't set: '" + property + "', Value: " + value + ", because: " + e);
+				log.error("Couldn't set: '" + property + "', Value: " + value, e);
 				throw new RuntimeException(e);
 			}
 		}
