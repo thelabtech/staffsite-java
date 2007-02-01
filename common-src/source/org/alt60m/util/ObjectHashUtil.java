@@ -103,6 +103,7 @@ public class ObjectHashUtil {
 		}
 		for (String property : request.keySet()) {
 			String value = request.get(property);
+			boolean ignore = false;
 			try {
 				Method setterMethod = setterMethods.get(property);
 				if (setterMethod == null) {
@@ -124,18 +125,28 @@ public class ObjectHashUtil {
 							argument = value;
 						}
 					} else if (getterReturnType == Date.class) {
-						argument = DateUtils.parseDate(value);
+						if (value.trim().equals("")) {
+							ignore = true;
+						} else {
+							argument = DateUtils.parseDate(value);
+						}
 					} else if (getterReturnType == Time.class) {
 						argument = Time.valueOf(value);
 					} else if (getterReturnType == int.class) {
-						argument = new Integer(value.replace(",", ""));
+						if (value.trim().equals("")) {
+							ignore = true;
+						} else {
+							argument = new Integer(value.replace(",", ""));
+						}
 					} else if (getterReturnType == long.class) {
 						argument = new Long(value.replace(",", ""));
 					} else if (getterReturnType == float.class) {
 						argument = new Float(value.replace(",", ""));
 					}
-					arguments = new Object[] { argument };
-					setterMethod.invoke(object, arguments);
+					if (! ignore) {
+						arguments = new Object[] { argument };
+						setterMethod.invoke(object, arguments);
+					}
 				}
 			} catch (NumberFormatException e) {
 				//needs to cause error page for user, or be caught to let app display formatting message
