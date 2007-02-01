@@ -41,6 +41,8 @@ public class Activity extends DBIOEntity {
 	private Strategy strategy;
 
 	private String transUsername = "";
+	
+	private Status statusHistory;
 
 	private static Log log = LogFactory.getLog(Activity.class);
 
@@ -65,6 +67,7 @@ public class Activity extends DBIOEntity {
 		setMetadata("PeriodEnd", "periodEnd", table);
 		setMetadata("Strategy", "strategy", table);
 		setMetadata("TransUsername", "transUsername", table);
+		setMetadata("StatusHistory", "statusHistory", table);
 
 		setAutodetectProperties(false);
 	}
@@ -269,5 +272,20 @@ public class Activity extends DBIOEntity {
 
 	public String getColumnName(String foo) {
 		return "";
+	}
+
+	public String getStatusHistory() {
+		if (statusHistory == null) {
+			return null;
+		}
+		return statusHistory.toString();
+	}
+
+	public String getStatusHistoryFullName() {
+		return statusHistory.getName();
+	}
+
+	public void setStatusHistory(String statusHistory) {
+		this.statusHistory = Status.valueOf(statusHistory);
 	}
 }
