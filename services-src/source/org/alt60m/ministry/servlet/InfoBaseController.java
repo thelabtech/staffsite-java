@@ -19,7 +19,7 @@ import java.util.Vector;
 import org.alt60m.ministry.ActivityExistsException;
 import org.alt60m.ministry.MissingTargetAreaIdException;
 import org.alt60m.ministry.Regions;
-import org.alt60m.ministry.Strategies;
+import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
 import org.alt60m.ministry.model.dbio.Dependent;
 import org.alt60m.ministry.model.dbio.LocalLevel;
@@ -1015,8 +1015,7 @@ public class InfoBaseController extends Controller {
             	throw new Exception("Didn't choose a target area.");
             }
 
-   			InfoBaseTool ibt = new InfoBaseTool();
-			ibt.saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin);
+   			InfoBaseTool.saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, ctx.getProfileID());
             showTeam(ctx);
         } catch (Exception e) {
             ctx.setError();
@@ -1120,7 +1119,7 @@ public class InfoBaseController extends Controller {
         try {
             String activityId = ctx.getInputString("activityid", true);
             String periodEnd = ctx.getInputString("datechanged", true);
-            String strategy = ctx.getInputString("strategy", Strategies.strategiesArray());
+            String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
             String updateOption = ctx.getInputString("updateoption", true);

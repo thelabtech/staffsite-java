@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.alt60m.ministry.ActivityExistsException;
+import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
 import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.NonCccMin;
@@ -732,25 +734,7 @@ public class InfoBaseTool {
 			throw new Exception(e);
 		}
 	}
-
-    public void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin) throws Exception {
-        try {
-            Activity activity = new Activity();
-            activity.setStrategy(strategy);
-            activity.setStatus(status);
-            activity.setPeriodBegin(parseSimpleDate(periodBegin));
-            LocalLevel team = new LocalLevel(localLevelId);
-            TargetArea target = new TargetArea(targetAreaId);
-            activity.setTeam(team);
-            activity.setTargetArea(target);
-            activity.persist();
-        }
-        catch (Exception e) {
-            log.error("Failed to perform saveActivity().", e);
- 			throw new Exception(e);
-        }
-    }
-
+	
     public void saveAddCampusToMin(String targetAreaId, String nonCccMinId) throws Exception {
         try {
             saveAddMinToCampus(targetAreaId, nonCccMinId);
@@ -821,8 +805,162 @@ public class InfoBaseTool {
         }
     }
 
+	public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin) throws Exception {
+		saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, null);
+	}
 
-    synchronized static public void saveEditActivity(String activityId, String periodEnd, String strategy, String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException{
+    public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileId) throws Exception {
+        try {
+            Activity activity = new Activity();
+            activity.setStrategy(strategy);
+            activity.setStatus(status);
+            activity.setPeriodBegin(parseSimpleDate(periodBegin));
+            LocalLevel team = new LocalLevel(localLevelId);
+            TargetArea target = new TargetArea(targetAreaId);
+            activity.setTeam(team);
+            activity.setTargetArea(target);
+            activity.setTransUsername(profileId);
+            activity.persist();
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveActivity().", e);
+ 			throw new Exception(e);
+        }
+    }
+    
+    public static void deactivateActivity(Activity oldActivity, String periodEnd) throws Exception {
+    	try {
+			oldActivity.setStatusHistory(oldActivity.getStatus());
+			oldActivity.setStatus("IN");
+			oldActivity.setPeriodEnd(parseSimpleDate(periodEnd));
+			oldActivity.persist();
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform deactivateActivity");
+    		throw new Exception(e);
+    	}
+    }
+
+    public static void saveEditActivity(String activityId, String periodEnd, String strategy, 
+    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    	try {
+    		if (checkForChange(newTeamId, newStatus, activityId)) {
+				if (strategy.equals("SC") || strategy.equals("CA")) {
+					saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId);
+				}
+				else {
+					saveEditActivityOther(activityId, periodEnd, strategy, newStatus, profileId, newTeamId);
+				}
+    		}
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform saveEditActivity().", e);
+    		throw e;
+    	}
+    }
+    
+    private synchronized static void saveEditActivitySC(String activityId, String periodEnd, String strategy, 
+    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    	try {
+	    	Activity oldActivity = new Activity(activityId);
+	    	
+	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
+	    	ArrayList<String> strategies = new ArrayList<String>();
+	    	strategies.add("SC");
+	    	strategies.add("CA");
+	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategies, activityId) ){
+	        	// Create new activity
+	    		String newStrategy = null;
+	    		if (newStatus.equals("SC")) {
+	    			newStatus = "AC";
+	    			newStrategy = "SC";
+	    		}
+	    		else {
+	    			newStrategy = "CA";
+	    		}
+	    		if (!newStatus.equals("IN")) {
+	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), newStrategy, newStatus, periodEnd, profileId);
+	    		}
+
+	    		// Deactivate old activity
+	    		deactivateActivity(oldActivity, periodEnd);
+	    	}
+	    	else {
+	    		// There's already a new Activity record.  Most likely this is a double-click bug.
+	    		log.warn("Possible double-click bug in ibt.saveEditActivity");
+	    		throw new ActivityExistsException("Strategy is already active for this target area.\n\nYou may also be receiving this error message if you double-clicked on the 'OK' button instead of single-clicked.  If that was the case, your change may have succeeded.");
+	    	}
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform saveEditActivitySC()", e);
+    		throw e;
+    	}
+    }
+    
+    private synchronized static void saveEditActivityOther(String activityId, String periodEnd, String strategy, 
+    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    	try {
+	    	Activity oldActivity = new Activity(activityId);
+	    	
+	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
+	    	ArrayList<String> strategies = new ArrayList<String>();
+	    	strategies.add(strategy);
+	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategies, activityId) ){
+	        	// Create new activity
+	    		if (!newStatus.equals("IN")) {
+	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId);
+	    		}
+	    		
+	    		// Deactivate old activity
+	    		deactivateActivity(oldActivity, periodEnd);
+	    	}
+	    	else {
+	    		// There's already a new Activity record.  This could be a double-click bug.
+	    		log.warn("Possible double-click bug in ibt.saveEditActivity");
+	    		throw new ActivityExistsException("Strategy is already active for this target area.\n\nYou may also be receiving this error message if you double-clicked on the 'OK' button instead of single-clicked.  If that was the case, your change may have succeeded.");
+	    	}
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform saveEditActivityOther()", e);
+    		throw e;
+    	}
+    }
+    
+    // Returns true if there is a duplicate activity
+    private static boolean checkDuplicateActiveActivity(String targetAreaId, ArrayList<String> strategies, String notActivityId) throws Exception {
+    	try {
+    		Activity checkA = new Activity();
+    		boolean result = checkA.select(
+	    			"fk_targetAreaID = " + targetAreaId +
+					" AND status <> 'IN'" +
+					" AND strategy IN (" + Strategy.formatStrategies(strategies) + ")" +
+					" AND ActivityID <> " + notActivityId);
+    		return result;
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform checkDuplicateActiveActivity", e);
+    		throw e;
+    	}
+    }
+    
+    private static boolean checkForChange(String newTeamId, String newStatus, String oldActivityId) {
+    	Activity oldActivity = new Activity(oldActivityId);
+    	return checkForChange(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus());
+    }
+    
+    private static boolean checkForChange(String newTeamId, String oldTeamId, String newStatus, String oldStatus) {
+    	boolean change = false;
+    	
+    	// Check for team change
+    	change = !newTeamId.equals(oldTeamId);
+    	
+    	// check for status change
+    	change = change || (!newStatus.equals(oldStatus));
+    	
+    	return change;
+    }
+    
+/*    synchronized static public void saveEditActivity(String activityId, String periodEnd, String strategy, String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException{
         //TODO: add history capabilities to preserve all previous states
 
     	try {
@@ -979,7 +1117,16 @@ public class InfoBaseTool {
             	} else
             	{
 					activity.setStatus(newStatus);
-					activity.persist();
+					
+					//Check to see if activity already exists
+					Activity checkA = new Activity();
+					checkA.setStatus(newStatus);
+					if ( !checkA.select("fk_targetAreaID= "
+							+ activity.getTargetAreaId()
+							+ " AND status<>'IN' AND ActivityID <> "
+							+ activityId) ) {
+						activity.persist();
+					}
             	}
             }
         }
@@ -992,7 +1139,7 @@ public class InfoBaseTool {
  			throw new Exception(e);
         }
     }
-
+*/
     public void saveNewCampus(Hashtable request) throws Exception {
         try {
             TargetArea target = new TargetArea();
