@@ -328,6 +328,20 @@ String pageTitle = (String) taTable.get("Name") + " Details";
    		boolean showAddLink = false;
    		if (thisActivity == null) {
    			showAddLink = true;
+   			
+   			// Check for exclusion of CA/SC
+   			if (strategy.name().equals("CA")) {
+   				thisActivity = ar.getHashtable("SC");
+   				if (thisActivity != null) {
+   					showAddLink = false;
+   				}
+   			}
+   			else if (strategy.name().equals("SC")) {
+   				thisActivity = ar.getHashtable("CA");
+   				if (thisActivity != null) {
+   					showAddLink = false;
+   				}
+   			}
    		}
 		if ((Strategy.internationalCampusStrategies().contains(strategy) && (taTable.get("Country")).equals("USA")) ||
 			(Strategy.usCampusStrategies().contains(strategy) && !(taTable.get("Country")).equals("USA")))
