@@ -16,7 +16,7 @@
 	<view name="editTargetAreaInfo" url="/infobase/edit_detail_target_area.jsp"></view>
 	<view name="bookmarkConfirm" url="/infobase/bookmark.jsp"></view>
 	<view name="addCampusToTeam" url="/infobase/form_local_level_activity.jsp"></view>
-	<view name="addCampusToMin" url="/infobase/form_add_campus_to_min.jsp"></view>	
+	<view name="addCampusToMin" url="/infobase/form_add_campus_to_min.jsp"></view>
 	<view name="addTeamToCampus" url="/infobase/form_new_target_area_activity.jsp"></view>
 	<view name="addMinToCampus" url="/infobase/form_new_target_area_ministry.jsp"></view>
 	<view name="editActivity" url="/infobase/form_update_activity.jsp"></view>
@@ -46,4 +46,5 @@
 	<view name="uscm_detail" url="/locator/uscm/detail.jsp"></view>
 	<view name="waymore" url="/locator/waymore/list.jsp"></view>
 	<view name="waymore_detail" url="/locator/waymore/detail.jsp"></view>
+	<view name="login" url="/servlet/StaffController?action=logInGCX"></view>
 </views>

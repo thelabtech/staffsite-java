@@ -1224,6 +1224,9 @@ public class InfoBaseController extends Controller {
 
     /** @param ctx ActionContext object */
     public void saveSuccessCriteria(ActionContext ctx) {
+    	if (! loginCheck(ctx)) {
+    		return;
+    	}
         try {
             String activityId = ctx.getInputString("activityid", true);
 			InfoBaseTool ibt = new InfoBaseTool();
@@ -1261,7 +1264,16 @@ public class InfoBaseController extends Controller {
         }
     }
 
-    /** @param ctx ActionContext object */
+    private boolean loginCheck(ActionContext ctx) {
+		String username = (String) ctx.getSessionValue("userName");
+		if (username == null) {
+			ctx.goToView("login");
+			return false;
+		}
+		return true;
+	}
+
+	/** @param ctx ActionContext object */
     public void saveTargetAreaInfo(ActionContext ctx) {
         try {
             String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
