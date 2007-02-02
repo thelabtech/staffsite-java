@@ -1,6 +1,7 @@
 package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.servlet.*;
+import org.alt60m.util.ObjectHashUtil;
 //import org.alt60m.wsn.sp.model.dbio.WsnApplication;
 //import org.alt60m.wsn.sp.model.dbio.WsnProject;
 import org.alt60m.hr.si.bean.dbio.SIInfoBean;
@@ -27,9 +28,9 @@ public class SIAdminHandler {
 	/*
       All actionhandler methods should return an ActionResults object after
       having set the view using setView("viewname")
-     
+
       for example:
-    
+
       protected ActionResults processSomething(Action action)
       {
         ActionResults ar = new ActionResults();
@@ -37,7 +38,7 @@ public class SIAdminHandler {
         ar.setView("home");
         return ar;
       }
-      
+
     */
 /*	protected ActionResults showSIAdminTool(Action action){
 		boolean showAddProjectLink = false;
@@ -96,16 +97,48 @@ public class SIAdminHandler {
 	// Saves the project that has been edited.
 	public ActionResults adminSaveProject(Action action) {
 		try {
-			String SIProjectID = (String)action.getValue("SIProjectID");
+			String SIProjectID = (String) action.getValue("SIProjectID");
 			if (SIProjectID == null) {
 				SIProjectID = "new";
 			}
-			action.putValue("lastChangedDate", org.alt60m.html.Util.formatDate(new Date()));
-			SIUtil.saveObjectHash(action.getValues(), SIProjectID, "SIProjectID", SIProjectHandler.PROJECTCLASS);
-			ar.putValue("ErrorMessage", "Your STINT / Internship location was successfully added to the database.");
+			action.putValue("lastChangedDate", org.alt60m.html.Util
+					.formatDate(new Date()));
+			Hashtable<String, String> formData = action.getValues();
+			try {
+				SIProject obj = new SIProject();
+				if (SIProjectID.equalsIgnoreCase("new")
+						|| SIProjectID.trim().equals("")) {
+					formData.remove("SIProjectID"); // to avoid database issues
+													// new IDs must be null
+				} else if (SIProjectID != null)
+					obj = new SIProject(SIProjectID);
+				// before creating a object from the hash, check the MaxNo
+				// values
+				// to make sure no empty strings get converted to 0s because we
+				// want empty strings to default to 999
+				for (String key : formData.keySet()) // keys.hasMoreElements())
+				{
+					if (key.startsWith("MaxNo")) {
+						if (formData.get(key).equals("")) {
+							formData.put(key, "999");
+						}
+					}
+				}
+
+				ObjectHashUtil.hash2obj(formData, obj);
+				obj.persist();
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
+				throw e;
+			}
+			ar
+					.putValue("ErrorMessage",
+							"Your STINT / Internship location was successfully added to the database.");
 			ar.setView("addProjectConfirm");
 		} catch (Exception e) {
-			ar.putValue("ErrorMessage", "Internal Error saving STINT/Internship Location Info: " + e.getMessage());
+			ar.putValue("ErrorMessage",
+					"Internal Error saving STINT/Internship Location Info: "
+							+ e.getMessage());
 		}
 		return ar;
 	}
@@ -178,11 +211,11 @@ public class SIAdminHandler {
 				} else {
 					temp.put("StopDate","-");
 				}
-				
+
 				temp.put("AOA",helper.value((String)project.getAOA()));
-				
+
 				temp.put("SiYear",helper.value((String)project.getSiYear()));
-				
+
 				String getIsCoordId = project.getFk_isCoord();
 				if (getIsCoordId ==null || getIsCoordId.equals("")) {
 					temp.put("Coord","-");
@@ -194,7 +227,7 @@ public class SIAdminHandler {
 			}
 
 			ar.putObject("tub", h);
-			
+
 			ar.setView("listProjects");
 		} catch (Exception e) {
 			ar.putValue("ErrorMessage", "Internal Error saving STINT/Internship Location Info: " + e.getMessage());
@@ -247,7 +280,7 @@ public class SIAdminHandler {
 			s += "EmerContactName,EmerContactRelationship,EmerAddress1,EmerAddress2,EmerCity,EmerState,EmerZip,EmerWorkPhone,EmerHomePhone,EmerCellPhone,EmerEmail,";
 			s += "Emer2ContactName,Emer2ContactRelationship,Emer2Address1,Emer2Address2,Emer2City,Emer2State,Emer2Zip,Emer2WorkPhone,Emer2HomePhone,Emer2CellPhone,Emer2Email,";
 			s += "\n";
-	
+
 			// 3-28-03 kl: first get the 3 collections to process
 			Collection cCollections = siBean.getAppsCollections(regionID, yearID);
 			Iterator tubIterator = cCollections.iterator();
@@ -268,7 +301,7 @@ public class SIAdminHandler {
 				c = (Collection) tub.get("StartedID");
 			Iterator listIterator = c.iterator();
 
-// We need the following fields: Title, First Name, Middle Name, Last Name, Preferred Name, Gender, Birthdate, SSN, Spouse First Name, Spouse Middle Name, Spouse Birthdate, Spouse SSN, Campus, Preference 1, 2, & 3, Year Number, Current Address (street, city, state, zip, phone, cell phone, email), Permanent Address (street, city, state, zip, phone), Emergency Ccontact 1&2 (name, relationship, street, city, state, zip, phone, work phone, email). 
+// We need the following fields: Title, First Name, Middle Name, Last Name, Preferred Name, Gender, Birthdate, SSN, Spouse First Name, Spouse Middle Name, Spouse Birthdate, Spouse SSN, Campus, Preference 1, 2, & 3, Year Number, Current Address (street, city, state, zip, phone, cell phone, email), Permanent Address (street, city, state, zip, phone), Emergency Ccontact 1&2 (name, relationship, street, city, state, zip, phone, work phone, email).
 
 			// Loop thru the applicants and add each one to the output file.
 			while (listIterator.hasNext()) {
@@ -339,7 +372,7 @@ public class SIAdminHandler {
 				s += "\""+p.getCurrentHomePhone()+"\",";
 				s += "\""+p.getCurrentCellPhone()+"\",";
 				s += "\""+p.getCurrentEmail()+"\",";
-				
+
 				s += "\""+p.getPermAddress1()+"\",";
 				s += "\""+p.getPermAddress2()+"\",";
 				s += "\""+p.getPermCity()+"\",";

@@ -24,9 +24,9 @@ import org.alt60m.util.LogHelper;
 public abstract class Controller extends HttpServlet {
 
 	private final int MAX_HISTORY_SIZE = 15;
-	
+
 	protected Log log = LogFactory.getLog(this.getClass());
-	
+
 	// Mapping of views to URLs
 	private Hashtable _views = new Hashtable();
 
@@ -163,14 +163,14 @@ public abstract class Controller extends HttpServlet {
 			goToView(getLastAction());
 		}
 
-		
-		
+
+
 		public void goToErrorView() {
 			if (_response.isCommitted()) {
 				displaySimpleErrorMessage();
 				return;
 			}
-			
+
 			log.debug("going to error view: " + _defaultErrorView);
 
 			// remember view as last view
@@ -256,13 +256,13 @@ public abstract class Controller extends HttpServlet {
 			{
 				log.error("Exception forwarding to: " + url, e);
 				goToErrorView();
-				
+
 			}
 		}
 
 
 		public Hashtable getHashedRequest() {
-			Hashtable h = new Hashtable();
+			Hashtable<String, String> h = new Hashtable<String, String>();
 
 			for (Enumeration enumer = _request.getParameterNames(); enumer.hasMoreElements();) {
 				String key = (String) enumer.nextElement();
@@ -320,7 +320,7 @@ public abstract class Controller extends HttpServlet {
 		JoranConfigurator configurator = new JoranConfigurator();
 		LoggerRepository repository = LogManager.getLoggerRepository();
 		configurator.doConfigure(logConfFile, repository);
-		
+
 	}
 
 	public String getViewsFile() { return _viewsFile; }
@@ -341,7 +341,7 @@ public abstract class Controller extends HttpServlet {
 		processRequest(request, response);
 	}
 
-		
+
 	/** Comment */
 	protected void processRequest(HttpServletRequest req, HttpServletResponse res) {
 
@@ -373,7 +373,7 @@ public abstract class Controller extends HttpServlet {
 			actionInvoked(actionName, ctx);
 			long endTime = System.currentTimeMillis();
 			log.info("Finished action: " + actionName + " in " + (endTime - beginTime)+ " ms");
-			
+
 		} catch (java.lang.NoSuchMethodException e) {
 			log.warn("Action doesn't exist", e );
 

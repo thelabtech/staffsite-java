@@ -52,21 +52,21 @@ document.appForm.action.value="postReferenceInfo";
 	// start big reference loop
     for(int currentRef=0; currentRef<endLoop; currentRef++) {
         switch (currentRef) {
-        	
+
            	case 0:
 				refpType = "S";
                 prefix = "Refs9";
                 refpTitle1 = "Staff Member Reference";
 				refpTitle2 = "A reference who is a staff member of Campus Crusade for Christ - not a spouse or a relative.";
                 break;
-                
+
             case 1:
 				refpType = "D";
                 prefix = "Refd9";
                 refpTitle1 = "Discipler Reference";
 				refpTitle2 = "Please select your current discipler or Bible study leader. If this is the same person as your Staff Member Reference, choose another staff member, summer project leader, or someone who knows you well in ministry. Do not choose a spouse or relative.";
                 break;
-			
+
 			case 2:
 				refpType = "R";
             	prefix = "Refr9";
@@ -79,8 +79,8 @@ document.appForm.action.value="postReferenceInfo";
            		prefix = "Reff9";
             	refpTitle1 = "Friend Reference";
 				refpTitle2 = "Select a friend who knows you well. If you already chose a friend in place of the roommate reference, choose another friend who knows you well. Do not choose a spouse or relative.";
-            	break;                
-        	
+            	break;
+
         }
 
 		// Get the REFERENCE
@@ -130,9 +130,7 @@ document.appForm.action.value="postReferenceInfo";
 	<INPUT TYPE="HIDDEN" NAME="<%=prefix%>ReferenceID" value="<%=refpRefID%>">
 	<INPUT TYPE="HIDDEN" NAME="<%=prefix%>ReferenceType" value="<%=refpType%>">
 	<INPUT TYPE="HIDDEN" NAME="<%=prefix%>Fk_SIApplicationID" value="<%=AppID%>">
-	<INPUT TYPE="HIDDEN" NAME="<%=prefix%>LastChangedDate" value="<%=ChangedDate%>">
-	<INPUT TYPE="HIDDEN" NAME="<%=prefix%>LastChangedBy" value="<%=ChangedBy%>">
-	<INPUT TYPE="hidden" name="<%=prefix%>AppType" VALUE="<%=appType%>">			
+	<INPUT TYPE="hidden" name="<%=prefix%>AppType" VALUE="<%=appType%>">
 	<TABLE WIDTH="100%" CELLSPACING="0" CLASS="box">
 		<TR>
 			<TD CLASS="cell3" COLSPAN="2">
@@ -146,8 +144,8 @@ document.appForm.action.value="postReferenceInfo";
 				if (needPersonalInfo) {
 %>
 					<BR><B>Please note: You must enter your Full Name and a current Home or Cell Phone on the Contact Information page before being able to send an email reference invitation</B>
-<% 
-				} 
+<%
+				}
 %>
 			</TD>
 		</TR>
@@ -171,7 +169,7 @@ document.appForm.action.value="postReferenceInfo";
 				<TABLE WIDTH="100%" CELLSPACING="0" CLASS="box">
 					<TR>
 						<TD CLASS="app" VALIGN="TOP" ALIGN="center">
-							Is this person a Campus Crusade staff member? 
+							Is this person a Campus Crusade staff member?
 							<INPUT <%=pDisabled%> TYPE=radio NAME="<%=prefix%>IsStaff" value="true"<%= pIsStaff.booleanValue() == true ? " checked=\"checked\"" : ""%> onClick="doPostFormNextAction('appFormRefDelCreateBlnk', '<%=refpRefID + "&" + refpType%>')"> Yes
 							<INPUT <%=pDisabled%> TYPE=radio NAME="<%=prefix%>IsStaff" value="false"<%= pIsStaff.booleanValue() == false ? " checked=\"checked\"" : ""%> onClick="doPostFormNextAction('appFormRefDelete', '<%=refpRefID%>')"> No
 						</TD>
@@ -179,7 +177,7 @@ document.appForm.action.value="postReferenceInfo";
 					<% if (pDisabled == ""  && pIsStaff.booleanValue()) { %>
 					<TR>
 						<TD CLASS="app" VALIGN="TOP" align="center">
-							<B>Since this reference is a staff member, you cannot type in their information.  You must load the information from our database by searching for him or her: 
+							<B>Since this reference is a staff member, you cannot type in their information.  You must load the information from our database by searching for him or her:
 						</TD>
 					</TR>
 					<TR>
@@ -197,7 +195,7 @@ document.appForm.action.value="postReferenceInfo";
 			<TD CLASS="app" ALIGN="RIGHT" WIDTH="20%">Staff Number</TD>
 			<TD CLASS="app">
 				<INPUT DISABLED TYPE="TEXT" name="<%=prefix%>StaffNumber" size=20<%=(String)refpHash.get("StaffNumber") == null ? "" : " value= \""+(String)refpHash.get("StaffNumber")+"\""%>>
-				<INPUT TYPE="hidden" name="<%=prefix%>NewStaffNumber" size=20>			
+				<INPUT TYPE="hidden" name="<%=prefix%>NewStaffNumber" size=20>
 			</TD>
 		</TR>
 		<% } %>
@@ -259,7 +257,7 @@ document.appForm.action.value="postReferenceInfo";
 				<INPUT TYPE="HIDDEN" name="<%=prefix%>OldCurrentEmail" <%=(String)refpHash.get("CurrentEmail") == null ? "" : " value= \""+(String)refpHash.get("CurrentEmail")+"\""%>>
 				<INPUT <%=pDisabled%> <%=pDisabledByStaff%> onFocus="Highlight(this)" onBlur="checkEmail(this)" TYPE="TEXT" name="<%=prefix%>CurrentEmail" maxlength=50 size=30<%=(String)refpHash.get("CurrentEmail") == null ? "" : " value= \""+(String)refpHash.get("CurrentEmail")+"\""%>>
 <%
-				if (pDisabled == "") { 
+				if (pDisabled == "") {
 %>
 					<A CLASS="button" HREF="JavaScript: doPostFormNextAction('appFormRefResendEmailInvite', '<%=refpType%>')">Send Email Invitation</A>
 					<BR>
@@ -267,8 +265,8 @@ document.appForm.action.value="postReferenceInfo";
 					<BR>
 					<BR>
 					If you do not specify an email address for this reference, you must give them a paper Reference Form to be filled out and mailed in.  <A TARGET="_blank"  HREF="/wsnsp/pdfforms/Intern Reference Form.pdf">Click here to print a blank reference form</A>. (Adobe Acrobat required.)
-<% 
-				} 
+<%
+				}
 %>
 			</TD>
 		</TR>

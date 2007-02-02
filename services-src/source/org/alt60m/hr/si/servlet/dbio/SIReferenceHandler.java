@@ -6,6 +6,8 @@ import org.alt60m.hr.si.model.dbio.SIReference;
 import org.alt60m.hr.si.bean.dbio.*;	// just to call getReferenceByType - should move it to SIUtil instead!
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import org.alt60m.util.DateUtils;
 import org.alt60m.util.ObjectHashUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -190,14 +192,11 @@ public class SIReferenceHandler {
 			ref.setReferenceType(refType);
 
 			// 3. persist the new reference record
-			Hashtable refSave = new Hashtable();
-			refSave = ObjectHashUtil.obj2hash(ref);
-			refSave.put("IsStaff", "true"); // boolean values do not convert from obj to hash tables in info.obj2hash!!!
-			refSave.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
-			refSave.put("LastChangedBy", userID);
-			String refID = ""; // this will force the saveObjectHash to create a new record
-			log.debug("SIUtil.saveObjectHash refID="+refID);
-			SIUtil.saveObjectHash(refSave, refID, "ReferenceID", REFERENCECLASS);
+			ref.setIsStaff(true);
+			ref.setLastChangedDate(new Date());
+			ref.setLastChangedBy(userID);
+			ref.persist();
+
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -253,35 +252,27 @@ public class SIReferenceHandler {
 	private synchronized void saveReferenceRecord(Hashtable hash, String userID) throws Exception {
 		try {
 			if (hash.size() > 0) {
-				//String refID = (String)hash.get("ReferenceID");
-				//if (refID.equals("new")) {
-					// this will tell saveObjectHash to create a new object in the database
 				String refID = new SIInfoBean().getReferenceIDByType((String)hash.get("Fk_SIApplicationID"), (String)hash.get("ReferenceType"));
-				hash.put("ReferenceID", refID );
-				//}
+				SIReference reference = new SIReference(refID);
 				// See if email address was modified:
-				String oldEmail = new SIReference(refID).getCurrentEmail();
-				//String oldEmail = (String)hash.get("OldCurrentEmail");
+				String oldEmail = reference.getCurrentEmail();
 				String newEmail = (String)hash.get("CurrentEmail");
-				log.debug("------->oldEmail=" + oldEmail + "=  newEmail=" + newEmail + "=");
 				if (!refID.equals("") && oldEmail != null && newEmail != null) {
 					// see if user modified the email address field
 					if (!oldEmail.equals(newEmail)) {
 						// user changed the email.  Need to delete the old reference record and create a new one.
 						log.info("Because email address changed, deleting old Reference record refID=" + refID);
-						SIUtil.deleteObject(REFERENCECLASS, refID);
-						// force the saveObjectHash to create a new record
-						refID = "";
-						hash.put("ReferenceID", refID );
+						reference.delete();
+						reference.setReferenceIDInt(0);
+						hash.remove("ReferenceID");
 					}
 				}
 				hash.remove("OldCurrentEmail");
+				ObjectHashUtil.hash2obj(hash, reference);
 				// log record modification history
-				hash.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
-				hash.put("LastChangedBy", userID);
-
-				log.debug("calling SIUtil.saveObjectHash to refID=" + refID + "hashsize=" + hash.size());
-				SIUtil.saveObjectHash(hash, refID, "referenceID", REFERENCECLASS);
+				reference.setLastChangedDate(new Date());
+				reference.setLastChangedBy(userID);
+				reference.persist();
 			}
 		} catch(Exception e) {
 			throw e;
@@ -394,8 +385,8 @@ public class SIReferenceHandler {
 			log.debug("------> appFormRefStaffAdd: refid=" + referenceID + " staffno=" + staffNo);
 
 			// load Reference object
-			SIReference ref = new SIReference();
-			ref = (SIReference) SIUtil.getObject(referenceID, "ReferenceID", REFERENCECLASS);
+			SIReference ref;
+			ref = new SIReference(referenceID);
 
 
 			// read the staff object, and set all the reference fields
@@ -428,16 +419,8 @@ public class SIReferenceHandler {
 			ref.setCurrentZip(t.trim());
 
 			ref.setStaffNumber(staffNo);
-
-			// persist the reference object back (don't have a ref.save, so convert to hash, then save)
-			Hashtable refSave = new Hashtable();
-		    refSave = ObjectHashUtil.obj2hash(ref);
-
-
-			refSave.put("IsStaff", "true"); // boolean values do not convert from obj to hash tables in SIUtil.obj2hash!!!
-			SIUtil.saveObjectHash(refSave, referenceID, "ReferenceID", REFERENCECLASS);
-
-
+			ref.setIsStaff(true);
+			ref.persist();
 
 			// redisplay reference page
 			String page = "refs";
@@ -581,16 +564,16 @@ public class SIReferenceHandler {
 				userID = "0";	// meaning the actual reference person edited it
 
 			if (formData != null && refID != null) {
-				// we've got all the info we need, so we can save the object.
-				log.debug("SIController.postRefFormSave(): Form data contained an id=" + refID + ".  userid="+userID);
-				formData.put("FormWorkflowStatus", "I");
-				formData.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
-				formData.put("LastChangedBy", userID);
-				SIUtil.saveObjectHash(formData, refID, "referenceID", REFERENCECLASS);
+				SIReference reference = new SIReference(refID);
+				ObjectHashUtil.hash2obj(formData, reference);
+				reference.setFormWorkflowStatus("I");
+				reference.setLastChangedDate(new Date());
+				reference.setLastChangedBy(userID);
+				reference.persist();
 			}
 
 			// Save processing is done.
-			ar.putValue("SIReferenceID", refID);	// tell next page what ref to continue editing
+			ar.putValue("SIReferenceID", refID);
 			// Decide what to do next.
 			if (nextAction.equals("refFormFinishLater"))
 				return refFormFinishLater(action);
@@ -643,19 +626,11 @@ public class SIReferenceHandler {
 			}
 
 			// Submit worked!
-			// I must update the submission fields, and persist the object
-			log.debug("refFormSubmit: submitReference=TRUE!");
 			ref.setFormWorkflowStatus("D");		// mark reference form as "DONE"
 			ref.setIsFormSubmitted(true);	// mark reference form as "SUBMITTED"
 			ref.setFormSubmittedDate(new Date());	// record date of submission
+			ref.persist();
 
-			// dumb, but create a temp hashtable with fields that need persisting, and then persist the hashtable to the db
-			log.debug("calling info.saveObjectHash refID=" + refID);
-			Hashtable hsSave = new Hashtable();
-			hsSave.put("FormWorkflowStatus", (String)(ref.getFormWorkflowStatus()));
-			hsSave.put("IsFormSubmitted", (String)(ref.getIsFormSubmitted() ? "true" : "false"));
-			hsSave.put("FormSubmittedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( ref.getFormSubmittedDate() ));
-			SIUtil.saveObjectHash(hsSave, refID, "referenceID", REFERENCECLASS);
 
 			// load Applicant person into ref object
 			ref.loadRelated();

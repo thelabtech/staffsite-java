@@ -42,6 +42,7 @@ public class SIApplication extends DBIOEntity {
 		return applicationID == 0;
 	}
 	public SIApplication(String id) {
+		if (id != null && !id.equals(""))
 		applicationID = (new Integer(id)).intValue();
 		select();
 	}
@@ -49,7 +50,7 @@ public class SIApplication extends DBIOEntity {
 		applicationID = id;
 		select();
 	}
-	
+
 	public void localinit() {
 		String table = TABLENAME_BASE;
 
@@ -445,7 +446,7 @@ public class SIApplication extends DBIOEntity {
 
 	/**
 	 * returns a vector of payments for this application.
-	 * @return Hashtable 
+	 * @return Hashtable
 	 */
 	public Hashtable getPayments() {
 		return SIUtil.getPaymentsForApplication(this.getApplicationID());
@@ -874,7 +875,7 @@ public class SIApplication extends DBIOEntity {
 	}
 
 	/**  Ministry Experience (experience.jsp)
-	
+
 	/**
 	* Returns the ministryTraining.
 	* @return String
@@ -2945,7 +2946,7 @@ public class SIApplication extends DBIOEntity {
 	/**
 	 * returns the application fee based upon current date.
 	 * takes into account late fee if after latefeeDate
-	 * 
+	 *
 	 * @return int
 	 */
 	public static int calcApplicationFee() {

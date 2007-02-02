@@ -70,7 +70,7 @@ public class DateUtils {
 
 	public static String formatDate(Date date){
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		return sdf.format(date);
+		return date == null ? "" : sdf.format(date);
 	}
 
 }

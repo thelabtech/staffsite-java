@@ -125,8 +125,10 @@ public class ObjectHashUtil {
 							argument = value;
 						}
 					} else if (getterReturnType == Date.class) {
-						if (value == null || value.trim().equals("")) {
+						if (value == null) {
 							ignore = true;
+						} else if (value.trim().equals("")) {
+							argument = null;
 						} else {
 							argument = DateUtils.parseDate(value);
 						}
@@ -136,12 +138,12 @@ public class ObjectHashUtil {
 						if (value == null || value.trim().equals("")) {
 							ignore = true;
 						} else {
-							argument = new Integer(value.replace(",", ""));
+							argument = new Integer(value.trim().replace(",", ""));
 						}
 					} else if (getterReturnType == long.class) {
-						argument = new Long(value.replace(",", ""));
+						argument = new Long(value.trim().replace(",", ""));
 					} else if (getterReturnType == float.class) {
-						argument = new Float(value.replace(",", ""));
+						argument = new Float(value.trim().replace(",", ""));
 					}
 					if (! ignore) {
 						arguments = new Object[] { argument };

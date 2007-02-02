@@ -110,7 +110,7 @@ document.appForm.action.value="postContactInfo";
 	<TR>
 		<td class="app" align="right" width="20%">Last Date at this Address </td>
 		<td class="app">
-			<INPUT onFocus="Highlight(this)" onBlur="checkDate(this)" TYPE="TEXT" name="LastDateAtAddress" size=12 maxlength=12 value="<%=p.getLastDateAtAddress() == null ? "" : DateUtils.formatDate(p.getLastDateAtAddress())%>"> (MM/DD/YYYY)&nbsp;[<a href="javascript:pickdate(document.appForm.LastDateAtAddress)">choose date</a>]
+			<INPUT onFocus="Highlight(this)" TYPE="TEXT" name="LastDateAtAddress" size=12 maxlength=12 value="<%=p.getLastDateAtAddress() == null ? "" : DateUtils.formatDate(p.getLastDateAtAddress())%>"> (MM/DD/YYYY)&nbsp;[<a href="javascript:pickdate(document.appForm.LastDateAtAddress)">choose date</a>]
 		</td>
 	</TR>
 	<TR>
@@ -202,7 +202,7 @@ document.appForm.action.value="postContactInfo";
 	<TR>
 		<TD CLASS="app" ALIGN="RIGHT" WIDTH="20%">Graduation Date</TD>
 		<TD CLASS="app">
-			<INPUT onFocus="Highlight(this)" onBlur="checkDate(this)" TYPE="TEXT" name="GraduationDate" size=12 maxlength=12 value="<%=p.getGraduationDate() == null ? "" : DateUtils.formatDate(p.getGraduationDate()) %>"> (MM/DD/YYYY)&nbsp;[<a href="javascript:pickdate(document.appForm.GraduationDate)">choose date</a>]
+			<INPUT onFocus="Highlight(this)" TYPE="TEXT" name="GraduationDate" size=12 maxlength=12 value="<%=p.getGraduationDate() == null ? "" : DateUtils.formatDate(p.getGraduationDate()) %>"> (MM/DD/YYYY)&nbsp;[<a href="javascript:pickdate(document.appForm.GraduationDate)">choose date</a>]
 		</TD>
 	</TR>
 	<TR>

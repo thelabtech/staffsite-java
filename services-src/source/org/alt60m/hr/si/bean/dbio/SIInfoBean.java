@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import java.text.SimpleDateFormat;
 /**
  * @author Ken Burcham
- * This class is a bean used on JSP pages in the SI system to retrieve the 
+ * This class is a bean used on JSP pages in the SI system to retrieve the
  * necessary entity information for a specific entity.  Used to display edit
  * data in the form fields.
  */
@@ -22,7 +22,7 @@ public class SIInfoBean implements Serializable {
 	/**
 	 * returns person object with given ssmid.
 	 * creates and returns a new person object if the person is not found.
-	 * 
+	 *
 	 * @param userId
 	 * @param emailAddr
 	 * @return SIPerson
@@ -48,9 +48,9 @@ public class SIInfoBean implements Serializable {
 
 	/**
 	 * returns an siapplication looked up by the sipersonid
-	 * 
+	 *
 	 * added kb 2/4/03
-	 * 
+	 *
 	 * @param sipersonid
 	 * @return SIApplication
 	 */
@@ -115,9 +115,9 @@ public class SIInfoBean implements Serializable {
 	*/
 	public Hashtable getSIProjectHash(int SIProjectID) {
 		Hashtable objectHash = new Hashtable();
-		
+
 		if (SIProjectID == 0)
-			return objectHash; //early return 
+			return objectHash; //early return
 
 		try {
 
@@ -129,14 +129,14 @@ public class SIInfoBean implements Serializable {
 
 		return objectHash;
 	}
-	/** 
-	 * DEPRECATED...  Use the methods that return objects instead.  
+	/**
+	 * DEPRECATED...  Use the methods that return objects instead.
 	 *                 I'm keeping around just in case the references need them
-	 * 
+	 *
 	 * This method will return the SIPerson information represented as a hashtable.
-	 *  Will return empty hashtable if empty. 
+	 *  Will return empty hashtable if empty.
 	 * The userId is the authenication system userid...  we store this to use as a cross-ref
-	 * Email addr is used to cross-ref in other systems. 
+	 * Email addr is used to cross-ref in other systems.
 	 * @param userId
 	 * @param emailAddr
 	 * @return Hashtable
@@ -151,31 +151,12 @@ public class SIInfoBean implements Serializable {
 
 		try {
 
-			//TODO: look in the other systems to see if we have them already. kb 11/22
-
 			String SIPersonID = getPersonIDBySSM(userId);
 
 			//we may or may not have an SIPersonID at this point.
 			//  if we don't it will create a new one, if we do it will find it.
 			objectHash = SIUtil.getObjectHash(SIPersonID, "SIPersonID", org.alt60m.hr.si.servlet.dbio.SIAppHandler.PERSONCLASS);
 
-			/*
-			 * TODO: need to lookup this user in other systems  
-			 * 
-			 
-			// TODO: Use this to check for previous year's application -- RDH
-			if(objectHash == null) { // new user
-				objectHash = new Hashtable();
-				// Okay, the user is not in the WsnApplication table, but can we pull any info from CRSPerson?
-				Hashtable crsHash = info.getWsnApplicationInfoFromCRSPersonWithEmailAddress(userEmail);
-				if (crsHash != null)
-					objectHash = info.saveObjectHash(crsHash, null, "WsnApplicationID", WsnApplicationClassName);
-				else
-					objectHash.put("WsnApplicationID", "new");
-				// Since WsnApplication email is not yet specified, force it to be the same as their SSM account
-				objectHash.put("CurrentEmail", userEmail);
-			}
-			*/
 
 		} catch (Exception e) {
 			log.error(e, e);
@@ -188,11 +169,11 @@ public class SIInfoBean implements Serializable {
 
 	/**
 	 * This gets the person info for the given the SIPersonID
-	 * DEPRECATED...  Use the methods that return objects instead.  
+	 * DEPRECATED...  Use the methods that return objects instead.
 	 *                 I'm keeping around just in case the references need them
-	 * 
+	 *
 	 * returns empty hashtable if not found
-	 * 
+	 *
 	 * @param sipersonid
 	 * @return Hashtable
 	 */
@@ -202,28 +183,9 @@ public class SIInfoBean implements Serializable {
 
 		if (sipersonid == null)
 			return objectHash;
-		//early return //TODO we want to look up other systems first.
 
 		try {
-
 			objectHash = SIUtil.getObjectHash(sipersonid, "SIPersonID", SIAppHandler.PERSONCLASS);
-			/*
-			 * TODO: need to lookup this user in other systems  
-			 * 
-			 
-			// TODO: Use this to check for previous year's application -- RDH
-			if(objectHash == null) { // new user
-				objectHash = new Hashtable();
-				// Okay, the user is not in the WsnApplication table, but can we pull any info from CRSPerson?
-				Hashtable crsHash = info.getWsnApplicationInfoFromCRSPersonWithEmailAddress(userEmail);
-				if (crsHash != null)
-					objectHash = info.saveObjectHash(crsHash, null, "WsnApplicationID", WsnApplicationClassName);
-				else
-					objectHash.put("WsnApplicationID", "new");
-				// Since WsnApplication email is not yet specified, force it to be the same as their SSM account
-				objectHash.put("CurrentEmail", userEmail);
-			}
-			*/
 
 		} catch (Exception e) {
 			log.error(e, e);
@@ -243,54 +205,7 @@ public class SIInfoBean implements Serializable {
 		return SIUtil.getSIPerson(sipersonid);
 
 	}
-	
-	/**
-	 * DEPRECATED...  Use the methods that return objects instead.  
-	 *                 I'm keeping around just in case the references need them
-	 * getSIApplicationHash -
-	 * @param userId
-	 * @param personID
-	 * @return Hashtable
-	 */
 
-	public Hashtable getSIApplicationHash(String userId, String appID) {
-
-		Hashtable objectHash = new Hashtable();
-
-		if (appID == null)
-			return objectHash; //early return
-
-		try {
-
-			//TODO: if id == null, look in the other systems to see if we have them already. kb 11/22
-
-			objectHash = SIUtil.getObjectHash(appID, "ApplicationID", SIAppHandler.APPLICATIONCLASS);
-
-			/*
-			 * TODO: this was here from copying in from MSInfoBean.  might need to do more here 
-			 * 
-			 
-			// TODO: Use this to check for previous year's application -- RDH
-			if(objectHash == null) { // new user
-				objectHash = new Hashtable();
-				// Okay, the user is not in the WsnApplication table, but can we pull any info from CRSPerson?
-				Hashtable crsHash = info.getWsnApplicationInfoFromCRSPersonWithEmailAddress(userEmail);
-				if (crsHash != null)
-					objectHash = info.saveObjectHash(crsHash, null, "WsnApplicationID", WsnApplicationClassName);
-				else
-					objectHash.put("WsnApplicationID", "new");
-				// Since WsnApplication email is not yet specified, force it to be the same as their SSM account
-				objectHash.put("CurrentEmail", userEmail);
-			}
-			*/
-			//objectHash.put("PersonID", personID); need this?
-
-		} catch (Exception e) {
-			log.error(e, e);
-		}
-
-		return objectHash;
-	}
 
 	/**
 	 * returns the personid of the person with the given ssmid
@@ -411,7 +326,7 @@ public class SIInfoBean implements Serializable {
 				"upper(partnershipRegion) = upper('"
 					+ _region
 					+ "') AND projectType = '"
-					+ _type 
+					+ _type
 					+ "' AND siYear = \'"
 					+ SIUtil.CURRENT_SI_YEAR
 					+ "' AND onHold <> \'1\' ORDER BY name";
@@ -569,7 +484,7 @@ public class SIInfoBean implements Serializable {
 
 public boolean checkPersonalInfoRequiredFields(SIPerson p) {
 		String temp = "";
-		
+
 		temp = p.getLastName();
 		if (temp == null  ||  temp.trim().equals(""))
 			return true;

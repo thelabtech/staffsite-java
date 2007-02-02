@@ -476,7 +476,7 @@ public class SIReference extends DBIOEntity {
 	*/
 	public String getReferenceID() { return String.valueOf(referenceID); }
 	public void setReferenceID(String referenceID) {
-		if (referenceID != null && ! referenceID.equals("")) {
+		if (referenceID != null && ! referenceID.equals("") && ! referenceID.equals("new")) {
 			this.referenceID = Integer.parseInt(referenceID);
 		}
 	}

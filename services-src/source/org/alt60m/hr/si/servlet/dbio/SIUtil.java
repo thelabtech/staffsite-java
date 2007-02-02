@@ -25,138 +25,13 @@ import java.text.SimpleDateFormat;
 public class SIUtil {
 	private static Log log = LogFactory.getLog(SIUtil.class);
 	private static boolean debug = true;
-	
+
 	/*
 	 * To change the STINT year, all that is needed to do is to change this variable.
 	 */
 	public static final String CURRENT_SI_YEAR = "2007";
 	public static final int CURRENT_SI_YEAR_INT = Integer.parseInt(CURRENT_SI_YEAR);
-	/* Generalized save function that can save any of the forms, like staff application or STINT or whatever, not just the WSN application.
-	  Created: RDH
-	*/
-	//updated kb 11/22/02 to not return hash.  throws exception on error.  
-	//updated dc 12/03/02 to support saving objects with an integer key. (Actually modified getGenericObject)
-	public static void saveObjectHash(Hashtable formData, String id, String idName, String className) throws Exception {
-		if (className.equals("org.alt60m.hr.si.model.dbio.SIApplication")) {
-			saveSIApplicationHash(formData, id, idName);
-		} else if (className.equals("org.alt60m.hr.si.model.dbio.SIPayment")) {
-			saveSIPaymentHash(formData, id, idName);
-		} else if (className.equals("org.alt60m.hr.si.model.dbio.SIPerson")) {
-			saveSIPersonHash(formData, id, idName);
-		} else if (className.equals("org.alt60m.hr.si.model.dbio.SIProject")) {
-			saveSIProjectHash(formData, id, idName);
-		} else if (className.equals("org.alt60m.hr.si.model.dbio.SIReference")) {
-			saveSIReferenceHash(formData, id, idName);
-		} else if (className.equals("org.alt60m.hr.si.model.dbio.SIUser")) {
-			saveSIUserHash(formData, id, idName);
-		}
-	}
-	private static void saveSIApplicationHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
-		try {
-			SIApplication obj = new SIApplication();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null)
-				obj = new SIApplication(id);
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			objHash = null;
-		}
-	}
-	private static void saveSIPaymentHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
-		try {
-			SIPayment obj = new SIPayment();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null)
-				obj = new SIPayment(id);
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			objHash = null;
-		}
-	}
-	private static void saveSIPersonHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
-		try {
-			SIPerson obj = new SIPerson();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null)
-				obj = new SIPerson(id);
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			objHash = null;
-		}
-	}
-	private static void saveSIProjectHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
-		try {
-			SIProject obj = new SIProject();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null)
-				obj = new SIProject(id);
-			
-			// before creating a object from the hash, check the MaxNo values 
-			//to make sure no empty strings get converted to 0s because we want empty strings to default to 999
-			Enumeration keys=formData.keys();
-			while(keys.hasMoreElements())
-			{
-				String key= (String) keys.nextElement();
-				if(key.startsWith("MaxNo"))
-				{
-					if(formData.get(key).equals(""))
-					{
-						formData.put(key,"999");
-					}
-				}
-			}
-		
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			objHash = null;
-		}
-	}
-	private static void saveSIReferenceHash(Hashtable formData, String id, String idName) {
-		try {
-			SIReference obj = new SIReference();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("") || id.trim().equals("0")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null) {
-				obj.setReferenceID(id);
-				obj.select();
-			}
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-	}
-	private static void saveSIUserHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
-		try {
-			SIUser obj = new SIUser();
-			if (id.equalsIgnoreCase("new") || id.trim().equals("")) {
-				formData.remove(idName); // to avoid database issues new IDs must be null
-			} else if (id != null)
-				obj = new SIUser(id);
-			ObjectHashUtil.hash2obj(formData, obj);
-			obj.persist();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			objHash = null;
-		}
-	}
+
 
 	/**
 	 * Creates a new person and sets the fk_ssmUserid to the given ssmuserid
@@ -182,11 +57,11 @@ public class SIUtil {
 	 * @throws Exception
 	 */
 	public static SIApplication createApplication(int userId, String sipersonid) throws Exception {
-		//next line added kb 2/4/03 
+		//next line added kb 2/4/03
 		if (sipersonid == null)
 			throw new Exception("ERROR! Cannot create Application without sipersonid! (it was null)");
 		SIApplication a = new SIApplication();
-		a.setFk_ssmUserID(userId); //deprecated--TODO: remove 
+		a.setFk_ssmUserID(userId); //deprecated--TODO: remove
 		a.setFk_PersonIDString(sipersonid);
 		Calendar cin = Calendar.getInstance();
 		Calendar cout = Calendar.getInstance();
@@ -197,9 +72,9 @@ public class SIUtil {
 		a.setDateAppLastChanged(cout.getTime());
 		a.setAppStatus(SIApplication.STATUS_EDITING);
 		a.setSiYear(CURRENT_SI_YEAR);
-		
+
 		//we represent unanswered yes/no questions with the value "2"
-		
+
 		a.setHasMinistryConflict(2);
 		a.setHasSpecificLocation(2);
 		a.setIsDating(2);
@@ -225,11 +100,11 @@ public class SIUtil {
 		a.setHasOtherFinancialResponsibility(2);
 		a.setIsWillingDevelopPartners(2);
 		a.setIsCommittedDevelopPartners(2);
-		
+
 		a.persist();
-		
+
 		//set up applicant in SITracker
-		
+
 		Connection connection = DBConnectionFactory.getDatabaseConn();
 		Statement statement = connection.createStatement();
 		log.debug("Inserting applicant into SITracker");
@@ -478,9 +353,9 @@ public class SIUtil {
 
 	/**
 	 * returns a hashtable of payments for a given application
-	 * pasted from msinfo without much changes.  kb 12/3/02 
+	 * pasted from msinfo without much changes.  kb 12/3/02
 	 * returns an entry "ErrorMessage" if there was an error.
-	 * 
+	 *
 	 * @param appid
 	 * @return Hashtable
 	 */
@@ -576,7 +451,7 @@ public class SIUtil {
 	}
 
 	/**
-	 * returns the number of references for a given application 
+	 * returns the number of references for a given application
 	 * @param appid
 	 * @return int
 	 */
@@ -704,7 +579,7 @@ public class SIUtil {
 	public static SIReference getSIReference(String refid) {
 		return new SIReference(refid);
 	}
-	
+
 	public static Collection getSIAppsCollections(String regionID, String yearID) {
 		try {
 			ArrayList containerID = new ArrayList();
@@ -731,7 +606,7 @@ public class SIUtil {
 			sql = "SELECT a.* FROM " + hr_si_Application + " as a INNER JOIN " + hr_si_Person + " as p ON a.fk_PersonID = p.PersonID and a.siYear = '" + sqlYear + "' WHERE ";
 
 			if ("".equals(regionID.trim()))
-				//sql += "p.region IS NULL ";  
+				//sql += "p.region IS NULL ";
 				//4-8-03 kl: removed IS NULL in SQL query, was not processing the apps with 'Unassigned' regions
 				sql += "rtrim(p.region) = '' ";
 			else
@@ -739,7 +614,7 @@ public class SIUtil {
 			//4-15-03 kl: add SQL sort ORDER BY p.lastName
 			sql += "ORDER BY p.lastName";
 
-			Collection appID = ObjectHashUtil.list((a).selectSQLList(sql)); 
+			Collection appID = ObjectHashUtil.list((a).selectSQLList(sql));
 
 			// Start of main loop, while siApplicants hasnext
 			for (Iterator i = appID.iterator(); i.hasNext();) {
@@ -815,7 +690,7 @@ public class SIUtil {
 					}
 
 					// check for Ready Applications -- find dateSubmitted, isPaid and FormSubDate
-					
+
 					if ((!dateSubmitted.equals("")) && (!isPaid.equals("false")) && (!srFormSubDate.equals("")) && (!drFormSubDate.equals("")) && (!rrFormSubDate.equals("")) && (!frFormSubDate.equals(""))) {
 						Hashtable hr = new Hashtable(1);
 						hr.put("ApplicationID", appid);
@@ -830,7 +705,7 @@ public class SIUtil {
 					}
 
 					// check for Started Applications -- find lastname
-					else if ((!srLastName.equals("")) || (!drLastName.equals("")) || (!rrLastName.equals("")) || (!frLastName.equals(""))) 
+					else if ((!srLastName.equals("")) || (!drLastName.equals("")) || (!rrLastName.equals("")) || (!frLastName.equals("")))
 					{
 						Hashtable hs = new Hashtable(1);
 						hs.put("ApplicationID", appid);
@@ -882,7 +757,7 @@ public class SIUtil {
 		try {
 			SIPerson p = new SIPerson();
 			p.setFk_StaffSiteProfileID(Integer.parseInt(staffSiteProfileID));
-			if (p.select()) return p;			
+			if (p.select()) return p;
 			else return null;
 		} catch (Exception e) {
 			log.error("Exception caught whil trying to get SIAdministrator with staffSiteProfileID: " + staffSiteProfileID, e);
@@ -890,58 +765,10 @@ public class SIUtil {
 		}
 	}
 
-	/**
-	 * returns a CRSPerson object if found with a given email
-	 * 
-	 * @param email
-	 * @return String
-	 */
-	public static Person getCRSPersonByEmail(String email) {
-		try {
-			if (email == null || "".equals(email))
-				return null;
-
-			Person person = new Person();
-			person.setEmail(email);
-			
-			if (person.select()) {
-				return person;
-			} else {
-				log.debug("-->Didn't find matching CRSPerson.");
-			}
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		return null;
-	}
-
-	/**
-	 * returns a WsnApplication object if found with a given email
-	 * @param email
-	 * @return WsnApplication
-	 */
-	public static WsnApplication getWsnApplicationByEmail(String email) {
-		try {
-			if (email == null || "".equals(email))
-				return null;
-
-			String whereClause = "currentEmail like '" + email + "%'";
-			WsnApplication person = new WsnApplication();
-			Iterator results = person.selectList(whereClause).iterator();
-			if (results.hasNext()) {
-				return (WsnApplication) results.next();
-			} else {
-				log.debug("-->Didn't find matching WsnApplication.");
-			}
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
-		return null;
-	}
 
 	/**
 	 * Finds and returns a staff person with the email address that is given.
-	 * 
+	 *
 	 * @param email
 	 * @return Staff
 	 */
@@ -964,14 +791,6 @@ public class SIUtil {
 	}
 
 
-	
-	private static String translateGenderFromCRS(String crsGender) {
-		String result = "0";
-		if ("M".equals(crsGender) || "1".equals(crsGender)) {
-			result = "1";
-		}
-		return result;
-	}
 
 	/**
 	 * Creates an SIPerson object from a Staff person object.
@@ -1007,7 +826,7 @@ public class SIUtil {
 			}
 			p.setCurrentHomePhone(s.getHomePhone());
 			p.setMaritalStatus(s.getMaritalStatus());
-			p.setIsStaff(true); //since we got it out of the staff table.  
+			p.setIsStaff(true); //since we got it out of the staff table.
 			//Is this ALWAYS a good assumption?
 
 			p.persist();
@@ -1032,7 +851,7 @@ public class SIUtil {
 				log.error("Cannot get region for university: " + universityFullName + "; state: " + universityState, e);
 				return null;
 			}
-		}		
+		}
 	}
 
 	/* Added 12 December 2002 by RDH */
@@ -1061,7 +880,7 @@ public class SIUtil {
 				int userID = ssm.getUserID(userName);
 				SimpleDateFormat redoDate = new SimpleDateFormat("yyyy-MM-dd");
 				Date today = redoDate.parse(redoDate.format(new Date()));
-	
+
 				String whereClause = "fk_ssmUserID='"+userID+"'";
 				Iterator i = (new SIUser()).selectList(whereClause).iterator();
 				while (i.hasNext()) {

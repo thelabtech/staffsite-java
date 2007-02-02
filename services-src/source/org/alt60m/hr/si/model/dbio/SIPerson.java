@@ -9,9 +9,9 @@ import com.kenburcham.framework.dbio.DBIOEntity;
 public class SIPerson extends DBIOEntity {
 	private static Hashtable translateMaritalStatusToTable = null;
 	private static Hashtable translateMaritalStatusToCode = null;
-	
+
 	private static final String TABLENAME = "ministry_person";
-	
+
 	private Address currAdd = new Address();
 	private Address permAdd = new Address();
 	private Address emer1Add = new Address();
@@ -73,7 +73,7 @@ public class SIPerson extends DBIOEntity {
 			permAdd.setAddressType(Address.PERMANENT_ADDRESS);
 			emer1Add.setAddressType(Address.EMERGENCY1_ADDRESS);
 			emer2Add.setAddressType(Address.EMERGENCY2_ADDRESS);
-			
+
 			if (!currAdd.select()) {
 				currAdd.persist();
 			}
@@ -105,9 +105,11 @@ public class SIPerson extends DBIOEntity {
 		permAdd.setToolName("STINT");
 		emer1Add.setToolName("STINT");
 		emer2Add.setToolName("STINT");
-		PersonID= (new Integer(id)).intValue();
-		if (PersonID != 0) {
-			select();
+		if (id != null && !id.equals("")) {
+			PersonID = (new Integer(id)).intValue();
+			if (PersonID != 0) {
+				select();
+			}
 		}
 	}
 	public SIPerson(int id) {
@@ -128,7 +130,7 @@ public class SIPerson extends DBIOEntity {
 			translateMaritalStatusToTable.put("Divorced", "D");
 			translateMaritalStatusToTable.put("Separated", "P");
 			translateMaritalStatusToTable.put("Widowed", "W");
-			
+
 			translateMaritalStatusToCode = new Hashtable();
 			translateMaritalStatusToCode.put("", "");
 			translateMaritalStatusToCode.put("S", "Single");
@@ -138,7 +140,7 @@ public class SIPerson extends DBIOEntity {
 			translateMaritalStatusToCode.put("W", "Widowed");
 		}
 	}
-	
+
 	public static String translateMaritalStatus(String letter) {
 		String result = letter;
 		if (translateMaritalStatusToCode.containsKey(letter)) {
@@ -146,10 +148,10 @@ public class SIPerson extends DBIOEntity {
 		}
 		return result;
 	}
-	
+
 	public void localinit() {
 		String table = TABLENAME;
-		
+
 		setMetadata("SIPersonID", "personID", "IDENTITY");
 		setMetadata("AccountNo", "accountNo", table);
 		setMetadata("LastName", "lastName", table);
@@ -162,7 +164,7 @@ public class SIPerson extends DBIOEntity {
 		setMetadata("IsStaff", "isStaff", table);
 		setMetadata("Title", "title", table);
 		setMetadata("RecentSchools", "campus", table);
-		setMetadata("UniversityState", "universityState", table);	
+		setMetadata("UniversityState", "universityState", table);
 		setMetadata("GraduationDate", "graduation_date", table);
 		setMetadata("Majors", "major", table);
 		setMetadata("MaritalStatus", "maritalStatus", table);
@@ -173,8 +175,8 @@ public class SIPerson extends DBIOEntity {
 		setMetadata("CreatedBy","createdBy",table);
 		setMetadata("Fk_ssmUserID", "fk_ssmUserID", table);
 		setMetadata("Fk_StaffSiteProfileID", "fk_StaffSiteProfileID", table);
-			
-		setAutodetectProperties(false);		
+
+		setAutodetectProperties(false);
 	}
 
     private int PersonID = 0;
@@ -1102,7 +1104,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Returns the title.
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getTitle() {
@@ -1111,7 +1113,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Sets the title.
-	 * 
+	 *
 	 * @param title
 	 *            The title to set
 	 */
@@ -1121,7 +1123,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Returns the staffStieProfileID. Added 6 December 2002 by RDH
-	 * 
+	 *
 	 * @return String
 	 */
 	public int getFk_StaffSiteProfileID() {
@@ -1130,7 +1132,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Sets the staffStieProfileID. Added 6 December 2002 by RDH
-	 * 
+	 *
 	 * @param fk_StaffStieProfileID
 	 *            The staffStieProfileID to set
 	 */
@@ -1140,7 +1142,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Returns the staffStieProfileID. Added 12 December 2002 by RDH
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getUniversityState() {
@@ -1149,7 +1151,7 @@ public class SIPerson extends DBIOEntity {
 
 	/**
 	 * Sets the staffStieProfileID. Added 12 December 2002 by RDH
-	 * 
+	 *
 	 * @param universityState
 	 *            The state the most recently attended school was in.
 	 */
@@ -1200,7 +1202,7 @@ public class SIPerson extends DBIOEntity {
 		this.dateCreated = dateCreated;
 	}
 	/**
-	 * 
+	 *
 	 */
 	public void updateNoDate() {
 		super.update();

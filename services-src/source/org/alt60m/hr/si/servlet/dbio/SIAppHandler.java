@@ -1,6 +1,7 @@
 package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.servlet.*;
+import org.alt60m.util.ObjectHashUtil;
 import org.alt60m.hr.si.model.dbio.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,21 +13,21 @@ import java.util.*;
 public class SIAppHandler {
 
 	private static Log log = LogFactory.getLog(SIAppHandler.class);
-	
+
     public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
-    
+
     private static final boolean debug = false;
 
     /* begin action handlers
-    
+
       NOTES:
-      
+
       All actionhandler methods should return an ActionResults object after
       having set the view using setView("viewname")
-     
+
       for example:
-    
+
       protected ActionResults processSomething(Action action)
       {
         ActionResults ar = new ActionResults();
@@ -34,9 +35,9 @@ public class SIAppHandler {
         ar.setView("home");
         return ar;
       }
-      
+
     */
-    
+
     protected ActionResults testSIController(Action action)
     {
         ActionResults ar = new ActionResults();
@@ -47,40 +48,40 @@ public class SIAppHandler {
 
     protected ActionResults postContactInfo(Action action)
     {
-        ActionResults ar = new ActionResults();        
+        ActionResults ar = new ActionResults();
         log.debug("in " + action.getName() + " handler method!");
-        
+
         String result = updatePersonInfo(action.getValues());
         if (result!=null) ar.putValue("ErrorMessage", result);
-                
+
         ar.setView((String)action.getValue("page"));
-        
+
         if(debug) outputparms(action.getValues());
-        
+
         log.debug("postContactInfo returning error: " + ar.getValue("ErrorMessage"));
         return ar;
     }
 
     protected ActionResults postAppHome(Action action)
     {
-        ActionResults ar = new ActionResults();        
+        ActionResults ar = new ActionResults();
         log.debug("in " + action.getName() + " handler method!");
         ar.setView((String)action.getValue("page"));
 		if(debug) outputparms(action.getValues());
-		
+
         return ar;
     }
-    
+
     protected ActionResults postMinistryExperience(Action action)
     {
         return processUpdateAppInfo(action);
     }
-    
+
     protected ActionResults postStintInfo(Action action)
     {
         return processUpdateAppInfo(action);
     }
-    
+
     protected ActionResults postMinistryInterests(Action action)
     {
         return processUpdateAppInfo(action);
@@ -133,10 +134,10 @@ public class SIAppHandler {
 
     protected ActionResults postSubmitApp(Action action)
     {
-    	
+
         //make sure they intended to go to submit and not some other page.
         String page = (String) action.getValues().get("page");
-	
+
 		if(!"submitapp".equals(page))
 		{
 			//redirect them if not.
@@ -144,12 +145,12 @@ public class SIAppHandler {
 			ar.setView(page);
 			return ar; //early return
 		}
-    	
+
     	//perform validation rules before allowing submit application to occur.
 
 		//RULE: application must have more than 0 payments in order to submit.
     	String appid = (String) action.getValues().get("ApplicationID");
-    	
+
     	Hashtable payments = SIUtil.getPaymentsForApplication(appid);
     	if(payments.size()==0)
     	{
@@ -159,11 +160,11 @@ public class SIAppHandler {
             ar.putValue("page","submit");
             return ar; //early return
     	}
-    	
+
     	//RULE: they have to have entered something into the electronic signature and ssn boxes
     	String esig = (String) action.getValue("ElectronicSignature");
     	String ssn = (String) action.getValue("Ssn");
-    	if(esig==null || "".equals(esig) || 
+    	if(esig==null || "".equals(esig) ||
     	    ssn==null || "".equals(ssn))
     	    {
 	    		ActionResults ar = new ActionResults();
@@ -172,7 +173,7 @@ public class SIAppHandler {
 	            ar.putValue("page","submit");
 	            return ar; //early return
     	    }
-    	
+
     	//RULE: application must have at least 4 references in order to submit.
     	if(SIUtil.getNumberOfReferences(appid)<4)
     	{
@@ -182,7 +183,7 @@ public class SIAppHandler {
 	            ar.putValue("page","submit");
 	            return ar; //early return
     	}
-    	
+
 		// load the stuff that needs to be persisted back to the application object
 		action.putValue("DateSubmitted", org.alt60m.html.Util.formatDate(new Date()));
     	action.putValue("IsSubmitted","True");
@@ -198,18 +199,18 @@ public class SIAppHandler {
 		action.putValue("AssignedToProject",""+a.getLocationA());
 		action.putValue("FinalProject",""+a.getLocationA());
 		action.putValue("Status", "Pending");
-    	
+
         return processUpdateAppInfo(action);
     }
 
 
-    
-    
-    
-    
+
+
+
+
     //***********  end of the action handling *************/
 
-    /** 
+    /**
         since many of the above actions simply paste the
         posted values into the person's corresponding application
         object, the following method provides a single method
@@ -220,13 +221,13 @@ public class SIAppHandler {
     {
         ActionResults ar = new ActionResults();
         log.debug("processing action: " + action.getName());
-        
+
         //add date last changed to action values.
         action.putValue("DateAppLastChanged", org.alt60m.html.Util.formatDateTime(new Date()));
-        
+
         String result = updateAppInfo(action.getValues());
         if (result!=null) ar.putValue("ErrorMessage", result);
-        
+
         ar.setView((String)action.getValue("page"));
         return ar;
     }
@@ -235,13 +236,13 @@ public class SIAppHandler {
      updates the person object with the values in the parms
      returns an error string or null
     */
-    private String updatePersonInfo(Hashtable parms) 
+    private String updatePersonInfo(Hashtable parms)
     {
         String errormessage = null;
-        
+
         String personid = (String) parms.get("SIPersonID");
         log.debug("UpdatePersonInfo using personid: " + personid);
-        
+
 
 		// dc 2003-01-06: special processing.  Since we can no longer have GENDER field on any screen,
 		// anytime the TITLE field is modified, also persist the GENDER field using a value corresponding
@@ -262,7 +263,7 @@ public class SIAppHandler {
 		String universityState = (String) parms.get("UniversityState");
 		String university = (String) parms.get("RecentSchools");
 		if (universityState != null && !universityState.equals("")) {
-			
+
 			// universityState field was on this page.  So, add the REGION field to the hash table
 			String newRegion = SIUtil.getCampusRegion(university, universityState);
 			log.debug("info.getRegionForState(" + universityState + ") = " + newRegion);
@@ -271,8 +272,9 @@ public class SIAppHandler {
 
         try
         {
-            //TODO: the next line accomplishes what we want but we need the objects first
-            SIUtil.saveObjectHash(parms, personid, "SIPersonID", PERSONCLASS);
+            SIPerson person = new SIPerson(personid);
+            ObjectHashUtil.hash2obj(parms, person);
+            person.persist();
 
         }
         catch (Exception e)
@@ -284,8 +286,8 @@ public class SIAppHandler {
 		if(debug) outputparms(parms);
 
 		log.debug("Returning error message: " + errormessage);
-		
-        return errormessage;        
+
+        return errormessage;
     }
 
 
@@ -302,28 +304,31 @@ public class SIAppHandler {
             String key = (String) i.next();
             String val = (String) parms.get(key);
             log.debug(key + "    --    " + val);
-        }		
+        }
 	}
 
     /**
     * Updates the application object with the values in the parms
     * returns an error string or null
     */
-    private String updateAppInfo(Hashtable parms) 
+    private String updateAppInfo(Hashtable parms)
     {
         String errormessage = null;
-        
+
         String personid = (String) parms.get("SIPersonID");
         String appid =    (String) parms.get("ApplicationID");
-        
+
         log.debug("UpdateAppInfo using personid: " + personid);
         log.debug("UpdateAppInfo using appid   : " + appid);
-                
+
         try
         {
-            
-            SIUtil.saveObjectHash(parms, appid, "ApplicationID", APPLICATIONCLASS);
-            outputparms(parms);            
+
+        	SIApplication application = new SIApplication(appid);
+        	ObjectHashUtil.hash2obj(parms, application);
+			application.persist();
+
+            outputparms(parms);
             //thats it.
         }
         catch (Exception e)
@@ -342,7 +347,7 @@ public class SIAppHandler {
         	}
         }
 
-        return errormessage;        
+        return errormessage;
     }
-    
+
 }
