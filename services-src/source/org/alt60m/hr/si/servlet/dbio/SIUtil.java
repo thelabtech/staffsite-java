@@ -128,7 +128,6 @@ public class SIUtil {
 		}
 	}
 	private static void saveSIReferenceHash(Hashtable formData, String id, String idName) {
-		Hashtable objHash = new Hashtable();
 		try {
 			SIReference obj = new SIReference();
 			if (id.equalsIgnoreCase("new") || id.trim().equals("") || id.trim().equals("0")) {
@@ -139,10 +138,8 @@ public class SIUtil {
 			}
 			ObjectHashUtil.hash2obj(formData, obj);
 			obj.persist();
-			objHash = ObjectHashUtil.obj2hash(obj);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			objHash = null;
 		}
 	}
 	private static void saveSIUserHash(Hashtable formData, String id, String idName) {

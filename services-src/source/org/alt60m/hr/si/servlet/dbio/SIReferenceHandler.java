@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class SIReferenceHandler {
 	private static Log log = LogFactory.getLog(SIReferenceHandler.class);
-	
+
     public static final String APPLICATIONCLASS = "org.alt60m.hr.si.model.dbio.SIApplication";
 	public static final String PERSONCLASS = "org.alt60m.hr.si.model.dbio.SIPerson";
 	public static final String REFERENCECLASS = "org.alt60m.hr.si.model.dbio.SIReference";
@@ -22,9 +22,9 @@ public class SIReferenceHandler {
     /*
       All actionhandler methods should return an ActionResults object after
       having set the view using setView("viewname")
-     
+
       for example:
-    
+
       protected ActionResults processSomething(ActionContext ctx)
       {
         ActionResults ar = new ActionResults();
@@ -32,7 +32,7 @@ public class SIReferenceHandler {
         ar.setView("home");
         return ar;
       }
-      
+
     */
 
 	protected ActionResults postReferenceInfo(Action action)
@@ -226,19 +226,13 @@ public class SIReferenceHandler {
 				SIUtil.deleteObject(REFERENCECLASS, String.valueOf(oldRef.getReferenceID()));
 			}
 			String page = "";
-			String referenceID = "";
 			// load Reference object
 			SIReference ref = new SIReference();
 			ref.setFk_SIApplicationID(applicantID);
 			ref.setReferenceType(refpType);
 			ref.setLastChangedBy(userID);
-			// persist the reference object, create a blank record with IsStaff true, displays Staff Search button
-			Hashtable refSave = new Hashtable();
-		    refSave = ObjectHashUtil.obj2hash(ref);
-			Boolean pIsStaff = new Boolean(true);
-			refSave.put("IsStaff", pIsStaff);
-
-			SIUtil.saveObjectHash(refSave, referenceID, "ReferenceID", REFERENCECLASS);
+			ref.setIsStaff(true);
+			ref.persist();
 
 			// returns to the application's reference page
 			page = "refs";
@@ -305,7 +299,7 @@ public class SIReferenceHandler {
 		try {
 			String nextParm = (String) action.getValue("nextParm");
 			String page = "";
-			
+
 			// just deletes the record from the database
 			// 3-3-03 kl: delete if nextParm is not new, if new we have no RefID to delete (even though saveReferenceRecord just created one)
 			if (!nextParm.equals("new")) {
@@ -368,7 +362,7 @@ public class SIReferenceHandler {
 
 			// returns to the application's reference page
 			String page = "refs";
-			ar.putValue("ErrorMessage", message);			
+			ar.putValue("ErrorMessage", message);
 	        ar.setView(page);
 	        return ar;
 		} catch(Exception e) {
@@ -589,7 +583,7 @@ public class SIReferenceHandler {
 			if (formData != null && refID != null) {
 				// we've got all the info we need, so we can save the object.
 				log.debug("SIController.postRefFormSave(): Form data contained an id=" + refID + ".  userid="+userID);
-				formData.put("FormWorkflowStatus", "I");				
+				formData.put("FormWorkflowStatus", "I");
 				formData.put("LastChangedDate", (new SimpleDateFormat("MM/dd/yyyy")).format( new Date() ));
 				formData.put("LastChangedBy", userID);
 				SIUtil.saveObjectHash(formData, refID, "referenceID", REFERENCECLASS);
@@ -617,7 +611,7 @@ public class SIReferenceHandler {
 		}
 	}
 
-	
+
 	/* added dc 9/27/02
 		nextAction = "refFormSubmit" - called from refFormSave()
 		Executes when a reference person attempts to submit a completed reference form.
