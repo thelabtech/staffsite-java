@@ -6,9 +6,9 @@
 	String Option = "";
 	String username = (String)tub.get("UserName");
 	String usernameprefix = "";
-	String usernamesuffix = ""; 
+	String usernamesuffix = "";
 	int radioOption = 0;  //default to uscm
-		
+
  	if (username != null && !username.equals("")) {
 		usernameprefix = username.substring(0, username.indexOf("@"));
 		usernamesuffix = username.substring(username.indexOf("@") + 1, username.length());
@@ -43,7 +43,7 @@
 <!--
 
 	function submitChanges(){
-		
+
 <%
 if(Option.equals("Update")) {
 	//maybe in future make username editable?
@@ -58,15 +58,15 @@ if(Option.equals("Update")) {
 		} else {
 			suffix = document.addauthors.CustomSuffix.value;
 		}
-		document.addauthors.UserName.value = document.addauthors.UserNamePrefix.value 
+		document.addauthors.UserName.value = document.addauthors.UserNamePrefix.value
 			+ '@' + suffix;
 <%
 }
-%>	
-			
+%>
+
 		document.addauthors.submit();
 	}
-//-->	
+//-->
 </SCRIPT>
 
 <p align=center>
@@ -132,7 +132,7 @@ if(Option.equals("Update")) {
         <INPUT TYPE=HIDDEN NAME="UserName" VALUE="<%=username%>">
 <%
         if(Option.equals("Update")) {
-			out.print(username); 
+			out.print(username);
 			//maybe in future make username editable?
 
         } else {
@@ -148,7 +148,7 @@ if(Option.equals("Update")) {
 	   <INPUT NAME="UserNameSuffix" TYPE="radio" VALUE="ccci.org" <% if(radioOption == 1) {%> CHECKED <%} %>>
 	   @ccci.org<br>
 	   <INPUT NAME="UserNameSuffix" TYPE="radio" VALUE="custom" <% if(radioOption == 2) {%> CHECKED <%} %>>
-	   @<INPUT NAME="CustomSuffix" SIZE="6" MAXLENGTH="16" VALUE="<% if(radioOption == 2){%><%=usernamesuffix%><%} %>">
+	   @<INPUT NAME="CustomSuffix" SIZE="6" MAXLENGTH="64" VALUE="<% if(radioOption == 2){%><%=usernamesuffix%><%} %>">
 	   </TD>
 	   </TR>
 	   </TABLE>
@@ -163,7 +163,7 @@ if(Option.equals("Update")) {
     <TD <%=tableRightL%>><%=fontB%>
 <%
         if(Option.equals("Update")) {
-			out.print("If you want to have this users password changed,<BR> check the change password on next login box."); 
+			out.print("If you want to have this users password changed,<BR> check the change password on next login box.");
         }
 		else {
 %>
