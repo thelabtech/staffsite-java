@@ -116,15 +116,15 @@ public class CmsController extends Controller {
 
 			/*
 			String query = "select f from org.alt60m.cms.model.CmsFile as f where f.accessCount>142 order by f.accessCount DESC";
-			
+
 			Collection top10s;
-			
+
 			String query = "select f from org:alt60m:cms:ejb:CmsFile as f where f.accessCount(MAX)";
 			Vector temp10 = (Vector)_cmsFileAdaptor.list(query);
 			Hashtable temphash = (Hashtable)temp10.get(0);
 			top10s.add(temphash);
 			tempCount = temphash.get("AccessCount");
-			
+
 			for (int i=0;i<9;i++) {
 				String query = "select f from org:alt60m:cms:ejb:CmsFile as f where f.accessCount(MAX) and f.accessCount<"+tempCount;
 				Vector temp10 = (Vector)_cmsFileAdaptor.list(query);
@@ -132,7 +132,7 @@ public class CmsController extends Controller {
 				top10s.add(temphash);
 				tempCount = temphash.get("AccessCount");
 			}
-			
+
 			String[] fields2 = {"CmsFileID","Title"};
 			Collection top10s = _cmsFileAdaptor.list(query,fields2);
 			tub.put("top10s",top10s);
@@ -225,6 +225,9 @@ public class CmsController extends Controller {
 				// prepare the path for display
 				StringTokenizer path = new StringTokenizer((String) cat.get("Path"), ":");
 				StringTokenizer pathid = new StringTokenizer((String) cat.get("PathId"), ":");
+				if (path.countTokens() != pathid.countTokens()) {
+					throw new RuntimeException("path and pathid are different lengths");
+				}
 				StringBuffer cmsPath = new StringBuffer("<a href=\"/servlet/CmsController?action=home\">Home</a>");
 				while (path.hasMoreTokens()) {
 					cmsPath.append("&nbsp;<b>:</b>&nbsp;<a href=\"/servlet/CmsController?action=browse&catId=" + pathid.nextToken() + "\">" + path.nextToken() + "</a>");
@@ -975,16 +978,17 @@ public class CmsController extends Controller {
 			try {
 				Category coChild = new Category();
 				coChild.persist();
-				coChild.setCatName(ctx.getInputString("CatName"));
+				String categoryName = ctx.getInputString("CatName").replace(':', ';');
+				coChild.setCatName(categoryName);
 
 				String parentId = ctx.getInputString("catId");
 				coChild.setParentCategory(new Integer(parentId));
 				if (!parentId.equals("1")) {
 					Category coParent = new Category(parentId);
-					coChild.setPath(coParent.getPath() + ":" + ctx.getInputString("CatName"));
+					coChild.setPath(coParent.getPath() + ":" + categoryName);
 					coChild.setPathId(coParent.getPathId() + ":" + coChild.getCategoryId());
 				} else {
-					coChild.setPath(ctx.getInputString("CatName"));
+					coChild.setPath(categoryName);
 					coChild.setPathId(String.valueOf(coChild.getCategoryId()));
 				}
 				coChild.persist();
@@ -1089,7 +1093,7 @@ public class CmsController extends Controller {
 				/* removed because it didn't work quite right -- redirect instead
 				String fileName = Url.substring(Url.lastIndexOf("/"));
 				String ext = Url.substring(Url.lastIndexOf("."));
-				
+
 				in = new java.io.FileInputStream(contentPath + "/" + fileName);
 				response.setHeader ("Content-Disposition", "attachment; filename=\""+ (String)fh.get("Title") + ext + "\";");
 				response.setContentType ((String)fh.get("Mime"));
