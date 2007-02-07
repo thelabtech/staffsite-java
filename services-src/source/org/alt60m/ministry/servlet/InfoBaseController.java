@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -81,13 +80,16 @@ public class InfoBaseController extends Controller {
    			InfoBaseTool ibt = new InfoBaseTool();
             LocalLevel ll = ibt.getLocalLevelTeam(localLevelId);
             results.putValue("teamName", ll.getName());
+            /* TODO: The following is a bit inefficient.  It is collecting all the campuses
+             * and then narrowing them down instead of narrowing them down first in the search parameters...
+             */
             Collection tasInRegion = ibt.getTargetAreasByRegion(ll.getRegion());
             Vector<Hashtable<String, Object>> tasInRegionHash = new Vector<Hashtable<String, Object>>();
             for (Iterator iTA = tasInRegion.iterator(); iTA.hasNext(); ) {
                 TargetArea ta = (TargetArea)iTA.next();
                 Iterator activitiesIter = ta.getActivities().iterator();
                 boolean addCampus = true;
-                while (activitiesIter.hasNext()) {
+				while (activitiesIter.hasNext()) {
                 	 Activity act = (Activity)activitiesIter.next();
                 	 if (act.getStrategy().equals(strategy) && !act.getStatus().equals("IN")) {
                 	 	addCampus = false;
@@ -1014,9 +1016,11 @@ public class InfoBaseController extends Controller {
             if("none".equals(targetAreaId)) {
             	throw new Exception("Didn't choose a target area.");
             }
-
-   			InfoBaseTool.saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, ctx.getProfileID());
+            InfoBaseTool.saveActivityCheck(localLevelId, targetAreaId, strategy, status, periodBegin, ctx.getProfileID());
             showTeam(ctx);
+        } catch (ActivityExistsException e) {
+        	ctx.setError(e.getMessage());
+            ctx.goToView("activityError");
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();

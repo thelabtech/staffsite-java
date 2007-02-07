@@ -805,6 +805,15 @@ public class InfoBaseTool {
         }
     }
 
+
+	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID) throws ActivityExistsException, Exception {
+		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
+			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin);
+		} else {
+			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add a Staffed Campus or Catalytic strategy, most likely the campus you selected already has one of those two strategies active already.  To change it, go to that campus's page.");
+		}
+	}
+	
 	public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin) throws Exception {
 		saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, null);
 	}
@@ -865,10 +874,7 @@ public class InfoBaseTool {
 	    	Activity oldActivity = new Activity(activityId);
 	    	
 	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
-	    	ArrayList<String> strategies = new ArrayList<String>();
-	    	strategies.add("SC");
-	    	strategies.add("CA");
-	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategies, activityId) ){
+	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategy, activityId) ){
 	        	// Create new activity
 	    		String newStrategy = null;
 	    		if (newStatus.equals("SC")) {
@@ -903,9 +909,7 @@ public class InfoBaseTool {
 	    	Activity oldActivity = new Activity(activityId);
 	    	
 	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
-	    	ArrayList<String> strategies = new ArrayList<String>();
-	    	strategies.add(strategy);
-	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategies, activityId) ){
+	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategy, activityId) ){
 	        	// Create new activity
 	    		if (!newStatus.equals("IN")) {
 	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId);
@@ -943,6 +947,28 @@ public class InfoBaseTool {
     	}
     }
     
+    private static boolean checkDuplicateActiveActivity(String targetAreaId, String strategy, String notActivityId) throws Exception {
+    	try {
+    		ArrayList<String> strategies = Strategy.listStrategiesToCheck(strategy);
+    		
+    		Activity checkA = new Activity();
+    		boolean result = checkA.select(
+	    			"fk_targetAreaID = " + targetAreaId +
+					" AND status <> 'IN'" +
+					" AND strategy IN (" + Strategy.formatStrategies(strategies) + ")" +
+					" AND ActivityID <> " + notActivityId);
+    		return result;
+    	}
+    	catch (Exception e) {
+    		log.error("Failed to perform checkDuplicateActiveActivity", e);
+    		throw e;
+    	}
+    }
+
+    private static boolean checkDuplicateActiveActivity(String targetAreaId, String strategy) throws Exception {
+    	return checkDuplicateActiveActivity(targetAreaId, strategy, "0");
+	}
+
     private static boolean checkForChange(String newTeamId, String newStatus, String oldActivityId) {
     	Activity oldActivity = new Activity(oldActivityId);
     	return checkForChange(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus());
