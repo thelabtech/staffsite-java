@@ -80,7 +80,7 @@ int curr_tab = 3; %>
 		</tr>
 		<tr>
 			<td valign="center" align="center">
-				<a href="/servlet/InfoBaseController?action=showSuccessCriteriaHome"><img src="/images/logo_infobase.gif"></a> </td><td>
+				<a href="/servlet/InfoBaseController?action=showSuccessCriteriaHome"><img src="/images/logo_success.jpg"></a> </td><td>
 				<%=font%><b>Success Criteria</b></font></td><td>
 				<%=fontS%>Entering and viewing Success Criteria. <!-- Click <A HREF="/servlet/InfoBaseController">here</A> for entering data and <A HREF="/servlet/InfoBaseController?action=createReport&type=locallevel">here</A> for generating reports. -->
 			<td>
