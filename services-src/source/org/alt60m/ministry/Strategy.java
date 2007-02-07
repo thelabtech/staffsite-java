@@ -80,4 +80,14 @@ public enum Strategy {
 		return result.substring(0, result.length() - 2);  //Chop off last ", "
 	}
 
+	public static ArrayList<String> listStrategiesToCheck(String strategy) {
+		ArrayList<String> result = new ArrayList<String>();
+		result.add(strategy);
+		if("CA".equals(strategy)) {
+			result.add("SC");
+		} else if ("SC".equals(strategy)) {
+			result.add("CA");
+		}
+		return result;
+	}
 }
