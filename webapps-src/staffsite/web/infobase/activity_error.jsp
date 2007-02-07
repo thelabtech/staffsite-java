@@ -23,7 +23,8 @@
 	<%= box.printTop() %>
 <%=font%>
 
-That strategy is already active for the specified target area. <BR><BR>
+<% String error = (String)(request.getSession().getAttribute("error")); %>
+<%=(error != null)?error:"That strategy is already active for the specified target area."%> <BR><BR>
 
 <P ALIGN="CENTER">
 <A HREF="JavaScript: history.go(-2)" onMouseOver="document.backbutton.src='/images/back_bon.gif';" onMouseOut="document.backbutton.src='/images/back_boff.gif';"><IMG  NAME="backbutton" SRC="/images/back_boff.gif" BORDER="0" ALIGN="TOP"></A>
