@@ -225,7 +225,7 @@
 			<% box.setTitle("I want to...");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_chart.gif" border='0'>Go to Success Criteria</a><br>
+			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0'>Go to Success Criteria</a><br>
 			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0'>Work on a 360 review</a><br>
 			<%// if (isStudent.equals("false")) { %>
 				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0'>Get forms</a><br>
