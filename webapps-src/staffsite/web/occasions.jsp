@@ -38,7 +38,7 @@
 				<% bday.setJustCampus(campusOnly);%>
 				<%=bday.printWeek()%>
 		<%=box.printBottom()%>
-		<%=fontB1%>To send a free <B>birthday</b> e-card click <A HREF="http://greetings.yahoo.com/browse/Events_and_Occasions/Birthday/" TARGET="_blank">HERE.</A></font>
+		<%=fontB1%>To send a free <B>birthday</b> e-card click <A HREF="http://www.hallmark.com/ecards/" TARGET="_blank">HERE.</A></font>
 		<p>
 		<% box.setTitle("Wedding Anniversaries in the Next Week");%>
 		<%=box.printTop()%>
@@ -46,7 +46,7 @@
 				<% wed.setJustCampus(campusOnly);%>
 				<%=wed.printWeek()%>
 		<%=box.printBottom()%>
-		<%=fontB1%>To send a free <B>anniversary</b> e-card, click <A HREF="http://greetings.yahoo.com/browse/Events_and_Occasions/Anniversaries/" TARGET="_blank">HERE</A>.</font> 
+		<%=fontB1%>To send a free <B>anniversary</b> e-card, click <A HREF="http://www.hallmark.com/ecards/" TARGET="_blank">HERE</A>.</font> 
 		<p>
 		<% box.setTitle("Staff Anniversaries in the Next Week");%>
 		<%=box.printTop()%>
@@ -54,17 +54,13 @@
 				<% ann.setJustCampus(campusOnly);%>
 				<%=ann.printWeek()%>
 		<%=box.printBottom()%>
-		<%=fontB1%>To send an e-card, click <A HREF="http://greetings.yahoo.com" TARGET="_blank">HERE.</A></font> 
+		<%=fontB1%>To send an e-card, click <A HREF="http://www.hallmark.com/ecards/" TARGET="_blank">HERE.</A></font> 
 	</td>
 	<td width="4%">&nbsp;</td>
 	<td valign="top" width="13%">
 		<%=fontB1%>
-		Send:<BR><BR>
-		<A HREF="http://greetings.yahoo.com/browse/Events_and_Occasions/Birthday/" TARGET="_blank">Birthday E-cards: </A>
+		<A HREF="http://www.hallmark.com/ecards/" TARGET="_blank">Send an E-card</A>
 		<BR><BR>
-		<A HREF="http://greetings.yahoo.com/browse/Events_and_Occasions/Anniversaries" TARGET="_blank">Anniversary E-cards: </A>
-		<BR><BR>
-		<A HREF="http://greetings.yahoo.com" TARGET="_blank">Other E-cards:</A> 
 		</font>
 	</td>
 </tr>

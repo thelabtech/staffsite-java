@@ -236,7 +236,7 @@ public class StaffAnniversaries implements java.io.Serializable {
 			String stringBuffer = "<!--  --------------------StaffAnniversaries MODULE ------------------- --> ";
 			writeStaffAnniversaries();
 			stringBuffer = stringBuffer + getStaffAnniversariesFile();
-			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://americangreetings.com' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
+			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://www.hallmark.com/ecards/' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
 		return stringBuffer;
 	}
 

@@ -242,7 +242,7 @@ public class Weddings implements java.io.Serializable {
 			String stringBuffer = "<!--  --------------------Weddings MODULE ------------------- --> ";
 			writeWeddings();
 			stringBuffer = stringBuffer + getWeddingsFile();
-			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://greetings.yahoo.com/browse/Events_and_Occasions/Anniversaries' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
+			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://www.hallmark.com/ecards/' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
 		return stringBuffer;
 	}
 

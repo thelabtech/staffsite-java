@@ -6,8 +6,8 @@
 <jsp:useBean id="weddings" class="org.alt60m.html.Weddings" />
 <jsp:useBean id="staffSearch" class="org.alt60m.html.InfoBaseLookup" />
 <jsp:useBean id="articles" class="org.alt60m.html.HomePageArticles" />
-<jsp:useBean id="regionalarticles" class="org.alt60m.html.HomePageArticles" />
-<jsp:useBean id="newsfeed" class="org.alt60m.html.NewsFeed" />
+
+<jsp:useBean id="newsfeed" class="org.alt60m.html.NewsFeed" /><jsp:useBean id="regionalarticles" class="org.alt60m.html.HomePageArticles" />
 <jsp:useBean id="references" class="org.alt60m.html.dbio.References" />
 
 <HTML>
