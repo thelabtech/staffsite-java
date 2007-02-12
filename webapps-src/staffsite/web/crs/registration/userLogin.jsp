@@ -10,7 +10,10 @@ try{
 	boolean onlyOneRegType = ar.getValue("onlyOneRegType") != null && ((String)ar.getValue("onlyOneRegType")).equals("true");
 	Registration registration = new Registration();
 	Date thisDay = new Date();
-	boolean regCurrent = (thisDay.after(conference.getPreRegStart()) || org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegStart())) && (thisDay.before(conference.getPreRegEnd()) || org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegEnd()));
+	boolean regCurrent = conference.getPreRegStart() != null &&
+		conference.getPreRegEnd() != null &&
+		(thisDay.after(conference.getPreRegStart()) || org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegStart())) &&
+		(thisDay.before(conference.getPreRegEnd()) || org.alt60m.util.DateUtils.isSameDay(thisDay, conference.getPreRegEnd()));
 	boolean isSpouse = false;
 	String pageTitle = "";
 %>
@@ -75,7 +78,7 @@ else { pageTitle = "Conference Registration Tool Login"; }
 					colspan="3"
 					class="boxheader"><%=conference.getName()%></td>
 			</tr>
-			
+
 			<!-- COMMENT OUT THIS SECTION TO TURN OFF CRS -->
 			<%
 				if(regCurrent) {
@@ -219,16 +222,16 @@ else { pageTitle = "Conference Registration Tool Login"; }
 				}
 				%>
 			<!-- END SECTION TO COMMENT OUT WHEN CRS IS OFF -->
-	
+
 			<!-- PLACEHOLDER CODE WHILE CRS IS OFF -->
-			<!--		
+			<!--
 			<tr>
 			<td class="cell"><b>The Conference Registration System is temporarily unavailable.
 			Please try again in a few hours.</b></td>
 			</tr>
 			-->
 			<!-- END PLACEHOLDER CODE -->
-	
+
 		</table>
 		</td>
 	</tr>
