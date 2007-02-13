@@ -68,9 +68,11 @@ otherOptionsMenu.setActives(new boolean[]{
 	
 	<TD VALIGN="TOP">
 	<TABLE WIDTH="100%" CLASS="box" CELLSPACING="0">
+		<% if(!"".equals(conference.getTheme())) { %>
 		<TR>
-			<TD COLSPAN="3" CLASS="boxheader"><%="".equals(conference.getTheme()) ? "No Theme" : conference.getTheme()%></TD>
+			<TD COLSPAN="3" CLASS="boxheader"><%=conference.getTheme()%></TD>
 		</TR>
+		<% } %>
 		<TR>
 			<TD CLASS="hl" ALIGN="RIGHT" VALIGN="TOP" WIDTH="20%">Description</TD>
 			<TD CLASS="cell" VALIGN="TOP"><%=conference.getBriefDescription()%></TD>
