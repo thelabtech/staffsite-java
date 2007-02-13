@@ -231,7 +231,6 @@
 				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0'>Get forms</a><br>
 				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0'>See my staff account</a><br>
 				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>Find/submit a resource</a><br>
-				<a href='http://www.lxonline.org' target="_blank"><img src="/images/small_lx.gif" border='0'>Read LX</a><br>
 				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>Reimburse Expenses</A><BR>
 				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
 				<a href='http://staff.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0'>Go to StaffWeb</a><br>
