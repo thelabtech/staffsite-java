@@ -242,15 +242,6 @@
 			<%=box.printBottom()%>
 			<br>
 			
-			<% box.setTitle("SLICE Results"); %>
-			<%=box.printTop()%>
-			<center>
-			<a TARGET="_blank" href="https://staff.campuscrusadeforchrist.com/cms/content/5137.html">National Results<br><br></A>
-			<a TARGET="_blank" href="https://staff.campuscrusadeforchrist.com/servlet/CmsController?action=browse&catId=1000259">View Results in Different Breakdowns<br></A>
-			<%=box.printBottom()%>
-			</center>
-			<br>
-			
 			<!-- start 'Staff Opportunities' module -->
 			<% box.setTitle("Staff Opportunities");%>
 			<%=box.printTop()%>
