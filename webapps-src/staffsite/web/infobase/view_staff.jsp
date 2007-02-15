@@ -91,12 +91,13 @@ Hashtable h = ar.getHashtable("staffinfo");
 				<TR><TD VALIGN="TOP"><%=font%><B>E-mail: </B></FONT></TD><TD><%= font %><A HREF="mailto: <%= email %>"><%= email %></A></TD></TR>
 				<TR><TD VALIGN="TOP"><%=font%><B>Home Phone: </B></FONT></TD><TD><%= font %><%= homePhone %></TD></TR>
 				<TR><TD VALIGN="TOP"><%=font%><B>Work Phone: </B></FONT></TD><TD><%= font %><%= workPhone %></TD></TR>
-				<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
-					<TR><TD VALIGN="TOP"><%=font%><B>Mobile Phone: </B></FONT></TD><TD><%= font %><%= mobilePhone %></TD></TR>
+				<TR><TD VALIGN="TOP"><%=font%><B>Mobile Phone: </B></FONT></TD><TD><%= font %><%= mobilePhone %></TD></TR>
+				<!-- Took out the following three fields since they aren't populated in the staff table ~JCS 02/07 -->
+				<% /* if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
 					<TR><TD VALIGN="TOP"><%=font%><B>Pager: </B></FONT></TD><TD><%= font %><%= pager %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Fax: </B></FONT></TD><TD><%= font %><%= fax %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Website URL: </B></FONT></TD><TD><%= font %><A HREF="<%= url %>"><%= url %></A></TD></TR>
-				<% } %>
+				<% } */%>
 				</TABLE>
 <%= box.printBottom() %>
 </TD>
