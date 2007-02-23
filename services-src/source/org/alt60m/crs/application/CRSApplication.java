@@ -37,6 +37,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.kenburcham.framework.dbio.DBIOEntityException;
 import com.kenburcham.framework.dbio.DBIOException;
+import com.kenburcham.framework.dbio.DBIOTransaction;
 
 public class CRSApplication {
 	public CRSApplication() {
@@ -1099,9 +1100,19 @@ public class CRSApplication {
 				Vector payments = p.selectList();
 				Iterator paymentsIter = payments.iterator();
 				while( paymentsIter.hasNext() ) {
+					// Delete old payment, create new payment 
+					// (to get around dbio bug with changing a foreign key)
 					Payment currPayment = (Payment)paymentsIter.next();
+					Payment delete = new Payment();
+					
+					int paymentID = currPayment.getPaymentID();
+					
+					currPayment.setPaymentID(0);
 					currPayment.setRegistration(spouse);
-					currPayment.persist();
+					if (currPayment.insert()) {
+						delete.setPaymentID(paymentID);
+						delete.delete();
+					}
 				}
 				
 				// Negative Debit conference cost
@@ -1192,9 +1203,18 @@ public class CRSApplication {
 					// if spouse is coming move the children to the spouse
 					Iterator it = children.iterator();
 					while (it.hasNext()) {
+						// Delete old registration and create new (due to dbio bug with changing foreign keys)
 						ChildRegistration c = (ChildRegistration) it.next();
+						ChildRegistration delete = new ChildRegistration();
+						
+						int crID = c.getChildRegistrationID();
+						
+						c.setChildRegistrationID(0);
 						c.setRegistration(spouse);
-						c.update();
+						if (c.insert()) {
+							delete.setChildRegistrationID(crID);
+							delete.delete();
+						}
 					}
 				} else {
 					// if spouse isn't coming just delete the kids
@@ -3196,9 +3216,12 @@ public class CRSApplication {
 			org.alt60m.html.SelectRegion sr = new org.alt60m.html.SelectRegion();
 			sr.setCurrentValue(c.getRegion());
 
-			String toEmail= getStaffAccountContactEmail(acctNum,
-					c.getContactEmail());
-			boolean toConfAdmin= toEmail.equals(c.getContactEmail());
+			String toEmail = getStaffAccountContactEmail(acctNum);
+			boolean toConfAdmin = false;
+			if (toEmail == null) {
+				toConfAdmin = true;
+				toEmail = c.getContactEmail();
+			}
 			email.setTo(toEmail);
 			
 			String heshe = "0".equals(p.getGender()) ? "she" : "he";
@@ -3265,9 +3288,8 @@ public class CRSApplication {
 	 * @param contactEmail
 	 * @return
 	 */
-	private String getStaffAccountContactEmail(String acctNum,
-			String contactEmail) {
-		String email = contactEmail;
+	private String getStaffAccountContactEmail(String acctNum) {
+		String email = null;
 		Staff acctNumStaff = new Staff(acctNum);
 		String acctNumEmail = acctNumStaff.getEmail();
 		if (acctNumEmail != null && !acctNumEmail.equals("")) {
