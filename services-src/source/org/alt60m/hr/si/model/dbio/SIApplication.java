@@ -4,6 +4,8 @@ import org.alt60m.hr.si.servlet.dbio.SIUtil;
 
 import com.kenburcham.framework.dbio.DBIOEntity;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
 //import com.kenburcham.framework.dbio.DBIOEntity;
@@ -422,7 +424,15 @@ public class SIApplication extends DBIOEntity {
 	/** static field related to calcApplicationFee */
 	public static final int APPFEE = 35; //default fee for this application
 	public static final int APPFEELATE = 50; //amount to add if after latefeeDeadline
-	public static final Date APPFEEDEADLINE = new Date("03/01/" + SIUtil.CURRENT_SI_YEAR); //Mar 1, 2004
+	public static final Date APPFEEDEADLINE = appFeeDeadline();
+	
+	private static Date appFeeDeadline() {
+		try {
+			return new SimpleDateFormat("MM/dd/yyyy").parse("03/02/" + SIUtil.CURRENT_SI_YEAR);
+		} catch (ParseException e) {
+			return null;  //Should never happen...  I mean...  WILL never happen...
+		}
+	}
 
 	/** static fields related to status */
 	public static final String STATUS_CREATED = "CREATED";
