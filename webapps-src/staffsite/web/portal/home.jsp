@@ -235,7 +235,7 @@
 				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
 				<a href='http://staff.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0'>Go to StaffWeb</a><br>
 				<a href="http://www.CampusStories.org" target='_blank'><img src="/images/lightbulb.gif" border='0'>Find a Ministry Story</a><br>
-				<a href="https://c000100.concursolutions.com/ces00130pcam/expense/?entity=p00499exhs" target='_blank'><img src="/images/logo_onecard.gif" border='0'>Log on to OneCard</a><br>
+				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0'>Log on to OneCard</a><br>
 				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0'>See National Discount Programs</a><br>
 			<%// } %>			
 			</font>
