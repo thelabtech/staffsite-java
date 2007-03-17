@@ -229,7 +229,7 @@ try{
 			String serverName = (request.getServerName().endsWith("campuscrusadeforchrist.com") ? "http://" : "http://") + request.getServerName();
 					// changes Web Presence URL from staff.campuscrusade... to www.conferenceregistrationtool.com
 					if (conference.getIsCloaked()==true)
-						serverName = "http://www.conferenceregistrationtool.com";
+						serverName = "https://www.conferenceregistrationtool.com";
 
 		 /* iterate over all RegistrationTypes */
 		regTypes = regTypesV.iterator();
@@ -261,7 +261,7 @@ try{
 			<%
 			}   /* end displaying all registration link URLs */
 			%>
-			
+
 			<TR>
 				<TD
 					CLASS="hl"
