@@ -36,7 +36,7 @@
 			document.deleteForm.submit();
 		}
 	}
-	
+
 	function delete360light(name, r360id, sessionid) {
 		document.deleteLightForm.encRevId.value = r360id;
 		document.deleteLightForm.reviewSessionLightId.value = sessionid;
@@ -88,7 +88,7 @@
 			<BR>
 			<% box.setTitle("360 Tools");	%>
 			<%=box.printTop()%>
-			
+
 			<A HREF="/servlet/Review360Controller?action=showIndex"><%=fontB1%>360 Home</FONT></A><BR>
 			<A HREF="/servlet/Review360Controller?action=newReviewSession"><%=fontB1%>Start a new 360</FONT></A><BR>
 			<% if("true".equals(tub.getValue("LightAdmin"))) { %>
@@ -101,12 +101,12 @@
 			<P>
 			<% box.setTitle("My 360 Info");	%>
 			<%=box.printTop()%>
-			
+
 			<%=fontB1%>Review to fill out: <%=fontR1%><%=session.getValue("rsize")%></FONT></FONT><BR>
 			<%=fontB1%>Reviews administering: <%=fontR1%><%=session.getValue("asize")%></FONT></FONT><BR>
 			<%=box.printBottom()%>
 			<BR>
-		</TD>			
+		</TD>
 		<TD WIDTH="10"></TD>
 		<TD VALIGN="TOP" WIDTH="616">
 		<BR>
@@ -119,7 +119,7 @@
 	Iterator llist = lV.iterator();
 	int counter = 0;
 	if(alist.hasNext()){
-%>	
+%>
 	<TR>
         <TD>
 			<%=fontB%>
@@ -129,8 +129,8 @@
 			<LI>Click on the reviewer's name to edit their review or check on their progress.
 			<LI>Before printing a report, read this <A HREF="#note"><%=fontR%>note</FONT></A>.
 			<LI>To start a new review process, choose <U>Start a new 360</U> in the <B>360 Tools</B> section at the left.
-			<LI>To send invitation emails, check the boxes by the names of desired reviewers and click [Send Email Invitation to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewInvitationEmail.jsp', 'Preview Invitation Email', 'height=600,width=750,dependent=yes,scrollbars=yes,resizable')">Preview Invitation Email</a>
-			<LI>To send reminder emails, check the boxes by the names of desired reviewers and click [Send Email Reminder to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewReminderEmail.jsp', 'Preview Reminder Email', 'height=600,width=750,dependent=yes,scrollbars=yes,resizable')">Preview Reminder Email</a>
+			<LI>To send invitation emails, check the boxes by the names of desired reviewers and click [Send Email Invitation to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewInvitationEmail.jsp', 'PreviewInvitationEmail', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Preview Invitation Email</a>
+			<LI>To send reminder emails, check the boxes by the names of desired reviewers and click [Send Email Reminder to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewReminderEmail.jsp', 'PreviewReminderEmail', 'height=600,width=750,dependent=yes,scrollbars=yes,resizable')">Preview Reminder Email</a>
 			<LI>You can email multiple reviewers at once, but only for one review at a time.</FONT>
 			</UL>
 		</TD>
@@ -165,7 +165,7 @@
 		<TR>
 			<TD <%=bgcolorW%>><A HREF="/servlet/Review360Controller?action=editReviewSession&reviewSessionId=<%=mySession.get("reviewSessionId")%>"><%=fontB%><%=mySession.get("Title")%></FONT></A></TD>
 			<TD <%=bgcolorW%>><%=fontB%><%=rName%></FONT></TD>
-			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("StartDate"))%></FONT></TD>	
+			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("StartDate"))%></FONT></TD>
 			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("DueDate"))%></FONT></TD>
 			<TD <%=bgcolorW%> ALIGN="RIGHT"><%=fontR%>
 					<!--[<A HREF="javascript:
@@ -175,7 +175,7 @@
 		</TR>
 		<TR>
 			<TD <%=bgcolorG%> COLSPAN="4">&nbsp;</TD>
-			<TD <%=bgcolorG%> COLSPAN="2" ALIGN="RIGHT"><%=fontB%>[<A HREF="/servlet/Review360Controller?action=showReviewSummary&reviewSessionId=<%=mySession.get("reviewSessionId")%>"><%=fontB%>Printable Summary</FONT></A>]</FONT></TD>							
+			<TD <%=bgcolorG%> COLSPAN="2" ALIGN="RIGHT"><%=fontB%>[<A HREF="/servlet/Review360Controller?action=showReviewSummary&reviewSessionId=<%=mySession.get("reviewSessionId")%>"><%=fontB%>Printable Summary</FONT></A>]</FONT></TD>
 		</TR>
 		</TABLE>
 <!--Begin listing individual reviews-->
@@ -207,7 +207,7 @@
 		int counterIn= 0;
 		while (r360list.hasNext()) {
 			Hashtable myR360 = (Hashtable)r360list.next();
-			
+
 			boolean tempBool = true;
 			if(counter2%2 == 0) tempBool = false;
 			String reviewedByName = (String)myR360.get("ReviewedByName");
@@ -227,7 +227,7 @@
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><%=fontB%><%=myR360.get("LeadershipLevel")%></FONT>&nbsp;</TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><%=fontB%><%=myR360.get("Relationship")%></FONT>&nbsp;</TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>>
-					<%=fontR%>[<A HREF="JavaScript:	delete360('<%=reviewedByName%>','<%=myR360.get("Review360Id")%>','<%=mySession.get("reviewSessionId")%>');"><%=fontR1%>Remove Reviewer</FONT></A>]</FONT></TD>							
+					<%=fontR%>[<A HREF="JavaScript:	delete360('<%=reviewedByName%>','<%=myR360.get("Review360Id")%>','<%=mySession.get("reviewSessionId")%>');"><%=fontR1%>Remove Reviewer</FONT></A>]</FONT></TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><A HREF="/servlet/Review360Controller?action=showReviewSummary&reviewSessionId=<%=mySession.get("reviewSessionId")%>&encRevID=<%=myR360.get("Review360Id")%>"><%=fontB1%>Individual<BR>Summary</FONT></A></TD>
 			</TR>
 <%
@@ -241,7 +241,7 @@
 			<TD <%=bgcolorW%> COLSPAN="9">
 				<INPUT TYPE="submit" VALUE="Send Email Invitation to the Reviewers you checked" OnClick="JavaScript: validate(document.email<%=counter%>,'invite')">
 				<INPUT TYPE="submit" VALUE="Send Reminder Email to the Reviewers you checked" OnClick="JavaScript: validate(document.email<%=counter%>,'remind')">
-			</TD>	
+			</TD>
 		</TR>
 <%
 	} else { // r360list if else
@@ -308,7 +308,7 @@
 		<TR>
 			<TD <%=bgcolorW%>><A HREF="/servlet/Review360LightController?action=editReviewSession&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>"><%=fontB%><%=mySession.get("Title")%></FONT></A></TD>
 			<TD <%=bgcolorW%>><%=fontB%><%=rName%></FONT></TD>
-			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("StartDate"))%></FONT></TD>	
+			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("StartDate"))%></FONT></TD>
 			<TD <%=bgcolorW%>><%=fontB%><%=dateFormatter.format((Date)mySession.get("DueDate"))%></FONT></TD>
 			<TD <%=bgcolorW%> ALIGN="RIGHT">
 				<!--<%=fontR%>[<A HREF="javascript: deleteSessionLight('<%=mySession.get("Title")%>','<%=mySession.get("reviewSessionLightId")%>');"><%=fontR%>Delete</FONT></A>]</FONT>--></TD>
@@ -316,7 +316,7 @@
 		</TR>
 		<TR>
 			<TD <%=bgcolorG%> COLSPAN="4">&nbsp;</TD>
-			<TD <%=bgcolorG%> COLSPAN="2" ALIGN="RIGHT"><%=fontB%>[<A HREF="/servlet/Review360LightController?action=showReviewSummary&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>"><%=fontB%>Printable Summary</FONT></A>]</FONT></TD>							
+			<TD <%=bgcolorG%> COLSPAN="2" ALIGN="RIGHT"><%=fontB%>[<A HREF="/servlet/Review360LightController?action=showReviewSummary&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>"><%=fontB%>Printable Summary</FONT></A>]</FONT></TD>
 		</TR>
 		</TABLE>
 <!--Begin listing individual reviews-->
@@ -368,10 +368,10 @@
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><%=fontB%><%=myR360.get("LeadershipLevel")%></FONT>&nbsp;</TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><%=fontB%><%=myR360.get("Relationship")%></FONT>&nbsp;</TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>>
-					<%=fontR%>[<A HREF="JavaScript: delete360light('<%=reviewedByName%>','<%=myR360.get("Review360Id")%>','<%=mySession.get("reviewSessionLightId")%>');"><%=fontR1%>Remove Reviewer</FONT></A>]</FONT></TD>							
+					<%=fontR%>[<A HREF="JavaScript: delete360light('<%=reviewedByName%>','<%=myR360.get("Review360Id")%>','<%=mySession.get("reviewSessionLightId")%>');"><%=fontR1%>Remove Reviewer</FONT></A>]</FONT></TD>
 				<TD <%=tempBool ? bgcolorW : bgcolorG%>><A HREF="/servlet/Review360LightController?action=showReviewSummary&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>&encRevID=<%=myR360.get("Review360Id")%>"><%=fontB1%>Individual<BR>Summary</FONT></A></TD>
 			</TR>
-			
+
 <%
 		counterIn ++;
 		counter2 ++;
@@ -383,7 +383,7 @@
 			<TD <%=bgcolorW%> COLSPAN="9">
 			<INPUT TYPE="submit" VALUE="Send Email Invitation to the Reviewers you checked" OnClick="JavaScript: validate(document.email<%=counter%>,'invite')">
 			<INPUT TYPE="submit" VALUE="Send Reminder Email to the Reviewers you checked" OnClick="JavaScript: validate(document.email<%=counter%>,'remind')">
-			</TD>	
+			</TD>
 		</TR>
 <%
 	} else { // r360list if else
@@ -417,7 +417,7 @@
 			counter++;
 	} // alist.hasNext while end
 
-		
+
 	} else { // alist.hasNext if else
 %>
 	<TR>
