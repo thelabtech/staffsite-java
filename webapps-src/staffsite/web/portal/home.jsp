@@ -242,6 +242,16 @@
 			<%=box.printBottom()%>
 			<br>
 			
+			<!-- start 'SLICE' module -->
+			<% box.setTitle("SLICE Survey 2007");%>
+			<%=box.printTop()%>
+			<%=fontS%>
+				<a href='https://staff.campuscrusadeforchrist.com/cms/content/5649.html'>See national results</a><br>	
+			</font>
+			<%=box.printBottom()%>
+			<br>
+			<!-- *******************************************************-->
+			
 			<!-- start 'Staff Opportunities' module -->
 			<% box.setTitle("Staff Opportunities");%>
 			<%=box.printTop()%>
