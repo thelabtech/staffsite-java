@@ -33,7 +33,7 @@
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
 	<tr valign=top>
 		<td width="140">
-			
+
 			<% box.setStyle(boxStyle);	//will set it for all the following boxes until we call it again%>
 			<% box.setColor(color3);%>
 			<% box.setBodyColor(color3);%>
@@ -47,7 +47,7 @@
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
-			
+
 			<!-- <% box.setTitle("The SLICE");	%>
 			<%=box.printTop()%>
 			<center>
@@ -55,7 +55,7 @@
 			<a TARGET="_blank" href="http://www.surveymonkey.com/s.asp?u=74436876183" onMouseOver="window.status='Complete The SLICE - Part II'; return true;" onMouseOut="window.status=''; return true;">The SLICE - Part II<br><br></A>
 			<%=box.printBottom()%>
 			<br> -->
-			
+
 			<!-- This section is for Summer Project and STINT/Internship Reference links -->
 			<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("My References");%>
@@ -67,19 +67,19 @@
 				</center>
 				<%=box.printBottom()%>
 				<br>
-			<%// } %>			
+			<%// } %>
 			<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
 				<center>
-			
+
 				<!-- This link goes in each year in Feb. for 2 weeks
-				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Staff Survey 2004</b></A></font><br><%=fontS%><br><br>  
+				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Staff Survey 2004</b></A></font><br><%=fontS%><br><br>
 			    -->
 				<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
 				<%=box.printBottom()%>
 				<br>
-			<%// } %>			
+			<%// } %>
 			<% box.setTitle("Staff Birthdays");	%>
 			<%=box.printTop()%>
 			<% birthdays.initBirthdays(getServletContext().getRealPath("/")); %>
@@ -158,7 +158,7 @@
 						if (document.miscsearch.search[0].checked) {
 							document.google.q.value = document.miscsearch.query.value;
 							document.google.submit();
-						}	
+						}
 						if (document.miscsearch.search[1].checked) {
 							document.gospelcom.search.value = document.miscsearch.query.value;
 							document.gospelcom.submit();
@@ -233,15 +233,15 @@
 				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>Find/submit a resource</a><br>
 				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>Reimburse Expenses</A><BR>
 				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
-				<a href='http://staff.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0'>Go to StaffWeb</a><br>
+				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0'>Go to StaffWeb</a><br>
 				<a href="http://www.CampusStories.org" target='_blank'><img src="/images/lightbulb.gif" border='0'>Find a Ministry Story</a><br>
 				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0'>Log on to OneCard</a><br>
 				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0'>See National Discount Programs</a><br>
-			<%// } %>			
+			<%// } %>
 			</font>
 			<%=box.printBottom()%>
 			<br>
-			
+
 			<!-- start 'SLICE' module -->
 			<% box.setTitle("SLICE Survey 2007");%>
 			<%=box.printTop()%>
@@ -256,12 +256,12 @@
 			<% box.setTitle("Staff Opportunities");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a href='/servlet/CmsController?action=browse&catId=1000155'>See all opportunities</a><br>	
+				<a href='/servlet/CmsController?action=browse&catId=1000155'>See all opportunities</a><br>
 			</font>
 			<%=box.printBottom()%>
 			<br>
 			<!-- *******************************************************-->
-			
+
 			<!-- start infobase search module -->
 			<% box.setTitle("Bookmarks");%>
 			<%=box.printTop()%>
