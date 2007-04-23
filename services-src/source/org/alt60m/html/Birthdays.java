@@ -265,7 +265,7 @@ public class Birthdays implements java.io.Serializable {
 			String stringBuffer = "<!--  --------------------Birthdays MODULE ------------------- --> ";
 			writeBirthdays();
 			stringBuffer = stringBuffer + getBirthdayFile();
-			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://www.hallmark.com/ecards/' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
+			stringBuffer = stringBuffer + bodyFont +"<CENTER><A HREF='http://www.hallmark.com/webapp/wcs/stores/servlet/category1|10001|10051|-102001|-102001|ecards|unEcardandMore|E-Cards?lid=unEcardandMore' TARGET='_blank'><B>[Send an E-card]</B></A><br><A HREF='/servlet/StaffController?action=showOccasions'><B>[Special Occasions]</B></A></CENTER></font>";
 		return stringBuffer;
 	}
 
