@@ -2,6 +2,7 @@ package org.alt60m.hr.si.servlet.dbio;
 
 import org.alt60m.servlet.*;
 import org.alt60m.util.ObjectHashUtil;
+import org.alt60m.crs.model.Person;
 import org.alt60m.hr.si.model.dbio.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -179,6 +180,42 @@ public class SIAppHandler {
     	{
 	    		ActionResults ar = new ActionResults();
 	            ar.putValue("ErrorMessage", "RULE VIOLATION: You must request at least 4 people to provide you with a reference before you can submit your application. .");
+	            ar.setView("submit");
+	            ar.putValue("page","submit");
+	            return ar; //early return
+    	}
+
+    	//RULE: application must have at least one emergency contact.
+    	SIPerson applicant = SIUtil.getSIPerson(SIUtil.getSIApplication(appid).getFk_PersonIDString());
+    	if (applicant.getEmerContactName() == null || "".equals(applicant.getEmerContactName()) || 
+    			applicant.getEmerAddress1() == null || "".equals(applicant.getEmerAddress1()) || 
+    			applicant.getEmerCity() == null || "".equals(applicant.getEmerCity()) || 
+    			applicant.getEmerState() == null || "".equals(applicant.getEmerState()) || 
+    			applicant.getEmerZip() == null || "".equals(applicant.getEmerZip()) || (
+    					(applicant.getEmerHomePhone() == null || "".equals(applicant.getEmerHomePhone())) &&
+    					(applicant.getEmerWorkPhone() == null || "".equals(applicant.getEmerWorkPhone())) &&
+    					(applicant.getEmerCellPhone() == null || "".equals(applicant.getEmerCellPhone())) )    					
+    			)
+    	{
+	    		ActionResults ar = new ActionResults();
+	            ar.putValue("ErrorMessage", "RULE VIOLATION: You must provide at least a primary emergency contact.");
+	            ar.setView("submit");
+	            ar.putValue("page","submit");
+	            return ar; //early return
+    	}
+
+    	//RULE: application must have permanent contact info.
+    	if (applicant.getPermAddress1() == null || "".equals(applicant.getPermAddress1()) || 
+    			applicant.getPermCity() == null || "".equals(applicant.getPermCity()) || 
+    			applicant.getPermState() == null || "".equals(applicant.getPermState()) || 
+    			applicant.getPermZip() == null || "".equals(applicant.getPermZip()) || (
+    					(applicant.getPermHomePhone() == null || "".equals(applicant.getPermHomePhone())) &&
+    					(applicant.getPermWorkPhone() == null || "".equals(applicant.getPermWorkPhone())) &&
+    					(applicant.getPermCellPhone() == null || "".equals(applicant.getPermCellPhone())) )    					
+    			)
+    	{
+	    		ActionResults ar = new ActionResults();
+	            ar.putValue("ErrorMessage", "RULE VIOLATION: You must provide permanent contact information.");
 	            ar.setView("submit");
 	            ar.putValue("page","submit");
 	            return ar; //early return
