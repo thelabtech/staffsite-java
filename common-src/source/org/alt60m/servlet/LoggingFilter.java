@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.log4j.NDC;
 
@@ -28,7 +29,7 @@ public class LoggingFilter implements Filter {
 
 	private final int MAX_HISTORY_SIZE = 15;
 	private static Log log = LogFactory.getLog(LoggingFilter.class);
-	
+
 	public void destroy() {
 		log.debug("destroying Logging Filter");
 	}
@@ -75,7 +76,8 @@ public class LoggingFilter implements Filter {
 				req.getSession().setAttribute("history", history);
 			}
 			String currentTime = DateFormat.getTimeInstance().format(new Date());
-			String path = req.getRequestURI();
+			String requestURI = req.getRequestURI();
+			String path = requestURI;
 			path = lineSep + path + " " + requestMap.toString() + " [" + currentTime + "]" + lineSep;
 			history.add(path);
 
@@ -86,8 +88,9 @@ public class LoggingFilter implements Filter {
 			Map<String, Object> sessionCopy = getHashedSession(req);
 
 			MDC.put("session", sessionCopy.toString());
-			log.debug("Forwarding request for " + req.getRequestURI());
+			log.debug("Forwarding request for " + requestURI);
 			filterChain.doFilter(request, response);
+			log.debug("Finished request for " + requestURI);
 		} finally {
 
 			NDC.pop();
@@ -98,6 +101,8 @@ public class LoggingFilter implements Filter {
 			MDC.remove("request");
 			MDC.remove("userIPAddress");
 			MDC.remove("machineName");
+			//really just to get a timestamp
+			log.debug("variables cleared");
 		}
 	}
 

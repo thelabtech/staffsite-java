@@ -20,9 +20,9 @@ public class HttpHelper {
 
 	//at some point read these as init parameters?
     protected static final int READ_TIMEOUT_DEFAULT = 10000;  //in ms
-    protected static final int CONNECT_TIMEOUT_DEFAULT = 10000; 
-    
-    
+    protected static final int CONNECT_TIMEOUT_DEFAULT = 10000;
+
+
 	// Create an instance of HttpClient.
 	private HttpClient client = new HttpClient();
 	{
@@ -31,16 +31,16 @@ public class HttpHelper {
 
         client.getHttpConnectionManager().
         getParams().setSoTimeout(READ_TIMEOUT_DEFAULT);
-        
+
 	}
-	
-		
+
+
 	public String getContent(String url) throws IOException
 	{
 		HttpMethod method = new GetMethod(url);
 		return getContent(method);
 	}
-	
+
 
 	// adapted from httpClient tutorial
 	public String getContent(HttpMethod method) throws IOException {
@@ -55,8 +55,9 @@ public class HttpHelper {
 		String content = null;
 		try {
 			// Execute the method.
+			log.debug("executing method...");
 			int statusCode = client.executeMethod(method);
-
+			log.debug("...done.");
 			if (statusCode != HttpStatus.SC_OK) {
 				log.warn("Method failed: " + method.getStatusLine());
 			}
@@ -82,9 +83,11 @@ public class HttpHelper {
 			throw e;
 		} finally {
 			// Release the connection.
+			log.debug("releasing connection...");
 			method.releaseConnection();
+			log.debug("done.");
 		}
 		return content;
 	}
-		
+
 }
