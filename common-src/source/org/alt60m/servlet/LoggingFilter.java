@@ -88,9 +88,9 @@ public class LoggingFilter implements Filter {
 			Map<String, Object> sessionCopy = getHashedSession(req);
 
 			MDC.put("session", sessionCopy.toString());
-			log.debug("Forwarding request for " + requestURI);
+			log.trace("Forwarding request for " + requestURI);
 			filterChain.doFilter(request, response);
-			log.debug("Finished request for " + requestURI);
+			log.trace("Finished request for " + requestURI);
 		} finally {
 
 			NDC.pop();
@@ -102,7 +102,7 @@ public class LoggingFilter implements Filter {
 			MDC.remove("userIPAddress");
 			MDC.remove("machineName");
 			//really just to get a timestamp
-			log.debug("variables cleared");
+			log.trace("variables cleared");
 		}
 	}
 
