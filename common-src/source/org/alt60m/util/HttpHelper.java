@@ -55,9 +55,9 @@ public class HttpHelper {
 		String content = null;
 		try {
 			// Execute the method.
-			log.debug("executing method...");
+			log.trace("executing method...");
 			int statusCode = client.executeMethod(method);
-			log.debug("...done.");
+			log.trace("...done.");
 			if (statusCode != HttpStatus.SC_OK) {
 				log.warn("Method failed: " + method.getStatusLine());
 			}
@@ -83,9 +83,9 @@ public class HttpHelper {
 			throw e;
 		} finally {
 			// Release the connection.
-			log.debug("releasing connection...");
+			log.trace("releasing connection...");
 			method.releaseConnection();
-			log.debug("done.");
+			log.trace("done.");
 		}
 		return content;
 	}
