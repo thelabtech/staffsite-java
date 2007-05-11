@@ -19,45 +19,49 @@ public class ConnexionBar {
 	private static Log log = LogFactory.getLog(ConnexionBar.class);
 
 	private static Map<String, CacheEntry> cache = new HashMap<String, CacheEntry>();
-	
+
 	private static CASHelper helper;
-	
+
 	//Yeah, I don't really like this...but it's kind hard to get the
-	//logoutCallback url otherwise without some refactoring I'm not willing 
+	//logoutCallback url otherwise without some refactoring I'm not willing
 	//to commit to
 	public static void setCasHelper(CASHelper helper) {
 		ConnexionBar.helper = helper;
 	}
-	
+
 	private CASUser user;
-	
+
 	private String logoutUrl;
-	
-	
-	
+
+
+	/**
+	 * See also ProxyTicketReceptor.java
+	 * @author Matthew.Drees
+	 *
+	 */
 	private class CacheEntry {
 		public CacheEntry(String bar) {
 			this.bar = bar;
 			cacheTimestamp = new Date();
 		}
-	
-		static final int validTime =  1 * 60 * 60 * 1000; //1 hour
-		
+
+		static final int validTime =  1 * 60 * 60 * 1000; //in ms
+
 		public String bar;
-		
+
 		public Date cacheTimestamp;
 
 		public boolean expired() {
-			return (new Date().getTime() - cacheTimestamp.getTime() > validTime); 
+			return (new Date().getTime() - cacheTimestamp.getTime() > validTime);
 		}
 	}
-	
+
 	//the cache might grow kinda large, since entries are never removed, but I don't
-	//think it will pose a problem.
+	//think it will pose a problem.  It's not persisted across context restarts.
 	public static void clearCache() {
 		cache.clear();
 	}
-	
+
 	public ConnexionBar(CASUser user, HttpServletRequest request) {
 		if (user == null) {
 			throw new IllegalArgumentException("Must be initialized with a non-null user");
@@ -65,7 +69,7 @@ public class ConnexionBar {
 		this.user = user;
 		logoutUrl = helper.getLogoutUrl(request);
 	}
-	
+
 	public String render()
 	{
 		CacheEntry cacheEntry = cache.get(user.getGUID());
@@ -90,7 +94,7 @@ public class ConnexionBar {
 		}
 		return null;
 	}
-		
+
 	private String replaceLogoutLink(String bar) {
 		String wrongLogoutUrl = "&quot;https://signin.mygcx.org/cas/logout&quot";
 		return bar.replace(wrongLogoutUrl, "&quot;" + logoutUrl + "&quot;");
@@ -129,7 +133,7 @@ public class ConnexionBar {
 				log.warn("Exception Occurred getting bar: ", e);
 			}
 		}
-		
+
 		return content;
 	}
 

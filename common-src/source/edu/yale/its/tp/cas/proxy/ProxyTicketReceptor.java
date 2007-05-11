@@ -2,6 +2,7 @@ package edu.yale.its.tp.cas.proxy;
 
 import java.io.*;
 import java.util.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import edu.yale.its.tp.cas.util.SecureURL;
@@ -19,21 +20,47 @@ public class ProxyTicketReceptor extends HttpServlet {
   private static final String PGT_ID_PARAM = "pgtId";
 
   //TODO: for now, stored in WEB-INF.  Probably should find a better place.
-  private static final String SAVED_RECEPTOR_FILE_NAME = "proxyreceptor.save"; 
+  private static final String SAVED_RECEPTOR_FILE_NAME = "proxyreceptor.save";
 
   //*********************************************************************
   // Private state
 
-  private static Map pgt;
+  private static Map<String, CacheEntry> pgtMap;
   private static String casProxyUrl;
 
-  //*********************************************************************
-  // Initialization 
 
-  public void init(ServletConfig config) throws ServletException {
+  /**
+   * pasted from ConnexionBar.java; might be worth it to make a utility class for caches
+   *
+   */
+	private class CacheEntry implements Serializable {
+
+		private static final long serialVersionUID = 2L;
+
+		public CacheEntry(String pgt) {
+			this.pgt = pgt;
+			cacheTimestamp = System.currentTimeMillis();
+		}
+
+		static final int validTime =  1 * 60 * 60 * 1000; //in ms
+
+		public String pgt;
+
+		public Long cacheTimestamp;
+
+		public boolean expired() {
+			return (System.currentTimeMillis() - cacheTimestamp > validTime);
+		}
+	}
+
+  //*********************************************************************
+  // Initialization
+
+  @SuppressWarnings("unchecked")
+public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		synchronized (ProxyTicketReceptor.class) {
-			if (pgt == null) {
+			if (pgtMap == null) {
 
 				FileInputStream fis = null;
 				ObjectInputStream in = null;
@@ -41,35 +68,47 @@ public class ProxyTicketReceptor extends HttpServlet {
 					File savefile = new File(getServletContext().getRealPath("/WEB-INF/"), SAVED_RECEPTOR_FILE_NAME);
 					fis = new FileInputStream(savefile);
 					in = new ObjectInputStream(fis);
-					pgt = (HashMap) in.readObject();
+					pgtMap = (HashMap<String, CacheEntry>) in.readObject();
 					in.close();
 				} catch (FileNotFoundException e){
-					pgt = new HashMap();
+					pgtMap = new HashMap<String, CacheEntry>();
 				} catch (IOException e) {
 					e.printStackTrace();
-					pgt = new HashMap();
+					pgtMap = new HashMap<String, CacheEntry>();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
-					pgt = new HashMap();
+					pgtMap = new HashMap<String, CacheEntry>();
 				}
+				clearCache();
 			}
 			// retrieve the URL for CAS
 			if (casProxyUrl == null) {
 				ServletContext app = config.getServletContext();
+				String string = "edu.yale.its.tp.cas.proxyUrl";
 				casProxyUrl = (String) app
-						.getInitParameter("edu.yale.its.tp.cas.proxyUrl");
+						.getInitParameter(string);
 				if (casProxyUrl == null)
 					throw new ServletException(
-							"need edu.yale.its.tp.cas.proxyUrl");
+							"need " + string);
 			}
 		}
 	}
 
   public void destroy() {
+		clearCache();
 		saveState();
 	}
 
-  //simple state saving; could be better
+	public void clearCache() {
+		for (Iterator<CacheEntry> i = pgtMap.values().iterator(); i.hasNext();) {
+			CacheEntry entry = i.next();
+			if (entry.expired()) {
+				i.remove();
+			}
+		}
+	}
+
+  // simple state saving; could be better
 	public void saveState() {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
@@ -77,7 +116,7 @@ public class ProxyTicketReceptor extends HttpServlet {
 			File savefile = new File(getServletContext().getRealPath("/WEB-INF/"), SAVED_RECEPTOR_FILE_NAME);
 			fos = new FileOutputStream(savefile);
 			out = new ObjectOutputStream(fos);
-			out.writeObject(pgt);
+			out.writeObject(pgtMap);
 			out.close();
 		} catch (IOException ex) {
 			System.err.println("IO Exception saving proxyTicket cache");
@@ -101,14 +140,13 @@ public class ProxyTicketReceptor extends HttpServlet {
    String pgtId = request.getParameter(PGT_ID_PARAM);
    String pgtIou = request.getParameter(PGT_IOU_PARAM);
    if (pgtId != null && pgtIou != null) {
-     synchronized(pgt) {
-       pgt.put(pgtIou, pgtId);
-       saveState();
+     synchronized(pgtMap) {
+       pgtMap.put(pgtIou, new CacheEntry(pgtId));
      }
    }
    PrintWriter out = response.getWriter();
    out.println(
-     "<casClient:proxySuccess " + 
+     "<casClient:proxySuccess " +
        "xmlns:casClient=\"http://www.yale.edu/tp/casClient\"/>");
    out.flush();
   }
@@ -126,15 +164,15 @@ public class ProxyTicketReceptor extends HttpServlet {
       throws IOException {
     synchronized(ProxyTicketReceptor.class) {
       // ensure state is sensible
-      if (casProxyUrl == null || pgt == null)
+      if (casProxyUrl == null || pgtMap == null)
         throw new IllegalStateException(
           "getProxyTicket() only works after servlet has been initialized");
     }
 
     // retrieve PGT
     String pgtId = null;
-    synchronized(pgt) {
-      pgtId = (String) pgt.get(pgtIou);
+    synchronized(pgtMap) {
+      pgtId = pgtMap.get(pgtIou).pgt;
     }
     if (pgtId == null)
       return null;
