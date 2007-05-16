@@ -172,7 +172,8 @@ public void init(ServletConfig config) throws ServletException {
     // retrieve PGT
     String pgtId = null;
     synchronized(pgtMap) {
-      pgtId = pgtMap.get(pgtIou).pgt;
+      CacheEntry cacheEntry = pgtMap.get(pgtIou);
+      pgtId = cacheEntry == null ? null : cacheEntry.pgt;
     }
     if (pgtId == null)
       return null;
