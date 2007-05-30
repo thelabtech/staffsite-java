@@ -22,6 +22,7 @@ public enum Strategy {
 	GK ("Greek"),
 	VL ("Valor"),
 	OT ("Other");
+
 	
 	private String name;
 
@@ -43,6 +44,7 @@ public enum Strategy {
 
 	public static EnumSet<Strategy> nonCampusStrategies() {
 		return EnumSet.of(MM, AA);
+	
 	}
 
 	public static EnumSet<Strategy> internationalCampusStrategies() {
@@ -61,6 +63,12 @@ public enum Strategy {
 		EnumSet<Strategy> all = EnumSet.noneOf(Strategy.class);
 		all.addAll(Strategy.usCampusStrategies());
 		all.addAll(Strategy.internationalCampusStrategies());
+		
+//      These 3 calls are added to cause all ministries to be treated the same way.	This is 
+		// a part of the  "Success Criteria" and "Status" changes.
+		all.addAll(Strategy.nonCampusStrategies());
+		all.addAll(Strategy.campusNoSuccessCriteriaStrategies());
+		all.addAll(Strategy.microCultures());		
 		return all;
 	}
 
