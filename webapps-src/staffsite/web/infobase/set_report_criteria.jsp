@@ -1,3 +1,12 @@
+<!-- added these ministries for reporting purposes as they now will have success 
+     criteria as well as the full range of statuses.  Further info on this change can 
+     be found in the detail_target_area.jsp page.
+     
+	Military Ministry,Athletes In Action,Grad Resources,Christian Leadership Ministries
+	Korean CCC,Greek,Valor and Other
+     
+ -->
+
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
 <%
 ActionResults ar;
@@ -62,23 +71,23 @@ ar = ActionResults.getActionResults(session);
 
 			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
-					<input type="checkbox" name="SC" value="true" CHECKED>Staffed Campus<br>
-					<input type="checkbox" name="CA" value="true" CHECKED>Catalytic<br>
-					<input type="checkbox" name="II" value="true" CHECKED>ESM-Impact<br>
-					<input type="checkbox" name="IE" value="true" CHECKED>ESM-Epic<br>
-					<input type="checkbox" name="ID" value="true" CHECKED>ESM-Destino<br>
-					<input type="checkbox" name="IN" value="true" CHECKED>ESM-Nations<br>
-					<input type="checkbox" name="BR" value="true" CHECKED>Bridges<br>
-					<input type="checkbox" name="WS" value="true" CHECKED>WSN STInt<br>
-					<input type="checkbox" name="WI" value="true" CHECKED>WSN ICS<br>
-					<input type="checkbox" name="MM" value="true" CHECKED>Military Ministry<br>
-					<input type="checkbox" name="AA" value="true" CHECKED>Athletes In Action<br>
-					<input type="checkbox" name="GR" value="true" CHECKED>Grad Resources<br>
-					<input type="checkbox" name="CL" value="true" CHECKED>Christian Leadership Ministries<br>
-					<input type="checkbox" name="KC" value="true" CHECKED>Korean CCC<br>
-					<input type="checkbox" name="GK" value="true" CHECKED>Greek<br>
-					<input type="checkbox" name="VL" value="true" CHECKED>Valor<br>
-					<input type="checkbox" name="OT" value="true" CHECKED>Other<br>
+					<input type="checkbox" name="SC" value="true" >Staffed Campus<br>
+					<input type="checkbox" name="CA" value="true" >Catalytic<br>
+					<input type="checkbox" name="II" value="true" >ESM-Impact<br>
+					<input type="checkbox" name="IE" value="true" >ESM-Epic<br>
+					<input type="checkbox" name="ID" value="true" >ESM-Destino<br>
+					<input type="checkbox" name="IN" value="true" >ESM-Nations<br>
+					<input type="checkbox" name="BR" value="true" >Bridges<br>
+					<input type="checkbox" name="WS" value="true" >WSN STInt<br>
+					<input type="checkbox" name="WI" value="true" >WSN ICS<br>
+					<input type="checkbox" name="MM" value="true" >Military Ministry<br>
+					<input type="checkbox" name="AA" value="true" >Athletes In Action<br>
+					<input type="checkbox" name="GR" value="true" >Grad Resources<br>
+					<input type="checkbox" name="CL" value="true" >Christian Leadership Ministries<br>
+					<input type="checkbox" name="KC" value="true" >Korean CCC<br>
+					<input type="checkbox" name="GK" value="true" >Greek<br>
+					<input type="checkbox" name="VL" value="true" >Valor<br>
+					<input type="checkbox" name="OT" value="true" >Other<br>
 					
 	
 			  </td></tr>
