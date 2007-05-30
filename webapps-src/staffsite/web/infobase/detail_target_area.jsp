@@ -1,3 +1,13 @@
+<!--  May 30, 2007 - following changes by Mark Davis per Todd Gross
+	  This page was changed to no longer seperate certain ministries.  Now all  
+      ministries will see the same STATUS and SUCCESS CRITERIA information.  
+      Further comments are embedded in this page.  This change effects  
+      modules:  Strategy.java, detail_target_area.jsp and set_report_criteria.jsp
+      
+      Ministries effected: Military Ministry, Athletes In Action,Grad Resources, 
+      Christian Leadership Ministries, Korean CCC, Greek, Valor and Other
+ -->
+
 <%@ page import="org.alt60m.servlet.*,java.util.*,org.alt60m.ministry.Strategy"%>
 <%
 	ActionResults ar;
@@ -99,7 +109,12 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		}
 	}
 	
-
+	/* ---------------------------------------------------------------------------------------
+ 	*  This code is being removed as part of the Movement/Success Criteria changes.  See note at 
+ 	*  the top of the code.  This section of code deals with the ministries: Grad Resources,  
+ 	*  ChristianLeadership Ministries, and Korean CCC.  This code can be completely removed 
+ 	*  eventually. 
+ 	* -----------------------------------------------------------------------------------------
 	for (Strategy strategy : Strategy.campusNoSuccessCriteriaStrategies()) {
 		thisActivity = ar.getHashtable(strategy.name());
 		
@@ -157,7 +172,13 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 			<%
 		}
 	}
-	
+  --- End Of Comment Block -------------------------*/
+  /* ---------------------------------------------------------------------------------------
+	*  This code is being removed as part of the Movement/Success Criteria changes.  See the 
+	*  note at the top of the code.  This section of code deals with the ministries: Greek, Valor 
+	*  & Other.  This code can be completly removed eventually.
+	* -----------------------------------------------------------------------------------------
+  
 	for (Strategy strategy : Strategy.microCultures()) {
 		thisActivity = ar.getHashtable(strategy.name());
 		
@@ -215,7 +236,13 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 			<%
 		}
 	}
-	
+  --- End Of Comment Block -------------------------*/	
+  
+  /* ---------------------------------------------------------------------------------------
+	*  This code is being removed as part of the Movement/Success Criteria changes.  See note at 
+	*  the top of the code.  This section of code deals with the ministries: Military Ministry   
+	*  and Athletes in Action. This code can be completly removed eventually.
+	* -----------------------------------------------------------------------------------------
 	for (Strategy strategy : Strategy.nonCampusStrategies()) {
 		thisActivity = ar.getHashtable(strategy.name());
 		
@@ -273,7 +300,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 			<%
 		}
 	}
-	
+  --- End Of Comment Block -------------------------*/	
 	if (otherMinistries.size() > 0) {
 		hasMovement = true;
 		%>

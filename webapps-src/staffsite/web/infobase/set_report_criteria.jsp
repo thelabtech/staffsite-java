@@ -71,6 +71,16 @@ ar = ActionResults.getActionResults(session);
 					<input type="checkbox" name="BR" value="true" CHECKED>Bridges<br>
 					<input type="checkbox" name="WS" value="true" CHECKED>WSN STInt<br>
 					<input type="checkbox" name="WI" value="true" CHECKED>WSN ICS<br>
+					<input type="checkbox" name="MM" value="true" CHECKED>Military Ministry<br>
+					<input type="checkbox" name="AA" value="true" CHECKED>Athletes In Action<br>
+					<input type="checkbox" name="GR" value="true" CHECKED>Grad Resources<br>
+					<input type="checkbox" name="CL" value="true" CHECKED>Christian Leadership Ministries<br>
+					<input type="checkbox" name="KC" value="true" CHECKED>Korean CCC<br>
+					<input type="checkbox" name="GK" value="true" CHECKED>Greek<br>
+					<input type="checkbox" name="VL" value="true" CHECKED>Valor<br>
+					<input type="checkbox" name="OT" value="true" CHECKED>Other<br>
+					
+	
 			  </td></tr>
 			</table>
 			<p>
