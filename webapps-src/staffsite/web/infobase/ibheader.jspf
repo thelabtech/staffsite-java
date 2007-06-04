@@ -64,23 +64,6 @@
 					
 					<INPUT TYPE="hidden" name="view" value="campusList">
 					<input type="text" size=12 MAXLENGTH="200" name="searchstring">&nbsp;
- <!-- 	
-					<script type="text/javascript">
-						searchstring = "**searchText**"
-					</script>
-				
-					<script type="text/javascript">						
-					if (searchstring == null) 
-					{
- 					    if (searchby == "AA") 
-						{
-						<a href="Javascript: document.searchForm.submit()" onMouseOut="changeImages('headersearch','/images/search_boff.gif')" onMouseOver="changeImages('headersearch','/images/search_bon.gif')"><img name="headersearch" border="0" src="/images/search_boff.gif"></a>
-							searchstring = "Athletes in Action"
-							searchText = "**searchText**"
-						}
-					}
-					</script>
--->					
 			
 					</FONT>
 						<a href="Javascript: document.searchForm.submit()" onMouseOut="changeImages('headersearch','/images/search_boff.gif')" onMouseOver="changeImages('headersearch','/images/search_bon.gif')"><img name="headersearch" border="0" src="/images/search_boff.gif"></a>
