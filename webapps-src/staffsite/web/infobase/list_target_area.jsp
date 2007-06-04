@@ -23,8 +23,11 @@
 			pageTitle = pageTitle + " name containing:&nbsp;&nbsp;" + request.getParameter("searchstring");
 		} else if (request.getParameter("searchby").equals("zip")) {
 			pageTitle = pageTitle + " zip code:&nbsp;&nbsp;" + request.getParameter("searchstring");
+		} else if (request.getParameter("searchby").equals("country")) {
+			pageTitle = pageTitle + " Country:&nbsp;&nbsp;" + request.getParameter("searchstring");	
 		} else {
-			pageTitle = pageTitle + " Country:&nbsp;&nbsp;" + request.getParameter("searchstring");
+//			pageTitle = pageTitle + " Country:&nbsp;&nbsp;" + request.getParameter("searchstring");
+			pageTitle = pageTitle + " Movement:&nbsp;&nbsp;" + request.getParameter("searchby");
 		}
 	
 	%>
