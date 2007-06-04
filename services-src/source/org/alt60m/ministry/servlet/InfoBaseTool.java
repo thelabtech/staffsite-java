@@ -398,8 +398,6 @@ public class InfoBaseTool {
 									  "taId ON ta.TargetAreaID = taId.fk_targetAreaID "+
 						   "WHERE ("+whereClause+" AND (ta.isClosed <> 'T' OR ta.isClosed is NULL)) "+
 						   "ORDER BY ta.name";
-			
-			log.debug("\n*** QUERY: " + query);
 
 			java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 
