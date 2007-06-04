@@ -117,7 +117,7 @@ public class InfoBaseController extends Controller {
 		String partialName = ctx.getInputString("partialName", true);
 
 		// Add collection of teams containing that name **********************************
-                Vector v = InfoBaseQueries.getNonSecureTargetAreasByName(partialName);
+        Vector v = InfoBaseQueries.getNonSecureTargetAreasByName(partialName);
 		results.addCollection("campuses", ObjectHashUtil.list(v));
 		ctx.setReturnValue(results);
 		ctx.goToView("addCampusToMin");
@@ -397,18 +397,30 @@ public class InfoBaseController extends Controller {
 
     /** @param ctx ActionContext object */
     public void detailedListCampus(ActionContext ctx) {
-        final String[] allowedSearchBy = {"name", "city", "state", "country", "zip", "region"};
+        final String[] allowedSearchBy = {"name", "city", "state", "country", "zip", "region", 
+        /*Movments: */ "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS", "WI", "MM", "AA", "GR", "CL", "KC", "GK", "VL", "OT"};
+        
+        final String[] validMovement = {"SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS", "WI", 
+        								"MM", "AA", "GR", "CL", "KC", "GK", "VL", "OT"};
+
         try {
+
             ActionResults results = new ActionResults("listCampus");
             String searchBy = ctx.getInputString("searchby", allowedSearchBy);
             String searchText = ctx.getInputString("searchstring", true);
-            String nextView = ctx.getInputString("view", true);
+            String nextView = ctx.getInputString("view", true);            
 			InfoBaseTool ibt = new InfoBaseTool();
+
 
 			if (searchBy.equals("country")) {
                 String countryCode = CountryCodes.nameToCode(searchText);
                 searchText = (countryCode != null) ? countryCode : searchText;
             }
+			
+			for(int i =0;i<validMovement.length;i++) {
+				if (validMovement[i].equals(searchBy))
+					searchText = searchBy;  
+			}		
             if (searchText.length() > 0) {
                Collection colOfHashes = ibt.getCampusListDirectly(searchBy, searchText);
                results.addCollection("campusinfo", colOfHashes);
@@ -1453,6 +1465,7 @@ public class InfoBaseController extends Controller {
 					activityHash.put("strategy", activity.getStrategy());
 					activityHash.put("strategyName", activity.getStrategyFullName());
 					activityHash.put("statusName", activity.getStatusFullName());
+//					activityHash.put("url", activity.getUrl());
 					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
 					for (Staff staff : activity.getActivityContacts()) {
 						contacts.add(ObjectHashUtil.obj2hash(staff));
