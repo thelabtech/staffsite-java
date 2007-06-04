@@ -379,7 +379,13 @@ public class InfoBaseTool {
 				whereClause = "ta.zip LIKE '%"+searchText+"%'";
 			} else if ("country".equalsIgnoreCase(searchBy)) {
 				whereClause = "ta.country LIKE '%"+searchText+"%'";
-			}
+			} else
+				whereClause = "taId.strategy = '"+searchBy+"'";
+				
+				 				
+
+		//	}
+			
 
 			//TODO: exclude closed target areas from this search query
 			query = "SELECT ta.TargetAreaID, ta.name, ta.city, ta.state, ta.zip, ta.region, taId.strategy, taId.status, taId.teamID, taId.teamName, ta.isClosed " +
@@ -392,6 +398,8 @@ public class InfoBaseTool {
 									  "taId ON ta.TargetAreaID = taId.fk_targetAreaID "+
 						   "WHERE ("+whereClause+" AND (ta.isClosed <> 'T' OR ta.isClosed is NULL)) "+
 						   "ORDER BY ta.name";
+			
+			log.debug("\n*** QUERY: " + query);
 
 			java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 
