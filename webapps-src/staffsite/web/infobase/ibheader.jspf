@@ -40,11 +40,48 @@
 						  <option value="city">city</a>
 						  <option value="state">state(abbr)</a>
 						  <option value="country">country</a>
-						  <option value="zip">zip</a>
+						  <option value="SC">Staffed Campus</a>
+						  <option value="CA">Catalytic</a>			  
+						  <option value="II">ESM-Impact</a>
+						  <option value="IE">ESM-Epic</a>
+						  <option value="ID">ESM-Destino</a>
+						  <option value="IN">ESM-Nations</a>
+						  <option value="BR">Bridges</a>
+						  <option value="WS">WSN Stint</a>
+						  <option value="WI">WSN ICS</a>
+						  <option value="MM">Military Ministry</a>
+						  <option value="AA">Athletes In Action</a>
+						  <option value="GR">Grad Resources</a>
+						  <option value="CL">Christian Leadership</a>
+						  <option value="KC">Korean CCC</a>
+						  <option value="GK">Greek</a>
+						  <option value="VL">Valor</a>
+						  <option value="OT">Other</a>
 						</select>
 						&nbsp;=&nbsp;
+						
+
+					
 					<INPUT TYPE="hidden" name="view" value="campusList">
 					<input type="text" size=12 MAXLENGTH="200" name="searchstring">&nbsp;
+ <!-- 	
+					<script type="text/javascript">
+						searchstring = "**searchText**"
+					</script>
+				
+					<script type="text/javascript">						
+					if (searchstring == null) 
+					{
+ 					    if (searchby == "AA") 
+						{
+						<a href="Javascript: document.searchForm.submit()" onMouseOut="changeImages('headersearch','/images/search_boff.gif')" onMouseOver="changeImages('headersearch','/images/search_bon.gif')"><img name="headersearch" border="0" src="/images/search_boff.gif"></a>
+							searchstring = "Athletes in Action"
+							searchText = "**searchText**"
+						}
+					}
+					</script>
+-->					
+			
 					</FONT>
 						<a href="Javascript: document.searchForm.submit()" onMouseOut="changeImages('headersearch','/images/search_boff.gif')" onMouseOver="changeImages('headersearch','/images/search_bon.gif')"><img name="headersearch" border="0" src="/images/search_boff.gif"></a>
 					<!-- <a href="Javascript:document.simplesearch.submit()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('simplesearchimage','','/ib/images/search_bon.gif',1)"><img name="simplesearchimage" border="0" src="/ib/images/search_boff.gif"></a> -->
