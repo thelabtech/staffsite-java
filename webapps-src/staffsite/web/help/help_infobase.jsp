@@ -100,8 +100,8 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 <OL>
 <LI>In the upper right hand corner of the InfoBase main page there is a campus search feature. <P ALIGN="CENTER"><CENTER>
 <IMG SRC="./help_infobase/image010.jpg"></CENTER><P>
-<LI>If you click the "down" arrow in the first box, you can search for a campus by name, city, state, country, or zip. Select one by clicking on it.
-<LI>In the empty box to the left of the "Search" button, type the name, city, state, country or zip you would like to search for.  (For example, if you would like to search for all the campuses in Seattle, choose "city," then type "Seattle" in the empty box to the left of the "Search" button.
+<LI>If you click the "down" arrow in the first box, you can search for a campus by name, city, state, country, or zip as well as by movements. Select one by clicking on it.
+<LI>If you chose to search by movement you do not need to type anything into the search box.  For other searches in the empty box to the left of the "Search" button, type the name, city, state, country or zip you would like to search for.  (For example, if you would like to search for all the campuses in Seattle, choose "city," then type "Seattle" in the empty box to the left of the "Search" button.
 <LI>Click the "Search" button. A search results screen will appear containing a list of campuses that match the search criteria you have entered. (For example, if you entered Seattle as the city, all campuses in Seattle will be displayed.):<P ALIGN="CENTER"><CENTER>
 <IMG SRC="./help_infobase/image012.jpg"></CENTER><P>
 <LI>To display the details of a campus, click the name of the campus in the "Campus Name" column on the left.
