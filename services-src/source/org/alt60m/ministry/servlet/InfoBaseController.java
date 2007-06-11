@@ -450,6 +450,10 @@ public class InfoBaseController extends Controller {
             String targetAreaId = ctx.getInputString("targetareaid", true);
             String strategy = ctx.getInputString("strategy", true);
             String status = ctx.getInputString("status", true);
+//
+            String Url = ctx.getInputString("url", true);
+            results.putValue("url", Url);
+//
             results.putValue("referrer", referrer);
             results.putValue("activityid", activityId);
             results.putValue("targetareaid", targetAreaId);
@@ -1024,11 +1028,12 @@ public class InfoBaseController extends Controller {
             String strategy = ctx.getInputString("strategy", true);
             String status = ctx.getInputString("status", true);
             String periodBegin = ctx.getInputString("periodbegin", true);
+            String Url = ctx.getInputString("url", true);
 
             if("none".equals(targetAreaId)) {
             	throw new Exception("Didn't choose a target area.");
             }
-            InfoBaseTool.saveActivityCheck(localLevelId, targetAreaId, strategy, status, periodBegin, ctx.getProfileID());
+            InfoBaseTool.saveActivityCheck(localLevelId, targetAreaId, strategy, status, periodBegin, ctx.getProfileID(), Url);
             showTeam(ctx);
         } catch (ActivityExistsException e) {
         	ctx.setError(e.getMessage());
@@ -1087,6 +1092,9 @@ public class InfoBaseController extends Controller {
 			String status = null;
 			if (strategy.equalsIgnoreCase("CA"))
 				status = ctx.getInputString("status", true);
+	//		
+			String url = ctx.getInputString("url", true);
+	//		
 			InfoBaseTool ibt = new InfoBaseTool();
 			ibt.saveAddTeamToCampus(strategy, targetAreaId, localLevelId, periodBegin, ctx.getProfileID(), status);
             showTargetArea(ctx);
@@ -1135,12 +1143,16 @@ public class InfoBaseController extends Controller {
         try {
             String activityId = ctx.getInputString("activityid", true);
             String periodEnd = ctx.getInputString("datechanged", true);
+ //
+            String Url = ctx.getInputString("url", true);
+            log.debug("*** URL (Url) in saveEditActivity: " + Url );
+ //
             String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
             String updateOption = ctx.getInputString("updateoption", true);
 
-            InfoBaseTool.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"));
+            InfoBaseTool.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url);
             if (referrer.equals("targetarea"))
                 showTargetArea(ctx);
             else
@@ -1465,7 +1477,7 @@ public class InfoBaseController extends Controller {
 					activityHash.put("strategy", activity.getStrategy());
 					activityHash.put("strategyName", activity.getStrategyFullName());
 					activityHash.put("statusName", activity.getStatusFullName());
-//					activityHash.put("url", activity.getUrl());
+					activityHash.put("Url", activity.getUrl());
 					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
 					for (Staff staff : activity.getActivityContacts()) {
 						contacts.add(ObjectHashUtil.obj2hash(staff));
