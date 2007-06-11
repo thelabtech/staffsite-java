@@ -43,6 +43,8 @@ public class Activity extends DBIOEntity {
 	private String transUsername = "";
 	
 	private Status statusHistory;
+	
+	private String url = "";
 
 	private static Log log = LogFactory.getLog(Activity.class);
 
@@ -68,6 +70,7 @@ public class Activity extends DBIOEntity {
 		setMetadata("Strategy", "strategy", table);
 		setMetadata("TransUsername", "transUsername", table);
 		setMetadata("StatusHistory", "statusHistory", table);
+		setMetadata("Url", "url", table);
 
 		setAutodetectProperties(false);
 	}
@@ -184,6 +187,17 @@ public class Activity extends DBIOEntity {
 	public LocalLevel getLocalLevel() {
 		return new LocalLevel(fk_localLevelId);
 	}
+//==
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+//==
 
 	public LocalLevel getTeam() {
 		return getLocalLevel();
