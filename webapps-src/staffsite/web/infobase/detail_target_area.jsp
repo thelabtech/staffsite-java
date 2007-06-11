@@ -51,7 +51,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		thisActivity = ar.getHashtable(strategy.name());
 		
 		if (thisActivity != null) {
-	hasMovement = true;
+			hasMovement = true;
 %>
 			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
 				BGCOLOR="#D0DDEA">
@@ -63,7 +63,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 				<TR>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> <%=thisActivity.get("statusName")%>
 					</FONT><%=fontS%>[<A
-						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>">Change</A>]</FONT></TD>
+						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team Information:</B>&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%><A
@@ -72,7 +72,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 						src="/infobase/images/check.gif"></A></TD>
 				</TR>
 				<TR>
-					<TD COLSPAN="3"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>
+					<TD COLSPAN="1"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>
 					<%
 								contColl = (Collection) thisActivity
 								.get("contacts");
@@ -102,7 +102,15 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 								}
 					%>
 					</TD>
+<!--  -->
+					<TD COLSPAN="2" valign="top"><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B> <%=thisActivity.get("Url")%>
+							</FONT><%=fontS%>&nbsp&nbsp[<A
+  
+						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
+
+<!--  -->					
 				</TR>
+
 			</TABLE>
 			<br>
 			<%
