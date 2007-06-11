@@ -9,6 +9,7 @@ String strategy = new String (request.getParameter("strategy"));
 String currentTeamID = new String (request.getParameter("locallevelid"));
 String referrer = new String (request.getParameter("referrer"));
 String status = new String (request.getParameter("status"));
+String Url = new String (request.getParameter("url"));
 
 //expand name of the current strategy type
 String strategyName;
@@ -70,6 +71,8 @@ function setDefinition(setTo) {
 	<input type=hidden name="referrer" value=<%=referrer%>>
 	<input type=hidden name="locallevelid" value=<%=request.getParameter("locallevelid")%>>
 	<input type=hidden name="targetareaid" value=<%=request.getParameter("targetareaid")%>>
+  <!--  	<input type=hidden name="url" value=<%=request.getParameter("url") %>>
+ value=<%=request.getParameter("url")%>>  --> 
 	<input type=hidden name="from" value="editActivity">
 	
 	<%
@@ -151,12 +154,28 @@ function setDefinition(setTo) {
 						<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0"><TR><TD CLASS="definition"><%=font%><SPAN ID="definition">Move your mouse pointer over a <BR>capitalized word to see a short explanation.</SPAN></FONT></TD></TR></TABLE>
 			</TD>
 		</TR>
+		
+<!-- ***** -->
+<tr> 
+		<td nowrap align=left COLSPAN="2">
+			<%=fontB%><b>What date did this status change take place?</b></font>
+		</td>
+	</tr>
+<tr>
+		<td align=left COLSPAN="2">
+			<input type="text" name="datechanged" size="10" maxlength="10" onFocus="this.blur()" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>">
+			&nbsp;<%=fontB%>
+			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
+		</td>
+	</tr>
+<!-- ***** -->
 	<tr>
 		<td	align="left" COLSPAN="2">
 			<%=fontB%><b>To change the team that is responsible for this campus, select the name of the new team from this menu.</b>
 			</font>
 		</td>
 	</tr>
+
 	<tr>
 		<td nowrap align=left COLSPAN="2"><%=fontB%>
 			<select name="teamid">
@@ -176,6 +195,17 @@ function setDefinition(setTo) {
 			<%=fontB%><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
 		</td>
 	</tr>
+<!-- -->  
+	<tr> 
+		<td nowrap align=left COLSPAN="2">
+			<%=fontB%><b> URL: </b></font> &nbsp;&nbsp;  <input type="text" size=25 MAXLENGTH="256" name="url"  value="<%=Url%>">&nbsp;
+		</td>
+	</tr>
+ <!-- -->
+
+
+ 
+  <!--  
 	<tr> 
 		<td nowrap align=left COLSPAN="2">
 			<%=fontB%><b>If this strategy is becoming inactive, what date did/will this change take place?</b></font>
@@ -189,6 +219,7 @@ function setDefinition(setTo) {
 			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
 		</td>
 	</tr>
+	-->
 	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:document.updateActivityForm.submit()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
 	</table>
 	</form>
