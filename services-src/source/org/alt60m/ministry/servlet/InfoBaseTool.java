@@ -812,20 +812,21 @@ public class InfoBaseTool {
     }
 
 
-	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID) throws ActivityExistsException, Exception {
+	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID, String Url) throws ActivityExistsException, Exception {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
-			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin);
+			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);
 		} else {
 			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add a Staffed Campus or Catalytic strategy, most likely the campus you selected already has one of those two strategies active already.  To change it, go to that campus's page.");
 		}
 	}
 	
-	public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin) throws Exception {
-		saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, null);
+	public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String Url) throws Exception {
+		saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, null, Url);
 	}
 
-    public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileId) throws Exception {
+    public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileId, String Url) throws Exception {
         try {
+        	log.debug("***  URL coming into saveActivity: " + Url);
             Activity activity = new Activity();
             activity.setStrategy(strategy);
             activity.setStatus(status);
@@ -835,6 +836,7 @@ public class InfoBaseTool {
             activity.setTeam(team);
             activity.setTargetArea(target);
             activity.setTransUsername(profileId);
+            activity.setUrl(Url);
             activity.persist();
         }
         catch (Exception e) {
@@ -857,14 +859,16 @@ public class InfoBaseTool {
     }
 
     public static void saveEditActivity(String activityId, String periodEnd, String strategy, 
-    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    		String newStatus, String profileId, String newTeamId, String newUrl) throws Exception, ActivityExistsException {
     	try {
-    		if (checkForChange(newTeamId, newStatus, activityId)) {
+    		log.debug("***  URL coming into saveEditActivity: " + newUrl);
+    		
+    		if (checkForChange(newTeamId, newStatus, activityId, newUrl)) {
 				if (strategy.equals("SC") || strategy.equals("CA")) {
-					saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId);
+					saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
 				}
 				else {
-					saveEditActivityOther(activityId, periodEnd, strategy, newStatus, profileId, newTeamId);
+					saveEditActivityOther(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
 				}
     		}
     	}
@@ -875,8 +879,11 @@ public class InfoBaseTool {
     }
     
     private synchronized static void saveEditActivitySC(String activityId, String periodEnd, String strategy, 
-    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    		String newStatus, String profileId, String newTeamId, String Url) throws Exception, ActivityExistsException {
     	try {
+    		
+    		
+    		log.debug("***  URL coming into save Edit Activity SC: " + Url);
 	    	Activity oldActivity = new Activity(activityId);
 	    	
 	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
@@ -891,7 +898,7 @@ public class InfoBaseTool {
 	    			newStrategy = "CA";
 	    		}
 	    		if (!newStatus.equals("IN")) {
-	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), newStrategy, newStatus, periodEnd, profileId);
+	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), newStrategy, newStatus, periodEnd, profileId, Url);
 	    		}
 
 	    		// Deactivate old activity
@@ -910,15 +917,17 @@ public class InfoBaseTool {
     }
     
     private synchronized static void saveEditActivityOther(String activityId, String periodEnd, String strategy, 
-    		String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException {
+    		String newStatus, String profileId, String newTeamId, String Url) throws Exception, ActivityExistsException {
     	try {
+    		log.debug("***  URL coming into save Edit Activity Other: " + Url);
 	    	Activity oldActivity = new Activity(activityId);
+	    	
 	    	
 	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
 	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategy, activityId) ){
 	        	// Create new activity
 	    		if (!newStatus.equals("IN")) {
-	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId);
+	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId, Url);
 	    		}
 	    		
 	    		// Deactivate old activity
@@ -975,12 +984,12 @@ public class InfoBaseTool {
     	return checkDuplicateActiveActivity(targetAreaId, strategy, "0");
 	}
 
-    private static boolean checkForChange(String newTeamId, String newStatus, String oldActivityId) {
+    private static boolean checkForChange(String newTeamId, String newStatus, String oldActivityId, String newUrl) {
     	Activity oldActivity = new Activity(oldActivityId);
-    	return checkForChange(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus());
+    	return checkForChange(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(),  oldActivity);
     }
     
-    private static boolean checkForChange(String newTeamId, String oldTeamId, String newStatus, String oldStatus) {
+    private static boolean checkForChange(String newTeamId, String oldTeamId, String newStatus, String oldStatus, String newUrl, String oldUrl, Activity oldActivity) {
     	boolean change = false;
     	
     	// Check for team change
@@ -989,7 +998,21 @@ public class InfoBaseTool {
     	// check for status change
     	change = change || (!newStatus.equals(oldStatus));
     	
+    	
+    	/* check for a URL change only.  In that case we dont want to create a new activity 
+    	 * object we only want to update the URL on the existing activity object.
+    	 * If change == false (not set to be persisted) but the URL has changed then do an 
+    	 * update to the existing activity object to persist the URL change only. 
+    	 */
+    	if((change == false) && (!newUrl.equals(oldUrl))) {
+    		oldActivity.setUrl(newUrl);  //change just the URL
+    		oldActivity.persist();    //perist using Update()
+    		
+    	}
+    		
+    	
     	return change;
+ //  	return true;
     }
     
 /*    synchronized static public void saveEditActivity(String activityId, String periodEnd, String strategy, String newStatus, String profileId, String newTeamId) throws Exception, ActivityExistsException{
