@@ -70,6 +70,7 @@ if (! (h.get("ToolUser").equals("Granted") || h.get("Evaluator").equals("Granted
 				<li><a href="/hr_si/index.jsp" target="_blank">Online STINT/Internship Application</a></li>
 				<li><A HREF="/hr_si/opportunities.jsp" target='_blank'>Current STINT/Internship Opportunities</a></li>
 				<li><A HREF="http://www.thisiswhereilive.info" target='_blank'>WSN STINT Site</a></li>
+				<li><A HREF="https://sitrack.uscm.org/" target='_blank'>STINT Tracker</a></li>
 				</font></p><br>
 				
 				<p align='right'>
