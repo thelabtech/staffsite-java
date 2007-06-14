@@ -1093,7 +1093,7 @@ public class InfoBaseController extends Controller {
 			if (strategy.equalsIgnoreCase("CA"))
 				status = ctx.getInputString("status", true);
 	//		
-			String url = ctx.getInputString("url", true);
+	//		String url = ctx.getInputString("url", true);
 	//		
 			InfoBaseTool ibt = new InfoBaseTool();
 			ibt.saveAddTeamToCampus(strategy, targetAreaId, localLevelId, periodBegin, ctx.getProfileID(), status);
