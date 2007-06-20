@@ -26,7 +26,6 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<% box.setTitle("links for Campus Ministry Staff");	%>
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
-					  <TR><td><%=fontB%><a HREF="http://www.lxonline.org" target="_blank">LX - online newsletter for staff</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://lakehartstint.org" target="_blank">Lake Hart Stint</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://crupress.campuscrusadeforchrist.com" target="_blank">CruPress</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://centerfield.campuscrusadeforchrist.com" target="_blank">Centerfield Productions</a></td></tr>
@@ -34,7 +33,6 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a href="http://staff.campuscrusadeforchrist.com/gradstudy/" target="_blank">Graduate Study Program</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com" target="_blank">Institute of Biblical Studies - Orlando IBS 2006</a></td></tr>
 					  <TR><td><%=fontB%><a href="/leaving.jsp?url=https://www.ronblue.com/ccci/" target="_blank">Ronald Blue & Co - Access to your 403(b) Account</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.CampusStories.org" target="_blank">Campus Stories Site</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
 			<br>
@@ -42,19 +40,18 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
 					  <TR><td><%=fontB%><a HREF="http://www.campuscrusadeforchrist.com" target="_blank">Campus Ministry Public Website</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.godsquad.com/" target="_blank">Godsquad</a></td></tr>
+					  <TR><td><%=fontB%><a HREF="http://www.godsquad.com/" target="_blank">GodSquad</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.everystudent.com/" target="_blank">EveryStudent.com</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.escmedia.org/" target="_blank">Every&nbsp;Student's&nbsp;Choice</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.waymore.org" target="_blank">Way More (FSK Site)</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.studentlinc.com" target="_blank">StudentLINC</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.destinomovement.com" target="_blank">Destino Movement</a></td></tr>
   					<TR><td><%=fontB%><a HREF="http://www.mydestino.com" target="_blank">My Destino</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.epicmovement.com" target="_blank">Epic Movement</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.impactmovement.com" target="_blank">Impact Movement</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.4greeks.org" target="_blank">4greeks.org</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.ugoglobal.com" target="_blank">Ugoglobal.com</a></td></tr>						
+					  <TR><td><%=fontB%><a HREF="http://www.greekmovement.com" target="_blank">GreekMovement</a></td></tr>
+					  <TR><td><%=fontB%><a HREF="http://www.bridgesinternational.com" target="_blank">Bridges International</a></td></tr>
+					  <TR><td><%=fontB%><a HREF="http://www.ugoglobal.com" target="_blank">Ugoglobal.com (Midsouth WSN)</a></td></tr>						
 					  <TR><td><%=fontB%><a HREF="http://startingwithgod.com" target="_blank">StartingwithGod.com</a></td></tr>
-					  <TR><td><%=fontB%><a HREF=" http://www.leaderu.com/" target="_blank">CLM's Leadership University Website</a></td></tr>
+					  <TR><td><%=fontB%><a HREF=" http://www.leaderu.com/" target="_blank">CLM's Leadership University</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.collegeprep.org/" target="_blank">College Prep Seminars</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
