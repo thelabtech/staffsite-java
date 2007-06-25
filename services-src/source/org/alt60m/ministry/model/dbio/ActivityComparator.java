@@ -2,7 +2,14 @@ package org.alt60m.ministry.model.dbio;
 
 import java.util.*;
 
-
+/*
+ * Started to Refactor this for the ministry_activity changes on 6/15/07 but I really don't think
+ * anything even calls this any more.  If this gets used again eventually then this code may need
+ * more work.  As far as I can tell only LocalLevel.java calls this and that code has now
+ * commented out. It may not be worth the time to refactor this.  -MarkDavis
+ *
+ */
+ 
 public class ActivityComparator implements Comparator
 {
 
@@ -19,6 +26,10 @@ public class ActivityComparator implements Comparator
 		if (ta2 == null) { 
 			return -1;
 		}
+/*  The ActivityComparator  object is no longer being used.  If there is a need for this
+ *  code again refactored to use AcivityHistory DBIO object instead of the Activity DBIO 
+ *  object because that is where the PeriodEnd and PeriodBegin fields have been moved to.
+ *   
 
 		if(ta1.getName().compareToIgnoreCase(ta2.getName()) == 0)
 			if(act1.getPeriodEnd() == null)
@@ -42,7 +53,7 @@ public class ActivityComparator implements Comparator
 				return -1;
 			else
 				return 0;
-
+ */
 		return (ta1.getName().compareToIgnoreCase(ta2.getName()));
 	
 	}
