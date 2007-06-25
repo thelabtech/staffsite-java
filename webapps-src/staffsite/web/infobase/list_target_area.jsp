@@ -27,7 +27,7 @@
 			pageTitle = pageTitle + " Country:&nbsp;&nbsp;" + request.getParameter("searchstring");	
 		} else {
 //			pageTitle = pageTitle + " Country:&nbsp;&nbsp;" + request.getParameter("searchstring");
-			pageTitle = pageTitle + " Movement:&nbsp;&nbsp;" + request.getParameter("searchby");
+			pageTitle = pageTitle + " a movement search";  // + request.getParameter("searchby");
 		}
 	
 	%>
