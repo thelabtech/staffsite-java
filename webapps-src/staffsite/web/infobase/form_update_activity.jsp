@@ -155,7 +155,7 @@ function setDefinition(setTo) {
 			</TD>
 		</TR>
 		
-<!-- ***** -->
+
 <tr> 
 		<td nowrap align=left COLSPAN="2">
 			<%=fontB%><b>What date did this status change take place?</b></font>
@@ -168,7 +168,7 @@ function setDefinition(setTo) {
 			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
 		</td>
 	</tr>
-<!-- ***** -->
+
 	<tr>
 		<td	align="left" COLSPAN="2">
 			<%=fontB%><b>To change the team that is responsible for this campus, select the name of the new team from this menu.</b>
@@ -195,31 +195,17 @@ function setDefinition(setTo) {
 			<%=fontB%><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
 		</td>
 	</tr>
-<!-- -->  
+<!-- URL -->  
 	<tr> 
 		<td nowrap align=left COLSPAN="2">
 			<%=fontB%><b> URL: </b></font> &nbsp;&nbsp;  <input type="text" size=25 MAXLENGTH="256" name="url"  value="<%=Url%>">&nbsp;
 		</td>
 	</tr>
- <!-- -->
+
 
 
  
-  <!--  
-	<tr> 
-		<td nowrap align=left COLSPAN="2">
-			<%=fontB%><b>If this strategy is becoming inactive, what date did/will this change take place?</b></font>
-		</td>
-	</tr>
-
-	<tr>
-		<td align=left COLSPAN="2">
-			<input type="text" name="datechanged" size="10" maxlength="10" onFocus="this.blur()" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>">
-			&nbsp;<%=fontB%>
-			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
-		</td>
-	</tr>
-	-->
+ 
 	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:document.updateActivityForm.submit()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
 	</table>
 	</form>
