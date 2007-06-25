@@ -34,15 +34,11 @@ public class Activity extends DBIOEntity {
 
 	private Status status;
 
-	private Date periodEnd = null;
-
-	private Date periodBegin = null;
-
 	private Strategy strategy;
 
 	private String transUsername = "";
 	
-	private Status statusHistory;
+//	private Status statusHistory;
 	
 	private String url = "";
 
@@ -60,16 +56,11 @@ public class Activity extends DBIOEntity {
 		String table = "ministry_activity";
 
 		setMetadata("ActivityId", "ActivityID", "IDENTITY");
-
 		setMetadata("LocalLevelId", "fk_teamID", table);
 		setMetadata("TargetAreaId", "fk_targetAreaID", table);
-
 		setMetadata("Status", "status", table);
-		setMetadata("PeriodBegin", "periodBegin", table);
-		setMetadata("PeriodEnd", "periodEnd", table);
 		setMetadata("Strategy", "strategy", table);
 		setMetadata("TransUsername", "transUsername", table);
-		setMetadata("StatusHistory", "statusHistory", table);
 		setMetadata("Url", "url", table);
 
 		setAutodetectProperties(false);
@@ -102,38 +93,6 @@ public class Activity extends DBIOEntity {
 		return (Status.IN != status);
 	}
 
-	public Date getPeriodEnd() {
-		return periodEnd;
-	}
-
-	public void setPeriodEnd(Date periodEnd) {
-		this.periodEnd = org.alt60m.util.DateUtils.clearTimeFromDate(periodEnd);
-	}
-
-	public Date getPeriodBegin() {
-		return periodBegin;
-	}
-
-	public void setPeriodBegin(Date periodBegin) {
-		this.periodBegin = org.alt60m.util.DateUtils
-				.clearTimeFromDate(periodBegin);
-	}
-
-	public void setPeriodEndString(String periodEnd) {
-		try {
-			this.periodEnd = dateFormat.parse(periodEnd);
-		} catch (ParseException e) {
-			log.error(e, e);
-		}
-	}
-
-	public void setPeriodBeginString(String periodBegin) {
-		try {
-			this.periodBegin = dateFormat.parse(periodBegin);
-		} catch (ParseException e) {
-			log.error(e, e);
-		}
-	}
 
 	public String getStrategy() {
 		if (strategy == null) {
@@ -187,7 +146,6 @@ public class Activity extends DBIOEntity {
 	public LocalLevel getLocalLevel() {
 		return new LocalLevel(fk_localLevelId);
 	}
-//==
 
 	public String getUrl() {
 		return url;
@@ -197,7 +155,6 @@ public class Activity extends DBIOEntity {
 		this.url = url;
 	}
 	
-//==
 
 	public LocalLevel getTeam() {
 		return getLocalLevel();
@@ -286,20 +243,5 @@ public class Activity extends DBIOEntity {
 
 	public String getColumnName(String foo) {
 		return "";
-	}
-
-	public String getStatusHistory() {
-		if (statusHistory == null) {
-			return null;
-		}
-		return statusHistory.toString();
-	}
-
-	public String getStatusHistoryFullName() {
-		return statusHistory.getName();
-	}
-
-	public void setStatusHistory(String statusHistory) {
-		this.statusHistory = Status.valueOf(statusHistory);
 	}
 }
