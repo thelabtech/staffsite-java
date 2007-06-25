@@ -18,6 +18,7 @@ import java.util.Vector;
 import org.alt60m.ministry.ActivityExistsException;
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
+import org.alt60m.ministry.model.dbio.ActivityHistory;
 import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.NonCccMin;
 import org.alt60m.ministry.model.dbio.OldAddress;
@@ -765,18 +766,28 @@ public class InfoBaseTool {
     public void saveAddTeamToCampus(String strategy, String targetAreaId, String localLevelId, String periodBegin, String profileId, String status) throws Exception {
         try {
 			Activity activity = new Activity();
-            activity.setPeriodBegin(parseSimpleDate(periodBegin));
+			ActivityHistory activityHistory = new ActivityHistory();
+            
             TargetArea target = new TargetArea(targetAreaId);
             LocalLevel team = new LocalLevel(localLevelId);
             activity.setTransUsername(profileId);
             activity.setStrategy(strategy);
             activity.setTargetArea(target);
             activity.setTeam(team);
+            
             if (strategy.equalsIgnoreCase("CA"))
                 activity.setStatus(status);
             else
                 activity.setStatus("AC");
-			activity.persist();
+			activity.persist();				//persist ministry_activity row
+			//Build ActivityHistory state
+			activityHistory.setActivity_id(activity.getActivityId());
+			activityHistory.setToStatus(activity.getStatus());
+			activityHistory.setPeriodBegin(parseSimpleDate(periodBegin));
+            activityHistory.setTransUsername(profileId);
+            activityHistory.persist();		//persist ministry_activity_history row
+  
+			
         } catch (Exception e) {
             log.error("Failed to perform saveAddTeamToCampus().", e);
  			throw new Exception(e);
@@ -826,69 +837,99 @@ public class InfoBaseTool {
 
     public static void saveActivity(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileId, String Url) throws Exception {
         try {
-        	log.debug("***  URL coming into saveActivity: " + Url);
-            Activity activity = new Activity();
+
+            Activity activity = new Activity();							//Activity
+            
             activity.setStrategy(strategy);
             activity.setStatus(status);
-            activity.setPeriodBegin(parseSimpleDate(periodBegin));
+      
             LocalLevel team = new LocalLevel(localLevelId);
             TargetArea target = new TargetArea(targetAreaId);
             activity.setTeam(team);
             activity.setTargetArea(target);
             activity.setTransUsername(profileId);
-            activity.setUrl(Url);
+            activity.setUrl(Url);            
             activity.persist();
+            
+            // now persist the activity history details
+            saveActivityHistory(activity, status, periodBegin, profileId);
         }
         catch (Exception e) {
             log.error("Failed to perform saveActivity().", e);
  			throw new Exception(e);
         }
     }
-    
-    public static void deactivateActivity(Activity oldActivity, String periodEnd) throws Exception {
-    	try {
-			oldActivity.setStatusHistory(oldActivity.getStatus());
-			oldActivity.setStatus("IN");
-			oldActivity.setPeriodEnd(parseSimpleDate(periodEnd));
-			oldActivity.persist();
-    	}
-    	catch (Exception e) {
-    		log.error("Failed to perform deactivateActivity");
-    		throw new Exception(e);
-    	}
+    public static void saveActivityHistory(Activity activity, String status, String periodBegin, String profileId) throws Exception {
+        try {
+        	log.debug("*** saveActivityHistory.  ActivityID: " + activity.getActivityId());	
+        	
+            ActivityHistory activityHistory = new ActivityHistory();
+//		    String lastHistoryID = activityHistory.getLastActivityHistoryID(activity.getActivityId());
+		    String lastHistoryID = activityHistory.getLastActivityHistoryID(activity.getActivityId());
+	        activityHistory = new ActivityHistory(lastHistoryID);
+            String lastToStatus = activityHistory.getToStatus();
+            log.debug("*** saveActivityHistory:  lastToStatus: " + activityHistory.getToStatus());	
+        	deactivateOldHistory(activity.getActivityId(), periodBegin, profileId);  // update old history record
+        	
+            activityHistory.setPeriodBegin(parseSimpleDate(periodBegin));
+            activityHistory.setActivity_id(activity.getActivityId());
+            activityHistory.setTransUsername(activity.getTransUsername());
+            activityHistory.setToStatus(activity.getStatus()); 
+            activityHistory.setFromStatus(lastToStatus);
+            activityHistory.persist();									//persist new history record
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveActivityHistory().", e);
+ 			throw new Exception(e);
+        }
     }
+    public static void deactivateOldHistory(String activityID, String newPeriodBegin, String profileID) throws Exception {
+	   
+		    ActivityHistory lastActivityHistory = new ActivityHistory();     	    
+		    String lastHistoryID = lastActivityHistory.getLastActivityHistoryID(activityID);
+		    lastActivityHistory = new ActivityHistory(lastHistoryID); 
+		    lastActivityHistory.setPeriodEnd(parseSimpleDate(newPeriodBegin));  // set end date 
+		    lastActivityHistory.setTransUsername(profileID);					// person making change
+		    lastActivityHistory.persist();
 
+  	
+    }
+    
     public static void saveEditActivity(String activityId, String periodEnd, String strategy, 
     		String newStatus, String profileId, String newTeamId, String newUrl) throws Exception, ActivityExistsException {
     	try {
-    		log.debug("***  URL coming into saveEditActivity: " + newUrl);
-    		
-    		if (checkForChange(newTeamId, newStatus, activityId, newUrl)) {
-				if (strategy.equals("SC") || strategy.equals("CA")) {
-					saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
-				}
-				else {
-					saveEditActivityOther(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
-				}
-    		}
+    		checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId);
+
+    		//if (checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId)) {
+			//	if (strategy.equals("SC") || strategy.equals("CA")) {
+					
+			//		saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
+			//	}
+			//	else {
+			//		saveEditActivityOther(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
+			//	}
+    		//}
     	}
     	catch (Exception e) {
     		log.error("Failed to perform saveEditActivity().", e);
     		throw e;
     	}
     }
-    
+/*
+ * Removing this since the code doesnt do anything valid compared to saveEditActivitySC. (there
+ *  There will never be a status of "SC".  Also there will already be an Activity record so
+ *  a double click bug is meaningless here.  
+   
     private synchronized static void saveEditActivitySC(String activityId, String periodEnd, String strategy, 
     		String newStatus, String profileId, String newTeamId, String Url) throws Exception, ActivityExistsException {
     	try {
     		
-    		
-    		log.debug("***  URL coming into save Edit Activity SC: " + Url);
 	    	Activity oldActivity = new Activity(activityId);
 	    	
-	    	// Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
+	    	//** Make sure there isn't a new record there already!  (dratted IE6 double-click bug...)
 	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategy, activityId) ){
-	        	// Create new activity
+
+	    		// Create new activity
 	    		String newStrategy = null;
 	    		if (newStatus.equals("SC")) {
 	    			newStatus = "AC";
@@ -901,25 +942,30 @@ public class InfoBaseTool {
 	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), newStrategy, newStatus, periodEnd, profileId, Url);
 	    		}
 
-	    		// Deactivate old activity
+	    		// This has been replaced now by deactivateOldHistory
 	    		deactivateActivity(oldActivity, periodEnd);
 	    	}
-	    	else {
+	    	else 
 	    		// There's already a new Activity record.  Most likely this is a double-click bug.
 	    		log.warn("Possible double-click bug in ibt.saveEditActivity");
 	    		throw new ActivityExistsException("Strategy is already active for this target area.\n\nYou may also be receiving this error message if you double-clicked on the 'OK' button instead of single-clicked.  If that was the case, your change may have succeeded.");
-	    	}
+	    	 }
     	}
     	catch (Exception e) {
     		log.error("Failed to perform saveEditActivitySC()", e);
     		throw e;
     	}
     }
+     */ 
+    /*
+     * removing this code since it doesnt do anything any more under the new design of an Activity
+     * and an Activity History.  There will already be an Activity record so a double click but
+     * is meaningless here.
     
     private synchronized static void saveEditActivityOther(String activityId, String periodEnd, String strategy, 
     		String newStatus, String profileId, String newTeamId, String Url) throws Exception, ActivityExistsException {
     	try {
-    		log.debug("***  URL coming into save Edit Activity Other: " + Url);
+    		log.debug("***  saveEditActivityOther: ");
 	    	Activity oldActivity = new Activity(activityId);
 	    	
 	    	
@@ -927,11 +973,11 @@ public class InfoBaseTool {
 	    	if ( newStatus.equals("IN") || !checkDuplicateActiveActivity(oldActivity.getTargetAreaId(), strategy, activityId) ){
 	        	// Create new activity
 	    		if (!newStatus.equals("IN")) {
-	    			saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId, Url);
+	    			//saveActivity(newTeamId, oldActivity.getTargetAreaId(), strategy, newStatus, periodEnd, profileId, Url);
 	    		}
 	    		
-	    		// Deactivate old activity
-	    		deactivateActivity(oldActivity, periodEnd);
+	    		// This has been replaced now by deactivateOldHistory
+	    		//deactivateActivity(oldActivity, periodEnd, newStatus);
 	    	}
 	    	else {
 	    		// There's already a new Activity record.  This could be a double-click bug.
@@ -944,7 +990,7 @@ public class InfoBaseTool {
     		throw e;
     	}
     }
-    
+     */
     // Returns true if there is a duplicate activity
     private static boolean checkDuplicateActiveActivity(String targetAreaId, ArrayList<String> strategies, String notActivityId) throws Exception {
     	try {
@@ -984,31 +1030,55 @@ public class InfoBaseTool {
     	return checkDuplicateActiveActivity(targetAreaId, strategy, "0");
 	}
 
-    private static boolean checkForChange(String newTeamId, String newStatus, String oldActivityId, String newUrl) {
+    private static boolean checkAndPersistChanges(String newTeamId, String newStatus, String oldActivityId, String newUrl, String periodEnd, String profileId) {
     	Activity oldActivity = new Activity(oldActivityId);
-    	return checkForChange(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(),  oldActivity);
+    	return checkAndPersistChanges(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(),  oldActivity, periodEnd, profileId);
     }
     
-    private static boolean checkForChange(String newTeamId, String oldTeamId, String newStatus, String oldStatus, String newUrl, String oldUrl, Activity oldActivity) {
+    private static boolean checkAndPersistChanges(String newTeamId, String oldTeamId, 
+    		String newStatus, String oldStatus, String newUrl, String oldUrl, 
+    		Activity oldActivity, String periodEnd, String profileId)  {
     	boolean change = false;
     	
-    	// Check for team change
-    	change = !newTeamId.equals(oldTeamId);
-    	
-    	// check for status change
-    	change = change || (!newStatus.equals(oldStatus));
-    	
-    	
-    	/* check for a URL change only.  In that case we dont want to create a new activity 
-    	 * object we only want to update the URL on the existing activity object.
-    	 * If change == false (not set to be persisted) but the URL has changed then do an 
-    	 * update to the existing activity object to persist the URL change only. 
-    	 */
-    	if((change == false) && (!newUrl.equals(oldUrl))) {
-    		oldActivity.setUrl(newUrl);  //change just the URL
-    		oldActivity.persist();    //perist using Update()
-    		
+    	if (!newTeamId.equals(oldTeamId)){
+    		LocalLevel team = new LocalLevel(newTeamId);
+    		oldActivity.setTeam(team);
+    		change = true;
     	}
+  
+    	if(!newStatus.equals(oldStatus)) {
+    		try {
+    			deactivateOldHistory(oldActivity.getActivityId(), periodEnd, profileId);  
+    		 
+    		}catch (Exception e) {
+                log.error("CheckForChange:   Failed to deactivateOldHistory().", e);
+     			//throw new Exception(e);  //No need to rethrow the exception.  Not critical.
+            }
+    		oldActivity.setStatus(newStatus);  //set the new status in the Activity record
+    		change = true;
+    		ActivityHistory activityHistory = new ActivityHistory();
+    		String oldestActHistID = activityHistory.getLastActivityHistoryID(oldActivity.getActivityId());
+    		ActivityHistory oldestActivityHistory = new ActivityHistory(oldestActHistID);
+    		
+    		activityHistory.setFromStatus(oldestActivityHistory.getToStatus());
+    		activityHistory.setActivity_id(oldActivity.getActivityId());
+    		activityHistory.setToStatus(oldActivity.getStatus());   //save the new status history
+    		//activityHistory.setPeriodBegin(parseSimpleDate(periodBegin));
+    		activityHistory.setPeriodBegin(new Date());
+    		//activityHistory.setPeriodEnd(periodEnd);
+    		//activityHistory.setPeriodEndString(periodEnd);
+            activityHistory.setTransUsername(profileId);
+            activityHistory.persist();		
+    	}
+    	
+    	
+    	if(!newUrl.equals(oldUrl)) {
+    		oldActivity.setUrl(newUrl);
+    		change = true;
+    	}
+    	
+    	if(change) 					//Did  status, team or url change?
+    		oldActivity.persist();  //there were changes so persist them
     		
     	
     	return change;
