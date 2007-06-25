@@ -278,6 +278,7 @@ public class InfoBaseQueries {
 		return ta.selectList("UPPER(name) like '%"+name.toUpperCase()+"%' "
 				+ "and (isClosed<> 'T' or isClosed is NULL) and isSecure = 'F' ORDER BY name");
 	}
+
 	public static Vector getNonSecureTargetAreasByCity(String city) {
 		TargetArea ta = new TargetArea();
 		return ta.selectList("UPPER(city) like '%"+city.toUpperCase()+"%' "
