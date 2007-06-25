@@ -450,10 +450,9 @@ public class InfoBaseController extends Controller {
             String targetAreaId = ctx.getInputString("targetareaid", true);
             String strategy = ctx.getInputString("strategy", true);
             String status = ctx.getInputString("status", true);
-//
             String Url = ctx.getInputString("url", true);
+
             results.putValue("url", Url);
-//
             results.putValue("referrer", referrer);
             results.putValue("activityid", activityId);
             results.putValue("targetareaid", targetAreaId);
@@ -1092,7 +1091,7 @@ public class InfoBaseController extends Controller {
 			String status = null;
 			if (strategy.equalsIgnoreCase("CA"))
 				status = ctx.getInputString("status", true);
-	//		
+	//		Not needed here?
 	//		String url = ctx.getInputString("url", true);
 	//		
 			InfoBaseTool ibt = new InfoBaseTool();
@@ -1143,10 +1142,10 @@ public class InfoBaseController extends Controller {
         try {
             String activityId = ctx.getInputString("activityid", true);
             String periodEnd = ctx.getInputString("datechanged", true);
- //
+
             String Url = ctx.getInputString("url", true);
             log.debug("*** URL (Url) in saveEditActivity: " + Url );
- //
+
             String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
