@@ -190,7 +190,7 @@ int curr_tab = 3; %>
 		<tr>
 			<td valign="center" align="center"><a href="
 				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://sp.campuscrusadeforchrist.com" : "http://sp.int.uscm.org" %>"><img src="/images/logo_allsp.gif"></a></td>
+						"http://sp.campuscrusadeforchrist.com/admin" : "http://sp.int.uscm.org/admin" %>"><img src="/images/logo_allsp.gif"></a></td>
 			<td>
 				<!--
 			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
