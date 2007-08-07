@@ -1,29 +1,27 @@
 package org.alt60m.servlet;
 
-import java.util.*;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.*;
-import java.net.InetAddress;
+import java.lang.reflect.Method;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.*;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.joran.JoranConfigurator;
 import org.apache.log4j.spi.LoggerRepository;
-import org.apache.log4j.xml.DOMConfigurator;
-import org.alt60m.util.LogHelper;
 
 /**
  * Defines functionality common to web controllers.
  *
  */
 public abstract class Controller extends HttpServlet {
-
-	private final int MAX_HISTORY_SIZE = 15;
 
 	protected Log log = LogFactory.getLog(this.getClass());
 
@@ -317,9 +315,13 @@ public abstract class Controller extends HttpServlet {
 		initViews(_viewsFile);
 	}
 	public void setLog4JConfigFile(String logConfFile) {
+		try {
 		JoranConfigurator configurator = new JoranConfigurator();
 		LoggerRepository repository = LogManager.getLoggerRepository();
 		configurator.doConfigure(logConfFile, repository);
+		} catch (NoClassDefFoundError e) {
+			//ignore
+		}
 
 	}
 
