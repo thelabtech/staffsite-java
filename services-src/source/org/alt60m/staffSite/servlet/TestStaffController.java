@@ -201,7 +201,7 @@ public class TestStaffController extends Controller {
 			} else {
 				profileHash.put("region", "");
 			}
-			
+
 			log.debug("Profile: " + profileHash);
 
 			ctx.setSessionValue("loggedIn", profileId);
@@ -622,7 +622,7 @@ public class TestStaffController extends Controller {
 	 *	Notes: because the password is stored separately from the user info, we can delete
 	 *			and recreate the secant user account without affecting the user profile
 	 */
-	public void resetPassword(ActionContext ctx) throws javax.transaction.SystemException{
+	public void resetPassword(ActionContext ctx) {
 		Hashtable tub = new Hashtable();
 		String ErrorMsg = "";
 		String ResultMsg = "";
@@ -902,7 +902,7 @@ public class TestStaffController extends Controller {
 				results.putValue("section", section);
 				results.putValue("username", "cccstaff");
 				results.putValue("password", "vonette");
-								
+
 
 			} else {
 				// Who knows?

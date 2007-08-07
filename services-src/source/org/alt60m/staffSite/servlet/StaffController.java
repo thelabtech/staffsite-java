@@ -1,7 +1,6 @@
 package org.alt60m.staffSite.servlet;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -50,14 +49,14 @@ import org.alt60m.util.ObjectHashUtil;
 
 /**
  * Staff Controller 5/14/01 - Refactored to Controller2 by MDP
- * 
+ *
  * @author Mat Weiss
- * 
+ *
  */
 public class StaffController extends Controller {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -94,9 +93,9 @@ public class StaffController extends Controller {
 	final String PREF_ENABLE_SSO_KEEP_ASKING = "Ask";
 
 	String proxyUrlSuffix;
-	
+
 	public String logoutCallbackSuffix;
-	
+
 	/*
 	 * CODE TO CAPTURE HR INFO UPON LOGIN Added by S. Paulis 7/2005
 	 */
@@ -132,7 +131,7 @@ public class StaffController extends Controller {
 	private Hashtable usersRoles = new Hashtable();
 
 	private Hashtable HRQueryUsersRoles = new Hashtable();
-	
+
 	private CASHelper helper = new CASHelper();
 	;
 
@@ -143,7 +142,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * @author matthew.drees
-	 * 
+	 *
 	 * Intended to be bound to a session, and hold the CAS ticket(s) that have
 	 * authenticated the session. On the session's invalidation, it will remove
 	 * all of its associated tickets from the authenticatedSessions container.
@@ -196,7 +195,7 @@ public class StaffController extends Controller {
 			}
 
 			DBConnectionFactory.setupPool();
-			
+
 			_profileManager = new ProfileManager();
 			_preferences = new UserPreferences();
 			_encryptedPreferences = new EncryptedPreferences();
@@ -209,9 +208,9 @@ public class StaffController extends Controller {
 			CASAuthenticator.init(config.getServletContext());
 
 			helper.init(config, "/servlet/StaffController");
-			
+
 			ConnexionBar.setCasHelper(helper);
-			
+
 			log.info("init() completed.  Ready for action.");
 		} catch (Exception e) {
 			log.fatal("init() failed", e);
@@ -247,7 +246,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: Reload
-	 * 
+	 *
 	 */
 	public void reload(ActionContext ctx) {
 		HttpServletRequest req = ctx.getRequest();
@@ -268,7 +267,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: enterSite
-	 * 
+	 *
 	 */
 	public void enterSite(ActionContext ctx) {
 		// ??
@@ -345,7 +344,7 @@ public class StaffController extends Controller {
 
 	public void logInGCX(ActionContext ctx) {
 		try {
-			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?" 
+			String gcxLoginURL = CASAuthenticator.CAS_LOGIN_URL + "?"
 			+ "service=" + URLEncoder.encode(helper.getService(ctx.getRequest()), "UTF-8")
 			+ "&" + "logoutCallback=" + URLEncoder.encode(helper.getLogoutCallbackService(ctx.getRequest()), "UTF-8");
 
@@ -377,7 +376,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: logIn
-	 * 
+	 *
 	 */
 
 	public void logIn(ActionContext ctx) throws IOException {
@@ -484,7 +483,7 @@ public class StaffController extends Controller {
 			if (userName.indexOf("@") == -1)
 				userName += MAIL_SUFFIX;
 			password = ctx.getInputString("Password", true);
-			
+
 
 			// Authenticate based on credentials
 			log.debug("username: " + userName);
@@ -626,7 +625,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showOccasions
-	 * 
+	 *
 	 */
 	public void showOccasions(ActionContext ctx) {
 		ctx.goToView("occasions");
@@ -634,7 +633,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showCustomize
-	 * 
+	 *
 	 */
 	public void showCustomize(ActionContext ctx) {
 		ctx.goToView("customize");
@@ -642,7 +641,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: Customize
-	 * 
+	 *
 	 */
 	public void Customize(ActionContext ctx) {
 		// String accountNo = (String) ctx.getProfile().get("AccountNo");
@@ -686,7 +685,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: AddUser
-	 * 
+	 *
 	 */
 	public void AddUser(ActionContext ctx) {
 		// administration of users accounts in system
@@ -925,7 +924,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: changePassword
-	 * 
+	 *
 	 */
 	public void changePassword(ActionContext ctx) {
 		Hashtable<String, String> tub = new Hashtable<String, String>();
@@ -999,8 +998,7 @@ public class StaffController extends Controller {
 	/**
 	 * Reset the password for the given username.
 	 */
-	public void resetPassword(ActionContext ctx)
-			throws javax.transaction.SystemException {
+	public void resetPassword(ActionContext ctx){
 		Hashtable<String, String> tub = new Hashtable<String, String>();
 		String ErrorMsg = "";
 		String ResultMsg = "";
@@ -1050,7 +1048,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: listUsers
-	 * 
+	 *
 	 */
 	public void listUsers(ActionContext ctx) {
 		Hashtable<String, String> tub = new Hashtable<String, String>();
@@ -1082,7 +1080,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: captureHRinfo - CODE TO CAPTURE HR INFO UPON LOGIN
-	 * 
+	 *
 	 */
 	public void captureHRinfo(ActionContext ctx) {
 		try {
@@ -1139,7 +1137,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showTools
-	 * 
+	 *
 	 */
 	public void showTools(ActionContext ctx) {
 		try {
@@ -1165,7 +1163,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showUserAdmin
-	 * 
+	 *
 	 */
 	public void showUserAdmin(ActionContext ctx) {
 		Hashtable tub = new Hashtable();
@@ -1175,7 +1173,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showHome
-	 * 
+	 *
 	 */
 	public void showHome(ActionContext ctx) {
 		ctx.goToView("home");
@@ -1183,7 +1181,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: showMPD
-	 * 
+	 *
 	 */
 	public void showMPD(ActionContext ctx) {
 		try {
@@ -1206,7 +1204,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: loginStaffWeb
-	 * 
+	 *
 	 */
 	public void loginStaffWeb(ActionContext ctx) {
 
@@ -1266,7 +1264,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: loginStaffResources
-	 * 
+	 *
 	 */
 	public void loginStaffResources(ActionContext ctx) {
 
@@ -1308,7 +1306,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: loginPS
-	 * 
+	 *
 	 */
 	public void loginPS(ActionContext ctx) {
 
@@ -1471,7 +1469,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: setupPS
-	 * 
+	 *
 	 */
 	public void setupPS(ActionContext ctx) {
 
@@ -1532,7 +1530,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: setupEmail
-	 * 
+	 *
 	 */
 	public void setupEmail(ActionContext ctx) {
 		try {
@@ -1613,7 +1611,7 @@ public class StaffController extends Controller {
 
 	/**
 	 * Action: loginEmail
-	 * 
+	 *
 	 */
 	public void loginEmail(ActionContext ctx) {
 		String goToView = "";
@@ -1792,12 +1790,12 @@ public class StaffController extends Controller {
 	private String getHomeUrl(HttpServletRequest request) {
 		return helper.getService(request) + "?action=showHome";
 	}
-	
+
 	public void clearConnexionBarCache(ActionContext ctx) {
 		ConnexionBar.clearCache();
 	}
-	
-	
+
+
 	public static void recordLocation(HttpServletRequest request) {
 		//The following is done to make this work on both Tomcat 4 and Tomcat 5.5
 		StringBuffer location;
@@ -1805,17 +1803,17 @@ public class StaffController extends Controller {
 		String locationStr = (String) request.getAttribute("javax.servlet.forward.request_uri");
 		if (locationStr == null)
 			// in Tomcat 4 this works (in Tomcat 5, this will return the path to this jsp; not what we want):
-			location = request.getRequestURL();	
+			location = request.getRequestURL();
 		else
 			location = new StringBuffer(locationStr);
-		
+
 		//same reasoning as above
 		String queryString = (String) request.getAttribute("javax.servlet.forward.query_string");
 		if (queryString == null)
 			queryString = request.getQueryString();
 		if (queryString != null)
 			location.append('?').append(queryString);
-		
+
 		HttpSession session = request.getSession();
 		session.setAttribute("onLogInGoto", location.toString());
 	}
