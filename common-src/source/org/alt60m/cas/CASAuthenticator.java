@@ -14,32 +14,31 @@ import javax.servlet.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.*;
 
 /**
  * @author justin.sabelko
  *
- * 
- * 
+ *
+ *
  */
 public class CASAuthenticator {
-	private static Log log = LogFactory.getLog(CASAuthenticator.class); 
-	
+	private static Log log = LogFactory.getLog(CASAuthenticator.class);
+
 	public static final String CAS_TICKET_TOKEN = "ticket";
 
-	public static String CAS_LOGIN_URL; 
+	public static String CAS_LOGIN_URL;
 
 	public static String CAS_LOGOUT_URL;
 
 	private static String CAS_VALIDATION_URL;
-	
+
 	public static String CAS_VERIFICATION_URL;
-	
+
 	public static Boolean REQUEST_PROXY_GRANTING_TICKET;
 
 	public static void init(ServletContext app) throws ServletException
 	{
-		
+
         CAS_LOGIN_URL =(String) app.getInitParameter("CasLoginURL");
         if (CAS_LOGIN_URL == null)
 			throw new ServletException("need parameter CasLoginURL");
@@ -47,21 +46,21 @@ public class CASAuthenticator {
 		CAS_LOGOUT_URL = (String) app.getInitParameter("CasLogoutURL");
 		if (CAS_LOGOUT_URL == null)
 			throw new ServletException("need parameter CasLogoutURL");
-        
+
         CAS_VALIDATION_URL = (String) app.getInitParameter("CasValidationURL");
 		if (CAS_VALIDATION_URL == null)
 			throw new ServletException("need parameter CasValidationURL");
-          
+
 		CAS_VERIFICATION_URL = (String) app.getInitParameter("CasVerificationURL");
 		if (CAS_VERIFICATION_URL == null)
 			throw new ServletException("need parameter CasVerificationURL");
-        
+
 		REQUEST_PROXY_GRANTING_TICKET = Boolean.parseBoolean(app.getInitParameter("RequestProxyGrantingTicket"));
 		if (REQUEST_PROXY_GRANTING_TICKET == null) {
 			REQUEST_PROXY_GRANTING_TICKET = false;
 		}
 	}
-	
+
 
 	/**
 	 * @param cas_staffsite_service2
@@ -71,15 +70,15 @@ public class CASAuthenticator {
 	 */
 	public static CASUser authenticate(String service, String proxyCallback, String ticket) throws NotAuthenticatedException {
 		CASUser result = null;
-		
+
 		String user = null;
 		String errorCode = null;
 		String errorMessage = null;
 		String xmlResponse = null;
-		 
+
 		// instantiate a new ServiceTicketValidator
 		ServiceTicketValidator sv = new ServiceTicketValidator();
-		
+
 		// TODO: for testing, don't request proxy (for connexion bar); our
 		// localhosts don't have https set up.
 		// In the future, we ought to. However...still might not be able to
@@ -90,15 +89,15 @@ public class CASAuthenticator {
 		} else {
 			log.debug("Not requesting PGT");
 		}
-			
+
 		// set its parameters
 		sv.setCasValidateUrl(CAS_VALIDATION_URL);
 		sv.setService(service);
 		sv.setServiceTicket(ticket);
-		
+
 		log.debug("Validating ticket: " + ticket);
 		log.debug("For service: " + service);
-		
+
 		try {
 			// contact CAS and validate
 			sv.validate();
@@ -109,7 +108,7 @@ public class CASAuthenticator {
 		} catch (ParserConfigurationException e) {
 			log.error(e.getMessage(), e);
 		}
-		 
+
 		// if we want to look at the raw response, we can use getResponse()
 		xmlResponse = sv.getResponse();
 		log.debug(xmlResponse);
@@ -124,8 +123,8 @@ public class CASAuthenticator {
 		    // handle the error
 		    throw new NotAuthenticatedException(errorCode, errorMessage);
 		}
-		
+
 		return result;
 	}
-		
+
 }
