@@ -2,20 +2,23 @@
 
 package org.alt60m.cms.test;
 
-import org.alt60m.cms.util.CmsInfo;
+import java.util.Collection;
+import java.util.Iterator;
+
+import junit.framework.TestCase;
+
 import org.alt60m.cms.model.Category;
 import org.alt60m.cms.model.File;
-import junitx.framework.*;
-import java.util.*;
+import org.alt60m.cms.util.CmsInfo;
 
 
 /**
  * @stereotype test
  * @testedclass <{CmsInfo}>
  */
-public class TestCmsInfo extends PrivateTestCase {
-	
-	
+public class TestCmsInfo extends TestCase {
+
+
     /**
      * constructor.
      * @param    aName     a test name
