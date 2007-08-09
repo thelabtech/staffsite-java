@@ -55,7 +55,6 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a href="http://studentventure.com/" target="_blank">Student Venture</a></td></tr>
 					  <tr><td><%=fontB%><a href="http://gocampus.org/" target="_blank">Student Venture's Coaching Center</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.collegeprep.org/" target="_blank">College Prep Seminars</a></td></tr>
-					  <tr><td><%=fontB%><a href="http://liveabove.com/" target="_blank">LiveAbove.com</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
 		</td>
@@ -82,6 +81,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
 					  <TR><td><%=fontB%><a href="/leaving.jsp?url=http://www.268generation.com/enter_random.htm" target="_blank">Passion Conferences</a></td></tr>
+					  <tr><td><%=fontB%><a href="http://liveabove.com/" target="_blank">LiveAbove.com</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
 			<p>
