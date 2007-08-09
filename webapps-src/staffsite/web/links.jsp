@@ -31,7 +31,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a href="http://centerfield.campuscrusadeforchrist.com" target="_blank">Centerfield Productions</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://staff.campuscrusadeforchrist.com/seminary/" target="_blank">Seminary Partnerships</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://staff.campuscrusadeforchrist.com/gradstudy/" target="_blank">Graduate Study Program</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com" target="_blank">Institute of Biblical Studies - Orlando IBS 2006</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com" target="_blank">Institute of Biblical Studies</a></td></tr>
 					  <TR><td><%=fontB%><a href="/leaving.jsp?url=https://www.ronblue.com/ccci/" target="_blank">Ronald Blue & Co - Access to your 403(b) Account</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
