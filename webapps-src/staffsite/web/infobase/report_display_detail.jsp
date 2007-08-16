@@ -72,7 +72,7 @@
   region = tars.getString(2);
 
   String qry = "SELECT ministry_activity.ActivityID, ministry_activity.strategy, " + 
-  	"ministry_activity.status, ministry_activity.periodBegin as activityPeriodBegin, ministry_activity.periodEnd as activityPeriodEnd, ministry_statistic.* ";
+  	"ministry_activity.status, ministry_activity.periodBegin as activityPeriodBegin, ministry_statistic.* ";
   qry += "FROM ministry_statistic INNER JOIN ministry_activity ON ministry_statistic.fk_activity = ministry_activity.activityid ";
   qry += "WHERE ministry_activity.strategy in (" + qStrategyList + ") ";
   qry += "AND ministry_statistic.periodend < '" + periodEnd + "' ";
@@ -130,12 +130,12 @@
     	String status = rs. getString("status");
     	int activityID = rs.getInt("ActivityID");
     	Date activityPeriodbegin = rs.getDate("activityPeriodBegin");
-	    Date activityPeriodend = rs.getDate("activityPeriodEnd");
+//	    Date activityPeriodend = rs.getDate("activityPeriodEnd");
 	    
     	//print header
 	    String title = Strategy.valueOf(strategy).getName();
 	    if (status.equals("IN")) {
-	    	title += " (active from " + activityPeriodbegin + " to " + activityPeriodend + ")";
+	    	title += " (active starting from " + activityPeriodbegin + ")"; // to " + activityPeriodend + ")";
 	    } 
 	    %>
 	    
