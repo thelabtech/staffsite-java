@@ -210,7 +210,7 @@
 			 - <%= Strategy.valueOf(sums.getString("strategy")).getName() %>
 			<% if (sums.getString("status").equals("IN")) {
 				%> 
-				(active from <%=sums.getDate("periodBegin") %> to <%=sums.getDate("periodEnd") %>)
+				(active starting at <%=sums.getDate("periodBegin") %>)<!-- to <%=//sums.getDate("periodEnd") %>) -->
 				<%
 			}
 			%>
