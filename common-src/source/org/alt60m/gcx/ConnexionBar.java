@@ -107,8 +107,8 @@ public class ConnexionBar {
 
 		String content = null;
 		//TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
-		String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
-		String barService = "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
+		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
+		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
 		// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
 		String signinService = "signin.mygcx.org";
 		try {
@@ -150,12 +150,20 @@ public class ConnexionBar {
 
 			String received = proxyCon.getURL(barService, proxyticket);
 			if (proxyCon.wasSuccess() && received != null) {
-				content = received;
+				content = parseBar(received);
+				
 			} else {
 				//TODO: retry with real service url?
 				log.error("Connection failed: " + proxyCon.getError());
 			}
 		}
 		return content;
+	}
+	
+	//Remove XML tags from beginning and end of bar
+	private static String parseBar(String bar) {
+		String resultPlusEnd = (bar.split("<reportdata>",2))[1];
+		String result = (resultPlusEnd.split("</reportdata>",2))[0];
+		return result;
 	}
 }
