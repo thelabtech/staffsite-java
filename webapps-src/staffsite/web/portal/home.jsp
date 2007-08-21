@@ -27,38 +27,6 @@
 //	homePageArticlesToDisplay = (String)session.getValue("homePageArticlesToDisplay");
 //	regionalNews = (String)session.getValue("regionalNews");
 %>
-   	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
-				<script>
-				function ibsearch() {
-					if (document.ibsearch.search[0].checked) {
-						document.ibstaff.searchtext.value = document.ibsearch.query.value;
-						document.ibstaff.submit();
-					}
-					if (document.ibsearch.search[1].checked) {
-						document.ibcampus.searchstring.value = document.ibsearch.query.value;
-						document.ibcampus.submit();
-					}
-				}
-				</script>
-				<script>
-					function miscsearch() {
-						if (document.miscsearch.search[0].checked) {
-							document.google.q.value = document.miscsearch.query.value;
-							document.google.submit();
-						}
-						if (document.miscsearch.search[1].checked) {
-							document.gospelcom.search.value = document.miscsearch.query.value;
-							document.gospelcom.submit();
-						}
-					}
-				</script>
 <%@ include file="/header.jspf" %>
 <% region = (String)profile.get("region"); %>
 <% try { %>
@@ -144,6 +112,18 @@
 				<%=box.printBottom()%>
 				</form>
 
+				<script>
+				function ibsearch() {
+					if (document.ibsearch.search[0].checked) {
+						document.ibstaff.searchtext.value = document.ibsearch.query.value;
+						document.ibstaff.submit();
+					}
+					if (document.ibsearch.search[1].checked) {
+						document.ibcampus.searchstring.value = document.ibsearch.query.value;
+						document.ibcampus.submit();
+					}
+				}
+				</script>
 
 				<form name="ibstaff" action="/servlet/InfoBaseController" method="post">
 				<input type=HIDDEN name="action" value="listStaff">
@@ -173,6 +153,18 @@
 				<%=box.printBottom()%>
 				</form>
 
+				<script>
+					function miscsearch() {
+						if (document.miscsearch.search[0].checked) {
+							document.google.q.value = document.miscsearch.query.value;
+							document.google.submit();
+						}
+						if (document.miscsearch.search[1].checked) {
+							document.gospelcom.search.value = document.miscsearch.query.value;
+							document.gospelcom.submit();
+						}
+					}
+				</script>
 
 				<form NAME="gospelcom" ACTION="http://bible.gospelcom.net/cgi-bin/bible" Target="_blank" METHOD="POST">
 				<input type="hidden" name="version" value="NASB">
