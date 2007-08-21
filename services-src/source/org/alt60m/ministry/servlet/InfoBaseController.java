@@ -1533,6 +1533,7 @@ public class InfoBaseController extends Controller {
 					row.put("Name", (ta.getName() != null) ? ta.getName() : "");
 					row.put("StrategyName", activity.getStrategyFullName());
 					row.put("StatusName", activity.getStatusFullName());
+					row.put("Url", activity.getUrl());
 					if (activity.getStatus().equals("FR")) {
 						forerunnerTargetInfo.add(row);
 					} else if (activity.getStatus().equals("IN")) {
