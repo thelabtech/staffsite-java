@@ -107,8 +107,10 @@ public class ConnexionBar {
 
 		String content = null;
 		//TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
-		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
-		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
+//		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
+//		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
+		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibarExternal";
+		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibarExternal";
 		// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
 		String signinService = "signin.mygcx.org";
 		try {
@@ -150,8 +152,8 @@ public class ConnexionBar {
 
 			String received = proxyCon.getURL(barService, proxyticket);
 			if (proxyCon.wasSuccess() && received != null) {
-				content = parseBar(received);
-				
+//				content = parseBar(received);
+				content = received;
 			} else {
 				//TODO: retry with real service url?
 				log.error("Connection failed: " + proxyCon.getError());
