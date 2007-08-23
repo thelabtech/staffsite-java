@@ -98,10 +98,10 @@ public class AuthorizationInfo {
 
 		String subQuery =
 			"SELECT scro.ChangeRequestID FROM ministry_changerequest scro LEFT OUTER JOIN ministry_authorization auth ON scro.ChangeRequestID = auth.fk_changeRequestID "
-				+ "WHERE auth.authorized = '' AND (auth.role='HRNC' OR auth.role='HRRD') AND auth.sequence = '1'";
+				+ "WHERE (auth.authorized = '' OR auth.authorized = 'N') AND (auth.role='HRNC' OR auth.role='HRRD') AND auth.sequence = '1'";
 		String query =
 			"SELECT ChangeRequestID, requestdate, effectivedate, applieddate, type, fk_requestedBy, updateStaff FROM ministry_changerequest scr LEFT OUTER JOIN ministry_authorization auth ON scr.ChangeRequestID = auth.fk_changeRequestID "
-				+ "WHERE auth.authorized = '' AND auth.role='HRND' AND scr.applieddate is null AND scr.ChangeRequestID not in("+subQuery+")";
+				+ "WHERE (auth.authorized = '' OR auth.authorized is null) AND auth.role='HRND' AND (scr.applieddate = '' OR scr.applieddate is null) AND scr.ChangeRequestID not in("+subQuery+")";
 
 		return getRequests(query);
 	}
