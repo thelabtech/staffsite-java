@@ -163,6 +163,10 @@ int curr_tab = 3; %>
 <%=box.printTop()%>
 	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
+		<%
+		boolean stintEnabled = true;
+		if (stintEnabled) { 
+		%>
 		<tr>
 			<td valign="center" align="center"><a href="/servlet/SIController?action=showProjectTool"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
 			<td>
@@ -170,7 +174,23 @@ int curr_tab = 3; %>
 				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
 			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
 		</tr>
-		
+
+		<%
+		} else {
+		%>
+
+		<tr>
+			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
+			<td>
+				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
+				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
+			<td><%=fontS%>The STINT/Internship Tool is not currently available.</font></td>
+		</tr>
+
+		<%
+		}
+		%>
+				
 		<tr>
 			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
 			<td>
