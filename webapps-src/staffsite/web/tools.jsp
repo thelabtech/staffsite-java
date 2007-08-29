@@ -164,7 +164,7 @@ int curr_tab = 3; %>
 	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
 		<%
-		boolean stintEnabled = true;
+		boolean stintEnabled = false;
 		if (stintEnabled) { 
 		%>
 		<tr>
@@ -184,7 +184,7 @@ int curr_tab = 3; %>
 			<td>
 				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
 				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
-			<td><%=fontS%>The STINT/Internship Tool is not currently available.</font></td>
+			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
 		</tr>
 
 		<%
