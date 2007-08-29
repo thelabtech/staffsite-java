@@ -21,10 +21,13 @@
 <STRONG>Welcome to the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> STINT/Internship application!</STRONG>
 <P>
 Thank you for your interest in joining us on a STINT or Internship.  We welcome your application for the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> STINT/Internship year!  To get started with a new application for a STINT/Internship, please register, or if you are returning, just login to access your existing application.
-<BR><BR>
+<BR>
 
+<P><STRONG>The STINT/Internship Application will not be available until October.</STRONG></P>
+<!-- 
 <A CLASS="button" HREF="<%=siLoginPage%>" CLASS="button">Register/Login</A>
 <A CLASS="button" HREF="<%=siRegPage%>" CLASS="button">First Time Users</A>
+-->
 
 <P>For more information about a STINT or Internship, please go to our <a href="/hr_si/dbio/contactUs.jsp"><b>Contact Us</b></a> section.  If you have questions about the site, please <a href="/general/feedback.jsp" target="_blank">send us feedback</a> or call 1-888-222-5462.</font>
 

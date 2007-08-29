@@ -63,7 +63,7 @@
 			
 			
 			<!-- COMMENT THIS OUT WHEN APPLICATION IS CLOSED TO DISABLE LOGIN -->
-			
+			<!-- 
 			<td VALIGN="TOP">
 				<% if (errorMessage != null)
 					out.println("<span class=\"warning\">"+errorMessage+"</span><hr>");
@@ -86,12 +86,12 @@
 				Don't have an account? <A HREF="<%=registerURL%>">Click here to register for a new account.</A>
 				<hr>
 			</TD>
-			
+			-->
 			<!-- ******************************************************************* -->
 			
 			
 			<!-- ONLY HERE TO REPLACE THE LOGIN FORM WHILE THE APPLICATION IS CLOSED -->
-			<!-- Comment this out when the application is open
+			
 			<TD VALIGN="TOP">
 			<% if (errorMessage != null)
 				out.println("<span class=\"warning\">"+errorMessage+"</span><hr>");
@@ -107,7 +107,7 @@
 				<br><br>
 				<hr>
 			</TD>
-			-->
+			
 			<!-- ******************************************************************* -->
 			
 		</TR>
