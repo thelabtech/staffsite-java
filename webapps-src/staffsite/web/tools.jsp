@@ -164,7 +164,7 @@ int curr_tab = 3; %>
 	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
 		<%
-		boolean stintEnabled = false;
+		boolean stintEnabled = true;
 		if (stintEnabled) { 
 		%>
 		<tr>
