@@ -11,14 +11,31 @@
 <%
 ActionResults ar;
 ar = ActionResults.getActionResults(session);
+String[] strategies = Strategy.strategiesArray();
 %>
 <% String pageTitle="Success Criteria Reports"; %>
+<%@page import="org.alt60m.ministry.Strategy"%>
 <html>
 <head>
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
 
+<script>
+	function submitReportForm(thisForm) {
+		if (
+			<% for (int i=0; i<strategies.length-1; i++) {
+				out.print("thisForm."+strategies[i]+".checked || ");
+			} %>
+			<% out.print("thisForm."+strategies[strategies.length-1]+".checked)"); %> {
+			return true;
+		}
+		else {
+			alert("You must check at least one strategy");
+			return false;
+		}
+	}
+</script>
 
 <TABLE width="100%">
 	<TR>
@@ -33,7 +50,7 @@ ar = ActionResults.getActionResults(session);
 </TABLE>
 
 <br/>
-<form method="post" action="/servlet/InfoBaseController">
+<form name="reportCriteria" method="post" action="/servlet/InfoBaseController" onsubmit="return submitReportForm(this)">
 <input type="hidden" name="action" value="showReport">
 <%
 	String ptname, ptvalue;
