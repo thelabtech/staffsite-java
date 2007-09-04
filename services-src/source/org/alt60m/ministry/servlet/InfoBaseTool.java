@@ -866,10 +866,13 @@ public class InfoBaseTool {
             ActivityHistory activityHistory = new ActivityHistory();
 //		    String lastHistoryID = activityHistory.getLastActivityHistoryID(activity.getActivityId());
 		    String lastHistoryID = activityHistory.getLastActivityHistoryID(activity.getActivityId());
-	        activityHistory = new ActivityHistory(lastHistoryID);
-            String lastToStatus = activityHistory.getToStatus();
-            log.debug("*** saveActivityHistory:  lastToStatus: " + activityHistory.getToStatus());	
-        	deactivateOldHistory(activity.getActivityId(), periodBegin, profileId);  // update old history record
+		    String lastToStatus = "";
+		    if (!lastHistoryID.equals("")) {
+		    	activityHistory = new ActivityHistory(lastHistoryID);
+		    	lastToStatus = activityHistory.getToStatus();
+		    	log.debug("*** saveActivityHistory:  lastToStatus: " + activityHistory.getToStatus());	
+		    	deactivateOldHistory(activity.getActivityId(), periodBegin, profileId);  // update old history record
+		    }
         	
             activityHistory.setPeriodBegin(parseSimpleDate(periodBegin));
             activityHistory.setActivity_id(activity.getActivityId());

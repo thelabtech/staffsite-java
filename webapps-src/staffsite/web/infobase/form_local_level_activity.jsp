@@ -78,6 +78,10 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 				<td nowrap align="right"><%=fontB%>Date this strategy was<br>or will be initiated here:</font></td>
 				<td nowrap><input type="text" name="periodbegin" size="10" maxlength="10" onFocus="this.blur()" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>"> <%=fontB%><a href="javascript:pickdate(document.addLocalLevelActivityForm.periodBegin)"> [select date]</font></a></td>
 			</tr>
+			<tr> 
+				<td nowrap align="right"><%=fontB%>URL for this local strategy:</font></td>
+				<td nowrap><input type="text" name="url" size="40" maxlength="40" value=""> <%=fontB%></td>
+			</tr>
 			<tr><td colspan="2"><center><br><a href="JavaScript: document.addLocalLevelActivityForm.submit()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';"><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr>
 		</table>
 	</form>

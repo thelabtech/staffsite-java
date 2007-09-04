@@ -102,7 +102,9 @@ public class ActivityHistory extends DBIOEntity {
 		return from_status.toString();
 	}
 	public void setFromStatus(String status) {
-		this.from_status = Status.valueOf(status);
+		if (status != null && !status.equals("")) {
+			this.from_status = Status.valueOf(status);
+		}
 	}
 	
 	public String getToStatus() {
