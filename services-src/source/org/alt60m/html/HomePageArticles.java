@@ -125,7 +125,7 @@ public class HomePageArticles implements java.io.Serializable {
 						stringBuffer = stringBuffer + "			<b>" + titleFont + recent.getTitle() + "</font></b>";
 						stringBuffer = stringBuffer + "				<br>\n"+ authorFont + "by " + recent.getAuthor() + "</font>";
 					//	stringBuffer = stringBuffer + "				<br>\n<i>" + dateFont + recent.getDateAdded() + "</font></i>"; //
-						stringBuffer = stringBuffer + "				<br>\n" + bodyFont + recent.getSummary()"</font>";
+						stringBuffer = stringBuffer + "				<br>\n" + bodyFont + recent.getSummary() + "</font>";
 					}
 				
 				}
