@@ -1068,7 +1068,13 @@ public class InfoBaseTool {
     		//activityHistory.setPeriodEnd(periodEnd);
     		//activityHistory.setPeriodEndString(periodEnd);
             activityHistory.setTransUsername(profileId);
-            activityHistory.persist();		
+            activityHistory.persist();
+            
+            if(oldActivity.getStrategy().equals("SC") && (!newStatus.equals("AC") || !newStatus.equals("IN"))) {
+            	oldActivity.setStrategy("CA");
+            } else if(oldActivity.getStrategy().equals("CA") && newStatus.equals("AC")) {
+            	oldActivity.setStrategy("SC");
+            }
     	}
     	
     	

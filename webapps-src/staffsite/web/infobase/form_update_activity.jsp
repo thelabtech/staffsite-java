@@ -90,7 +90,7 @@ function setDefinition(setTo) {
 				<%=fontB%>
 				<b>This campus is a(n)...</B><BR>
 	
-				<input type=radio name=updateoption value=<%=("IN".equals(status))?"SC":"SC CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed campus.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals(status))?"AC":"AC CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed campus.<br>
 				<input type=radio name=updateoption value=<%=("IN".equals(status))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
 				<%
 					statusHelper.setName("updateoption");
@@ -107,7 +107,7 @@ function setDefinition(setTo) {
 			<td>
 				<%=fontB%>
 				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=SC> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> campus.<br>
+				<input type=radio name=updateoption value=AC> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> campus.<br>
 				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
 				<%
 					statusHelper.setName("updateoption");
