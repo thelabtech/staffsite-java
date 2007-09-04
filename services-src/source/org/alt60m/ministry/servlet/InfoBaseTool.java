@@ -1467,4 +1467,15 @@ public class InfoBaseTool {
 			throw new Exception(e);
 		}
 	}
+
+	public void removeCurrentContactFromStaffList(Collection colStaff,
+			String activityId) {
+		Activity act = new Activity(activityId);
+		Vector<Staff> currentStaff = act.getActivityContacts();
+		if (currentStaff.size() > 0) {
+			Staff curr = currentStaff.firstElement();
+			Hashtable<String, Object> currHash = ObjectHashUtil.obj2hash(curr);
+			colStaff.remove(currHash);
+		}
+	}
 }

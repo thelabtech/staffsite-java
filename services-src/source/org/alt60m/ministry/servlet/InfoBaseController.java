@@ -146,6 +146,7 @@ public class InfoBaseController extends Controller {
             } else {
                 colStaff = ibt.listStaffHashByLastName(parameter.toUpperCase());
             }
+            ibt.removeCurrentContactFromStaffList(colStaff, activityId); 
             results.addCollection("staff", colStaff);
             if (mode.equals("region")) {
                 results.putValue("region", translate(_abbrevRegion, _expandRegion, ctx.getInputString("region", true)));
