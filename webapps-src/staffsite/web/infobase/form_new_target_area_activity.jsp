@@ -27,9 +27,19 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
+<script>
+	function submitForm() {
+		if (document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.locallevelid.selectedIndex].value == "") {
+			alert("You must select a Team.");
+		}
+		else {
+			document.addTargetAreaActivityForm.submit();
+		}
+	}
+</script>
 	<br>
 	<table cellspacing=0 cellpadding=5 border=0 align="center" <%=bgcolorL%>>
-		<form method="post" name="addTargetAreaActivityForm" action="/servlet/InfoBaseController" onSubmit="return validate()">
+		<form method="post" name="addTargetAreaActivityForm" action="/servlet/InfoBaseController" onSubmit="return submitForm()">
 			<input type=hidden name=action value="saveAddTeamToCampus">
 			<input type=hidden name=validate value="go">
 			<input type=hidden name="targetareaid" value="<%=targetAreaID%>">
@@ -43,7 +53,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 			<tr><td	nowrap align="right"><%=fontB%>*Local Level Team:</font></td>
 				<td nowrap><%=fontB%>
 					<select name="locallevelid">
-						<option></option>
+						<option value=""></option>
 						<%
 						//loop through each record
 						Iterator teams = ar.getCollection("teams").iterator();
@@ -80,7 +90,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 					<a href="javascript:pickdate(document.addTargetAreaActivityForm.periodbegin)">[select date]</font></a>
 				</td>
 			</tr>
-			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a href="JavaScript:document.addTargetAreaActivityForm.submit()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';" ><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr></center></td></tr>
+			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a href="javascript:submitForm()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';" ><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr></center></td></tr>
 			<tr <%=bgcolorL%>>
 				<td colspan=2 align=center>
 					<br>

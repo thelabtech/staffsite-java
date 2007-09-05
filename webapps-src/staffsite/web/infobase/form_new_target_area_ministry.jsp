@@ -14,6 +14,16 @@ String targetAreaID = new String (request.getParameter("targetareaid"));
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
+<script type="text/javascript">
+	function submitForm() {
+		if (document.addTargetAreaMinistryForm.noncccminid.options[document.addTargetAreaMinistryForm.noncccminid.selectedIndex].value == "none") {
+			alert("You must select a Ministry.");
+		}
+		else {
+			document.addTargetAreaMinistryForm.submit();
+		}
+	}
+</script>
 	<br>
 	<table cellspacing=0 cellpadding=5 border=0 align="center" <%=bgcolorL%>>
 		<form method="post" name="addTargetAreaMinistryForm" action="/servlet/InfoBaseController">
@@ -40,7 +50,7 @@ String targetAreaID = new String (request.getParameter("targetareaid"));
 				</td>
 			</tr>
 
-			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a href="JavaScript:document.addTargetAreaMinistryForm.submit()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';"><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr>
+			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a href="JavaScript:submitForm()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';"><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr>
 			<tr <%=bgcolorL%>>
 				<td colspan=2 align=center>
 					<br>
