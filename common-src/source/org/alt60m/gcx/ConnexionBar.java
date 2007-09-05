@@ -78,7 +78,7 @@ public class ConnexionBar {
 		}
 		String pgtIou = user.getPgtIou();
 		if (pgtIou != null) {
-			String bar = getBar(pgtIou);
+			String bar = getBar(pgtIou, user.getGUID());
 			if (bar != null) {
 				bar = replaceLogoutLink(bar);
 				cache.put(user.getGUID(), new CacheEntry(bar));
