@@ -102,7 +102,7 @@ public class CommunityAdminInterface {
 					GCX_AUTHORIZATION_ADMIN_PASSWORD);
 
 			log("Initial Login...");
-			String result = conn.logIn(GCX_AUTHORIZATION_ADMIN_URL + community, GCX_AUTHORIZATION_ADMIN_SERVICENAME, null);
+			String result = conn.logIn(GCX_AUTHORIZATION_ADMIN_URL + community, GCX_AUTHORIZATION_ADMIN_SERVICENAME + "/" + community, null);
 			log("Initial Login "
 					+ (result != null && !notLoggedIn(result) ? "succeded."
 							: "failed."));
