@@ -867,8 +867,8 @@ public class CommunityAdminInterface {
 	
 	private BasicAdminResponse sendCommand(String command) throws IOException, CommunityAdminInterfaceException
 	{
-		String request = "<?xml version = \"1.0\"?> " +
-		"<!DOCTYPE admin_commands SYSTEM \"" + dtdLocation + "\"> "
+		String request = "<?xml version = \"1.0\"?> "
+//		"<!DOCTYPE admin_commands SYSTEM \"" + dtdLocation + "\"> "
 				+ "<admin_commands> <command> "
 				+ command
 				+ "</command></admin_commands>";

@@ -342,7 +342,7 @@ public class CASURLConnection {
 		HttpURLConnection.setFollowRedirects(false);
 		log("connecting to " + urlString.toString());
 		
-		GetMethod command = new GetMethod(urlString.toString());
+		PostMethod command = new PostMethod(urlString.toString());
 		String content = getContent(command);
 		return content;
 	}
