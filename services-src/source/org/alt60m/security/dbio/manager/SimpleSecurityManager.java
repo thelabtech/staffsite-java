@@ -77,7 +77,7 @@ public class SimpleSecurityManager implements SecurityManager {
 						+ maxFailedLogins + "attempts");
 
 			return authenticated;
-			// return true; // DO NOT DEPLOY LIKE THIS!!!
+//			return true; // DO NOT DEPLOY LIKE THIS!!!
 		} catch (UserLockedOutException uloe) {
 			throw uloe;
 		} catch (UserNotFoundException unfe) {
@@ -784,13 +784,13 @@ public class SimpleSecurityManager implements SecurityManager {
 
 		boolean success = false;
 		if (pgtiou != null) {
-			String content = ConnexionBar.getBar(pgtiou);
+			String content = ConnexionBar.getBar(pgtiou, guid);
 			if (content != null) {
 				success = true;
 				log.info("successfully retrieved connexion bar");
 			} else {
 				log.warn("first attempt failed; trying again...");
-				content = ConnexionBar.getBar(pgtiou);
+				content = ConnexionBar.getBar(pgtiou, guid);
 				if (content != null) {
 					log.info("successfully retrieved connexion bar");
 					success = true;
@@ -822,7 +822,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			else
 			{
 				// TODO: better log
-				log.warn("User not added to CampusStaff: " + cai.getError());
+				log.error("User not added to CampusStaff: " + cai.getError());
 			}
 		} catch (IOException e) {
 			log.error("IO Exception adding user to CampusStaff", e);

@@ -111,10 +111,10 @@ public class ConnexionBar {
 
 		String content = null;
 		//TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
-//		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
-//		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
-		String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
-		String barService = "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
+		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
+		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
+//		String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
+//		String barService = "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
 		// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
 		String signinService = "signin.mygcx.org";
 		try {
@@ -130,19 +130,27 @@ public class ConnexionBar {
 			if (e.getMessage().indexOf(
 					"Server returned HTTP response code: 401") != -1) {
 				log.warn("First attempt to get bar failed due to 401; Retrying...");
-				try { //Try to add them to our community...
+				try { //First try to add them to our community, since that might cause a failure...
 					if (guid != null) {
 						CommunityAdminInterface cai = new CommunityAdminInterface("CampusStaff");
-						cai.addToGroup(guid, "Members");
+						if (!cai.addToGroup(guid, "Members")) {
+							log.error("User not added to CampusStaff: " + cai.getError());
+						}
+					} else {
+						log.warn("GUID is null when trying to add user to CampusStaff after getBar failure.", e);
 					}
-					content = getBar(pgtiou, barTicketService, barService, signinService);
 				} catch (IOException e2) {
-					log.error("Exception occurred during second attempt", e2);
+					log.error("Exception occured during attempt to add user to CampusStaff after getBar failure", e2);
 				} catch (CommunityAdminInterfaceException e3) {
-					log.error("Exception occured during attempt to add user to community", e3);
+					log.error("Exception occured during attempt to add user to CampusStaff after getBar failure", e3);
+				}
+				try { //Try to get the bar again
+					content = getBar(pgtiou, barTicketService, barService, signinService);
+				} catch (IOException e1) {
+					log.error("Exception occured during second attempt to get ConneXionBar", e1);
 				}
 			} else {
-				log.warn("Exception Occurred getting bar: ", e);
+				log.warn("Exception Occured getting bar: ", e);
 			}
 		}
 
@@ -162,8 +170,8 @@ public class ConnexionBar {
 
 			String received = proxyCon.getURL(barService, proxyticket);
 			if (proxyCon.wasSuccess() && received != null) {
-//				content = parseBar(received);
-				content = received;
+				content = parseBar(received);
+//				content = received;
 			} else {
 				//TODO: retry with real service url?
 				log.error("Connection failed: " + proxyCon.getError());
