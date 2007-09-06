@@ -31,7 +31,7 @@ public class CommunityAdminInterface {
 
 	private static String GCX_AUTHORIZATION_ADMIN_PASSWORD = "BeThouMyVision12";
 
-	private static String GCX_AUTHORIZATION_ADMIN_URL = "http://gcx3.mygcx.org/authz-admin/";
+	private static String GCX_AUTHORIZATION_ADMIN_URL = "http://www.mygcx.org/authz-admin/";
 
 	private static String GCX_AUTHORIZATION_ADMIN_SERVICENAME = "http://www.mygcx.org/authz-admin";
 	//maybe make "community" a constant, too?
