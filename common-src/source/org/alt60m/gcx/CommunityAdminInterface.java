@@ -884,7 +884,7 @@ public class CommunityAdminInterface {
 		if (notLoggedIn(content)) 
 		{
 			log("Not logged in; Logging in ...");
-			String result = conn.logIn(GCX_AUTHORIZATION_ADMIN_URL + community);
+			String result = conn.logIn(GCX_AUTHORIZATION_ADMIN_URL + community, GCX_AUTHORIZATION_ADMIN_SERVICENAME + "/" + community, null);
 			log("Login " + (result != null && !notLoggedIn(result)  ? "succeded." : "failed."));
 			if (result == null)
 			{
