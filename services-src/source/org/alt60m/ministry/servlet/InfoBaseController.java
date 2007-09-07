@@ -1128,8 +1128,18 @@ public class InfoBaseController extends Controller {
             String activityId = ctx.getInputString("activityid", true);
             String staffId = ctx.getInputString("accountno", true);
             InfoBaseTool ibt = new InfoBaseTool();
-            ibt.saveContact(staffId, activityId);
-            showTargetArea(ctx);
+            if (ibt.saveContact(staffId, activityId)) {
+            	showTargetArea(ctx);
+            } else {
+            	String errMsg = "There was an error adding the contact to this movement.  " +
+            			"The usual cause of this is either that the contact you attempted to add " +
+            			"is already a contact for this movement or that there are already two contacts " +
+            			"for this movement.<br /><br />" +
+            			"<a href=/servlet/InfoBaseController?action=showTargetArea&targetareaid=" +
+            			ctx.getInputString(TARGET_AREA_ID_TOKEN, true) + ">Go Back To Campus Screen.</a>";
+            	ctx.setError(errMsg);
+            	ctx.goToErrorView();
+            }
         }
         catch (Exception e) {
             ctx.setError();

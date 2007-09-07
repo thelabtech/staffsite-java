@@ -41,6 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * @version 1.0
  */
 public class InfoBaseTool {
+	private static final int MAX_CONTACTS = 2; //If this gets changed, need to change saveContact() checks
 	private static Log log = LogFactory.getLog(InfoBaseTool.class);
 
     class StaffByRegionCache {
@@ -810,11 +811,25 @@ public class InfoBaseTool {
         }
     }
 
-    public void saveContact(String staffId, String activityId) throws Exception {
+    public boolean saveContact(String staffId, String activityId) throws Exception {
         try {
+        	boolean result = false;
             Staff staff = new Staff(staffId);
             Activity activity = new Activity(activityId);
-            activity.addActivityContacts(staff);
+    		Vector<Staff> currentStaffList = activity.getActivityContacts();
+    		if (currentStaffList.size() < MAX_CONTACTS) {
+    			if (currentStaffList.size() == 1) { // Needs to change if MAX_CONTACTS changes
+    				Staff currentStaff = currentStaffList.firstElement();
+    				if (!currentStaff.getAccountNo().equals(staff.getAccountNo())) {
+    					activity.addActivityContacts(staff);
+    					result = true;
+    				}
+    			} else {
+    				activity.addActivityContacts(staff);
+    				result = true;
+    			}
+    		}
+            return result;
         }
         catch (Exception e) {
             log.error("Failed to perform saveContact().", e);
