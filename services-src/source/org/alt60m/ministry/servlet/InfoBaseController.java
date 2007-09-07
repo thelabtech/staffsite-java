@@ -1260,7 +1260,7 @@ public class InfoBaseController extends Controller {
             Statistic stat;
             if (ctx.getInputString("statisticid") == null) {
             	stat = new Statistic();
-            	stat.setPeriodEnd(DateUtils.parseDate(ctx.getInputString("PeriodBegin")));
+            	stat.setPeriodBegin(DateUtils.parseDate(ctx.getInputString("PeriodBegin")));
             	stat.setActivityId(activityId);
             	if (!stat.select()) {
                     stat = ibt.createStatObject();
