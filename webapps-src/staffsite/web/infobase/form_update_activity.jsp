@@ -56,7 +56,15 @@ function setDefinition(setTo) {
 //  }
 
 }
-</SCRIPT>
+	function submitForm() {
+		if (document.updateActivityForm.teamid.options[document.updateActivityForm.teamid.selectedIndex].value == "none") {
+			alert("You must select a Team.");
+		}
+		else {
+			document.updateActivityForm.submit();
+		}
+	}
+</script>
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
@@ -206,7 +214,7 @@ function setDefinition(setTo) {
 
  
  
-	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:document.updateActivityForm.submit()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
+	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:submitForm()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
 	</table>
 	</form>
 <p>
