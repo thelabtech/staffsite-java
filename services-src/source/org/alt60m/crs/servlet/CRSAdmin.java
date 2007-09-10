@@ -80,7 +80,7 @@ public class CRSAdmin extends Controller {
 				String password = ctx.getInputString("password");
 				String url = (String) ctx.getSessionValue("authURL");
 
-				if ("bwtq24".equals(password)) {
+				if ("awtp35".equals(password)) {
 					ctx.setSessionValue("authLevel", AUTH_LEVELS[2]);
 					if (url == null) {
 						showConference(ctx);
