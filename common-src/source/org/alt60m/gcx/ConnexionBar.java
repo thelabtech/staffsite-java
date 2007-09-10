@@ -182,8 +182,10 @@ public class ConnexionBar {
 	
 	//Remove XML tags from beginning and end of bar, unescape characters
 	private static String parseBar(String bar) {
-		String resultPlusEnd = (bar.split("<reportdata>",2))[1];
-		String result = (resultPlusEnd.split("</reportdata>",2))[0];
+		log.info(bar);
+//		String resultPlusEnd = (bar.split("<reportdata>",2))[1];
+//		String result = (resultPlusEnd.split("</reportdata>",2))[0];
+		String result = bar;
 		result = result.replace("&lt;", "<");
 		result = result.replace("&gt;", ">");
 		result = result.replace("&apos;", "'");
