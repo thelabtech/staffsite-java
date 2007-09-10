@@ -112,7 +112,7 @@ public class ConnexionBar {
 		String content = null;
 		//TODO: at some point, the GCX guys need to fix their system so we can request a ticket for the same URL we use to get the bar itself
 		String barTicketService = "http://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
-		String barService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
+		String barService = "http://gcx3.mygcx.org/module/CampusStaff/omnibar/omnibar";
 //		String barTicketService = "http://www.mygcx.org/module/global/omnibar/omnibarExternal";
 //		String barService = "http://gcx3.mygcx.org/module/global/omnibar/omnibarExternal";
 		// "http://gcx1.mygcx.org/module/global/omnibar/omnibarExternal";
@@ -162,6 +162,8 @@ public class ConnexionBar {
 		String content = null;
 		String proxyticket = ProxyTicketReceptor.getProxyTicket(pgtiou,
 				barTicketService);
+		log.info("proxyticket: " + proxyticket);
+		log.info("barTicketService: " + barTicketService);
 		if (proxyticket == null)
 			log.warn("No ticket given from receptor!");
 		else {
@@ -185,6 +187,7 @@ public class ConnexionBar {
 		log.info(bar);
 		String resultPlusEnd = (bar.split("<reportdata>",2))[1];
 		String result = (resultPlusEnd.split("</reportdata>",2))[0];
+//		String result = bar;
 		result = result.replace("&lt;", "<");
 		result = result.replace("&gt;", ">");
 		result = result.replace("&apos;", "'");
