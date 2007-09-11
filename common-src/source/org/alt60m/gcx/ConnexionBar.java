@@ -193,8 +193,9 @@ public class ConnexionBar {
 		result = result.replace("&apos;", "'");
 		result = result.replace("&quot;", "\"");
 		//We should be logging on with www but it isn't working for some reason,
-		//so the bar comes back with gcx3 links, when it should be www
+		//so the bar comes back with http/gcx3 links, when it should be https/www
 		result = result.replace("gcx3", "www");
+		result = result.replace("http", "https");
 		return result;
 	}
 }
