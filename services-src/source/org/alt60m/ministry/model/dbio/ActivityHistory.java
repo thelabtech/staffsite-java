@@ -205,7 +205,7 @@ public class ActivityHistory extends DBIOEntity {
 	    sqlconn.close();	
 		
     	} catch (Exception e) {
-    		log.error("Failed to perform deactivateActivity");
+    		log.error("Failed to perform deactivateActivity", e);
 
     		//throw new Exception(e);
     	}
