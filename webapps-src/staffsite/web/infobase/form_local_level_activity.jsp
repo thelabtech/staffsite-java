@@ -11,6 +11,16 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
+<script>
+	function submitForm() {
+		if (document.addLocalLevelActivityForm.targetareaid.options[document.addLocalLevelActivityForm.targetareaid.selectedIndex].value == "none") {
+			alert("You must select a Campus.");
+		}
+		else {
+			document.addLocalLevelActivityForm.submit();
+		}
+	}
+</script>
 	<br>
 	<table <%=tableCenterL%> border=0 cellspacing=2 cellpadding=5>
 		<form method="post" name="addLocalLevelActivityForm" action="/servlet/InfoBaseController">
@@ -60,11 +70,11 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 				<tr>
 					<td align=right><%=fontB%>Status:</font></td>
 					<td nowrap><%=fontB%>
-						<input type=radio name=status value=FR CHECKED> Make this a FORERUNNER Catalytic campus.<br></font>
+						<input type=radio name=status value=FR CHECKED> Make this a FORERUNNER Catalytic campus.<br>
 						<input type=radio name=status value=PI> Make this a PIONEERING Catalytic campus.<br>
 						<input type=radio name=status value=KE> Make this a KEY CONTACT Catalytic campus.<br>
 						<input type=radio name=status value=LA> Make this a LAUNCHED Catalytic campus.<br>
-						<input type=radio name=status value=TR> Make this a TRANSFORMATIONAL Catalytic campus.<br>
+						<input type=radio name=status value=TR> Make this a TRANSFORMATIONAL Catalytic campus.<br></font>
 					</td>
 				</tr>
 			<%
@@ -82,7 +92,7 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 				<td nowrap align="right"><%=fontB%>URL for this local strategy:</font></td>
 				<td nowrap><input type="text" name="url" size="40" maxlength="40" value=""> <%=fontB%></td>
 			</tr>
-			<tr><td colspan="2"><center><br><a href="JavaScript: document.addLocalLevelActivityForm.submit()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';"><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr>
+			<tr><td colspan="2"><center><br><a href="JavaScript: submitForm()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';"><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr>
 		</table>
 	</form>
 <BR>
