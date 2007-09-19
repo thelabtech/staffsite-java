@@ -196,6 +196,7 @@ public class ConnexionBar {
 		//so the bar comes back with http/gcx3 links, when it should be https/www
 		result = result.replace("gcx3", "www");
 		result = result.replace("http", "https");
+		result = result.replace("https://search", "http://search"); 
 		return result;
 	}
 }
