@@ -122,56 +122,70 @@ will "recognize" you when you log in, and you won't have to tell it the PeopleSo
 style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>
 -->
 <%=hr%>
-<B><a name="what">Q:</a> What are the Campus Ministry Computer Requirements?<BR><BR>
+<h1><a name="ComputerPurchaseGuidelines-ComputerSpecifications%26ReimbursementPolicy"></a>Computer Specifications &amp; Reimbursement Policy</h1>
 
-A: </B>Computer Specifications & Reimbursement Policy (Published in 1999):<BR><BR>
+<p>(Published in 1999, updated 2007)</p>
 
-We are still moving forward toward the goal of helping you communicate with each other effectively from our more 
-than 800 locations. Last year, the Campus Media and Technology team laid out guidelines for computer 
-specifications and asked that you begin upgrading your computers. October 1999 is the date we asked you to 
-have a computer that meets the minimum level.<BR><BR>
+<p>Technology is major part of our campus-world. As such we seek to have all Campus Ministry staff work towards becoming comfortable using technology, both personally and in the ministry. We therefore require all Campus Ministry staff to have a personal computer.<br/>
+&nbsp;<br/>
+Because we have determined that a personal computer is a necessary ministry tool, computers are reimbursable as non-taxable expenses from your personal CCC account. In addition, local and regional leaders may reimburse computer purchases from their ministry (operating) accounts. There may be purchase guidelines in place for "ministry account" reimbursed computers.&nbsp; One should check for these before purchases are made with ministry funds.</p>
 
-Note that these specifications are for PC computers, not Macintosh computers. We have standardized on the PC 
-platform because of compatibility issues. Some software that we use is not available for the Mac…And as we 
-become increasingly dependent on using computers, we are not able to provide support for multiple operating 
-systems. For these reasons Macintosh computers are not reimbursable under the policy.<BR><BR>
+<p>Our underlying value to our computer policy is that Campus Ministry staff need to have a computer that will run their software well and allows the staff person to communicate and work seamlessly with fellow staff.</p>
 
-The recommended purchase level lists what you should look for if you plan to buy a new computer. If you buy at 
-this level, you shouldn't have to upgrade more often that every two or three years.<BR><BR>
+<p>Below are some suggested specifications for computers. Campus Ministry staff may purchase and reimburse either a Windows-based computer or an Apple Macintosh.&nbsp; We recommend that you consider buying a computer at the "Recommended" specs level, not the Minimum level.</p>
 
-However, because we determined that a personal computer is a necessary ministry tool, PC computers are 
-reimbursable as non-taxable expenses from your personal account. In addition, local and regional leaders may 
-reimburse computer purchases from their ministry (operating) accounts. Unlike past computer reimbursement 
-policies, this policy is not limited to one purchase. It covers business-related hardware, software, upgrades, etc. 
-for as long as you are on staff.<BR><BR>
+<p>The recommended purchase level lists what you should look for if you plan to buy a new computer. If you buy at this level, you shouldn't have to upgrade more often that every three or four years.<br/>
+&nbsp;</p>
 
-If you have any questions about the policy or need help with a computer purchase, contact your regional office. 
-They have discount information from Dell.<BR><BR>
+<h3><a name="ComputerPurchaseGuidelines-WindowsbasedPC"></a><b>Windows-based PC</b></h3>
 
-<B>Minimum Level</B>
-<ul>
-<li>Pentium 200 MHz (Laptop: 166 MHz)</li>
-<li>32 MB RAM</li>
-<li>3 GB Hard Drive (Laptop: 2 GB)</li>
-<li>15" Monitor (Laptop: 11.3" Screen (800x600 dpi))</li>
-<li>33.6 FAX Modem</li>
-<li>8x CD-ROM</li>
-<li>Windows 95</li>
-<li>Office 97</li>
-</ul>
-<B>Recommended Purchase Level</B>
-<ul>
-<li>Pentium II 400 MHz (Laptop: 333 MHz)</li>
-<li>64 MB RAM</li>
-<li>4 GB Hard Drive (Laptop: 3 GB)</li>
-<li>15" Monitor (Laptop: 11.3" Screen (800x600 dpi))</li>
-<li>56K FAX Modem</li>
-<li>24x CD-ROM</li>
-<li>Windows 98</li>
-<li>Office 97 (Office 2000 when available)</li>
-</ul>
-<p align=right style='text-align:right'><i><span
-style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>
+<p><b><em>Minimum Level</em></b><br/>
+
+&nbsp;&nbsp;&nbsp; Pentium IV (or equivalent) 900 MHz<br/>
+&nbsp;&nbsp;&nbsp; 128 MB RAM<br/>
+&nbsp;&nbsp;&nbsp; 20 GB Hard Drive<br/>
+&nbsp;&nbsp;&nbsp; 15" Monitor<br/>
+&nbsp;&nbsp;&nbsp; 56K FAX Modem<br/>
+
+&nbsp;&nbsp;&nbsp; CD-RW&nbsp;<br/>
+&nbsp;&nbsp;&nbsp; Network/LAN/NIC card<br/>
+&nbsp;&nbsp;&nbsp; Windows 2000<br/>
+&nbsp;&nbsp;&nbsp; Microsoft Office 2000</p>
+
+<p><b><em>Recommended Purchase Level</em></b><br/>
+&nbsp;&nbsp;&nbsp; Pentium IV (or equivalent) 2.0-3.0 GHz<br/>
+&nbsp;&nbsp;&nbsp; 256 MB RAM<br/>
+&nbsp;&nbsp;&nbsp; 40 GB Hard Drive<br/>
+&nbsp;&nbsp;&nbsp; 17-19" Monitor<br/>
+
+&nbsp;&nbsp;&nbsp; 56K FAX Modem<br/>
+&nbsp;&nbsp;&nbsp; CD-ROM/CD-RW/DVD combo drive<br/>
+&nbsp;&nbsp;&nbsp; Network/LAN/NIC card<br/>
+&nbsp;&nbsp;&nbsp; Windows XP (Professional)<br/>
+&nbsp;&nbsp;&nbsp; Microsoft Office 2003 or 2007</p>
+
+<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/dell.aspx" rel="nofollow">Dell National Buying Program<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
+
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com<sup><img class="rendericon" src="/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span></em></b><b>) for potential coordinated purchases and deeper discounts.&nbsp; They can also help get you deep discounts on many software titles.</b>
+<br clear="all" /></p>
+
+<h3><a name="ComputerPurchaseGuidelines-AppleMac%27s"></a>Apple Mac's</h3>
+
+<p><b><em>Recommend Purchase Level</em></b><br/>
+<ins>Notebook/Laptop</ins><br/>
+&nbsp;&nbsp;&nbsp; 13" MacBook - Intel Duo Core 2 processor (3 models to choose from)<br/>
+&nbsp;&nbsp;&nbsp; 15" MacBook Pro - Intel Duo Core 2 processor</p>
+
+<p><ins>Desktop</ins><br/>
+&nbsp;&nbsp;&nbsp; iMac - Intel Duo Core 2 processor</p>
+
+<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/apple.aspx" rel="nofollow">Apple National Buying Program<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
+
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com<sup><img class="rendericon" src="/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span></em></b><b>) for potential coordinated purchases and deeper discounts.</b><b>They can also help get you deep discounts on many software titles.</b>
+<br clear="all" /></p>
+
+<h3><a name="ComputerPurchaseGuidelines-"></a></h3>
+                            </div>
 
 <%=hr%>
 <!--
