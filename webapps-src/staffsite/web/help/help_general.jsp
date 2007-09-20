@@ -121,8 +121,8 @@ will "recognize" you when you log in, and you won't have to tell it the PeopleSo
 <p align=right style='text-align:right'><i><span
 style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>
 -->
-<%=hr%>
-<h1><a name="ComputerPurchaseGuidelines-ComputerSpecifications%26ReimbursementPolicy"></a>Computer Specifications &amp; Reimbursement Policy</h1>
+<b><a name="what">Q:</a> What are the Campus Ministry Computer Requirements?</b><br><br>
+<a name="ComputerPurchaseGuidelines-ComputerSpecifications%26ReimbursementPolicy"></a> <b>A:</b> Computer Specifications &amp; Reimbursement Policy
 
 <p>(Published in 1999, updated 2007)</p>
 
@@ -140,33 +140,34 @@ Because we have determined that a personal computer is a necessary ministry tool
 <h3><a name="ComputerPurchaseGuidelines-WindowsbasedPC"></a><b>Windows-based PC</b></h3>
 
 <p><b><em>Minimum Level</em></b><br/>
-
-&nbsp;&nbsp;&nbsp; Pentium IV (or equivalent) 900 MHz<br/>
-&nbsp;&nbsp;&nbsp; 128 MB RAM<br/>
-&nbsp;&nbsp;&nbsp; 20 GB Hard Drive<br/>
-&nbsp;&nbsp;&nbsp; 15" Monitor<br/>
-&nbsp;&nbsp;&nbsp; 56K FAX Modem<br/>
-
-&nbsp;&nbsp;&nbsp; CD-RW&nbsp;<br/>
-&nbsp;&nbsp;&nbsp; Network/LAN/NIC card<br/>
-&nbsp;&nbsp;&nbsp; Windows 2000<br/>
-&nbsp;&nbsp;&nbsp; Microsoft Office 2000</p>
+<ul>
+<li>Pentium IV (or equivalent) 900 MHz</li>
+<li>128 MB RAM</li>
+<li>20 GB Hard Drive</li>
+<li>15" Monitor</li>
+<li>56K FAX Modem</li>
+<li>CD-RW</li>
+<li>Network/LAN/NIC card</li>
+<li>Windows 2000</li>
+<li>Microsoft Office 2000</li>
+</ul>
 
 <p><b><em>Recommended Purchase Level</em></b><br/>
-&nbsp;&nbsp;&nbsp; Pentium IV (or equivalent) 2.0-3.0 GHz<br/>
-&nbsp;&nbsp;&nbsp; 256 MB RAM<br/>
-&nbsp;&nbsp;&nbsp; 40 GB Hard Drive<br/>
-&nbsp;&nbsp;&nbsp; 17-19" Monitor<br/>
+<ul>
+<li>Pentium IV (or equivalent) 2.0-3.0 GHz</li>
+<li>256 MB RAM</li>
+<li>40 GB Hard Drive</li>
+<li>17-19" Monitor</li>
+<li>56K FAX Modem</li>
+<li>CD-ROM/CD-RW/DVD combo drive</li>
+<li>Network/LAN/NIC card</li>
+<li>Windows XP (Professional)</li>
+<li>Microsoft Office 2003 or 2007</li>
+</ul>
 
-&nbsp;&nbsp;&nbsp; 56K FAX Modem<br/>
-&nbsp;&nbsp;&nbsp; CD-ROM/CD-RW/DVD combo drive<br/>
-&nbsp;&nbsp;&nbsp; Network/LAN/NIC card<br/>
-&nbsp;&nbsp;&nbsp; Windows XP (Professional)<br/>
-&nbsp;&nbsp;&nbsp; Microsoft Office 2003 or 2007</p>
+<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/dell.aspx" rel="nofollow">Dell National Buying Program</a></span></p>
 
-<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/dell.aspx" rel="nofollow">Dell National Buying Program<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
-
-<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com<sup><img class="rendericon" src="/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span></em></b><b>) for potential coordinated purchases and deeper discounts.&nbsp; They can also help get you deep discounts on many software titles.</b>
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.&nbsp; They can also help get you deep discounts on many software titles.</b>
 <br clear="all" /></p>
 
 <h3><a name="ComputerPurchaseGuidelines-AppleMac%27s"></a>Apple Mac's</h3>
@@ -179,9 +180,9 @@ Because we have determined that a personal computer is a necessary ministry tool
 <p><ins>Desktop</ins><br/>
 &nbsp;&nbsp;&nbsp; iMac - Intel Duo Core 2 processor</p>
 
-<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/apple.aspx" rel="nofollow">Apple National Buying Program<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
+<p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/apple.aspx" rel="nofollow">Apple National Buying Program</a></span></p>
 
-<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com<sup><img class="rendericon" src="/images/icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="" border="0"/></sup></a></span></em></b><b>) for potential coordinated purchases and deeper discounts.</b><b>They can also help get you deep discounts on many software titles.</b>
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.</b><b>They can also help get you deep discounts on many software titles.</b>
 <br clear="all" /></p>
 
 <h3><a name="ComputerPurchaseGuidelines-"></a></h3>
