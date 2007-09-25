@@ -169,7 +169,7 @@ ar = ActionResults.getActionResults(session);
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
 				<%=font%>Add a campus to this team:<BR>
-					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=FR">add Forerunner</A>]
+					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CA">add Forerunner</A>]
 			</TD></TR></TABLE>
 		<%=box.printBottom()%><P>
 	<% } %>
