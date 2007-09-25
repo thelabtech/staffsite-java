@@ -2387,7 +2387,6 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 			String searchText = ctx.getInputString("searchtext", true);
 			outputCampusList(ctx.getResponse(), searchText);
 		} catch (Exception e) {
-			log.error("Failed to perform campusLocate", e);
 			goToErrorPage(ctx, e, "campusLocate");
 		}
 	}
