@@ -164,7 +164,7 @@ public class ProfileManager {
     }
 
     /** Hashtable input */
-    public void updateProfile(StaffSiteProfile profile) throws ProfileNotFoundException, ProfileManagementException {
+    public void updateProfile(StaffSiteProfile profile) throws ProfileNotFoundException, ProfileManagementException, Exception {
         if ("".equals(profile.getStaffSiteProfileID())) {
             throw new ProfileNotFoundException("ProfileID was null.");
         } else {
@@ -173,7 +173,7 @@ public class ProfileManager {
 //            	profile.setFk_ssmUserId(oldProfile.getFk_ssmUserId());
 	            profile.persist();
             } catch (Exception e) {
-                throw new ProfileManagementException(e.toString());
+                throw e;
             }
         }
     }
