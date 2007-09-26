@@ -87,7 +87,7 @@ int curr_tab = 3; %>
 		</tr>
 		<%// if (isStudent.equals("false")) { %>
 		<%
-		boolean fskEnabled = true;
+		boolean fskEnabled = false;
 		if (fskEnabled) { 
 		%>
  		<tr>
@@ -106,7 +106,7 @@ int curr_tab = 3; %>
 			<td valign="center" align="center">
 				<img src="/images/logo_fsk.gif"></td><td>
 				<%=font%><b>FSK Ordering Tool</b></font></td><td>
-				<%=fontS%>The FSK order site is no longer available.  If you would like to order FSK material please email <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call him @ 407-826-2557.</font><br />
+				<%=fontS%>The FSK order site is no longer available.  If you would like to order FSK material please email <a href="mailto:Dave.Schlernitzauer@uscm.org">Dave.Schlernitzauer@uscm.org</a> or call him @ 407-443-0073.</font><br />
 				<%=fontS%>View contents <a href='http://fsk.campuscrusadeforchrist.com/customer/product/public_list' onClick="window.open('http://fsk.campuscrusadeforchrist.com/customer/product/public_list', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable'); return false">here.</a></font>
 			</td>
 		</tr>
