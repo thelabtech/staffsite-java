@@ -83,10 +83,10 @@
 				      } else if (_region.equals("gp")) {
 						%>
 							<p>
-							Great Plains - Ryan Williams<br>
-							726 Front Street, Suite C<br>
-							Louisville, CO 80027<br>
-							<a href="mailto:Ryan.Williams@uscm.org">Ryan.Williams@uscm.org</a>&nbsp;303-926-3816<br>
+							Great Plains - Allyson Davies<br>
+							5485 Conestoga Ct, Suite 230<br>
+							Boulder, CO 80301<br>
+							<a href="mailto:Allyson.Davies@uscm.org">Allyson.Davies@uscm.org</a>&nbsp;303-926-3800 ext.3827<br>
 							</p>
 						<%
 				      } else if (_region.equals("rr")) {
