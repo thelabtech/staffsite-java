@@ -6,8 +6,8 @@ public enum Status {
 	AC("Active"), 
 	IN("Inactive"),  
 	FR("Forerunner"),
+	PI("Pioneering"),
 	KE("Key Contact"), 
-	PI("Pioneering"), 
 	LA("Launched"), 
 	TR("Transformational");
 
