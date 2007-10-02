@@ -390,69 +390,17 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 			HREF="/servlet/InfoBaseController?action=addTeamToCampus&from=addTeamToCampus&strategy=<%= strategy.toString() %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>">
 			Add <%= strategy.getName() %> Movement</A> ] 
 			</font>
+			
 			<br>
 			<%
-		}
+			
+   		}
 	}
 		
 
-	   	for (Strategy strategy : Strategy.campusNoSuccessCriteriaStrategies()) {
-	   		thisActivity = ar.getHashtable(strategy.name());
-	   		boolean showAddLink = false;
-	   		if (thisActivity == null) {
-	   			showAddLink = true;
-	   		}
+	
 	   		
-	   		if (showAddLink) {
-				%>
-				<%=font%>[ <A
-				HREF="/servlet/InfoBaseController?action=addTeamToCampus&from=addTeamToCampus&strategy=<%= strategy.toString() %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>">
-				Add <%= strategy.getName() %> Movement</A> ] 
-				</font>
-				<br>
-				<%
-			}
-		}
-
-	   	for (Strategy strategy : Strategy.microCultures()) {
-	   		thisActivity = ar.getHashtable(strategy.name());
-	   		boolean showAddLink = false;
-	   		if (thisActivity == null) {
-	   			showAddLink = true;
-	   		}
 	   		
-	   		if (showAddLink) {
-				%>
-				<%=font%>[ <A
-				HREF="/servlet/InfoBaseController?action=addTeamToCampus&from=addTeamToCampus&strategy=<%= strategy.toString() %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>">
-				Add <%= strategy.getName() %> Movement</A> ] 
-				</font>
-				<br>
-				<%
-			}
-		}	
-		
-	   	%>
-	   			<br>
-	    <%
-
-	   	for (Strategy strategy : Strategy.nonCampusStrategies()) {
-	   		thisActivity = ar.getHashtable(strategy.name());
-	   		boolean showAddLink = false;
-	   		if (thisActivity == null) {
-	   			showAddLink = true;
-	   		}
-	   		
-	   		if (showAddLink) {
-				%>
-				<%=font%>[ <A
-				HREF="/servlet/InfoBaseController?action=addTeamToCampus&from=addTeamToCampus&strategy=<%= strategy.toString() %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>">
-				Add <%= strategy.getName() %> Movement</A> ] 
-				</font>
-				<br>
-				<%
-			}
-		}
 	    %>
 	   			<%=font%>[ <A 
 	   			HREF="/servlet/InfoBaseController?action=addMinToCampus&targetareaid=<%= request.getParameter("targetareaid") %>">Add non-CCC Ministry to this campus</A> ]
