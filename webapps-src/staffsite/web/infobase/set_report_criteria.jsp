@@ -2,7 +2,7 @@
      criteria as well as the full range of statuses.  Further info on this change can 
      be found in the detail_target_area.jsp page.
      
-	Military Ministry,Athletes In Action,Grad Resources,Christian Leadership Ministries
+	Military Ministry,Athletes In Action,Grad Resources,Christian Leadership Ministries (now Faculty Commons)
 	Korean CCC,Greek,Valor and Other
      
  -->
@@ -100,7 +100,7 @@ String[] strategies = Strategy.strategiesArray();
 					<input type="checkbox" name="MM" value="true" >Military Ministry<br>
 					<input type="checkbox" name="AA" value="true" >Athletes In Action<br>
 					<input type="checkbox" name="GR" value="true" >Grad Resources<br>
-					<input type="checkbox" name="CL" value="true" >Christian Leadership Ministries<br>
+					<input type="checkbox" name="CL" value="true" >Faculty Commons<br>
 					<input type="checkbox" name="KC" value="true" >Korean CCC<br>
 					<input type="checkbox" name="GK" value="true" >Greek<br>
 					<input type="checkbox" name="VL" value="true" >Valor<br>

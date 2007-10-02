@@ -17,7 +17,7 @@ public enum Strategy {
 	MM ("Military Ministry"),
 	AA ("Athletes In Action"),
 	GR ("Grad Resources"),
-	CL ("Christian Leadership Ministries"),
+	CL ("Faculty Commons"),
 	KC ("Korean CCC"),
 	GK ("Greek"),
 	VL ("Valor"),
