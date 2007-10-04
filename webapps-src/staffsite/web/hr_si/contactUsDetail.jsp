@@ -28,19 +28,24 @@
 					  if (_region.equals("ne")) {
 						%>
 							<p>
-							Northeast - Lolene Love, Kevin Kimball<br>
-							17 Maple St. 2nd Floor<br>
-							Danvers, MA 01923<br>
-							978-774-7503  ext. 14<br>
+							Kevin Kimball<br>
+							Campus Crusade for Christ - Northeast Regional Headquarters<br>
+							10 Milk Street, Suite #320<br>
+							Boston, MA 02108<br>
+							(617) 338-4033, ext. 14 (office)<br>
+							(603) 674-8412 (cell)<br>
+							<A HREF="mailto:Kevin.Kimball@uscm.org">Kevin.Kimball@uscm.org</A><br>
 							</p>
 						<%
 				      } else if (_region.equals("ma")) {
 						%>
 							<p>
 							MidAtlantic - Jim Rhodes<br>
+							Campus Crusade for Christ<br>
 							P.O. Box 117 <br>
 							Exton, PA 19341<br>
-							610-647-3663<br>
+							(610) 524-2193<br>
+							<A HREF="mailto:Jim.Rhodes@uscm.org">Jim.Rhodes@uscm.org</A><br>
 							</p>
 						<%
 				      } else if (_region.equals("ms")) {
@@ -50,6 +55,7 @@
 							2186 North Salem Street Ste. 103<br>
 							Apex, NC 27523-6459<br>
 							919-290-1050<br>
+							<A HREF="mailto:midsouthinternships@uscm.org">midsouthinternships@uscm.org</A><br>
 							</p>
 						<%
 				      } else if (_region.equals("se")) {
@@ -59,7 +65,7 @@
 							120 Interstate North Pkwy Ste 455<br>
 							Atlanta, GA 30339<br>
 							<a 
-							href="mailto:Ashley.Jenkins@uscm.org">Ashley.Jenkins@uscm.org</a>&nbsp;(770) 434-1004 x238<br>
+							href="mailto:Ashley.Jenkins@uscm.org">Ashley.Jenkins@uscm.org</a>&nbsp;(770) 434-1004 x23<br>
 							</p>
 						<%
 				      } else if (_region.equals("gl")) {
@@ -74,10 +80,11 @@
 				      } else if (_region.equals("um")) {
 						%>
 							<p>
-							Upper Midwest - Ginger Sharp<br>
-							2665 4th Ave. N  Ste. 108<br>
-							Anoka, MN 55303<br>
-							763-323-4339 x113<br>
+							Upper Midwest - Jason Gibson<br>
+							1021 Hennepin Ave. Ste. 300<br>
+							Minneapolis, MN 55403<br>
+							(612) 339-5228 x113<br>
+							<a href="mailto:Jason.Gibson@uscm.org">Jason.Gibson@uscm.org</a><br>
 							</p>
 						<%
 				      } else if (_region.equals("gp")) {
@@ -92,15 +99,30 @@
 				      } else if (_region.equals("rr")) {
 						%>
 							<p>
-							Red River - Laura Choy<br>
-							13091 Pond Springs Rd. Ste. D-350<br>
+							Red River<br>
+							12012 Technology Blvd, Suite 100<br>
 							Austin, TX 78729<br>
+							</p>
+							<p>
+							STINT<br>
+							Mark Kohman<br>
+							(512) 615-2508
+							<A HREF="mailto:Mark.Kohman@uscm.org">Mark.Kohman@uscm.org</A><br>
+							</p>
+							<p>
+							US Internships<br>
+							Carolyn Raye<br>
+							<A HREF="mailto:Carolyn.Raye@uscm.org">Carolyn.Raye@uscm.org</A><br>
 							</p>
 						<%
 				      } else if (_region.equals("nw")) {
 						%>
 							<p>
 							Greater Northwest<br>
+							1331 SE Tacoma St Ste200<br>
+							Portland, OR 97202<br>
+							</p>
+							<p>
 							STINT<br>
 							Matt Mikalatos<br>
 							(360) 635-1100<br>
@@ -108,9 +130,9 @@
 							</p>
 							<p>
 							US Internships<br>
-							Anne Huminsky<br>
-							(503) 223-2340 x205<br>
-							<A HREF="mailto:Anne.Huminsky@uscm.org">Anne.Huminsky@uscm.org</A><br>
+							John Rygh<br>
+							(503) 223-2340 x206<br>
+							<A HREF="mailto:John.Rygh@uscm.org">John.Rygh@uscm.org</A><br>
 							</p>
 						<%
 				      } else if (_region.equals("sw")) {
