@@ -137,7 +137,6 @@ function jobVerify(form) {
 <OPTION VALUE="Campus">Campus Ministry</OPTION>
 <OPTION VALUE="Christian Embassy, D.C.">Christian Embassy, D.C.</OPTION>
 <OPTION VALUE="Christian Embassy, N.Y.">Christian Embassy, N.Y.</OPTION>
-<OPTION VALUE="Faculty Commons">Faculty Commons</OPTION>
 <OPTION VALUE="ChurchLIFE">ChurchLIFE</OPTION>
 <OPTION VALUE="Computer Services">Computer Services</OPTION>
 <OPTION VALUE="Disciplemakers International">Disciplemakers International</OPTION>
@@ -145,6 +144,7 @@ function jobVerify(form) {
 <OPTION VALUE="ESC Media">ESC Media</OPTION>
 <OPTION VALUE="EveryStudent.com">EveryStudent.com</OPTION>
 <OPTION VALUE="Executive Ministries">Executive Ministries</OPTION>
+<OPTION VALUE="Faculty Commons">Faculty Commons</OPTION>
 <OPTION VALUE="FamilyLife">FamilyLife</OPTION>
 <OPTION VALUE="Global Resources">Global Resources</OPTION>
 <OPTION VALUE="GoCCC">GoCCC</OPTION>

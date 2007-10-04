@@ -10,6 +10,15 @@ ar = ActionResults.getActionResults(session);
 	String teamPhone = (String)teamTable.get("Phone");
 	String teamEmail = (String)teamTable.get("Email");
 	String teamUrl = (String)teamTable.get("Url");
+	if(!teamUrl.equals("")) 
+	{
+		if(!teamUrl.startsWith("http")){
+			if(!teamUrl.startsWith("www"))
+				{teamUrl="http://www"+teamUrl;}
+			else
+				{teamUrl="http://"+teamUrl;}
+		}
+	}
 	String teamLane = (String)teamTable.get("Lane");
 	String teamAddress = (String)teamTable.get("Address1");
 	String teamRegionName = (String)teamTable.get("RegionName");
@@ -68,7 +77,7 @@ ar = ActionResults.getActionResults(session);
 				<% if(!teamAddress.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Address: </B></FONT></TD><TD><%= font %><%= teamAddress %></TD></TR><% } %>
 				<% if(!teamPhone.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Phone: </B></FONT></TD><TD><%= font %><%= teamPhone %></TD></TR><% } %>
 				<% if(!teamEmail.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>E-mail: </B></FONT></TD><TD><%= font %><A HREF="mailto: <%= teamEmail %>"><%= teamEmail %></A></TD></TR><% } %>
-				<% if(!teamUrl.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Website: </B></FONT></TD><TD><%= font %><A HREF="http://<%= teamUrl %>"><%= teamUrl %></A></TD></TR><% } %>
+				<% if(!teamUrl.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Website: </B></FONT></TD><TD><%= font %><A HREF="<%= teamUrl %>"><%= teamUrl %></A></TD></TR><% } %>
 				<% if(!teamActive.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Active? </B></TD><TD><%= font %><%= teamActive %></TD></TR><% } %>
 				<% if(!teamNote.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Note: </B></TD><TD><%= font %><%= teamNote %></TD></TR><% } %>
 				</TABLE>

@@ -205,7 +205,6 @@ public class InfoBaseController extends Controller {
 
             String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
             String strategy = ctx.getInputString("strategy", true);
-            if ("CL".equalsIgnoreCase(strategy)){strategy="FC";}
             String from = ctx.getInputString("from", true);
 
 			java.util.GregorianCalendar today = new java.util.GregorianCalendar();

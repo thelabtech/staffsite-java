@@ -37,7 +37,6 @@ Hashtable h = ar.getHashtable("staffinfo");
     String state = (String)h.get("State");
     String deptName = (String)h.get("DeptName");
     if("CHRISTIAN LEADERSHIP".equalsIgnoreCase(deptName)){deptName="Faculty Commons";}
-
     String spouseName = (String)h.get("SpouseFirstName");
     //String intlContact = (String)h.get("IntlContact");
     String address4 = (String)h.get("Address4");
@@ -125,7 +124,7 @@ Hashtable h = ar.getHashtable("staffinfo");
 				
 				<TR><TD VALIGN="TOP"><%=font%><B>Region: </B></FONT></TD><TD><%= font %><%= region %></TD></TR>
 				<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
-									<TR><TD VALIGN="TOP"><%=font%><B>Dept. Name: </B></FONT></TD><TD><%= font %><%= deptName %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>Dept. Name: </B></FONT></TD><TD><%= font %><%= deptName %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Job Title: </B></FONT></TD><TD><%= font %><%= jobTitle %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Job Code: </B></FONT></TD><TD><%= font %><%= jobCode %></A></TD></TR>
 				<% } else { %>
