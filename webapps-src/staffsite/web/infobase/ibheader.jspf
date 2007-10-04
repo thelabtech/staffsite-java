@@ -49,6 +49,8 @@
 						  <option value="BR">Bridges</a>
 						  <option value="WS">WSN Stint</a>
 						  <option value="WI">WSN ICS</a>
+						  <option value="MM">Military Ministry</a>
+						  <!-- Isaac put the above line back in -->
 						  <option value="AA">Athletes In Action</a>
 						  <option value="GR">Grad Resources</a>
 						  <option value="CL">Faculty Commons</a>
