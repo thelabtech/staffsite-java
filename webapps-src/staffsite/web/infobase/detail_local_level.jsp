@@ -13,10 +13,7 @@ ar = ActionResults.getActionResults(session);
 	if(!teamUrl.equals("")) 
 	{
 		if(!teamUrl.startsWith("http")){
-			if(!teamUrl.startsWith("www"))
-				{teamUrl="http://www"+teamUrl;}
-			else
-				{teamUrl="http://"+teamUrl;}
+			teamUrl="http://"+teamUrl;
 		}
 	}
 	String teamLane = (String)teamTable.get("Lane");
