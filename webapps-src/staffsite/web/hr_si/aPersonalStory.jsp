@@ -5,18 +5,52 @@
 <%@ include file="/hr_si/homePageHeader.jspf" %>
 <p><b>A new sister in Christ in East Asia</b><br>
 <i>from</i> Sherri, East Asia</p>
-<p>As Sherri rode her bike home from class, she stopped at a place and ordered fried rice. While waiting for her food, Sherri went to a music store next door to look around.</p>
-<p>As she was leaving the store, a girl stopped her and asked, "Will you be my language partner?"</p>
-<p>Sherri knew she already had several language partners, but she did want to meet with the girl at least once. So Sherri took down the girl's phone number.</p>
-<p>Weeks had past and Sherri kept thinking about the girl. Sherri tried to contact her numerous times. Finally, the girl returned Sherri's calls and they agreed to meet.</p>
-<p>The girl brought Sherri to her dorm room. No one else was there. So Sherry took this opportunity to share her faith.</p> 
-<p>The girl asked Sherri what she liked to do in her free time. Sherri responded that she likes to watch movies, read books, and since she was a Christian, she likes to spend time reading the Bible and singing Christian songs with Christian friends.</p>
-<p>Sherri and the girl talked about a few other topics then Sherri decided to bring up being a Christian.</p>
-<blockquote>SHERRI: "Just now when I said I was a Christian, what did you think?"<br>
-THE GIRL: "I know very little about it, although I have heard some about Jesus in class." <br>
-SHERRI: "He is the most important thing in my life. I love Him so much and I wish everyone could know the whole story about Jesus." <br>
-THE GIRL: "I would like to know more about Jesus. How can I find out?" <br>
-SHERRI: "I can tell you! I have a little book that gives a summary of the Bible, would you like to see it?" <br>
-THE GIRL: "Yes!"</blockquote> 
-<p>The girl ended up praying to receive Christ into her life. Sherri had several language partners to meet with, but she knew that meeting this girl in the music store was not a mere accident but a divine opportunity.</p>
+<p>Sherri was riding her bike home from class when she decided to stop at
+a restaurant and order fried rice. While waiting for her food, Sherri
+walked over to a music store to look around. As she was leaving the
+store, a girl hurried to Sherri&rsquo;s side and asked excitedly,
+"Will you be my language partner?" Sherri knew she already had several
+language partners, but she did want to meet with this girl at least
+once. So she took down Christine&rsquo;s* phone number and assured
+her that she would get in touch with her soon.</p>
+
+<p>Weeks had passed and Sherri kept thinking about the girl from the music
+store. She tried to call her multiple times and was never successful.
+Finally, when Sherri had all but given up, Christine returned her calls
+and they agreed to meet later that week.</p>
+
+<p>Christine brought Sherri to her dorm room so they could study where it
+was quiet. As they entered the room Sherri realized that they were
+alone and sensed that this would be a perfect time to talk to her new
+friend about what she believed.</p>
+
+<p>Christine asked Sherri what she liked to do in her free time. Sherri
+responded that she liked to watch movies, read books, and since she was
+a Christian, she liked to spend time reading the Bible and singing
+Christian songs with Christian friends. The conversation continued in
+another direction, and then Sherri decided that she would try to bring
+up her faith again.</p>
+
+<p>Sensing that the time was perfect Sherri began to speak passionately,
+"He is the most important thing in my life. I love Him so much and I
+wish everyone could know the whole story about Jesus." Christine
+replied quickly, "I would like to know more about Jesus. How can I find
+out?" Sherri was overjoyed at her quick interest, "I can tell
+you,&rdquo; she said, &ldquo;I have a little book that gives a
+summary of the Bible, would you like to see it?" Without pausing for a
+breath Christine responded, &ldquo;Yes!&rdquo;</p>
+ 
+<p>Sherri proceeded to read through a translated booklet explaining
+God&rsquo;s love for us and what Christ had done on the cross. She
+shared how her friend could invite Christ into her heart right then,
+and that it would be the most important decision she would ever make.
+After discussing this at length Christine decided to put her faith in
+Christ, and prayed with Sherri that the Lord would enter her heart!</p>
+
+<p>As Sherri left Christine&rsquo;s dorm room that day she thought
+about her &ldquo;chance&rdquo; meeting with a girl at a music
+store.&nbsp; She smiled as she realized that it had not been a
+chance meeting at all, but a divine appointment from the Lord!</p>
+<p></p>
+<p>*name changed</p>
 <%@ include file="/hr_si/homePageFooter.jspf" %>

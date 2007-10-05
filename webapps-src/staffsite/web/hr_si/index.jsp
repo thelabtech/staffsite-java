@@ -20,7 +20,7 @@
 
 <STRONG>Welcome to the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> STINT/Internship application!</STRONG>
 <P>
-Thank you for your interest in joining us on a STINT or Internship.  We welcome your application for the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> STINT/Internship year!  To get started with a new application for a STINT/Internship, please register, or if you are returning, just login to access your existing application.
+Thank you for your interest in joining us on a STINT or Internship!  We welcome your application for the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> year. To get started with a new application please register, or if you are returning, just login to access your existing application. 
 <BR>
 
 <P><STRONG>The STINT/Internship Application will not be available until October.</STRONG></P>
