@@ -14,7 +14,6 @@ public enum Strategy {
 	WI ("WSN ICS"),
 	WS ("WSN Stint"),
 	BR ("Bridges"),
-	MM ("Military Ministry"),
 	AA ("Athletes In Action"),
 	GR ("Grad Resources"),
 	CL ("Faculty Commons"),
@@ -22,7 +21,7 @@ public enum Strategy {
 	GK ("Greek"),
 	VL ("Valor"),
 	OT ("Other");
-
+	
 	
 	private String name;
 
@@ -43,7 +42,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> nonCampusStrategies() {
-		return EnumSet.of(MM, AA);
+		return EnumSet.of(AA);
 	
 	}
 

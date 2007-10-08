@@ -97,7 +97,6 @@ String[] strategies = Strategy.strategiesArray();
 					<input type="checkbox" name="BR" value="true" >Bridges<br>
 					<input type="checkbox" name="WS" value="true" >WSN STInt<br>
 					<input type="checkbox" name="WI" value="true" >WSN ICS<br>
-					<input type="checkbox" name="MM" value="true" >Military Ministry<br>
 					<input type="checkbox" name="AA" value="true" >Athletes In Action<br>
 					<input type="checkbox" name="GR" value="true" >Grad Resources<br>
 					<input type="checkbox" name="CL" value="true" >Faculty Commons<br>
