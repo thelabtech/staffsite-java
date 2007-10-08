@@ -187,28 +187,10 @@ public class ActivityHistory extends DBIOEntity {
 		return "";
 	}
     public String getLastActivityHistoryID(String ActivityID) {
-    	String lastHistoryID ="";
-    	try {
-    		//Get the last row of the ActivityHistory rows for this Activity.
-    		Connection sqlconn = DBConnectionFactory.getDatabaseConn();
-    		Statement sqlstatement = sqlconn.createStatement();
-    		String query = "SELECT MAX(id) FROM ministry_activity_history " +
-					   "WHERE activity_id = " + ActivityID;
-
-    		ResultSet rs = sqlstatement.executeQuery(query);
-    		
-    		if(rs.next()) {    // check if there are any previous history rcords for this activity?
-    			lastHistoryID = new String(rs.getString("MAX(id)"));
-    		} else {  
-    			lastHistoryID = null;
- 	    }
-	    sqlconn.close();	
-		
-    	} catch (Exception e) {
-    		log.error("Failed to perform deactivateActivity", e);
-
-    		//throw new Exception(e);
-    	}
+    	ActivityHistory last = new ActivityHistory();
+    	last.select("id in (SELECT MAX(id) FROM ministry_activity_history " +
+					   "WHERE activity_id = " + ActivityID + ")");
+    	String lastHistoryID = last.getId();
         return(lastHistoryID);
     }
 }
