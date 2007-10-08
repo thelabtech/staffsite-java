@@ -73,7 +73,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 
 	public void showIndex(ActionContext ctx) {
 		try {
-			if (ctx.getInputString("ConferenceID") != null)
+			if (ctx.getInputString("ConferenceID") != null && !"".equals(ctx.getInputString("ConferenceID")))
 				if (ctx.getInputString("type") != null)
 					userLogin(ctx);
 				else
