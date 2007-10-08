@@ -31,6 +31,10 @@ Christian songs with Christian friends. The conversation continued in
 another direction, and then Sherri decided that she would try to bring
 up her faith again.</p>
 
+<p>Sherri paused and asked "Just now when I told you I was a Christian,
+what did you think?" Her friend responded, "I know very little about
+it, although I have heard some about Jesus in class."</p>
+
 <p>Sensing that the time was perfect Sherri began to speak passionately,
 "He is the most important thing in my life. I love Him so much and I
 wish everyone could know the whole story about Jesus." Christine
