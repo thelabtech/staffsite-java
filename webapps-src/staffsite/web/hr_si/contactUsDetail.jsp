@@ -71,10 +71,20 @@
 				      } else if (_region.equals("gl")) {
 						%>
 							<p>
-							Great Lakes - Scott Santee<br>
+							Great Lakes<br>
 							8383 Craig St., Suite 320<br>
 							Indianapolis, IN 46250<br>
-							<a href="mailto:Scott.Santee@uscm.org">Scott.Santee@uscm.org</a>&nbsp;317.841.8001x228<br>
+							<a href="mailto:greatlakessending@uscm.org">greatlakessending@uscm.org</a><br>
+							</p>
+							<p>
+							STINT<br>
+							Shanda Eickelberger<br>
+							(317) 841-8001 x216<br>
+							</p>
+							<p>
+							US Internships<br>
+							Lindsay Dasher<br>
+							(317) 841-8001 x220<br>
 							</p>
 						<%
 				      } else if (_region.equals("um")) {
