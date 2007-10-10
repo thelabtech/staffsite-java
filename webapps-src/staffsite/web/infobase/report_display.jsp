@@ -42,7 +42,7 @@
 	int multipliersSum = 0;
 	int invldStudentsSum = 0;
 	int studentLeadersSum = 0;
-
+	
 
 	String areaname = null;
 	String strategyList = "";
@@ -197,7 +197,7 @@
 		invldStudentsSum += demos.getInt("invldStudents");
 		multipliersSum += demos.getInt("multipliers");
 		studentLeadersSum += demos.getInt("studentLeaders");
-
+		
 		if(request.getParameter("type").equals("regional") || request.getParameter("type").equals("locallevel")){
 
 			%>
@@ -246,7 +246,7 @@
 	<tr <%=bgcolorL%>>
 <%		if(request.getParameter("type").equals("regional") || request.getParameter("type").equals("locallevel")){
 			%>
-			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(enrollmentSum)%>)</B></td>
+			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(counter-1)%> Mvts., <%=Integer.toString(enrollmentSum)%> Enr.)</B></td>
 			<%
 		}
 		else if(request.getParameter("type").equals("national")){
