@@ -42,7 +42,8 @@
 	int multipliersSum = 0;
 	int invldStudentsSum = 0;
 	int studentLeadersSum = 0;
-	
+	int activeEnrollment = 0;
+	int activeMovements = 0;
 
 	String areaname = null;
 	String strategyList = "";
@@ -213,6 +214,11 @@
 				(active starting at <%=sums.getDate("periodBegin") %>)<!-- to sums.getDate("periodEnd") ) -->
 				<%
 			}
+			else
+			{
+				activeEnrollment += Integer.parseInt(((sums.getString("enrollment")==null)||(sums.getString("enrollment").equals("")))?"0":sums.getString("enrollment"));
+				activeMovements += 1;
+			}
 			%>
 			 </td>
 			<%
@@ -246,7 +252,7 @@
 	<tr <%=bgcolorL%>>
 <%		if(request.getParameter("type").equals("regional") || request.getParameter("type").equals("locallevel")){
 			%>
-			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(counter-1)%> Mvts., <%=Integer.toString(enrollmentSum)%> Enr.)</B></td>
+			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(activeMovements)%> Mvts., <%=Integer.toString(activeEnrollment)%> Enr.)</B></td>
 			<%
 		}
 		else if(request.getParameter("type").equals("national")){
