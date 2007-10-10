@@ -26,15 +26,15 @@ try{
 <%
 	registrationMenu.setActives(new boolean[]{
 		true,
-		true, 
-		false, 
-		false, 
-		false, 
-		false, 
-		false, 
-		false, 
-		false, 
-		false, 
+		true,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
 		false
 	});
 otherOptionsMenu.setActives(new boolean[]{
@@ -42,9 +42,9 @@ otherOptionsMenu.setActives(new boolean[]{
 		true,
 		true
 	});
-	
 
-	
+
+	/*
 	int imgColSize = 0;
 	if(conference.getOnsiteCost() > 0)
 		imgColSize++;
@@ -56,7 +56,7 @@ otherOptionsMenu.setActives(new boolean[]{
 		imgColSize++;
 	if(conference.getDiscountFullPayment() > 0)
 		imgColSize++;
-
+	*/
 %>
 <TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING="0" CELLSPACING="10">
 <TR>
@@ -65,7 +65,7 @@ otherOptionsMenu.setActives(new boolean[]{
 		<%=registrationMenu.display(2)%>
 	</TD>
 	**********************************-->
-	
+
 	<TD VALIGN="TOP">
 	<TABLE WIDTH="100%" CLASS="box" CELLSPACING="0">
 		<% if(!"".equals(conference.getTheme())) { %>
@@ -76,7 +76,7 @@ otherOptionsMenu.setActives(new boolean[]{
 		<TR>
 			<TD CLASS="hl" ALIGN="RIGHT" VALIGN="TOP" WIDTH="20%">Description</TD>
 			<TD CLASS="cell" VALIGN="TOP"><%=conference.getBriefDescription()%></TD>
-			<TD CLASS="cell" VALIGN="TOP" ALIGN="RIGHT" ROWSPAN="<%=ar.getCollection("items").size() + 2 + imgColSize%>">
+			<TD CLASS="cell" VALIGN="TOP" ALIGN="RIGHT" ROWSPAN="<%=ar.getCollection("items").size() + 3%>">
 <%
 			if(!"".equals(conference.getConfImageID())){
 %>
@@ -139,7 +139,7 @@ otherOptionsMenu.setActives(new boolean[]{
 <%
 		}*/
 
-		if(ar.getCollection("items").size() > 0){		
+		if(ar.getCollection("items").size() > 0){
 			Iterator items = ar.getCollection("items").iterator();
 			for(int i = 0; items.hasNext(); i++){
 				CustomItem item = (CustomItem)items.next();
@@ -175,17 +175,17 @@ otherOptionsMenu.setActives(new boolean[]{
 			<input type="hidden" name="action" value="userLogin">
 			<input type="hidden" name="ConferenceID" value="<%=conference.getConferenceID()%>">
 			<TD COLSPAN="3" CLASS="button">
-<% 
+<%
 			if(regTypesV.size()==1){
 %>
 				<input type="radio" name="regTypeID" value="<%=(String)(((Vector)(regTypesV.firstElement())).get(0))%>"> Begin a new registration<br />
-<%	
+<%
 			}
 			else
 			{
 				/* iterate over all RegistrationTypes */
 					Iterator regTypes = regTypesV.iterator();
-					
+
 					for(int i = 0; regTypes.hasNext(); i++){
 						Vector v = (Vector)regTypes.next();
 						String typeID = (String)v.get(0);
@@ -195,8 +195,8 @@ otherOptionsMenu.setActives(new boolean[]{
 			<input type="radio" name="regTypeID" value="<%=typeID%>"> <b><%=typeLabel%> - </b><%=typeDescription%><br />
 			<%}
 			}%>
-				
-				
+
+
 				<input type="radio" name="regTypeID" value="existing" checked> Continue an existing registration<br /><br />
 				<A HREF="javascript: document.theForm.submit()" CLASS="button">Continue</A>
 			</TD>
