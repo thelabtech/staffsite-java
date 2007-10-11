@@ -10,7 +10,9 @@
 	java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 	java.sql.Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	java.sql.Statement stmt2 = conn.createStatement();
-
+	java.sql.Statement stmt3 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	java.sql.Statement stmt4 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	
 	String urlAppend = "";
 	String displayList = "";
 	
@@ -31,7 +33,9 @@
 
 	String sumsQuery = "";
 	String demosQuery = "";
-
+	String enrollmentQuery = "";
+	String movementsQuery = "";
+	
 	int enrollmentSum = 0;
 	int exposuresViaMediaSum = 0;
 	int evangelisticOneOnOneSum = 0;
@@ -80,6 +84,24 @@
 
 		demosQuery = "SELECT ministry_targetarea.region as rowid, ministry_targetarea.region, SUM(ministry_statistic.invldNewBlvrs) as invldNewBlvrs, SUM(ministry_statistic.invldStudents) invldStudents, SUM(ministry_statistic.studentLeaders) studentLeaders, SUM(ministry_statistic.multipliers) multipliers FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_targetarea on ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "') and ministry_activity.Strategy in (" + strategyList + ") and region is not null AND (ministry_targetarea.region <> '') GROUP BY ministry_targetarea.region ORDER BY ministry_targetarea.region";
 
+		enrollmentQuery = "SELECT  MAX(ministry_targetarea.enrollment) enrollment from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','KE','PI','FR','LA','TR') and ministry_targetarea.region in ('NE', 'MA', 'MS', 'SE', 'GL', 'UM', 'GP', 'RR', 'NW', 'SW')) GROUP BY ministry_targetarea.TargetAreaID";
+		
+		movementsQuery = "SELECT  ministry_activity.ActivityID from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','KE','PI','FR','LA','TR') and ministry_targetarea.region in ('NE', 'MA', 'MS', 'SE', 'GL', 'UM', 'GP', 'RR', 'NW', 'SW')) GROUP BY ministry_activity.ActivityID";
+		
+		log.debug("movements query: " + movementsQuery);
+		java.sql.ResultSet movements = stmt4.executeQuery(movementsQuery);
+		if (movements.isBeforeFirst()){
+		while(movements.next())
+		{
+			
+			activeMovements++;	
+			
+		}}
+		else
+		{
+			log.debug("Sorry, movements failed to get results");
+		}
+		
 		reportTitle = "National Report";
 
 
@@ -87,6 +109,7 @@
 
 		sumsQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID ORDER BY campusName, ministry_activity.ActivityID";
 		demosQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.multipliers, ministry_statistic.invldStudents, ministry_statistic.studentLeaders FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_targetarea.region = '" + request.getParameter("region") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID";
+		enrollmentQuery = "SELECT ministry_targetarea.region as region, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','KE','PI','FR','LA','TR') and ministry_targetarea.region  = '" + request.getParameter("region") + "') GROUP BY ministry_targetarea.TargetAreaID ORDER BY campusName, ministry_activity.ActivityID";
 
 	}
 
@@ -109,6 +132,20 @@
 
 	log.debug("sums query: " + sumsQuery);
 	log.debug("demos query: " + demosQuery);
+	log.debug("enrollment query: " + enrollmentQuery);
+	java.sql.ResultSet enrollment = stmt3.executeQuery(enrollmentQuery);
+	if (enrollment.isBeforeFirst()){
+	while(enrollment.next())
+	{
+		
+			activeEnrollment += Integer.parseInt(((enrollment.getString("enrollment")==null)||(enrollment.getString("enrollment").equals("")))?"0":enrollment.getString("enrollment"));
+		
+	}}
+	else
+	{
+		log.debug("Sorry, enrollment failed to get results");
+	}
+	
 	java.sql.ResultSet sums = stmt1.executeQuery(sumsQuery);
 	java.sql.ResultSet demos = stmt2.executeQuery(demosQuery);
 
@@ -216,8 +253,7 @@
 			}
 			else
 			{
-				activeEnrollment += Integer.parseInt(((sums.getString("enrollment")==null)||(sums.getString("enrollment").equals("")))?"0":sums.getString("enrollment"));
-				activeMovements += 1;
+				activeMovements++;
 			}
 			%>
 			 </td>
@@ -258,7 +294,7 @@
 		else if(request.getParameter("type").equals("national")){
 
 			%>
-			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary</B></td>
+			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(activeMovements)%> Mvts., <%=Integer.toString(activeEnrollment)%> Enr.)</B></td>
 			<%
 		}
 %>
@@ -302,6 +338,8 @@ String region = gettingRegion.getString("region");
 
 	stmt1.close();
 	stmt2.close();
+	stmt3.close();
+	stmt4.close();
 	conn.close();
 %>
 </CENTER>
