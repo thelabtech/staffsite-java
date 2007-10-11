@@ -410,13 +410,19 @@ public class StaffUpdater {
 		//staff.setNamePrefix(rs.getString("name_prefix"));
 		// NO SSN!
 		//staff.setSsn(rs.getString("ssn"));
-		staff.setOrigHireDate(rs.getDate("orig_hire_dt"));
 		staff.setIsMale("M".equals(rs.getString("sex")));
 		staff.setBirthDate(rs.getDate("birthdate"));
 		staff.setMaritalStatus(rs.getString("mar_status"));
 		staff.setMarriageDate(rs.getDate("mar_status_dt"));
-		staff.setHireDate(rs.getDate("hire_dt"));
-		staff.setRehireDate(rs.getDate("rehire_dt"));
+		if ("E".equals(rs.getString("employee_flag"))) {
+			staff.setHireDate(rs.getDate("hire_dt"));
+			staff.setRehireDate(rs.getDate("rehire_dt"));
+			staff.setOrigHireDate(rs.getDate("orig_hire_dt"));
+		} else {
+			staff.setHireDate(null);
+			staff.setRehireDate(null);
+			staff.setOrigHireDate(null);
+		}
 		staff.setServiceDate(rs.getDate("service_dt"));
 		staff.setLastIncDate(rs.getDate("last_increase_dt"));
 		staff.setWorkPhone(rs.getString("work_phone"));
