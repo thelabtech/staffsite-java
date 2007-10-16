@@ -58,6 +58,7 @@
 	<spec type=".text" desc="Plain Text" mime="text/plain" group="document" img="text.gif"></spec>
 	<spec type=".txt" desc="Plain Text" mime="text/plain" group="document" img="txt.gif"></spec>
 	<spec type=".wav" desc="Sound File" mime="audio/x-wav" group="audio" img="wav.gif"></spec>
+	<spec type=".wmf" desc="Wmf Image" mime="image/x-wmf" group="image" img="jpeg.gif"></spec>
 	<spec type=".xls" desc="Excel Document" mime="application/vnd.ms-excel" note="This resource requires Microsoft Excel." group="other" img="xls.gif"></spec>
 	<spec type=".xlt" desc="Excel Template" mime="application/vnd.ms-excel" note="This resource requires Microsoft Excel." group="other" img="xlt.gif"></spec>
 	<spec type=".xml" desc="eXtensible Markup Language Document" mime="text/xml" group="other" img="xml.gif"></spec>
