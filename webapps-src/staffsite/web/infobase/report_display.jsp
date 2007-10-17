@@ -133,17 +133,19 @@
 	log.debug("sums query: " + sumsQuery);
 	log.debug("demos query: " + demosQuery);
 	log.debug("enrollment query: " + enrollmentQuery);
-	java.sql.ResultSet enrollment = stmt3.executeQuery(enrollmentQuery);
-	if (enrollment.isBeforeFirst()){
-	while(enrollment.next())
-	{
-		
-			activeEnrollment += Integer.parseInt(((enrollment.getString("enrollment")==null)||(enrollment.getString("enrollment").equals("")))?"0":enrollment.getString("enrollment"));
-		
-	}}
-	else
-	{
-		log.debug("Sorry, enrollment failed to get results");
+	if (!"".equals(enrollmentQuery)) {
+		java.sql.ResultSet enrollment = stmt3.executeQuery(enrollmentQuery);
+		if (enrollment.isBeforeFirst()){
+		while(enrollment.next())
+		{
+			
+				activeEnrollment += Integer.parseInt(((enrollment.getString("enrollment")==null)||(enrollment.getString("enrollment").equals("")))?"0":enrollment.getString("enrollment"));
+			
+		}}
+		else
+		{
+			log.debug("Sorry, enrollment failed to get results");
+		}
 	}
 	
 	java.sql.ResultSet sums = stmt1.executeQuery(sumsQuery);
