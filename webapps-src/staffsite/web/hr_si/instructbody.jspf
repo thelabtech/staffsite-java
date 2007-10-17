@@ -25,7 +25,6 @@
 </p><p>
 **If this is the same as #1, choose another staff member, summer project leader, or someone who knows you well in ministry.
 </p><p>
-Ask them to complete a recommendation by going to <a href="https://staff.campuscrusadeforchrist.com">staff.campuscrusadeforchrist.com</a>.
 </p></td>
 	</tr>
 	<tr>
@@ -39,5 +38,5 @@ Ask them to complete a recommendation by going to <a href="https://staff.campusc
 	<tr>
 		<TD CLASS="app" ALIGN="left" VALIGN="TOP" WIDTH="5%"><strong>&#164;<strong></td>
 		<TD CLASS="app" ALIGN="left" WIDTH="95%"><p>Deadlines and Late Fees:
-	The deadline for submitting <u>completed</u> applications is <b>March 1st</b>. An application is complete when we have received your application, biographical material, all elaboration forms and questionnaires, all references, your signature page, and application fee.   It is <b><u>your</u></b> responsibility to see that all these get completed.  A March 1st deadline means that all parts listed above have been submitted <b>before March 1st</b>.  We <u>will not guarantee</u> the processing of any application received after March 1st.  <u>Late applications will be charged a $50 non-refundable application fee</u>.   The processing time for late applications may also be longer.</p></td>
+	The deadline for submitting <u>completed</u> applications is <b>March 1st, <%=SIUtil.CURRENT_SI_YEAR_INT+1%></b>. An application is complete when we have received your application, biographical material, all elaboration forms and questionnaires, all references, your signature page, and application fee.   It is <b><u>your</u></b> responsibility to see that all these get completed.  A March 1st deadline means that all parts listed above have been submitted <b>before March 1st, <%=SIUtil.CURRENT_SI_YEAR_INT+1%></b>.  We <u>will not guarantee</u> the processing of any application received after March 1st.  <u>Late applications will be charged a $50 non-refundable application fee</u>.   The processing time for late applications may also be longer.</p></td>
 	</tr>
