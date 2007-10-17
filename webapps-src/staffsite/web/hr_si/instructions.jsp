@@ -1,6 +1,7 @@
 <script language="JavaScript"><!--
     var timeOutClockDisabled = 1;
 // --></script>
+<%@ page import="org.alt60m.servlet.*, org.alt60m.hr.si.servlet.dbio.*" %>
 <% 	String thePage = "instructions"; %>
 <%@ include file="/hr_si/homePageHeader.jspf" %>
 <!-- CONTENT GOES HERE!!! -->
