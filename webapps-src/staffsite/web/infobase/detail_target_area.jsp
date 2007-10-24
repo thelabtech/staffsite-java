@@ -27,6 +27,23 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 <title><%=pageTitle%></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf"%>
+				<form name=bookmarkForm action='/servlet/InfoBaseController' method='post'>
+				    <input type=hidden name="action" value="changeBookmark">
+						<input type=hidden name="displayname" value="<%= taTable.get("Name") %>">
+						<input type=hidden name="type" value="targetarea">
+						<input type=hidden name="targetareaid" value="<%= taTable.get("TargetAreaId") %>">
+						<input type=hidden name="value" value="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%= taTable.get("TargetAreaId") %>">
+						<% 
+								String mode;
+								if(!ar.getValue("bookmarkID").equals("")) {
+									mode = "remove";
+								} else {
+										mode = "add";
+									}
+							%>
+						<INPUT TYPE=hidden name="bookmarkid" value="<%= ar.getValue("bookmarkID") %>"> 
+						<INPUT TYPE=hidden name="mode" value="<%= mode %>">
+				</form>
 <HR COLOR="#D0DDEA">
 
 <HR COLOR="#D0DDEA">
@@ -36,6 +53,9 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		<TD ALIGN="RIGHT" WIDTH="100%"><%=font%>[<A
 			HREF="/servlet/InfoBaseController?action=createReport&targetareaid=<%= request.getParameter("targetareaid") %>&type=targetarea">Success
 		Criteria Reporter</A>]</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="50%" ALIGN="RIGHT"><%= font %><A HREF="javascript: document.bookmarkForm.submit();">[<% if(mode == "remove") { %>Un-<% } %>Bookmark this campus]</A></FONT></TD>
 	</TR>
 </TABLE>
 <BR>
