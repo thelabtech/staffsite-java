@@ -107,7 +107,6 @@ int curr_tab = 3; %>
 				<img src="/images/logo_fsk.gif"></td><td>
 				<%=font%><b>FSK Ordering Tool</b></font></td><td>
 				<%=fontS%>The FSK order site is no longer available.</font><br />
-				<%=fontS%>View contents <a href='http://fsk.campuscrusadeforchrist.com/customer/product/public_list' onClick="window.open('http://fsk.campuscrusadeforchrist.com/customer/product/public_list', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable'); return false">here.</a></font>
 			</td>
 		</tr>
 		<%
