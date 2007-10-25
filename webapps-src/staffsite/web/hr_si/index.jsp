@@ -23,7 +23,7 @@
 Thank you for your interest in joining us on a STINT or Internship!  We welcome your application for the <b><%=SIUtil.CURRENT_SI_YEAR_INT%>-<%=SIUtil.CURRENT_SI_YEAR_INT+1%></b> year. To get started with a new application please register, or if you are returning, just login to access your existing application. 
 <BR>
 
-<P><STRONG>The STINT/Internship Application will not be available until October.</STRONG></P>
+<P><STRONG>The STINT/Internship Application will not be available until November.</STRONG></P>
 <!-- 
 <A CLASS="button" HREF="<%=siLoginPage%>" CLASS="button">Register/Login</A>
 <A CLASS="button" HREF="<%=siRegPage%>" CLASS="button">First Time Users</A>
