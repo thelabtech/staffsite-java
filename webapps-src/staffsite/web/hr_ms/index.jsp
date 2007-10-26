@@ -30,8 +30,8 @@
 <p>If this is your first visit to the site, please register with us by <A HREF="<%=msRegPage%>"><b>clicking here</b></a>. After you register, you can begin your online application. Before beginning, we suggest you review the Instructions page. </p>
 <p>If you need any assistance with our online application process, please <a href="/general/feedback.jsp" target="_blank"><b>contact us</b></a>.
 
+<!-- 
 <p>Note: The Summer Project Tool works best with Internet Explorer.  If you are using another browser and are experiencing difficulties, we recommend using Internet Explorer to apply.  If you do not have Internet Explorer on your computer, you can download it <a HREF="http://www.microsoft.com/windows/ie/default.asp" target="_blank"><b>here</b></a>.
-
 <p>If you are using a Mac, you will probably experience problems with the short answer questions.  These problems may prevent the person who reviews your application from being able to read it.  We suggest that you use a PC while filling out the application.  Also, if you are unable to apply online, you can <a href="/wsnsp/pdfforms/summerprojectapplication.pdf" target="_blank"><b>click here</b></a> to download the Summer Project Paper Application.
-
+-->
 <%@ include file="/hr_ms/homePageFooter.jspf" %>
