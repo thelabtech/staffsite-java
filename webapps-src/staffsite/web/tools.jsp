@@ -170,7 +170,9 @@ int curr_tab = 3; %>
 		if (stintEnabled) { 
 		%>
 		<tr>
-			<td valign="center" align="center"><a href="/servlet/SIController?action=showProjectTool"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
+			<td valign="center" align="center"><a href="
+				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
 			<td>
 				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
 				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
