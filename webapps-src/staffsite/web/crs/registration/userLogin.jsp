@@ -96,8 +96,8 @@ else { pageTitle = "Conference Registration Tool Login"; }
 					class="cell"
 					colspan="3">
 				<p><b>Please read these instructions before logging in:</b>
-				<p><b>Please use Internet Explorer to register.</b> Currently, this
-				site is optimized for <a href="http://mozilla.org" target="_blank">Mozilla Firefox</a>
+				<p>Currently, this 
+				site is optimized for <a href="http://www.getfirefox.com/" target="_blank">Mozilla Firefox</a>
 				and Internet Explorer. You may have problems
 				completing the process if you are using a different browser. We are
 				working to support other browsers in the future. Thank you for your
@@ -114,12 +114,17 @@ else { pageTitle = "Conference Registration Tool Login"; }
 					href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
 				a new login</a>.
 				</div>
-				<p><b>CCC Campus Ministry Staff:</b> Please log in
-				using your uscm email address (first.last@uscm.org) and your Campus
-				Staff Site password. If you don't have a login account for the
-				Campus Staff Site, please do not click "create a new login", but
-				rather please contact <a
-					href="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</a>.
+				<p><b>CCC Campus Ministry Staff:</b> To log in, follow these instructions:<br>
+				<ol>
+				  <li>Log into <a href="https://staff.campuscrusadeforchrist.com/" target="_blank">staff.campuscrusadeforchrist.com</a> (the system will
+				ask for your GCX login information)</li>
+				  <li>Click on "Tools"</li>
+				  <li>Click on "CRS"</li>
+				  <li>Click on "Select a Conference"</li>
+				  <li>Find this conference (ensure you have the correct name and
+				date) and click on "Register"</li>
+				</ol>
+				
 				<p><b>Other CCC staff</b>, you may <a
 					href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
 				a new login</a> if this is your first time to use the Conference
