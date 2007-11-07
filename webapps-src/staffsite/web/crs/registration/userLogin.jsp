@@ -105,14 +105,18 @@ else { pageTitle = "Conference Registration Tool Login"; }
 		<% // 1/16/2006 - Added SRW to cloak any reference to CCC.
 			if  (clk1==false) { //Beginning of conference cloaking if statment for userLogin.jsp
 		%>
-				<p><b>If you have previously</b> filled out a
+				<p><b>Students and non-staff:</b>
+				<div style="margin-left: 40px;">If this is your first time to log in to Campus Crusade for
+				Christ, you may <a
+				href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
+				a new login</a>.<br>
+				</div>
+				<div style="margin-left: 40px;">If you have previously filled out a
 				Campus Crusade for Christ online application or registration form,
 				please use the same email address and password that you used before
 				(help is available if you have forgotten your password).
-				<p><b>If this is your first time</b> to log in to Campus Crusade for
-				Christ, you may <a
-					href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
-				a new login</a>.
+				</div>
+								
 				</div>
 				<p><b>CCC Campus Ministry Staff:</b> To log in, follow these instructions:<br>
 				<ol>
@@ -125,7 +129,7 @@ else { pageTitle = "Conference Registration Tool Login"; }
 				date) and click on "Register"</li>
 				</ol>
 				
-				<p><b>Other CCC staff</b>, you may <a
+				<p><b>Other CCC staff</b>: You will need to <a
 					href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
 				a new login</a> if this is your first time to use the Conference
 				Registration System, or use your existing login if you have done

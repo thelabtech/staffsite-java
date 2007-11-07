@@ -58,12 +58,10 @@
 				you are trying to register for and describe the problem you are
 				having in as much detail possible. Include any error messages that
 				you are receiving.
-				<P><B>Note:</B> The Conference Registration System works best with
-				Internet Explorer. If you are using another browser and are
-				experiencing difficulties, we recommend using Internet Explorer to
-				register for your conference. If you do not have Internet Explorer
-				on your computer, you can download it <a
-					href="http://www.microsoft.com/windows/ie/default.asp">here</a>.
+				<P><B>Note:</B> Currently, the Conference Registration System
+				is optimized for <a href="http://www.getfirefox.com/" target="_blank">Mozilla Firefox</a>
+				and Internet Explorer. You may have problems
+				completing the process if you are using a different browser.
 				<P ALIGN=CENTER><a
 					href="JavaScript: popupWindow('/general/privacyPolicy.htm', 'Policy', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Privacy
 				policy.</a>
