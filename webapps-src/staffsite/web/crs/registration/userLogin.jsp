@@ -111,7 +111,7 @@ else { pageTitle = "Conference Registration Tool Login"; }
 				href="/servlet/AccountController?action=goToPage&page=register&loginPage=/crs/login.jsp?ConferenceID=<%=conference.getConferenceID()%>&type=<%=ar.getValue("type")%>">create
 				a new login</a>.<br>
 				</div>
-				<div style="margin-left: 40px;">If you have previously filled out a
+				<div style="margin-left: 40px;"><p>If you have previously filled out a
 				Campus Crusade for Christ online application or registration form,
 				please use the same email address and password that you used before
 				(help is available if you have forgotten your password).
