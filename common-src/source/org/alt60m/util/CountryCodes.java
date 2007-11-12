@@ -24,7 +24,7 @@ public class CountryCodes
 			"HZD","HZD","HZE","HZE","HZG","HZG","HZH","HZH","HZI","HZI","HZJ","HZJ","HZK","HZK","HZR","HZR","HZS","HZS",
 			"Iceland","ISL","India","IND","Indonesia","IDN","Ireland","IRL","Italy","ITA","Jamaica","JAM",
 			"Japan","JPN","Jordan","JOR","Kazakhstan","KAZ","Kenya","KEN","Kiribati","KIR","Korea (South)","KOR","Kuwait","KWT",
-			"Kyrgyzstan","KGZ","Latin America","XLA","Latvia","LVA","Lebanon","HZT","Lesotho","LSO","Liberia","LBR","Liechtenstein","LIE",
+			"Kyrgyzstan","KGZ","Latin America","XLA","Latvia","LVA","Lebanon","LBN","Lesotho","LSO","Liberia","LBR","Liechtenstein","LIE",
 			"Lithuania","LTU","Luxembourg","LUX","Macau","MAC","Macedonia","MKD","Madagascar","MDG","Malawi","MWI",
 			"Malaysia","MYS","Maldives","MDV","Mali","MLI","Malta","MLT","Marshall Islands","MHL","Martinique","MTQ",
 			"Mauritania","MRT","Mauritius","MUS","Mayotte","MYT","Mexico","MEX","Micronesia","FSM","Moldova","MDA",
