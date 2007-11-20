@@ -18,6 +18,24 @@ ar = ActionResults.getActionResults(session);
 	}
 	String teamLane = (String)teamTable.get("Lane");
 	String teamAddress = (String)teamTable.get("Address1");
+	String teamAddress2 = (String)teamTable.get("Address2");
+	String teamCity = (String)teamTable.get("City");
+	String teamState = (String)teamTable.get("State");
+	String teamZip = (String)teamTable.get("Zip");
+	String teamCountry = (String)teamTable.get("Country");
+	if (!teamAddress.equals(""))
+	{
+		if (!teamAddress2.equals(""))
+			teamAddress = teamAddress + "<br>" + teamAddress2;
+		if (!teamCity.equals(""))
+			teamAddress = teamAddress + "<br>" + teamCity;
+		if (!teamState.equals(""))
+			teamAddress = teamAddress + ", " + teamState;
+		if (!teamZip.equals(""))
+			teamAddress = teamAddress + " " + teamZip;
+		if (!teamCountry.equals(""))
+			teamAddress = teamAddress + "<br>" + teamCountry;
+	}
 	String teamRegionName = (String)teamTable.get("RegionName");
 	Boolean tempActive = (Boolean)teamTable.get("IsActive");
 	String teamActive;
@@ -71,7 +89,7 @@ ar = ActionResults.getActionResults(session);
 				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
 				<% if(!teamLane.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Lane: </B></FONT></TD><TD><%= font %><%= teamLane %></TD></TR><% } %>
 				<% if(!teamRegion.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Region: </B></FONT></TD><TD><%= font %><%= teamRegionName %></TD></TR><% } %>
-				<% if(!teamAddress.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Address: </B></FONT></TD><TD><%= font %><%= teamAddress %></TD></TR><% } %>
+				<% if(!teamAddress.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Address: </B></FONT></TD><TD style="padding-bottom:5px;"><%= fontS %><%= teamAddress  %></TD></TR><% } %>
 				<% if(!teamPhone.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Phone: </B></FONT></TD><TD><%= font %><%= teamPhone %></TD></TR><% } %>
 				<% if(!teamEmail.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>E-mail: </B></FONT></TD><TD><%= font %><A HREF="mailto: <%= teamEmail %>"><%= teamEmail %></A></TD></TR><% } %>
 				<% if(!teamUrl.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Website: </B></FONT></TD><TD><%= font %><A HREF="<%= teamUrl %>"><%= teamUrl %></A></TD></TR><% } %>
