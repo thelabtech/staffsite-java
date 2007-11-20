@@ -188,7 +188,7 @@ public class ActivityHistory extends DBIOEntity {
 	}
     public String getLastActivityHistoryID(String ActivityID) {
     	ActivityHistory last = new ActivityHistory();
-    	last.select("id in (SELECT MAX(id) FROM ministry_activity_history " +
+    	last.select("id = (SELECT MAX(id) FROM ministry_activity_history " +
 					   "WHERE activity_id = " + ActivityID + ")");
     	String lastHistoryID = last.getId();
         return(lastHistoryID);
