@@ -37,7 +37,7 @@ function noncccminVerify() {
 			<tr> 
 				<td align="right"><%=fontB%>Enter part of the campus's name:</font></td>
 				<td colspan="2" nowrap> 
-					<input type="text" name="partialname" value="" size="27" maxlength=100>
+					<input type="text" name="partialName" value="" size="27" maxlength=100>
 				</td>
 			</tr>
 

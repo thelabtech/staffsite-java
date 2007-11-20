@@ -248,7 +248,7 @@ public class InfoBaseTool {
     public Collection getAllNonCccMin() throws Exception {
         try {
             NonCccMin ncm = new NonCccMin();
-            return ncm.selectList();
+            return ncm.selectList("NonCccMinID > 0");
 		}
         catch (Exception e) {
             log.error("Failed to perform getAllNonCccMin().", e);
