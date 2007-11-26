@@ -31,9 +31,8 @@
 		</TD></TR>
 		<TR><TD valign="top" align="right">Enter your Username: </Td><TD><input type=text name="username" size=20 value="<%=username%>"></TD></TR>
 		<TR><TD valign="top" align="right">Enter your Auth Code: </Td><TD><input type=text name="auth" size=20></TD></TR>
-		<TR><TD valign="top" align="right">Which type of application are you registering for?</Td><TD>
-        <input type="radio" value="/hr_ms/applicant/login.jsp" name="url" checked> Summer Project<BR>
-        <input type="radio" value="/hr_si/applicant/login.jsp" name="url"> STINT/Internship<BR><BR>
+		<TR><TD/><TD>
+        <input type="hidden" value="/servlet/CRSRegister" name="url" checked>
         <input type=submit name=submit value="Submit">
 		</TD></TR>
 
