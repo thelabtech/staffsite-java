@@ -1490,20 +1490,20 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 							crsApp.updatePayments(registrationID);
 							crsApp.updatePreRegistered(registrationID);
 						}
-					}
 					
-					ar.putObject("registration",crsApp.getRegistration(registrationID));
-
-					ar.putObject(
-							"conference",
-							crsApp.getConference((String) ctx.getSessionValue("selectedEvent")));
-
-					ar.addHashtable("AccountSummary",
-							crsApp.getAccountSummary(registrationID));
-
-					ctx.setReturnValue(ar);
-
-					ctx.goToView("reviewRegistration");
+						ar.putObject("registration",crsApp.getRegistration(registrationID));
+	
+						ar.putObject(
+								"conference",
+								crsApp.getConference((String) ctx.getSessionValue("selectedEvent")));
+	
+						ar.addHashtable("AccountSummary",
+								crsApp.getAccountSummary(registrationID));
+	
+						ctx.setReturnValue(ar);
+	
+						ctx.goToView("reviewRegistration");
+					}
 				}
 			}
 		} catch (Exception e) {
