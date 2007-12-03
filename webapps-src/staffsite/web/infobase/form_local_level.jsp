@@ -10,6 +10,12 @@ ar = ActionResults.getActionResults(session);
 
 String pageTitle="Update Team";
 String mode = new String (request.getParameter("mode"));
+
+String noMovements = new String ();
+	if (mode.equals("update")) 
+	{
+	noMovements =ar.getValue("noMovements");
+	}
 String localLevelID = new String();
 String targetareaid = new String();
 String strategy = new String();
@@ -29,8 +35,10 @@ String region = new String();
 
 <%@ include file="/infobase/ibheader.jspf" %>
 
-<SCRIPT LANGUAGE="JavaScript">
+<SCRIPT LANGUAGE="JavaScript" >
 <!--
+
+	
 function verifyInput() {
 	var returnVal = true;
 	for(var i=0; i<verifyInput.arguments.length; i++) {
@@ -65,7 +73,9 @@ function teamVerify() {
 	<input type="hidden" name="mode" value="<%=mode%>">
 	<%
 	if (mode.equals("update")) {
+		
 		h = ar.getHashtable("team");
+		
 		localLevelID = request.getParameter("locallevelid");
 		//helper.find(localLevelID);
 		//localLevelW.find(pageContext, "ministry/LocalLevel", null, localLevelID);
@@ -233,19 +243,36 @@ function teamVerify() {
 				<%=fontB1%>(ex: http://www.und.edu/ccc)</font><BR><input type="text" name="Url" size="27" value="<%=h.get("Url") != null ? h.get("Url") : ""%>" maxlength=255>
 			</td>
 		</tr>
+		<%
+		
+		%>
 		<tr <%=bgcolorL%>> 
 			<td> 
-				<div align="right"><%=fontB%>Is this team Active? </font></div>
+				
+				<div align="right"><%=fontB%>Is this team Active? <%if (noMovements=="T"){ %><br><br><%} %></font></div>
+				
 			</td>
-			<td><%=fontB%>
+			<td ><%=fontB%>
 				<%
 				boolean isActive = h.get("IsActive") != null ? ((Boolean)h.get("IsActive")).booleanValue() : true;
 
-				if(isActive) {
-					%><input type="radio" name="IsActive" value="TRUE" checked>Yes <input type="radio" name="IsActive" value="FALSE">No<%
-				} else {
-					%><input type="radio" name="IsActive" value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
+				if (noMovements=="T")
+				{
+					if(isActive) 
+					{
+						%><input type="radio" name="IsActive" value="TRUE" checked>Yes <input type="radio" name="IsActive" value="FALSE">No<%
+					} else 
+					{
+						%><input type="radio" name="IsActive" value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
+					}
+					%><br><i>(This team has no active movements)</i><%
 				}
+				else
+				{
+					%><input type="hidden" name="IsActive" value="TRUE">
+					Yes. <%
+				}
+					
 				%>
 				</font>
 			</td>

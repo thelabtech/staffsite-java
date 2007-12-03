@@ -10,6 +10,7 @@
 	<view name="targetArea" url="/infobase/detail_target_area.jsp"></view>
 	<view name="editActivity" url="/infobase/form_update_activity.jsp"></view>
 	<view name="teamInfo" url="/infobase/detail_local_level.jsp"></view>
+	<view name="teamInfoInactive" url="/infobase/detail_local_level_inactive.jsp"></view>
 	<view name="minInfo" url="/infobase/detail_non_ccc_min.jsp"></view>
 	<view name="editTeam" url="/infobase/form_local_level.jsp"></view>
 	<view name="editNonCCCMin" url="/infobase/form_non_ccc_min.jsp"></view>
@@ -31,6 +32,7 @@
 	<view name="reportDisplay" url="/infobase/report_display.jsp"></view>
 	<view name="reportDisplayDetail" url="/infobase/report_display_detail.jsp"></view>
 	<view name="enterSuccessCriteria" url="/infobase/menu_local_level_stats.jsp"></view>
+	<view name="enterSuccessCriteriaInactive" url="/infobase/menu_local_level_stats_inactive.jsp"></view>
 	<view name="editSuccessCriteriaInfo" url="/infobase/edit_local_level_stat.jsp"></view>
 	<view name="regionInfo" url="/infobase/region_info.jsp"></view>
 	<view name="editRegionalSuccessCriteria" url="/infobase/edit_regional_success_criteria.jsp"></view>
@@ -47,4 +49,5 @@
 	<view name="waymore" url="/locator/waymore/list.jsp"></view>
 	<view name="waymore_detail" url="/locator/waymore/detail.jsp"></view>
 	<view name="login" url="/servlet/StaffController?action=logInGCX"></view>
+	<view name="staffHome" url="/servlet/StaffController?action=showHome"></view>
 </views>

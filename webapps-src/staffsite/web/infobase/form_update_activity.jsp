@@ -10,6 +10,7 @@ String currentTeamID = new String (request.getParameter("locallevelid"));
 String referrer = new String (request.getParameter("referrer"));
 String status = new String (request.getParameter("status"));
 String Url = new String (request.getParameter("url"));
+String Facebook = new String (ar.getValue("facebook"));
 
 //expand name of the current strategy type
 String strategyName;
@@ -203,16 +204,18 @@ function setDefinition(setTo) {
 			<%=fontB%><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
 		</td>
 	</tr>
-<!-- URL -->  
-	<tr> 
-		<td nowrap align=left COLSPAN="2">
-			<%=fontB%><b> URL: </b></font> &nbsp;&nbsp;  <input type="text" size=25 MAXLENGTH="256" name="url"  value="<%=Url%>">&nbsp;
-		</td>
-	</tr>
-
-
-
- 
+<!-- URL and Facebook-->  
+	<tr><td>
+		<table>
+		<tr>
+		<td align="right" ><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="256" name="url"  value="<%=Url%>"></FONT></td>
+		</tr>
+		<tr>
+		<td align="right" ><%=font%>&nbsp;<B>Facebook/MySpace:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="256" name="facebook"  value="<%=Facebook%>"></FONT></td>
+		</tr>
+		</table>
+	</td></tr>
+	
  
 	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:submitForm()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
 	</table>

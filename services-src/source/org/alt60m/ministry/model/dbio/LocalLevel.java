@@ -37,6 +37,7 @@ public class LocalLevel extends DBIOEntity {
 		setMetadata("Email","email",table);
 		setMetadata("Url","url",table);
 		setMetadata("IsActiveString","isActive",table);
+		setMetadata("HasMultiRegionalAccess","hasMultiRegionalAccess",table);
 		setMetadata("StartDate","startdate",table);
 		setMetadata("StopDate","stopdate",table);
 		setMetadata("No","no",table);
@@ -62,6 +63,7 @@ public class LocalLevel extends DBIOEntity {
 	private String email = "";
 	private String url = "";
 	private String isActive = "";
+	private String hasMultiRegionalAccess = "";
 	private Date   startDate = null;
 	private Date   stopDate = null;
 	private String no = "";
@@ -118,6 +120,12 @@ public class LocalLevel extends DBIOEntity {
 	public String getIsActiveString(){ return isActive; }
 	public void setIsActiveString(String isActive){ this.isActive = isActive; }
 
+	public boolean getHasMultiRegionalAccess(){ return hasMultiRegionalAccess != null && hasMultiRegionalAccess.equals("T"); }
+	public void setHasMultiRegionalAccess(boolean hasMultiRegionalAccess){ this.hasMultiRegionalAccess = hasMultiRegionalAccess ? "T" : "F"; }
+
+	public String getHasMultiRegionalAccessString(){ return hasMultiRegionalAccess; }
+	public void setHasMultiRegionalAccessString(String hasMultiRegionalAccess){ this.hasMultiRegionalAccess = hasMultiRegionalAccess; }
+	
 	public Date getStartDate(){ return startDate; }
     public void setStartDate(Date startDate){ this.startDate = org.alt60m.util.DateUtils.clearTimeFromDate(startDate); }
 
@@ -215,5 +223,11 @@ public class LocalLevel extends DBIOEntity {
 	}
 	public void addMembers(Staff s) {
 		assocStaff(s);
+	}
+	public Boolean hasNoActiveActivities() {
+		 Activity a = new Activity();
+       String table = "ministry_viewSortedActivities";
+       a.changeTargetTable(table);
+       return (a.selectList("fk_teamID = '"+this.getLocalLevelId()+"' and status in ('AC','LA','TR','KE','PI','FR')")).isEmpty();
 	}
 }

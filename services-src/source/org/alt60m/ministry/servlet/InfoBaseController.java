@@ -336,6 +336,26 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform changeBookmark().", e);
         }
     }
+    
+    public void removeInactiveBookmark(ActionContext ctx) {
+        try {
+            String type = ctx.getInputString("type", new String[] { "targetarea", "locallevel", "statistic" });
+            String mode = ctx.getInputString("mode", new String[] { "add", "remove" });
+            log.debug("current user: " + ctx.getProfileID());
+            if (mode.equals("remove")) 
+            	{
+                String bookmarkID = ctx.getInputString("bookmarkid", true);
+                _bookmarks.removeBookmark(bookmarkID);
+            	} 
+            
+            ctx.goToView("staffHome");
+        	}
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform changeInactiveBookmark().", e);
+        }
+    }
 
     /** @param ctx ActionContext object */
     public void createReport(ActionContext ctx) {
@@ -452,8 +472,9 @@ public class InfoBaseController extends Controller {
             String strategy = ctx.getInputString("strategy", true);
             String status = ctx.getInputString("status", true);
             String Url = ctx.getInputString("url", true);
-
             results.putValue("url", Url);
+            String Facebook = ctx.getInputString("facebook", true);
+            results.putValue("facebook", Facebook);
             results.putValue("referrer", referrer);
             results.putValue("activityid", activityId);
             results.putValue("targetareaid", targetAreaId);
@@ -624,11 +645,13 @@ public class InfoBaseController extends Controller {
                     String region = ctx.getInputString("region", true);
                     results.putValue("region", region);
                 } else {
+                	   
                     String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
                     String strategy = ctx.getInputString("strategy", true);
                     if (from.equals("editActivity")) {
                         String referrer = ctx.getInputString("referrer", true);
                         String currentTeamId = ctx.getInputString("currentteamid", true);
+                        
                         String activityId = ctx.getInputString("activityid", true);
                         String status = ctx.getInputString("status", true);
                         results.putValue("referrer", referrer);
@@ -636,6 +659,7 @@ public class InfoBaseController extends Controller {
                         results.putValue("activityID", activityId);
                         results.putValue("status", status);
                     }
+                    
                     results.putValue(TARGET_AREA_ID_TOKEN, targetAreaId);
                     results.putValue("strategy", strategy);
                 }
@@ -644,10 +668,21 @@ public class InfoBaseController extends Controller {
             } else { // update
                 String localLevelId = ctx.getInputString(LOCAL_LEVEL_ID_TOKEN, true);
 	   			InfoBaseTool ibt = new InfoBaseTool();
-                Hashtable ll = ObjectHashUtil.obj2hash(ibt.getLocalLevelTeam(localLevelId));
+	   			LocalLevel thisTeam = ibt.getLocalLevelTeam(localLevelId);
+                Hashtable ll = ObjectHashUtil.obj2hash(thisTeam);
+                             
+               
+                String noMovements = new String ();
+                noMovements = (thisTeam.hasNoActiveActivities())? "T" : "F" ;
+                results.putValue("noMovements", noMovements);                      
+                
                 results.addHashtable("team", ll);
                 results.putValue("mode", mode);
+                
+                                            
             }
+           
+            
             ctx.setReturnValue(results);
             ctx.goToView("editTeam");
         }
@@ -727,36 +762,45 @@ public class InfoBaseController extends Controller {
             ActionResults results = new ActionResults("enterSuccessCriteria ");
             InfoBaseTool ibt = new InfoBaseTool();
             String activityId = ctx.getInputString("activityid", true);
-            Activity activity = ibt.getActivityObject(activityId);
+           Activity activity = ibt.getActivityObject(activityId);
             List<String> strategies = new Vector<String>();
             strategies.add(activity.getStrategy());
             TargetArea targetArea = activity.getTargetArea();
-            String targetAreaId = targetArea.getTargetAreaId();
-            if(targetAreaId==null || targetAreaId.equals(""))
-            {
-            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
-            }
-            results.putValue("targetareaid", targetAreaId);
-            results.putValue("activityid", activityId);
-            results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
-            results.putValue("displayname", targetArea.getName());
-            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
-            Collection<Hashtable<String, Object>> stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
-            allDates = populateStatsCalendar(stats.iterator(), allDates);
-
-            SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
-            SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
-            for (int cnt = 0; cnt < 16; cnt++) {
-                Hashtable<String, Object> row = allDates.get(cnt);
-                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
-                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
-                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
-                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
-            }
-            results.addCollection("statistics", allDates);
-
-            ctx.setReturnValue(results);
-            ctx.goToView("enterSuccessCriteria");
+            String status = activity.getStatus();
+            
+	            String targetAreaId = targetArea.getTargetAreaId();
+	            if(targetAreaId==null || targetAreaId.equals(""))
+	            {
+	            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+	            }
+	            results.putValue("targetareaid", targetAreaId);
+	            results.putValue("activityid", activityId);
+	            results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
+	            results.putValue("displayname", targetArea.getName());
+	            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
+	            Collection<Hashtable<String, Object>> stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+	            allDates = populateStatsCalendar(stats.iterator(), allDates);
+	
+	            SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
+	            SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
+	            for (int cnt = 0; cnt < 16; cnt++) {
+	                Hashtable<String, Object> row = allDates.get(cnt);
+	                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
+	                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
+	                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
+	                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
+	            }
+	            results.addCollection("statistics", allDates);
+	
+	            ctx.setReturnValue(results);
+            if (status=="IN")
+            	{
+            	ctx.goToView("enterSuccessCriteriaInactive");
+            	}
+            else
+            	{    
+	            ctx.goToView("enterSuccessCriteria");
+            	}
         }
         catch (MissingTargetAreaIdException e)
 		{
@@ -1155,14 +1199,14 @@ public class InfoBaseController extends Controller {
             String periodEnd = ctx.getInputString("datechanged", true);
 
             String Url = ctx.getInputString("url", true);
+            String Facebook = ctx.getInputString("facebook", true);
             log.debug("*** URL (Url) in saveEditActivity: " + Url );
-
             String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
             String referrer = ctx.getInputString("referrer",
                 new String[] { "targetarea", "locallevel" });
             String updateOption = ctx.getInputString("updateoption", true);
 
-            InfoBaseTool.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url);
+            InfoBaseTool.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url, Facebook);
             if (referrer.equals("targetarea"))
                 showTargetArea(ctx);
             else
@@ -1470,7 +1514,7 @@ public class InfoBaseController extends Controller {
             ActionResults results = new ActionResults("showTargetArea");
 			InfoBaseTool ibt = new InfoBaseTool();
             String targetAreaID = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
-			results = getBookmarks(ctx, results, Bookmarks.TARGET_AREA, targetAreaID);
+            results = getBookmarks(ctx, results, Bookmarks.TARGET_AREA, targetAreaID);
 
 			TargetArea ta = ibt.getTargetArea(targetAreaID);
             Hashtable targetAreaInfo = ObjectHashUtil.obj2hash(ta);
@@ -1488,6 +1532,7 @@ public class InfoBaseController extends Controller {
 					activityHash.put("strategyName", activity.getStrategyFullName());
 					activityHash.put("statusName", activity.getStatusFullName());
 					activityHash.put("Url", activity.getUrl());
+					activityHash.put("Facebook", activity.getFacebook());
 					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
 					for (Staff staff : activity.getActivityContacts()) {
 						contacts.add(ObjectHashUtil.obj2hash(staff));
@@ -1512,9 +1557,11 @@ public class InfoBaseController extends Controller {
             ActionResults results = new ActionResults("showTeam");
             InfoBaseTool ibt = new InfoBaseTool();
             String llId = ctx.getInputString(LOCAL_LEVEL_ID_TOKEN, true);
+           
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
+            Boolean active = ll.getIsActive();
             Hashtable<String, Object> teamInfo = ObjectHashUtil.obj2hash(ll);
 
             teamInfo.put("RegionName", Regions.expandRegion(ll.getRegion()));
@@ -1545,6 +1592,7 @@ public class InfoBaseController extends Controller {
 					row.put("StrategyName", activity.getStrategyFullName());
 					row.put("StatusName", activity.getStatusFullName());
 					row.put("Url", activity.getUrl());
+					row.put("Facebook", activity.getFacebook());
 					if (activity.getStatus().equals("FR")) {
 						forerunnerTargetInfo.add(row);
 					} else if (activity.getStatus().equals("IN")) {
@@ -1560,7 +1608,14 @@ public class InfoBaseController extends Controller {
 			results.addCollection("forerunnertarget", forerunnerTargetInfo);
 
 			ctx.setReturnValue(results);
+			if (active)
+			{
             ctx.goToView("teamInfo");
+			}
+			else
+			{
+			ctx.goToView("teamInfoInactive");	
+			}
         }
         catch (Exception e) {
             log.error("Failed to perform showTeam().", e);

@@ -152,7 +152,7 @@ ar = ActionResults.getActionResults(session);
 					<TD><%=font%><A HREF="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=row.get("TargetAreaID")%>"><B><%=row.get("Name")%></B></A></FONT></TD>
 					<TD><%=font%><%=row.get("StrategyName")%></FONT></TD>
 					<TD><%=font%><%=row.get("StatusName")%></FONT></TD>
-					<TD><%=font%>[<A HREF="/servlet/InfoBaseController?action=editActivity&locallevelid=<%= teamID %>&referrer=locallevel&targetareaid=<%= row.get("TargetAreaID") %>&strategy=<%= row.get("Strategy") %>&activityid=<%= row.get("ActivityId") %>&status=<%= row.get("Status") %>&url=<%= row.get("Url") %>">Update</A>]</FONT></TD>
+					<TD><%=font%>[<A HREF="/servlet/InfoBaseController?action=editActivity&locallevelid=<%= teamID %>&referrer=locallevel&targetareaid=<%= row.get("TargetAreaID") %>&strategy=<%= row.get("Strategy") %>&activityid=<%= row.get("ActivityId") %>&status=<%= row.get("Status") %>&url=<%= row.get("Url") %>&facebook=<%= row.get("Facebook") %>">Update</A>]</FONT></TD>
 				</TR>
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>

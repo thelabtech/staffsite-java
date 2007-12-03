@@ -42,6 +42,8 @@ public class Activity extends DBIOEntity {
 	
 	private String url = "";
 
+	private String facebook = "";
+	
 	private static Log log = LogFactory.getLog(Activity.class);
 
 	public boolean isPKEmpty() {
@@ -62,6 +64,7 @@ public class Activity extends DBIOEntity {
 		setMetadata("Strategy", "strategy", table);
 		setMetadata("TransUsername", "transUsername", table);
 		setMetadata("Url", "url", table);
+		setMetadata("Facebook", "facebook", table);
 
 		setAutodetectProperties(false);
 	}
@@ -153,6 +156,14 @@ public class Activity extends DBIOEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
 	}
 	
 

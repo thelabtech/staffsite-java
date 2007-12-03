@@ -863,7 +863,7 @@ public class InfoBaseTool {
             activity.setTeam(team);
             activity.setTargetArea(target);
             activity.setTransUsername(profileId);
-            activity.setUrl(Url);            
+            activity.setUrl(Url);
             activity.persist();
             
             // now persist the activity history details
@@ -914,11 +914,10 @@ public class InfoBaseTool {
     }
     
     public static void saveEditActivity(String activityId, String periodEnd, String strategy, 
-    		String newStatus, String profileId, String newTeamId, String newUrl) throws Exception, ActivityExistsException {
-    	try {
-    		checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId);
-
-    		//if (checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId)) {
+    		String newStatus, String profileId, String newTeamId, String newUrl, String newFacebook) throws Exception, ActivityExistsException {
+       	try {
+    		checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, newFacebook, periodEnd, profileId);
+    		 		//if (checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId)) {
 			//	if (strategy.equals("SC") || strategy.equals("CA")) {
 					
 			//		saveEditActivitySC(activityId, periodEnd, strategy, newStatus, profileId, newTeamId, newUrl);
@@ -1048,14 +1047,13 @@ public class InfoBaseTool {
     	return checkDuplicateActiveActivity(targetAreaId, strategy, "0");
 	}
 
-    private static boolean checkAndPersistChanges(String newTeamId, String newStatus, String oldActivityId, String newUrl, String periodEnd, String profileId) {
+    private static boolean checkAndPersistChanges(String newTeamId, String newStatus, String oldActivityId, String newUrl, String newFacebook, String periodEnd, String profileId) {
     	Activity oldActivity = new Activity(oldActivityId);
-    	return checkAndPersistChanges(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(),  oldActivity, periodEnd, profileId);
+    	return checkAndPersistChanges(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(), newFacebook, oldActivity.getFacebook(),   oldActivity, periodEnd, profileId);
     }
     
     private static boolean checkAndPersistChanges(String newTeamId, String oldTeamId, 
-    		String newStatus, String oldStatus, String newUrl, String oldUrl, 
-    		Activity oldActivity, String periodEnd, String profileId)  {
+    		String newStatus, String oldStatus, String newUrl, String oldUrl, String newFacebook, String oldFacebook, Activity oldActivity, String periodEnd, String profileId)  {
     	boolean change = false;
     	
     	if (!newTeamId.equals(oldTeamId)){
@@ -1067,7 +1065,7 @@ public class InfoBaseTool {
     	if(!newStatus.equals(oldStatus)) {
     		try {
     			deactivateOldHistory(oldActivity.getActivityId(), periodEnd, profileId);  
-    		 
+    			
     		}catch (Exception e) {
                 log.error("CheckForChange:   Failed to deactivateOldHistory().", e);
      			//throw new Exception(e);  //No need to rethrow the exception.  Not critical.
@@ -1098,6 +1096,11 @@ public class InfoBaseTool {
     	
     	if(!newUrl.equals(oldUrl)) {
     		oldActivity.setUrl(newUrl);
+    		change = true;
+    	}
+    	
+    	if(!newFacebook.equals(oldFacebook)) {
+    		oldActivity.setFacebook(newFacebook);
     		change = true;
     	}
     	

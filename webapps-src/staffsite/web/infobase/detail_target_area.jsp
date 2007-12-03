@@ -83,7 +83,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 				<TR>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> <%=thisActivity.get("statusName")%>
 					</FONT><%=fontS%>[<A
-						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
+						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team Information:</B>&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%><A
@@ -123,12 +123,23 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 					%>
 					</TD>
 <!--  -->
-					<TD COLSPAN="2" valign="top"><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B> <%=thisActivity.get("Url")%>
+					
+					<TD COLSPAN="2" valign="top">
+					<table>
+					<tr>
+					<td align="right" ><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B></td><td><%=font%> <%=thisActivity.get("Url")%>
 							</FONT><%=fontS%>&nbsp&nbsp[<A
   
-						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-
-<!--  -->					
+						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></td>
+					</tr>
+					<tr>
+					<td align="right" ><%=font%>&nbsp;<B>Facebook/MySpace:&nbsp&nbsp</B></td><td><%=font%> <%=thisActivity.get("Facebook")%>
+							</FONT><%=fontS%>&nbsp&nbsp[<A
+  
+						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></td>
+					</tr>
+					</table>
+<!--  -->			</TD>		
 				</TR>
 
 			</TABLE>
