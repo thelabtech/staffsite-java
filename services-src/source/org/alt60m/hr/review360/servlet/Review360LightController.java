@@ -1027,7 +1027,7 @@ public class Review360LightController extends Controller
  {
 		try
 		{
-			String reviewSessionId = ctx.getInputString(REVIEW_SESSION_ID_TOKEN, true);
+			String reviewSessionLightId = ctx.getInputString("reviewSessionLightId", true);
 			
 			String title = ctx.getInputString("title");
 			String firstName = ctx.getInputString("firstName");
@@ -1049,8 +1049,8 @@ public class Review360LightController extends Controller
 			Date currentDate = new Date(new Date().getTime());
 			myReview.setDateStarted(currentDate);
 			
-			ReviewSessionLight mySession = new ReviewSessionLight(reviewSessionId);
-			log.debug("ReviewSessionLightID = " + mySession.getReviewSessionLightId());
+			ReviewSessionLight mySession = new ReviewSessionLight(reviewSessionLightId);
+			log.debug("reviewSessionLightId = " + mySession.getReviewSessionLightId());
 			myReview.setDateDue(mySession.getDateDue());
 			myReview.assocReviewSessionLight(mySession);
 			Vector reviews = mySession.getReview360Lights();
