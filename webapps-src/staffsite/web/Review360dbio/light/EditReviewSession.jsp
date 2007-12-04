@@ -108,7 +108,7 @@
 		box.setWidth("100%");
 		box.setSubPad("0");
 		box.setSubSpace("1");
-%>
+		%>
 	<TR>
 		<TD>
 		<%=box.printTop()%>
@@ -206,7 +206,9 @@
 		<TABLE WIDTH="100%" BORDER="0" CELLPADDING="3" CELLSPACING="1">
 		<TR>
 			<TD <%=bgcolorW%> COLSPAN="6"><%=fontB%><B>There are no people doing reviews for <%=rName%>:</B></FONT></TD>
-			<TD <%=bgcolorW%> COLSPAN="2" ALIGN="CENTER"><%=fontB%>[<A HREF="/servlet/Review360LightController?action=addReviewer&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>&returnAction=editReviewSession"><%=fontB%>Add Staff Reviewer</FONT></A>]<br />[<A HREF="/servlet/Review360LightController?action=addNonStaffReviewer&reviewSessionId=<%=mySession.get("reviewSessionLightId")%>&returnAction=editReviewSession"><%=fontB%>Add Non-Staff Reviewer</FONT></A>]</FONT></TD>
+			<TD <%=bgcolorW%> COLSPAN="2" ALIGN="CENTER"><%=fontB%>
+			[<A HREF="/servlet/Review360LightController?action=addReviewer&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>&returnAction=editReviewSession"><%=fontB%>Add Staff Reviewer</FONT></A>]<br />
+			[<A HREF="/servlet/Review360LightController?action=addNonStaffReviewer&reviewSessionLightId=<%=mySession.get("reviewSessionLightId")%>&returnAction=editReviewSession"><%=fontB%>Add Non-Staff Reviewer</FONT></A>]</FONT></TD>
 		</TR>
 
 		<TR>
