@@ -2,7 +2,12 @@
 --%><%@ page import="java.util.*, org.alt60m.servlet.*, java.text.SimpleDateFormat, java.text.ParsePosition, org.alt60m.util.*" %><%--
 --%><%
 String _project = request.getParameter("project");
-int projectInt = new Integer(_project).intValue();
+int projectInt = 0;
+try {
+	projectInt = new Integer(_project).intValue();
+} catch (NumberFormatException e) {
+	projectInt = 0;
+}
 Hashtable project = infoBean.getSIProjectHash(projectInt);
 try {
 	//ActionResults ar = ActionResults.getActionResults(session);
