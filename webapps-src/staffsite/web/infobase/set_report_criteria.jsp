@@ -12,6 +12,7 @@
 ActionResults ar;
 ar = ActionResults.getActionResults(session);
 String[] strategies = Strategy.strategiesArray();
+Integer yearvar=1998;
 %>
 <% String pageTitle="Success Criteria Reports"; %>
 <%@page import="org.alt60m.ministry.Strategy"%>
@@ -129,17 +130,15 @@ String[] strategies = Strategy.strategiesArray();
 			  <tr <%=bgcolorL%>>
 				<td>
 				  <select name="fromyear">
-					<option value='1998'>1998</option>
-					<option value='1999'>1999</option>
-					<option value='2000'<% if(((String)ar.getValue("fromYear")).equals("2000")) out.print(" SELECTED"); %>>2000</option>
-					<option value='2001'<% if(((String)ar.getValue("fromYear")).equals("2001")) out.print(" SELECTED"); %>>2001</option>
-					<option value='2002'<% if(((String)ar.getValue("fromYear")).equals("2002")) out.print(" SELECTED"); %>>2002</option>
-					<option value='2003'<% if(((String)ar.getValue("fromYear")).equals("2003")) out.print(" SELECTED"); %>>2003</option>
-					<option value='2004'<% if(((String)ar.getValue("fromYear")).equals("2004")) out.print(" SELECTED"); %>>2004</option>
-					<option value='2005'<% if(((String)ar.getValue("fromYear")).equals("2005")) out.print(" SELECTED"); %>>2005</option>
-					<option value='2006'<% if(((String)ar.getValue("fromYear")).equals("2006")) out.print(" SELECTED"); %>>2006</option>
-					<option value='2007'<% if(((String)ar.getValue("fromYear")).equals("2007")) out.print(" SELECTED"); %>>2007</option>
-				    <option value='2008'<% if(((String)ar.getValue("fromYear")).equals("2008")) out.print(" SELECTED"); %>>2008</option>
+				  <%
+				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
+					  {
+					  %>
+					<option value="<%=yearvar %>"<% if((Integer.parseInt(ar.getValue("fromYear")))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					
+						<%
+					yearvar++;
+					}%>
 				  </select>
 				</td>
 				<td>
@@ -160,18 +159,17 @@ String[] strategies = Strategy.strategiesArray();
 				</td>
 				<td>
 				  <select name="toyear">
-					<option value='1998'>1998</option>
-					<option value='1999'>1999</option>
-					<option value='2000'<% if(((String)ar.getValue("toYear")).equals("2000")) out.print(" SELECTED"); %>>2000</option>
-					<option value='2001'<% if(((String)ar.getValue("toYear")).equals("2001")) out.print(" SELECTED"); %>>2001</option>
-					<option value='2002'<% if(((String)ar.getValue("toYear")).equals("2002")) out.print(" SELECTED"); %>>2002</option>
-					<option value='2003'<% if(((String)ar.getValue("toYear")).equals("2003")) out.print(" SELECTED"); %>>2003</option>
-					<option value='2004'<% if(((String)ar.getValue("toYear")).equals("2004")) out.print(" SELECTED"); %>>2004</option>
-					<option value='2005'<% if(((String)ar.getValue("toYear")).equals("2005")) out.print(" SELECTED"); %>>2005</option>
-					<option value='2006'<% if(((String)ar.getValue("toYear")).equals("2006")) out.print(" SELECTED"); %>>2006</option>
-					<option value='2007'<% if(((String)ar.getValue("toYear")).equals("2007")) out.print(" SELECTED"); %>>2007</option>
-				    <option value='2008'<% if(((String)ar.getValue("toYear")).equals("2008")) out.print(" SELECTED"); %>>2008</option>
-				  </select>
+						  <%
+						  yearvar=1998;
+				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
+					  {
+					  %>
+					<option value="<%=yearvar %>"<% if((Integer.parseInt(ar.getValue("toYear")))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					
+						<%
+					yearvar++;
+					}%>
+					  </select>
 				</td>
 				<td>
 				  <select name="tomonth">
