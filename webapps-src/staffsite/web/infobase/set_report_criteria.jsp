@@ -170,7 +170,7 @@ String[] strategies = Strategy.strategiesArray();
 					<option value='2005'<% if(((String)ar.getValue("toYear")).equals("2005")) out.print(" SELECTED"); %>>2005</option>
 					<option value='2006'<% if(((String)ar.getValue("toYear")).equals("2006")) out.print(" SELECTED"); %>>2006</option>
 					<option value='2007'<% if(((String)ar.getValue("toYear")).equals("2007")) out.print(" SELECTED"); %>>2007</option>
-				    <option value='2008'<% if(((String)ar.getValue("fromYear")).equals("2008")) out.print(" SELECTED"); %>>2008</option>
+				    <option value='2008'<% if(((String)ar.getValue("toYear")).equals("2008")) out.print(" SELECTED"); %>>2008</option>
 				  </select>
 				</td>
 				<td>
