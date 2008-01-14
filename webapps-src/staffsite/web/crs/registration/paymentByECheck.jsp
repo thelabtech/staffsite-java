@@ -176,15 +176,14 @@ otherOptionsMenu.setActives(new boolean[]{
 			<TD CLASS="cell" COLSPAN="2"><INPUT CLASS="empty" onFocus="Highlight(this)" onBlur="UnHighlight(this)" NAME="DLNum" size=16 maxlength=20></TD>
 		</TR>
 		<TR>
+			
 			<TD CLASS="hl">&nbsp;</TD>
-			<TD CLASS="cell" COLSPAN="2">
-				<B>Note:</B></font> 
-				<% if(true) { // (!((Boolean)person.getPreRegistered()).booleanValue()){%>
-					To guarantee your pre-registration you must pay at least the pre-registration cost (including any scholarships).<br>
-				<%}%>
-				<B>You may pay the full amount now or at the event.</B>
+			<TD CLASS="cell">
+				
+				<%if(ar.getValue("Note")!=null){out.print("<B>Note:</B></font> "+ar.getValue("Note"));}%>
 				</font>
 			</TD>
+		
 		</TR>
 		<TR>
 			<TD COLSPAN="3" CLASS="button" ALIGN="CENTER">

@@ -79,6 +79,10 @@ accountManagementMenu.setActives(new boolean[]{
 		<INPUT TYPE=hidden NAME="PaymentMethod" VALUE="<%=ar.getValue("PaymentMethod")%>">
 		<INPUT TYPE=hidden NAME="PaymentAmount" VALUE="<%=ar.getValue("PaymentAmount")%>">
 		<INPUT TYPE=hidden NAME="PaymentAmountOther" VALUE="<%=ar.getValue("PaymentAmountOther")%>">
+		<%if (ar.getValue("Note")!=null) {%>
+		<Input type="hidden" name="Note" value="<%=ar.getValue("Note")%>"/>
+		<%} %>
+			
 	<TABLE BORDER="0" CELLSPACING="0" WIDTH="100%" CLASS="box">
 		<TR>
 			<TD CLASS="boxheader" COLSPAN="2">Staff Scholarship Verification</TD>
@@ -128,7 +132,7 @@ accountManagementMenu.setActives(new boolean[]{
 %>
 			<tr>
 				<td class="<%=(counter%2 == 0) ? "linkcell" : "linkcell2" %>">
-				<A class="<%=(counter%2 == 0) ? "linkcell" : "linkcell2" %>" HREF="/servlet/CRSRegister?action=getPaymentInfo&staffEmail=<%=myStaff.get("Email")%>&staffName=<%=myStaff.get("PreferredName") + "%20" + myStaff.get("LastName")%>&PaymentAmountOther=<%=ar.getValue("PaymentAmountOther")%>&PaymentMethod=<%=ar.getValue("PaymentMethod")%>&PaymentAmount=<%=ar.getValue("PaymentAmount")%>"><%=myStaff.get("PreferredName")%>&nbsp;<%=myStaff.get("LastName")%></A>
+				<A class="<%=(counter%2 == 0) ? "linkcell" : "linkcell2" %>" HREF="/servlet/CRSRegister?action=getPaymentInfo&staffEmail=<%=myStaff.get("Email")%>&staffName=<%=myStaff.get("PreferredName") + "%20" + myStaff.get("LastName")%><%if(ar.getValue("Note")!=null){out.print("&Note="+ar.getValue("Note"));}%>&PaymentAmountOther=<%=ar.getValue("PaymentAmountOther")%>&PaymentMethod=<%=ar.getValue("PaymentMethod")%>&PaymentAmount=<%=ar.getValue("PaymentAmount")%>"><%=myStaff.get("PreferredName")%>&nbsp;<%=myStaff.get("LastName")%></A>
 				</TD>
 				<td class="<%=(counter%2 == 0) ? "linkcell" : "linkcell2" %>"><%=myStaff.get("City")%>, <%=myStaff.get("State")%></td>
 			</tr>

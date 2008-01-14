@@ -27,7 +27,7 @@
 			alert("Please enter a 16 digit credit card number with no spaces");
 			form.CCNum.focus();
 		} else if(form.CCExpY.value == <%=today.get(Calendar.YEAR)%> && form.CCExpM.value < <%=(today.get(Calendar.MONTH) + 1)%>){ 
-			alert("The credit card expiration date you entered is expried, lease correct it.");
+			alert("The credit card expiration date you entered is expried, please correct it.");
 		} else if(!validFloat(form.PaymentAmt.value)){
 			alert("You can enter only a number is this field");
 			form.PaymentAmt.focus();
@@ -153,11 +153,8 @@
 		<TR>
 			<TD CLASS="hl">&nbsp;</TD>
 			<TD CLASS="cell">
-				<B>Note:</B></font>
-				<% if(true) { // (!((Boolean)person.getPreRegistered()).booleanValue()){%>
-					To guarantee your pre-registration you must pay at least the pre-registration cost (including any scholarships).<br>
-				<%}%>
-				<B>You may pay the full amount now or at the event.</B>
+				
+				<%if(ar.getValue("Note")!=null){out.print("<B>Note:</B></font> "+ar.getValue("Note"));}%>
 				</font>
 			</TD>
 		</TR>

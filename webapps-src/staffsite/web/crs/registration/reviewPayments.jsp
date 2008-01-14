@@ -76,13 +76,24 @@ otherOptionsMenu.setActives(new boolean[]{
 		</TR>
 
 <%
-		float amount = 0;
+		float amountOutstanding = 0;
+		float totalPaid = 0;
+		float totalCost = 0;
+		float preRegAdjusted=0;
+		if(discountsAvailable.get("preReg_Deposit")!=null)
+			{
+			preRegAdjusted=((Float)discountsAvailable.get("preReg_Deposit")).floatValue();
+			}
+		float preRegOriginal = preRegAdjusted;
 		if(ar.getCollection("payments").size() > 0){	
 			Iterator payments = ar.getCollection("payments").iterator(); 
 			int i = 0;
 			while(payments.hasNext()){ 
 				Payment p = (Payment)payments.next();
-				amount += p.getDebit() == 0 ? -p.getCredit() : p.getDebit();
+				amountOutstanding += p.getDebit() == 0 ? -p.getCredit() : p.getDebit();
+				preRegAdjusted -= p.getCredit();
+				totalPaid += p.getCredit();
+				totalCost += p.getDebit();
 %>
 				<TR>
 					<TD CLASS="<%=(i%2 == 0) ? "cell" : "cell2" %>" VALIGN="BOTTOM"><%=formatter.formatDate(p.getPaymentDate())%></TD>
@@ -106,7 +117,7 @@ otherOptionsMenu.setActives(new boolean[]{
 %>
 			<TR>
 				<TD CLASS="<%=(i%2 == 0) ? "cell" : "cell2" %>" COLSPAN="2" ALIGN="RIGHT">Balance Due</TD>
-				<TD CLASS="<%=(i%2 == 0) ? "cell" : "cell2" %>" ALIGN="RIGHT">$<%=formatter.formatDecimal(amount)%></TD>
+				<TD CLASS="<%=(i%2 == 0) ? "cell" : "cell2" %>" ALIGN="RIGHT">$<%=formatter.formatDecimal(amountOutstanding)%></TD>
 			</TR>
 <%
 		} else {
@@ -161,7 +172,7 @@ otherOptionsMenu.setActives(new boolean[]{
 					<UL><LI> A <B>Full Payment Discount</B> of 
 							$<%=formatter.formatDecimal(fullPaymentDiscount)%>
 					will be applied if payments totaling 
-							$<%=formatter.formatDecimal(amount - fullPaymentDiscount)%>
+							$<%=formatter.formatDecimal(amountOutstanding - fullPaymentDiscount)%>
 					are received or postmarked by midnight EST/EDT 
 							<%=formatter.formatDate((Date)discountsAvailable.get("fullPay_Date"))%>
 					</TD>
@@ -177,7 +188,7 @@ otherOptionsMenu.setActives(new boolean[]{
 				<TR>
 					<TD CLASS="<%=(i%2 == 0) ? "cell" : "cell2" %>" >
 						<UL><LI> <B>Both Discounts</B> will be applied if payments totaling
-						$<%=formatter.formatDecimal(amount - fullPaymentDiscount - preRegDiscount)%>
+						$<%=formatter.formatDecimal(amountOutstanding - fullPaymentDiscount - preRegDiscount)%>
 						are received or postmarked by midnight EST/EDT <%=formatter.formatDate((Date)discountsAvailable.get("preReg_Date"))%>
 					</TD>
 				</TR>
@@ -205,65 +216,93 @@ otherOptionsMenu.setActives(new boolean[]{
 		<TR>
 			<TD CLASS="cell">
 <%
-		if(amount > 0){
-%>
-			<INPUT TYPE="radio" value="<%=formatter.formatDecimal(amount - (fullPaymentDiscount + preRegDiscount))%>" NAME="PaymentAmount" checked>
-						&nbsp; Pay in Full $<%=formatter.formatDecimal(amount - (fullPaymentDiscount + preRegDiscount))%><br>
-<% 
-			if((!(discountsAvailable.get("preReg_Deposit")==null))&&((Float)discountsAvailable.get("preReg_Deposit")).doubleValue() > 0 && !registration.getPreRegistered()) {
-%>
+	if(amountOutstanding > 0)
+	{
+		if(amountOutstanding>preRegAdjusted)
+		{
+			%>
+			<INPUT TYPE="radio" value="<%=formatter.formatDecimal(amountOutstanding - (fullPaymentDiscount + preRegDiscount))%>" NAME="PaymentAmount" checked>
+			&nbsp; Pay in Full $<%=formatter.formatDecimal(amountOutstanding - (fullPaymentDiscount + preRegDiscount))%><br><%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(totalCost) %> costs minus payments)</i><br><%} %>
+			<% 
+			if((!(discountsAvailable.get("preReg_Deposit")==null))&& (preRegAdjusted > 0) && !registration.getPreRegistered()) {
+			%>
 			<INPUT TYPE="radio" value="<%=formatter.formatDecimal(((Float)discountsAvailable.get("preReg_Deposit")).doubleValue())%>" NAME="PaymentAmount">
-					&nbsp; Pre-Registration deposit $<%=formatter.formatDecimal(((Float)discountsAvailable.get("preReg_Deposit")).doubleValue())%><br>
-<% 			}
-%>
-			<INPUT TYPE="radio" VALUE="Other" NAME="PaymentAmount">
-				&nbsp; Other: $<INPUT TYPE="text" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(amount - fullPaymentDiscount - preRegDiscount)%>"><br>
+			&nbsp; Pre-Registration deposit $<%=formatter.formatDecimal(preRegAdjusted)%><br>
+			<%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(preRegOriginal) %> deposit minus payments)</i><br><%} %>
+			<i>Pre-registration is the minimum required to reserve your place at the conference.</i><br> 
+		
+			<%}
+			%>
+			<INPUT type="hidden" name="Note" value="To guarantee your place at the conference you must pay at least the pre-registration cost (all scholarships and payments will be counted).<br><B>You may pay the full amount now or at the event.</B>"/>
 			
-			Payment Method <SELECT SIZE="1" NAME="PaymentMethod">
-<% 
-if (regType.getAcceptCreditCards() && (conference.getAcceptVisa() || conference.getAcceptMasterCard() || conference.getAcceptAmericanExpress() || conference.getAcceptDiscover())){%>
-												<option value="Credit Card" selected>Credit Card</option>
-<% }
-if (regType.getAcceptScholarships()){%>			<option value="Scholarship">Scholarship</option>
-<% }								
-if (regType.getAcceptEChecks()){%>				<option value="Echeck">E-Check</option>
-<% }
-if (regType.getAcceptStaffAcctTransfer()){%>	<option value="staff_transfer">Staff Acct Transfer</option>
-<% }
-if (regType.getAcceptMinistryAcctTransfer()){%>	<option value="ministry_transfer">Ministry Acct Transfer</option>
-<% }
-if (regType.getAcceptChecks()){%>				<option value="Check">Mail a Check</option>
-<%}%>
-			</select>
-<% 
-			if (regType.getAcceptCreditCards() && (conference.getAcceptVisa() || conference.getAcceptMasterCard() || conference.getAcceptAmericanExpress() ||conference.getAcceptDiscover())){
+		<%
+		} 
+		else if (amountOutstanding <= preRegAdjusted)
+		{
+			if((!(discountsAvailable.get("preReg_Deposit")==null))&&(preRegAdjusted>0)&&(!registration.getPreRegistered())) {
 %>
-				<BR>
-				We accept: <%=conference.getAcceptVisa() ? "<IMG SRC='/crs/images/smvisa.gif'>" : ""%>
-				<%=conference.getAcceptMasterCard() ? "<IMG SRC='/crs/images/smmc.gif'>" : ""%>
-				<%=conference.getAcceptAmericanExpress() ? "<IMG SRC='/crs/images/smamex.gif'>" : ""%>
-				<%=conference.getAcceptDiscover() ? "<IMG SRC='/crs/images/smdiscvr.gif'>" : ""%>
-<% 
-			}
-%>								
-			</TD>
-		</TR>
-		<TR>
-			<TD CLASS="button" ALIGN="CENTER"><A CLASS="button" HREF="javascript: document.payment.submit()">Make Payment</A></TD>
-		</TR>
-<% 
-		} else if (!(regType.getAcceptCreditCards()
+			
+			<INPUT TYPE="radio" checked value="<%=formatter.formatDecimal(((Float)discountsAvailable.get("preReg_Deposit")).doubleValue())%>" NAME="PaymentAmount">
+					&nbsp; Full Cost $<%=formatter.formatDecimal(preRegAdjusted)%><br>
+					<%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(preRegOriginal) %> deposit minus payments)</i><br><%} %>
+					<i>You must pay the full cost to reserve your place at this conference.</i><br>
+					 
+					
+<% 			}
+			
+			%>
+						<INPUT type="hidden" name="Note" value="You must pay the <b>full conference cost</b> to reserve your place at the conference.<br>(All payments and scholarships will be counted)"/>
+		<%} %>				
+							<INPUT TYPE="radio" VALUE="Other" NAME="PaymentAmount">&nbsp; Other: $<INPUT TYPE="text" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(amountOutstanding - fullPaymentDiscount - preRegDiscount)%>"><br>
+						
+						Payment Method <SELECT SIZE="1" NAME="PaymentMethod">
+			<% 
+			if (regType.getAcceptCreditCards() && (conference.getAcceptVisa() || conference.getAcceptMasterCard() || conference.getAcceptAmericanExpress() || conference.getAcceptDiscover())){%>
+															<option value="Credit Card" selected>Credit Card</option>
+			<% }
+			if (regType.getAcceptScholarships()){%>			<option value="Scholarship">Scholarship</option>
+			<% }								
+			if (regType.getAcceptEChecks()){%>				<option value="Echeck">E-Check</option>
+			<% }
+			if (regType.getAcceptStaffAcctTransfer()){%>	<option value="staff_transfer">Staff Acct Transfer</option>
+			<% }
+			if (regType.getAcceptMinistryAcctTransfer()){%>	<option value="ministry_transfer">Ministry Acct Transfer</option>
+			<% }
+			if (regType.getAcceptChecks()){%>				<option value="Check">Mail a Check</option>
+			<%}%>
+						</select>
+			<% 
+						if (regType.getAcceptCreditCards() && (conference.getAcceptVisa() || conference.getAcceptMasterCard() || conference.getAcceptAmericanExpress() ||conference.getAcceptDiscover())){
+			%>
+							<BR>
+							We accept: <%=conference.getAcceptVisa() ? "<IMG SRC='/crs/images/smvisa.gif'>" : ""%>
+							<%=conference.getAcceptMasterCard() ? "<IMG SRC='/crs/images/smmc.gif'>" : ""%>
+							<%=conference.getAcceptAmericanExpress() ? "<IMG SRC='/crs/images/smamex.gif'>" : ""%>
+							<%=conference.getAcceptDiscover() ? "<IMG SRC='/crs/images/smdiscvr.gif'>" : ""%>
+			<% 
+						}
+			%>								
+						</TD>
+					</TR>
+					<TR>
+						<TD CLASS="button" ALIGN="CENTER"><A CLASS="button" HREF="javascript: document.payment.submit()">Make Payment</A></TD>
+					</TR>
+			<% 
+	}
+	else if (!(regType.getAcceptCreditCards()
 			||regType.getAcceptScholarships()
 			||regType.getAcceptEChecks()
 			||regType.getAcceptStaffAcctTransfer()
 			||regType.getAcceptMinistryAcctTransfer()
 			||regType.getAcceptChecks()
-			)){
-%>
+			))
+	{
+	%>
 			<TR>
 				<TD CLASS="cell" ALIGN="CENTER">There are no payment options for this conference. <P ALIGN="CENTER"><A HREF="/servlet/CRSRegister?action=reviewRegistration" CLASS="button">Review Your Registration</A><BR><BR></TD>
 			</TR>
-<% 		}
+		<% 	
+	}
 		else {
 %>
 			<TR>

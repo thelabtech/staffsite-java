@@ -150,7 +150,7 @@ function updateParent2(campusname) {
 		Source xsl = new StreamSource(this.getServletConfig().getServletContext().getRealPath("/crs/campuslist.xsl"));
 		Source xml = new StreamSource(xmlUrl.toExternalForm());
 
-		System.setProperty("javax.xml.transform.TransformerFactory", "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");  //Needed for JDK 1.5.0
+		//System.setProperty("javax.xml.transform.TransformerFactory", "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");  //Needed for JDK 1.5.0
 		TransformerFactory tFactory = TransformerFactory.newInstance();
 		Transformer transformer = tFactory.newTransformer(xsl);
 		transformer.transform(xml, new StreamResult(out));
