@@ -1283,6 +1283,9 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 								"conference",
 								crsApp.getConference((String) ctx.getSessionValue("selectedEvent")));
 	
+						if (ctx.getInputString("Note")!=null){
+						ar.putValue("Note",ctx.getInputString("Note"));}
+						
 						ctx.setReturnValue(ar);
 	
 						if (ctx.getInputString("PaymentMethod").equals("Check")) {
@@ -1782,6 +1785,8 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 						: ctx.getInputString("name");
 				nameSubString = TextUtils.formatApostrophe(nameSubString);
 				ar.putValue("nameSubString", nameSubString);
+				if (ctx.getInputString("Note")!=null){
+					ar.putValue("Note",ctx.getInputString("Note"));}
 				log.debug("listStaff substring: " + nameSubString);
 
 				Collection list = new Vector();
