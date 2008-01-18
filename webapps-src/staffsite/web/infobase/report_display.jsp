@@ -288,22 +288,26 @@
  
 	}
 	
+	if(request.getParameter("type").equals("regional")){
+
 %>
 
+	<tr>
+        <td <%=bgcolorL%>></td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Personal Evangelism</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Group Evangelism</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Media Exposures</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Decisions</td>
+	 	<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Laborers Sent</td>
+	 	
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Multipliers</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
+	</tr>
+	<%} %>
 	<tr <%=bgcolorL%>>
-<%		if(request.getParameter("type").equals("regional") || request.getParameter("type").equals("locallevel")){
-			%>
-			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(activeMovements)%> Mvts., <%=Integer.toString(activeEnrollment)%> Enr.)</B></td>
-			<%
-		}
-		else if(request.getParameter("type").equals("national")){
 
-			%>
-			<td <% if(request.getParameter("type").equals("targetarea")){ %>COLSPAN="2"<% } %> ALIGN="RIGHT"><%=fontB1%><B>Summary (<%=Integer.toString(activeMovements)%> Mvts., <%=Integer.toString(activeEnrollment)%> Enr.)</B></td>
-			<%
-		}
-%>
- 
+ 	<td ALIGN="RIGHT"><%=fontB1%><B>Summary</B></TD>
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticOneOnOneSum)%></td>
  		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticGroupSum)%></td>     
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(exposuresViaMediaSum)%></td>      
@@ -317,6 +321,7 @@
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(studentLeadersSum)%></td>
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
 	</tr>
+		
 </TABLE>
 </TD></TR></TABLE>
 		<% } else out.print(fontB + "<B>No Results.</B></FONT>"); %>
