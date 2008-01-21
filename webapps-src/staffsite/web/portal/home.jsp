@@ -19,6 +19,8 @@
 </HEAD>
 <% int curr_tab = 1; %>
 <% String pageTitle = "&nbsp;";
+	String pileUpSuccessCriteriaIds = "";
+	int numSCI = 0;
 	String campusOnly = "";
 //	String homePageArticlesToDisplay = "";
 	String region = "";
@@ -268,9 +270,7 @@
 				<%=fontB%><B>Success Criteria</B><br></font><%=fontB1%>
 
 				<% String profileID = (String)session.getValue("loggedIn"); %>
-				<% Iterator prefs;
-
-				%>
+				<% Iterator prefs;%>
 				<%
 					Bookmarks bookmarks = new Bookmarks();
 					StaffSitePref pref = null;
@@ -280,11 +280,21 @@
 					} else {
 						while(prefs.hasNext()) {
 							pref = (StaffSitePref)prefs.next();
+							
+							pileUpSuccessCriteriaIds += "&activity"+numSCI+"="+pref.getValue();
+							numSCI++;
 							%>
 								<a href="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
 							<%
 						}
 					}
+					if(!(pileUpSuccessCriteriaIds==""))
+						{
+						%>
+						<br><a href="/servlet/InfoBaseController?action=enterFastSuccessCriteriaForActivity<%=pileUpSuccessCriteriaIds%>">All bookmarked movements</a><BR>
+						<%	
+						}
+					
 					%>
 				<%=hr%>
 				</font><%=fontB%><B>Campus</B><br></font><%=fontB1%>

@@ -30,12 +30,14 @@ import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.servlet.ActionResults;
+import org.alt60m.servlet.MiniResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.CountryCodes;
 import org.alt60m.util.DateUtils;
 import org.alt60m.util.ObjectHashUtil;
+import java.util.regex.*;
 
 /**
  * Web controller for InfoBase History: 4/10/01	MDP	Initial Coding Completeness (0 - 5): 3 Known Issues:<p>
@@ -814,6 +816,89 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform enterSuccessCriteria ().", e);
         }
     }
+    public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {
+        try {
+        	ActionResults multiResults = new ActionResults("enterFastSuccessCriteria ");
+            InfoBaseTool ibt = new InfoBaseTool();
+            Activity activity;
+            String status;
+            String strategy;
+            String weeksBack = ctx.getInputString("weeksBack", false);
+            TargetArea targetArea;
+            String targetAreaId;
+            SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
+            SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Collection<Hashtable<String, Object>> stats;
+            Hashtable<String, Object> row;
+            MiniResults results=new MiniResults("hold each result");
+            List<String> strategies = new Vector<String>();
+            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
+            
+            Integer numSCI=new Integer(0);
+        	String activityId = ctx.getInputString("activity"+numSCI, false);
+        	while (activityId!=null)
+        	{
+        		results=new MiniResults("hold each result");
+        		
+	            allDates =blankStatsCalendar("StatisticId");
+	            activity = ibt.getActivityObject(activityId);
+	            strategies.add(activity.getStrategy());
+	            targetArea = activity.getTargetArea();
+	            status = activity.getStatus();
+	            strategy = activity.getStrategy();
+                targetAreaId = targetArea.getTargetAreaId();
+	            if(targetAreaId==null || targetAreaId.equals(""))
+	            {
+	            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+	            }
+	            results.putValue("targetareaid", targetAreaId);
+	            results.putValue("activityid", activityId);
+	            results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy));
+	            results.putValue("status", status);
+	            results.putValue("strategy", strategy);
+	            stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+	            allDates = populateStatsCalendar(stats.iterator(), allDates);
+	
+	            
+	            for (int cnt = 0; cnt < 16; cnt++) 
+	            {
+	                row = allDates.get(cnt);
+	                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
+	                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
+	                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
+	                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
+	            }
+	            results.addCollection("statistics", allDates);
+	           
+	            multiResults.addMiniResults(results.getValue("displayname")+"_"+activityId,results);
+	          
+	            numSCI++;
+	            activityId = ctx.getInputString("activity"+numSCI, false);
+        	}
+        	if (weeksBack!=null)
+        		{multiResults.putValue("weeksBack", weeksBack);}
+        	else
+        		{multiResults.putValue("weeksBack", "0");}
+        	
+        	multiResults.putValue("numSCI", ""+(numSCI)); 
+        	
+        	ctx.setReturnValue(multiResults);
+         
+            ctx.goToView("enterFastSuccessCriteria");
+            	
+        }
+        catch (MissingTargetAreaIdException e)
+		{
+        	ctx.setError();
+        	ctx.goToErrorView();
+        	log.error("Missing target area id.", e);
+		}
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform enterFastSuccessCriteria ().", e);
+        }
+    }
 
 	private ActionResults getBookmarks(ActionContext ctx, ActionResults results, int type, String id) throws Exception {
 		StaffSitePref p = _bookmarks.getBookmark(ctx.getProfileID(), type, id);
@@ -1342,6 +1427,135 @@ public class InfoBaseController extends Controller {
             ctx.setError();
             ctx.goToErrorView();
             log.error("Failed to perform saveSuccessCriteria().", e);
+        }
+    }
+	public Hashtable<String,Hashtable<String,String>> convertBracketedParamsToHashtable(ActionContext ctx) {
+		Hashtable input=(ctx.getHashedRequest());
+		
+		Hashtable<String,Hashtable<String,String>> output=new Hashtable<String,Hashtable<String,String>>();
+
+    	String content;
+    	
+    	Iterator getTheKeys=input.keySet().iterator();
+    	String theKey;
+    	String contentKey;
+    	String objectCandidate;
+    	Hashtable<String,String> contentCandidate;
+    	while(getTheKeys.hasNext())
+    	{
+    		
+    		objectCandidate="";
+    		contentCandidate=new Hashtable<String,String>();
+    		contentKey="";
+    		content="";
+    		theKey=(String)(getTheKeys.next());
+    		if (theKey.contains("[")&&theKey.contains("]")&&(theKey.indexOf("[")!=0)&&(theKey.indexOf("[")<theKey.indexOf("]")))
+    		{
+    			
+    			
+    			objectCandidate=theKey.substring(0,theKey.indexOf("["));
+    			
+    				content=((String)(ctx.getInputString(theKey)));
+    				
+    			
+    			contentKey=(theKey.substring(theKey.indexOf("[")+1,theKey.indexOf("]")));
+    			if(output.keySet().contains(objectCandidate))
+	    			{
+	    			contentCandidate=new Hashtable<String,String>(output.get(objectCandidate));
+	    			contentCandidate.put(contentKey,content);
+    				output.put(objectCandidate, contentCandidate);
+	    			}
+	    			else
+	    			{
+	    				contentCandidate=new Hashtable<String,String>();
+		    			contentCandidate.put(contentKey,content);
+	    				output.put(objectCandidate,contentCandidate);
+	    			}
+    			
+    		}
+    	}
+    	return  output;
+	}
+    public void saveFastSuccessCriteria(ActionContext ctx) {
+    	if (! loginCheck(ctx)) {
+    		return;
+    	}
+        try {
+        	Hashtable<String,Hashtable<String,String>> newStats=new Hashtable<String,Hashtable<String,String>>(convertBracketedParamsToHashtable(ctx));
+        	Hashtable<String,String> thisStat;
+        	Iterator scanStats=(newStats.keySet().iterator());
+        	String activityId;
+        	Boolean hasData=false;
+        	String goodSaves="";
+        	InfoBaseTool ibt;
+        	 Statistic stat;
+        	 String statisticId;
+        	 String username = (String) ctx.getSessionValue("userName");
+        	 List<String> keys;
+        	 Map<String, String> statMap;
+        	
+        	
+        	while (scanStats.hasNext())
+        	{
+        		hasData=new Boolean(false);
+        		thisStat=new Hashtable<String,String>();
+        		thisStat=newStats.get(scanStats.next());
+	            activityId = thisStat.get("activityid");
+				ibt = new InfoBaseTool();
+				stat = new Statistic();
+	         
+	          
+	         
+				keys = Arrays.asList(new String[] { "PeriodBegin",
+						"PeriodEnd", "PersonalEvangelismExposures",
+						"GroupEvangelismExposures", "MediaExposures", "Decisions",
+						"Multipliers", "StudentLeaders", "InvolvedStudents",
+						"LaborersSent" });
+				 statMap = new HashMap<String, String>();
+				for (String key : keys) {
+					
+					
+					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(((String) thisStat.get(key)).replaceAll("[^0123456789]","")!=""))
+					{
+					hasData=true;
+					}
+					
+					if(("PeriodBegin PeriodEnd".contains((String)key)))
+					{
+					statMap.put(key, (String) thisStat.get(key));
+					}
+					else
+					{
+					statMap.put(key, ((String) thisStat.get(key)).replaceAll("[^0123456789]",""));	
+					}
+				}
+	        	
+				if(hasData){
+					if (thisStat.get("statisticid") == "") {
+		            	
+		            	stat.setPeriodBegin(DateUtils.parseDate(thisStat.get("PeriodBegin")));
+		            	stat.setActivityId(activityId);
+		            	if (!stat.select()) {
+		                    stat = ibt.createStatObject();
+		                    stat.setActivityId(activityId);
+		                }
+		            } else {
+		                statisticId = thisStat.get("statisticid");
+		                stat = ibt.getStatObject(statisticId);
+		                
+					}
+					 username = (String) ctx.getSessionValue("userName");
+			        	stat.setUpdatedBy(username);
+	        	ibt.saveStatObjectWithActivity(statMap, stat);
+				}
+				
+				
+        	}
+        	ctx.goToView("staffHome"); 
+        }catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform saveFastSuccessCriteria().", e);
         }
     }
 

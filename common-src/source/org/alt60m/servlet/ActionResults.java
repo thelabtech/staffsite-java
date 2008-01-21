@@ -2,10 +2,11 @@ package org.alt60m.servlet;
 
 import java.util.*;
 import javax.servlet.http.*;
+import org.alt60m.servlet.MiniResults;
 
 public class ActionResults {
 	String _action;
-
+	TreeMap<String,MiniResults> _MiniResults;
 	Hashtable _collections;
 	Hashtable _maps;
 	Hashtable _values;
@@ -22,7 +23,7 @@ public class ActionResults {
 		_objects = new Hashtable();
 		_collections = new Hashtable();
 		_maps = new Hashtable();
-		
+		_MiniResults = new TreeMap();
 		_action = action;
 	}
 
@@ -45,7 +46,7 @@ public class ActionResults {
 
 	public boolean isEmpty() {
 
-		return ((_values.size() == 0) && (_objects.size() == 0) && (_collections.size() == 0) && (_maps.size() == 0));
+		return ((_MiniResults.size() == 0) && (_values.size() == 0) && (_objects.size() == 0) && (_collections.size() == 0) && (_maps.size() == 0));
 	}
 
 	public Collection getCollection(String key)
@@ -57,7 +58,18 @@ public class ActionResults {
 	{
 		_collections.put(key, c);
 	}
-	
+	public MiniResults getMiniResults(String key)
+	{
+		return (MiniResults) _MiniResults.get(key);
+	}
+	public Iterator getMiniResultsIterator()
+	{
+		return  _MiniResults.keySet().iterator();
+	}
+	public void addMiniResults(String key, MiniResults m)
+	{
+		_MiniResults.put(key, m);
+	}
 	public Map getMap(String key)
 	{
 		return (Map) _maps.get(key);
@@ -138,7 +150,21 @@ public class ActionResults {
 			for(Iterator i = ((Collection) _collections.get(key)).iterator(); i.hasNext();) {
 				sResponse += "        " + i.next().toString() + "\n";
 			}
-
+			
+			
+		
+		}
+		
+		sResponse += "\n  Returned the following MiniResults:\n";
+		sResponse += "  (you can get these by using the getMiniResults(key) method)\n";
+		
+		for(Iterator e = _MiniResults.keySet().iterator();e.hasNext();) {
+			String key = (String) e.next();
+			sResponse += "    Key=" + key + "\n";
+			
+			sResponse += "        " + _MiniResults.get(key).toString();
+			
+			
 		
 		}
 		sResponse  += "****************************************************************\n";
