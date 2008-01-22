@@ -32,6 +32,7 @@
 	<view name="reportDisplay" url="/infobase/report_display.jsp"></view>
 	<view name="reportDisplayDetail" url="/infobase/report_display_detail.jsp"></view>
 	<view name="enterSuccessCriteria" url="/infobase/menu_local_level_stats.jsp"></view>
+	<view name="enterFastSuccessCriteria" url="/infobase/fast_menu_local_level_stats.jsp"></view>
 	<view name="enterSuccessCriteriaInactive" url="/infobase/menu_local_level_stats_inactive.jsp"></view>
 	<view name="editSuccessCriteriaInfo" url="/infobase/edit_local_level_stat.jsp"></view>
 	<view name="regionInfo" url="/infobase/region_info.jsp"></view>
