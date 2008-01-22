@@ -1,5 +1,9 @@
-package org.alt60m.ministry.servlet;
 
+package org.alt60m.ministry.servlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +34,6 @@ import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.servlet.ActionResults;
-import org.alt60m.servlet.MiniResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
@@ -816,83 +819,78 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform enterSuccessCriteria ().", e);
         }
     }
+    public ActionResults fastStats(Hashtable<String,String> attribute)throws Exception
+    {
+    	ActionResults multiResults=new ActionResults("fastStat");
+        InfoBaseTool ibt = new InfoBaseTool();
+        Activity activity;
+        String status;
+        String strategy;
+        Iterator actIter=attribute.keySet().iterator();
+        TargetArea targetArea;
+        String targetAreaId;
+        SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
+        SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Collection<Hashtable<String, Object>> stats;
+        Hashtable<String, Object> row;
+        ActionResults results=new ActionResults("hold each result");
+        List<String> strategies = new Vector<String>();
+        List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
+        String activityId="";
+         	
+    	while (actIter.hasNext())
+    	{
+    		activityId=(String)actIter.next();
+    		results=new ActionResults("hold each result");
+    		allDates =blankStatsCalendar("StatisticId");
+            activity = ibt.getActivityObject(activityId);
+            strategies.add(activity.getStrategy());
+            targetArea = activity.getTargetArea();
+            status = activity.getStatus();
+            strategy = activity.getStrategy();
+            targetAreaId = targetArea.getTargetAreaId();
+            if(targetAreaId==null || targetAreaId.equals(""))
+            {
+            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+            }
+            results.putValue("targetareaid", targetAreaId);
+            results.putValue("activityid", activityId);
+            results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy));
+            results.putValue("status", status);
+            results.putValue("strategy", strategy);
+            stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+            allDates = populateStatsCalendar(stats.iterator(), allDates);
+            for (int cnt = 0; cnt < 16; cnt++) 
+            {
+                row = allDates.get(cnt);
+                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
+                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
+                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
+                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
+            }
+            results.addCollection("statistics", allDates);
+            multiResults.addActionResults(results.getValue("displayname")+"_"+activityId,results);
+        }
+    	return multiResults;
+    }    
+
     public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {
         try {
-        	ActionResults multiResults = new ActionResults("enterFastSuccessCriteria ");
-            InfoBaseTool ibt = new InfoBaseTool();
-            Activity activity;
-            String status;
-            String strategy;
+        	
+        	ActionResults results=new ActionResults();
+        	Hashtable<String,String> activities=new Hashtable<String,String>();
+            activities=new Hashtable<String,String>((convertBracketedParamsToHashtable(ctx).get("activities")));
+            results=fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
-            TargetArea targetArea;
-            String targetAreaId;
-            SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
-            SimpleDateFormat fullFormat = new SimpleDateFormat("MM/dd/yyyy");
-            Collection<Hashtable<String, Object>> stats;
-            Hashtable<String, Object> row;
-            MiniResults results=new MiniResults("hold each result");
-            List<String> strategies = new Vector<String>();
-            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
-            
-            Integer numSCI=new Integer(0);
-        	String activityId = ctx.getInputString("activity"+numSCI, false);
-        	while (activityId!=null)
-        	{
-        		results=new MiniResults("hold each result");
-        		
-	            allDates =blankStatsCalendar("StatisticId");
-	            activity = ibt.getActivityObject(activityId);
-	            strategies.add(activity.getStrategy());
-	            targetArea = activity.getTargetArea();
-	            status = activity.getStatus();
-	            strategy = activity.getStrategy();
-                targetAreaId = targetArea.getTargetAreaId();
-	            if(targetAreaId==null || targetAreaId.equals(""))
-	            {
-	            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
-	            }
-	            results.putValue("targetareaid", targetAreaId);
-	            results.putValue("activityid", activityId);
-	            results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy));
-	            results.putValue("status", status);
-	            results.putValue("strategy", strategy);
-	            stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
-	            allDates = populateStatsCalendar(stats.iterator(), allDates);
-	
-	            
-	            for (int cnt = 0; cnt < 16; cnt++) 
-	            {
-	                row = allDates.get(cnt);
-	                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
-	                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
-	                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
-	                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
-	            }
-	            results.addCollection("statistics", allDates);
-	           
-	            multiResults.addMiniResults(results.getValue("displayname")+"_"+activityId,results);
-	          
-	            numSCI++;
-	            activityId = ctx.getInputString("activity"+numSCI, false);
-        	}
         	if (weeksBack!=null)
-        		{multiResults.putValue("weeksBack", weeksBack);}
-        	else
-        		{multiResults.putValue("weeksBack", "0");}
-        	
-        	multiResults.putValue("numSCI", ""+(numSCI)); 
-        	
-        	ctx.setReturnValue(multiResults);
-         
+    		{results.putValue("weeksBack", weeksBack);}
+    	else
+    		{results.putValue("weeksBack", "0");}
+        	ctx.setReturnValue(results);
             ctx.goToView("enterFastSuccessCriteria");
             	
         }
-        catch (MissingTargetAreaIdException e)
-		{
-        	ctx.setError();
-        	ctx.goToErrorView();
-        	log.error("Missing target area id.", e);
-		}
+        
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
@@ -1481,12 +1479,15 @@ public class InfoBaseController extends Controller {
     		return;
     	}
         try {
+        	HttpServletRequest tempCtx=ctx.getRequest();
+        	ActionResults errorResults=new ActionResults("fast_stats_error");
         	Hashtable<String,Hashtable<String,String>> newStats=new Hashtable<String,Hashtable<String,String>>(convertBracketedParamsToHashtable(ctx));
         	Hashtable<String,String> thisStat;
         	Iterator scanStats=(newStats.keySet().iterator());
         	String activityId;
         	Boolean hasData=false;
-        	String goodSaves="";
+        	Boolean hasProblem=false;
+        	Hashtable<String,String> badSaves=new Hashtable<String,String>();
         	InfoBaseTool ibt;
         	 Statistic stat;
         	 String statisticId;
@@ -1515,18 +1516,23 @@ public class InfoBaseController extends Controller {
 				for (String key : keys) {
 					
 					
-					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(((String) thisStat.get(key)).replaceAll("[^0123456789]","")!=""))
+					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))))
 					{
 					hasData=true;
 					}
 					
 					if(("PeriodBegin PeriodEnd".contains((String)key)))
 					{
-					statMap.put(key, (String) thisStat.get(key));
+						statMap.put(key, (String) thisStat.get(key));
+					}
+					else if	(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))
+					{
+							badSaves.put(activityId, username);
+							hasProblem=true;
 					}
 					else
 					{
-					statMap.put(key, ((String) thisStat.get(key)).replaceAll("[^0123456789]",""));	
+						statMap.put(key, ((String) thisStat.get(key)).replaceAll("[^0123456789]",""));	
 					}
 				}
 	        	
@@ -1551,7 +1557,20 @@ public class InfoBaseController extends Controller {
 				
 				
         	}
-        	ctx.goToView("staffHome"); 
+        	if(!hasProblem){
+        		ctx.goToView("staffHome"); }
+        	else{ //if non-numerical input
+        		ActionResults results=new ActionResults();
+            	results=fastStats(badSaves);
+            	String weeksBack = ctx.getInputString("weeksBack", false);
+            	if (weeksBack!=null)
+        		{results.putValue("weeksBack", weeksBack);}
+            	else
+        		{results.putValue("weeksBack", "0");}
+            	results.putValue("message", "You entered non-numerical data in these campuses; please try again.");
+            	ctx.setReturnValue(results);
+                ctx.goToView("enterFastSuccessCriteria");
+        	}
         }catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();

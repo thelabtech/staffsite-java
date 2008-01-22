@@ -17,7 +17,7 @@ String profileID = (String)session.getValue("loggedIn");
 		while(prefs.hasNext()) {
 			pref = (StaffSitePref)prefs.next();
 			
-			pileUpSuccessCriteriaIds += "&activity"+movs+"="+pref.getValue();
+			pileUpSuccessCriteriaIds += "&activities["+pref.getValue()+"]="+pref.getDisplayName();
 			movs++;
 			
 		}
@@ -28,7 +28,7 @@ String profileID = (String)session.getValue("loggedIn");
 		
 		}	
 ActionResults ar;
-MiniResults mr;
+ActionResults mr;
 Collection statistics;
 Iterator slist ;
 Iterator miniResultsCounter;
@@ -45,8 +45,7 @@ Boolean topRow=true;
 Integer movements=0;
 	ar = ActionResults.getActionResults(session);
 	
-	Integer numSCI= new Integer(0);
-	Integer toNumSCI= new Integer (Integer.parseInt(ar.getValue("numSCI")));
+	
 	Integer weeksBack= new Integer (Integer.parseInt(ar.getValue("weeksBack")));
 %>
 <% String pageTitle="Entering Success Criteria";%>
@@ -111,11 +110,11 @@ text-align:center;
 <P>
 <CENTER>
 <%
-miniResultsCounter = ar.getMiniResultsIterator();
+miniResultsCounter = ar.getActionResultsIterator();
 if (miniResultsCounter.hasNext()) //start week navigation tabs
 {
 	thisOne=(String)(miniResultsCounter.next());
-	mr=ar.getMiniResults(thisOne);
+	mr=ar.getActionResults(thisOne);
 	statistics = mr.getCollection((String)("statistics"));	
 	slist = ((Collection)(statistics)).iterator();
 	%>
@@ -130,11 +129,13 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 				{ 
 					%>						
 					<TD class="weekTab" >
+					<%if(ar.getValue("message")==null){%>
 					<A style="text-decoration:none;" href="<%=weekLink+""+(15-counter)%>">
 					<%=criteria.get("PeriodBeginShort")%><br>
 					to<br>
 					<%=criteria.get("PeriodEndShort")%><BR>
 					</A>
+					<%} %>
 					</TD>						
 					<%
 				}
@@ -157,14 +158,21 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 } //end week-navigation tabs
 %>
 <form style="background-color:white;margin:0px;border:none;width:95%;" method="post" name="fast_ll_stat" action="/servlet/InfoBaseController?action=saveFastSuccessCriteria">
+<input type="hidden" name="weeksBack" value="<%=""+weeksBack %>"/>
 <table cols="16" style="width:100%;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:<%=color1%>;border-right-width:1px;border-left-width:1px;border-right-style:solid;border-left-style:solid;border-right-color:<%=color1%>;border-left-color:<%=color1%>;border-top:none;margin:none;border-collapse:collapse;background-color:white;">
 <tr><td>&nbsp</td></tr>	
+<%if(ar.getValue("message")!=null){%>
+<tr><td><center><%=fontB%><font color="red">
+<%=ar.getValue("message")%>
+</center></font></font></td></tr>
+<tr><td>&nbsp</td></tr>
+<%} %>
 <%		
-miniResultsCounter = ar.getMiniResultsIterator();
+miniResultsCounter = ar.getActionResultsIterator();
 while (miniResultsCounter.hasNext()) //start input fields
 {
 	thisOne=(String)(miniResultsCounter.next());
-	mr=ar.getMiniResults(thisOne);
+	mr=ar.getActionResults(thisOne);
 	statistics = mr.getCollection((String)("statistics"));
 	
 	slist = ((Collection)(statistics)).iterator();

@@ -281,7 +281,7 @@
 						while(prefs.hasNext()) {
 							pref = (StaffSitePref)prefs.next();
 							
-							pileUpSuccessCriteriaIds += "&activity"+numSCI+"="+pref.getValue();
+							pileUpSuccessCriteriaIds += "&activities["+pref.getValue()+"]="+pref.getDisplayName();
 							numSCI++;
 							%>
 								<a href="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>

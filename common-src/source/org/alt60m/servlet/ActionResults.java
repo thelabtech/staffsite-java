@@ -2,11 +2,10 @@ package org.alt60m.servlet;
 
 import java.util.*;
 import javax.servlet.http.*;
-import org.alt60m.servlet.MiniResults;
 
 public class ActionResults {
 	String _action;
-	TreeMap<String,MiniResults> _MiniResults;
+	TreeMap<String,ActionResults> _ActionResults;
 	Hashtable _collections;
 	Hashtable _maps;
 	Hashtable _values;
@@ -23,7 +22,7 @@ public class ActionResults {
 		_objects = new Hashtable();
 		_collections = new Hashtable();
 		_maps = new Hashtable();
-		_MiniResults = new TreeMap();
+		_ActionResults = new TreeMap();
 		_action = action;
 	}
 
@@ -46,7 +45,7 @@ public class ActionResults {
 
 	public boolean isEmpty() {
 
-		return ((_MiniResults.size() == 0) && (_values.size() == 0) && (_objects.size() == 0) && (_collections.size() == 0) && (_maps.size() == 0));
+		return ((_ActionResults.size() == 0) && (_values.size() == 0) && (_objects.size() == 0) && (_collections.size() == 0) && (_maps.size() == 0));
 	}
 
 	public Collection getCollection(String key)
@@ -58,17 +57,17 @@ public class ActionResults {
 	{
 		_collections.put(key, c);
 	}
-	public MiniResults getMiniResults(String key)
+	public ActionResults getActionResults(String key)
 	{
-		return (MiniResults) _MiniResults.get(key);
+		return (ActionResults) _ActionResults.get(key);
 	}
-	public Iterator getMiniResultsIterator()
+	public Iterator getActionResultsIterator()
 	{
-		return  _MiniResults.keySet().iterator();
+		return  _ActionResults.keySet().iterator();
 	}
-	public void addMiniResults(String key, MiniResults m)
+	public void addActionResults(String key, ActionResults m)
 	{
-		_MiniResults.put(key, m);
+		_ActionResults.put(key, m);
 	}
 	public Map getMap(String key)
 	{
@@ -155,14 +154,14 @@ public class ActionResults {
 		
 		}
 		
-		sResponse += "\n  Returned the following MiniResults:\n";
-		sResponse += "  (you can get these by using the getMiniResults(key) method)\n";
+		sResponse += "\n  Returned the following ActionResults:\n";
+		sResponse += "  (you can get these by using the getActionResults(key) method)\n";
 		
-		for(Iterator e = _MiniResults.keySet().iterator();e.hasNext();) {
+		for(Iterator e = _ActionResults.keySet().iterator();e.hasNext();) {
 			String key = (String) e.next();
 			sResponse += "    Key=" + key + "\n";
 			
-			sResponse += "        " + _MiniResults.get(key).toString();
+			sResponse += "        " + _ActionResults.get(key).toString();
 			
 			
 		
