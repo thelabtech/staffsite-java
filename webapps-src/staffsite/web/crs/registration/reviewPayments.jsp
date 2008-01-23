@@ -242,7 +242,7 @@ otherOptionsMenu.setActives(new boolean[]{
 			if((!(discountsAvailable.get("preReg_Deposit")==null))&&(preRegAdjusted>0)&&(!registration.getPreRegistered())) {
 %>
 			
-			<INPUT TYPE="radio" checked value="<%=formatter.formatDecimal(((Float)discountsAvailable.get("preReg_Deposit")).doubleValue())%>" NAME="PaymentAmount">
+			<INPUT TYPE="radio" checked value="<%=formatter.formatDecimal(preRegAdjusted)%>" NAME="PaymentAmount">
 					&nbsp; Full Cost $<%=formatter.formatDecimal(preRegAdjusted)%><br>
 					<%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(preRegOriginal) %> deposit minus payments)</i><br><%} %>
 					<i>You must pay the full cost to reserve your place at this conference.</i><br>
@@ -253,7 +253,7 @@ otherOptionsMenu.setActives(new boolean[]{
 			%>
 						<INPUT type="hidden" name="Note" value="You must pay the <b>full conference cost</b> to reserve your place at the conference.<br>(All payments and scholarships will be counted)"/>
 		<%} %>				
-							<INPUT TYPE="radio" VALUE="Other" NAME="PaymentAmount">&nbsp; Other: $<INPUT TYPE="text" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(amountOutstanding - fullPaymentDiscount - preRegDiscount)%>"><br>
+							<INPUT TYPE="radio" VALUE="Other" NAME="PaymentAmount">&nbsp; Other: $<INPUT TYPE="text" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(preRegAdjusted)%>"><br>
 						
 						Payment Method <SELECT SIZE="1" NAME="PaymentMethod">
 			<% 
