@@ -46,7 +46,7 @@ try{
 				<table border="1">
 <tr>
 <td width="45%"><A CLASS="button" HREF="/servlet/CRSAdmin?action=downloadDB&Template=BlueMango">BlueMango </A></td>
-<td>Sleek, svelte and ready to roll. An upgrade of the old "Christmas Conference Access Template". A Microsoft Access template. See the <u><a href="http://wiki.uscm.org/x/VICCC">BlueMango section</a></u> of the <u><a href="http://wiki.uscm.org/x/P4CC">Conference Guild</a></u>’s wiki page for help on how to use BlueMango at your conference.</td>
+<td>Sleek, svelte and ready to roll. An upgrade of the old "Christmas Conference Access Template". A Microsoft Access template. See the <u><a href="http://wiki.uscm.org/display/CG/BlueMango">BlueMango section</a></u> of the <u><a href="http://wiki.uscm.org/display/CG/Home">Conference Guild</a></u>’s wiki page for help on how to use BlueMango at your conference.</td>
 </tr>
 
 <!--
