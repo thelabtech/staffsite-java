@@ -158,6 +158,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				String conferenceID = ctx.getInputString("ConferenceID");
 				conferenceID = conferenceID == null ? (String) ctx.getSessionValue("selectedEvent")
 						: conferenceID;
+				conferenceID = conferenceID.trim().replaceAll("[^0123456789]","%breakhere%").split("%breakhere%")[0];
 				Conference c = crsApp.getConference(conferenceID);
 				Vector regTypesVector = new Vector();
 				Iterator regTypes = c.getRegistrationTypes().iterator();
@@ -201,7 +202,7 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 				String conferenceID = ctx.getInputString("ConferenceID");
 				conferenceID = conferenceID == null ? (String) ctx.getSessionValue("selectedEvent")
 						: conferenceID;
-				conferenceID = conferenceID.trim();
+				conferenceID = conferenceID.trim().replaceAll("[^0123456789]","%breakhere%").split("%breakhere%")[0];
 				String regTypeID = "";
 				if (ctx.getInputString("regTypeID") == null) {
 					regTypeID = ctx.getInputString("type");
