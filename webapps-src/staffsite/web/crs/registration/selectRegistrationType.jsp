@@ -18,6 +18,9 @@ try{
 	Conference conference = (Conference)ar.getObject("conference");
 	Registration registration = new Registration();
 	String pageTitle = conference.getName();
+	String confID=new String(conference.getConferenceID()+"");
+	confID=confID.trim().replaceAll("[^0123456789]","%breakhere%").split("%breakhere%")[0];
+	out.print(confID);
 	Vector regTypesV = (Vector)ar.getObject("RegistrationTypes");
 	String type = ar.getValue("type") != null ? ar.getValue("type") : "0";
 	boolean isSpouse = false;
@@ -173,7 +176,7 @@ otherOptionsMenu.setActives(new boolean[]{
 		<TR>
 			<form name="theForm" action="/servlet/CRSRegister">
 			<input type="hidden" name="action" value="userLogin">
-			<input type="hidden" name="ConferenceID" value="<%=conference.getConferenceID()%>">
+			<input type="hidden" name="ConferenceID" value="<%=confID%>">
 			<TD COLSPAN="3" CLASS="button">
 <%
 			if(regTypesV.size()==1){
