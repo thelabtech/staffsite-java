@@ -15,7 +15,7 @@ import java.util.*;
 public class MSInfo {
 	private static Log log = LogFactory.getLog(MSInfo.class);
 	
-	public static final String CURRENT_WSN_YEAR = "2007";
+	public static final String CURRENT_WSN_YEAR = "2008";
 	public static final int CURRENT_WSN_YEAR_INT = Integer.parseInt(CURRENT_WSN_YEAR);
 	
 	private static final String APPFEE = "25";
