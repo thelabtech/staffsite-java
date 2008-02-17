@@ -89,9 +89,9 @@
 			<table align="center" >
 			<tr>
 				<td align="center">
-					<img border="0" src="/infobase/images/usmap.gif" usemap="#USMap" width="500" height="313">
-				</td>
-				<td width="90" align="left">
+					<!--<img border="0" src="/infobase/images/usmap.gif" usemap="#USMap" width="500" height="313"> -->
+                    <img border="0" src="/infobase/images/usmap08.gif" usemap="#USMap" width="500" height="313">				</td>
+<td width="90" align="left">
 					<FONT FACE="Arial" SIZE="3" COLOR="#7788BB"><b>Locate a campus by clicking on a state:</b></font><br>
 				</td>
 			</tr>
@@ -107,7 +107,7 @@
 							<td valign="middle">
 								<FONT FACE="Arial" SIZE="3" COLOR="#7788BB"><b>or by selecting a country:</b></font></br>
 								<%country.setName("searchstring");%>
-								<%=country.print()%><br>
+		            <%=country.print()%><br>
 								<a href="Javascript:document.countrysearch.submit()" onMouseOut="changeImages('Image9', '/images/search_boff.gif')" onMouseOver="changeImages('Image9','/images/search_bon.gif')"><img name="Image9" align="right" border="0" src="/images/search_boff.gif"></a>
 							</td>
 							<!-- <td width="230" align="right">
@@ -130,7 +130,7 @@
 <br>
 <%@ include file="/infobase/ibfooter.jspf" %>
 <map name="USMap">
-	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=WA" shape="rect" coords="45, 20, 92, 54">
+<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=WA" shape="rect" coords="45, 20, 92, 54">
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=AK" shape="rect" coords="1,0 36,33">
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=HI" shape="rect" coords="10,224 53,256">
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=OR" shape="rect" coords="36, 62, 88, 95">
@@ -183,5 +183,6 @@
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=ME" shape="rect" coords="458, 18, 485, 55">
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=VT" shape="rect" coords="400, 31, 428, 49">
 	<area href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=NH" shape="rect" coords="427, 14, 450, 28">
+<area shape="rect" coords="457,165,485,183" href="/servlet/InfoBaseController?action=detailedListCampus&view=campusList&searchby=state&searchstring=DC">
 </map>
 </html>
