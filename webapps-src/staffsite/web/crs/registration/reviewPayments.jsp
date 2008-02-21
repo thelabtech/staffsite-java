@@ -5,8 +5,6 @@ try{
 	Registration registration = (Registration)ar.getObject("registration");
 	RegistrationType regType = registration.getRegistrationType();
 	boolean isSpouse = false;
-	boolean paymentChecked=false;
-	float currentDue=0;
 	Conference conference = (Conference)ar.getObject("conference");
 	Hashtable discountsAvailable = ar.getHashtable("discountsAvailable");
 	if(ar==null){
@@ -223,10 +221,7 @@ otherOptionsMenu.setActives(new boolean[]{
 		if(amountOutstanding>preRegAdjusted)
 		{
 			%>
-			<%
-				currentDue=amountOutstanding;
-			%>
-			<INPUT TYPE="radio" value="<%=formatter.formatDecimal(amountOutstanding - (fullPaymentDiscount + preRegDiscount))%>" NAME="PaymentAmount" checked><%paymentChecked=true; %>
+			<INPUT TYPE="radio" value="<%=formatter.formatDecimal(amountOutstanding - (fullPaymentDiscount + preRegDiscount))%>" NAME="PaymentAmount" checked>
 			&nbsp; Pay in Full $<%=formatter.formatDecimal(amountOutstanding - (fullPaymentDiscount + preRegDiscount))%><br><%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(totalCost) %> costs minus payments)</i><br><%} %>
 			<% 
 			if((!(discountsAvailable.get("preReg_Deposit")==null))&& (preRegAdjusted > 0) && !registration.getPreRegistered()) {
@@ -244,20 +239,21 @@ otherOptionsMenu.setActives(new boolean[]{
 		} 
 		else if (amountOutstanding <= preRegAdjusted)
 		{
-			
+			if((!(discountsAvailable.get("preReg_Deposit")==null))&&(preRegAdjusted>0)&&(!registration.getPreRegistered())) {
 %>
-			<%if((!(discountsAvailable.get("preReg_Deposit")==null))&&(preRegAdjusted>0)&&(!registration.getPreRegistered())){
-				currentDue=preRegOriginal-totalPaid;
-			}else{
-				currentDue=amountOutstanding;
-			}%>
-			<INPUT TYPE="radio" checked value="<%=formatter.formatDecimal(amountOutstanding)%>" NAME="PaymentAmount"><%paymentChecked=true; %>
-					&nbsp; Full Cost $<%=formatter.formatDecimal(currentDue)%><br>
-					<%if((!(discountsAvailable.get("preReg_Deposit")==null))&&(preRegAdjusted>0)&&(!registration.getPreRegistered())){%><%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(preRegOriginal) %> deposit minus payments)</i><br><%} %>
-					<i>You must pay the full cost to reserve your place at this conference.</i><%} %><br>
-			<INPUT type="hidden" name="Note" value="You must pay the <b>full conference cost</b> to reserve your place at the conference.<br>(All payments and scholarships will be counted)"/>
+			
+			<INPUT TYPE="radio" checked value="<%=formatter.formatDecimal(preRegAdjusted)%>" NAME="PaymentAmount">
+					&nbsp; Full Cost $<%=formatter.formatDecimal(preRegAdjusted)%><br>
+					<%if (totalPaid>0){ %><i>($<%=formatter.formatDecimal(preRegOriginal) %> deposit minus payments)</i><br><%} %>
+					<i>You must pay the full cost to reserve your place at this conference.</i><br>
+					 
+					
+<% 			}
+			
+			%>
+						<INPUT type="hidden" name="Note" value="You must pay the <b>full conference cost</b> to reserve your place at the conference.<br>(All payments and scholarships will be counted)"/>
 		<%} %>				
-							<INPUT TYPE="radio" <%if(!paymentChecked){out.print("checked");} %>VALUE="Other" id="OtherPaymentAmountRadio" NAME="PaymentAmount">&nbsp; Other: $<INPUT TYPE="text" onFocus="document.getElementById('OtherPaymentAmountRadio').checked=true;" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(currentDue)%>"><br>
+							<INPUT TYPE="radio" VALUE="Other" NAME="PaymentAmount">&nbsp; Other: $<INPUT TYPE="text" NAME="PaymentAmountOther" SIZE="7" value="<%=formatter.formatDecimal(preRegAdjusted)%>"><br>
 						
 						Payment Method <SELECT SIZE="1" NAME="PaymentMethod">
 			<% 
@@ -271,7 +267,8 @@ otherOptionsMenu.setActives(new boolean[]{
 			if (regType.getAcceptStaffAcctTransfer()){%>	<option value="staff_transfer">Staff Acct Transfer</option>
 			<% }
 			if (regType.getAcceptMinistryAcctTransfer()){%>	<option value="ministry_transfer">Ministry Acct Transfer</option>
-			<% }			if (regType.getAcceptChecks()){%>				<option value="Check">Mail a Check</option>
+			<% }
+			if (regType.getAcceptChecks()){%>				<option value="Check">Mail a Check</option>
 			<%}%>
 						</select>
 			<% 
