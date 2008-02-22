@@ -161,46 +161,41 @@ function jobVerify(form) {
 	<TR>
 		<TD CLASS="outline"><INPUT TYPE="checkbox" CLASS="noborder" NAME="ministryChange" VALUE="true"><B>Ministry</B></TD>
 		<TD CLASS="outline" ALIGN="CENTER"><input type="hidden" name="currentMinistry" value=<%=ministry%>><%=ministry%>&nbsp;</TD>
+		<!-- The list below is from the Peoplesoft Ministries and Department table.  There are only 18 official ministries and over 1,000 departments in PS.  
+		     Departments are a subset of ministries in PS.  I took the ones that seemed mostly departments and a few ministries that seemed most relevent.  
+			 Feel free to add as many departments as you feel the user can handle. -->
 		<TD CLASS="outline" ALIGN="CENTER"><SELECT NAME="newMinistry" CLASS="small" onChange="document.jobChangeForm1.ministryChange.checked=true">
 			<OPTION VALUE=""></OPTION>
-<OPTION VALUE="Agape International Training">Agape International Training</OPTION>
 <OPTION VALUE="André Kole Ministry">André Kole Ministry</OPTION>
+<OPTION VALUE="Answers For Life-USM">Answers For Life-USM</OPTION>
 <OPTION VALUE="Arrowhead Conference and Events">Arrowhead Conference and Events</OPTION>
-<OPTION VALUE="Arrowhead Productions International">Arrowhead Productions International</OPTION>
+<OPTION VALUE="Arrowhead Springs Ministry">Arrowhead Springs Ministry</OPTION>
 <OPTION VALUE="Athletes in Action">Athletes in Action</OPTION>
+<OPTION VALUE="Bridges International">Bridges International</OPTION>
+<OPTION VALUE="Bible Live">Bible Live</OPTION>
 <OPTION VALUE="Campus Ministry">Campus Ministry</OPTION>
-<OPTION VALUE="Christian Embassy, D.C.">Christian Embassy, D.C.</OPTION>
-<OPTION VALUE="Christian Embassy, N.Y.">Christian Embassy, N.Y.</OPTION>
+<OPTION VALUE="Christian Embassy—D.C.">Christian Embassy—D.C.</OPTION>
+<OPTION VALUE="Christian Embassy New York">Christian Embassy New York</OPTION>
 <OPTION VALUE="ChurchLIFE">ChurchLIFE</OPTION>
-<OPTION VALUE="Computer Services">Computer Services</OPTION>
+<OPTION VALUE="Church Dynamics">Church Dynamics</OPTION>
+<OPTION VALUE="CityConnect">CityConnect</OPTION>
 <OPTION VALUE="Core Services">Core Services</OPTION>
-<OPTION VALUE="Disciplemakers International">Disciplemakers International</OPTION>
-<OPTION VALUE="Dr. Henry Cloud Answers for Life">Dr. Henry Cloud Answers for Life</OPTION>
-<OPTION VALUE="ESC Media">ESC Media</OPTION>
-<OPTION VALUE="EveryStudent.com">EveryStudent.com</OPTION>
+<OPTION VALUE="Ethnic Expansion">Ethnic Expansion</OPTION>
+<OPTION VALUE="Ethnic Ministry Resources">Ethnic Ministry Resources</OPTION>
 <OPTION VALUE="Executive Ministries">Executive Ministries</OPTION>
 <OPTION VALUE="Faculty Commons">Faculty Commons</OPTION>
 <OPTION VALUE="FamilyLife">FamilyLife</OPTION>
-<OPTION VALUE="Founder's Office">Founder's Office</OPTION>
-<OPTION VALUE="Global Resources">Global Resources</OPTION>
-<OPTION VALUE="GoCCC">GoCCC</OPTION>
+<OPTION VALUE="Genesis Counseling">Genesis Counseling</OPTION>
 <OPTION VALUE="Here's Life Inner City">Here's Life Inner City</OPTION>
 <OPTION VALUE="Impact Movement">Impact Movement</OPTION>
-<OPTION VALUE="Intercultural Resources">Intercultural Resources</OPTION>
-<OPTION VALUE="Integrated Resources">Integrated Resources</OPTION>
-<OPTION VALUE="International">International Ministry</OPTION>
-<OPTION VALUE="International School of Theology">International School of Theology</OPTION>
-<OPTION VALUE="Jacksonville Florida Ministries">Jacksonville Florida Ministries</OPTION>
+<OPTION VALUE="International">International</OPTION>
 <OPTION VALUE="The JESUS Film Project">The JESUS Film Project</OPTION>
-<OPTION VALUE="The JESUS Video Project">The JESUS Video Project</OPTION>
 <OPTION VALUE="Josh McDowell Ministry">Josh McDowell Ministry</OPTION>
-<OPTION VALUE="Keynote Communications">Keynote Communications</OPTION>
-<OPTION VALUE="The King's College">The King's College</OPTION>
+<OPTION VALUE="Keynote">Keynote</OPTION>
+<OPTION VALUE="King's College">King's College</OPTION>
 <OPTION VALUE="Leadership University">Leadership University</OPTION>
+<OPTION VALUE="Legal Ministry">Legal Ministry</OPTION>
 <OPTION VALUE="Life Builders">Life Builders</OPTION>
-<OPTION VALUE="The Lighthouse Report">The Lighthouse Report</OPTION>
-<OPTION VALUE="LINC-Net">LINC-Net</OPTION>
-<OPTION VALUE="The Macedonian Project">The Macedonian Project</OPTION>
 <OPTION VALUE="Medical Strategic Network">Medical Strategic Network</OPTION>
 <OPTION VALUE="Military Ministry">Military Ministry</OPTION>
 <OPTION VALUE="New Life Publications">New Life Publications</OPTION>
@@ -209,18 +204,13 @@ function jobVerify(form) {
 <OPTION VALUE="Prayerworks">Prayerworks</OPTION>
 <OPTION VALUE="President's Office">President's Office</OPTION>
 <OPTION VALUE="Priority Associates">Priority Associates</OPTION>
-<OPTION VALUE="Promises">Promises</OPTION>
-<OPTION VALUE="See You After the Pole">See You After the Pole</OPTION>
-<OPTION VALUE="Silk Road">Silk Road</OPTION>
+<OPTION VALUE="Randolph Productions Inc.">Randolph Productions Inc.</OPTION>
 <OPTION VALUE="Single Life Resources">Single Life Resources</OPTION>
-<OPTION VALUE="SOLO - Singles Offering Life to Others">SOLO - Singles Offering Life to Others</OPTION>
+<OPTION VALUE="SOLO Ministry">SOLO Ministry</OPTION>
 <OPTION VALUE="Student LINC">Student LINC</OPTION>
 <OPTION VALUE="Student Venture">Student Venture</OPTION>
-<OPTION VALUE="VITAL LINC">VITAL LINC</OPTION>
-<OPTION VALUE="Women Today International">Women Today International</OPTION>
-<OPTION VALUE="World Headquarters Opportunities">World Headquarters Opportunities</OPTION>
-<OPTION VALUE="WorldLINC">WorldLINC</OPTION>
-<OPTION VALUE="Worldwide Challenge Magazine">Worldwide Challenge Magazine</OPTION>
+<OPTION VALUE="Target Ministries">Target Ministries</OPTION>
+<OPTION VALUE="Worldwide Challenge">Worldwide Challenge</OPTION>
 			</SELECT>
 		</TD>
 	</TR>
@@ -302,7 +292,6 @@ function jobVerify(form) {
 		<TD CLASS="outline" ALIGN="CENTER"><%=strategy%>&nbsp;</TD><INPUT TYPE="hidden" NAME="lane" VALUE="<%= strategy %>">
 		<TD CLASS="outline" ALIGN="CENTER"><SELECT NAME="newLane" CLASS="small" onChange="document.jobChangeForm1.laneChange.checked=true">
 			<OPTION VALUE=""></OPTION>
-			<OPTION VALUE="Grad Resources">Grad Resources</OPTION>
 			<OPTION VALUE="Bridges International">Bridges International</OPTION>
 			<OPTION VALUE="Catalytic">Catalytic</OPTION>
 			<OPTION VALUE="Staffed">Staffed Campus</OPTION>
