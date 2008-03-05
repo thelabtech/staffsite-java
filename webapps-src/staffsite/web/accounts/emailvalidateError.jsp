@@ -30,7 +30,7 @@
 			</B>
 		</TD></TR>
 		<TR><TD valign="top" align="right">Enter your Username: </Td><TD><input type=text name="username" size=20 value="<%=username%>"></TD></TR>
-		<TR><TD valign="top" align="right">Enter your Auth Code: </Td><TD><input type=text name="auth" size=20></TD></TR>
+		<TR><TD valign="top" align="right">Enter your Auth Code:<br> <i>(the number after "auth=" in the link we sent you)</i> </Td><TD><input type=text name="auth" size=20></TD></TR>
 		<TR><TD/><TD>
         <input type="hidden" value="/servlet/CRSRegister" name="url" checked>
         <input type=submit name=submit value="Submit">
