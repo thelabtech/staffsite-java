@@ -229,7 +229,7 @@ public class Review360LightController extends Controller
 					mySession = my360.getReviewSessionLight();
 					Staff so = mySession.getReviewee();
 
-					entry.put(REVIEW_360_ID_TOKEN, my360.getReview360LightId());
+					entry.put(REVIEW_360_ID_TOKEN, my360.encodeReview360LightID());
 					entry.put("Title", mySession.getName());
 					entry.put("ReviewFor", so.getPreferredName() + " " + so.getLastName());
 					
@@ -284,7 +284,7 @@ public class Review360LightController extends Controller
 						
 					Staff so = mySession.getReviewee();
 					
-					entry.put(REVIEW_360_ID_TOKEN, my360.getReview360Id());
+					entry.put(REVIEW_360_ID_TOKEN, my360.encodeReview360ID());
 					entry.put("Title", mySession.getName());
 					entry.put("ReviewFor", so.getPreferredName() + " " + so.getLastName());
 					
@@ -1977,7 +1977,7 @@ public class Review360LightController extends Controller
 					ReviewSessionLight mySession = my360.getReviewSessionLight();
 					Staff so = mySession.getReviewee();
 					
-					entry.put(REVIEW_360_ID_TOKEN, my360.getReview360LightId());
+					entry.put(REVIEW_360_ID_TOKEN, my360.encodeReview360LightID());
 					entry.put("Title", mySession.getName());
 					entry.put("ReviewFor", so.getPreferredName() + " " + so.getLastName());
 					
