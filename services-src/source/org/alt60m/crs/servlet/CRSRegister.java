@@ -401,13 +401,13 @@ public class CRSRegister extends org.alt60m.servlet.Controller {
 					}
 
 					ar.putValue("errorMsg",
-						"You do not have an existing registration for this conference, please choose from " + labels
-								+ " after clicking \"Continue\"");
+						"<span style=\"font-size:20px;margin-bottom:10px;\">You may have a valid login for this site,</span><br> <b>but you do not have an <i>existing registration</i> for this conference;</b><br> please choose from " + labels
+								+ "&nbsp; to begin a new registration after clicking \"Continue\"");
 				}
 				else
 				{
 					ar.putValue("errorMsg",
-							"You do not have an existing registration for this conference, please begin a new registration after clicking \"Continue\"");
+							"<span style=\"font-size:20px;margin-bottom:10px;\">You may have a valid login for this site,</span><br><b>but you do not have an <i>existing registration</i> for this conference;</b><br> please begin a new registration after clicking \"Continue\"");
 				}
 				ar.putValue("nextAction", "selectEvent");
 				ctx.setReturnValue(ar);
