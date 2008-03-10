@@ -147,9 +147,13 @@ public class InfoBaseController extends Controller {
             String targetAreaId = ctx.getInputString("targetareaid", true);
             Collection colStaff;
             if ("region".equalsIgnoreCase(mode)) {
-                colStaff = ibt.listStaffByRegionSQL(parameter.toUpperCase());
-            } else {
+                colStaff = ibt.shortListStaffByRegionSQL(parameter.toUpperCase());
+            } else if((parameter.length()>0)&&(!(parameter.replaceAll("%","").equals("")))){
                 colStaff = ibt.listStaffHashByLastName(parameter.toUpperCase());
+            } else {
+            	parameter=ibt.getTargetArea(targetAreaId).getRegion();
+            	colStaff = ibt.shortListStaffByRegionSQL(parameter.toUpperCase());
+            	results.putValue("infoMessage", "You need to specify a last name. For the time being, here are some staff from the region:");
             }
             ibt.removeCurrentContactFromStaffList(colStaff, activityId); 
             results.addCollection("staff", colStaff);

@@ -74,7 +74,14 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-	
+	public static Collection shortListStaffHashByRegion(String region) {
+		try {
+			return org.alt60m.util.ObjectHashUtil.list(shortListStaffByRegion(region));
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public static Collection<Staff> listStaffByRegion(String region) {
 		try {
@@ -85,7 +92,15 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-
+	public static Collection<ShortStaff> shortListStaffByRegion(String region) {
+		try {
+			ShortStaff s = new ShortStaff();
+			return (Collection<ShortStaff>) s.selectList("region = '" + region.toUpperCase() + "' AND (removedFromPeopleSoft='N') ORDER BY lastName");
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	public static Collection<Hashtable<String, Object>> listStaffHashByLastName(String lastName) {
 		try {
 			Staff s = new Staff();
@@ -155,6 +170,7 @@ public class InfoBaseQueries {
 			return 0;
 		}
 	}
+	
 	public static int getReportedCnt(Date since) {
 		try{
 			Activity act = new Activity();

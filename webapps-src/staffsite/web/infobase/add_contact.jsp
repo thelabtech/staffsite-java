@@ -24,8 +24,12 @@ ar = ActionResults.getActionResults(session);
 <%
 if("region".equals(request.getParameter("mode"))) {
 %>This is a list of staff members in the <%= ar.getValue("region") %> region.<BR>Select a person from this list to add them as a contact person.<% 
-} else { %>
-	Here is a list of staff members with the last name you typed.<BR>Select one to add them as a contact person.<% } %>
+} 
+	else if (ar.getValue("infoMessage")==null){ %>
+Here is a list of staff members with the last name you typed.<BR>Select one to add them as a contact person.<% } 
+	else { 
+		out.print(ar.getValue("infoMessage"));
+ } %>
 
 
 </FONT>

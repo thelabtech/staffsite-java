@@ -674,7 +674,15 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-
+    public Collection shortListStaffByRegionSQL(String region) throws Exception {
+        try {
+			return InfoBaseQueries.shortListStaffHashByRegion(region);
+        }
+        catch (Exception e) {
+            log.error("Failed to perform shortListStaffByRegionSQL().", e);
+  			throw new Exception(e);
+        }
+    }
     public Collection listStaffHashByLastName(String lastName) throws Exception {
         try {
 			return InfoBaseQueries.listStaffHashByLastName(lastName);
