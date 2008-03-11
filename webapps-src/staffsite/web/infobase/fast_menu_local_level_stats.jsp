@@ -157,7 +157,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 	<%	
 } //end week-navigation tabs
 %>
-<form style="background-color:white;margin:0px;border:none;width:95%;" method="post" name="fast_ll_stat" action="/servlet/InfoBaseController?action=saveFastSuccessCriteria">
+<form style="margin:0px;border:none;width:95%;" method="post" name="fast_ll_stat" action="/servlet/InfoBaseController?action=saveFastSuccessCriteria">
 <input type="hidden" name="weeksBack" value="<%=""+weeksBack %>"/>
 <table cols="16" style="width:100%;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:<%=color1%>;border-right-width:1px;border-left-width:1px;border-right-style:solid;border-left-style:solid;border-right-color:<%=color1%>;border-left-color:<%=color1%>;border-top:none;margin:none;border-collapse:collapse;background-color:white;">
 <tr><td>&nbsp</td></tr>	
@@ -212,11 +212,11 @@ while (miniResultsCounter.hasNext()) //start input fields
 			<button style="<%=hoverHelpStyle%>width:100px;" onMouseOver="infoBox('<%=movementWeek%>','laborers_sent');" onMouseOut="infoBoxClear('<%=movementWeek%>');" onClick="return false;"><%=fontB%>Laborers Sent</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=movementWeek%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ><br>
 			</div>
 			<div id="<%=movementWeek%>_info_box" 
-				style="position:absolute;left:300px;top:<%=350+(133*movements) %>px;
+				style="position:absolute;top:<%=370+(133*movements) %>px;
 				margin:10px;
 				font-family:verdana,arial,sans-serif;
 				padding:5px;
-				z-index:10;
+				z-index:20;
 				display:none;
 				width:470px;
 				height:auto;
@@ -236,7 +236,8 @@ while (miniResultsCounter.hasNext()) //start input fields
 %>
 <tr><td><center>
 <input id="noscript_submit" type="submit" value="Submit">
-<A style="display:none" id="javascript_submit_link" HREF="JavaScript: document.fast_ll_stat.submit()" onMouseOver="document.submitbutton.src='/images/submit_bon.gif';" onMouseOut="document.submitbutton.src='/images/submit_boff.gif';">
+
+<A style="margin:0px;border:none;padding:0px;position:absolute;top:<%=220+(133*movements) %>px;display:none;z-index:10;" tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="javascript_submit_link" HREF="JavaScript: document.fast_ll_stat.submit()" onMouseOver="document.submitbutton.src='/images/submit_bon.gif';" onMouseOut="document.submitbutton.src='/images/submit_boff.gif';">
 <IMG style="display:none" id="javascript_submit_image" NAME="submitbutton" SRC="/images/submit_boff.gif" BORDER="0" ALIGN="BOTTOM">
 </A></center></td></tr>
 <script type="text/javascript" language="javascript">
