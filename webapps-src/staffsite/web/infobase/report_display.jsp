@@ -324,8 +324,11 @@ ar = ActionResults.getActionResults(session);
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
 	</tr>
 	<tr <%=bgcolorL%>>
-	<td colspan="9" <%=bgcolorL%>><%=fontB1%><%=ar.getHashtable("census").get("movements")%>&nbsp; Movements, 
-        							<br><%= ar.getHashtable("census").get("enrollment")%>&nbsp; Enrollment <br>(as of today)
+	<td colspan="9" <%=bgcolorL%>><%=fontB1%><%
+		if(ar.getValue("block")==null)
+			{out.print(ar.getHashtable("census").get("movements")+" Movements, <br>"+ar.getHashtable("census").get("enrollment")+" Enrollment <br>(as of today)");
+			ar.putValue("block","true"); }%>
+	
         							</td></tr>	
 </TABLE>
 </TD></TR></TABLE>

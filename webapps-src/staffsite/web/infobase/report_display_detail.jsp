@@ -1,10 +1,9 @@
-<%@ page import="java.util.*" %>
+<%@ page import="org.alt60m.servlet.*, java.util.*" %>
 <%
 //try {
 //TODO: 
 //fix no records logic
-ActionResults ar;
-ar = ActionResults.getActionResults(session);
+
   Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display_detail");
 
   String urlAppend = new String();
@@ -43,20 +42,39 @@ ar = ActionResults.getActionResults(session);
   int totMultipliers = 0; 
   int totStudents = 0; 
   int totStudentLeaders = 0;
-
-  
-	for (Strategy strategy : Strategy.campusStrategies()) {
-		String strategyAbbreviation = strategy.toString();
-		if("true".equals(ar.getValue(strategyAbbreviation))) {
-		      strategyNames.add(strategy.getName());
-		      strategyAbbrevs.add(strategyAbbreviation);
-		      strategyList += ", " + strategy.getName();
-		      qStrategyList += ", " + "'" + strategyAbbreviation + "'"; 
-		      urlAppend += "&" + strategyAbbreviation + "=true";
+	if(ActionResults.getActionResults(session)!=null){
+		ActionResults ar;
+		ar = ActionResults.getActionResults(session);
+		for (Strategy strategy : Strategy.campusStrategies()) 
+		{
+			String strategyAbbreviation = strategy.toString();
+			if("true".equals(ar.getValue(strategyAbbreviation))) 
+			{
+			      strategyNames.add(strategy.getName());
+			      strategyAbbrevs.add(strategyAbbreviation);
+			      strategyList += ", " + strategy.getName();
+			      qStrategyList += ", " + "'" + strategyAbbreviation + "'"; 
+			      urlAppend += "&" + strategyAbbreviation + "=true";
+			}
 		}
-		
 	}
+	else
+	{
+			
+		
   
+		for (Strategy strategy : Strategy.campusStrategies()) {
+			String strategyAbbreviation = strategy.toString();
+			if("true".equals(request.getParameter(strategyAbbreviation))) {
+			      strategyNames.add(strategy.getName());
+			      strategyAbbrevs.add(strategyAbbreviation);
+			      strategyList += ", " + strategy.getName();
+			      qStrategyList += ", " + "'" + strategyAbbreviation + "'"; 
+			      urlAppend += "&" + strategyAbbreviation + "=true";
+			}
+			
+		}
+	}
   
   if(qStrategyList.length() > 1) {
 	qStrategyList = qStrategyList.substring(2, qStrategyList.length());
