@@ -67,8 +67,8 @@ Integer yearvar=1998;
 		ptvalue = request.getParameter("region");
 	}
 	else {
-		ptname = "";
-		ptvalue = "";
+		ptname = "region";
+		ptvalue = "National";
 	}
 %>
 	<input type=hidden name=<%=ptname%> value="<%=ptvalue%>">
@@ -89,22 +89,22 @@ Integer yearvar=1998;
 
 			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
-					<input type="checkbox" name="SC" value="true" >Staffed Campus<br>
-					<input type="checkbox" name="CA" value="true" >Catalytic<br>
-					<input type="checkbox" name="II" value="true" >ESM-Impact<br>
-					<input type="checkbox" name="IE" value="true" >ESM-Epic<br>
-					<input type="checkbox" name="ID" value="true" >ESM-Destino<br>
-					<input type="checkbox" name="IN" value="true" >ESM-Nations<br>
-					<input type="checkbox" name="BR" value="true" >Bridges<br>
-					<input type="checkbox" name="WS" value="true" >WSN STInt<br>
-					<input type="checkbox" name="WI" value="true" >WSN ICS<br>
-					<input type="checkbox" name="AA" value="true" >Athletes In Action<br>
-					<input type="checkbox" name="GR" value="true" >Grad Resources<br>
-					<input type="checkbox" name="CL" value="true" >Faculty Commons<br>
-					<input type="checkbox" name="KC" value="true" >Korean CCC<br>
-					<input type="checkbox" name="GK" value="true" >Greek<br>
-					<input type="checkbox" name="VL" value="true" >Valor<br>
-					<input type="checkbox" name="OT" value="true" >Other<br>
+					<input type="checkbox" name="strategies[SC]" checked value="SC" >Staffed Campus<br>
+					<input type="checkbox" name="strategies[CA]"  checked value="CA" >Catalytic<br>
+					<input type="checkbox" name="strategies[II]"  checked value="II" >ESM-Impact<br>
+					<input type="checkbox" name="strategies[IE]"  checked value="IE" >ESM-Epic<br>
+					<input type="checkbox" name="strategies[ID]"  checked value="ID" >ESM-Destino<br>
+					<input type="checkbox" name="strategies[IN]"  checked value="IN" >ESM-Nations<br>
+					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
+					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN STInt<br>
+					<input type="checkbox" name="strategies[WI]"   value="WI" >WSN ICS<br>
+					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
+					<input type="checkbox" name="strategies[GR]"  checked value="GR" >Grad Resources<br>
+					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
+					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
+					<input type="checkbox" name="strategies[GK]"  checked value="GK" >Greek<br>
+					<input type="checkbox" name="strategies[VL]"  checked value="VL" >Valor<br>
+					<input type="checkbox" name="strategies[OT]"  checked value="OT" >Other<br>
 					
 	
 			  </td></tr>

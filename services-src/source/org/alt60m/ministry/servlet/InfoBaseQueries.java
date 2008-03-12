@@ -225,6 +225,51 @@ public class InfoBaseQueries {
 		}
 	}
 
+	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {
+		try{
+			String queryPortion="and strategy in (";
+			Iterator strategIt=strategies.iterator();
+			while(strategIt.hasNext())
+			{
+			queryPortion+="'"+strategIt.next()+"'";
+			if (strategIt.hasNext()) queryPortion+=", ";
+			}
+			queryPortion+=") and region in (";
+			if(!region.equals("National")){
+				queryPortion+="'"+region+"'";
+			}
+			else
+			{
+				queryPortion+="'NE', 'SW', 'SE', 'NW', 'UM', 'GL', 'GP', 'RR', 'MA', 'MS'";
+			}
+			queryPortion+=")";
+			
+			
+			String movementsQuery = "SELECT count(ActivityID) from ministry_activity INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by ActivityID ;";
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement movementsStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet movementsRS = movementsStmt.executeQuery(movementsQuery);
+			Hashtable<String,Integer> result=new Hashtable<String,Integer>();
+			result.put("movements", 0);
+			while(movementsRS.next()){
+				result.put("movements", result.get("movements")+movementsRS.getInt(1));
+			}
+			
+			String enrollmentQuery = "SELECT Max(enrollment) from ministry_activity INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by targetAreaID ;";
+			Statement enrollmentStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet enrollmentRS = enrollmentStmt.executeQuery(enrollmentQuery);
+			result.put("enrollment", 0);
+			while(enrollmentRS.next()){
+				result.put("enrollment", result.get("enrollment")+enrollmentRS.getInt(1));
+			}
+			
+			return result;
+			
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	public static String getLowerBoundZipCode(String state, int number) {
 		if(state.equals("CA")) {
 			if(number == 1) {return "'94000'";}//san fransisco bay area

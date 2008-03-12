@@ -1,7 +1,8 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*, java.sql.*" %>
 
 <%
-
+ActionResults ar;
+ar = ActionResults.getActionResults(session);
 	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display");
 	
 	String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW", "NC", " " };
@@ -55,7 +56,7 @@
 
 	for (Strategy strategy : Strategy.campusStrategies()) {
 		String strategyAbbreviation = strategy.toString();
-		if("true".equals(request.getParameter(strategyAbbreviation))) {
+		if("true".equals(ar.getValue(strategyAbbreviation))) {
 			strategyList += "'" + strategyAbbreviation +"',";
 			urlAppend += "&" + strategyAbbreviation + "=true";
 			displayList += strategy.getName() + ", ";
@@ -223,7 +224,7 @@
 		if(counter%2 == 0) tempBool = false;
 		boolean tempBool2 = false;
 
-		enrollmentSum += Integer.parseInt(((sums.getString("enrollment")==null)||(sums.getString("enrollment").equals("")))?"0":sums.getString("enrollment"));
+		
 		exposuresViaMediaSum += sums.getInt("exposuresViaMediaSum");
 		evangelisticOneOnOneSum += sums.getInt("evangelisticOneOnOneSum");
 		evangelisticGroupSum += sums.getInt("evangelisticGroupSum");
@@ -304,9 +305,10 @@
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
 	</tr>
-	<%} %>
+	
+	<%}%>
+	
 	<tr <%=bgcolorL%>>
-
  	<td ALIGN="RIGHT"><%=fontB1%><B>Summary</B></TD>
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticOneOnOneSum)%></td>
  		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticGroupSum)%></td>     
@@ -321,7 +323,10 @@
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(studentLeadersSum)%></td>
 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
 	</tr>
-		
+	<tr <%=bgcolorL%>>
+	<td colspan="9" <%=bgcolorL%>><%=fontB1%><%=ar.getHashtable("census").get("movements")%>&nbsp; Movements, 
+        							<br><%= ar.getHashtable("census").get("enrollment")%>&nbsp; Enrollment <br>(as of today)
+        							</td></tr>	
 </TABLE>
 </TD></TR></TABLE>
 		<% } else out.print(fontB + "<B>No Results.</B></FONT>"); %>

@@ -3,7 +3,8 @@
 //try {
 //TODO: 
 //fix no records logic
-
+ActionResults ar;
+ar = ActionResults.getActionResults(session);
   Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display_detail");
 
   String urlAppend = new String();
@@ -46,7 +47,7 @@
   
 	for (Strategy strategy : Strategy.campusStrategies()) {
 		String strategyAbbreviation = strategy.toString();
-		if("true".equals(request.getParameter(strategyAbbreviation))) {
+		if("true".equals(ar.getValue(strategyAbbreviation))) {
 		      strategyNames.add(strategy.getName());
 		      strategyAbbrevs.add(strategyAbbreviation);
 		      strategyList += ", " + strategy.getName();
