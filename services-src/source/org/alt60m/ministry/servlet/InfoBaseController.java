@@ -1520,7 +1520,7 @@ public class InfoBaseController extends Controller {
 				for (String key : keys) {
 					
 					
-					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))))
+					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)==null)))
 					{
 					hasData=true;
 					}
