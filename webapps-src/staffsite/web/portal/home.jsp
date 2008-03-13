@@ -74,9 +74,11 @@
 				<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
 				<center>
+					<%=fontB%><a href="http://www.surveymonkey.com/s.aspx?sm=MYaVmsl4muKH2RtEIsrRLg_3d_3d"><b>Take the 2008 SLICE survey</b></A></font><br><%=fontS%><br><br>
+				   
 
 				<!-- This link goes in each year in Feb. for 2 weeks
-				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Staff Survey 2004</b></A></font><br><%=fontS%><br><br>
+				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Take te SLICE survey</b></A></font><br><%=fontS%><br><br>
 			    -->
 				<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
 				<%=box.printBottom()%>
