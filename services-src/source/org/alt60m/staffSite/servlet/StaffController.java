@@ -1149,6 +1149,9 @@ public class StaffController extends Controller {
 				results.putValue("hasHRQueryAccess", (String) ctx
 					.getSessionValue("hasHRQueryAccess"));
 			}
+			
+			results.putValue("Jane", ((String)ctx.getSessionValue("userName")).equalsIgnoreCase("jane.stump@uscm.org")?"true":"false");
+			
 			ctx.setReturnValue(results);
 			ctx.goToView("tools");
 

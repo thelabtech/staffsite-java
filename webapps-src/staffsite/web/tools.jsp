@@ -88,14 +88,14 @@ int curr_tab = 3; %>
 		<%// if (isStudent.equals("false")) { %>
 		<%
 		boolean fskEnabled = false;
-		if (fskEnabled) { 
+		if ((fskEnabled)||(ar.getValue("Jane").equals("true"))) { 
 		%>
  		<tr>
  			<td valign="center" align="center">
  				<a href="http://fsk.campuscrusadeforchrist.com">
 				<img src="/images/logo_fsk.gif"></a></td><td>
  				<%=font%><b>FSK Ordering Tool</b></font></td><td>
- 				<%=fontS%>Allocating and ordering freshman survival kits for Fall 2007.</font><br>
+ 				<%=fontS%>Allocating and ordering freshman survival kits for Fall 2008.</font><br>
 				<%=fontS%>View contents <a href='http://fsk.campuscrusadeforchrist.com/customer/product/public_list' onClick="window.open('http://fsk.campuscrusadeforchrist.com/customer/product/public_list', 'Descriptions', 'height=300,width=500,dependent=yes,scrollbars=yes,resizable'); return false">here.</a></font>
  			</td>
  		</tr>
