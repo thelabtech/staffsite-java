@@ -88,7 +88,7 @@ int curr_tab = 3; %>
 		<%// if (isStudent.equals("false")) { %>
 		<%
 		boolean fskEnabled = false;
-		if ((fskEnabled)||(ar.getValue("Jane").equals("true"))) { 
+		if ((fskEnabled)||(ar.getValue("FSKadmin").equals("true"))) { 
 		%>
  		<tr>
  			<td valign="center" align="center">
