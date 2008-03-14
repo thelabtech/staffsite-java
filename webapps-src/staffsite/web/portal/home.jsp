@@ -1,5 +1,7 @@
 <%@ page import="java.io.*,java.util.*,javax.servlet.http.*,javax.mail.*,javax.mail.internet.*,javax.activation.*, javax.xml.transform.stream.*, javax.xml.transform.*, java.net.*" %>
 <%@ page import="org.alt60m.staffSite.bean.dbio.*,org.alt60m.staffSite.model.dbio.StaffSitePref" %>
+<% int curr_tab = 1; %>
+<%@ include file="/header.jspf" %>
 <jsp:useBean id="internetsearch" class="org.alt60m.html.InternetSearch" />
 <jsp:useBean id="biblesearch" class="org.alt60m.html.BibleSearch" />
 <jsp:useBean id="birthdays" class="org.alt60m.html.Birthdays" />
@@ -12,12 +14,46 @@
 
 <HTML>
 <HEAD>
+
+<script type="text/javascript" language="javascript">
+function toggleDiv(who){
+	var el=document.getElementById(who);
+	if((el.style.height=='auto')||(el.style.height=='')){
+		el.style.height='16px';
+		el.style.overflow='hidden';
+		}
+		else
+		{
+		el.style.height='auto';
+		el.style.overflow='visible';
+		}
+}
+</script>
 <TITLE>Campus Staff Site</TITLE>
 <STYLE TYPE="text/css">
 	<!--.nounderline A {text-decoration:none}-->
-</STYLE>
+</style>
+	
+<STYLE TYPE="text/css">
+	.fakeLink A:visited
+		{
+		color:<%=color1%>;
+		
+		}
+	.fakeLink A:hover
+		{
+		color:<%=color1%>;
+		
+		}
+	.fakeLink A:link
+		{
+		color:<%=color1%>;
+		
+		}
+</STYLE>	
+
 </HEAD>
-<% int curr_tab = 1; %>
+
 <% String pageTitle = "&nbsp;";
 	String pileUpSuccessCriteriaIds = "";
 	int numSCI = 0;
@@ -29,7 +65,7 @@
 //	homePageArticlesToDisplay = (String)session.getValue("homePageArticlesToDisplay");
 //	regionalNews = (String)session.getValue("regionalNews");
 %>
-<%@ include file="/header.jspf" %>
+
 <% region = (String)profile.get("region"); %>
 <% try { %>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
@@ -275,7 +311,9 @@
 			<%=box.printTop()%>
 				<%=fontB%><B>Success Criteria</B><br></font><%=fontB1%>
 
-				<% String profileID = (String)session.getValue("loggedIn"); %>
+				<% String profileID = (String)session.getValue("loggedIn"); 
+					String sCBookMarks="";
+				%>
 				<% Iterator prefs;%>
 				<%
 					Bookmarks bookmarks = new Bookmarks();
@@ -289,16 +327,37 @@
 							
 							pileUpSuccessCriteriaIds += "&activities["+pref.getValue()+"]="+pref.getDisplayName();
 							numSCI++;
-							%>
-								<a href="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
-							<%
+							
+								sCBookMarks+="<a href=\"/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid="+pref.getValue()+"\">"+pref.getDisplayName()+"</a><BR>";
+							
 						}
 					}
 					if(!(pileUpSuccessCriteriaIds==""))
 						{
 						%>
-						<br><a href="/servlet/InfoBaseController?action=enterFastSuccessCriteriaForActivity<%=pileUpSuccessCriteriaIds%>">All bookmarked movements</a><BR>
+						<br>
+						<span style="text-decoration:none;font-size:12px;color:yellow;font-weight:bold;">New!  &nbsp;</span>
+						<a style="font-size:12px;" href="/servlet/InfoBaseController?action=enterFastSuccessCriteriaForActivity<%=pileUpSuccessCriteriaIds%>">
+						<b>Enter Stats  </b>
+						</a><BR>
+						<div  class="fakeLink" id="resizingBookMarkSC" style="height:auto;overflow:hidden;margin-top:10px;"  >
+					
+
+						<a style="text-decoration:none;display:none;" id="statsToggle" href="javascript:toggleDiv('resizingBookMarkSC');" >
+						<i>Individual Movements </i><span style="font-size:12px;">&darr;</span>
+						</a><br>
 						<%	
+						out.print(sCBookMarks);
+						%>
+						
+						</div>
+						<script type="text/javascript" language="javascript">
+						document.getElementById('resizingBookMarkSC').style.height='16px';
+						document.getElementById('resizingBookMarkSC').style.overflow='hidden';
+						document.getElementById('statsToggle').style.display='inline';
+						
+						</script>
+						<%
 						}
 					
 					%>
