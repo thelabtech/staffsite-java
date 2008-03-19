@@ -1014,7 +1014,7 @@ public class HRUpdateController extends Controller {
 		} catch (BadRegionException e) {
 			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
-			ar.putValue("exceptionText", "Your current region is not recognized.");
+			ar.putValue("exceptionText", "Your current region, listed in our HR records as "+e.getAuthRegion()+", is not recognized as a Campus Ministry region.");
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
@@ -1364,7 +1364,7 @@ public class HRUpdateController extends Controller {
 		} catch (BadRegionException e) {
 			log.error(e.getMessage(), e);
 			ActionResults ar = new ActionResults();
-			ar.putValue("exceptionText", "Your current region is not recognized.");
+			ar.putValue("exceptionText", "Your current region, listed in our HR records as "+e.getAuthRegion()+", is not recognized as a Campus Ministry region.");
 			ctx.setReturnValue(ar);
 			ctx.goToView("error");
 		} catch (Exception e) {
