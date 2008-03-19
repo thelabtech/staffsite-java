@@ -1692,9 +1692,10 @@ public class InfoBaseController extends Controller {
         	while (stratIter.hasNext()){
         		results.putValue((String)stratIter.next(),"true");//I rearranged the input coming from the .jsp form so this puts it back to the bad old way.
         	}
-        	results.addHashtable("census", InfoBaseQueries.getActivityCountByRegionAndStrategies(ctx.getInputString("region"), strategies)); //runs two queries	
-        	ctx.setReturnValue(results);
         	String type = ctx.getInputString("type", _reportTypes);
+        	if (!(type.equals("targetarea"))&&!(type.equals("locallevel"))) results.addHashtable("census", InfoBaseQueries.getActivityCountByRegionAndStrategies(ctx.getInputString("region"), strategies)); //runs two queries	
+        	ctx.setReturnValue(results);
+        	
              if (type.equals("targetarea")) {
                  ctx.goToView("reportDisplayDetail");
              } else {
