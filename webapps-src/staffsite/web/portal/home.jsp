@@ -106,13 +106,13 @@ function toggleDiv(who){
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
-			<%// if (isStudent.equals("false")) { %>
+		<!--	<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("2008 SLICE Survey");	%>
 				<%=box.printTop()%>
 				<center>
 					<%=fontB%><a href="http://www.surveymonkey.com/s.aspx?sm=MYaVmsl4muKH2RtEIsrRLg_3d_3d"><b>Take the 2008 SLICE survey</b></A></font><br><%=fontS%><%=box.printBottom()%>
 				<br>
-			<%// } %>
+			<%// } %> -->
 			<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
@@ -287,13 +287,13 @@ function toggleDiv(who){
 			<br>
 
 			<!-- start 'SLICE' module -->
-			<% box.setTitle("SLICE Survey 2007");%>
+			<!-- <% box.setTitle("SLICE Survey 2007");%>
 			<%=box.printTop()%>
 			<%=fontS%>
 				<a href='https://staff.campuscrusadeforchrist.com/cms/content/5649.html'>See national results</a><br>	
 			</font>
 			<%=box.printBottom()%>
-			<br>
+			<br>-->
 			<!-- *******************************************************-->
 			
 			<!-- start 'Staff Opportunities' module -->
