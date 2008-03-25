@@ -2,7 +2,7 @@
      criteria as well as the full range of statuses.  Further info on this change can 
      be found in the detail_target_area.jsp page.
      
-	Military Ministry,Athletes In Action,Grad Resources,Christian Leadership Ministries (now Faculty Commons)
+	Military Ministry,Athletes In Action,Christian Leadership Ministries (now Faculty Commons)
 	Korean CCC,Greek,Valor and Other
      
  -->
@@ -99,7 +99,6 @@ Integer yearvar=1998;
 					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN STInt<br>
 					<input type="checkbox" name="strategies[WI]"   value="WI" >WSN ICS<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies[GR]"  checked value="GR" >Grad Resources<br>
 					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
 					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
 					<input type="checkbox" name="strategies[GK]"  checked value="GK" >Greek<br>
