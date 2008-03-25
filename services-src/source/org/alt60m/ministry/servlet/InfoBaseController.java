@@ -772,8 +772,8 @@ public class InfoBaseController extends Controller {
             InfoBaseTool ibt = new InfoBaseTool();
             String activityId = ctx.getInputString("activityid", true);
            Activity activity = ibt.getActivityObject(activityId);
-            List<String> strategies = new Vector<String>();
-            strategies.add(activity.getStrategy());
+            
+            String strategy=activity.getStrategy();
             TargetArea targetArea = activity.getTargetArea();
             String status = activity.getStatus();
             
@@ -787,7 +787,7 @@ public class InfoBaseController extends Controller {
 	            results = getBookmarks(ctx, results, Bookmarks.STATISTIC, activityId);
 	            results.putValue("displayname", targetArea.getName());
 	            List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
-	            Collection<Hashtable<String, Object>> stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+	            Collection<Hashtable<String, Object>> stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategy);
 	            allDates = populateStatsCalendar(stats.iterator(), allDates);
 	
 	            SimpleDateFormat shortFormat = new SimpleDateFormat("M/dd");
@@ -862,7 +862,7 @@ public class InfoBaseController extends Controller {
             results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy));
             results.putValue("status", status);
             results.putValue("strategy", strategy);
-            stats = ibt.getTargetAreaStats(targetAreaId, allDates, strategies);
+            stats = ibt.getTargetAreaStats(targetAreaId, allDates, (String)strategy);
             allDates = populateStatsCalendar(stats.iterator(), allDates);
             for (int cnt = 0; cnt < 16; cnt++) 
             {

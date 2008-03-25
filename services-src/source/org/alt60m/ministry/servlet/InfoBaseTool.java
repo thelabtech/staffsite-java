@@ -609,10 +609,10 @@ public class InfoBaseTool {
 
 	}
 
-	public Collection<Hashtable<String, Object>> getTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates, List strategies) throws Exception {
+	public Collection<Hashtable<String, Object>> getTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates, String strategy) throws Exception {
         try {
 			Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(InfoBaseQueries.listStatsForTargetArea(targetAreaId, (Date)allDates.get(0).get("PeriodBegin"),
-                (Date)allDates.get(15).get("PeriodEnd"), strategies));
+                (Date)allDates.get(15).get("PeriodEnd"), strategy));
 			return c;
 		}
         catch (Exception e) {

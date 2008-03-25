@@ -131,11 +131,10 @@ public class InfoBaseQueries {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Vector listStatsForTargetArea(String targetAreaId, Date start, Date end, List strategies){
-		String strategyList = org.alt60m.util.TextUtils.listToCommaDelimitedQuotedString(strategies);
+	public static Vector listStatsForTargetArea(String targetAreaId, Date start, Date end, String strategy){
 		Activity a = new Activity();
 		Vector activityList = a.selectList("fk_targetAreaID = " + targetAreaId + " " +
-											"AND strategy in (" + strategyList + ")");
+											"AND strategy ='"+strategy+"'");
 		List<String> activityIdList = new Vector<String>();
 		for (Iterator i = activityList.iterator(); i.hasNext();) {
 			Activity act = (Activity)i.next();
