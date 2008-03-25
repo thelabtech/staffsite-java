@@ -1153,6 +1153,10 @@ public class StaffController extends Controller {
 			{
 			results.putValue("FSKadmin", ((String)ctx.getSessionValue("userName")).equalsIgnoreCase("jane.stump@uscm.org")?"true":"false");
 			}
+			else
+			{
+				results.putValue("FSKadmin", "false");	
+			}
 			ctx.setReturnValue(results);
 			ctx.goToView("tools");
 
