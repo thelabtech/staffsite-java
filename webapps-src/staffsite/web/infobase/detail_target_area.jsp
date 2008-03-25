@@ -4,7 +4,7 @@
       Further comments are embedded in this page.  This change effects  
       modules:  Strategy.java, detail_target_area.jsp and set_report_criteria.jsp
       
-      Ministries effected: Military Ministry (now Valor), Athletes In Action,Grad Resources, 
+      Ministries effected: Military Ministry (now Valor), Athletes In Action, 
       Christian Leadership Ministries (now Faculty COmmons), Korean CCC, Greek, Valor and Other
  -->
 
@@ -150,7 +150,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 	
 	/* ---------------------------------------------------------------------------------------
  	*  This code is being removed as part of the Movement/Success Criteria changes.  See note at 
- 	*  the top of the code.  This section of code deals with the ministries: Grad Resources,  
+ 	*  the top of the code.  This section of code deals with the ministries:   
  	*  ChristianLeadership Ministries, and Korean CCC.  This code can be completely removed 
  	*  eventually. 
  	* -----------------------------------------------------------------------------------------
