@@ -869,7 +869,6 @@ String lastName = (String)tub.get("LastName");
 			<OPTION VALUE="Ops">Operations</OPTION>
 			<OPTION VALUE="FD">Fund Development</OPTION>
 			<OPTION VALUE="BR">Bridges</OPTION>
-			<OPTION VALUE="GR">Grad Resources</OPTION>
 		</SELECT>
 		</TD>
 	</TR>
