@@ -1530,7 +1530,7 @@ public class Review360LightController extends Controller
 			}
 			
 			review.put("DateCompleted", completeDate);
-			review.put("Review360Id", my360.getReview360Id());
+			review.put("Review360Id", my360.encodeReview360ID());
 			if (my360.getLeadershipLevel() != null) {
 			    review.put("LeadershipLevel", my360.getLeadershipLevel()); 
 			} else {
