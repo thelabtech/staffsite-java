@@ -137,7 +137,7 @@ while (requestE.hasMoreElements()) {
 			<%
 				if(ar.getCollection("persons") != null){
 					Iterator persons = ar.getCollection("persons").iterator();
-					String passURL = "&lastName=" + ar.getValue("lastName") + "&firstName=" + ar.getValue("firstName") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough;
+					String passURL = "&lastName=" + ar.getValue("lastName").replace("'","%27") + "&firstName=" + ar.getValue("firstName").replace("'","%27") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough;
 			%>
 			<tr>
 				<td ALIGN="CENTER" COLSPAN="3" CLASS="boxheader">
