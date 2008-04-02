@@ -1,4 +1,4 @@
-<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.util.ArrayHelper, org.alt60m.crs.model.*" %>
+<%@ page import="org.alt60m.servlet.*, java.util.*, org.alt60m.util.ArrayHelper, org.alt60m.util.Toolbox, org.alt60m.crs.model.*" %>
 <jsp:useBean id="selBool" class="org.alt60m.html.SelectBoolean"/>
 <%
 	selBool.setLabels("Yes","No");
@@ -137,7 +137,7 @@ while (requestE.hasMoreElements()) {
 			<%
 				if(ar.getCollection("persons") != null){
 					Iterator persons = ar.getCollection("persons").iterator();
-					String passURL = "&lastName=" + ar.getValue("lastName").replace("'","%27") + "&firstName=" + ar.getValue("firstName").replace("'","%27") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough;
+					String passURL = Toolbox.escapeSingleQuotes("&lastName=" + ar.getValue("lastName") + "&firstName=" + ar.getValue("firstName") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough);
 			%>
 			<tr>
 				<td ALIGN="CENTER" COLSPAN="3" CLASS="boxheader">

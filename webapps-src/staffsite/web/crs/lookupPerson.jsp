@@ -1,5 +1,5 @@
 <%@ page
-	import="org.alt60m.servlet.*, java.util.*, org.alt60m.util.ArrayHelper, org.alt60m.crs.model.*"%>
+	import="org.alt60m.servlet.*, java.util.*, org.alt60m.util.ArrayHelper, org.alt60m.util.Toolbox, org.alt60m.crs.model.*"%>
 <%
 try{
 	ActionResults ar = ActionResults.getActionResults(session);
@@ -125,7 +125,7 @@ try{
 			<%
 	if(ar.getCollection("persons") != null){
 		Iterator persons = ar.getCollection("persons").iterator();
-		String passURL = "&lastName=" + ar.getValue("lastName").replace("'","%27") + "&firstName=" + ar.getValue("firstName").replace("'","%27") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough;
+		String passURL = Toolbox.escapeSingleQuotes("&lastName=" + ar.getValue("lastName") + "&firstName=" + ar.getValue("firstName") + "&lookupMessage=" + ar.getValue("lookupMessage") + "&nextAction=" + ar.getValue("nextAction") + "&nextVar=" + ar.getValue("nextVar") + "&" + passThrough);
 %>
 			<TR>
 				<TD
