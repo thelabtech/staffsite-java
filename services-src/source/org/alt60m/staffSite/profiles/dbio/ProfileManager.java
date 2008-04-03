@@ -11,6 +11,7 @@ import org.alt60m.security.dbio.manager.SimpleSecurityManager;
 import org.alt60m.security.dbio.manager.UserLockedOutException;
 import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
+import org.alt60m.security.dbio.manager.SsmUserAlreadyExistsException;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.staffSite.bean.dbio.UserPreferences;
 import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
@@ -366,14 +367,17 @@ public class ProfileManager {
 	public String authorize(CASUser user)
 			throws ProfileNotFoundException, ProfileManagementException,
 			MultipleProfilesFoundException, UserNotFoundException,
-			UserNotVerifiedException {
-		
+			UserNotVerifiedException, SsmUserAlreadyExistsException {
+		log.debug("line 370");
 		User ssmUser;
 		try {
+			log.debug("line 373");
 			ssmUser = _securityMan.checkUser(user);
+			log.debug(ssmUser.getUsername());
 		}
 		catch (SecurityManagerFailedException e)
 		{
+			log.debug("line 378");
 			log.error(e, e);
 			throw new ProfileManagementException("Unable to authorize", e);
 		}

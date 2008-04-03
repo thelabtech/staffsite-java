@@ -68,6 +68,12 @@ function popupWindow(cUrl,cName,cFeatures) {
 			<a href="/servlet/StaffController?action=verifyGCX">Verify GCX Account</a>. 
 			<BR><BR>Then, if you are unable to login, click <A HREF="JavaScript: popupWindow('/help/help_logging_in.jsp', 'loginhelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">here for help.</a></font>
 		
+		<% } else if (errorCode.equalsIgnoreCase("ssmUserAlreadyExists")) { %>
+			<%=fontHLXL%><b>Your GCX account name is in conflict with an existing staffsite account</b></font><p>
+			<%=fontXL%>
+			<%=(String)session.getValue("ErrorMessage") %>
+			<br><br>Please email <a href="mailto:help@campuscrusadeforchrist.com">help@campuscrusadeforchrist.com</a> for assistance with this problem.
+		
 		<!-- Some other kind of error -->
 		<% } else { %>
 			<%=fontHLXL%><b>Site Unavailable</b></font><p>

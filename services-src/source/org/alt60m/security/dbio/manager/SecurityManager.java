@@ -46,5 +46,5 @@ public interface SecurityManager {
 	 * @throws UserNotFoundException
 	 * @throws UserNotVerifiedException
 	 */
-	public User checkUser(CASUser user) throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException;
+	public User checkUser(CASUser user) throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException;
 } 

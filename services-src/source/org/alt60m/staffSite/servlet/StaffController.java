@@ -27,6 +27,7 @@ import org.alt60m.ministry.model.dbio.StaffSnapshot;
 import org.alt60m.ministry.servlet.StaffInfo;
 import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
+import org.alt60m.security.dbio.manager.SsmUserAlreadyExistsException;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.servlet.MissingRequestParameterException;
@@ -458,11 +459,16 @@ public class StaffController extends Controller {
 			ctx.setSessionValue("ErrorCode", "multipleprofiles");
 			ctx.goToView("loginError");
 		} catch (UserNotVerifiedException e) {
-			log.info("User GCX Account Not Verified: "
+			log.info("User GCX Account Not Verified for user: "
 					+ newUser.getUsername());
 			ctx.setSessionValue("ErrorCode", "gcxnotverified");
 			ctx.goToView("loginError");
-
+		} catch (SsmUserAlreadyExistsException e){
+			log.info("GCX username is in conflict with existing SSM username: "+ newUser.getUsername()+": "+e.getMessage());
+					
+			ctx.setSessionValue("ErrorCode", "ssmUserAlreadyExists");
+			ctx.setSessionValue("ErrorMessage", e.getMessage());
+			ctx.goToView("loginError");
 		}
 		if (profileId != null) {
 			authorize(ctx, newUser, profileId);

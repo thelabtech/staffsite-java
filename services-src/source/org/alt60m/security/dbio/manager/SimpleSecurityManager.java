@@ -77,7 +77,7 @@ public class SimpleSecurityManager implements SecurityManager {
 						+ maxFailedLogins + "attempts");
 
 			return authenticated;
-//			return true; // DO NOT DEPLOY LIKE THIS!!!
+			//		return true; // DO NOT DEPLOY LIKE THIS!!!
 		} catch (UserLockedOutException uloe) {
 			throw uloe;
 		} catch (UserNotFoundException unfe) {
@@ -522,7 +522,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * 
 	 */
 	public User checkUser(CASUser user)
-			throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException {
+			throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException {
 		
 		String username = user.getUsername();
 		String guid = user.getGUID();
@@ -532,10 +532,12 @@ public class SimpleSecurityManager implements SecurityManager {
 		User ssmUser = null;
 
 		try {
+			
 			ssmUser = getUserObjectByGUID(guid);
 			if (!username.equals(ssmUser.getUsername())) {
 				changeUsername(ssmUser, username);
-			}
+			
+			}	
 		} catch (UserNotFoundException e) {
 			// no existing GUID; i.e., first
 			// SSO login
@@ -590,7 +592,7 @@ public class SimpleSecurityManager implements SecurityManager {
 //			}
 			
 		}
-
+		
 		return ssmUser;
 	}
 
@@ -607,7 +609,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @throws UserNotVerifiedException
 	 * @throws UserNotFoundException
 	 */
-	User addLegacy(CASUser user, String username, String acctNo) throws UserNotVerifiedException, UserNotFoundException {
+	User addLegacy(CASUser user, String username, String acctNo) throws SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
 
 		
 		log.info("Completing ssm/profile for legacy user: " + user.getUsername());
@@ -840,11 +842,11 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @param ssmUser
 	 * @param username
 	 */
-	private void changeUsername(User ssmUser, String username) {
-		String oldUsername = ssmUser.getUsername();
+	private void changeUsername(User ssmUser, String username) throws SsmUserAlreadyExistsException{
 		
+		String oldUsername = ssmUser.getUsername();
 		log.info("Changing username from " + oldUsername + " to " + username);
-
+			
 		User replacedUser = new User();
 		replacedUser.setUsername(username);
 		if (!oldUsername.equalsIgnoreCase(username) && replacedUser.select()) {
@@ -853,15 +855,13 @@ public class SimpleSecurityManager implements SecurityManager {
 			//staffsite profile has already been created for them.  Usually this
 			//does not have anything associated with it (person, etc).
 			Person replacedPerson = new Person();
+			
 			replacedPerson.setFk_ssmUserID(replacedUser.getUserID());
 			if (replacedPerson.select()) {
-				//log.error() because it should be emailed, even though it isn't
-				//technically an error
-				log
-						.error("username change collides with user with person record; "
-								+ "orphaning person record "
-								+ replacedPerson.getPersonID()
-								+ "; some cleanup is probably needed");
+				//we balk because this is crazy talk, to delete a valid user on another user's say-so
+				log.error("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+")");
+				throw new SsmUserAlreadyExistsException("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+")") ;
+								
 			}
 			log.warn("To avoid username collision deleting existing user record: " + replacedUser.getUserID());
 			replacedUser.delete();
@@ -873,6 +873,7 @@ public class SimpleSecurityManager implements SecurityManager {
 
 		// Change in SSP
 		changeProfileUsername(oldUsername, username);
+		
 	}
 
 	private void changeProfileUsername(String oldUsername, String username) {
