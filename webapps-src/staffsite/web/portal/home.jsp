@@ -50,6 +50,11 @@ function toggleDiv(who){
 		color:<%=color1%>;
 		
 		}
+	#wayforward{
+		width:140px;
+		background:#0071ce url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
+		border: solid #0071ce 1px;
+	}
 </STYLE>	
 
 </HEAD>
@@ -285,7 +290,13 @@ function toggleDiv(who){
 			</font>
 			<%=box.printBottom()%>
 			<br>
-
+				<div id="wayforward">
+					<ul id="podcasts">
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode3.htm">Episode 3: Our Value of Growth</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode2.htm">Episode 2: Our Core DNA</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode1.htm">Episode 1: What Isn&rsquo;t Changing</a></li>
+					</ul>
+				</div>
 			<!-- start 'SLICE' module -->
 			<!-- <% box.setTitle("SLICE Survey 2007");%>
 			<%=box.printTop()%>
