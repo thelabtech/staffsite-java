@@ -53,6 +53,7 @@ function toggleDiv(who){
 	#wayforward{
 		width:140px;
 		background:#fff url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
+		margin-bottom:25px;
 	}
 	#wayforward li{
 	padding:0px;
