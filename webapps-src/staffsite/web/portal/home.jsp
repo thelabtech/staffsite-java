@@ -52,8 +52,13 @@ function toggleDiv(who){
 		}
 	#wayforward{
 		width:140px;
-		background:#fff url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
 		margin-bottom:25px;
+		border: solid #0071ce 1px;
+	}
+	#wayforward h1{
+	width:140px;
+	height:25px;
+	background:#fff url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
 	}
 	#wayforward li{
 	padding:0px;
@@ -61,12 +66,11 @@ function toggleDiv(who){
 	list-style:none;
 	font-size:10px;
 	font-family:verdana,arial,sans-serif;
+	padding-bottom:10px;
 	}
 	#podcasts{
 	padding:5px;
 	margin:0px;
-	border: solid #0071ce 1px;
-	margin-top:30px;
 	}
 </STYLE>	
 
@@ -304,6 +308,7 @@ function toggleDiv(who){
 			<%=box.printBottom()%>
 			<br>
 				<div id="wayforward">
+					<h1></h1>
 					<ul id="podcasts">
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode3.htm">Episode 3: Our Value of Growth</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode2.htm">Episode 2: Our Core DNA</a></li>
