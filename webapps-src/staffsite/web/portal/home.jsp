@@ -62,8 +62,10 @@ function toggleDiv(who){
 	font-size:10px;
 	}
 	#podcasts{
+	padding:5px;
+	margin:0px;
 	border: solid #0071ce 1px;
-	padding-top:30px;
+	margin-top:30px;
 	}
 </STYLE>	
 
