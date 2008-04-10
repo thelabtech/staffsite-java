@@ -60,6 +60,7 @@ function toggleDiv(who){
 	margin:0px;
 	list-style:none;
 	font-size:10px;
+	font-family:verdana,arial,sans-serif;
 	}
 	#podcasts{
 	padding:5px;
