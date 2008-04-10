@@ -53,13 +53,15 @@ function toggleDiv(who){
 	#wayforward{
 		width:140px;
 		background:#fff url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
-		border: solid #0071ce 1px;
-		padding-top:30px;
 	}
-	#podcast li{
+	#wayforward li{
 	padding:0px;
 	margin:0px;
 	list-style:none;
+	}
+	#podcast{
+	border: solid #0071ce 1px;
+	padding-top:30px;
 	}
 </STYLE>	
 
