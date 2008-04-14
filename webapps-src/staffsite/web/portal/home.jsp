@@ -312,9 +312,10 @@ function toggleDiv(who){
 				<div id="wayforward">
 					<h1></h1>
 					<ul id="podcasts">
-						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode3.htm">Episode 3: Our Value of Growth</a></li>
-						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode2.htm">Episode 2: Our Core DNA</a></li>
-						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode1.htm">Episode 1: What Isn&rsquo;t Changing</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode4.htm">Episode 4: Chain of Missional Objectives (3:12)</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode3.htm">Episode 3: Our Value of Growth (5:58)</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode2.htm">Episode 2: Our Core DNA (5:02)</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode1.htm">Episode 1: What Isn&rsquo;t Changing (5:26)</a></li>
 					</ul>
 				</div>
 			<!-- start 'SLICE' module -->
