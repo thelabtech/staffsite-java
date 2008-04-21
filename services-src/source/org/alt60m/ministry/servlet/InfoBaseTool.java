@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.sql.ResultSet;
 
 import org.alt60m.ministry.ActivityExistsException;
 import org.alt60m.ministry.Strategy;
@@ -25,6 +26,7 @@ import org.alt60m.ministry.model.dbio.OldAddress;
 import org.alt60m.ministry.model.dbio.RegionalStat;
 import org.alt60m.ministry.model.dbio.RegionalTeam;
 import org.alt60m.ministry.model.dbio.Staff;
+import org.alt60m.ministry.model.dbio.Person;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.servlet.ActionResults;
@@ -190,7 +192,7 @@ public class InfoBaseTool {
 			throw new Exception(e);
         }
     }
-
+    
     private Hashtable<String, Object> emulateOldStaffStructure(Staff staff) throws Exception {
     	Hashtable<String, Object> staffHash = ObjectHashUtil.obj2hash(staff);
         OldAddress pa = staff.getPrimaryAddress();
@@ -621,6 +623,18 @@ public class InfoBaseTool {
       }
 	}
 
+	public Collection<Hashtable<String, Object>> getBridgesTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates, String strategy, String peopleGroup) throws Exception {
+        try {
+        	      	
+			Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(InfoBaseQueries.listBridgesStatsForTargetArea(targetAreaId, (Date)allDates.get(0).get("PeriodBegin"),
+                (Date)allDates.get(15).get("PeriodEnd"), strategy, peopleGroup));
+			return c;
+		}
+        catch (Exception e) {
+            log.error("Failed to perform getBridgesTargetAreaStats().", e);
+  			throw new Exception(e);
+      }
+	}
     boolean inList(String[] list, String value) {
         for (int i = 0; i < list.length; i++) {
             if (list[i].equalsIgnoreCase(value)) return true;
@@ -683,6 +697,15 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
+    public Collection shortListPersonByRegionSQL(String region) throws Exception {
+        try {
+			return InfoBaseQueries.shortListPersonHashByRegion(region);
+        }
+        catch (Exception e) {
+            log.error("Failed to perform shortListStaffByRegionSQL().", e);
+  			throw new Exception(e);
+        }
+    }
     public Collection listStaffHashByLastName(String lastName) throws Exception {
         try {
 			return InfoBaseQueries.listStaffHashByLastName(lastName);
@@ -692,7 +715,15 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-
+    public Collection listPersonHashByLastName(String lastName) throws Exception {
+        try {
+			return InfoBaseQueries.listPersonHashByLastName(lastName);
+        }
+        catch (Exception e) {
+            log.error("Failed to perform listStaffHashByLastName().", e);
+  			throw new Exception(e);
+        }
+    }
     static private java.sql.Date parseSimpleDate(String date) throws java.text.ParseException {
         StringTokenizer tokens = new StringTokenizer(date, "/");
         if (tokens.countTokens() != 3)
@@ -845,12 +876,11 @@ public class InfoBaseTool {
         }
     }
 
-
 	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID, String Url) throws ActivityExistsException, Exception {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
 			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);
 		} else {
-			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add a Staffed Campus or Catalytic strategy, most likely the campus you selected already has one of those two strategies active already.  To change it, go to that campus's page.");
+			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add a Staffed or Catalytic strategy, most likely the campus you selected already has one active already.  To change it, go to that campus's page.");
 		}
 	}
 	
@@ -1096,9 +1126,9 @@ public class InfoBaseTool {
             
             if(oldActivity.getStrategy().equals("SC") && (!newStatus.equals("AC") || !newStatus.equals("IN"))) {
             	oldActivity.setStrategy("CA");
-            } else if(oldActivity.getStrategy().equals("CA") && newStatus.equals("AC")) {
-            	oldActivity.setStrategy("SC");
-            }
+            } //else if(oldActivity.getStrategy().equals("CA") && newStatus.equals("AC")) {
+            	//oldActivity.setStrategy("SC");
+            //}
     	}
     	
     	
@@ -1371,7 +1401,7 @@ public class InfoBaseTool {
 				logMessage += " " + key + ": " + statMap.get(key);
 			}
 			log.info(logMessage);
-            stat.persist();
+			stat.persist();
         } catch (Exception e) {
             log.error("Failed to perform saveStatObjectWithActivity().", e);
  			throw new Exception(e);
@@ -1493,6 +1523,7 @@ public class InfoBaseTool {
 			throw new Exception(e);
 		}
 	}
+
 
 	public void removeCurrentContactFromStaffList(Collection colStaff,
 			String activityId) {

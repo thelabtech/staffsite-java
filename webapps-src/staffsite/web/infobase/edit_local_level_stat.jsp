@@ -139,7 +139,13 @@
 					<td><input type="text" name="Decisions" value="<%=statistic.get("Decisions")%>" size="10" onBlur="isInteger(this, this.value)"></td>
 					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord?</font></i></td>
 				</tr>
-
+				<tr align="left" valign="middle">
+					<th><%=fontB%>Holy Spirit Presentations</font></th>
+					<td><input type="text" name="HolySpiritConversations" disabled value="Coming August 1, 2008" size="10" onBlur="isInteger(this, this.value)"></td>
+					<td><i><%=fontB1%>	(Coming August 1, 2008)<br>
+										How many people have heard a presentation of the ministry of the Holy Spirit
+										with the opportunity to respond?</font></i></td>
+				</tr>
 			</table>
 			<br>
 			<table width="100%" cellpadding="5" cellspacing="1" <%=bgcolorL%>>

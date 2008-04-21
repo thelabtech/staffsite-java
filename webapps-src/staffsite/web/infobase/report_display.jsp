@@ -43,12 +43,22 @@ ar = ActionResults.getActionResults(session);
 	int evangelisticGroupSum = 0;
 	int decisionSum = 0;
 	int laborersSentSum = 0;
-	int invldNewBlvrsSum = 0;
 	int multipliersSum = 0;
 	int invldStudentsSum = 0;
 	int studentLeadersSum = 0;
 	int activeEnrollment = 0;
 	int activeMovements = 0;
+	
+	
+	int bridgesExposuresViaMediaSum = 0;
+	int bridgesEvangelisticOneOnOneSum = 0;
+	int bridgesEvangelisticGroupSum = 0;
+	int bridgesDecisionSum = 0;
+	int bridgesLaborersSentSum = 0;
+	int bridgesMultipliersSum = 0;
+	int bridgesInvldStudentsSum = 0;
+	int bridgesStudentLeadersSum = 0;
+	
 
 	String areaname = null;
 	String strategyList = "";
@@ -75,43 +85,22 @@ ar = ActionResults.getActionResults(session);
 
 	if(request.getParameter("type").equals("locallevel")){
 
-		sumsQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_locallevel.teamID = '" + request.getParameter("locallevelid") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID ORDER BY campusName, ministry_activity.ActivityID";
+		sumsQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_locallevel.teamID = '" + request.getParameter("locallevelid") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID, ministry_statistic.peopleGroup ORDER BY campusName, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
 
-		demosQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.invldStudents, ministry_statistic.multipliers, ministry_statistic.studentLeaders, ministry_locallevel.region FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_locallevel.teamID = '" + request.getParameter("locallevelid") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID";
+		demosQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.invldStudents, ministry_statistic.multipliers, ministry_statistic.studentLeaders, ministry_locallevel.region FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.peopleGroup as peopleGroup, ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity, ministry_statistic.peopleGroup) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate and ((ministry_statistic.peopleGroup=LastActivities.peoplegroup)||((ministry_statistic.peopleGroup is null) and (LastActivities.peopleGroup is null))) LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_locallevel.teamID = '" + request.getParameter("locallevelid") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
 
 	} else if(request.getParameter("type").equals("national")){
 
-		sumsQuery = "SELECT ministry_targetarea.region as rowid, 0 as enrollment, ministry_targetarea.region, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_targetarea on (ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID) WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) and region is not null AND (ministry_targetarea.region <> '')GROUP BY ministry_targetarea.region ORDER BY ministry_targetarea.region";
+		sumsQuery = "SELECT ministry_activity.strategy, ministry_statistic.peopleGroup, ministry_targetarea.region as rowid, 0 as enrollment, ministry_targetarea.region, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_targetarea on (ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID) WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) and region is not null AND (ministry_targetarea.region <> '')GROUP BY ministry_targetarea.region ORDER BY ministry_targetarea.region";
 
-		demosQuery = "SELECT ministry_targetarea.region as rowid, ministry_targetarea.region, SUM(ministry_statistic.invldNewBlvrs) as invldNewBlvrs, SUM(ministry_statistic.invldStudents) invldStudents, SUM(ministry_statistic.studentLeaders) studentLeaders, SUM(ministry_statistic.multipliers) multipliers FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_targetarea on ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "') and ministry_activity.Strategy in (" + strategyList + ") and region is not null AND (ministry_targetarea.region <> '') GROUP BY ministry_targetarea.region ORDER BY ministry_targetarea.region";
-
-		enrollmentQuery = "SELECT  MAX(ministry_targetarea.enrollment) enrollment from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','LA','TR') and ministry_targetarea.region in ('NE', 'MA', 'MS', 'SE', 'GL', 'UM', 'GP', 'RR', 'NW', 'SW')) GROUP BY ministry_targetarea.TargetAreaID";
-		
-		movementsQuery = "SELECT  ministry_activity.ActivityID from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','LA','TR') and ministry_targetarea.region in ('NE', 'MA', 'MS', 'SE', 'GL', 'UM', 'GP', 'RR', 'NW', 'SW')) GROUP BY ministry_activity.ActivityID";
-		
-		log.debug("movements query: " + movementsQuery);
-		java.sql.ResultSet movements = stmt4.executeQuery(movementsQuery);
-		if (movements.isBeforeFirst()){
-		while(movements.next())
-		{
-			
-			activeMovements++;	
-			
-		}}
-		else
-		{
-			log.debug("Sorry, movements failed to get results");
-		}
-		
+		demosQuery = "SELECT ministry_activity.strategy, ministry_statistic.peopleGroup, ministry_targetarea.region as rowid, ministry_targetarea.region, SUM(ministry_statistic.invldNewBlvrs) as invldNewBlvrs, SUM(ministry_statistic.invldStudents) invldStudents, SUM(ministry_statistic.studentLeaders) studentLeaders, SUM(ministry_statistic.multipliers) multipliers FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_targetarea on ministry_targetarea.TargetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "') and ministry_activity.Strategy in (" + strategyList + ") and region is not null AND (ministry_targetarea.region <> '') GROUP BY ministry_targetarea.region ORDER BY ministry_targetarea.region";
 		reportTitle = "National Report";
-
 
 	} else if(request.getParameter("type").equals("regional")){
 
-		sumsQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID ORDER BY campusName, ministry_activity.ActivityID";
-		demosQuery = "SELECT ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.multipliers, ministry_statistic.invldStudents, ministry_statistic.studentLeaders FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_targetarea.region = '" + request.getParameter("region") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID";
-		enrollmentQuery = "SELECT ministry_targetarea.region as region, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ") and ministry_activity.status in('AC','LA','TR') and ministry_targetarea.region  = '" + request.getParameter("region") + "') GROUP BY ministry_targetarea.TargetAreaID ORDER BY campusName, ministry_activity.ActivityID";
-
+		sumsQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID, ministry_statistic.peopleGroup ORDER BY campusName, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
+		demosQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.multipliers, ministry_statistic.invldStudents, ministry_statistic.studentLeaders FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.peopleGroup as peopleGroup, ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' GROUP BY fk_Activity, ministry_statistic.peopleGroup) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate and ((ministry_statistic.peopleGroup=LastActivities.peoplegroup)||((ministry_statistic.peopleGroup is null) and (LastActivities.peopleGroup is null))) LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodBegin >= '" + sqlFrom + "' and ministry_targetarea.region = '" + request.getParameter("region") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
+		
 	}
 
 	// temporary (or maybe permanent) fix for duplicate data entries - removes dupes!
@@ -143,9 +132,42 @@ ar = ActionResults.getActionResults(session);
 <%@page import="org.apache.commons.logging.LogFactory"%>
 <html>
 <head>
+
 <title><%= pageTitle %></title>
 <!--% java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yy"); %-->
+<style type="text/css">
+div.bridges_split
+{
+width:auto;
+height:auto;
+border:none;
+margin:none;
+padding:none;
+display:none;
+}
+div.bridges_sum
+{
+width:auto;
+height:auto;
+border:none;
+margin:none;
+padding:none;
+display:block;
+}
+</style>
+<script type="text/javascript" language="javascript">
+function toggle(x)
+{
 
+document.getElementById(x).style.display="inline";
+document.getElementById(x+'_sum').style.display="none";
+}
+function untoggle(x)
+{
+document.getElementById(x).style.display="none";
+document.getElementById(x+'_sum').style.display="inline";
+}
+</script>
 <%@ include file="/infobase/ibheader.jspf" %>
 <TABLE width="100%">
 	<TR>
@@ -165,7 +187,7 @@ ar = ActionResults.getActionResults(session);
 
 		if(sums.isBeforeFirst()) {
 			%>
-<TABLE WIDTH="99%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><TR><TD BGCOLOR="<%= color1 %>">
+<TABLE id="main" WIDTH="99%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><TR><TD BGCOLOR="<%= color1 %>">
 	<table width="100%" border="0" cellpadding="2" cellspacing="0" align="center">
 	<tr>
 <%
@@ -176,7 +198,7 @@ ar = ActionResults.getActionResults(session);
 		<td width="20%" align=LEFT VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Campus (enrollment) - Strategy</td>
 <%
 	} else if(request.getParameter("type").equals("national")){
-
+		log.debug("line 197 ok");
 %>
 		<td width="20%" align=LEFT VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Region</td>
 <%
@@ -192,16 +214,30 @@ ar = ActionResults.getActionResults(session);
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Multipliers</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
-	</tr>
+	</tr></table>
 <%
 	
 String dateTag="";	
 String lastRow="";
 boolean tempBool=true;
+boolean sameRow=true;
+boolean tempBool2 = false;
+boolean afterBridges=false;
+String lastStrategy="";
+String holdLabel="";
+String lastSumsRowID="";
+String sumsRowID = "";
+String demosRowID = "";
 	Boolean splitStat=false;
 	while(sums.next()){
-
-		demos.next();
+		log.debug("line 229 ok");
+		 tempBool2 = false;
+		demos.next();log.debug("line 233 ok");
+		
+		String strategy=sums.getString("strategy");
+		
+		String peopleGroup=sums.getString("peopleGroup");
+		peopleGroup=(peopleGroup==null)? "Stats prior to 4/28/2008":peopleGroup;
 		if (!(request.getParameter("type").equals("national"))){
 			dateTag=sums.getDate("periodBegin")!=null?sums.getDate("periodBegin").toString():"";
 		}
@@ -209,24 +245,48 @@ boolean tempBool=true;
 		{
 			dateTag="";
 		}
+		
 		log.debug("looping...");
-		String sumsRowID = sums.getString("rowid");
-		String demosRowID = demos.getString("rowid");
+		sumsRowID = sums.getString("rowid");
+		demosRowID = demos.getString("rowid");
 		if (! sumsRowID.equals(demosRowID)) {
 			throw new RuntimeException("Sums query is mismatched with demos query; sumsRowID: " + sumsRowID + "; demosRowID: " + demosRowID);
 		}
+		afterBridges=((lastStrategy.equals("BR"))&&(!lastRow.equals(sumsRowID+dateTag)))?true:false;
+		lastStrategy=strategy;
+		if(afterBridges&&(!(request.getParameter("type").equals("national")))){
+			
+			%>
+			</div><div class="bridges_sum" id="<%= lastSumsRowID+"_sum"%>">
+			<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+			<tr class="bridges_sum">
+			<td width=20% <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT><%=holdLabel %><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A href="javascript:toggle('<%=lastSumsRowID %>');">(+)</A></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesEvangelisticOneOnOneSum)%></td>
+		 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesEvangelisticGroupSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesExposuresViaMediaSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesDecisionSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesLaborersSentSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesMultipliersSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesStudentLeadersSum)%></td>
+			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesInvldStudentsSum)%></td>
+			</tr>
+			</table>
+			</div>
+			<%
+			}
 		
 		
 		
-		boolean tempBool2 = false;
+		
 		if (lastRow.equals(sumsRowID+dateTag)){splitStat=true;}
 		else
 		{
 		
-		lastRow=sumsRowID+dateTag;
+		
 		tempBool = !tempBool;
 		splitStat=false;
 		}
+		log.debug("line 283 ok");
 		log.debug("new stuff is okay...");
 		
 		exposuresViaMediaSum += sums.getInt("exposuresViaMediaSum");
@@ -236,9 +296,11 @@ boolean tempBool=true;
 		laborersSentSum += sums.getInt("laborersSentSum");
 
 		%>
-		<tr>
+		<%if((strategy.equals("BR"))&&(!splitStat)&&(!(request.getParameter("type").equals("national")))){%><div class="bridges_split" id="<%= sumsRowID%>"> <%} %>
+		<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+		<tr >
 		<%
-		invldNewBlvrsSum += demos.getInt("invldNewBlvrs");
+		
 		invldStudentsSum += demos.getInt("invldStudents");
 		multipliersSum += demos.getInt("multipliers");
 		studentLeadersSum += demos.getInt("studentLeaders");
@@ -246,27 +308,32 @@ boolean tempBool=true;
 		if(request.getParameter("type").equals("regional") || request.getParameter("type").equals("locallevel")){
 
 			%>
-			<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT>
+			<td width=20% <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT>
 			<%=fontB1%>
-			<%if(!splitStat){ %>
-			<A HREF="/servlet/InfoBaseController?action=showReport&type=targetarea&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%>&targetareaid=<%=sums.getString("targetAreaID")%><%= urlAppend %>">
-			<%=sums.getString("campusName")%>
-			</A> 
-			(<%=((sums.getString("enrollment")==null)||(sums.getString("enrollment").equals("")))?"0":sums.getString("enrollment")%>)
-			 
-			 - <%= Strategy.valueOf(sums.getString("strategy")).getName() %>
-			<% if (sums.getString("status").equals("IN")) {
-				%> 
-				(active starting at <%=sums.getDate("periodBegin") %>)<!-- to sums.getDate("periodEnd") ) -->
-				<%
+			<%if(!splitStat){ 
+			holdLabel=fontB1+"<A HREF=\"/servlet/InfoBaseController?action=showReport&type=targetarea&frommonth="+request.getParameter("frommonth")
+					+"&fromyear="+request.getParameter("fromyear")+"&tomonth="+request.getParameter("tomonth")+"&toyear="
+					+request.getParameter("toyear")+"&targetareaid="+sums.getString("targetAreaID")+ urlAppend +"\">"+sums.getString("campusName")
+					+"</A>"+fontB1+"("+(((sums.getString("enrollment")==null)||(sums.getString("enrollment").equals("")))?"0":sums.getString("enrollment")
+					+") - "+Strategy.valueOf(sums.getString("strategy")).getName())+"</font>";
+					
+			 if (sums.getString("status").equals("IN")) {
+				 holdLabel+=" (active starting at "+(sums.getDate("periodBegin"))+")";
+				
 			}
 			else
 			{
 				if ((sums.getString("status").equals("AC"))||(sums.getString("status").equals("LA")) ||(sums.getString("status").equals("TR")) ) {
 				activeMovements++;
 				}
-			}}
-			 
+			}
+			out.print(holdLabel+((strategy.equals("BR"))? "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A href=\"javascript:untoggle('"+sumsRowID+"');\">(-)</A><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+peopleGroup:"")); 
+			}
+			else
+			{
+				
+				out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+peopleGroup);
+			}
 			%>
 			 </td>
 			<%
@@ -274,7 +341,7 @@ boolean tempBool=true;
 		else if(request.getParameter("type").equals("national")){
 
 			%>
-			<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT><%=fontB1%><A HREF="/servlet/InfoBaseController?action=showReport&region=<%=sums.getString("region")%>&type=regional&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB1%><%=org.alt60m.util.TextUtils.translate(_abbrevRegion, _expandRegion, sums.getString("region"))%></A></TD>
+			<td width=20% <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT><%=fontB1%><A HREF="/servlet/InfoBaseController?action=showReport&region=<%=sums.getString("region")%>&type=regional&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB1%><%=org.alt60m.util.TextUtils.translate(_abbrevRegion, _expandRegion, sums.getString("region"))%></A></TD>
 			<%
 		}
 
@@ -290,17 +357,70 @@ boolean tempBool=true;
 		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(demos.getInt("StudentLeaders"))%></td>
 		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(demos.getInt("InvldStudents"))%></td>
 		</tr>
+		</table>
 		<%
 		
- 
+		if(splitStat){
+			bridgesExposuresViaMediaSum += sums.getInt("exposuresViaMediaSum");
+			bridgesEvangelisticOneOnOneSum += sums.getInt("evangelisticOneOnOneSum");
+			bridgesEvangelisticGroupSum += sums.getInt("evangelisticGroupSum");
+			bridgesDecisionSum += sums.getInt("decisionSum");
+			bridgesLaborersSentSum += sums.getInt("laborersSentSum");
+			bridgesMultipliersSum += demos.getInt("multipliers");
+			bridgesInvldStudentsSum += demos.getInt("InvldStudents");
+			bridgesStudentLeadersSum += demos.getInt("StudentLeaders");
+		}
+		else if (strategy.equals("BR"))
+		{
+			bridgesExposuresViaMediaSum = sums.getInt("exposuresViaMediaSum");
+			bridgesEvangelisticOneOnOneSum = sums.getInt("evangelisticOneOnOneSum");
+			bridgesEvangelisticGroupSum = sums.getInt("evangelisticGroupSum");
+			bridgesDecisionSum = sums.getInt("decisionSum");
+			bridgesLaborersSentSum = sums.getInt("laborersSentSum");
+			bridgesMultipliersSum = demos.getInt("multipliers");
+			bridgesInvldStudentsSum = demos.getInt("InvldStudents");
+			bridgesStudentLeadersSum = demos.getInt("StudentLeaders");
+		}
+		else
+		{
+			afterBridges=false;
+			bridgesExposuresViaMediaSum =0;
+			bridgesEvangelisticOneOnOneSum =0;
+			bridgesEvangelisticGroupSum =0;
+			bridgesDecisionSum =0;
+			bridgesLaborersSentSum =0;
+			bridgesMultipliersSum =0;
+			bridgesInvldStudentsSum =0;
+			bridgesStudentLeadersSum =0;
+		}
+		lastRow=sumsRowID+dateTag;
+		lastSumsRowID=sumsRowID;
 	}
-	
+	if(afterBridges&&(!(request.getParameter("type").equals("national")))){
+		tempBool2 = false;
+		%>
+		</div><div class="bridges_sum" id="<%= sumsRowID+"_sum"%>">
+		<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+		<tr >
+		<td width=20% <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="16%" align=LEFT><%=holdLabel %><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A href="javascript:toggle('<%=lastSumsRowID %>');">(+)</A></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesEvangelisticOneOnOneSum)%></td>
+	 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesEvangelisticGroupSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesExposuresViaMediaSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesDecisionSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesLaborersSentSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesMultipliersSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesStudentLeadersSum)%></td>
+		<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=Integer.toString(bridgesInvldStudentsSum)%></td>
+		</tr>
+		</table>
+		</div>
+	<%}
 	if(request.getParameter("type").equals("regional")){
 
 %>
-
+<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
 	<tr>
-        <td <%=bgcolorL%>></td>
+        <td width=20% <%=bgcolorL%>></td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Personal Evangelism</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Group Evangelism</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Media Exposures</td>
@@ -311,23 +431,22 @@ boolean tempBool=true;
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
 	</tr>
-	
-	<%}%>
+		<%}else{%><table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0"><%} %>
 	
 	<tr <%=bgcolorL%>>
- 	<td ALIGN="RIGHT"><%=fontB1%><B>Summary</B></TD>
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticOneOnOneSum)%></td>
- 		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticGroupSum)%></td>     
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(exposuresViaMediaSum)%></td>      
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(decisionSum)%></td>       
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(laborersSentSum)%></td> 
+ 	<td width=20% ALIGN="RIGHT"><%=fontB1%><B>Summary</B></TD>
+		<td width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticOneOnOneSum)%></td>
+ 		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(evangelisticGroupSum)%></td>     
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(exposuresViaMediaSum)%></td>      
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(decisionSum)%></td>       
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(laborersSentSum)%></td> 
 		<td COLSPAN="3" ALIGN="CENTER">&nbsp;</td></TR>
 	<TR <%=bgcolorL%>>
-	<td ALIGN="RIGHT"><%=fontB1%><B>Demographics</B></TD>
+	<td  width=20% ALIGN="RIGHT"><%=fontB1%><B>Demographics</B></TD>
 	<TD COLSPAN="5">&nbsp;</TD>
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(multipliersSum)%></td>
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(studentLeadersSum)%></td>
-		<td ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(multipliersSum)%></td>
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(studentLeadersSum)%></td>
+		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
 	</tr>
 	<tr <%=bgcolorL%>>
 	<td colspan="9" <%=bgcolorL%>><%=fontB1%><%

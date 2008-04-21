@@ -136,7 +136,7 @@ Iterator infoI = ar.getCollection("regionalInfo").iterator();
 		</td>
 		<td valign="top"> <!--right column-->
 			
-			<!--success criteria table-->
+			<!--success criteria table
 			<table align=center width="95%" border="0" <%=bgcolorL%> cellpadding="2" cellspacing="2">
 				<tr <%=bgcolorB%>>
 					<td colspan="2">
@@ -144,9 +144,9 @@ Iterator infoI = ar.getCollection("regionalInfo").iterator();
 					</td>
 				</tr>
 				<tr> 
-					<td>
+					<td>-->
 						<!--stat table start here-->
-						<table align=center cellpadding=0 cellspacing=0 border=3>
+						<!-- <table align=center cellpadding=0 cellspacing=0 border=3>
             <TR>
 					<%
 						boolean bAltColor = false;
@@ -192,11 +192,11 @@ Iterator infoI = ar.getCollection("regionalInfo").iterator();
 						%>
 						</TR>
 						</table>
-						<!--stat table end here-->
+						
 					</td>
 				</tr>
 			</table>
-			<br>
+			<br>-->
 
 			<!-- Reports table -->
 			<table align=center width="95%" border="0" <%=bgcolorL%>>

@@ -54,7 +54,7 @@
 			      strategyAbbrevs.add(strategyAbbreviation);
 			      strategyList += ", " + strategy.getName();
 			      qStrategyList += ", " + "'" + strategyAbbreviation + "'"; 
-			      urlAppend += "&" + strategyAbbreviation + "=true";
+			      urlAppend += "&strategies[" + strategyAbbreviation + "]="+strategyAbbreviation;
 			}
 		}
 	}
@@ -70,7 +70,7 @@
 			      strategyAbbrevs.add(strategyAbbreviation);
 			      strategyList += ", " + strategy.getName();
 			      qStrategyList += ", " + "'" + strategyAbbreviation + "'"; 
-			      urlAppend += "&" + strategyAbbreviation + "=true";
+			      urlAppend += "&strategies[" + strategyAbbreviation + "]="+strategyAbbreviation;
 			}
 			
 		}
@@ -90,14 +90,14 @@
   targetAreaName = tars.getString(1);
   region = tars.getString(2);
 
-  String qry = "SELECT ministry_activity.ActivityID, ministry_activity.strategy, " + 
+  String qry = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID, ministry_activity.strategy, " + 
   	"ministry_activity.status, ministry_activity.periodBegin as activityPeriodBegin, ministry_statistic.* ";
   qry += "FROM ministry_statistic INNER JOIN ministry_activity ON ministry_statistic.fk_activity = ministry_activity.activityid ";
   qry += "WHERE ministry_activity.strategy in (" + qStrategyList + ") ";
   qry += "AND ministry_statistic.periodend < '" + periodEnd + "' ";
   qry += "AND ministry_activity.fk_targetareaid = '" + targetAreaID + "' ";
   qry += "AND ministry_statistic.periodbegin >= '" + periodBegin + "' ";
-  qry += "ORDER BY strategy, activityID, ministry_statistic.periodend";
+  qry += "ORDER BY strategy, activityID, ministry_statistic.periodend, ministry_statistic.peopleGroup";
 
   log.debug("Query: " + qry);
   java.sql.Statement stmt = conn.createStatement();
@@ -165,6 +165,7 @@
 
 		<td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>From</td>
 		<td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>To</td>
+		<%if(strategy.equals("BR")){ %><td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=(strategy.equals("BR"))?fontB1+"People Group":""%></td><%} %>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Personal Evangelism</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Group Evangelism</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Media Exposures</td>
@@ -175,7 +176,10 @@
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
 	</tr>
 		<%
-
+		String dateTag="";	
+		String lastRow="";
+		boolean tempBool=true;
+		Boolean splitStat=false;
 	    boolean continueTable = true;
 	    while (continueTable) {
 	    	//fill current statistic's variables
@@ -190,7 +194,7 @@
 		    int newBlvrs = rs.getInt("invldNewBlvrs");
 	    	int students = rs.getInt("invldStudents");
 		    int studentLeaders = rs.getInt("studentLeaders");
-		    
+		    String peopleGroup=rs.getString("peopleGroup");
 	    	// add to summary and print
 	    	totMediaExposures += exposuresViaMedia;
 			totIndividualPresentations += evangelisticOneOnOne;
@@ -202,13 +206,28 @@
 			totStudents = students;
 			totStudentLeaders = studentLeaders;
 
-	        boolean tempBool = true;
-	        if(counter%2 == 0) tempBool = false;
+			
+			
+			dateTag=rs.getDate("periodBegin")!=null?rs.getDate("periodBegin").toString():"";
 			boolean tempBool2 = false;
+			
+			if (lastRow.equals(activityID+dateTag))
+			{splitStat=true;}
+			else
+			{
+			
+			lastRow=activityID+dateTag;
+			tempBool = !tempBool;
+			splitStat=false;
+			}		
+			
+			
 			%>
 			<tr>
-				<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodbegin)%></td>
-				<td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%=dateFormatter.format(periodend)%></td>
+				
+				<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="8%" align=center><%=fontB1%><%if(!splitStat){ %><%=dateFormatter.format(periodbegin)%><%} %></td>
+				<td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%if(!splitStat){ %><%=dateFormatter.format(periodend)%><%} %></td>
+				<%if(strategy.equals("BR")){%><td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%=peopleGroup!=null?peopleGroup:"Unsorted"%></td><%} %>
 			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticOneOnOne%></td>
 		 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticGroup%></td>
 			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=exposuresViaMedia%></td>
@@ -236,7 +255,7 @@
 
 	<tr <%=bgcolorL%>>
           <td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Summary</B></td>
-
+		<%if(strategy.equals("BR")){ %><td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>></td><%} %>
 		<td ALIGN="CENTER"><%=fontB1%><%=totIndividualPresentations%></td>   
 		<td ALIGN="CENTER"><%=fontB1%><%=totGroupPresentations%></td>      
 		<td ALIGN="CENTER"><%=fontB1%><%=totMediaExposures%></td>         
@@ -245,6 +264,7 @@
 		<td COLSPAN="3" ALIGN="CENTER">&nbsp;</td></TR>
 	<TR <%=bgcolorL%>>
 	<td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Demographics</B></TD>
+	<%if(strategy.equals("BR")){ %><td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>></td><%} %>
 	<TD COLSPAN="5">&nbsp;</TD>
 		<td ALIGN="CENTER"><%=fontB1%><%=totMultipliers%></td>
 		<td ALIGN="CENTER"><%=fontB1%><%=totStudentLeaders%></td>   
@@ -275,10 +295,10 @@
 
 
 		<%=fontB%>[<A
-			      HREF="/infobase/report_display.jsp?region=<%=region%>&type=regional&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB%>Zoom out to <%=region%> Region</A>]</FONT><BR>
+			      HREF="/servlet/InfoBaseController?action=showReport&region=<%=region%>&type=regional&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB%>Zoom out to <%=region%> Region</A>]</FONT><BR>
 
 		<%=fontB%>[<A
-			      HREF="/infobase/report_display.jsp?region=<%=region%>&type=national&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB%>Zoom out to National</A>]</FONT><BR>
+			      HREF="/servlet/InfoBaseController?action=showReport&region=<%=region%>&type=national&frommonth=<%=request.getParameter("frommonth")%>&fromyear=<%=request.getParameter("fromyear")%>&tomonth=<%=request.getParameter("tomonth")%>&toyear=<%=request.getParameter("toyear")%><%= urlAppend %>"><%=fontB%>Zoom out to National</A>]</FONT><BR>
 
 
 

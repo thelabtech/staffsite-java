@@ -18,12 +18,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
-
+import org.alt60m.security.dbio.manager.SimpleSecurityManager;
+import org.alt60m.security.dbio.manager.UserNotVerifiedException;
 import org.alt60m.ministry.ActivityExistsException;
 import org.alt60m.ministry.MissingTargetAreaIdException;
 import org.alt60m.ministry.Regions;
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
+import org.alt60m.ministry.model.dbio.Person;
 import org.alt60m.ministry.model.dbio.Dependent;
 import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.NonCccMin;
@@ -33,6 +35,7 @@ import org.alt60m.ministry.model.dbio.RegionalTeam;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
+import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
@@ -116,6 +119,7 @@ public class InfoBaseController extends Controller {
         }
     }
 
+
     public void addCampusToMin(ActionContext ctx) {
 	try {
 		ActionResults results = new ActionResults("addCampusToMin");
@@ -135,7 +139,7 @@ public class InfoBaseController extends Controller {
     }
 
     /** @param ctx ActionContext object */
-    public void addContact(ActionContext ctx) {
+    public void addContact(ActionContext ctx) {// to be deprecated by addPersonContact()
         try {
             ActionResults results = new ActionResults("addContact");
             InfoBaseTool ibt = new InfoBaseTool();
@@ -172,7 +176,8 @@ public class InfoBaseController extends Controller {
         }
     }
 
-
+    /** @param ctx ActionContext object */
+   
     public void addMinToCampus(ActionContext ctx) {
         try {
             ActionResults results = new ActionResults("addTeamToCampus ");
@@ -607,16 +612,18 @@ public class InfoBaseController extends Controller {
             String activityId = ctx.getInputString("activityid", true);
             TargetArea ta = new TargetArea(targetAreaId);
             Activity act = new Activity(activityId);
-
+            
             String statisticId = ctx.getInputString("statisticid", false);
 			String lastStatId = ctx.getInputString("laststatid", false);
             results.putValue("targetareaid", targetAreaId);
             results.putValue("activityid", activityId);
             results.putValue("targetAreaName", ta.getName());
             results.putValue("strategyName", act.getStrategyFullName());
-			results = ibt.editSuccessCriteria(results, statisticId, lastStatId, ctx.getInputString("periodbegin", true), ctx.getInputString("periodend", true));
-            ctx.setReturnValue(results);
-            ctx.goToView("editSuccessCriteriaInfo");
+           
+            	results = ibt.editSuccessCriteria(results, statisticId, lastStatId, ctx.getInputString("periodbegin", true), ctx.getInputString("periodend", true));
+                ctx.setReturnValue(results);
+                ctx.goToView("editSuccessCriteriaInfo");
+            
         } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
@@ -823,13 +830,12 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform enterSuccessCriteria ().", e);
         }
     }
-    public ActionResults fastStats(Hashtable<String,String> attribute)throws Exception
+    public ActionResults fastStats(Hashtable<String,String> attribute)throws Exception //IJK
     {
     	ActionResults multiResults=new ActionResults("fastStat");
         InfoBaseTool ibt = new InfoBaseTool();
         Activity activity;
         String status;
-        String strategy;
         Iterator actIter=attribute.keySet().iterator();
         TargetArea targetArea;
         String targetAreaId;
@@ -841,55 +847,95 @@ public class InfoBaseController extends Controller {
         List<String> strategies = new Vector<String>();
         List<Hashtable<String, Object>> allDates = blankStatsCalendar("StatisticId");
         String activityId="";
-         	
+        String strategy=""; 
+        String peopleGroup="";
+        Iterator peopleIter;
     	while (actIter.hasNext())
     	{
     		activityId=(String)actIter.next();
-    		results=new ActionResults("hold each result");
-    		allDates =blankStatsCalendar("StatisticId");
-            activity = ibt.getActivityObject(activityId);
-            strategies.add(activity.getStrategy());
-            targetArea = activity.getTargetArea();
-            status = activity.getStatus();
-            strategy = activity.getStrategy();
-            targetAreaId = targetArea.getTargetAreaId();
-            if(targetAreaId==null || targetAreaId.equals(""))
+    		activity = ibt.getActivityObject(activityId);
+            strategy=activity.getStrategy();  //if strategy is Bridges, go thru each peopleGroup option and invoke a stat object/ActionResult for it.
+            if(strategy.equals("BR"))
             {
-            	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+            	peopleIter=Arrays.asList("(Other Internationals)","East Asian","Ishmael Project","Japanese","South Asian").iterator();
             }
-            results.putValue("targetareaid", targetAreaId);
-            results.putValue("activityid", activityId);
-            results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy));
-            results.putValue("status", status);
-            results.putValue("strategy", strategy);
-            stats = ibt.getTargetAreaStats(targetAreaId, allDates, (String)strategy);
-            allDates = populateStatsCalendar(stats.iterator(), allDates);
-            for (int cnt = 0; cnt < 16; cnt++) 
+            else
             {
-                row = allDates.get(cnt);
-                row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
-                row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
-                row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
-                row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
+            	peopleIter=Arrays.asList("").iterator();
             }
-            results.addCollection("statistics", allDates);
-            multiResults.addActionResults(results.getValue("displayname")+"_"+activityId,results);
+            	while(peopleIter.hasNext())
+            	{
+            		
+            		peopleGroup=(String)peopleIter.next();
+            		allDates =blankStatsCalendar("StatisticId");
+            		results=new ActionResults("hold each result");
+            		targetArea = activity.getTargetArea();
+                    status = activity.getStatus();
+                    targetAreaId = targetArea.getTargetAreaId();
+                    if(targetAreaId==null || targetAreaId.equals(""))
+                    {
+                    	throw new MissingTargetAreaIdException("Activity " + activityId + " does not have an associated targetArea");
+                    }
+                    results.putValue("targetareaid", targetAreaId);
+                    results.putValue("activityid", activityId);
+                    results.putValue("status", status);
+                    results.putValue("strategy", strategy);
+                    results.putValue("peopleGroup", peopleGroup);
+                    stats = ibt.getBridgesTargetAreaStats(targetAreaId, allDates, strategy, peopleGroup);
+                    allDates = populateStatsCalendar(stats.iterator(), allDates);
+                    for (int cnt = 0; cnt < 16; cnt++) 
+                    {
+                        row = allDates.get(cnt);
+                        row.put("PeriodBeginShort", shortFormat.format(row.get("PeriodBegin")));
+                        row.put("PeriodEndShort", shortFormat.format(row.get("PeriodEnd")));
+                        row.put("PeriodBegin", fullFormat.format(row.get("PeriodBegin")));
+                        row.put("PeriodEnd", fullFormat.format(row.get("PeriodEnd")));
+                    }
+                    results.addCollection("statistics", allDates);
+                    results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy)+((strategy.equals("BR"))?"&%@!"+(peopleGroup.equals("null") ? "(Other Internationals)" : peopleGroup):""));
+                    multiResults.addActionResults(results.getValue("displayname")+"_"+activityId,results);
+            	}
+            
         }
     	return multiResults;
     }    
 
-    public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {
+    public void deleteFastSuccessCriteriaBookmark(ActionContext ctx){
+    	 try {
+    	if(ctx.getInputString("delBookmark")!=null){
+        	_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, (String)ctx.getInputString("delBookmark"));
+        		
+        }
+    	ctx.goToView("staffHome");
+    	 }
+         
+         catch (Exception e) {
+             ctx.setError();
+             ctx.goToErrorView();
+             log.error("Failed to perform deleteFastSuccessCriteriaBookmark ().", e);
+         }
+    }
+    
+    public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {//IJK
         try {
         	
         	ActionResults results=new ActionResults();
         	Hashtable<String,String> activities=new Hashtable<String,String>();
             activities=new Hashtable<String,String>((convertBracketedParamsToHashtable(ctx).get("activities")));
+            if(ctx.getInputString("addBookmark")!=null){
+            	
+            	String singleKey=(String)activities.keySet().iterator().next();
+            		_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
+            		_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activities.get(singleKey), singleKey);
+            }
             results=fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
         	if (weeksBack!=null)
-    		{results.putValue("weeksBack", weeksBack);}
+    		{results.putValue("weeksBack", weeksBack);
+        	results.addHashtable("activities", activities);}
     	else
-    		{results.putValue("weeksBack", "0");}
+    		{results.putValue("weeksBack", "0");
+    		results.addHashtable("activities", activities);}
         	ctx.setReturnValue(results);
             ctx.goToView("enterFastSuccessCriteria");
             	
@@ -1478,7 +1524,7 @@ public class InfoBaseController extends Controller {
     	}
     	return  output;
 	}
-    public void saveFastSuccessCriteria(ActionContext ctx) {
+    public void saveFastSuccessCriteria(ActionContext ctx) {//IJK
     	if (! loginCheck(ctx)) {
     		return;
     	}
@@ -1486,9 +1532,11 @@ public class InfoBaseController extends Controller {
         	HttpServletRequest tempCtx=ctx.getRequest();
         	ActionResults errorResults=new ActionResults("fast_stats_error");
         	Hashtable<String,Hashtable<String,String>> newStats=new Hashtable<String,Hashtable<String,String>>(convertBracketedParamsToHashtable(ctx));
+        	log.debug(newStats);
         	Hashtable<String,String> thisStat;
         	Iterator scanStats=(newStats.keySet().iterator());
         	String activityId;
+        	String peopleGroup="";
         	Boolean hasData=false;
         	Boolean hasProblem=false;
         	Hashtable<String,String> badSaves=new Hashtable<String,String>();
@@ -1498,80 +1546,92 @@ public class InfoBaseController extends Controller {
         	 String username = (String) ctx.getSessionValue("userName");
         	 List<String> keys;
         	 Map<String, String> statMap;
-        	
-        	
         	while (scanStats.hasNext())
         	{
         		hasData=new Boolean(false);
+        		log.debug("hasData="+hasData);
         		thisStat=new Hashtable<String,String>();
         		thisStat=newStats.get(scanStats.next());
 	            activityId = thisStat.get("activityid");
+	            peopleGroup = thisStat.get("PeopleGroup");
 				ibt = new InfoBaseTool();
 				stat = new Statistic();
-	         
-	          
-	         
 				keys = Arrays.asList(new String[] { "PeriodBegin",
 						"PeriodEnd", "PersonalEvangelismExposures",
 						"GroupEvangelismExposures", "MediaExposures", "Decisions",
 						"Multipliers", "StudentLeaders", "InvolvedStudents",
-						"LaborersSent" });
+						"LaborersSent", "PeopleGroup", "HolySpiritConversations", "Seekers" });
 				 statMap = new HashMap<String, String>();
-				for (String key : keys) {
-					
-					
-					if(!("PeriodBegin PeriodEnd".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)==null)))
+				for (String key : keys) 
+				{
+					if(!("PeriodBegin PeriodEnd PeopleGroup".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)==null)))
 					{
-					hasData=true;
+						hasData=true;
 					}
-					
-					if(("PeriodBegin PeriodEnd".contains((String)key)))
+					log.debug("hasData="+hasData);
+					if(("PeriodBegin PeriodEnd PeopleGroup".contains((String)key)))
 					{
 						statMap.put(key, (String) thisStat.get(key));
 					}
 					else if	(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))
 					{
-							badSaves.put(activityId, username);
-							hasProblem=true;
+						badSaves.put(activityId, username);
+						hasProblem=true;
 					}
 					else
 					{
 						statMap.put(key, ((String) thisStat.get(key)).replaceAll("[^0123456789]",""));	
 					}
 				}
-	        	
-				if(hasData){
-					if (thisStat.get("statisticid") == "") {
+	        	if(hasData)
+	        	{
+					if (thisStat.get("statisticid").equals("")) 
+					{
 		            	
-		            	stat.setPeriodBegin(DateUtils.parseDate(thisStat.get("PeriodBegin")));
-		            	stat.setActivityId(activityId);
-		            	if (!stat.select()) {
-		                    stat = ibt.createStatObject();
-		                    stat.setActivityId(activityId);
-		                }
-		            } else {
+		            	if ((peopleGroup==null)||(peopleGroup.equals("null"))||(peopleGroup.equals(""))||(peopleGroup.equals("(Other Internationals)")))
+		            	{
+		            		if (!stat.select("fk_Activity="+activityId+" and periodBegin='"+org.alt60m.util.DateUtils.clearTimeFromDate(DateUtils.parseDate(thisStat.get("PeriodBegin")))+"' and ((peopleGroup is null) or (peopleGroup in ('','null','(Other Internationals)')))")) 
+		            			{
+			                    stat = ibt.createStatObject();
+			                    stat.setActivityId(activityId);
+			                    }
+		            	}
+		            	else 
+		            	{
+		            		stat.setPeriodBegin(DateUtils.parseDate(thisStat.get("PeriodBegin")));
+			            	stat.setActivityId(activityId);
+		            		stat.setPeopleGroup(peopleGroup);
+			            	if (!stat.select()) 
+			            	{
+			                    stat = ibt.createStatObject();
+			                    stat.setActivityId(activityId);
+		                    }
+		            	} 
+		            }
+					else 
+					{
 		                statisticId = thisStat.get("statisticid");
 		                stat = ibt.getStatObject(statisticId);
-		                
-					}
-					 username = (String) ctx.getSessionValue("userName");
-			        	stat.setUpdatedBy(username);
-	        	ibt.saveStatObjectWithActivity(statMap, stat);
-				}
-				
-				
-        	}
+		            }
+					username = (String) ctx.getSessionValue("userName");
+		        	stat.setUpdatedBy(username);
+		        	ibt.saveStatObjectWithActivity(statMap, stat);
+	        	}
+			}
         	if(!hasProblem){
         		ctx.goToView("staffHome"); }
         	else{ //if non-numerical input
         		ActionResults results=new ActionResults();
-            	results=fastStats(badSaves);
-            	String weeksBack = ctx.getInputString("weeksBack", false);
+        		Hashtable<String,String> activities=new Hashtable<String,String>();
+        		
+        		results=fastStats(badSaves);
+            	results.addHashtable("activities",badSaves);
+        		String weeksBack = ctx.getInputString("weeksBack", false);
             	if (weeksBack!=null)
         		{results.putValue("weeksBack", weeksBack);}
             	else
         		{results.putValue("weeksBack", "0");}
-            	results.putValue("message", "You entered non-numerical data in these campuses; please try again.");
+            	results.putValue("message", "You entered non-numerical data in these movements; please try again.");
             	ctx.setReturnValue(results);
                 ctx.goToView("enterFastSuccessCriteria");
         	}

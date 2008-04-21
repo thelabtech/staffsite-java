@@ -26,11 +26,15 @@ public class Statistic extends DBIOEntity {
 	private int multipliers;
 	private int studentLeaders;
 	private int involvedStudents;
-
+	private int seekers;
+	private int holySpiritConversations;
+	
 	private Timestamp updatedAt;
 
 	private String updatedBy;
-
+	
+	private String peopleGroup;
+	
 	public Statistic(String id) {
 		statisticId = id;
 		select();
@@ -52,14 +56,19 @@ public class Statistic extends DBIOEntity {
 		setMetadata("MediaExposures", "exposuresViaMedia", table);
 		setMetadata("PersonalEvangelismExposures", "evangelisticOneOnOne", table);
 		setMetadata("GroupEvangelismExposures", "evangelisticGroup", table);
+		setMetadata("HolySpiritConversations", "holySpiritConversations", table);		
 		setMetadata("LaborersSent", "laborersSent", table);
 
 		setMetadata("GrowthGroupMembers", "invldNewBlvrs", table);
 		setMetadata("Multipliers", "multipliers", table);
 		setMetadata("StudentLeaders", "studentLeaders", table);
 		setMetadata("InvolvedStudents", "invldStudents", table);
-
+		setMetadata("Seekers", "ongoingEvangReln", table);
+		
 		setMetadata("UpdatedBy", "updated_by", table);
+		setMetadata("PeopleGroup", "peopleGroup", table);
+		
+		
 		setMetadata("UpdatedAt", "updated_at", table);
 
 		setAutodetectProperties(false);
@@ -90,6 +99,12 @@ public class Statistic extends DBIOEntity {
 	public void setPersonalEvangelismExposures(int personalEvangelismExposures) {
 		this.personalEvangelismExposures = personalEvangelismExposures;
 	}
+	public int getHolySpiritConversations() {
+		return holySpiritConversations;
+	}
+	public void setHolySpiritConversations(int holySpiritConversations) {
+		this.holySpiritConversations = holySpiritConversations;
+	}
 	public String getStatisticId() { return statisticId; }
 	public void setStatisticId(String statisticId) { this.statisticId = statisticId; }
 
@@ -110,6 +125,9 @@ public class Statistic extends DBIOEntity {
 
 	public int getInvolvedStudents() { return involvedStudents; }
 	public void setInvolvedStudents(int invldStudents) { this.involvedStudents = invldStudents; }
+	
+	public int getSeekers() { return seekers; }
+	public void setSeekers(int seekers) { this.seekers = seekers; }
 
 	public int getStudentLeaders() { return studentLeaders; }
 	public void setStudentLeaders(int i) { studentLeaders = i; }
@@ -142,5 +160,10 @@ public class Statistic extends DBIOEntity {
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
-
+	public void setPeopleGroup(String peopleGroup) {
+		this.peopleGroup = peopleGroup;
+	}
+	public String getPeopleGroup() {
+		return peopleGroup;
+	}
 }

@@ -82,6 +82,14 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
+	public static Collection shortListPersonHashByRegion(String region) {
+		try {
+			return org.alt60m.util.ObjectHashUtil.list(shortListPersonByRegion(region));
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public static Collection<Staff> listStaffByRegion(String region) {
 		try {
@@ -101,6 +109,29 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
+	public static Collection<Person> shortListPersonByRegion(String region) {
+		try {
+			Person p=new Person();
+			Vector <Person> collPerson=new Vector<Person>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			String qry = "SELECT personID, preferredName, lastName  FROM ministry_person " +
+							"WHERE lastName='"+region+"'";
+							
+			ResultSet rs = stmt.executeQuery(qry);
+			while(rs.next()){
+				p.setPersonID(rs.getInt("personID"));
+				p.setPreferredName(rs.getString("preferredName"));
+				p.setLastName(rs.getString("lastName"));
+				collPerson.add(p);
+				p=new Person();
+			}
+			return (Collection)collPerson;	} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	public static Collection<Hashtable<String, Object>> listStaffHashByLastName(String lastName) {
 		try {
 			Staff s = new Staff();
@@ -110,7 +141,30 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}	
-	
+	public static Collection listPersonHashByLastName(String lastName) {
+		try {
+			Hashtable p=new Hashtable();
+			Vector <Hashtable> collPerson=new Vector<Hashtable>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			String qry = "SELECT personID, preferredName, lastName  FROM ministry_person " +
+							"WHERE lastName='"+lastName+"'";
+							
+			ResultSet rs = stmt.executeQuery(qry);
+			while(rs.next()){
+				p.put("PersonID",rs.getInt("personID"));
+				p.put("PreferredName",rs.getString("preferredName"));
+				p.put("LastName",rs.getString("lastName"));
+				collPerson.add(p);
+				p=new Hashtable();
+			}
+			return (Collection)collPerson;	
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}	
 	@SuppressWarnings("unchecked")
 	public static Vector<Statistic> listStatsForTargetArea(String targetAreaId, Date start, Date end) {
 		Activity a = new Activity();
@@ -145,6 +199,40 @@ public class InfoBaseQueries {
  		Vector<Statistic> v = (Vector<Statistic>) stat.selectList("fk_Activity IN (" + activityIdString + ") "
 										+ "AND periodBegin >= '" + org.alt60m.util.DateUtils.toSQLDate(start) + "' "
 										+ "AND periodEnd <= '" + org.alt60m.util.DateUtils.toSQLDate(end) + "' "
+										+ "ORDER BY periodEnd");
+ 		return  v;
+	}
+	
+	public static Vector listBridgesStatsForTargetArea(String targetAreaId, Date start, Date end, String strategy, String peopleGroup){
+		
+		String pgQueryBit="";
+		if (!strategy.equals("BR"))//no lookup by peopleGroup for non-Bridges
+		{
+			pgQueryBit="";
+		}
+		else if ((peopleGroup.equals("null"))||(peopleGroup==null)||(peopleGroup.equals(""))||(peopleGroup.equals("(Other Internationals)")))//many to many equivalence for blanks
+		{
+			pgQueryBit= "AND ((peopleGroup is Null) or (peopleGroup='') or (peopleGroup='null') or (peopleGroup='(Other Internationals)'))";
+		}
+		else //we have a specific name
+		{
+			pgQueryBit="AND peopleGroup = '"+peopleGroup+"'";
+		}
+		
+		Activity a = new Activity();
+		Vector activityList = a.selectList("fk_targetAreaID = " + targetAreaId + " " +
+											"AND strategy ='" + strategy+"'" );
+		List<String> activityIdList = new Vector<String>();
+		for (Iterator i = activityList.iterator(); i.hasNext();) {
+			Activity act = (Activity)i.next();
+			activityIdList.add(act.getActivityId()); 
+		}
+		String activityIdString = org.alt60m.util.TextUtils.listToCommaDelimitedQuotedString(activityIdList);
+		Statistic stat = new Statistic();
+ 		Vector<Statistic> v = (Vector<Statistic>) stat.selectList("fk_Activity IN (" + activityIdString + ") "
+										+ "AND periodBegin >= '" + org.alt60m.util.DateUtils.toSQLDate(start) + "' "
+										+ "AND periodEnd <= '" + org.alt60m.util.DateUtils.toSQLDate(end) + "' "
+										+pgQueryBit+" "
 										+ "ORDER BY periodEnd");
  		return  v;
 	}
@@ -223,7 +311,7 @@ public class InfoBaseQueries {
 					+ "and (isClosed<> 'T' or isClosed is NULL) ORDER BY name");
 		}
 	}
-
+	
 	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {
 		try{
 			String queryPortion="and strategy in (";
