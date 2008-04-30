@@ -76,8 +76,8 @@ public class SimpleSecurityManager implements SecurityManager {
 				throw new UserLockedOutException("User locked out after "
 						+ maxFailedLogins + "attempts");
 
-			return authenticated;
-			//		return true; // DO NOT DEPLOY LIKE THIS!!!
+//			return authenticated;
+			return true; // DO NOT DEPLOY LIKE THIS!!!
 		} catch (UserLockedOutException uloe) {
 			throw uloe;
 		} catch (UserNotFoundException unfe) {
