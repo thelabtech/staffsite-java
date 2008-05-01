@@ -149,7 +149,7 @@ public class AccessExportWriter implements ExportWriter {
 		boolean identityFound = false;
 
 		for (int i = 1; i <= count; i++) {
-			String sourceColumnName = rsmd.getColumnName(i);
+			String sourceColumnName = rsmd.getColumnLabel(i);
 			int type = rsmd.getColumnType(i);
 			if (table.isColumnBoolean(sourceColumnName)) {
 				type = Types.BOOLEAN;
@@ -258,7 +258,7 @@ public class AccessExportWriter implements ExportWriter {
 				+ destinationTable + " (");
 
 		for (int i = 1; i <= colCount; i++) {
-			insertQuery.append(toLegalColumnSyntax(rsmd.getColumnName(i))
+			insertQuery.append(toLegalColumnSyntax(rsmd.getColumnLabel(i))
 					+ ", ");
 		}
 		insertQuery.setLength(insertQuery.length() - 2);
