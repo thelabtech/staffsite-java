@@ -172,7 +172,12 @@ public class ConnexionBar {
 
 			String received = proxyCon.getURL(barService, proxyticket);
 			if (proxyCon.wasSuccess() && received != null) {
-				content = parseBar(received);
+				try {
+					content = parseBar(received);
+				}
+				catch (ArrayIndexOutOfBoundsException e) {
+					log.error("Didn't receive ConnexionBar as expected", e);
+				}
 //				content = received;
 			} else {
 				//TODO: retry with real service url?
@@ -183,7 +188,7 @@ public class ConnexionBar {
 	}
 	
 	//Remove XML tags from beginning and end of bar, unescape characters
-	private static String parseBar(String bar) {
+	private static String parseBar(String bar) throws ArrayIndexOutOfBoundsException {
 		log.info(bar);
 		String resultPlusEnd = (bar.split("<reportdata>",2))[1];
 		String result = (resultPlusEnd.split("</reportdata>",2))[0];
