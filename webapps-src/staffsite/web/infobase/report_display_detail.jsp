@@ -37,10 +37,12 @@
   int totIndividualPresentations = 0;
   int totGroupPresentations = 0;
   int totDecisions = 0;
+  int totHolySpirit = 0;
   int totLaborersSent = 0;
   int totNewBlvrs = 0; 
   int totMultipliers = 0; 
   int totStudents = 0; 
+  int totSeekers = 0;
   int totStudentLeaders = 0;
 	if(ActionResults.getActionResults(session)!=null){
 		ActionResults ar;
@@ -170,10 +172,17 @@
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Group Evangelism</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Media Exposures</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Decisions</td>
+		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Holy Spirit Pres. 
+			<%if(( (Integer.parseInt(request.getParameter("frommonth"))<=8)&&(Integer.parseInt(request.getParameter("fromyear"))==2008))||(Integer.parseInt(request.getParameter("fromyear"))<2008))
+			{out.print("<br>(Starting 8/1/2008)");}
+			%></td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Laborers Sent</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Multipliers</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Leaders</td>
 		<td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%>Students Involved</td>
+		<%if(strategy.equals("BR")){
+			%><td width="6%" align=center VALIGN="BOTTOM" <%=bgcolorL%>><%=fontB1%><i>Seekers (Bridges)</i></td><%
+			}%>	
 	</tr>
 		<%
 		String dateTag="";	
@@ -189,10 +198,12 @@
 	    	int evangelisticOneOnOne = rs.getInt("evangelisticOneOnOne");
 		    int evangelisticGroup = rs.getInt("evangelisticGroup");
 	    	int decisions = rs.getInt("decisions");
+	    	int holySpirit = rs.getInt("holySpiritConversations");
 		    int laborersSent = rs.getInt("laborersSent");
 	    	int multipliers = rs.getInt("multipliers");
 		    int newBlvrs = rs.getInt("invldNewBlvrs");
 	    	int students = rs.getInt("invldStudents");
+	    	int seekers = rs.getInt("ongoingEvangReln");
 		    int studentLeaders = rs.getInt("studentLeaders");
 		    String peopleGroup=rs.getString("peopleGroup");
 	    	// add to summary and print
@@ -200,10 +211,12 @@
 			totIndividualPresentations += evangelisticOneOnOne;
 			totGroupPresentations += evangelisticGroup;
 			totDecisions += decisions;
+			totHolySpirit += holySpirit;
 			totLaborersSent += laborersSent;
 			totNewBlvrs = newBlvrs;
 			totMultipliers = multipliers;
 			totStudents = students;
+			totSeekers=seekers;
 			totStudentLeaders = studentLeaders;
 
 			
@@ -228,14 +241,18 @@
 				<td <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %>  width="8%" align=center><%=fontB1%><%if(!splitStat){ %><%=dateFormatter.format(periodbegin)%><%} %></td>
 				<td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%if(!splitStat){ %><%=dateFormatter.format(periodend)%><%} %></td>
 				<%if(strategy.equals("BR")){%><td  <%= tempBool2 ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="8%" align=center><%=fontB1%><%=peopleGroup!=null?peopleGroup:"stats prior to 4/23/2008"%></td><%} %>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticOneOnOne%></td>
-		 	<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticGroup%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=exposuresViaMedia%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=decisions%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=laborersSent%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=multipliers%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=studentLeaders%></td>
-			<td <%= (tempBool2 = !tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=students%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticOneOnOne%></td>
+		 	<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=evangelisticGroup%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=exposuresViaMedia%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=decisions%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=holySpirit%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=laborersSent%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=multipliers%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=studentLeaders%></td>
+			<td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><%=students%></td>
+			<%if(strategy.equals("BR")){
+			%><td <% tempBool2 = !tempBool2;%><%= (tempBool2) ? (tempBool ? bgcolorW : bgcolorLG) : (tempBool ? bgcolorLG : bgcolorG) %> width="6%" align=center><%=fontB1%><i><%=seekers%></i></td><%
+			}else{ tempBool2 = !tempBool2;}%>
 			</tr>
 			<%
 			counter++;
@@ -260,15 +277,23 @@
 		<td ALIGN="CENTER"><%=fontB1%><%=totGroupPresentations%></td>      
 		<td ALIGN="CENTER"><%=fontB1%><%=totMediaExposures%></td>         
 		<td ALIGN="CENTER"><%=fontB1%><%=totDecisions%></td>          
+		<td ALIGN="CENTER"><%=fontB1%><%=totHolySpirit%></td>  
 		<td ALIGN="CENTER"><%=fontB1%><%=totLaborersSent%></td>       
-		<td COLSPAN="3" ALIGN="CENTER">&nbsp;</td></TR>
+		<td COLSPAN="3" ALIGN="CENTER">&nbsp;</td>
+		<%if(strategy.equals("BR")){
+			%><td ALIGN="CENTER">&nbsp;</td><%
+			}%>	
+		</TR>
 	<TR <%=bgcolorL%>>
 	<td COLSPAN="2" ALIGN="RIGHT"><%=fontB1%><B>Demographics</B></TD>
 	<%if(strategy.equals("BR")){ %><td width="8%" align=center VALIGN="BOTTOM" <%=bgcolorL%>></td><%} %>
-	<TD COLSPAN="5">&nbsp;</TD>
+	<TD COLSPAN="6">&nbsp;</TD>
 		<td ALIGN="CENTER"><%=fontB1%><%=totMultipliers%></td>
 		<td ALIGN="CENTER"><%=fontB1%><%=totStudentLeaders%></td>   
 		<td ALIGN="CENTER"><%=fontB1%><%=totStudents%></td>
+		<%if(strategy.equals("BR")){
+			%><td ALIGN="CENTER"><%=fontB1%><i><%=totSeekers%></i></td><%
+			}%>	
 	</tr>
 
 </TABLE>
