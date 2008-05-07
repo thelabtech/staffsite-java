@@ -496,7 +496,10 @@ String demosRowID = "";
 		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(multipliersSum)%></td>
 		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(studentLeadersSum)%></td>
 		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(invldStudentsSum)%></td>
-		<td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(seekersSum)%></td>
+		<%if("true".equals(ar.getValue("BR"))){
+			%><td  width="6%" ALIGN="CENTER"><%=fontB1%><%=Integer.toString(seekersSum)%></td>
+			<%}%>
+		
 	</tr>
 	<tr <%=bgcolorL%>>
 	<td colspan="10" <%=bgcolorL%>><%=fontB1%><%
