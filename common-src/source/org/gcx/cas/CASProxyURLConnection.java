@@ -133,7 +133,7 @@ public class CASProxyURLConnection {
 	 */
 	private boolean isModCASRedirection(HttpURLConnection conn) {
 		boolean modcasredirect = false;
-		String cookie = conn.getHeaderField("Set-Cookie");
+		String cookie = conn.getHeaderField("Cookie");
 		if (cookie != null) {
 
 			if (cookie.indexOf("modcasid") >= 0) {
@@ -144,7 +144,7 @@ public class CASProxyURLConnection {
 	}
 
 	private String retrieveModCASCookie(HttpURLConnection conn) {
-		String setcookie = conn.getHeaderField("Set-Cookie");
+		String setcookie = conn.getHeaderField("Cookie");
 
 		return setcookie;
 	}
