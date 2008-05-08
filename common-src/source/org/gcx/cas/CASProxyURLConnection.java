@@ -139,7 +139,9 @@ public class CASProxyURLConnection {
 	private boolean isModCASRedirection(HttpURLConnection conn) {
 		boolean modcasredirect = false;
 		String cookie = conn.getHeaderField("Set-Cookie");
-		log.info("Headers: " + conn.getHeaderFields());
+		Map<String,List<String>> headers = conn.getHeaderFields();
+		log.info("Headers: " + headers);
+		log.info("Map Set-Cookie: " + headers.get("Set-Cookie"));
 		log.info("Set-Cookie: " + cookie);
 		if (cookie != null) {
 
