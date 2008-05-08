@@ -80,12 +80,16 @@ public class CASProxyURLConnection {
 		if (!isCASRedirection(connection)) {
 
 			if (isModCASRedirection(connection)) {
-				String cookie = retrieveModCASCookie(connection);
+				Map<String,List<String>> headers = connection.getHeaderFields();
+				List<String> cookieList = headers.get("Set-Cookie");
 				HttpURLConnection.setFollowRedirects(true);
 				URL newURL = new URL(connection.getHeaderField("Location"));
 				connection = (HttpURLConnection) newURL.openConnection();
-				log.info("Setting cookie: " + cookie);
-				connection.addRequestProperty("Cookie", cookie);
+				for (int i = 0; i < cookieList.size(); i++) {
+					String cookie = cookieList.get(i);
+					log.info("Setting cookie: " + cookie);
+					connection.addRequestProperty("Cookie", cookie);
+				}
 			}
 
 			br = new BufferedReader(new InputStreamReader(
@@ -138,12 +142,8 @@ public class CASProxyURLConnection {
 	 */
 	private boolean isModCASRedirection(HttpURLConnection conn) {
 		boolean modcasredirect = false;
-//		String cookie = conn.getHeaderField("Set-Cookie");
 		Map<String,List<String>> headers = conn.getHeaderFields();
 		List<String> cookieList = headers.get("Set-Cookie");
-		log.info("Headers: " + headers);
-		log.info("Set-Cookie: " + cookieList);
-//		log.info("Set-Cookie: " + cookie);
 		if (cookieList != null) {
 
 			if (cookieList.toString().indexOf("modcasid") >= 0) {
