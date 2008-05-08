@@ -84,6 +84,7 @@ public class CASProxyURLConnection {
 				HttpURLConnection.setFollowRedirects(true);
 				URL newURL = new URL(connection.getHeaderField("Location"));
 				connection = (HttpURLConnection) newURL.openConnection();
+				log.info("Setting cookie: " + cookie);
 				connection.addRequestProperty("Cookie", cookie);
 			}
 
