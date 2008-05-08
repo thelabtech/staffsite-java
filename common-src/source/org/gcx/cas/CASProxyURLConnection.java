@@ -85,11 +85,13 @@ public class CASProxyURLConnection {
 				HttpURLConnection.setFollowRedirects(true);
 				URL newURL = new URL(connection.getHeaderField("Location"));
 				connection = (HttpURLConnection) newURL.openConnection();
+				String newCookie = "";
 				for (int i = 0; i < cookieList.size(); i++) {
 					String cookie = cookieList.get(i);
+					newCookie += cookie.substring(0, cookie.indexOf(";") + 1); // Get cookie through ;
 					log.info("Setting cookie: " + cookie);
-					connection.addRequestProperty("Cookie", cookie);
 				}
+				connection.addRequestProperty("Cookie", newCookie.substring(0, newCookie.length() - 1)); // Take off last ;
 				log.info("Cookies: " + connection.getRequestProperty("Cookie"));
 			}
 
