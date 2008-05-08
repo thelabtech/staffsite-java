@@ -90,6 +90,7 @@ public class CASProxyURLConnection {
 					log.info("Setting cookie: " + cookie);
 					connection.addRequestProperty("Cookie", cookie);
 				}
+				log.info("Cookies: " + connection.getRequestProperty("Cookie"));
 			}
 
 			br = new BufferedReader(new InputStreamReader(
