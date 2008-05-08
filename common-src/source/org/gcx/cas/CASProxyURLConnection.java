@@ -85,6 +85,8 @@ public class CASProxyURLConnection {
 				HttpURLConnection.setFollowRedirects(true);
 				URL newURL = new URL(connection.getHeaderField("Location"));
 				connection = (HttpURLConnection) newURL.openConnection();
+				connection.setConnectTimeout(CONNECT_TIMEOUT_TIME);
+				connection.setReadTimeout(READ_TIMEOUT_TIME);
 				String newCookie = "";
 				for (int i = 0; i < cookieList.size(); i++) {
 					String cookie = cookieList.get(i);
