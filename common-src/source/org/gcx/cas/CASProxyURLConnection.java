@@ -12,12 +12,15 @@ import java.net.CookieHandler;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Jeff Edwards
  *
  */
 public class CASProxyURLConnection {
+	private static Log log = LogFactory.getLog(CASProxyURLConnection.class);
 
 	private String myCASUrl;
 
@@ -135,6 +138,7 @@ public class CASProxyURLConnection {
 	private boolean isModCASRedirection(HttpURLConnection conn) {
 		boolean modcasredirect = false;
 		String cookie = conn.getHeaderField("Set-Cookie");
+		log.info("Set-Cookie: " + cookie);
 		if (cookie != null) {
 
 			if (cookie.indexOf("modcasid") >= 0) {
