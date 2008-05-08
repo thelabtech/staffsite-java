@@ -79,7 +79,8 @@ public class CASProxyURLConnection {
 			if (isModCASRedirection(connection)) {
 				String cookie = retrieveModCASCookie(connection);
 				HttpURLConnection.setFollowRedirects(true);
-				connection = (HttpURLConnection) url.openConnection();
+				URL newURL = new URL(connection.getHeaderField("Location"));
+				connection = (HttpURLConnection) newURL.openConnection();
 				connection.addRequestProperty("Cookie", cookie);
 			}
 
