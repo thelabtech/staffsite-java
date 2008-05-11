@@ -5,6 +5,10 @@ import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.alt60m.gcx.ConnexionBar;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import edu.yale.its.tp.cas.util.SecureURL;
 
 /**
@@ -12,6 +16,7 @@ import edu.yale.its.tp.cas.util.SecureURL;
  * by CAS in response to a ServiceValidate request.
  */
 public class ProxyTicketReceptor extends HttpServlet {
+  private static Log log = LogFactory.getLog(ProxyTicketReceptor.class);
 
   //*********************************************************************
   // Constants
@@ -180,6 +185,7 @@ public void init(ServletConfig config) throws ServletException {
 
     // retrieve an XML response from CAS's "Proxy" actuator
     String url = casProxyUrl + "?pgt=" + pgtId + "&targetService=" + target;
+    log.info("Retrieving Proxy Ticket from: " + url);
     String response = SecureURL.retrieve(url);
 
     // parse this response (use a lightweight approach for now)
