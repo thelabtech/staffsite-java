@@ -96,7 +96,7 @@ public class ConnexionBar {
 	}
 
 	private String replaceLogoutLink(String bar) {
-		String wrongLogoutUrl = "&quot;https://cas.ccci.org/cas/logout&quot";
+		String wrongLogoutUrl = "&quot;https://signin.mygcx.org/cas/logout&quot";
 		return bar.replace(wrongLogoutUrl, "&quot;" + logoutUrl + "&quot;");
 	}
 	
@@ -114,7 +114,7 @@ public class ConnexionBar {
 		String barTicketService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
 		String barService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
 
-		String signinService = "cas.ccci.org";
+		String signinService = "signin.mygcx.org";
 		try {
 			content = getBar(pgtiou, barTicketService, barService, signinService);
 		} catch (IOException e) {

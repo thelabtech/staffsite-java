@@ -33,7 +33,7 @@ public class CASProxyURLConnection {
     private static DateFormat expiresFormat1
     = new SimpleDateFormat("E, dd MMM yyyy k:m:s 'GMT'", Locale.US);
     
-    protected static final int READ_TIMEOUT_TIME = 5000; 
+    protected static final int READ_TIMEOUT_TIME = 2000; 
     
     protected static final int CONNECT_TIMEOUT_TIME = 1000; 
 
