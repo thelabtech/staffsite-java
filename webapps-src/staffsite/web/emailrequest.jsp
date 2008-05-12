@@ -4,7 +4,18 @@
 <%
   boolean ok  = true;
   String  msg = new String();
-
+  if (((request.getParameter("nonCampusStaffSiteAccessReason") == null)||(request.getParameter("nonCampusStaffSiteAccessReason").equals("")))&&(request.getParameter("campus").equals("No"))) {
+	    ok = false;
+	    msg = "You have indicated that you are not part of the Campus ministry. <br>You need to give us a reason to give you Campus Staff Site Access.";
+	  }
+  if (request.getParameter("userName") == null) {
+	    ok = false;
+	    msg = "You need to give us your GCX email account.";
+	  }
+  if (request.getParameter("firstName") == null) {
+	    ok = false;
+	    msg = "You need to give us your first name so we know what to name your accounts.";
+	  }
   if (request.getParameter("firstName") == null) {
     ok = false;
     msg = "You need to give us your first name so we know what to name your accounts.";
@@ -14,18 +25,22 @@
     ok = false;
     msg = "You need to give us your last name so we know what to name your accounts.";
   }
-
+  if (request.getParameter("middleInitial") == null) {
+	    ok = false;
+	    msg = "You need to give us your middle initial so we know what to name your accounts.";
+	  }
+  
   if (request.getParameter("accountNo") == null) {
     ok = false;
     msg = "You need to give us your staff account number so we can verify your staff status.";
   }
 
-  /* - Removed 7/25/05 S. Paulis
+  
    if (request.getParameter("region").equals(" ")) {
    ok = false;
    msg = "You need to specify your region so we can forward your information to the correct regional tech representative to set your accounts up.";
    }
-   */
+  
   if ((request.getParameter("email") == null) & (request.getParameter("phone") == null)) {
     ok = false;
     msg = 
@@ -116,7 +131,7 @@
 
   if (!ok) {
     box.setTitle("Oops");
-    box.setWidth("400");
+    box.setWidth("600");
     box.setColor(colorL);
     box.setBodyColor(colorL);
 %>
@@ -138,13 +153,14 @@
   <p>
 <%
   } else {
-    email.setTo("help@campuscrusadeforchrist.com");
+    email.setTo("isaac.kimball@uscm.org");
     email.setFrom(request.getParameter("email"));
     email.setSubject("E-mail and Website Account Request");
 
     StringBuffer s = new StringBuffer();
 
-    s.append("user: " + request.getParameter("firstName") + "." + request.getParameter("lastName") + "\n");
+    s.append("GCX user: " + request.getParameter("userName")+ "\n");
+    s.append("Name: " + request.getParameter("firstName")+" "+request.getParameter("middleInitial")+" "+request.getParameter("lastName")+ "\n");
     s.append("password: " + request.getParameter("password") + "\n");
     s.append("staff account#: " + request.getParameter("accountNo") + "\n");
     s.append("email: " + request.getParameter("email") + "\n");
@@ -152,6 +168,7 @@
     s.append("region: " + request.getParameter("region") + "\n");
     s.append("married to staff? (if female) " + request.getParameter("married") + "\n");
     s.append("campus ministry? " + request.getParameter("campus") + "\n");
+    s.append("non-campus Staff Site Access reason? " + request.getParameter("nonCampusStaffSiteAccessReason") + "\n");
     email.setBody(s.toString());
     email.send();
     box.setTitle("That's all!");
