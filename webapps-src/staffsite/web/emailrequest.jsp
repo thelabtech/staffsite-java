@@ -153,7 +153,7 @@
   <p>
 <%
   } else {
-    email.setTo("isaac.kimball@uscm.org");
+    email.setTo("help@campuscrusadeforchrist.com");
     email.setFrom(request.getParameter("email"));
     email.setSubject("E-mail and Website Account Request");
 
