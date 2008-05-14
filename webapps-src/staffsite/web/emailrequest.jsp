@@ -8,10 +8,7 @@
 	    ok = false;
 	    msg = "You have indicated that you are not part of the Campus ministry. <br>You need to give us a reason to give you Campus Staff Site Access.";
 	  }
-  if (request.getParameter("userName") == null) {
-	    ok = false;
-	    msg = "You need to give us your GCX email account.";
-	  }
+ 
   if (request.getParameter("firstName") == null) {
 	    ok = false;
 	    msg = "You need to give us your first name so we know what to name your accounts.";
@@ -51,75 +48,9 @@
   if (request.getParameter("password") == null || request.getParameter("passwordConf") == null) {
     ok = false;
     msg = "You need to enter a password to keep unauthorized people from accessing your accounts.";
-  } else {
-    String password = request.getParameter("password");
+  } else{
 
-    //check for password length
-    if (password.length() < 9 || password.length() > 14) {
-      ok = false;
-      msg = "Your password needs to be between 10 and 14 characters in length.";
-    }
-
-    int checks = 0;
-
-    // check for a lower case
-    if (!password.equals(password.toUpperCase())) {
-      checks++;
-    }
-
-    // check for an upper case
-    if (!password.equals(password.toLowerCase())) {
-      checks++;
-    }
-
-    // check for a number or punctuation
-    char[]  a              = password.toCharArray();
-    boolean hasDigit       = false;
-    boolean hasPunctuation = false;
-
-    for (int i = 0; i < a.length; i++) {
-      Character passwordChar = new Character(a[i]);
-
-      if (Character.isDigit(a[i])) {
-        hasDigit = true;
-      }
-
-      if (!Character.isLetterOrDigit(a[i])) {
-        hasPunctuation = true;
-      }
-    }
-
-    if (hasDigit) {
-      checks++;
-    }
-
-    if (hasPunctuation) {
-      checks++;
-    }
-
-    // must have a combination of 3 of the above checks
-    if (checks < 3) {
-      ok = false;
-      msg = "Please review the password criteria. You must match 3 of the 4 criteria shown on the previous page.";
-    }
-
-    // can't include "password"
-    if (password.toLowerCase().indexOf("password") != -1) {
-      ok = false;
-      msg = "Your password cannot include the word 'password' because it is too easy to guess.";
-    }
-
-    // can't include first or last name
-    if (password.toLowerCase().indexOf(request.getParameter("firstName").toLowerCase()) != -1) {
-      ok = false;
-      msg = "Your password cannot include your first name because it is too easy to guess.";
-    }
-
-    if (password.toLowerCase().indexOf(request.getParameter("lastName").toLowerCase()) != -1) {
-      ok = false;
-      msg = "Your password cannot include your last name because it is too easy to guess.";
-    }
-
+   
     // check to see if verified correctly
     if (!request.getParameter("password").equals(request.getParameter("passwordConf"))) {
       ok = false;
@@ -159,9 +90,9 @@
 
     StringBuffer s = new StringBuffer();
 
-    s.append("GCX user: " + request.getParameter("userName")+ "\n");
+    
     s.append("Name: " + request.getParameter("firstName")+" "+request.getParameter("middleInitial")+" "+request.getParameter("lastName")+ "\n");
-    s.append("password: " + request.getParameter("password") + "\n");
+    
     s.append("staff account#: " + request.getParameter("accountNo") + "\n");
     s.append("email: " + request.getParameter("email") + "\n");
     s.append("phone: " + request.getParameter("phone") + "\n");
@@ -171,6 +102,16 @@
     s.append("non-campus Staff Site Access reason? " + request.getParameter("nonCampusStaffSiteAccessReason") + "\n");
     email.setBody(s.toString());
     email.send();
+    
+    s = new StringBuffer();
+    
+    s.append("Name: " + request.getParameter("firstName")+" "+request.getParameter("middleInitial")+" "+request.getParameter("lastName")+ "\n");
+    s.append("####: " + request.getParameter("password") + "\n");
+    
+    email.setBody(s.toString());
+    email.send();
+    
+    
     box.setTitle("That's all!");
     box.setWidth("400");
     box.setColor(colorL);

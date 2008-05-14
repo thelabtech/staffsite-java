@@ -40,7 +40,7 @@
 				<form name=myForm method=post action="emailrequest.jsp">
 				<tr><td colspan="4">	<%=fontB%>Are you in Campus Ministry <br>(only Campus Ministry staff receive <br>uscm.org email addresses and access to the Campus Staff Site) </td><td  colspan="2" width="30%"> <select name="campus"> <option> <option>Yes <option>No </select> </td></tr>
 				
-				<tr><td colspan="4" bgcolor="#9999FF">	<%=fontB%>If you are with another CCC ministry and you are <br>only requesting access to the Campus Staff Site, <br>please give your reason and then proceed with form:</td><td colspan="2" width="30%" bgcolor="#9999FF" >	<input type=textarea rows=3 width=20 name="nonCampusStaffSiteAccessReason">	</td></tr>
+				<tr><td colspan="4" bgcolor="#9999FF">	<%=fontB%><font color=white> If you are with another CCC ministry and you are <br>only requesting access to the Campus Staff Site, <br>please give your reason and then proceed with form:</font></font></td><td colspan="2" width="30%" bgcolor="#9999FF" >	<input type=textarea rows=3 width=20 name="nonCampusStaffSiteAccessReason">	</td></tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>First Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="firstName">	</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>Last Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="lastName">	</td></tr>
@@ -48,10 +48,9 @@
 				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>Staff Account #: 	</td><td colspan="2" width="30%">	<input type=text size=12 name="accountNo">	</td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>GCX User E-mail <br>
-									(This is the GCX user e-mail you have just activated):
- 														</td><td colspan="2" width="30%">	<input type=text size=12 name="userName">	</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>GCX Password:		<br><font size=1>(<a href="#criteria">see password criteria below</a>)</font>			</td><td colspan="2" width="30%">	<input type=password size=12 name="password"> </td></tr>
+				
+				<tr><td colspan="4" align=right>	<%=fontB%>GCX Password
+				<br>(The password for the GCX account you have just activated):</td><td colspan="2" width="30%">	<input type=password size=12 name="password"> </td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>Re-enter password:</td><td colspan="2" width="30%">	<input type=password size=12 name="passwordConf"></td></tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>If female and married, is your husband on staff? </td><td colspan="2" width="30%"> <select name="married"> <option> <option>Yes <option>No </select> </td></tr>
@@ -91,36 +90,7 @@
 			<%=box.printBottom()%>
 			</center>
 
-			<br><br>
-			<center><a name="criteria">
-			<% 
-				box.setTitle("Password Criteria");
-				box.setWidth("600");
-				box.setColor(colorL);
-			%>	
-			<%=box.printTop()%>
-			<%=fontB%>
-			  The password criteria is as follows:</B>.<br>
-			  <br>
-
-			  1. Must begin with a capital letter<br>
-			  2. 10-14 characters<br>
-			  3. Must have at least one number or symbol (eg. 1234567890 ~`!@#$%^&*()_+=-[]\|}{;'":/.,<>? )<br>
-			  4. Must NOT contain any part of your name or the word "password"<br>
-			  <br>
-
-			  Examples of acceptable passwords:<br>
-			  Julie!Laurel<br>
-			  UMRebels#1<br>
-			  NittanyLion1<p>
-			   
-			  Examples of passwords that <b>don't</b> meet the minimum requirements <br>(Assuming the user's name is Joe Staff):<br>
-			  Joe&Suzie! (includes part of the user's name)<br>
-			  Password123 (includes the word password)<br>
-			  julie!laurel (does not begin with a capital letter)<p>
-			  </font>
-			<%=box.printBottom()%>
-			</center>
+			
 		</td>
 	</tr>
 	<TR>
