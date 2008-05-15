@@ -634,13 +634,11 @@ try{
 					href="JavaScript: popupWindow('/crs/images/pic.jsp?pic=sampleUserView.gif', 'UserManual', 'height=870,width=772,dependent=yes,scrollbars=no,resizable')"
 					CLASS="button">View a Sample Home Page</a></p>
 				<p>
-				If you will be accepting credit card payments for this event,
-				you must have a merchant account with our credit card processing
-				vendor, Authorize.net. To set up an Authorize.net merchant account
-				and receive your Authorize.net API Login ID and Transaction Key, contact Steve
-				Hackney in Campus Crusade for Christ's Financial Services Group. You
-				can email him at 
-				<A HREF="mailto:Steve.Hackney@ccci.org">Steve.Hackney@ccci.org</A>.
+				If you will be accepting credit card payments for this event, 
+				you must have an account with our credit card processing vendor, Authorize.net. 
+				To set up an Authorize.net merchant account and receive your 
+				Authorize.net API Login ID and Transaction Key, 
+				contact your <a href="http://wiki.uscm.org/display/CMF/CM+Finance+Professionals">Finance Professional</a>. 
 				If you already have a Ministry Checking Account, please have the
 				account number and the contact information of your local Financial
 				Administrator available prior to contacting the Financial Services
