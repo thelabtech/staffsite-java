@@ -36,11 +36,11 @@ String pageTitle= "Update "+ request.getParameter("strategy") + " strategy at " 
 <script language="javascript">
 var active = "Indicates that the campus has an active CCC<BR>movement, usually with ten or more students.";
 var inactive = "Indicates that there is currently no active<BR>Campus Ministry strategy or potential<BR>student leader on the campus.";
-var pioneering = "Catalytic is actively doing something<BR>to start a ministry on this campus.";
-var keycontact = "Catalytic has found a key contact on this<BR>campus - student, volunteer, or partner.";
-var launched = "Catalytic has a critical mass of five<BR>students, staff coach, etc.";
+var pioneering = "<%=strategyName%> is actively doing something<BR>to start a ministry on this campus.";
+var keycontact = "<%=strategyName%> has found a key contact on this<BR>campus - student, volunteer, or partner.";
+var launched = "<%=strategyName%> has a critical mass of five<BR>students, staff coach, etc.";
 var transformational = "Movement of 50 or more students<BR>involved, or 1% of the student body.";
-var forerunner = "Catalytic has a person who can resource<BR>this campus to move it to the next level.";
+var forerunner = "<%=strategyName%> has a person who can resource<BR>this campus to move it to the next level.";
 var staffed = "There are staff assigned to this campus<BR>who report through the Staffed Campuses lane.";
 var empty = "";
 
