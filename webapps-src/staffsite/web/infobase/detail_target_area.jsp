@@ -510,10 +510,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 
 
 
-					<TR>
-						<TD ALIGN="RIGHT"><%=font%>Fice:</TD>
-						<TD><%=font%><%=taTable.get("Fice")%></TD>
-					</TR>
+					
 					<%-- <TR><TD ALIGN="RIGHT"><%= font %>Secure?</TD><TD><%= font %>
 <% if (((Boolean)taTable.get("IsSecure")).booleanValue()) { 
 %>Yes<% 

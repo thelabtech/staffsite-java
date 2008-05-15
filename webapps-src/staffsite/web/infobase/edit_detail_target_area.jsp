@@ -28,6 +28,8 @@ boolean semester = ((Boolean)taTable.get("IsSemester")).booleanValue();
 	out.print("<P ALIGN=CENTER> " + box.printTop());
 %>
 <FORM NAME="updateForm" METHOD="POST" ACTION="/servlet/InfoBaseController?action=saveTargetAreaInfo&targetareaid=<%= request.getParameter("targetareaid") %>">
+<INPUT TYPE="hidden" VALUE="<%= taTable.get("Fice") %>" NAME="Fice" SIZE="27" readonly="true" MAXLENGTH="32">
+<INPUT TYPE="hidden" VALUE="<%= taTable.get("Mpta") %>" NAME="Mpta" SIZE="27" MAXLENGTH="29">
 <TABLE BORDER=0 CELLPADDING=5 CELLSPACING=0 ALIGN="CENTER">
 <TR><TD> </TD><TD><%= fontS %>(* = required field)</FONT></TD>
 </TR>
@@ -71,10 +73,7 @@ boolean semester = ((Boolean)taTable.get("IsSemester")).booleanValue();
 	<TD ALIGN="RIGHT"><%= font %>Official School Website URL:<BR>(include "http://")</FONT></TD>
 	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("InfoUrl") %>" NAME="InfoUrl" SIZE="27" MAXLENGTH="254"></TD>
 </TR>
-<TR>
-	<TD ALIGN="RIGHT"><%= font %>FICE:</FONT></TD>
-	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("Fice") %>" NAME="Fice" SIZE="27" readonly="true" MAXLENGTH="32"></TD>
-</TR>
+
 <TR>
 	<TD ALIGN="RIGHT"><%= font %>Population/Enrollment/Scope:</FONT></TD>
 	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("Population") %>" NAME="Population" SIZE="27" MAXLENGTH="9"></TD>
@@ -83,10 +82,7 @@ boolean semester = ((Boolean)taTable.get("IsSemester")).booleanValue();
 	<TD ALIGN="RIGHT"><%= font %>Is this Target Area Secure?</FONT></TD>
 	<TD><%= font %><INPUT TYPE="RADIO" NAME="IsSecure" VALUE="true" <% if(secure) { %>CHECKED<% } %>> Yes&nbsp;&nbsp;&nbsp;<INPUT TYPE="RADIO" NAME="IsSecure" VALUE="false" <% if(!secure) { %>CHECKED<% } %>> No</TD>
 </TR> -->
-<TR>
-	<TD ALIGN="RIGHT"><%= font %>MPTA:</FONT></TD>
-	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("Mpta") %>" NAME="Mpta" SIZE="27" MAXLENGTH="29"></TD>
-</TR>
+
 <TR>
 	<TD ALIGN="RIGHT"><%= font %>Campus Logo URL:</FONT></TD>
 	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("UrlToLogo") %>" NAME="UrlToLogo" SIZE="27" MAXLENGTH="255">[<a href="JavaScript: popupWindow('/help/help_infobase.jsp#addlogo', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">help</a>]</TD>

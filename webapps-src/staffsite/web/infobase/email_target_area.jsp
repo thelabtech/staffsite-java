@@ -26,6 +26,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	<input type=hidden name="action" value="submitNewTargetAreaRequest">
 	<input type="hidden" name="to" value="Yvonne.Rivera@uscm.org">
 	<input type="hidden" name="subject" value="New Campus Proposal">
+	<input type="hidden" name="mpta" size="27" maxlength=35>
 	<input type="hidden" name="admin" value="<%=admin%>">
 		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Campus Info:</b></font></td></tr>
 		<tr <%=bgcolorL%>> 
@@ -204,14 +205,9 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 			<%=regions.print()%>
 		</td>
 	</tr>
-	<tr <%=bgcolorL%>> 
-		<td>
-			<div align="right"><%=fontB%>Campus MPTA:</a></font></div>
-		</td>
-		<td>
-			<input type="text" name="mpta" size="27" maxlength=35>
-		</td>
-	</tr>
+	
+			
+	
 	<tr <%=bgcolorL%>> 
 		<td>
 			<div align="right"><%=fontB%>Campus AOA:</a></font></div>
