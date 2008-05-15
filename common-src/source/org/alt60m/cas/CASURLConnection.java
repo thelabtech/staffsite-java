@@ -102,7 +102,7 @@ public class CASURLConnection {
 		System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire.header", "debug");
 		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient", "debug");
 		
-		String testCasServer = "https://signin.mygcx.org/sso/login";
+		String testCasServer = "https://signin.mygcx.org/cas/login";
 		String testUsername = "campus.admin@mygcx.org";
 		String testPassword = "BeThouMyVision12";
 		String testService = "http://www.mygcx.org/authz-admin/CampusStaff";
