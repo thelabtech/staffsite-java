@@ -76,7 +76,7 @@ public class QuestionHelper implements java.io.Serializable
 		sb.append("<TABLE WIDTH='90%' CELLPADDING='3' CELLSPACING='2' BORDER='0'>");
 		sb.append("<TR>");
 		sb.append("<TD " + bgcolorG + " COLSPAN='4'>");
-		sb.append(fontB + "Please rate " + rName + " on the following scale:");
+		sb.append(fontB + "Please rate " + rName + " on the following scale: <br>(1 means needs urgent development; 10 means unusually good)");
 		sb.append("</FONT>");
 		sb.append("</TD>");
 		sb.append("</TR>");

@@ -57,27 +57,38 @@
 	String q25 = "Does " + heshe + "  make progress in accomplishing the key objective for " + hisher + "  organizational level? Does " + heshe + "  accomplish the objectives of their ministry/leadership position? In what ways? Please comment.";
 	String q26 = "How would you describe " + fName + "'s Team Participation?  Does " + heshe + "  bring appropriate ideas and information to the team? Participate in discussion and work with the team? Work well with peers? Please comment.";
 	String q27 = "How would you describe " + fName + "'s Work habits? Is " + heshe + "  prompt? Does " + heshe + "  use " + hisher + " time effectively? Accomplish tasks within time lines? Spend the time/resources necessary to get the job done? Balance home/work well? Develop and maintain personal financial support? Bring appropriate technical expertise to bear? Work well with supervisor? Please comment.";
-	String q28f1 = "<B>Focus</B>";
+	String q28f1 = "<B>Focus</B>: <br>"+
+		"Achieving maximum effectiveness with limited resources by maintaining clear objectives "+
+		"in the planning and implementation of ministry. ";
 	String q28f2l = "";
 	String q28f2r = "";
 	String q28f2b = "";
-	String q28l1 = "<B>Leadership Development</B>";
+	String q28l1 = "<B>Leadership Development</B>:<br>"+
+		"Providing environments and opportunities for all those involved in the movement to mature in leadership abilities. ";
+
 	String q28l2l = "";
 	String q28l2r = "";
 	String q28l2b = "";
-	String q28o1 = "<B>Ownership</B>";
+	String q28o1 = "<B>Ownership</B>:<br>"+
+		"Encouraging people to develop their own vision in the context of the greater vision of the organization. ";
 	String q28o2l = "";
 	String q28o2r = "";
 	String q28o2b = "";
-	String q28a1 = "<B>Adaptability</B>";
+	String q28a1 = "<B>Adaptability</B>:<br>"+
+		"Responding to a changing culture to effectively communicate Biblical truth to help fulfill the Great Commission on college campuses.";
+
 	String q28a2l = "";
 	String q28a2r = "";
 	String q28a2b = "";
-	String q28t1 = "<B>Team</B>";
+	String q28t1 = "<B>Teamwork</B>:<br>"+
+		"Functioning as a group whereby each member contributes differing gifts and abilities to produce greater results.";
+
 	String q28t2l = "";
 	String q28t2r = "";
 	String q28t2b = "";
-	String q28s1 = "<B>Scope</B>";
+	String q28s1 = "<B>Scope</B>:<br>"+
+		"Seeking to reach every college student in the world, and doing whatever it takes to ensure that students are being reached consistently with the gospel.";
+
 	String q28s2l = "";
 	String q28s2r = "";
 	String q28s2b = "";
