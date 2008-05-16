@@ -217,7 +217,8 @@ public class CASURLConnection {
 		HttpMethod getLogin = new GetMethod(url);
 		content = getContent(getLogin);
 		
-		Matcher ticketFinder = TICKET_PATTERN.matcher(content);
+		// Not necessary anymore after Oracle Identity Management changes - 5/16/2008 JCS 
+/*		Matcher ticketFinder = TICKET_PATTERN.matcher(content);
 
 		if (ticketFinder.find()) {
 			loginTicket = ticketFinder.group(1);
@@ -227,17 +228,17 @@ public class CASURLConnection {
 					+ content;
 			return null;
 		}
-
+*/
 		url = signinUrl;
 
 		PostMethod postLogin = new PostMethod(url);
 		
-		NameValuePair ticketPair = new NameValuePair(LOGIN_TICKET_TOKEN, loginTicket);
+//		NameValuePair ticketPair = new NameValuePair(LOGIN_TICKET_TOKEN, loginTicket);
 		NameValuePair servicePair = new NameValuePair(SERVICE_TOKEN, ticketService);
 		NameValuePair passwordPair = new NameValuePair(PASSWORD_TOKEN, password);
 		NameValuePair usernamePair = new NameValuePair(USERNAME_TOKEN, username);
 		postLogin.setRequestBody( 
-		          new NameValuePair[] {ticketPair, servicePair, usernamePair, passwordPair});
+		          new NameValuePair[] {servicePair, usernamePair, passwordPair});
 				
 		if (logoutCallback != null) {
 			NameValuePair logoutCallbackPair = new NameValuePair(LOGOUT_CALLBACK_TOKEN, logoutCallback);
