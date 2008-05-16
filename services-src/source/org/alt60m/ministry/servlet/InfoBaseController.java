@@ -1569,9 +1569,15 @@ public class InfoBaseController extends Controller {
 						hasData=true;
 					}
 					log.debug("hasData="+hasData);
-					if(("PeriodBegin PeriodEnd PeopleGroup".contains((String)key)))
+					if(("PeriodBegin PeriodEnd".contains((String)key)))
 					{
 						statMap.put(key, (String) thisStat.get(key));
+					}
+					else if (("PeopleGroup".equals((String)key)))
+					{
+						if ((!(null==((String) thisStat.get(key))))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)).equals("null"))){
+							statMap.put(key, (String) thisStat.get(key));
+						}
 					}
 					else if	(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))
 					{
