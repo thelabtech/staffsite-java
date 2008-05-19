@@ -312,6 +312,7 @@ function toggleDiv(who){
 				<div id="wayforward">
 					<h1></h1>
 					<ul id="podcasts">
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode9.htm">Episode 9: The Call - 100 ESM Staff (3:25)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode8.htm">Episode 8: Missional Teams (3:09)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode7.htm">Episode 7: Mobilizing Christ-centered Laborers (3:39)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode6.htm">Episode 6: Gospel Experiences (2:29)</a></li>
@@ -320,6 +321,7 @@ function toggleDiv(who){
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode3.htm">Episode 3: Our Value of Growth (5:58)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode2.htm">Episode 2: Our Core DNA (5:02)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode1.htm">Episode 1: What Isn&rsquo;t Changing (5:26)</a></li>
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode0.htm">Episode 0: Mark&rsquo;s Outtakes (1:23)</a></li>
 					</ul>
 				</div>
 			<!-- start 'SLICE' module -->
