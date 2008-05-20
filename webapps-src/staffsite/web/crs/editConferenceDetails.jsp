@@ -639,10 +639,6 @@ try{
 				To set up an Authorize.net merchant account and receive your 
 				Authorize.net API Login ID and Transaction Key, 
 				contact your <a href="http://wiki.uscm.org/display/CMF/CM+Finance+Professionals">Finance Professional</a>. 
-				If you already have a Ministry Checking Account, please have the
-				account number and the contact information of your local Financial
-				Administrator available prior to contacting the Financial Services
-				Group.
 				</p>
 				<P>Hover over the blue question marks <img
 					src='/crs/images/info.gif'
