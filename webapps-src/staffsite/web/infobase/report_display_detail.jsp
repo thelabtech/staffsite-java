@@ -98,7 +98,7 @@
   qry += "WHERE ministry_activity.strategy in (" + qStrategyList + ") ";
   qry += "AND ministry_statistic.periodend < '" + periodEnd + "' ";
   qry += "AND ministry_activity.fk_targetareaid = '" + targetAreaID + "' ";
-  qry += "AND ministry_statistic.periodbegin >= '" + periodBegin + "' ";
+  qry += "AND ministry_statistic.periodend >= '" + periodBegin + "' ";
   qry += "ORDER BY strategy, activityID, ministry_statistic.periodend, ministry_statistic.peopleGroup";
 
   log.debug("Query: " + qry);
