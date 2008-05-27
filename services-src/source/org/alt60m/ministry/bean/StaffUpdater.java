@@ -208,6 +208,7 @@ public class StaffUpdater {
 		log.info("[" + new java.util.Date() + "] Querying...");
 
 		String qry = "select distinct accountNo from " + STAFF_TBL + " order by accountNo desc";
+		log.info(qry);
 		sqlrs = sqlstatement.executeQuery(qry);
 		ArrayList<String> sqlResults = new ArrayList<String>();
 		while (sqlrs.next()) {
@@ -215,6 +216,7 @@ public class StaffUpdater {
 		}
 
 		String psqry = "select distinct "+PS_EMPL_ID+" from "+PS_EMPL_TBL+" order by "+PS_EMPL_ID+" desc";
+		log.info(psqry);
 		psrs = psstatement.executeQuery(psqry);	
 		ArrayList<String> psResults = new ArrayList<String>();
 		while (psrs.next()) {
