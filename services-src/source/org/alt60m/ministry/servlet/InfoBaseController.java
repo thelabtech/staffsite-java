@@ -25,7 +25,9 @@ import org.alt60m.ministry.MissingTargetAreaIdException;
 import org.alt60m.ministry.Regions;
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
+import org.alt60m.ministry.model.dbio.Contact;
 import org.alt60m.ministry.model.dbio.Person;
+import org.alt60m.ministry.model.dbio.Address;
 import org.alt60m.ministry.model.dbio.Dependent;
 import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.NonCccMin;
@@ -175,7 +177,67 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform addContact().", e);
         }
     }
-
+    /** @param ctx ActionContext object */
+    public void addPersonContact(ActionContext ctx) {
+        try {
+        	ActionResults results = new ActionResults("addPersonContact");
+            InfoBaseTool ibt = new InfoBaseTool();
+            String search = "";
+            if(ctx.getInputString("lastName")!= "A"){
+            	search = ctx.getInputString("lastName") + "%";
+            }
+            else
+            {
+	            search = "A%";
+	        	results.putValue("infoMessage", "You need to specify a last name.");
+            }
+            String activityId = ctx.getInputString("activityid", true);
+            String targetAreaId = ctx.getInputString("targetareaid", true);
+            Vector<Contact> contacts;
+            contacts = ibt.listContactsByLastName(search.toUpperCase());
+            contacts=ibt.removeCurrentContactsFromContactList(contacts, activityId); 
+            results.addCollection("contacts", contacts);
+            results.putValue("activityid", activityId);
+            results.putValue("targetareaid", targetAreaId);
+            ctx.setReturnValue(results);
+            ctx.goToView("addPersonContact");
+        }
+        catch (Exception e) {
+			ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform addPersonContact().", e);
+        }
+    }
+    public void addMissionalTeamMember(ActionContext ctx) {
+        try {
+        	ActionResults results = new ActionResults("addMissionalTeamMember");
+            InfoBaseTool ibt = new InfoBaseTool();
+            String search = "";
+            if(ctx.getInputString("lastName")!= "A"){
+            	search = ctx.getInputString("lastName") + "%";
+            }
+            else
+            {
+	            search = "A%";
+	        	results.putValue("infoMessage", "You need to specify a last name.");
+            }
+            String teamID = ctx.getInputString("teamID", true);
+            
+            Vector<Contact> contacts;
+            contacts = ibt.listContactsByLastName(search.toUpperCase());
+            contacts=ibt.removeCurrentTeamMembersFromContactList(contacts, teamID); 
+            results.addCollection("contacts", contacts);
+            results.putValue("teamID", teamID);
+            
+            ctx.setReturnValue(results);
+            ctx.goToView("addMissionalTeamMember");
+        }
+        catch (Exception e) {
+			ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform addMissionalTeamMember().", e);
+        }
+    }
     /** @param ctx ActionContext object */
    
     public void addMinToCampus(ActionContext ctx) {
@@ -708,7 +770,7 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform editTeam().", e);
         }
     }
-
+    
     private Hashtable<String, Object> emulateOldStaffStructure(Staff staff) throws Exception {
         Hashtable<String, Object> staffHash = ObjectHashUtil.obj2hash(staff);
         OldAddress pa = staff.getPrimaryAddress();
@@ -732,6 +794,21 @@ public class InfoBaseController extends Controller {
             staffHash.put("Country", "");
         }
         return staffHash;
+    }
+
+    private Hashtable<String,Object> getAddressForTeamMember(String personID) throws Exception {
+        
+        Address address = new Address();
+        address.setFk_PersonID(personID);
+        address.setAddressType("current");
+        address.select();
+        if (address==null){
+        	address.setFk_PersonID(personID);
+            address.setAddressType("permanent");
+            address.select();
+        }
+        Hashtable<String, Object> addressHash = ObjectHashUtil.obj2hash(address);
+        return addressHash;
     }
 
     /** @param ctx ActionContext object */
@@ -1074,6 +1151,37 @@ public class InfoBaseController extends Controller {
             ctx.goToErrorView();
         }
     }
+    
+    public void listPerson(ActionContext ctx) {
+        try {
+            ActionResults results = new ActionResults("listStaff");
+			InfoBaseTool ibt = new InfoBaseTool();
+            String searchText = ctx.getInputString("searchtext", true);
+           
+            if (searchText.length() > 0) {
+            	 Vector<Contact> contacts=InfoBaseQueries.listContactsByLastName(searchText);
+            	 Vector<Hashtable<String, Object> > addresses=new Vector<Hashtable<String, Object> >();
+            	 Iterator contactsIter = contacts.iterator();
+          	   while(contactsIter.hasNext()) {
+          			 Contact currentContact = (Contact)contactsIter.next();
+          			 Hashtable <String, Object> thisAddress=getAddressForTeamMember(currentContact.getPersonID()+"");
+          			 addresses.add(thisAddress);
+          	   }
+            	results.addCollection("contacts", contacts);
+            	results.addCollection("addresses", addresses);
+            } else {
+                results.addCollection("staff", new Vector());
+            }
+            
+            ctx.setReturnValue(results);
+            ctx.goToView("personList");
+        }
+        catch (Exception e) {
+            log.error("Failed to perform listPerson().", e);
+            ctx.setError();
+            ctx.goToErrorView();
+        }
+    }
 
     private java.sql.Date parseSimpleDate(String date) throws java.text.ParseException {
         StringTokenizer tokens = new StringTokenizer(date, "/");
@@ -1157,7 +1265,35 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform removeContact().", e);
         }
     }
-
+    /** @param ctx ActionContext object */
+    public void removePersonContact(ActionContext ctx) {
+        try {
+            String activityId = ctx.getInputString("activityid", true);
+            String personID = ctx.getInputString("personID");
+            InfoBaseTool ibt = new InfoBaseTool();
+			ibt.removePersonContact( personID,activityId);
+            showTargetArea(ctx);
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform removePersonContact().", e);
+        }
+    }
+    public void removeTeamMember(ActionContext ctx) {
+        try {
+            String teamID = ctx.getInputString("teamID", true);
+            String personID = ctx.getInputString("personID");
+            InfoBaseTool ibt = new InfoBaseTool();
+			ibt.removeTeamMember( personID,teamID);
+            showTeam(ctx);
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform removeTeamMember().", e);
+        }
+    }
     public void removeMin(ActionContext ctx) {
         try {
             ActionResults results = new ActionResults("removeMin ");
@@ -1324,7 +1460,37 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveContact().", e);
         }
     }
-
+    /** @param ctx ActionContext object */
+    public void savePersonContact(ActionContext ctx) {
+        try {
+            String activityId = ctx.getInputString("activityid", true);
+            String personID = ctx.getInputString("personID", true);
+            InfoBaseTool ibt = new InfoBaseTool();
+            ibt.savePersonContact(personID, activityId);
+            showTargetArea(ctx);
+            
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform savePersonContact().", e);
+        }
+    }
+    public void saveTeamMember(ActionContext ctx) {
+        try {
+            String teamID = ctx.getInputString("teamID", true);
+            String personID = ctx.getInputString("personID", true);
+            InfoBaseTool ibt = new InfoBaseTool();
+            ibt.saveTeamMember(personID, teamID);
+            showTeam(ctx);
+            
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform saveTeamMember().", e);
+        }
+    }
     /** @param ctx ActionContext object */
     public void saveEditActivity(ActionContext ctx) {
         try {
@@ -1462,10 +1628,18 @@ public class InfoBaseController extends Controller {
 					"PeriodEnd", "PersonalEvangelismExposures",
 					"GroupEvangelismExposures", "MediaExposures", "Decisions",
 					"Multipliers", "StudentLeaders", "InvolvedStudents",
-					"LaborersSent" });
+					"LaborersSent", "HolySpiritConversations",
+					"DecisionsPersonalEvangelismExposures", "DecisionsGroupEvangelismExposures",
+					"DecisionsMediaExposures" });
 			Map<String, String> statMap = new HashMap<String, String>();
 			for (String key : keys) {
-				statMap.put(key, (String) request.get(key));
+				if	(!((String) key).replaceAll("[^0123456789]","error").contains("error")){
+					statMap.put(key, (String) request.get(key));
+				}
+				else
+				{
+					ctx.goToView("nonNumeric");
+				}
 			}
         	String username = (String) ctx.getSessionValue("userName");
         	stat.setUpdatedBy(username);
@@ -1560,7 +1734,9 @@ public class InfoBaseController extends Controller {
 						"PeriodEnd", "PersonalEvangelismExposures",
 						"GroupEvangelismExposures", "MediaExposures", "Decisions",
 						"Multipliers", "StudentLeaders", "InvolvedStudents",
-						"LaborersSent", "PeopleGroup", "HolySpiritConversations", "Seekers" });
+						"LaborersSent", "PeopleGroup", "HolySpiritConversations", "Seekers",
+						"DecisionsPersonalEvangelismExposures", "DecisionsGroupEvangelismExposures",
+						"DecisionsMediaExposures"});
 				 statMap = new HashMap<String, String>();
 				for (String key : keys) 
 				{
@@ -1808,7 +1984,50 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform showStaffInfo().", e);
         }
     }
-
+    /** @param ctx ActionContext object */
+    public void showPersonInfo(ActionContext ctx) {
+        try {
+            ActionResults results = new ActionResults("showPersonInfo");
+            String personID = ctx.getInputString("personID", true);
+			Person person = new Person(personID);
+			Hashtable<String,Object>personHash=org.alt60m.util.ObjectHashUtil.obj2hash(person);
+            personHash.put("SpouseFirstName", new Person(person.getFk_spouseID()).getFirstName());
+			Hashtable<String, Object> addressHash = getAddressForTeamMember(personID);
+            Hashtable<String,Object> staffHash=new Hashtable<String,Object>();
+            Vector<Hashtable<String, String>>teams=InfoBaseTool.listTeamsForPerson(personID);
+			String isStaff="false";
+            Collection<String> dependentInfo = new Vector<String>();
+            if (!(person.getAccountNo().equals("")||person.getAccountNo()==null)){
+            	isStaff="true";
+            	InfoBaseTool ibt = new InfoBaseTool();
+                Staff staff = ibt.getStaffObject(person.getAccountNo());
+            	staffHash=emulateOldStaffStructure(staff);
+	            for (Iterator iDependents = staff.getDependents().iterator(); iDependents.hasNext(); ) {
+	                Dependent theDependent = (Dependent)iDependents.next();
+	                dependentInfo.add(theDependent.getLastName() + ", " + theDependent.getFirstName() + " " +
+	                    theDependent.getMiddleName());
+	            }
+            }
+            String isHR =  (String)ctx.getSessionValue("isHR");
+            if (isHR == null) {
+            	isHR = "false";
+            }
+            results.putValue("isStaff", isStaff);
+            results.putValue("isHR", isHR);
+            results.addCollection("dependentInfo", dependentInfo);
+            results.addCollection("teams", teams);
+            results.addHashtable("personInfo",personHash);
+            results.addHashtable("address", addressHash);
+            results.addHashtable("staffInfo", staffHash);
+            ctx.setReturnValue(results);
+            ctx.goToView("personDetail");
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform showPersonInfo().", e);
+        }
+    }
     /** @param ctx ActionContext object */
     public void showSuccessCriteriaHome(ActionContext ctx) {
         try {
@@ -1846,16 +2065,17 @@ public class InfoBaseController extends Controller {
 					activityHash.put("statusName", activity.getStatusFullName());
 					activityHash.put("Url", activity.getUrl());
 					activityHash.put("Facebook", activity.getFacebook());
-					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
-					for (Staff staff : activity.getActivityContacts()) {
-						contacts.add(ObjectHashUtil.obj2hash(staff));
-					}
+					Vector<Contact> contacts = new Vector<Contact>(InfoBaseQueries.getMovementContacts(activity.getActivityId())); //under development
+//					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>(); //old way; comment out for testing existing system
+//					for (Staff staff : activity.getActivityContacts()) {
+//						contacts.add(ObjectHashUtil.obj2hash(staff));
+//					}
 					activityHash.put("contacts", contacts);
 					results.addHashtable(activity.getStrategy(), activityHash);
 				}
             }
             ctx.setReturnValue(results);
-            ctx.goToView("targetArea");
+            ctx.goToView("targetAreaPersonContacts");
         }
         catch (Exception e) {
             ctx.setError();
@@ -1882,10 +2102,7 @@ public class InfoBaseController extends Controller {
 
             results.addHashtable("team", teamInfo);
 
-            Collection<Hashtable<String, Object>> members = new Vector<Hashtable<String, Object>>();
-            for (Iterator iMembers = ll.getMembers().iterator(); iMembers.hasNext(); ) {
-                members.add(ObjectHashUtil.obj2hash(iMembers.next()));
-            }
+            Vector<Contact> members = InfoBaseQueries.getTeamMembers(llId);
             results.addCollection("staff", members);
 
 			Vector<Hashtable<String, Object>> activeTargetInfo = new Vector<Hashtable<String, Object>>();

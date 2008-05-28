@@ -39,6 +39,7 @@ public class InfoBaseQueries {
 		return TextUtils.listToCommaDelimitedQuotedString(rs, "'");
 	}
 	
+	
 	public static Vector getRegionalStats(String region, Date periodBegin, Date periodEnd) {
 				
 		RegionalTeam rt = new RegionalTeam();
@@ -141,30 +142,34 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}	
-	public static Collection listPersonHashByLastName(String lastName) {
+	public static Vector listContactsByLastName(String search) {
 		try {
-			Hashtable p=new Hashtable();
-			Vector <Hashtable> collPerson=new Vector<Hashtable>();
+			Vector<Contact>c=new Vector<Contact>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
-			String qry = "SELECT personID, preferredName, lastName  FROM ministry_person " +
-							"WHERE lastName='"+lastName+"'";
-							
-			ResultSet rs = stmt.executeQuery(qry);
-			while(rs.next()){
-				p.put("PersonID",rs.getInt("personID"));
-				p.put("PreferredName",rs.getString("preferredName"));
-				p.put("LastName",rs.getString("lastName"));
-				collPerson.add(p);
-				p=new Hashtable();
+			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" FROM (ministry_person INNER JOIN simplesecuritymanager_user "+
+			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
+			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
+			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ORDER BY ministry_person.lastName, ministry_person.firstName;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setFirstName(rs.getString("firstName"));
+				contact.setLastName(rs.getString("lastName"));
+				contact.setPreferredName(rs.getString("preferredName"));
+				contact.setEmail(rs.getString("email"));
+				c.add(contact);
 			}
-			return (Collection)collPerson;	
+			return c;
 		} catch (Exception e) {
 			log.error(e, e);
 			return null;
 		}
-	}	
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static Vector<Statistic> listStatsForTargetArea(String targetAreaId, Date start, Date end) {
 		Activity a = new Activity();
@@ -510,4 +515,147 @@ public class InfoBaseQueries {
 		   
 	}
 	
+	public static Vector<Contact> getMovementContacts(String activityId){
+		try{
+			Vector<Contact>c=new Vector<Contact>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String query="SELECT ministry_movement_contact.personID as personID, ministry_person.firstName as firstName,"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" FROM (ministry_movement_contact inner join ministry_person "+
+			" on ministry_person.personID=ministry_movement_contact.personID INNER JOIN simplesecuritymanager_user "+
+			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
+			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
+			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"' order by lastName, firstName;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setFirstName(rs.getString("firstName"));
+				contact.setLastName(rs.getString("lastName"));
+				contact.setPreferredName(rs.getString("preferredName"));
+				contact.setEmail(rs.getString("email"));
+				c.add(contact);
+			}
+			return c;
+		}
+		catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
+	public static Vector<Contact> getTeamMembers(String teamID){
+		try{
+			Vector<Contact>c=new Vector<Contact>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" FROM (ministry_missional_team_member inner join ministry_person "+
+			" on ministry_person.personID=ministry_missional_team_member.personID INNER JOIN simplesecuritymanager_user "+
+			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
+			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
+			" WHERE ministry_missional_team_member.teamID ='"+teamID+"' order by lastName, firstName;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setFirstName(rs.getString("firstName"));
+				contact.setLastName(rs.getString("lastName"));
+				contact.setPreferredName(rs.getString("preferredName"));
+				contact.setEmail(rs.getString("email"));
+				c.add(contact);
+			}
+			return c;
+		}
+		catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
+	
+	public static void savePersonContact (String personID, String activityId){
+		try 
+		{
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query="INSERT INTO ministry_movement_contact (personID, ActivityID) VALUES ("+personID+","+activityId+");";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
+	public static void saveTeamMember (String personID, String teamID){
+		try 
+		{
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query="INSERT INTO ministry_missional_team_member (personID, teamID) VALUES ("+personID+","+teamID+");";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
+	public static void removePersonContact( String personID,String activityId){
+		try 
+		{
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query=" DELETE FROM ministry_movement_contact "+
+			" WHERE ministry_movement_contact.personID="+personID+" AND ministry_movement_contact.ActivityID="+activityId+";";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
+	public static void removeTeamMember( String personID,String teamID){
+		try 
+		{
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query=" DELETE FROM ministry_missional_team_member "+
+			" WHERE ministry_missional_team_member.personID="+personID+" AND ministry_missional_team_member.teamID="+teamID+";";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
+	public static Vector<Hashtable<String,String>> listTeamsForPerson(String personID){
+		try{
+			Vector<Hashtable<String,String>>t=new Vector<Hashtable<String,String>>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String query="SELECT ministry_missional_team_member.teamID, ministry_locallevel.name"+
+			" FROM (ministry_missional_team_member inner join ministry_locallevel "+
+			" on ministry_missional_team_member.teamID=ministry_locallevel.teamID) " +
+			" WHERE ministry_missional_team_member.personID ='"+personID+"' order by ministry_locallevel.name;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			Hashtable<String,String> h=new Hashtable<String,String>();
+			while (rs.next()){
+				h=new Hashtable<String,String>();
+				h.put("teamID", rs.getString("teamID"));
+				h.put("name", rs.getString("name"));
+				t.add(h);
+			}
+			return t;
+		}
+		catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+		
+	}
 }

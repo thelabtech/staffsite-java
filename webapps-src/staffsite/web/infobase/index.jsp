@@ -28,8 +28,8 @@
 							<tr>
 								<td width="29%" valign="middle" align="center"> 
 								  <INPUT TYPE=HIDDEN name="mode" value="list">
-									<input type=HIDDEN name="action" value="listStaff">
-									<INPUT TYPE=HIDDEN name="searchby" value="lastname">
+									<input type=HIDDEN name="action" value="listPerson">
+								<!-- <INPUT TYPE=HIDDEN name="searchby" value="lastname"> -->
 									<input type="text" name="searchtext" size="12">
 								</td>
 							</tr>

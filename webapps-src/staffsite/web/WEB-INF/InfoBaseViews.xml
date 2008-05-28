@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <views>
 	<view name="error" url="/infobase/error.jsp"></view>
+	<view name="nonNumeric" url="/infobase/non_numeric.jsp"></view>
 	<view name="activityError" url="/infobase/activity_error.jsp"></view>
 	<view name="index" url="/infobase/index.jsp"></view>
 	<view name="staffList" url="/infobase/list_staff.jsp"></view>
+	<view name="personList" url="/infobase/list_person.jsp"></view>
 	<view name="staffDetail" url="/infobase/view_staff.jsp"></view>
+	<view name="personDetail" url="/infobase/view_person.jsp"></view>
 	<view name="updateStaffInfo" url="/infobase/save_staff.jsp"></view>
 	<view name="campusList" url="/infobase/list_target_area.jsp"></view>
-	<view name="targetArea" url="/infobase/detail_target_area.jsp"></view>
+	<view name="targetArea" url="/infobase/detail_target_area_.jsp"></view>
+	<view name="targetAreaPersonContacts" url="/infobase/detail_target_area_person_contacts.jsp"></view>
 	<view name="editActivity" url="/infobase/form_update_activity.jsp"></view>
 	<view name="teamInfo" url="/infobase/detail_local_level.jsp"></view>
 	<view name="teamInfoInactive" url="/infobase/detail_local_level_inactive.jsp"></view>
@@ -41,6 +45,8 @@
 	<view name="addNewCampus" url="/infobase/new_target_area.jsp"></view>
 	<view name="newCampusThankYou" url="/infobase/new_campus_thank_you.jsp"></view>
 	<view name="addContact" url="/infobase/add_contact.jsp"></view>
+	<view name="addPersonContact" url="/infobase/add_person_contact.jsp"></view>
+	<view name="addMissionalTeamMember" url="/infobase/add_missional_team_member.jsp"></view>
 	<view name="everystudent" url="/locator/everystudent/list.jsp"></view>
 	<view name="everystudent_detail" url="/locator/everystudent/detail.jsp"></view>
 	<view name="godsquad" url="/locator/gs/list.jsp"></view>

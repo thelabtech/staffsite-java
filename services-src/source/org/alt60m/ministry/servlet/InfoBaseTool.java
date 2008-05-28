@@ -27,6 +27,7 @@ import org.alt60m.ministry.model.dbio.RegionalStat;
 import org.alt60m.ministry.model.dbio.RegionalTeam;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Person;
+import org.alt60m.ministry.model.dbio.Contact;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.servlet.ActionResults;
@@ -697,15 +698,7 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-    public Collection shortListPersonByRegionSQL(String region) throws Exception {
-        try {
-			return InfoBaseQueries.shortListPersonHashByRegion(region);
-        }
-        catch (Exception e) {
-            log.error("Failed to perform shortListStaffByRegionSQL().", e);
-  			throw new Exception(e);
-        }
-    }
+   
     public Collection listStaffHashByLastName(String lastName) throws Exception {
         try {
 			return InfoBaseQueries.listStaffHashByLastName(lastName);
@@ -715,12 +708,13 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-    public Collection listPersonHashByLastName(String lastName) throws Exception {
-        try {
-			return InfoBaseQueries.listPersonHashByLastName(lastName);
-        }
-        catch (Exception e) {
-            log.error("Failed to perform listStaffHashByLastName().", e);
+    public Vector<Contact> listContactsByLastName(String search) throws Exception {
+    	try{
+    		return InfoBaseQueries.listContactsByLastName(search);
+    		
+    	}
+    	catch (Exception e) {
+            log.error("Failed to perform listContactsByLastName().", e);
   			throw new Exception(e);
         }
     }
@@ -747,7 +741,24 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-
+    public void removePersonContact(String personID,String activityId) throws Exception {
+        try {
+            InfoBaseQueries.removePersonContact(personID, activityId );
+        }
+        catch (Exception e) {
+            log.error("Failed to perform removePersonContact().", e);
+  			throw new Exception(e);
+        }
+    }
+    public void removeTeamMember(String personID,String teamID) throws Exception {
+        try {
+            InfoBaseQueries.removeTeamMember(personID, teamID );
+        }
+        catch (Exception e) {
+            log.error("Failed to perform removeTeamMember().", e);
+  			throw new Exception(e);
+        }
+    }
     public void removeMin(String targetAreaId, String nonCccMinId) throws Exception {
         try {
             NonCccMin ministry = new NonCccMin(nonCccMinId);
@@ -875,7 +886,28 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
-
+    public void savePersonContact(String personID, String activityId) throws Exception {
+        try {
+        	InfoBaseQueries.removePersonContact(personID,activityId);
+            InfoBaseQueries.savePersonContact(personID,activityId);
+            
+        }
+        catch (Exception e) {
+            log.error("Failed to perform savePersonContact().", e);
+  			throw new Exception(e);
+        }
+    }
+    public void saveTeamMember(String personID, String teamID) throws Exception {
+        try {
+        	InfoBaseQueries.removeTeamMember(personID,teamID);
+            InfoBaseQueries.saveTeamMember(personID,teamID);
+            
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveTeamMember().", e);
+  			throw new Exception(e);
+        }
+    }
 	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID, String Url) throws ActivityExistsException, Exception {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
 			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);
@@ -1534,5 +1566,64 @@ public class InfoBaseTool {
 			Hashtable<String, Object> currHash = ObjectHashUtil.obj2hash(curr);
 			colStaff.remove(currHash);
 		}
+	}
+	
+	public Vector<Contact> removeCurrentContactsFromContactList(Vector<Contact> contacts, String activityId){
+		Vector<Contact> currentContacts = InfoBaseQueries.getMovementContacts(activityId);
+		Vector<Contact> result=new Vector<Contact>();
+		
+		Contact test=new Contact();
+		Contact current=new Contact();
+		Boolean passed=true;
+		Iterator contactsIter=contacts.iterator();
+
+		while (contactsIter.hasNext())
+		{
+			test=(Contact)contactsIter.next();
+			passed=true;
+			Iterator noDupes=currentContacts.iterator();
+			while(noDupes.hasNext())
+			{
+				current=(Contact)noDupes.next();
+				if (test.getPersonID()==current.getPersonID()){
+					passed=false;
+				}
+			}
+			if (passed){
+				result.add(test);
+			}
+		}
+		return  result;
+		}
+	public Vector<Contact> removeCurrentTeamMembersFromContactList(Vector<Contact> contacts, String teamID){
+		Vector<Contact> currentContacts = InfoBaseQueries.getTeamMembers(teamID);
+		Vector<Contact> result=new Vector<Contact>();
+		
+		Contact test=new Contact();
+		Contact current=new Contact();
+		Boolean passed=true;
+		Iterator contactsIter=contacts.iterator();
+
+		while (contactsIter.hasNext())
+		{
+			test=(Contact)contactsIter.next();
+			passed=true;
+			Iterator noDupes=currentContacts.iterator();
+			while(noDupes.hasNext())
+			{
+				current=(Contact)noDupes.next();
+				if (test.getPersonID()==current.getPersonID()){
+					passed=false;
+				}
+			}
+			if (passed){
+				result.add(test);
+			}
+		}
+		return  result;
+		}
+	public static Vector<Hashtable<String,String>> listTeamsForPerson(String personID){
+		
+		return InfoBaseQueries.listTeamsForPerson(personID);
 	}
 }

@@ -11,8 +11,8 @@ ar = ActionResults.getActionResults(session);
 	java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 	java.sql.Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	java.sql.Statement stmt2 = conn.createStatement();
-	java.sql.Statement stmt3 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-	java.sql.Statement stmt4 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	
+	
 	
 	String urlAppend = "";
 	String displayList = "";
@@ -103,7 +103,7 @@ ar = ActionResults.getActionResults(session);
 	} else if(request.getParameter("type").equals("regional")){
 
 		sumsQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_activity.status, ministry_activity.periodBegin, MAX(ministry_targetarea.TargetAreaID) targetAreaID, MAX(ministry_targetarea.name) campusName, MAX(ministry_targetarea.enrollment) enrollment, ministry_activity.strategy, SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMediaSum, SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOneSum, SUM(ministry_statistic.evangelisticGroup) as evangelisticGroupSum, SUM(ministry_statistic.decisions) as decisionSum,  SUM(ministry_statistic.holySpiritConversations) as holySpiritSum, SUM(ministry_statistic.laborersSent) as laborersSentSum from ministry_statistic left join ministry_activity on (ministry_statistic.fk_Activity = ministry_activity.ActivityID) left join ministry_locallevel on (ministry_locallevel.TeamID = ministry_activity.fk_TeamID) LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_targetarea.region = '" + request.getParameter("region") + "' and ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodEnd >= '" + sqlFrom + "' and ministry_activity.Strategy in (" + strategyList + ")) GROUP BY ministry_activity.ActivityID, ministry_statistic.peopleGroup ORDER BY campusName, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
-		demosQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.multipliers, ministry_statistic.invldStudents, ministry_statistic.ongoingEvangReln as Seekers,  ministry_statistic.studentLeaders FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.peopleGroup as peopleGroup, ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodEnd >= '" + sqlFrom + "' GROUP BY fk_Activity, ministry_statistic.peopleGroup) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate and (((ministry_statistic.peopleGroup is null) and (LastActivities.peopleGroup is null)) or (ministry_statistic.peopleGroup=LastActivities.peoplegroup)) LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodEnd >= '" + sqlFrom + "' and ministry_targetarea.region = '" + request.getParameter("region") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
+		demosQuery = "SELECT ministry_statistic.peopleGroup, ministry_activity.ActivityID as rowid, ministry_targetarea.targetAreaID, ministry_targetarea.name, ministry_statistic.invldNewBlvrs, ministry_statistic.multipliers, ministry_statistic.invldStudents, ministry_statistic.ongoingEvangReln as Seekers,  ministry_statistic.studentLeaders FROM ministry_statistic INNER JOIN (SELECT ministry_statistic.peopleGroup as peopleGroup, ministry_statistic.fk_Activity AS fk_Activity, MAX(ministry_statistic.periodEnd) AS lastDate FROM ministry_statistic WHERE ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodEnd >= '" + sqlFrom + "' GROUP BY fk_Activity, ministry_statistic.peopleGroup) LastActivities ON ministry_statistic.fk_Activity = LastActivities.fk_Activity AND ministry_statistic.periodEnd = LastActivities.lastDate and (((ministry_statistic.peopleGroup is null) and (LastActivities.peopleGroup is null)) or (ministry_statistic.peopleGroup=LastActivities.peopleGroup)) LEFT JOIN ministry_activity on ministry_statistic.fk_Activity = ministry_activity.ActivityID LEFT JOIN ministry_locallevel on ministry_locallevel.teamID = ministry_activity.fk_teamID LEFT JOIN ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID WHERE (ministry_statistic.periodEnd < '" + sqlTo + "' AND ministry_statistic.periodEnd >= '" + sqlFrom + "' and ministry_targetarea.region = '" + request.getParameter("region") + "') and ministry_activity.Strategy in (" + strategyList + ") ORDER BY ministry_targetarea.name, ministry_activity.ActivityID, ministry_statistic.peopleGroup";
 		
 	}
 
@@ -241,13 +241,14 @@ String holdLabel="";
 String lastSumsRowID="";
 String sumsRowID = "";
 String demosRowID = "";
+String strategy="";
 	Boolean splitStat=false;
 	while(sums.next()){
 		
 		 tempBool2 = false;
 		demos.next();
 		
-		String strategy=sums.getString("strategy");
+		strategy=sums.getString("strategy");
 		
 		String peopleGroup=sums.getString("peopleGroup");
 		peopleGroup=(peopleGroup==null)? "Stats prior to 4/23/2008":peopleGroup;
@@ -265,10 +266,12 @@ String demosRowID = "";
 		if (! sumsRowID.equals(demosRowID)) {
 			throw new RuntimeException("Sums query is mismatched with demos query; sumsRowID: " + sumsRowID + "; demosRowID: " + demosRowID);
 		}
+		log.debug(lastStrategy+"  "+lastRow+"  "+sumsRowID+dateTag);
 		afterBridges=((lastStrategy.equals("BR"))&&(!lastRow.equals(sumsRowID+dateTag)))?true:false;
+		log.debug(afterBridges);
 		lastStrategy=strategy;
 		if(afterBridges&&(!(request.getParameter("type").equals("national")))){
-			
+			log.debug("not national; new Bridges movement");
 			%>
 			</div><div class="bridges_sum" id="<%= lastSumsRowID+"_sum"%>">
 			<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
@@ -292,7 +295,8 @@ String demosRowID = "";
 			</div>
 			<%
 			}
-		
+		else if ((request.getParameter("type").equals("national"))){log.debug("is national report");}
+		else {log.debug("is not national report but no new Bridges row detected.");}
 		
 		
 		
@@ -386,6 +390,7 @@ String demosRowID = "";
 		<%
 		
 		if(splitStat){
+			
 			bridgesExposuresViaMediaSum += sums.getInt("exposuresViaMediaSum");
 			bridgesEvangelisticOneOnOneSum += sums.getInt("evangelisticOneOnOneSum");
 			bridgesEvangelisticGroupSum += sums.getInt("evangelisticGroupSum");
@@ -399,6 +404,7 @@ String demosRowID = "";
 		}
 		else if (strategy.equals("BR"))
 		{
+			
 			bridgesExposuresViaMediaSum = sums.getInt("exposuresViaMediaSum");
 			bridgesEvangelisticOneOnOneSum = sums.getInt("evangelisticOneOnOneSum");
 			bridgesEvangelisticGroupSum = sums.getInt("evangelisticGroupSum");
@@ -427,7 +433,7 @@ String demosRowID = "";
 		lastRow=sumsRowID+dateTag;
 		lastSumsRowID=sumsRowID;
 	}
-	if(afterBridges&&(!(request.getParameter("type").equals("national")))){
+	if((strategy.equals("BR"))&&(!(request.getParameter("type").equals("national")))){
 		tempBool2 = false;
 		%>
 		</div><div class="bridges_sum" id="<%= sumsRowID+"_sum"%>">
@@ -508,8 +514,8 @@ String demosRowID = "";
 			ar.putValue("block","true"); }%>
 	
         							</td>
-		<%if("true".equals(ar.getValue("BR"))){
-			%><td ALIGN="CENTER">&nbsp;</td>
+		<%if("true".equals(ar.getValue("BR"))){%>
+		<td ALIGN="CENTER">&nbsp;</td>
 			<%}%></tr>	
 </TABLE>
 </TD></TR></TABLE>
@@ -537,8 +543,8 @@ String region = gettingRegion.getString("region");
 
 	stmt1.close();
 	stmt2.close();
-	stmt3.close();
-	stmt4.close();
+	
+	
 	conn.close();
 %>
 </CENTER>
