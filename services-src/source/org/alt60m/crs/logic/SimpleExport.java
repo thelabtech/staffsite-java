@@ -126,7 +126,7 @@ public class SimpleExport {
 		String registrantsSelectClause = "SELECT person.personID, curr.email, person.firstName, person.lastName, person.middleName, person.accountNo,"
 				+ " IF(SUM(pmt.debit),SUM(pmt.debit),0) AS TotalCharge, IF(SUM(pmt.credit),SUM(pmt.credit),0) AS TotalPaid,"
 				+ " IF(SUM(pmt.debit),SUM(pmt.debit),0) - IF(SUM(pmt.credit),SUM(pmt.credit), 0) AS AmtDue, person.campus, curr.homePhone,"
-				+ " reg.registrationDate,"
+				+ " reg.registrationDate, reg.arriveDate, reg.leaveDate, "
 				+ " regType.label,"
 				+ " reg.preRegistered,"
 				+ " person.birth_date, person.yearInSchool, person.graduation_date, person.greekAffiliation, person.gender,"
