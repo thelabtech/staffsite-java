@@ -10,7 +10,7 @@
 	<view name="personDetail" url="/infobase/view_person.jsp"></view>
 	<view name="updateStaffInfo" url="/infobase/save_staff.jsp"></view>
 	<view name="campusList" url="/infobase/list_target_area.jsp"></view>
-	<view name="targetArea" url="/infobase/detail_target_area_.jsp"></view>
+	<view name="targetArea" url="/infobase/detail_target_area.jsp"></view>
 	<view name="targetAreaPersonContacts" url="/infobase/detail_target_area_person_contacts.jsp"></view>
 	<view name="editActivity" url="/infobase/form_update_activity.jsp"></view>
 	<view name="teamInfo" url="/infobase/detail_local_level.jsp"></view>
@@ -28,12 +28,14 @@
 	<view name="successCriteriaHome" url="/infobase/success_criteria_home.jsp"></view>
 	<view name="campusCountReport" url="/infobase/report_campus_count.jsp"></view>
 	<view name="setReportCriteria" url="/infobase/set_report_criteria.jsp"></view>
+	<view name="setReportCriteriaAgile" url="/infobase/set_report_criteria_agile.jsp"></view>
 	<view name="targetAreaProposal" url="/infobase/email_target_area.jsp"></view>
 	<view name="targetAreaProposalError" url="/infobase/target_area_proposal_error.jsp"></view>
 	<view name="targetAreaProposalThankYou" url="/infobase/target_area_proposal_thank_you.jsp"></view>
 	<view name="localLevelProposalThankYou" url="/infobase/local_level_proposal_thank_you.jsp"></view>
 	<view name="localLevelProposal" url="/infobase/email_local_level.jsp"></view>
 	<view name="reportDisplay" url="/infobase/report_display.jsp"></view>
+	<view name="reportDisplayAgile" url="/infobase/report_display_agile.jsp"></view>
 	<view name="reportDisplayDetail" url="/infobase/report_display_detail.jsp"></view>
 	<view name="enterSuccessCriteria" url="/infobase/menu_local_level_stats.jsp"></view>
 	<view name="enterFastSuccessCriteria" url="/infobase/fast_menu_local_level_stats.jsp"></view>

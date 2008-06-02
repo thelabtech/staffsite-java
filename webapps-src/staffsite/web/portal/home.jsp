@@ -194,9 +194,9 @@ function toggleDiv(who){
 				</script>
 
 				<form name="ibstaff" action="/servlet/InfoBaseController" method="post">
-				<input type=HIDDEN name="action" value="listPerson">
-				<!-- <INPUT TYPE=HIDDEN name="searchby" value="lastname">
-				<INPUT TYPE=HIDDEN name="mode" value="list"> -->
+				<input type=HIDDEN name="action" value="listStaff">
+				<INPUT TYPE=HIDDEN name="searchby" value="lastname">
+				<INPUT TYPE=HIDDEN name="mode" value="list">
 				<input type=hidden name="searchtext">
 				</form>
 
