@@ -312,6 +312,7 @@ function toggleDiv(who){
 				<div id="wayforward">
 					<h1></h1>
 					<ul id="podcasts">
+						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode11.htm">Episode 11: Putting It All Together (5:39)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode10.htm">Episode 10: Christ-like Leadership (3:06)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode9.htm">Episode 9: The Call - 100 ESM Staff (3:25)</a></li>
 						<li><a href="http://campuscrusadeforchrist.com/wayforward/episode8.htm">Episode 8: Missional Teams (3:09)</a></li>
