@@ -141,7 +141,7 @@
 					VALIGN="BOTTOM"
 					ALIGN="CENTER"><A
 					HREF="/servlet/CRSRegister?action=selectEvent&ConferenceID=<%=c.getConferenceID()%>"
-					CLASS="<%=(i%2 == 0) ? "linkcell" : "linkcell2" %>">Register</A></TD>
+					CLASS="<%=(i%2 == 0) ? "linkcell" : "linkcell2" %>" TARGET="_blank">Register</A></TD>
 			</TR>
 			<%
 			}
