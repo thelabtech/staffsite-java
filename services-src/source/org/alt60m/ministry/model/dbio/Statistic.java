@@ -15,7 +15,11 @@ public class Statistic extends DBIOEntity {
 	private Date periodBegin;
 	private Date periodEnd;
 
-	private int decisions;
+	private int decisions; //will be outdated by more precise stats 5/20/08 IJK
+	private int decisionsPersonalEvangelismExposures; 
+	private int decisionsGroupEvangelismExposures;
+	private int decisionsMediaExposures;
+	private int decisionsBodyEvangelism; //i.e. body evangelism: we already had the column
 	private int mediaExposures;
 	private int personalEvangelismExposures;
 	private int groupEvangelismExposures;
@@ -52,7 +56,11 @@ public class Statistic extends DBIOEntity {
 		setMetadata("PeriodEnd", "periodEnd", table);
 
 
-		setMetadata("Decisions", "decisions", table);
+		setMetadata("Decisions", "decisions", table); //will be outdated by more precise stats 5/20/08 IJK
+		setMetadata("DecisionsMediaExposures", "decisionsHelpedByMedia", table);
+		setMetadata("DecisionsPersonalEvangelismExposures", "decisionsHelpedByOneOnOne", table);
+		setMetadata("DecisionsGroupEvangelismExposures", "decisionsHelpedByGroup", table);
+		setMetadata("DecisionsBodyEvangelism", "decisionsHelpedByOngoingReln", table); //we have the column so why not make it an option
 		setMetadata("MediaExposures", "exposuresViaMedia", table);
 		setMetadata("PersonalEvangelismExposures", "evangelisticOneOnOne", table);
 		setMetadata("GroupEvangelismExposures", "evangelisticGroup", table);
@@ -117,9 +125,25 @@ public class Statistic extends DBIOEntity {
 	public int getMediaExposures() { return mediaExposures; }
 	public void setMediaExposures(int i) { mediaExposures = i; }
 
-	public int getDecisions() { return decisions; }
-	public void setDecisions(int decisions) { this.decisions = decisions; }
+	public int getDecisions() { return decisions; } //will be outdated by more precise stats 5/20/08 IJK
+	public void setDecisions(int decisions) { this.decisions = decisions; } //see above
 
+	public int getDecisionsPersonalEvangelismExposures() { return decisionsPersonalEvangelismExposures;} 
+	public void setDecisionsPersonalEvangelismExposures(int decisionsPersonalEvangelismExposures) 
+		{ this.decisionsPersonalEvangelismExposures = decisionsPersonalEvangelismExposures; }
+	
+	public int getDecisionsGroupEvangelismExposures() {return decisionsGroupEvangelismExposures;} 
+	public void setDecisionsGroupEvangelismExposures(int decisionsGroupEvangelismExposures) 
+		{ this.decisionsGroupEvangelismExposures = decisionsGroupEvangelismExposures; }
+	
+	public int getDecisionsMediaExposures() {return decisionsMediaExposures;} 
+	public void setDecisionsMediaExposures(int decisionsMediaExposures) 
+		{ this.decisionsMediaExposures = decisionsMediaExposures; }
+	
+	public int getDecisionsBodyEvangelism() {return decisionsBodyEvangelism;} //just in case; we had the column anyway.
+	public void setDecisionsBodyEvangelism(int decisionsBodyEvangelism) 
+		{ this.decisionsBodyEvangelism = decisionsBodyEvangelism; }
+		
 	public int getGrowthGroupMembers() { return growthGroupMembers; }
 	public void setGrowthGroupMembers(int invldNewBlvrs) { this.growthGroupMembers = invldNewBlvrs; }
 

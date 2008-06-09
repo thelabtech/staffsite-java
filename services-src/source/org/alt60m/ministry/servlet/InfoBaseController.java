@@ -34,6 +34,7 @@ import org.alt60m.ministry.model.dbio.RegionalStat;
 import org.alt60m.ministry.model.dbio.RegionalTeam;
 import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Statistic;
+import org.alt60m.ministry.model.dbio.ReportRow;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
@@ -388,7 +389,7 @@ public class InfoBaseController extends Controller {
                 results.putValue("toYear", Integer.toString(cal.get(Calendar.YEAR)));
                 results.putValue("type", type);
                 ctx.setReturnValue(results);
-                ctx.goToView("setReportCriteria");
+                ctx.goToView("setReportCriteriaAgile");
             }
         }
         catch (Exception e) {
@@ -1776,6 +1777,71 @@ public class InfoBaseController extends Controller {
         }
     }
 
+    public void showReportAgile(ActionContext ctx){
+    	try{
+    		ActionResults results=new ActionResults();
+    	String type = ctx.getInputString("type", _reportTypes);
+    	String region= ctx.getInputString("region");
+    	String teamID=ctx.getInputString("teamID");
+    	String targetAreaId=ctx.getInputString("targetareaid");
+    	String fromYear=ctx.getInputString("fromyear");
+    	String fromMonth=ctx.getInputString("frommonth");
+    	String periodBegin = "'"+fromYear + "/" + fromMonth+"/01'";
+    	Integer toYear=Integer.parseInt(ctx.getInputString("toyear"));
+    	Integer toMonth=Integer.parseInt(ctx.getInputString("tomonth"));
+    	if(ctx.getInputString("strategyList")==null){//this tells us it's from the checkbox page, so we move up the date to the first of the next month
+	    	if (toMonth.equals(12)){ //we want to cut off stats on the first of the subsequent month, so we rule out invalid months first
+	    		toYear+=1;
+	    		toMonth=1;
+	    	}
+	    	else
+	    	{
+	    		toMonth+=1;
+	    	}
+    	}
+    	String periodEnd = "'"+toYear.toString() + "/" + toMonth.toString()+"/01'";
+    	String strategyList = "";
+    	String temp="";
+    	Collection strategies;
+    	if(ctx.getInputString("strategyList")==null){
+	    	 strategies=(Collection)convertBracketedParamsToHashtable(ctx).get("strategies").keySet();
+	    	Iterator stratIter=strategies.iterator();
+	    	while (stratIter.hasNext()){
+	    		temp=(String)stratIter.next();
+	    		strategyList += "'" + temp +"'";
+	    		if (stratIter.hasNext()){
+	    			strategyList += ",";
+	    		}
+	    	}
+    	}
+    	else
+    	{
+    		strategyList=ctx.getInputString("strategyList");
+    		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
+    	}
+    	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
+    	results.addHashtable("census", InfoBaseQueries.getActivityCountByParametersAndStrategies(type, region, teamID, targetAreaId, strategies)); //runs two queries
+	    results.putValue("type", type);
+    	results.putValue("region", region);
+    	results.putValue("teamID", teamID);
+    	results.putValue("fromyear", fromYear);
+    	results.putValue("frommonth", fromMonth);
+    	results.putValue("toyear", toYear.toString());
+    	results.putValue("tomonth", toMonth.toString());
+    	results.putValue("periodBegin",  fromMonth+ "/1/" + fromYear);
+    	results.putValue("periodEnd",  toMonth+ "/1/" + toYear);
+    	results.putValue("strategyList", strategyList);
+    	results.addCollection("report", report);
+    	ctx.setReturnValue(results);
+    	ctx.goToView("reportDisplayAgile");
+    	}
+    	catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform showReportAgile().", e);
+        }
+    }
+    
     /** @param ctx ActionContext object */
     public void showStaffInfo(ActionContext ctx) {
         try {

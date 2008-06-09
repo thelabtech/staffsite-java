@@ -316,8 +316,52 @@ public class InfoBaseQueries {
 					+ "and (isClosed<> 'T' or isClosed is NULL) ORDER BY name");
 		}
 	}
+	public static Hashtable<String,Integer> getActivityCountByParametersAndStrategies(String type, String region, String teamID, String targetAreaID, Collection<String> strategies) {
+		try{
+			Hashtable<String,Integer> result=new Hashtable<String,Integer>();
+			String queryPortion="and strategy in (";
+			Iterator strategIt=strategies.iterator();
+			while(strategIt.hasNext())
+			{
+			queryPortion+="'"+strategIt.next()+"'";
+			if (strategIt.hasNext()) {queryPortion+=", ";}
+			else {queryPortion+=") ";}
+			}
+			if(type.equals("targetarea")){
+				queryPortion+=" and ministry_targetarea.targetAreaID = '"+targetAreaID+"'";
+				}
+			else if (type.equals("national")){
+				queryPortion+="";
+				}
+			else if (type.equals("regional")){
+				queryPortion+=" and ministry_targetarea.region = '"+region+"'";
+				}
+			else if (type.equals("locallevel")){
+				queryPortion+=" and ministry_locallevel.teamID = '"+teamID+"'";
+				}
+			String movementsQuery = "SELECT count(ActivityID) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by ActivityID ;";
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement movementsStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet movementsRS = movementsStmt.executeQuery(movementsQuery);
+			result.put("movements", 0);
+			while(movementsRS.next()){
+				result.put("movements", result.get("movements")+movementsRS.getInt(1));
+			}
+			String enrollmentQuery = "SELECT Max(enrollment) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by targetAreaID ;";
+			Statement enrollmentStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet enrollmentRS = enrollmentStmt.executeQuery(enrollmentQuery);
+			result.put("enrollment", 0);
+			while(enrollmentRS.next()){
+				result.put("enrollment", result.get("enrollment")+enrollmentRS.getInt(1));
+			}
+			return result;
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	
-	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {
+	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {//will be deprecated by getActivityCountByParametersAndStrategies  
 		try{
 			String queryPortion="and strategy in (";
 			Iterator strategIt=strategies.iterator();
