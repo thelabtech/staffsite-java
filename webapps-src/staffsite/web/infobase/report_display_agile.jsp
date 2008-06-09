@@ -72,6 +72,7 @@ document.getElementById("end_"+x).style.display="block";
 	while(strategiesIter<displayList.length){
 		out.print(Strategy.expandStrategy(displayList[strategiesIter]));
 		strategiesIter++;
+		if(strategiesIter<displayList.length) out.print(", ");
 	}
 		%><br>
 	<%if(!(ar.getHashtable("census")==null))
