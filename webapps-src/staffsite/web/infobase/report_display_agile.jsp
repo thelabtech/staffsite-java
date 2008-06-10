@@ -68,11 +68,10 @@ document.getElementById("end_"+x).style.display="block";
 	<%=fontB%>
 	For dates: <%=periodBegin%> to <%=periodEnd%><br>
 	Including strategies: <%
-		int strategiesIter=0;
-	while(strategiesIter<displayList.length){
-		out.print(Strategy.expandStrategy(displayList[strategiesIter]));
-		strategiesIter++;
-		if(strategiesIter<displayList.length) out.print(", ");
+		
+	for(int i = 0; i<displayList.length; i++){
+        out.print(Strategy.expandStrategy(displayList[i]));
+        if(i<(displayList.length-1)) out.print(", ");
 	}
 		%><br>
 	<%if(!(ar.getHashtable("census")==null))
@@ -128,15 +127,15 @@ while(report.hasNext()){
 		<td class="label_darker_blue" > <center>Campus - Strategy (enrollment)</center></td>
 		<%} %>
 		<td class="report_light_blue" >Exp.</td>
-		<td class="report_light_blue" >Dec.</td>
+		<td class="report_light_blue" >Dec. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%></td>
 		<td class="report_darker_blue" >Exp.</td>
-		<td class="report_darker_blue" >Dec.</td>
+		<td class="report_darker_blue" >Dec. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%></td>
 		<td class="report_light_blue" >Exp.</td>
-		<td class="report_light_blue" >Dec.</td>
+		<td class="report_light_blue" >Dec. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%></td>
 		<%
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 		%>
-		<td class="report_Verydark_blue">Lump Decisions (up to 8/1/2008)</td>
+		<td class="report_Verydark_blue">Lump Decisions <%=row.getFunction().equals("top")? "(Before 8/1/2008)":""%></td>
 		<%} %>
 		<td class="report_darker_blue" >Holy Spirit Pres. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%> </td>
 		<td class="report_darker_blue" >Laborers Sent</td>
