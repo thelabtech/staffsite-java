@@ -11,8 +11,8 @@ border-collapse:collapse;
 td
 {
 padding:0;
-padding-top:3px;
-padding-bottom:3px;
+padding-top:0px;
+padding-bottom:0px;
 margin:0;
 border:none;
 overflow:hidden;
@@ -33,6 +33,12 @@ border-collapse:collapse;
 }
 td.report_light
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#ffffff;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -42,6 +48,12 @@ width:70px;
 }
 td.report_darker
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#eeeeee;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -51,6 +63,12 @@ width:70px;
 }
 td.report_veryDark
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#dddddd;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -61,6 +79,12 @@ width:70px;
 
 td.label_light
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 	overflow:hidden;
 background-color:#ffffff;
 text-align:right;
@@ -71,6 +95,12 @@ width:230px;
 }
 td.label_darker
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 		overflow:hidden;
 background-color:#eeeeee;
 text-align:right;
@@ -101,6 +131,12 @@ display:block;
 
 td.report_light_blue
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#bbbbff;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -110,6 +146,12 @@ width:70px;
 }
 td.report_darker_blue
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#aaaaff;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -119,6 +161,12 @@ width:70px;
 }
 td.report_veryDark_blue
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 background-color:#9999ee;
 text-align:center;
 font-family:verdana,arial,sans-serif;
@@ -128,6 +176,12 @@ width:70px;
 }
 td.label_light_blue
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 	overflow:hidden;
 background-color:#bbbbff;
 text-align:right;
@@ -138,6 +192,12 @@ width:230px;
 }
 td.label_darker_blue
 {
+	padding:0;
+padding-top:3px;
+padding-bottom:3px;
+margin:0;
+border:none;
+overflow:hidden;
 		overflow:hidden;
 background-color:#aaaaff;
 text-align:right;
