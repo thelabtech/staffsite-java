@@ -89,7 +89,7 @@ Integer yearvar=1998;
 
 			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
-					<input type="checkbox" name="strategies[FS]"  checked value="FS" >Field Strategies<br>
+					<!-- <input type="checkbox" name="strategies[FS]"  checked value="FS" >Field Strategies<br>-->
 					<input type="checkbox" name="strategies[SC]" checked value="SC" >Staffed Campus<br>
 					<input type="checkbox" name="strategies[CA]"  checked value="CA" >Catalytic<br>
 					<input type="checkbox" name="strategies[II]"  checked value="II" >ESM-Impact<br>
