@@ -56,18 +56,21 @@ Integer yearvar=1998;
 <%
 	String teamID="";
 	String region="";
+	String targetAreaID="";
 	String type = request.getParameter("type");
 	if(type.equals("locallevel")){
 		teamID = request.getParameter("locallevelid");
-	} else if(type.equals("regional")) {
-		
+	} else if(type.equals("regional")) {		
 		region = request.getParameter("region");
+	}else if(type.equals("targetarea")) {
+		
+		targetAreaID = request.getParameter("targetareaid");
 	}
 	
 %>
 	<input type=hidden name="teamID" value="<%=teamID%>">
 	<input type=hidden name="region" value="<%=region%>">
-	
+	<input type=hidden name="targetareaid" value="<%=targetAreaID%>">
 	
 	<input type=hidden name=type value="<%= request.getParameter("type") %>">
 	<CENTER>
@@ -86,6 +89,7 @@ Integer yearvar=1998;
 
 			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
+					<input type="checkbox" name="strategies[FS]"  checked value="FS" >Field Strategies<br>
 					<input type="checkbox" name="strategies[SC]" checked value="SC" >Staffed Campus<br>
 					<input type="checkbox" name="strategies[CA]"  checked value="CA" >Catalytic<br>
 					<input type="checkbox" name="strategies[II]"  checked value="II" >ESM-Impact<br>
@@ -93,8 +97,7 @@ Integer yearvar=1998;
 					<input type="checkbox" name="strategies[ID]"  checked value="ID" >ESM-Destino<br>
 					<input type="checkbox" name="strategies[IN]"  checked value="IN" >ESM-Nations<br>
 					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
-					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN STInt<br>
-					<input type="checkbox" name="strategies[WI]"   value="WI" >WSN ICS<br>
+					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
 					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
 					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>

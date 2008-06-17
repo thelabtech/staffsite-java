@@ -4,7 +4,7 @@
 <%
 ActionResults ar;
 ar = ActionResults.getActionResults(session);
-	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display");
+	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display_agile");
 	
 	String periodBegin=ar.getValue("periodBegin");
 	String periodEnd=ar.getValue("periodEnd");
@@ -73,7 +73,9 @@ document.getElementById("end_"+x).style.display="block";
         out.print(Strategy.expandStrategy(displayList[i]));
         if(i<(displayList.length-1)) out.print(", ");
 	}
-		%><br>
+		
+if (ar.getCollection("report").size()>0){	%>	
+		<br>
 	<%if(!(ar.getHashtable("census")==null))
 			{
 		out.print(ar.getHashtable("census").get("movements")+" Active, Launched or Transformational Movements, "+ar.getHashtable("census").get("enrollment")+" Enrollment (as of today)");
@@ -318,7 +320,14 @@ while(report.hasNext()){
 			&region=
 			">
 		[Zoom Out to National]</A>
-<%} %>
+<%} 
+}
+else
+{%>
+	<p style="text-align:center"> no stats recorded for requested scope</p>
+	<%
+}
+%>
 </center>
 		
 		
