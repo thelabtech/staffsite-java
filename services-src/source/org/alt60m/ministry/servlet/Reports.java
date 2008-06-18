@@ -81,7 +81,7 @@ public class Reports {
 				" MAX(ministry_targetarea.TargetAreaID) targetAreaID,"+
 				" MAX(ministry_targetarea.name) campusName,"+
 				" ministry_activity.strategy, "+
-				" ministry_statistic.periodEnd as rowid, "+
+				" concat(ministry_activity.ActivityID,'_',ministry_statistic.periodEnd) as rowid, "+
 				" MAX(ministry_targetarea.enrollment) enrollment ";
 		}
 		
@@ -118,7 +118,7 @@ public class Reports {
 		String queryPortion="";
 		if(type.equals("targetarea")){
 			queryPortion="SELECT ministry_statistic.peopleGroup,"+
-							" ministry_statistic.periodEnd as rowid, "+
+							" concat(ministry_activity.ActivityID,'_',ministry_statistic.periodEnd) as rowid, "+
 							
 							" ministry_targetarea.region,"+
 							" ministry_targetarea.targetAreaID, "+
