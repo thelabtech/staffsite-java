@@ -181,7 +181,7 @@ public class Reports {
 			" ministry_targetarea on ministry_targetarea.targetAreaID = ministry_activity.fk_targetAreaID ";
 	}
 
-	private static ReportRow statResultSet2ReportRow(ResultSet sums, ResultSet demos)throws Exception 
+	private static ReportRow resultSet2ReportRow(ResultSet sums, ResultSet demos)throws Exception 
 	{
 			try{
 		ReportRow row=new ReportRow();
@@ -225,151 +225,6 @@ public class Reports {
         throw new Exception(e);
     }
 	}
-	
-	private static String lastStatus(String periodEnd){
-		return " (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status"+
-			" FROM	("+
-			"	SELECT ministry_activity_history.activity_id as activity_id, MAX(ministry_activity_history.period_end) as periodEnd "+
-			" FROM ministry_activity_history WHERE "+
-			" (ministry_activity_history.period_end<='"+periodEnd+"') AND (ministry_activity_history.toStrategy Is Null) "+
-			" GROUP BY ministry_activity_history.activity_id ) lastDates INNER JOIN ministry_activity_history "+
-			" ON (lastDates.activity_id=ministry_activity_history.activity_id AND lastDates.periodEnd=ministry_activity_history.period_end)) lastStatus ";
-	}
-	private static String processedOrder( Vector<String> order){
-		String processedOrder="";	
-		Hashtable<String,String> orderCodes=new Hashtable<String,String>();
-		
-		orderCodes.put("strategy","strategy");
-		orderCodes.put("status","field((if(lastStatus.status is null,ministry_activity.status,lastStatus.status)),'AC','TR','LA','KE','PI','FR') ");
-		orderCodes.put("team","teamName");
-		orderCodes.put("campus","campusName");
-		orderCodes.put("city","country, state, city ");
-		for (String o : order){
-				if (orderCodes.keySet().contains(o)){
-					processedOrder+=orderCodes.get(o)+", ";
-				}
-			}
-		processedOrder=processedOrder.substring(0,processedOrder.length()-2);//trim final comma 
-		return processedOrder;
-	}
-	
-	private static String countReportQuery(String type, String region, String strategyList, String periodEnd, Vector<String> order){
-		String group="";
-		String address="";
-		if (type.equals("movement")){
-			group="ministry_targetarea.targetAreaID,  ministry_activity.strategy ";
-			 address=" MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
-		}
-		else if (type.equals("location")){
-			group="ministry_targetarea.targetAreaID ";
-			 address="MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
-		}
-		else if (type.equals("team")){
-			group="ministry_locallevel.teamID ";
-			 address="MAX(ministry_locallevel.city) as city,  MAX(ministry_locallevel.state) as state, MAX(ministry_locallevel.country) as country ";
-		}
-		
-		
-		return "SELECT MAX(ministry_targetarea.name) as campusName, MAX(ministry_targetarea.isSecure) as isSecure,"+
-			" MAX(ministry_targetarea.region) as region, if(lastStatus.status IS NULL, MAX(ministry_activity.status), MAX(lastStatus.status)) as status, "+
-			" MAX(ministry_activity.strategy) as strategy, "+
-			" MAX(ministry_locallevel.name) as teamName, MAX(ministry_locallevel.teamID) as teamID, MAX(ministry_targetarea.targetAreaID) as campusID, "+
-			address+ //this portion of query generated based on type of report requested
-			" FROM (ministry_activity INNER JOIN ministry_targetarea ON ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID) "+
-			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID "+
-			" LEFT JOIN "+lastStatus(periodEnd)+" ON ministry_activity.ActivityID=lastStatus.activity_id "+
-			" WHERE "+ 
-			" ministry_activity.strategy in ("+strategyList+") and "+
-			" ((ministry_activity.status in ('AC','TR','LA','KE','PI','FR')AND(lastStatus.status IS NULL)) OR (lastStatus.status in ('AC','TR','LA','KE','PI','FR'))) "+
-			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and ministry_targetarea.region = '"+region+"' ":"")+
-			" GROUP BY "+group+
-			" ORDER BY "+ processedOrder( order)+
-			";";
-	}
-	private static String convertStatus(String code){
-		Hashtable<String,String> codes=new Hashtable<String,String>();
-		codes.put("IN","Inactive");
-		codes.put("FR","Forerunner");
-		codes.put("PI","Pioneering");
-		codes.put("KE","Key Contact");
-		codes.put("LA","Launched");
-		codes.put("AC","Active");
-		codes.put("TR","Transformational");
-		if(codes.keySet().contains(code.toUpperCase())){
-			return codes.get(code);
-		}
-		else
-		{
-			return "Other";
-		}
-	}
-	public static Vector<ReportRowStatless> getMuster(String type, String region, String strategyList, String periodEnd, Vector<String> order) throws Exception{
-		try{
-			Vector<ReportRowStatless> result=new Vector<ReportRowStatless>();
-			String query="";
-			Connection conn = DBConnectionFactory.getDatabaseConn();
-			Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			query=countReportQuery( type, region,  periodEnd, strategyList, order);
-			log.debug(query);
-			ResultSet resultSet = stmt1.executeQuery(query);
-			ReportRowStatless row=new ReportRowStatless();
-			row.setFunction("top");
-			if (type.equals("movement")){
-				row.setLabel("List of Movements");
-			}
-			else if (type.equals("location")){
-				row.setLabel("List of Ministry Locations");
-			}
-			else if (type.equals("team")){
-				row.setLabel("List of Missional Teams");
-			}
-			result.add(row);
-			int rows=0;
-			while (resultSet.next()){
-				row=new ReportRowStatless();
-				row.setRegion(resultSet.getString("region"));
-				row.setCity(resultSet.getString("city"));
-				row.setState(resultSet.getString("state"));
-				row.setCountry(resultSet.getString("country"));
-				row.setTargetAreaID(resultSet.getString("campusID"));
-				row.setIsSecure(!(resultSet.getString("isSecure").equals("F")));//if it isn't explicitly false we consider it secure.
-				row.setCampusName(resultSet.getString("campusName"));
-				row.setStrategy(resultSet.getString("strategy"));
-				row.setStatus(convertStatus(resultSet.getString("status")));
-				row.setLocalLevelId(resultSet.getString("teamID"));
-				row.setTeamName(resultSet.getString("teamName"));
-				
-				if (type.equals("movement")){
-					row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy()));
-				}
-				else if (type.equals("location")){
-					row.setLabel(row.getCampusName());
-				}
-				else if (type.equals("team")){
-					row.setLabel(row.getTeamName());
-				}
-				result.add(row);
-				rows++;
-			}
-			row=new ReportRowStatless();
-			row.setFunction("bottom");
-			if (type.equals("movement")){
-				row.setLabel(rows+ " Movements Listed");
-			}
-			else if (type.equals("location")){
-				row.setLabel(rows+ " Ministry Locations Listed");
-			}
-			else if (type.equals("team")){
-				row.setLabel(rows+ " Missional Teams Listed");
-			}
-			result.add(row);
-			return result;
-		}
-		catch (Exception e) {
-		log.error("Failed to perform getMuster().", e);
-        throw new Exception(e);
-    	}
-	}
 	// Returns stats for various Success Criteria Reports
 	public static Vector<ReportRow> getSuccessCriteriaReport(String type, String region, String strategyList, String periodEnd, String periodBegin, String localLevelId, String targetAreaId) throws Exception{
 		try{		
@@ -396,12 +251,12 @@ public class Reports {
 		String lastRowId="";
 		String lastStrategy="";
 		if (sums.isBeforeFirst()){
-		while (sums.next()){
+			while (sums.next()){
 			
 			demos.next();
 			row=new ReportRow();
 			if (sums.getString("rowid").equals(demos.getString("rowid"))){
-				row=statResultSet2ReportRow(sums,demos);
+				row=resultSet2ReportRow(sums,demos);
 				
 				if (type.equals("national")){
 					row.setLabel(org.alt60m.ministry.Regions.expandRegion(row.getRegion()));
@@ -421,7 +276,6 @@ public class Reports {
 						ReportRow endRow=summingRow; //we have been totaling the previous Bridges rows, now we dump them into final row
 						endRow.setFunction("end"); 
 						endRow.setLabel(summingRow.getLabel());
-						log.debug(endRow);
 						report.add(endRow);
 						
 						}
@@ -429,7 +283,6 @@ public class Reports {
 				if ((!lastStrategy.equals(row.getStrategy()))&&(type.equals("targetarea"))&&(!(lastStrategy.equals("")||(lastStrategy==null)))){ // before the top row of each strategy  we also insert a totals row for the bottom of each strategy
 						ReportRow bottom=new ReportRow(runningTotal);
 						bottom.setFunction("bottom");
-						log.debug(bottom);
 						report.add(bottom);
 						runningTotal=new ReportRow();
 						
@@ -438,7 +291,6 @@ public class Reports {
 				if (((!lastStrategy.equals(row.getStrategy()))&&(type.equals("targetarea")))||((lastStrategy.equals("")||(lastStrategy==null)))){	//always at top and between strategies for targetarea
 					ReportRow top=new ReportRow(row);
 					top.setFunction("top");
-					log.debug(top);
 					report.add(top);
 					
 					}
@@ -455,7 +307,7 @@ public class Reports {
 				startRow.setCampusName(row.getCampusName());
 				startRow.setEnrollment(row.getEnrollment());
 				startRow.setLabel(row.getLabel());
-				log.debug(startRow);
+				
 				report.add(startRow);
 			}
 			
@@ -474,7 +326,7 @@ public class Reports {
 			}
 			
 			runningTotal.addToTotal(row);
-			log.debug(row);	
+				
 			report.add(row);
 			}
 			else
@@ -487,12 +339,10 @@ public class Reports {
 		if (lastStrategy.equals("BR")){//put end row on if last activity was Bridges
 			ReportRow endRow=summingRow; //we have been totaling the previous Bridges rows, now we dump them
 			endRow.setFunction("end"); 
-			log.debug(endRow);
 			report.add(endRow);
 		}
 		ReportRow bottom=new ReportRow(runningTotal);
 		bottom.setFunction("bottom");
-		log.debug(bottom);
 		report.add(bottom);
 		runningTotal=new ReportRow();
 		}//resultset had data, otherwise return no rows in Vector<ReportRow> 'report'
