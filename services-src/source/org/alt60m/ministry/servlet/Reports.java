@@ -248,8 +248,6 @@ public class Reports {
 		ReportRow row=new ReportRow();
 		ReportRow summingRow=new ReportRow(); //for within Bridges movements
 		ReportRow runningTotal=new ReportRow(); //for totals at report bottoms
-		String lastRowId="";
-		String lastStrategy="";
 		if (sums.isBeforeFirst()){
 			while (sums.next()){
 			
@@ -273,7 +271,7 @@ public class Reports {
 				if((!lastRow.getRowid().equals(row.getRowid()))&&(lastRow.getStrategy().equals("BR"))){ //new activity or week after a run of Bridges; the order is important for these functional rows
 					
 					//put end row on if after Bridges rows, since we are now in new activity
-						ReportRow endRow=summingRow; //we have been totaling the previous Bridges rows, now we dump them into final row
+						ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them into final row
 						endRow.setFunction("end"); 
 						endRow.setLabel(summingRow.getLabel());
 						report.add(endRow);
@@ -281,28 +279,14 @@ public class Reports {
 						}
 				
 				if ((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea"))&&(!(lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){ // before the top row of each strategy  we also insert a totals row for the bottom of each strategy
-						ReportRow bottom=new ReportRow(runningTotal);
-						bottom.setFunction("bottom");
-						if (type.equals("targetarea")){ //we actually don't want a running total of these for targetarea, just the last record.
-							bottom.setInvldStudents(lastRow.getInvldStudents());
-							bottom.setMultipliers(lastRow.getMultipliers());
-							bottom.setStudentLeaders(lastRow.getStudentLeaders());
-						}
-						report.add(bottom);
-						runningTotal=new ReportRow();
-						
-					}
-					
+						report.add(getBottom(type,lastRow,summingRow,runningTotal));
+						runningTotal=new ReportRow();						
+					}					
 				if (((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea")))||((lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){	//always at top and between strategies for targetarea
 					ReportRow top=new ReportRow(row);
 					top.setFunction("top");
-					report.add(top);
-					
-					}
-				
-				
-				
-				
+					report.add(top);					
+					}		
 			if ((!lastRow.getRowid().equals(row.getRowid()))&&(row.getStrategy().equals("BR"))){// is new activity and also Bridges; start toggling rows
 				row.setFunction("detail");
 				ReportRow startRow=new ReportRow();
@@ -312,7 +296,6 @@ public class Reports {
 				startRow.setCampusName(row.getCampusName());
 				startRow.setEnrollment(row.getEnrollment());
 				startRow.setLabel(row.getLabel());
-				
 				report.add(startRow);
 			}
 			
@@ -341,18 +324,12 @@ public class Reports {
 			lastRow=new ReportRow(row);
 		}
 		if (lastRow.getStrategy().equals("BR")){//put end row on if last activity was Bridges
-			ReportRow endRow=summingRow; //we have been totaling the previous Bridges rows, now we dump them
+			ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them
 			endRow.setFunction("end"); 
 			report.add(endRow);
 		}
-		ReportRow bottom=new ReportRow(runningTotal);
-		bottom.setFunction("bottom");
-		if (type.equals("targetarea")){ //we actually don't want a running total of these for targetarea, just the last record.
-			bottom.setInvldStudents(row.getInvldStudents());
-			bottom.setMultipliers(row.getMultipliers());
-			bottom.setStudentLeaders(row.getStudentLeaders());
-		}
-		report.add(bottom);
+		
+		report.add(getBottom(type,lastRow,summingRow,runningTotal));
 		runningTotal=new ReportRow();
 		}//resultset had data, otherwise return no rows in Vector<ReportRow> 'report'
 		
@@ -362,5 +339,25 @@ public class Reports {
 			log.error("Failed to perform getSuccessCriteriaReport().", e);
             throw new Exception(e);
         }
+	}
+	private static ReportRow getBottom(String type, ReportRow lastRow, ReportRow summingRow, ReportRow runningTotal){
+		ReportRow bottom=new ReportRow(runningTotal);
+		bottom.setFunction("bottom");
+		if (type.equals("targetarea")){ //we actually don't want a running total of these for targetarea, just the last record.
+			if(lastRow.getStrategy().equals("BR")){
+				ReportRow endRow=new ReportRow(summingRow);
+				bottom.setInvldStudents(endRow.getInvldStudents());
+		        bottom.setMultipliers(endRow.getMultipliers());
+		        bottom.setStudentLeaders(endRow.getStudentLeaders());
+		        bottom.setSeekers(endRow.getSeekers());
+		      }
+		      else
+		      {
+		    	bottom.setInvldStudents(lastRow.getInvldStudents());
+		        bottom.setMultipliers(lastRow.getMultipliers());
+		        bottom.setStudentLeaders(lastRow.getStudentLeaders());
+		      }
+		}
+		return bottom;
 	}
 }
