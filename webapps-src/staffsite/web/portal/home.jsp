@@ -302,9 +302,10 @@ function toggleDiv(who){
 				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0'>See my staff account</a><br>
 				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>Reimburse Expenses</A><BR>
 				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
-				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0'>Go to StaffWeb</a><br>
-				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>Resource Center</a><br>
-				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0'>See National Discount Programs</a><br>
+				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Go to StaffWeb</a><br>
+				<a href="http://staffweb.ccci.org/legal/index.aspx" targe="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
+				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
+				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0' style="margin-right:5px;">See National Discount Programs</a><br>
 			<%// } %>
 			</font>
 			<%=box.printBottom()%>
