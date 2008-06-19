@@ -294,14 +294,14 @@ function toggleDiv(who){
 			<%=box.printTop()%>
 			<%=fontS%>
 			<a href='http://wiki.uscm.org/'><img src="/images/wiki_icon.png" border='0'>Go to the Wiki</a><br>
-				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0'>Log on to OneCard</a><br>
-			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0'>Go to Success Criteria</a><br>
-			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0'>Work on a 360 review</a><br>
+				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">Log on to OneCard</a><br>
+			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Go to Success Criteria</a><br>
+			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">Work on a 360 review</a><br>
 			<%// if (isStudent.equals("false")) { %>
-				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0'>Get forms</a><br>
-				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0'>See my staff account</a><br>
-				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0'>Reimburse Expenses</A><BR>
-				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>Get Help</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0' style="margin-right:5px;">Get forms</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">See my staff account</a><br>
+				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Reimburse Expenses</A><BR>
+				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0' style="margin-right:5px;">Get Help</a><br>
 				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Go to StaffWeb</a><br>
 				<a href="http://staffweb.ccci.org/legal/index.aspx" targe="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
 				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
