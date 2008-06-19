@@ -293,7 +293,7 @@ function toggleDiv(who){
 			<% box.setTitle("I want to...");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-			<a href='http://wiki.uscm.org/'><img src="/images/wiki_icon.png" border='0'>Go to the Wiki</a><br>
+			<a href='http://wiki.uscm.org/'><img src="/images/wiki_icon.png" border='0' style="margin-right:5px;">Go to the Wiki</a><br>
 				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">Log on to OneCard</a><br>
 			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Go to Success Criteria</a><br>
 			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">Work on a 360 review</a><br>
