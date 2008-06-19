@@ -141,9 +141,9 @@ while(report.hasNext()){
 		<%} %>
 		<td class="report_darker_blue" >Holy Spirit Pres. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%> </td>
 		<td class="report_darker_blue" >Laborers Sent</td>
-		<td class="report_light_blue" > Multipliers </td>
-		<td class="report_light_blue" >Student Leaders</td>
-		<td class="report_light_blue" > Students Involved</td>
+		<td class="report_light_blue" > Students Involved </td>
+		<td class="report_light_blue" >Multipliers</td>
+		<td class="report_light_blue" > Student Leaders</td>
 		<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"<td class=\"report_light_blue\" > Seekers (Bridges) </td>":"" %>
 		</tr>
