@@ -169,8 +169,8 @@ while(report.hasNext()){
 			<%} %>
 			<td class="report_darker_blue"><%=display?row.getHolySpirit():"" %></td>
 			<td class="report_darker_blue"><%=display?row.getLaborersSent():"" %></td>
+			<td class="report_light_blue"><%=display?row.getInvldStudents():"" %></td>
 			<td class="report_light_blue"><%=display?row.getMultipliers():"" %></td>
-			<td class="report_light_blue"><%=display?row.getStudentLeaders():"" %></td>
 			<td class="report_light_blue"><%=display?row.getStudentLeaders():"" %></td>
 			<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
 			<td class="report_light_blue"><i><%=display?row.getSeekers():"" %></i></td>
@@ -263,8 +263,8 @@ while(report.hasNext()){
 		<%} %>
 	<td class="report_<%=cellAlt %>"><%=display?row.getHolySpirit():"" %></td>
 	<td class="report_<%=cell %>"><%=display?row.getLaborersSent():"" %></td>
-	<td class="report_<%=cellAlt %>"><%=display?row.getMultipliers():"" %></td>
-	<td class="report_<%=cell %>"><%=display?row.getStudentLeaders():"" %></td>
+	<td class="report_<%=cellAlt %>"><%=display?row.getInvldStudents():"" %></td>
+	<td class="report_<%=cell %>"><%=display?row.getMultipliers():"" %></td>
 	<td class="report_<%=cellAlt %>"><%=display?row.getStudentLeaders():"" %></td>
 	<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
 	<%display=(display)&&((row.getStrategy().equals("BR"))||(ar.getValue("type").equals("national"))); //only display if Bridges %>
