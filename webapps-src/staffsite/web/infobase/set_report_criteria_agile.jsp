@@ -97,7 +97,8 @@ Integer yearvar=1998;
 					<input type="checkbox" name="strategies[ID]"  checked value="ID" >ESM-Destino<br>
 					<input type="checkbox" name="strategies[IN]"  checked value="IN" >ESM-Nations<br>
 					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
-					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN<br>
+					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN STINT<br>
+					<input type="checkbox" name="strategies[WI]"   value="WI" >WSN ICS<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
 					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
 					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
