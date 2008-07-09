@@ -368,16 +368,13 @@ public class ProfileManager {
 			throws ProfileNotFoundException, ProfileManagementException,
 			MultipleProfilesFoundException, UserNotFoundException,
 			UserNotVerifiedException, SsmUserAlreadyExistsException {
-		log.debug("line 370");
 		User ssmUser;
 		try {
-			log.debug("line 373");
 			ssmUser = _securityMan.checkUser(user);
 			log.debug(ssmUser.getUsername());
 		}
 		catch (SecurityManagerFailedException e)
 		{
-			log.debug("line 378");
 			log.error(e, e);
 			throw new ProfileManagementException("Unable to authorize", e);
 		}
