@@ -58,7 +58,7 @@ public class WsnApplicationAccountBalanceUpdater {
 
 			oracleStatement = oracleConnection.createStatement();
 			oracleResults = oracleStatement
-					.executeQuery("select ROWNUM, JRNL_LN_REF, MONETARY_AMOUNT from finprod.ps_jrnl_ln where business_unit='CAMPS' and journal_id like 'CN%' and journal_date > '1-Jan-"
+					.executeQuery("select ROWNUM, JRNL_LN_REF, MONETARY_AMOUNT from finprod.ps_jrnl_ln where (business_unit='CAMPS' or business_unit='KEYNT') and journal_id like 'CN%' and journal_date > '1-Jan-"
 							+ donationsYear + "'");
 
 			String deleteSql = "DELETE FROM " + donationsTable;
