@@ -908,6 +908,17 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
+    public void moveTeamMember(String personID, String teamID) throws Exception {
+        try {
+        	InfoBaseQueries.removeAllTeamAssociations(personID,teamID);
+            InfoBaseQueries.saveTeamMember(personID,teamID);
+            
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveTeamMember().", e);
+  			throw new Exception(e);
+        }
+    }
 	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID, String Url) throws ActivityExistsException, Exception {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
 			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);

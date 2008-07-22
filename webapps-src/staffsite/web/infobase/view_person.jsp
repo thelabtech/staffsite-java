@@ -273,7 +273,7 @@ else
 					<% } %>
 </TD>
 </TR>
-<TR><TD COLSPAN="2"><%=font%>&nbsp;To change your staff information, <A HREF="/servlet/HRUpdateController">click here</A>. 
+ 
 </TABLE>
 
 </CENTER>

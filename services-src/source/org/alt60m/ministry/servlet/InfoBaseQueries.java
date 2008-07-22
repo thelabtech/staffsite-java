@@ -676,6 +676,21 @@ public class InfoBaseQueries {
 			log.error(e, e);
 		}
 	}
+	public static void removeAllTeamAssociations( String personID,String teamID){
+		try 
+		{
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query=" DELETE FROM ministry_missional_team_member "+
+			" WHERE ministry_missional_team_member.personID="+personID+";";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
 	public static Vector<Hashtable<String,String>> listTeamsForPerson(String personID){
 		try{
 			Vector<Hashtable<String,String>>t=new Vector<Hashtable<String,String>>();

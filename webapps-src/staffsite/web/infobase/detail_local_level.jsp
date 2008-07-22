@@ -100,28 +100,45 @@ ar = ActionResults.getActionResults(session);
 			<A HREF="/servlet/InfoBaseController?action=editTeam&mode=update&locallevelid=<%= teamID %>"><%= font %>Update</FONT></A><BR><%= fontS %>(Click update to add or change team contact info, web address, note, etc.)
 <%=box.printBottom()%>
 <BR>
-<% box.setTitle("&nbsp;Staff Info");%>
+<% box.setTitle("&nbsp;Member Info");%>
 <% box.setBodyFontSize("2");%>
 <%=box.printTop()%>
 <% Iterator targetStaffI = ar.getCollection("staff").iterator();
+	Boolean present=false;
   String emailList = "";
   while(targetStaffI.hasNext()) {
-		Hashtable staffMember = (Hashtable)targetStaffI.next();
-    String staffName = staffMember.get("PreferredName") + " " + staffMember.get("LastName");
-		String staffEmail = (String)staffMember.get("Email");
-		String staffID = (String)staffMember.get("AccountNo");
+		org.alt60m.ministry.model.dbio.Contact staffMember = (org.alt60m.ministry.model.dbio.Contact)targetStaffI.next();
+    String staffName = "";
+	if((staffMember.getPreferredName()!=null)&&
+			(!((String)staffMember.getPreferredName()).equals(""))&&
+			(!((String)staffMember.getPreferredName()).equals(" ")))
+					{
+					staffName+=( (String)staffMember.getPreferredName());
+					}
+		else
+					{
+					staffName+=((String)staffMember.getFirstName());
+					}
+		staffName+=" "+(String)staffMember.getLastName() ;
+		String staffEmail = (String)staffMember.getEmail();
+		String personID = staffMember.getPersonID()+"";
+		if (personID.equals(ar.getValue("personID"))){present=true;}
 		if(!staffEmail.equals("")) {
 			emailList = emailList + staffEmail + "; ";
 		}
 		%>
-		<A HREF="/servlet/InfoBaseController?action=showStaffInfo&staffid=<%= staffID %>"><%=staffName%></A><!-- [<A HREF="/servlet/InfoBaseController?action=removeStaff&staffid=<%= staffID %>&locallevelid=<%= teamID %>">Remove</A>]--><BR>
+		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%= personID %>"><%=staffName%></A><br>
    <%}%>
 		<P ALIGN="CENTER">
 
-		<!--<A HREF="/servlet/InfoBaseController?action=listStaff&mode=associate&group=locallevel&groupid=<%= teamID %>&searchby=region&searchtext=<%= teamRegion %>">Add Staff</A>-->
+		
 		<% if(!emailList.equals("")) { %>
-			<A HREF="mailto: <%= emailList %>">E-mail</A> all team members
-		<% } %>
+			<A HREF="mailto: <%= emailList %>">E-mail</A> all team members<br>
+		<% } 
+		
+		if (!present){%>
+		<A HREF="/servlet/InfoBaseController?action=moveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Move to This Team</A>
+		<%} %>
 	<%= box.printBottom()%>
 	</TD>
 	<TD VALIGN="TOP">

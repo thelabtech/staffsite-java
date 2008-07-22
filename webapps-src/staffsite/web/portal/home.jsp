@@ -144,7 +144,7 @@ function toggleDiv(who){
 				<!-- This link goes in each year in Feb. for 2 weeks
 				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Take te SLICE survey</b></A></font><br><%=fontS%><br><br>
 			    -->
-				<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
+				<a href="/infobase/changeTeam.jsp">Change my Team Assignment</A></font></center>
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
@@ -194,7 +194,7 @@ function toggleDiv(who){
 				</script>
 
 				<form name="ibstaff" action="/servlet/InfoBaseController" method="post">
-				<input type=HIDDEN name="action" value="listStaff">
+				<input type=HIDDEN name="action" value="listPerson">
 				<INPUT TYPE=HIDDEN name="searchby" value="lastname">
 				<INPUT TYPE=HIDDEN name="mode" value="list">
 				<input type=hidden name="searchtext">
