@@ -6,6 +6,8 @@ ActionResults ar;
 ar = ActionResults.getActionResults(session);
 	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display_agile");
 	
+	String region=ar.getValue("region");
+	String longRegion=Regions.expandRegion(region);
 	String periodBegin=ar.getValue("periodBegin");
 	String periodEnd=ar.getValue("periodEnd");
 	String strategyList=ar.getValue("strategyList");
@@ -14,26 +16,30 @@ ar = ActionResults.getActionResults(session);
 	String reportTitle ="";
 	String type=ar.getValue("type");
 	if(type.equals("custom")){
-		reportTitle="Success Criteria Custom Report";
+		reportTitle="Custom Report";
 	}
 	else if(type.equals("locallevel")){
-		reportTitle="Success Criteria Missional Team Report";
+		reportTitle="Missional Team Report: "+ new org.alt60m.ministry.model.dbio.LocalLevel(ar.getValue("teamID")).getName();
 	}
-	else if(!type.equals("targetarea")){
-		reportTitle="Success Criteria "+ar.getValue("type").substring(0,1).toUpperCase()+ar.getValue("type").substring(1).toLowerCase()+" Report";
+	else if(type.equals("national")){
+		reportTitle="National Report";
+	}
+	else if(type.equals("regional")){
+		reportTitle="Regional Report: "+longRegion;
 	}
 	else
 	{
-		reportTitle="Success Criteria Ministry Location Report";
+		reportTitle="Ministry Location Report";
 	}
 	
 	Iterator report= ((Vector<ReportRow>) ar.getCollection("report")).iterator();
 	
-	String region=ar.getValue("region");
+	
 	%>
 <%@page import="org.alt60m.ministry.Strategy"%>
 <%@page import="org.apache.commons.logging.Log"%>
 <%@page import="org.apache.commons.logging.LogFactory"%>
+<%@page import="org.alt60m.ministry.Regions"%>
 <html>
 <head>
 
@@ -78,7 +84,7 @@ if (ar.getCollection("report").size()>0){	%>
 		<br>
 	<%if(!(ar.getHashtable("census")==null))
 			{
-		out.print(ar.getHashtable("census").get("movements")+" Active, Launched or Transformational Movements, "+ar.getHashtable("census").get("enrollment")+" Enrollment (as of today)");
+		out.print("<br><b>"+ar.getHashtable("census").get("movements")+"</b> Active, Launched or Transformational Movements, <b>"+ar.getHashtable("census").get("enrollment")+"</b> Enrollment (as of today)");
 		out.print("<br><i>(Note: not all of the movements shown below are necessarily included in this count, and vice versa. Only movements with stats are listed below.)</i>");
 			}%>
 	
@@ -214,7 +220,7 @@ while(report.hasNext()){
 	<td class="label_<%=cell %>">
 	<%if(!row.getFunction().equals("detail")){ %>
 		<%if (!type.equals("targetarea")){%>
-		<A href="InfoBaseController?action=showReportAgile&type=<%
+		<A style="color:black" href="InfoBaseController?action=showReportAgile&type=<%
 			if(type.equals("national")){out.print("regional");}
 			else {out.print("targetarea");}
 			%>
