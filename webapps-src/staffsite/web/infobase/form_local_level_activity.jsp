@@ -14,7 +14,7 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 <script>
 	function submitForm() {
 		if (document.addLocalLevelActivityForm.targetareaid.options[document.addLocalLevelActivityForm.targetareaid.selectedIndex].value == "none") {
-			alert("You must select a Campus.");
+			alert("You must select a Ministry Location.");
 		}
 		else {
 			document.addLocalLevelActivityForm.submit();
@@ -31,7 +31,7 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 		<!-- Brock asks, "what is this line for?" 	if (request.getParameter("justSet")!=null) { <tr><td nowrap colspan=2><fontR><b>Select the local level team that you just added to your region...</b></font></td></tr>  } -->
 			
 			<tr> 
-				<td align="right"><%=fontB%>Campus:<br>(in team's region<br>or partnership)</font></td>
+				<td align="right"><%=fontB%>Ministry Location:<br>(in Missional Team's region<br>or partnership)</font></td>
 				<td colspan="2" nowrap> 
 					<select name="targetareaid">
 						<option value="none"></option>
@@ -50,16 +50,16 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 			<tr> 
 				<td align="right"></td>
 				<td colspan="2" nowrap> 
-					<%=fontB%>This pull-down menu is the list of campuses in the team's region<br>
+					<%=fontB%>This pull-down menu is the list of Ministry Locations in the Missional Team's region<br>
 					that do not have an active <%=ar.getValue("strategy")%> strategy. If you would like <br>
-					to add a campus that is not in this list, please do the following:
+					to add a Ministry Location that is not in this list, please do the following:
 					<ol>
-						<li>Go to the campus's detail page (you can do this by typing the campus's<br>
+						<li>Go to the Ministry Location's detail page (you can do this by typing the Ministry Location's<br>
 						name in the "search" box in the upper right-hand corner of this screen and<br>
 						clicking the "search" button).
 						<li>Click the "change" link in the status box for the existing <%=ar.getValue("strategy")%> strategy.
-						<li>Use the pull-down menu of teams to select the team that you want to <br>
-						be associated with this campus.
+						<li>Use the pull-down menu of Missional Teams to select the team that you want to <br>
+						be associated with this Ministry Location.
 					</ol></font>
 				</td>
 			</tr>
@@ -70,11 +70,11 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 				<tr>
 					<td align=right><%=fontB%>Status:</font></td>
 					<td nowrap><%=fontB%>
-						<input type=radio name=status value=FR CHECKED> Make this a FORERUNNER Catalytic campus.<br>
-						<input type=radio name=status value=PI> Make this a PIONEERING Catalytic campus.<br>
-						<input type=radio name=status value=KE> Make this a KEY CONTACT Catalytic campus.<br>
-						<input type=radio name=status value=LA> Make this a LAUNCHED Catalytic campus.<br>
-						<input type=radio name=status value=TR> Make this a TRANSFORMATIONAL Catalytic campus.<br></font>
+						<input type=radio name=status value=FR CHECKED> Make this a FORERUNNER Ministry Location.<br>
+						<input type=radio name=status value=PI> Make this a PIONEERING  Ministry Location.<br>
+						<input type=radio name=status value=KE> Make this a KEY CONTACT  Ministry Location.<br>
+						<input type=radio name=status value=LA> Make this a LAUNCHED  Ministry Location.<br>
+						<input type=radio name=status value=TR> Make this a TRANSFORMATIONAL  Ministry Location.<br></font>
 					</td>
 				</tr>
 			<%

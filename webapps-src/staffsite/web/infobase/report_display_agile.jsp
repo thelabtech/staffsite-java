@@ -132,7 +132,7 @@ while(report.hasNext()){
 		else if(type.equals("targetarea")){%>
 		<td class="label_darker_blue" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy()) %></center></td>
 		<%}else{ %>
-		<td class="label_darker_blue" > <center>Campus - Strategy (enrollment)</center></td>
+		<td class="label_darker_blue" > <center>Ministry Location - Strategy (enrollment)</center></td>
 		<%} %>
 		<td class="report_light_blue" >Exp.</td>
 		<td class="report_light_blue" >Dec. <%=row.getFunction().equals("top")? "(Starting 8/1/2008)":""%></td>

@@ -4,8 +4,8 @@ package org.alt60m.html;
 public class SelectLane implements java.io.Serializable {
 	
 	// 11/10/2005 - Added Bridges International (BI) to list of lanes
-    String[] lanes = {" ",  "SC", "CA", "IC", "WS", "OP", "HR", "FD", "ND", "BR" };
-	String[] laneNames = {" ","Staffed Campus","Catalytic","Ethnic Student Ministries","Worldwide Student Network", "Operations", "Human Resources", "Fund Dev", "National Director's Office", "Bridges Int'l"};
+    String[] lanes = {" ",  "FS", "SC", "CA", "IC", "WS", "OP", "HR", "FD", "ND", "BR" };
+	String[] laneNames = {" ", "Field Strategies", "Staffed Campus","Catalytic","Ethnic Student Ministries","Worldwide Student Network", "Operations", "Human Resources", "Fund Dev", "National Director's Office", "Bridges Int'l"};
 	String currentLane;
     String name;
 

@@ -42,9 +42,9 @@
 </TABLE>
 <P>
 <CENTER>
-<%=fontB3%><b><%=(String)ar.getValue("displayname")%> Success Criteria </b></font><br><%=fontB%>This movement has been inactivated and success criteria may not be entered. <br>If you arrived here by a Bookmark, there may be a newer version of this movement in the Infobase.
+<%=fontB3%><b><%=(String)ar.getValue("displayname")%> Success Criteria </b></font><br><%=fontB%>This movement has been inactivated and success criteria may not be entered. <br>If you arrived here by a Bookmark, there may be a newer version of this Missional Team in the Infobase.
 <br><br>
-<A HREF="javascript: document.bookmarkForm.submit();"><% if(mode == "remove") { %>Un-<% } %>Bookmark this team</A>
+<A HREF="javascript: document.bookmarkForm.submit();"><% if(mode == "remove") { %>Un-<% } %>Bookmark this movement</A>
 </font></center><br>
 </font>
 

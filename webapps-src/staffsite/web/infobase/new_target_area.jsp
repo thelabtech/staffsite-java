@@ -4,24 +4,24 @@
 
 <html>
 <head>
-<title>Add Campus To InfoBase</title>
+<title>Add Ministry Location To InfoBase</title>
 </head>
 
-<% String pageTitle = "Add Campus To InfoBase"; %>
+<% String pageTitle = "Add Ministry Location To InfoBase"; %>
 <%@ include file="/infobase/ibheader.jspf" %>
 
 <p>
 <%=fontB%>
 <form method="post" action="/servlet/InfoBaseController" method="post">
  <input type=hidden name="action" value="saveNewCampus">
-<b>Step 1.</b> Before you fill out this form, be sure to check multiple places to make sure the campus is not already 
+<b>Step 1.</b> Before you fill out this form, be sure to check multiple places to make sure the Ministry Location is not already 
 in the system. Check at least 3 places, i.e. U of XYZ, or 
-University of XYZ, or XYZ University.  The standard format to use when entering the campus below is to spell 
+University of XYZ, or XYZ University.  The standard format to use when entering the Ministry Location below is to spell 
 it all out such as, University of California at Santa Barbara.
 <br><br>
 <b>Step 2.</b> Fill in the form and click submit.<br><br>
 (*required field)<br>
-*Campus Name: <input type="text" name="name"><br>
+*Ministry Location Name: <input type="text" name="name"><br>
 Address 1: <input type="text" name="address1"><br>
 Address 2: <input type="text" name="address2"><br>
 *City: <input type="text" name="city"><br>
@@ -30,7 +30,7 @@ State:
 	states.setName("state");
 %>
 	<%=states.print()%><br>
-	(State is required if US campus)<BR>
+	(State is required if US Ministry Location)<BR>
 Zip: <input type="text" name="zip"><br>
 *Country:
 		<%
@@ -47,7 +47,7 @@ Fice: <input type="text" name="fice"><br>
 <!--Population: <input type="text" name="population"><br>-->
 Notes (20480 characters): <input type="textarea" name="note"><br>
 Alternate Name: <input type="text" name="altName"><br>
-*Is this campus secure? <br>
+*Is this Ministry Location secure? <br>
 (I.e. don't tell public we are here. <br>
 Closed countries are secure.) &nbsp&nbsp Yes<input type="radio" name="isSecure" value=true>&nbsp&nbsp No<input type="radio" name="isSecure" value=false><br>
 Region: 

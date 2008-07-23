@@ -168,7 +168,7 @@ else
 	
 }
 %>
-<% String pageTitle = "Team Member Information: " + preferredName + " " + lastName; %>
+<% String pageTitle = "Missional Team Member Information: " + preferredName + " " + lastName; %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -250,7 +250,7 @@ else
 				Iterator teamsIter=teams.iterator();
 				int firsty=0;
 				while(teamsIter.hasNext()){%>
-				<TR><TD VALIGN="TOP"><%if(firsty<1){%><%=font%><B>Team<%=(teams.size()>1)?"s":"" %>: </B></FONT><%}%>&nbsp;</TD>
+				<TR><TD VALIGN="TOP"><%if(firsty<1){%><%=font%><B>Missional Team<%=(teams.size()>1)?"s":"" %>: </B></FONT><%}%>&nbsp;</TD>
 				<%thisTeam=(Hashtable<String,String>)teamsIter.next();%>
 				<TD><A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= font %><%= thisTeam.get("name") %></A></TD></TR><%
 				firsty++;

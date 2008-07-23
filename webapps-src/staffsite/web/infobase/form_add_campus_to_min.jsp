@@ -4,7 +4,7 @@ ActionResults ar;
 ar = ActionResults.getActionResults(session);
 Iterator campuses = ar.getCollection("campuses").iterator();
 %>
-<% String pageTitle="Add campus to " + request.getParameter("ministryName"); %>
+<% String pageTitle="Add Ministry Location to " + request.getParameter("ministryName"); %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -19,7 +19,7 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 			<input type=hidden name="strategy" value="<%=request.getParameter("strategy")%>">
 			
 			<tr> 
-				<td align="right"><%=fontB%>Select Campus:</font></td>
+				<td align="right"><%=fontB%>Select Ministry Location:</font></td>
 				<td colspan="2" nowrap> 
 					<select name="targetareaid">
 						<option value="none"></option>

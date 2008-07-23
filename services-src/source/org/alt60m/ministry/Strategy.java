@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public enum Strategy {
+	FS ("Field Strategies"),
 	CA ("Catalytic"), 
 	SC ("Staffed Campus"),
 	IE ("Epic"),
@@ -12,7 +13,7 @@ public enum Strategy {
 	II ("Impact"),
 	IN ("Nations"),
 	WI ("WSN ICS"),
-	WS ("WSN Stint"),
+	WS ("WSN"),
 	BR ("Bridges"),
 	AA ("Athletes In Action"),
 	CL ("Faculty Commons"),
@@ -50,7 +51,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> usCampusStrategies() {
-		return EnumSet.of(CA, SC, IE, ID, II, IN, BR);
+		return EnumSet.of(FS, CA, SC, IE, ID, II, IN, BR);
 	}
 
 	public static EnumSet<Strategy> campusNoSuccessCriteriaStrategies() {

@@ -8,7 +8,7 @@
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
 
-String pageTitle="Update Team";
+String pageTitle="Update Missional Team";
 String mode = new String (request.getParameter("mode"));
 
 String noMovements = new String ();
@@ -51,7 +51,7 @@ function teamVerify() {
 	var isValid = true;
 	isValid = verifyInput(document.TeamInfoForm.Name, document.TeamInfoForm.Lane, document.TeamInfoForm.Region, document.TeamInfoForm.Country);
 	if(!isValid) {
-		alert("You must provide the team name, lane, region, and country.");
+		alert("You must provide the Missional Team name, lane, region, and country.");
 	}
 	return isValid;
 }
@@ -61,7 +61,7 @@ function teamVerify() {
 <br>
 <center>
 <% 
-	box.setTitle("Team Info");	
+	box.setTitle("Missional Team Info");	
 	box.setColor(colorL);
 	box.setWidth("400");
 	box.setStyle("Classic");
@@ -249,7 +249,7 @@ function teamVerify() {
 		<tr <%=bgcolorL%>> 
 			<td> 
 				
-				<div align="right"><%=fontB%>Is this team Active? <%if (noMovements=="T"){ %><br><br><%} %></font></div>
+				<div align="right"><%=fontB%>Is this Missional Team Active? <%if (noMovements=="T"){ %><br><br><%} %></font></div>
 				
 			</td>
 			<td ><%=fontB%>
@@ -265,7 +265,7 @@ function teamVerify() {
 					{
 						%><input type="radio" name="IsActive" value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
 					}
-					%><br><i>(This team has no active movements)</i><%
+					%><br><i>(This Missional Team has no active movements)</i><%
 				}
 				else
 				{

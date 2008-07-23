@@ -68,7 +68,7 @@ ar = ActionResults.getActionResults(session);
 	   Hashtable row = null;
 	%>
 	<TR>
-		<TD BGCOLOR="<%= color2 %>"><%=font%><B>Campus</B></FONT></TD>
+		<TD BGCOLOR="<%= color2 %>"><%=font%><B>Ministry Location</B></FONT></TD>
 		<TD BGCOLOR="<%= color2 %>"><%=font%><B>Remove</B></FONT></TD>
 
 	</TR>
@@ -81,7 +81,7 @@ ar = ActionResults.getActionResults(session);
 		</TR>
 	<% } %>
 	</TABLE>
-	<P ALIGN="CENTER"><TABLE WIdTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD><%=font%>[<A HREF="/infobase/get_campus_name.jsp?ministry=<%=ministryName%>&noncccminid=<%=ministryId%>">Add a campus to this ministry</A>]<BR></TD></TR></TABLE>
+	<P ALIGN="CENTER"><TABLE WIdTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD><%=font%>[<A HREF="/infobase/get_campus_name.jsp?ministry=<%=ministryName%>&noncccminid=<%=ministryId%>">Add a Ministry Location to this ministry</A>]<BR></TD></TR></TABLE>
 <%=box.printBottom()%>
 </TD></TR></TABLE>
 	    <!--<%=fontB%><%=ar.toHTML()%></font> -->

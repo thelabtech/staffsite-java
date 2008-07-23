@@ -1,5 +1,5 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
-<% String pageTitle="Proposal for a New Campus"; %>
+<% String pageTitle="Proposal for a New Ministry Location"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>

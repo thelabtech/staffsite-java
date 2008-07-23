@@ -15,14 +15,14 @@ mySelectC.setName("Country");
 boolean secure = ((Boolean)taTable.get("IsSecure")).booleanValue();
 boolean semester = ((Boolean)taTable.get("IsSemester")).booleanValue();
 %>
-<% String pageTitle = "Update Campus Info"; %>
+<% String pageTitle = "Update Ministry Location Info"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
 <%
-	box.setTitle("Campus Info");
+	box.setTitle("Ministry Location Info");
 	box.setStyle("Classic");
 	box.setWidth("");
 	out.print("<P ALIGN=CENTER> " + box.printTop());
@@ -84,7 +84,7 @@ boolean semester = ((Boolean)taTable.get("IsSemester")).booleanValue();
 </TR> -->
 
 <TR>
-	<TD ALIGN="RIGHT"><%= font %>Campus Logo URL:</FONT></TD>
+	<TD ALIGN="RIGHT"><%= font %>Ministry Location Logo URL:</FONT></TD>
 	<TD><%= font %><INPUT TYPE="TEXT" VALUE="<%= taTable.get("UrlToLogo") %>" NAME="UrlToLogo" SIZE="27" MAXLENGTH="255">[<a href="JavaScript: popupWindow('/help/help_infobase.jsp#addlogo', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">help</a>]</TD>
 </TR>
 <TR>

@@ -10,7 +10,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 
 %>
 
-<% String pageTitle="Proposal for a New Campus"; %>
+<% String pageTitle="Proposal for a New Ministry Location"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -25,16 +25,16 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	<form method="post" action="/servlet/InfoBaseController">
 	<input type=hidden name="action" value="submitNewTargetAreaRequest">
 	<input type="hidden" name="to" value="Yvonne.Rivera@uscm.org">
-	<input type="hidden" name="subject" value="New Campus Proposal">
+	<input type="hidden" name="subject" value="New Ministry Location Proposal">
 	<input type="hidden" name="mpta" size="27" maxlength=35>
 	<input type="hidden" name="admin" value="<%=admin%>">
-		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Campus Info:</b></font></td></tr>
+		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Ministry Location Info:</b></font></td></tr>
 		<tr <%=bgcolorL%>> 
 			<td colspan="2"><%=fontText%>&nbsp;
 <%= !admin		? 
-				"This form will be submitted to an administrator who will email you when the campus has been added to the InfoBase."
+				"This form will be submitted to an administrator who will email you when the Ministry Location has been added to the InfoBase."
 				:
-				"<B>Notice to Administrator</B>: <font color=red>Immediately</font> after submitting this form, the new campus will be available."
+				"<B>Notice to Administrator</B>: <font color=red>Immediately</font> after submitting this form, the new Ministry Location will be available."
 %>
 			</font>
 			</td>
@@ -47,12 +47,12 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 			</td>
 		</tr>
 		<tr>
-			<td><div align="right"><%=fontB%>*Campus Name:</font></div></td>
+			<td><div align="right"><%=fontB%>*Ministry Location Name:</font></div></td>
 			<td width="65%"><input type="text" name="name" size="27" maxlength=100></td>
 		</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Address 1:</font></div>
+			<div align="right"><%=fontB%>Ministry Location Address 1:</font></div>
 		</td>
 		<td>
 			<input type="text" name="address1" size="27" maxlength=35>
@@ -60,7 +60,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Address 2:</font></div>
+			<div align="right"><%=fontB%>Ministry Location Address 2:</font></div>
 		</td>
 		<td>
 			<input type="text" name="address2" size="27" maxlength=35>
@@ -68,7 +68,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>*Campus City:</font></div>
+			<div align="right"><%=fontB%>*Ministry Location City:</font></div>
 		</td>
 		<td>
 			<input type="text" name="city" size="27" maxlength=30>
@@ -76,7 +76,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus State:<br>(required if US)</font></div>
+			<div align="right"><%=fontB%>Ministry Location State:<br>(required if US)</font></div>
 		</td>
 		<td>
 			<%
@@ -87,7 +87,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus ZIP:</font></div>
+			<div align="right"><%=fontB%>Ministry Location ZIP:</font></div>
 		</td>
 		<td>
 			<input type="text" name="zip" size="10" maxlength=10>
@@ -95,7 +95,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>*Campus Country:</font></div>
+			<div align="right"><%=fontB%>*Ministry Location Country:</font></div>
 		</td>
 		<td>
 			<%
@@ -106,7 +106,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Phone:</font></div>
+			<div align="right"><%=fontB%>Ministry Location Phone:</font></div>
 		</td>
 		<td>
 			<input type="text" name="phone" size="27" maxlength=24>
@@ -114,7 +114,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Fax:</font></div>
+			<div align="right"><%=fontB%>Ministry Location Fax:</font></div>
 		</td>
 		<td>
 			<input type="text" name="fax" size="27" maxlength=24>
@@ -122,7 +122,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Email:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Email:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="email" size="27" maxlength=50>
@@ -146,7 +146,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus Abbreviation:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Abbreviation:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="abbrv" size="27" maxlength=50>
@@ -154,7 +154,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus Fice:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Fice:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="fice" size="27" maxlength=35>
@@ -162,7 +162,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus Population:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Population:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="population" size="27" maxlength=35>
@@ -170,7 +170,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus Notes:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Notes:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="note" size="27" maxlength=1000>
@@ -178,7 +178,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus Alternate Name:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Alternate Name:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="altName" size="27" maxlength=100>
@@ -187,7 +187,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>*Is this campus secure/closed? </font></div>
+			<div align="right"><%=fontB%>*Is this Ministry Location secure/closed? </font></div>
 		</td>
 		<td><%=fontB%>
 			 Yes<input type="radio" name="isSecure" value=true>&nbsp&nbsp No<input type="radio" name="isSecure" value=false>
@@ -196,7 +196,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td> 
-			<div align="right"><%=fontB%>Campus Region:</font></div>
+			<div align="right"><%=fontB%>Ministry Location Region:</font></div>
 		</td>
 		<td>
 			<%
@@ -210,7 +210,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus AOA:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location AOA:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="aoa" size="27" maxlength=35>
@@ -218,7 +218,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Campus AOA Priority:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location AOA Priority:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="aoaPriority" size="27" maxlength=35>
@@ -252,7 +252,7 @@ if(!admin){
 %>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input type="submit" value="<%=admin?"Create New Campus" :"Submit Proposal"%>"></td>
+		<td><input type="submit" value="<%=admin?"Create New Ministry Location" :"Submit Proposal"%>"></td>
 	</tr>
 
 

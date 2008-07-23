@@ -167,7 +167,7 @@ function toggleDiv(who){
 				<%=box.printTop()%>
 				<FORM name="ibsearch" ACTION="JavaScript:ibsearch();">
 					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search" checked> Staff (last name)<br>
-					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search"> Campus<br>
+					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search"> Ministry Location<br>
 					<!--<img src="/images/blank.gif" width="15" height="1"><INPUT TYPE=radio name="search"> Team<br>-->
 					<center>
 					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="query" value='<%=profile.get("LastName")%>'><br>
@@ -403,7 +403,7 @@ function toggleDiv(who){
 					
 					%>
 				<%=hr%>
-				</font><%=fontB%><B>Campus</B><br></font><%=fontB1%>
+				</font><%=fontB%><B>Ministry Location</B><br></font><%=fontB1%>
 				<% prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.TARGET_AREA).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%
@@ -417,7 +417,7 @@ function toggleDiv(who){
 					}
 					%>
 				<%=hr%>
-				</font><%=fontB%><B>Team</B><br></font><%=fontB1%>
+				</font><%=fontB%><B>Missional Team</B><br></font><%=fontB1%>
 				<% prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.LOCAL_LEVEL).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%

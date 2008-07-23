@@ -83,7 +83,7 @@ ar = ActionResults.getActionResults(session);
 	<table width="100%" border=0><tr><td WIDTH="30%" ALIGN="CENTER" VALIGN="TOP">
 <% box.setTitleColor("#336699");%>
 <% box.setColor("#FFFFFF");%>
-<% box.setTitle("&nbsp;Team Info");%>
+<% box.setTitle("&nbsp;Missional Team Info");%>
 <% box.setWidth("98%");%>
 <%=box.printTop()%>
 				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
@@ -133,11 +133,11 @@ ar = ActionResults.getActionResults(session);
 
 		
 		<% if(!emailList.equals("")) { %>
-			<A HREF="mailto: <%= emailList %>">E-mail</A> all team members<br>
+			<A HREF="mailto: <%= emailList %>">E-mail</A> all Missional Team members<br>
 		<% } 
 		
 		if (!present){%>
-		<A HREF="/servlet/InfoBaseController?action=moveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Move to This Team</A>
+		<A HREF="/servlet/InfoBaseController?action=moveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Move to This Missional Team</A>
 		<%} %>
 	<%= box.printBottom()%>
 	</TD>
@@ -151,13 +151,13 @@ ar = ActionResults.getActionResults(session);
 	   Hashtable row = null;
 	%>
 	<% if (activeTargetCampusC.size()>0) { %>
-		<% box.setTitle("&nbsp;This team is currently responsible for the following target areas:");%>
+		<% box.setTitle("&nbsp;This Missional Team is currently responsible for the following Movements:");%>
 		<% box.setSubPad("0"); %>
 		<% box.setWidth("100%"); %>
 		<%=box.printTop()%>
 			<TABLE WIDTH="100%" BORDER="0" CELLSPACING="2" CELLPADDING="2">
 			<TR>
-				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Campus</B></FONT></TD>
+				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Ministry Location</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Strategy</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Status</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Update</B></FONT></TD>
@@ -173,7 +173,7 @@ ar = ActionResults.getActionResults(session);
 				</TR>
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
-				<%=font%>Add a campus to this team:<BR>
+				<%=font%>Add a Ministry Location to this team:<BR>
 					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=SC">add SC</A>]
 					 				[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CA">add CAT</A>]  
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=BR">add BR</A>] 
@@ -187,13 +187,13 @@ ar = ActionResults.getActionResults(session);
 		<%=box.printBottom()%><P>
 	<% } %>
 	<% if (forerunnerTargetCampusC.size()>0) { %>
-		<% box.setTitle("&nbsp;This team is trusting God to help them launch ministries at:");%>
+		<% box.setTitle("&nbsp;This Missional Team is trusting God to help them launch Movements at:");%>
 		<% box.setSubPad("0"); %>
 		<% box.setWidth("100%"); %>
 		<%=box.printTop()%>
 			<TABLE WIDTH="100%" BORDER="0" CELLSPACING="2" CELLPADDING="2">
 			<TR>
-				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Campus</B></FONT></TD>
+				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Ministry Location</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Strategy</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Status</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Update</B></FONT></TD>
@@ -209,19 +209,19 @@ ar = ActionResults.getActionResults(session);
 				</TR>
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
-				<%=font%>Add a campus to this team:<BR>
+				<%=font%>Add a Ministry Location to this team:<BR>
 					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CA">add Forerunner</A>]
 			</TD></TR></TABLE>
 		<%=box.printBottom()%><P>
 	<% } %>
 	<% if (inactiveTargetCampusC.size()>0) { %>
-		<% box.setTitle("&nbsp;Target areas this team has been responsible for in the past:");%>
+		<% box.setTitle("&nbsp;Movements this Missional Team has been responsible for in the past:");%>
 		<% box.setSubPad("0"); %>
 		<% box.setWidth("100%"); %>
 		<%=box.printTop()%>
 			<TABLE WIDTH="100%" BORDER="0" CELLSPACING="2" CELLPADDING="2">
 			<TR>
-				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Campus</B></FONT></TD>
+				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Ministry Location</B></FONT></TD>
 				<TD BGCOLOR="<%= color2 %>"><%=font%><B>Strategy</B></FONT></TD>
 				<!-- Commented out to eliminate the confusion about "inactive" might mean 
 						and because everything here will be inactive anyway

@@ -34,14 +34,14 @@ String pageTitle= "Update "+ request.getParameter("strategy") + " strategy at " 
 -->
 </STYLE>
 <script language="javascript">
-var active = "Indicates that the campus has an active CCC<BR>movement, usually with ten or more students.";
-var inactive = "Indicates that there is currently no active<BR>Campus Ministry strategy or potential<BR>student leader on the campus.";
-var pioneering = "<%=strategyName%> is actively doing something<BR>to start a ministry on this campus.";
-var keycontact = "<%=strategyName%> has found a key contact on this<BR>campus - student, volunteer, or partner.";
+var active = "Indicates that the Ministry Location has an active CCC<BR>movement, usually with ten or more students.";
+var inactive = "Indicates that there is currently no active<BR>Campus Ministry strategy or potential<BR>student leader at the Ministry Location.";
+var pioneering = "<%=strategyName%> is actively doing something<BR>to start a ministry at this Ministry Location.";
+var keycontact = "<%=strategyName%> has found a key contact at this<BR>Ministry Location - student, volunteer, or partner.";
 var launched = "<%=strategyName%> has a critical mass of five<BR>students, staff coach, etc.";
 var transformational = "Movement of 50 or more students<BR>involved, or 1% of the student body.";
-var forerunner = "<%=strategyName%> has a person who can resource<BR>this campus to move it to the next level.";
-var staffed = "There are staff assigned to this campus<BR>who report through the Staffed Campuses lane.";
+var forerunner = "<%=strategyName%> has a person who can resource<BR>this Ministry Location to move it to the next level.";
+var staffed = "There are staff assigned to this Ministry Location<BR>who report through the Staffed Campuses lane.";
 var empty = "";
 
 function setDefinition(setTo) {
@@ -59,7 +59,7 @@ function setDefinition(setTo) {
 }
 	function submitForm() {
 		if (document.updateActivityForm.teamid.options[document.updateActivityForm.teamid.selectedIndex].value == "none") {
-			alert("You must select a Team.");
+			alert("You must select a Missional Team.");
 		}
 		else {
 			document.updateActivityForm.submit();
@@ -86,7 +86,7 @@ function setDefinition(setTo) {
 	
 	<%
 	if (request.getParameter("justset")!=null)
-		{ %> <tr <%=bgcolorL%>><td nowrap colspan=2><%=fontR%><b>You have just added a new team to the InfoBase. To assign it to <%= ar.getValue("targetareaname") %>,<br> select it from the pull-down menu below and click "ok"</b></font></td></tr> <% }
+		{ %> <tr <%=bgcolorL%>><td nowrap colspan=2><%=fontR%><b>You have just added a new Missional Team to the InfoBase. To assign it to <%= ar.getValue("targetareaname") %>,<br> select it from the pull-down menu below and click "ok"</b></font></td></tr> <% }
 	%>
 	<tr><td align="left" COLSPAN="2">
 	<%=fontB%><b>Use the radio buttons to change the status below:<BR>
@@ -97,10 +97,10 @@ function setDefinition(setTo) {
 		<tr>
 			<td>
 				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
+				<b>This Ministry Location is a(n)...</B><BR>
 	
-				<input type=radio name=updateoption value=<%=("IN".equals(status))?"AC":"AC CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals(status))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals(status))?"AC":"AC CHECKED"%>><SPAN NAME="active" onMouseOver="setDefinition(active)" onMouseOut="setDefinition(empty)">ACTIVE</SPAN> Staffed Ministry Location.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals(status))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> Ministry Location.<br>
 				<%
 					statusHelper.setName("updateoption");
 					statusHelper.setCurrentValue((String)ar.getValue("status"));
@@ -115,9 +115,9 @@ function setDefinition(setTo) {
 		<tr>
 			<td>
 				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
-				<input type=radio name=updateoption value=AC> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> campus.<br>
-				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> campus.<br>
+				<b>This Ministry Location is a(n)...</B><BR>
+				<input type=radio name=updateoption value=AC> <SPAN NAME="active" onMouseOver="setDefinition(staffed)" onMouseOut="setDefinition(empty)">STAFFED</SPAN> Ministry Location.<br>
+				<input type=radio name=updateoption value=<%=("IN".equals((String)ar.getValue("status")))?"IN CHECKED":"IN"%>> <SPAN NAME="inactive" onMouseOver="setDefinition(inactive)" onMouseOut="setDefinition(empty)">INACTIVE</SPAN> Ministry Location.<br>
 				<%
 					statusHelper.setName("updateoption");
 					statusHelper.setCurrentValue((String)ar.getValue("status"));
@@ -144,7 +144,7 @@ function setDefinition(setTo) {
 		<tr>
 			<td>
 				<%=fontB%>
-				<b>This campus is a(n)...</B><BR>
+				<b>This Ministry Location is a(n)...</B><BR>
 				<%
 					statusHelper.setName("updateoption");
 					statusHelper.setCurrentValue((String)ar.getValue("status"));
@@ -180,7 +180,7 @@ function setDefinition(setTo) {
 
 	<tr>
 		<td	align="left" COLSPAN="2">
-			<%=fontB%><b>To change the team that is responsible for this campus, select the name of the new team from this menu.</b>
+			<%=fontB%><b>To change the Missional Team that is responsible for this Ministry Location, select the name of the new Missional Team from this menu.</b>
 			</font>
 		</td>
 	</tr>
@@ -200,7 +200,7 @@ function setDefinition(setTo) {
 				}
 				%>
 			</select>**</font><br>
-			<%=fontB%>** Can't find the right local level team?  Propose one to be entered here: </font>
+			<%=fontB%>** Can't find the right Missional Team?  Propose one to be entered here: </font>
 			<%=fontB%><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
 		</td>
 	</tr>

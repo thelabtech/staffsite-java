@@ -127,7 +127,7 @@
 				<tr align="left" valign="middle">
 					<th><%=fontB%>Group Evangelism</font></th>
 					<td><input type="text" name="GroupEvangelismExposures" value="<%=statistic.get("GroupEvangelismExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
-					<td width="90%"><i><%=fontB1%>What was the total number of people who heard the gospel through group evangelism? (For instance: team meetings; evangelistic presentations; etc.)</font></i></td>
+					<td width="90%"><i><%=fontB1%>What was the total number of people who heard the gospel through group evangelism? (For instance: sports team meetings; evangelistic presentations; etc.)</font></i></td>
 				</tr>
 				<tr align="left" valign="middle">
 					<th><%=fontB%>Media Exposures</font></th>
@@ -149,7 +149,7 @@
 			</table>
 			<br>
 			<table width="100%" cellpadding="5" cellspacing="1" <%=bgcolorL%>>
-				<tr><th <%=tableRightB%> colspan=3><%=fontW3%>Campus Snapshot (Demographics)</font></th></tr>
+				<tr><th <%=tableRightB%> colspan=3><%=fontW3%>Ministry Location Snapshot (Demographics)</font></th></tr>
 				<% if (current.equals("false")) {%> <tr><th <%=bgcolorL%> colspan=3><%=fontB1%>The fields below are prefilled with the most recently entered numbers. If these numbers have changed, please update them below.</font></th></tr><%}%>
 				<tr <%=bgcolorL%> align="left" valign="middle">
 					<th><%=fontB%>Multipliers</font></th>

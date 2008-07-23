@@ -11,7 +11,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 
 %>
 
-<% String pageTitle="Proposal for a New Team"; %>
+<% String pageTitle="Proposal for a New Missional Team"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -30,7 +30,7 @@ function teamVerify() {
 	var isValid = true;
 	isValid = verifyInput(document.TeamInfoForm.Name, document.TeamInfoForm.Lane, document.TeamInfoForm.Region, document.TeamInfoForm.Country);
 	if(!isValid) {
-		alert("You must provide the team name, lane, region, and country.");
+		alert("You must provide the Missional Team name, lane, region, and country.");
 	}
 	return isValid;
 }
@@ -46,15 +46,15 @@ function teamVerify() {
 	<form method="post"  name="TeamInfoForm" action="/servlet/InfoBaseController" onSubmit="return teamVerify()">
 	<input type=hidden name="action" value="submitNewLocalLevelRequest">
 	<input type="hidden" name="to" value="Yvonne.Rivera@uscm.org">
-	<input type="hidden" name="subject" value="New Team Proposal">
+	<input type="hidden" name="subject" value="New Missional Team Proposal">
 	<input type="hidden" name="admin" value="<%=admin%>">
-		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Team Info:</b></font></td></tr>
+		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Missional Team Info:</b></font></td></tr>
 		<tr <%=bgcolorL%>> 
 			<td colspan="2"><%=fontText%>&nbsp;
 <%= !admin		? 
-				"This form will be submitted to an administrator who will email you when the team has been added to the InfoBase."
+				"This form will be submitted to an administrator who will email you when the Missional Team has been added to the InfoBase."
 				:
-				"<B>Notice to Administrator</B>: <font color=red>Immediately</font> after submitting this form, the new team will be available."
+				"<B>Notice to Administrator</B>: <font color=red>Immediately</font> after submitting this form, the new Missional Team will be available."
 %>
 			</font>
 			</td>
@@ -176,7 +176,7 @@ function teamVerify() {
 		</tr>
 		<tr <%=bgcolorL%>> 
 			<td> 
-				<div align="right"><%=fontB%>Is this team Active? </font></div>
+				<div align="right"><%=fontB%>Is this Missional Team Active? </font></div>
 			</td>
 			<td><%=fontB%>
 				<input type="radio" name="IsActive" value="TRUE" checked>Yes 

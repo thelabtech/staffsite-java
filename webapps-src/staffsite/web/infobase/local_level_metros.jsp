@@ -8,7 +8,7 @@ String region = new String (request.getParameter("region"));
 regions.setName("region");
 regions.setCurrentValue(region);
 
-String pageTitle = regions.display() + " Teams"; %>
+String pageTitle = regions.display() + " Missional Teams"; %>
 
 <html>
 <head>
@@ -16,12 +16,12 @@ String pageTitle = regions.display() + " Teams"; %>
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
-<% box.setTitle("Teams in this Region"); %>
+<% box.setTitle("Missional Teams in this Region"); %>
 <% box.setStyle("Classic"); %>
 <% box.setWidth(""); %>
 <P ALIGN="CENTER">
 <%= box.printTop() %>
-<%=fontText%>Click on a team to view information such as, what campuses it is on, which staff are on it, contact info, and success
+<%=fontText%>Click on a Missional Team to view information such as, what Ministry Locations it is reaching, which staff are on it, contact info, and success
 criteria.
 <BR><BR>
 
@@ -36,7 +36,7 @@ while(metros.hasNext()) {
 }
 %>
 
-<center><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[Request to add a new team to this region]</a>
+<center><a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[Request to add a new Missional Team to this region]</a>
 
 </font>
 <%= box.printBottom() %>

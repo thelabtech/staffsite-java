@@ -265,14 +265,14 @@ Iterator infoI = ar.getCollection("regionalInfo").iterator();
 						<input type=hidden name="searchby" value="region">
 						<input type=hidden name="region" value="<%=region%>">
 						<input type=hidden name="lane" value="CA">
-						<%=fontB%>[<a href="javascript:document.teams.submit()">List Teams in this Region</a>]</font>
+						<%=fontB%>[<a href="javascript:document.teams.submit()">List Missional Teams in this Region</a>]</font>
 						</form>
 						<form name=campuses method="post" action="/servlet/InfoBaseController">
 						<input type="hidden" name="action" value="detailedListCampus">
 						<input type=hidden name="searchby" value="region">
 						<input type=hidden name="view" value="campusList">
 						<input type=hidden name="searchstring" value="<%=region%>">
-						<%=fontB%>[<a href="javascript:document.campuses.submit()">List Campuses in this Region</a>]</font>
+						<%=fontB%>[<a href="javascript:document.campuses.submit()">List Ministry Locations in this Region</a>]</font>
 						</form>
 					</td>
 				</tr>

@@ -1,4 +1,4 @@
-<% String pageTitle="Proposal for a New Team"; %>
+<% String pageTitle="Proposal for a New Missional Team"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>

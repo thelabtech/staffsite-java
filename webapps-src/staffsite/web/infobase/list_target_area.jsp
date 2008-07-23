@@ -12,7 +12,7 @@
 	<%
 		String pageTitle = "Search results for ";
 		if (request.getParameter("searchby").equals("all")) {
-			pageTitle = pageTitle + " all campuses";
+			pageTitle = pageTitle + " all Ministry Locations";
 		} else if (request.getParameter("searchby").equals("region")) {
 			pageTitle = pageTitle + " region:&nbsp;&nbsp;" + request.getParameter("searchstring");
 		} else if (request.getParameter("searchby").equals("city")) {
@@ -36,8 +36,8 @@
 
 	<table width="100%" border="0" cellpadding="3" cellspacing="2" align="center" <%=bgcolorW%>>
 		<tr <%=bgcolorB%>>
-			<td><%=fontW%><b><b>Campus name</b></font></td>
-			<td><%=fontW%><b><b>Team / Strategy (<i>status</i>)</b></font></td>
+			<td><%=fontW%><b><b>Ministry Location</b></font></td>
+			<td><%=fontW%><b><b>Missional Team / Strategy (<i>status</i>)</b></font></td>
 			<td><%=fontW%><b><b>Region</b></font></td>
 			<td><%=fontW%><b><b>City</b></font></td>
 			<td><%=fontW%><b><b>State</b></font></td>
@@ -65,7 +65,7 @@
 	</table>
 	<table width="100%" border="0" cellspacing="0" align="center">
 		<tr <%=bgcolorB%>><td height="19" <%=bgcolorB%> colspan=7></td></tr>
-		<tr><td><br><a href="/servlet/InfoBaseController?action=proposeNewTargetArea"><%=fontB%>Can't find your campus?  Propose one to be entered here.</font></a></td></tr>
+		<tr><td><br><a href="/servlet/InfoBaseController?action=proposeNewTargetArea"><%=fontB%>Can't find your Ministry Location?  Propose one to be entered here.</font></a></td></tr>
 	</table>
 	<br>
 	<%@ include file="/infobase/ibfooter.jspf" %>

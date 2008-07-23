@@ -56,7 +56,7 @@ The Campus InfoBase is the Campus Ministry's official database, rich with inform
 …the general makeup of a campus<BR>
 …whether Campus Crusade for Christ is active on a given campus<BR>
 …which strategy of our ministry is active on a campus<BR>
-…what phase of development the ministry is in (for Catalytic ministry locations)<BR>
+…what phase of development the ministry is in (for Field Strategies ministry locations)<BR>
 …who is on staff at a campus, and how to contact them;<BR>
 …and much more.<P>
 
@@ -72,19 +72,8 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 <HR>
 <A NAME="glossary"></A><H3>Glossary</H3>
 <HR>
-<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Staffed Campus, Catalytic, WSN STINT, WSN ICS, Ethnic Student Ministries - Epic / Destino / Impact.
+<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Field Strategies, WSN, Ethnic Student Ministries - Epic / Destino / Impact.
 
-<P><B>Status</B>: For Staffed Campus, WSN and ESM strategies, there are basically only two statuses: Active or Inactive. For Catalytic campuses, the status can be Pioneering, Key Contact, Launched, or Transformational. Each of these is defined below.
-
-<P><B>Active</B>: Indicates that the campus has an active CCC movement, usually with ten or more students.
-
-<P><B>Pioneering</B>: Catalytic is actively doing something to start a ministry on this campus.
-
-<P><B>Key Contact</B>: Catalytic has found a contact person on this campus.  This may be a student, volunteer, or partner.
-
-<P><B>Launched</B>: Catalytic has a critical mass of ten students, staff coach, etc.
-
-<P><B>Transformational</B>: Movement of 50 or more students involved, or 1% of the student body.
 
 <P><B>Contact Person</B>: This is the person on a campus to whom inquiries about the local level ministry can be addressed. This person's name and contact information will be listed in the Campus Ministry locators on various websites such as campuscrusadeforChrist.com (the Campus Ministry's public website), Godsquad and EveryStudent.com. There can be up to two Contact People for each campus.
 
@@ -138,7 +127,7 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 
 <OL>
 <LI>Find the campus.
-<LI>Under "What's going on at this campus?" click the link for the strategy that you would like to add. If the campus is in the United States, the choices will be "Add SC" (Staffed Campus) and "Add CA" (Catalytic). If it is not in the United States, the choices will be "Add WSN STINT" and "Add WSN ICS" (International Campus Staff). If you would like to add a contextual ministry, you find those links under "Contextual Ministries"---"ESM - E" for Epic, "ESM - D" for Destino, and "ESM - I" for Impact.
+<LI>Under "What's going on at this campus?" click the link for the strategy that you would like to add. If the campus is in the United States, the choices will be "Add SC" (Staffed Campus), "Add FS" (Field Strategies) and "Add CA" (Catalytic). If it is not in the United States, the choices will be "Add WSN STINT" and "Add WSN ICS" (International Campus Staff). If you would like to add a contextual ministry, you find those links under "Contextual Ministries"---"ESM - E" for Epic, "ESM - D" for Destino, and "ESM - I" for Impact.
 <LI>The first box to fill in is "Local Level Team." Click the down arrow to the right of the menu box and a list of all teams in the region will be displayed. Then, choose the team that is assigned to the campus. If the team is not in the list, click the "New Team" link at the bottom of the screen.  Complete the form and click "Update."
 <LI>Select the date that the strategy was or will be initiated on the campus.
 <LI>Click the "Add" button.
@@ -210,7 +199,7 @@ Your school's logo can appear at the top of the InfoBase page for your campus. <
 <A NAME="chstatus"><B>Changing the Status of a Campus</B><P>
 <OL>
 <LI>Find the campus.
-<LI>Locate the campus status in the upper-left corner of the box entitled "Staffed Campus Strategy" or "Catalytic Strategy."
+<LI>Locate the campus status in the upper-left corner of the box entitled "Staffed Campus Strategy," "Field Strategies" or "Catalytic Strategy."
 <LI>Click the word "Change" in the strategy box.
 <LI>Change the status by selecting the bullet to the left of the appropriate option.
 <LI>Click "OK."<P>

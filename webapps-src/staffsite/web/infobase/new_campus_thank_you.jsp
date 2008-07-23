@@ -7,7 +7,7 @@ ar = ActionResults.getActionResults(session);
 	String ErrorString = (String)error.get("ErrorString");
 	String teamActive;
 %>
-<% String pageTitle="Add Campus Results"; %>
+<% String pageTitle="Add Ministry Location Results"; %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -23,7 +23,7 @@ if(IsError.booleanValue())	{ %>
 <%
 } else {
 %>
-<%=fontB%><b>Success.</b> The campus has been saved.  Thank you.</font>
+<%=fontB%><b>Success.</b> The Ministry Location has been saved.  Thank you.</font>
 <%
 }	
 %>

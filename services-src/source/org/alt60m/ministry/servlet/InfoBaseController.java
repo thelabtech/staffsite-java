@@ -436,9 +436,9 @@ public class InfoBaseController extends Controller {
     /** @param ctx ActionContext object */
     public void detailedListCampus(ActionContext ctx) {
         final String[] allowedSearchBy = {"name", "city", "state", "country", "zip", "region", 
-        /*Movments: */ "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS", "WI", "MM", "AA", "CL", "KC", "GK", "VL", "OT"};
+        /*Movments: */ "FS", "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS",  "MM", "AA", "CL", "KC", "GK", "VL", "OT"};
         
-        final String[] validMovement = {"SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS", "WI", 
+        final String[] validMovement = {"FS", "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS",  
         								"MM", "AA", "CL", "KC", "GK", "VL", "OT"};
 
         try {

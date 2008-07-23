@@ -55,13 +55,13 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		Criteria Reporter</A>]</TD>
 	</TR>
 	<TR>
-		<TD WIDTH="50%" ALIGN="RIGHT"><%= font %><A HREF="javascript: document.bookmarkForm.submit();">[<% if(mode == "remove") { %>Un-<% } %>Bookmark this campus]</A></FONT></TD>
+		<TD WIDTH="50%" ALIGN="RIGHT"><%= font %><A HREF="javascript: document.bookmarkForm.submit();">[<% if(mode == "remove") { %>Un-<% } %>Bookmark this Ministry Location]</A></FONT></TD>
 	</TR>
 </TABLE>
 <BR>
 <%=fontL%>
 &nbsp;
-<B>What movements exist on this campus?</B>
+<B>What movements exist at this Ministry Location?</B>
 </FONT>
 <BR>
 <%
@@ -84,7 +84,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> <%=thisActivity.get("statusName")%>
 					</FONT><%=fontS%>[<A
 						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></TD>
-					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team Information:</B>&nbsp;<A
+					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team Information:</B>&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%><A
 						HREF="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>">Enter
@@ -170,7 +170,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 					<TR>
 						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
 							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team
+						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
 						Information:</B>&nbsp;<A
 							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					</TR>
@@ -234,7 +234,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 					<TR>
 						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
 							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team
+						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
 						Information:</B>&nbsp;<A
 							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					</TR>
@@ -298,7 +298,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 					<TR>
 						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
 							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Team
+						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
 						Information:</B>&nbsp;<A
 							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
 					</TR>
@@ -434,7 +434,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 	   		
 	    %>
 	   			<%=font%>[ <A 
-	   			HREF="/servlet/InfoBaseController?action=addMinToCampus&targetareaid=<%= request.getParameter("targetareaid") %>">Add non-CCC Ministry to this campus</A> ]
+	   			HREF="/servlet/InfoBaseController?action=addMinToCampus&targetareaid=<%= request.getParameter("targetareaid") %>">Add non-CCC Ministry to this Ministry Location</A> ]
 				</font>
 				<br>
 	   	<%
@@ -457,7 +457,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 						box.reset();
 						box.setWidth("");
 						box
-								.setTitle("&nbsp;Miscellaneous Campus Information &nbsp;");
+								.setTitle("&nbsp;Miscellaneous Ministry Location Information &nbsp;");
 						box.setStyle("Classic");
 						box.setColor(color2);
 				%>

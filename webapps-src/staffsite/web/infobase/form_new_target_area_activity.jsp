@@ -11,6 +11,8 @@ String strategy = new String (request.getParameter("strategy"));
 //expand name of the current strategy type
 String strategyName = new String();
 if (strategy.equals("SC")) {strategyName = "Staffed Campus";}
+
+else if (strategy.equals("FS")) {strategyName = "Field Strategies";}
 else if (strategy.equals("CA")) {strategyName = "Catalytic";}
 else if (strategy.equals("WS")) {strategyName = "WSN STINT";}
 else if (strategy.equals("WI")) {strategyName = "WSN ICS";}
@@ -30,7 +32,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 <script>
 	function submitForm() {
 		if (document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.locallevelid.selectedIndex].value == "") {
-			alert("You must select a Team.");
+			alert("You must select a Missional Team.");
 		}
 		else {
 			document.addTargetAreaActivityForm.submit();
@@ -48,9 +50,9 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 
 			<%
 			if (request.getParameter("justSet")!=null) 
-				{ %> <tr <%=bgcolorL%>><td nowrap colspan=2><%=fontR%><b>Select the local level team that you just added to your region...</b></font></td></tr> <% }
+				{ %> <tr <%=bgcolorL%>><td nowrap colspan=2><%=fontR%><b>Select the Missional Team that you just added to your region...</b></font></td></tr> <% }
 			%>
-			<tr><td	nowrap align="right"><%=fontB%>*Local Level Team:</font></td>
+			<tr><td	nowrap align="right"><%=fontB%>*Missional Team:</font></td>
 				<td nowrap><%=fontB%>
 					<select name="locallevelid">
 						<option value=""></option>
@@ -94,8 +96,8 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 			<tr <%=bgcolorL%>>
 				<td colspan=2 align=center>
 					<br>
-					<%=fontB%>** Can't find the right local level team?<br>
-						Add a new team to the InfoBase here: </font>
+					<%=fontB%>** Can't find the right Missional Team?<br>
+						Add a new Missional Team to the InfoBase here: </font>
 					<%=fontB%><a href="/servlet/InfoBaseController?action=editTeam&mode=add&targetareaid=<%=targetAreaID%>&strategy=<%=strategy%>&from=addTeamToCampus">[New Team]</a><br></font><br>
 				</td>
 			</tr>

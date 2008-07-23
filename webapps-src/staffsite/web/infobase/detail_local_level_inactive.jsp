@@ -35,10 +35,10 @@ ar = ActionResults.getActionResults(session);
 				<P ALIGN="CENTER">
 				<center><%=fontB3%><b>
 <%=teamName%> is currently inactive.</b></font> <br>
-<br><%=fontB%>If you reached this page through a Bookmark, there may be a new version of this team in the Infobase. 
-<br>If you have reason to think this is an error, please contact the leadership of this team.
+<br><%=fontB%>If you reached this page through a Bookmark, there may be a new version of this Missional Team in the Infobase. 
+<br>If you have reason to think this is an error, please contact the leadership of this Missional Team.
 <br><br>
-<A HREF="javascript: document.bookmarkForm.submit();"><% if(mode == "remove") { %>Un-<% } %>Bookmark this team</A>
+<A HREF="javascript: document.bookmarkForm.submit();"><% if(mode == "remove") { %>Un-<% } %>Bookmark this Missional Team</A>
 </font></center><br>
 				
 			<%=box.printBottom()%>

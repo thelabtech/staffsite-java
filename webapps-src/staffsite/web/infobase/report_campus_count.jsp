@@ -17,17 +17,17 @@ ar = ActionResults.getActionResults(session);
 
 <CENTER>
 <% box.setStyle("Classic"); %>
-<% box.setTitle("Campus Count Report - Current Totals"); %>
+<% box.setTitle("Movement Count Report - Current Totals"); %>
 <% box.setWidth("75%"); %>
 <%= box.printTop() %>
 	<center>
-	<%=fontB3%>Number of campuses the Campus Ministry<br> is involved with (current <I>and</I> in planning stages):</font><br>
-	<%=fontB%><I>(two strategies on the same campus,<br>such as ICR Impact and Staffed Campus,<br>would be counted as two campuses)</I></font><p>
+	<%=fontB3%>Number of movements the Campus Ministry<br> is involved with (current <I>and</I> in planning stages):</font><br>
+	<%=fontB%><I>(two strategies on the same campus,<br>such as ICR Impact and Staffed Campus,<br>would be counted as two movements)</I></font><p>
 	<%=fontB5%><b><%= ar.getValue("activitycount") %></b></font><p>
-	<%=fontB3%>Number of campuses the Campus Ministry<br> has ACTIVE ministry on (excludes those in planning stages):</font><br>
-	<%=fontB%><I>(two strategies on the same campus,<br>such as ICR Impact and Staffed Campus,<br>would be counted as two campuses)</I></font><p>
+	<%=fontB3%>Number of ACTIVE movements (excludes those in planning stages):</font><br>
+	<%=fontB%><I>(two strategies on the same campus,<br>such as ICR Impact and Staffed Campus,<br>would be counted as two movements)</I></font><p>
 	<%=fontB5%><b><%= ar.getValue("activitycountcurrent") %></b></font><p>
-  <%=fontB3%># of campuses reporting success criteria (in the last year):<p>
+  <%=fontB3%># of movements added in the last 365 days:<p>
 	<%=fontB5%><b><%= ar.getValue("reportedcount") %></b></font><p>
 <%= box.printBottom() %>
 </center>

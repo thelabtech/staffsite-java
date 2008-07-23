@@ -92,7 +92,7 @@
 					<!--<img border="0" src="/infobase/images/usmap.gif" usemap="#USMap" width="500" height="313"> -->
                     <img border="0" src="/infobase/images/usmap08.gif" usemap="#USMap" width="500" height="313">				</td>
 <td width="90" align="left">
-					<FONT FACE="Arial" SIZE="3" COLOR="#7788BB"><b>Locate a campus by clicking on a state:</b></font><br>
+					<FONT FACE="Arial" SIZE="3" COLOR="#7788BB"><b>Locate a Ministry Location by clicking on a state:</b></font><br>
 				</td>
 			</tr>
 			<tr>

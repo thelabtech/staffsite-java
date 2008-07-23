@@ -15,10 +15,10 @@
 			<%=fontB%>
 			<center><b>Entering Success Criteria:</b></center>
 			<br>
-			To enter success criteria for your campus, find your campus by using the "Search" box above 
+			To enter success criteria for your Movement, find your Movement by using the "Search" box above 
 			(or go to the <a href='/servlet/InfoBaseController?action=showIndex'>InfoBase</a> and use the clickable 
-			map to find the campus). Once you're on the page for your campus, click on the "Enter Success Criteria" 
-			link. You can bookmark your campus' success criteria page and it will appear below in the list of 
+			map to find the Movement). Once you're on the page for your Movement, click on the "Enter Success Criteria" 
+			link. You can bookmark your Movement' success criteria page and it will appear below in the list of 
 			bookmarks to make it easier each time you come back.
 			<br><BR>
 			<center>
@@ -43,7 +43,7 @@
 					}
 					%>
 				<%=hr%>
-				</font><%=fontB%><B>Campus</B><br></font><%=fontB1%>
+				</font><%=fontB%><B>Ministry Location</B><br></font><%=fontB1%>
 				<% prefs = bookmarks.getBookmarks(profileID, Bookmarks.TARGET_AREA).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%
@@ -57,7 +57,7 @@
 					}
 					%>
 				<%=hr%>
-				</font><%=fontB%><B>Team</B><br></font><%=fontB1%>
+				</font><%=fontB%><B>Missional Team</B><br></font><%=fontB1%>
 				<% prefs = bookmarks.getBookmarks(profileID, Bookmarks.LOCAL_LEVEL).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%
@@ -85,10 +85,10 @@
 			<%=fontB%>
 			<center><b>Viewing Success Criteria Reports:</b></center>
 			<br>
-			Reports are made from the success criteria entered for each campus. You can view the national 
-			and regional reports from the links below. To view reports for a team or campus, find the campus 
+			Reports are made from the success criteria entered for each Movement. You can view the national 
+			and regional reports from the links below. To view reports, find the Missional Team or Ministry Location   
 			using the "Search" box above (or go to the <a href='/servlet/InfoBaseController?action=showIndex'>InfoBase</a> 
-			and use the clickable map to find the campus). Once you're on the page for that campus, click the 
+			and use the clickable map to find the Missional Team or Ministry Location). Once you're on the page for that Missional Team or Ministry Location, click the 
 			"Success Criteria Reporter" link.
 			<BR><BR>
 			<center>
@@ -97,7 +97,7 @@
 			<%=box.printTop()%>
 					<%=fontB%>
 					<ul>
-						<li><a href="/servlet/InfoBaseController?action=showCampusCountReport">Campus Report</a> <I>(# of campuses)</I>
+						<li><a href="/servlet/InfoBaseController?action=showCampusCountReport">Movement Report</a> <I>(# of Movements)</I>
 						<!-- <li>National Report is Under Construction -->
 						<!-- <li><a href="/sc?page=/ib/spec_report.jsp">National Report</a> (<a href="/sc?page=/ib/report_nation.jsp">YTD</a>) -->
             <li>

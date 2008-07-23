@@ -1,6 +1,6 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
 
-<% String pageTitle="Add campus to " + request.getParameter("ministry"); %>
+<% String pageTitle="Add Ministry Location to " + request.getParameter("ministry"); %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -21,7 +21,7 @@ function noncccminVerify() {
 	var isValid = true;
 	isValid = verifyInput(document.addCampusToMinForm.partialName);
 	if(!isValid) {
-		alert("You must provide part of a campus's name");
+		alert("You must provide part of a Ministry Location's name");
 	}
 	return isValid;
 }
@@ -35,7 +35,7 @@ function noncccminVerify() {
 			<input type=hidden name="ministryName" value="<%=request.getParameter("ministry")%>">
 			
 			<tr> 
-				<td align="right"><%=fontB%>Enter part of the campus's name:</font></td>
+				<td align="right"><%=fontB%>Enter part of the Ministry Location's name:</font></td>
 				<td colspan="2" nowrap> 
 					<input type="text" name="partialName" value="" size="27" maxlength=100>
 				</td>
