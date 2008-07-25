@@ -143,8 +143,8 @@ function toggleDiv(who){
 				<center>
 				<!-- This link goes in each year in Feb. for 2 weeks
 				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Take te SLICE survey</b></A></font><br><%=fontS%><br><br>
-			    -->
-				<a href="/infobase/changeTeam.jsp">Change my Team Assignment</A></font></center>
+			    -->				
+				<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
