@@ -1,12 +1,15 @@
 <jsp:useBean id="states" class="org.alt60m.html.SelectState" />
 <jsp:useBean id="country" class="org.alt60m.html.SelectCountry" />
-
+<%@ page import="org.alt60m.servlet.*, java.util.*" %>
 <html>
 <head>
 <title>Campus InfoBase Homepage</title>
 </head>
 
-<% String pageTitle = "Main Page"; %>
+<% 
+ActionResults ar; 
+ar = ActionResults.getActionResults(session);
+String pageTitle = "Main Page"; %>
 <%@ include file="/infobase/ibheader.jspf" %>
 
 <table width="100%" border="0" align="center">
@@ -14,6 +17,30 @@
         <td width="130" align="right"> 
 			<br>
 			<table width="100%" border="0" bgcolor="#E3E3E3" bordercolor="#7788BB">
+				
+				<tr>
+					<TD <%=tableCenterB%>><%=fontW%><B>My Missional Teams&nbsp;</B></font>
+				</tr></td>
+				<tr <%=bgcolorL%> bordercolor="#6699CC" valign="middle"> 
+					<td>
+						<table width="100%" border="0"><tr><td>
+				<%Hashtable<String,String> thisTeam=new Hashtable<String,String>();
+				String personID=ar.getValue("personID");
+				Vector<Hashtable<String, String>> teams=org.alt60m.ministry.servlet.InfoBaseTool.listTeamsForPerson(personID);
+				Iterator teamsIter=teams.iterator();
+				int firsty=0;
+				while(teamsIter.hasNext()){%>
+				
+				<%thisTeam=(Hashtable<String,String>)teamsIter.next();%>
+				<A style="border:none;"
+					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=IBindex">
+				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
+				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A>
+				
+				<br><%
+				firsty++;
+				}%></td></tr></table></TD></tr></table><br>
+				<table width="100%" border="0" bgcolor="#E3E3E3" bordercolor="#7788BB">
 				<tr>
 					<TD <%=tableCenterB%>><%=fontW%><B>Staff Lookup&nbsp;</B></font>
 						

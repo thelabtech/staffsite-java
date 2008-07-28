@@ -1190,6 +1190,15 @@ public class StaffController extends Controller {
 	 *
 	 */
 	public void showHome(ActionContext ctx) {
+		ActionResults result=new ActionResults("staffhome");
+		org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
+		user.setUsername((String)ctx.getSessionValue("userName"));
+		user.select();
+		org.alt60m.ministry.model.dbio.Person person=new org.alt60m.ministry.model.dbio.Person();
+		person.setFk_ssmUserID(user.getUserID());
+		person.select();
+		result.putValue("personID",person.getPersonID()+"");
+		ctx.setReturnValue(result);
 		ctx.goToView("home");
 	}
 

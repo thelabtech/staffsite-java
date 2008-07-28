@@ -737,15 +737,32 @@ public class InfoBaseController extends Controller {
         return staffHash;
     }
  private Hashtable<String,Object> getAddressForTeamMember(String personID) throws Exception {
+	 Address address = new Address();   
+	 address.setFk_PersonID(personID);
+	 Person person=new Person(personID);
+        if (!(person.getAccountNo()==null||person.getAccountNo().equals(""))){
+        	InfoBaseTool ibt = new InfoBaseTool();
+            Staff staff = ibt.getStaffObject(person.getAccountNo());
+            Hashtable<String, Object> staffHash = emulateOldStaffStructure(staff);
+            address.setAddress1((String)staffHash.get("Address1"));
+            address.setAddress2((String)staffHash.get("Address2"));
+            address.setAddress3((String)staffHash.get("Address3"));
+            address.setAddress4((String)staffHash.get("Address4"));
+            address.setCity((String)staffHash.get("City"));
+            address.setState((String)staffHash.get("State"));
+            address.setZip((String)staffHash.get("Zip"));
+            address.setCountry((String)staffHash.get("Country"));
+            address.setWorkPhone(staff.getWorkPhone());
+        }else{
         
-        Address address = new Address();
-        address.setFk_PersonID(personID);
+        
         address.setAddressType("current");
         address.select();
         if (address==null){
         	address.setFk_PersonID(personID);
             address.setAddressType("permanent");
             address.select();
+        }
         }
         Hashtable<String, Object> addressHash = ObjectHashUtil.obj2hash(address);
         return addressHash;
@@ -1057,7 +1074,7 @@ public class InfoBaseController extends Controller {
     }
     public void listPerson(ActionContext ctx) {
         try {
-            ActionResults results = new ActionResults("listStaff");
+            ActionResults results = new ActionResults("listPerson");
 			InfoBaseTool ibt = new InfoBaseTool();
             String searchText = ctx.getInputString("searchtext", true);
            
@@ -1758,6 +1775,38 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveTeamMember().", e);
         }
     }
+    public void removeTeamMember(ActionContext ctx) {
+        try {
+        	ActionResults result=new ActionResults("removeTeamMember");
+    		result.putValue("personID",ctx.getInputString("personID"));
+    		
+        	String teamID = ctx.getInputString("teamID", true);
+            String personID = ctx.getInputString("personID");
+            InfoBaseTool ibt = new InfoBaseTool();
+			ibt.removeTeamMember( personID,teamID);
+			
+			
+            if (ctx.getInputString("view").equals("home")){
+            	ctx.setReturnValue(result);
+            	ctx.goToView("staffHome");
+            }
+            else if (ctx.getInputString("view").equals("person")){
+            	showPersonInfo(ctx);
+            }
+            else if (ctx.getInputString("view").equals("team")){
+            	showTeam(ctx);
+            }
+            else {
+            	ctx.setReturnValue(result);
+            	ctx.goToView("index");
+            }
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform removeTeamMember().", e);
+        }
+    }
     public void moveTeamMember(ActionContext ctx) {
         try {
             String teamID = ctx.getInputString("teamID", true);
@@ -1792,11 +1841,22 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform showCampusCountReport().", e);
         }
     }
-
+    public String getUsersPersonId(ActionContext ctx){
+    	org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
+		user.setUsername((String)ctx.getSessionValue("userName"));
+		user.select();
+		org.alt60m.ministry.model.dbio.Person person=new org.alt60m.ministry.model.dbio.Person();
+		person.setFk_ssmUserID(user.getUserID());
+		person.select();
+		return person.getPersonID()+"";
+    }
     /** @param ctx ActionContext object Request parameters: <none> */
     public void showIndex(ActionContext ctx) {
         try {
-            ctx.goToView("index");
+        	ActionResults result=new ActionResults("IB index");
+    		result.putValue("personID",getUsersPersonId(ctx));
+    		ctx.setReturnValue(result);
+        	ctx.goToView("index");
         }
         catch (Exception e) {
             ctx.goToErrorView();
@@ -1941,6 +2001,8 @@ public class InfoBaseController extends Controller {
             if (isHR == null) {
             	isHR = "false";
             }
+            results.putValue("userPersonID", getUsersPersonId(ctx));
+            results.putValue("personID", personID);
             results.putValue("isStaff", isStaff);
             results.putValue("isHR", isHR);
             results.addCollection("dependentInfo", dependentInfo);

@@ -127,6 +127,11 @@ ar = ActionResults.getActionResults(session);
 			emailList = emailList + staffEmail + "; ";
 		}
 		%>
+		<%if(session.getValue("isHR").equals("true")){ %>
+		<A style="border:none;"
+					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
+				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
+		<%} %>
 		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%= personID %>"><%=staffName%></A><br>
    <%}%>
 		<P ALIGN="CENTER">
@@ -134,10 +139,12 @@ ar = ActionResults.getActionResults(session);
 		
 		<% if(!emailList.equals("")) { %>
 			<A HREF="mailto: <%= emailList %>">E-mail</A> all Missional Team members<br>
-		<% } 
-		
-		if (!present){%>
-		<A HREF="/servlet/InfoBaseController?action=moveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Move to This Missional Team</A>
+		<% } %>
+		<%if(session.getValue("isHR").equals("true")){ %>
+		<A HREF="/servlet/InfoBaseController?action=addMissionalTeamMember&teamID=<%=teamID %>&lastName=A">Add a Missional Team Member</A><br>
+		<%} %>
+		<%if (!present){%>
+		<A HREF="/servlet/InfoBaseController?action=saveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Join This Missional Team</A>
 		<%} %>
 	<%= box.printBottom()%>
 	</TD>

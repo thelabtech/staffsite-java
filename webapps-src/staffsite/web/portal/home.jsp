@@ -1,6 +1,10 @@
+<%@ page import="org.alt60m.servlet.*" %>
 <%@ page import="java.io.*,java.util.*,javax.servlet.http.*,javax.mail.*,javax.mail.internet.*,javax.activation.*, javax.xml.transform.stream.*, javax.xml.transform.*, java.net.*" %>
 <%@ page import="org.alt60m.staffSite.bean.dbio.*,org.alt60m.staffSite.model.dbio.StaffSitePref" %>
-<% int curr_tab = 1; %>
+<% int curr_tab = 1; 
+ActionResults ar; 
+ar = ActionResults.getActionResults(session);
+%>
 <%@ include file="/header.jspf" %>
 <jsp:useBean id="internetsearch" class="org.alt60m.html.InternetSearch" />
 <jsp:useBean id="biblesearch" class="org.alt60m.html.BibleSearch" />
@@ -138,6 +142,26 @@ function toggleDiv(who){
 				<br>
 			<%// } %> -->
 			<%// if (isStudent.equals("false")) { %>
+			<% box.setTitle("My Missional Teams");	%>
+				<%=box.printTop()%>
+				
+				<%Hashtable<String,String> thisTeam=new Hashtable<String,String>();
+				String personID=ar.getValue("personID");
+				Vector<Hashtable<String, String>> teams=org.alt60m.ministry.servlet.InfoBaseTool.listTeamsForPerson(personID);
+				Iterator teamsIter=teams.iterator();
+				int firsty=0;
+				while(teamsIter.hasNext()){%>
+				
+				<%thisTeam=(Hashtable<String,String>)teamsIter.next();%>
+				<A style="border:none;"
+					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=home">
+				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
+				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A>
+				
+				<br><%
+				firsty++;
+				}%><%=box.printBottom()%>
+				<br>
 				<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
 				<center>
