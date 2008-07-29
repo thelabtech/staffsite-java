@@ -172,6 +172,21 @@ public class ApplyStaffChanges {
 						parent.setPosition(nextChange.getNewValue());
 		    		} else */if (nextChange.getField().equals("teamID")) {
 						parent.setLocalLevelId(nextChange.getNewValue());
+						//what follows is to move seamlessly into the new team association schema for hungover change requests
+						org.alt60m.staffSite.model.dbio.StaffSiteProfile profile=new org.alt60m.staffSite.model.dbio.StaffSiteProfile();
+						profile.setAccountNo(parent.getAccountNo());
+						profile.select();
+						org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
+						user.setUsername(profile.getUserName());
+						user.select();
+						org.alt60m.ministry.model.dbio.Person person=new org.alt60m.ministry.model.dbio.Person();
+						person.setFk_ssmUserID(user.getUserID());
+						person.select();
+						org.alt60m.ministry.servlet.InfoBaseTool ibt=new org.alt60m.ministry.servlet.InfoBaseTool();
+						ibt.removeTeamMember(person.getPersonID()+"", nextChange.getNewValue());
+						ibt.removeTeamMember(person.getPersonID()+"", nextChange.getOldValue());
+						ibt.saveTeamMember(person.getPersonID()+"", nextChange.getNewValue());
+						//end new stuff IJK 7/29/2008
 				    }/* else if (nextChange.getField().equals("title")) {
 						parent.setJobTitle(nextChange.getNewValue());
 				    } else if (nextChange.getField().equals("loaStartDate")) {   // leave of absence fields

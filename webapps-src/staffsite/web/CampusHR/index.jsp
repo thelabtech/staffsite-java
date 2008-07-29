@@ -58,13 +58,15 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 <TABLE WIDTH="98%" ALIGN="CENTER" BORDER=0 CELLPADDING=0 CELLSPACING=5>
 <TR>
 	<TD>
+		<NOBR><B>Personal Information</B></NOBR>
 		<BLOCKQUOTE>
 		<NOBR><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=/ss/pages/EForms/PIU.htm" target="_blank">Address Change Form</A> - Redirects to Staff Services form.</NOBR><BR>
 		<NOBR><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=/ss/pages/EForms/PIU.htm" target="_blank">Marriage Form</A> - Redirects to Staff Services form..</NOBR><BR>
 		<NOBR><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=/ss/pages/EForms/PIU.htm" target="_blank">Births and Dependent Change Form</A> - Redirects to Staff Services form..</NOBR></BLOCKQUOTE>
 		<NOBR><B>Information that requires approval of your HR team</B></NOBR>
 		<BLOCKQUOTE>
-		For nearly all job-related changes, please contact your region's HR approver.<br><br> 
+		
+		For nearly job-related changes such as regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br><!-- 
 		The exception is Missional Team assignment.<br><br>
 		To add yourself to a Missional Team, navigate to the Missional Team's display page 
 		in the <A HREF="/servlet/InfoBaseController">InfoBase</A>. Click the link that says
@@ -75,7 +77,7 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		the <A HREF="/servlet/InfoBaseController">InfoBase</A> home page or your 
 		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%=ar.getValue("personID") %>">personal info</A> page.<br><br>
 		
-		<NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
+		--><NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
 	</TD>
 </TR>
 </TABLE>
