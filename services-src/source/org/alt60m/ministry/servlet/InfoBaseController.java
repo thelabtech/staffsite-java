@@ -1841,7 +1841,7 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform showCampusCountReport().", e);
         }
     }
-    public String getUsersPersonId(ActionContext ctx){
+    public static String getUsersPersonId(ActionContext ctx){
     	org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
 		user.setUsername((String)ctx.getSessionValue("userName"));
 		user.select();

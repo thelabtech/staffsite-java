@@ -521,6 +521,7 @@ public class HRUpdateController extends Controller {
 	*
 	* @param ctx ActionContext object, out of which get the session
 	*/
+	
 	public void getTeamList(ActionContext ctx) throws Exception {
 		try {
 			Hashtable staff =
@@ -575,6 +576,13 @@ public class HRUpdateController extends Controller {
 				jobs.add("SC Coach");
 				jobs.add("SC in Training");
 				jobs.add("SC Staff");
+			}
+			if ("Field Strategies".equals(strategy)) {
+				jobs.add("FS Director");
+				jobs.add("FS Associate Director");
+				jobs.add("FS Coach");
+				jobs.add("FS in Training");
+				jobs.add("FS Staff");
 			}
 
 			if ("ESM".equals(strategy)) {
@@ -1423,6 +1431,10 @@ public class HRUpdateController extends Controller {
 				ctx.setSessionValue("staffInfo", hrt.getUserData(ctx.getProfile(), acctNo, requestedBy));
 				log.debug("after getting user data");
 			}
+			ActionResults result=new ActionResults("HRindex");
+			result.putValue("personID", org.alt60m.ministry.servlet.InfoBaseController.getUsersPersonId(ctx));
+			ctx.setReturnValue(result);
+			
 			ctx.goToView("index");
 		} catch (AccountNumberNullException e) {
 			log.warn("AccountNumberNullException thrown: " + e);

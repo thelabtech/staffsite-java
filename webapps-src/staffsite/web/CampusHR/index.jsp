@@ -1,6 +1,7 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*, java.text.*" %>
 <%
-	Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
+ActionResults ar = ActionResults.getActionResults(session);	
+Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 	String lastName = "";
 	String firstName = "";
 	String preferredName = "";
@@ -63,13 +64,18 @@
 		<NOBR><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=/ss/pages/EForms/PIU.htm" target="_blank">Births and Dependent Change Form</A> - Redirects to Staff Services form..</NOBR></BLOCKQUOTE>
 		<NOBR><B>Information that requires approval of your HR team</B></NOBR>
 		<BLOCKQUOTE>
-		<NOBR><A HREF="/CampusHR/job_change1.jsp">Job Change Form</A> - Change your job position within CCCI.</NOBR><BR>
-	<% if ((spouseAccountNo != null) && (spouseAccountNo.trim().length() > 0)) { %>
-		<NOBR><A HREF="/CampusHR/spouse_job_change1.jsp">Spouse Job Change Form</A> - Change your spouse&#39;s job position within CCCI.</NOBR><BR>
-	<% } %>
-		<NOBR><A HREF="/CampusHR/leave.jsp">Leave of Absence Form</A> - Medical, Personal, Administrative, and other leaves of absence.</NOBR><BR>
-		<NOBR><A HREF="/CampusHR/resignation.jsp">Resignation Form</A> - Submit a resignation.</NOBR></BLOCKQUOTE>
-		<NOBR><A HREF="/servlet/StaffController?action=showTools"><I>back to tools page</I></A></NOBR>
+		For nearly all job-related changes, please contact your region's HR approver.<br><br> 
+		The exception is Missional Team assignment.<br><br>
+		To add yourself to a Missional Team, navigate to the Missional Team's display page 
+		in the <A HREF="/servlet/InfoBaseController">InfoBase</A>. Click the link that says
+		"Join this Missional Team"  and you will become a member of that team, along with your current teams.<br><br>
+		
+		To remove yourself from a Missional Team, click the red "X" beside its name <br>
+		on your <A HREF="/servlet/StaffController?action=showHome">staff homepage</A>, 
+		the <A HREF="/servlet/InfoBaseController">InfoBase</A> home page or your 
+		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%=ar.getValue("personID") %>">personal info</A> page.<br><br>
+		
+		<NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
 	</TD>
 </TR>
 </TABLE>
