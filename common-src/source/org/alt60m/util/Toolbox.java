@@ -69,7 +69,9 @@ public final class Toolbox
 							{ 
 								renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTargetArea&targetareaid="+resultSet.getString("campusID")+"\">");
 								if (type.equals("movement")){
-									renderedReport.append((resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>")+" </td><td class=\""+(type.equals("movement")?"report_"+cell:"label_"+cellAlt) +"\">"+(secure?"<i>":"")+org.alt60m.ministry.Strategy.expandStrategy(resultSet.getString("strategy"))));
+									renderedReport.append((resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>")+" </td><td class=\""+
+											(type.equals("movement")?"report_"+cell:"label_"+cellAlt) +"\">"+(secure?"<i>":"")+
+											org.alt60m.ministry.Strategy.expandStrategy(resultSet.getString("strategy"))));
 								}
 								else if (type.equals("location")){
 									renderedReport.append(resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>"));
