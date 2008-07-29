@@ -492,13 +492,13 @@ public class Reports {
 			int secureRows=0;
 			boolean alternate=true;
 			boolean lighter=true;
-			org.alt60m.util.Toolbox box=new org.alt60m.util.Toolbox();
+			
 			while (resultSet.next()){
-				renderedReport=box.renderMuster( renderedReport, lighter,  resultSet,  type,  keys);
+				renderedReport=renderMuster( renderedReport, lighter,  resultSet,  type,  keys);
 				if (alternate){lighter=!lighter;}
 			rows++;
 			}
-			secureRows=box.getSecureRows();
+			secureRows=getSecureRows();
 			renderedReport.append(getMusterBottom(type,rows,secureRows));
 			resultSet=null;
 			conn.close();
@@ -509,6 +509,71 @@ public class Reports {
         throw new Exception(e);
     	}
 	}
+	private static int secureRows=0;
+	public static int getSecureRows(){
+		return secureRows;
+	}
+	public  static StringBuffer renderMuster(StringBuffer renderedReport, boolean lighter, java.sql.ResultSet resultSet, String type, java.util.Vector<String> keys)throws Exception{
 
+		String cellAlt="";
+		String cell="";
+		boolean secure=false;
+			if(lighter){
+						cell="light";
+						cellAlt="darker";
+					}
+					else
+					{
+						cell="darker";
+						cellAlt="veryDark";
+					}
+					secure=(!(resultSet.getString("isSecure").equals("F")))&&(!type.equals("team"));
+					if(
+						(!secure)||
+						(keys.contains(resultSet.getString("campusID"))||
+						(keys.contains(resultSet.getString("region"))||
+						(keys.contains("ALL"))))
+						){ 
+							renderedReport.append("<tr >");
+							renderedReport.append("<td class=\"label_"+(!type.equals("movement")?cell:cellAlt) +"\">"+(secure?"<i>":""));
+							if(type.equals("team")){ 
+								renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTeam&locallevelid="+resultSet.getString("teamID")+"\">");
+								renderedReport.append(resultSet.getString("teamName"));
+							}
+							 else 
+							{ 
+								renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTargetArea&targetareaid="+resultSet.getString("campusID")+"\">");
+								if (type.equals("movement")){
+									renderedReport.append((resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>")+" </td><td class=\""+
+											(type.equals("movement")?"report_"+cell:"label_"+cellAlt) +"\">"+(secure?"<i>":"")+
+											org.alt60m.ministry.Strategy.expandStrategy(resultSet.getString("strategy"))));
+								}
+								else if (type.equals("location")){
+									renderedReport.append(resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>"));
+								}
+								
+								
+							}
+						 
+						
+						renderedReport.append("</td><td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("region")+"</td>");
+						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("city")+"</td>");
+						renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("state")+"</td>");
+						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("country")+"</td>");
+						if (type.equals("movement")){ 
+							 renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("status")+"</td>");
+							 renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":""));
+							 renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTeam&locallevelid="+resultSet.getString("teamID")+"\">"+resultSet.getString("teamName")+"</a>");	
+									 renderedReport.append("</td>");
+						} 
+			renderedReport.append("</tr>");
+					}else{
+			secureRows++;
+					}
+			
+			
+		
+		return renderedReport;
+	}
 
 }
