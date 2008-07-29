@@ -461,7 +461,7 @@ public class Reports {
 	private static StringBuffer getMusterBottom(String type, int rows, int secureRows){
 		StringBuffer renderedReport=new StringBuffer();
 		if (type.equals("movement")){
-			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Movements On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Movements Not Displayed</i>":"")+"</td>");
+			renderedReport.append("<tr ><td colspan=\"2\" class=\"label_darker_blue\">"+rows+" Movements On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Movements Not Displayed</i>":"")+"</td>");
 		}
 		else if (type.equals("location")){
 			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Ministry Locations On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Locations Not Displayed</i>":"")+"</td>");
