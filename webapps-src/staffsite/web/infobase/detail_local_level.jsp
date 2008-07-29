@@ -127,7 +127,7 @@ ar = ActionResults.getActionResults(session);
 			emailList = emailList + staffEmail + "; ";
 		}
 		%>
-		<%if(session.getValue("isHR").equals("true")){ %>
+		<%if((session.getValue("isHR").equals("true"))||present){ %>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>

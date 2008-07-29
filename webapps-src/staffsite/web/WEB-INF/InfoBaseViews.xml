@@ -51,6 +51,7 @@
 	<view name="addMissionalTeamMember" url="/infobase/add_missional_team_member.jsp"></view>
 	<view name="everystudent" url="/locator/everystudent/list.jsp"></view>
 	<view name="everystudent_detail" url="/locator/everystudent/detail.jsp"></view>
+	<view name="showMuster" url="/infobase/quickmuster.jsp"></view>
 	<view name="godsquad" url="/locator/gs/list.jsp"></view>
 	<view name="godsquad_detail" url="/locator/gs/detail.jsp"></view>
 	<view name="uscm" url="/locator/uscm/list.jsp"></view>

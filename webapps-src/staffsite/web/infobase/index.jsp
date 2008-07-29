@@ -143,6 +143,11 @@ String pageTitle = "Main Page"; %>
 								</font>
 							</td> -->
 						</tr>
+						<tr>
+							<td style="padding-top:30px;" colspan="2">
+							<a FACE="Arial" SIZE="3" COLOR="#7788BB" href="/infobase/set_muster_criteria_agile.jsp">Movement Rollcall</a>
+							</td>
+						</tr>
 						</form>
 					</table>
 				</td>

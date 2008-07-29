@@ -12,7 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Reports {
-	private static Log log = LogFactory.getLog(InfoBaseController.class);
+	private static Log log = LogFactory.getLog(Reports.class);
 	
 	//the following strings are for getSuccessCriteriaReport() method. 
 	private static String  conditionsPortion(String type, String region, String periodEnd, String periodBegin, String strategyList, String localLevelId, String targetAreaID){
@@ -340,6 +340,7 @@ public class Reports {
             throw new Exception(e);
         }
 	}
+
 	private static ReportRow getBottom(String type, ReportRow lastRow, ReportRow summingRow, ReportRow runningTotal){
 		ReportRow bottom=new ReportRow(runningTotal);
 		bottom.setFunction("bottom");
@@ -360,4 +361,154 @@ public class Reports {
 		}
 		return bottom;
 	}
+	
+	private static String lastStatus(String date){
+		return " (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status, ministry_activity_history.period_begin as periodBegin"+
+			" FROM	("+
+			"	SELECT ministry_activity_history.activity_id as activity_id, MAX(ministry_activity_history.period_begin) as periodBegin "+
+			" FROM ministry_activity_history WHERE "+
+			" (ministry_activity_history.period_begin<='"+date+"') AND (ministry_activity_history.toStrategy Is Null) "+
+			" GROUP BY ministry_activity_history.activity_id ) lastDates INNER JOIN ministry_activity_history "+
+			" ON (lastDates.activity_id=ministry_activity_history.activity_id AND lastDates.periodBegin=ministry_activity_history.period_begin)) lastStatus ";
+	}
+	private static String processedOrder( Vector<String> order){
+		String processedOrder="";	
+		Hashtable<String,String> orderCodes=new Hashtable<String,String>();
+		
+		orderCodes.put("strategy","strategy");
+		orderCodes.put("status"," field(lastStatus.status,'AC','TR','LA','KE','PI','FR') ");
+		orderCodes.put("team","teamName");
+		orderCodes.put("campus","campusName");
+		orderCodes.put("city","country, state, city ");
+		for (String o : order){
+				if (orderCodes.keySet().contains(o)){
+					processedOrder+=orderCodes.get(o)+", ";
+				}
+			}
+		processedOrder=processedOrder.substring(0,processedOrder.length()-2);//trim final comma 
+		return processedOrder;
+	}
+	
+	private static String countReportQuery(String type, String region, String strategyList, String date, Vector<String> order){
+		String group="";
+		String address="";
+		if (type.equals("movement")){
+			group="ministry_targetarea.targetAreaID,  ministry_activity.strategy ";
+			 address=" MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
+		}
+		else if (type.equals("location")){
+			group="ministry_targetarea.targetAreaID ";
+			 address="MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
+		}
+		else if (type.equals("team")){
+			group="ministry_locallevel.teamID ";
+			 address="MAX(ministry_locallevel.city) as city,  MAX(ministry_locallevel.state) as state, MAX(ministry_locallevel.country) as country ";
+		}
+		
+		
+		return "SELECT MAX(ministry_targetarea.name) as campusName, MAX(ministry_targetarea.isSecure) as isSecure,"+
+			" MAX(ministry_targetarea.region) as region, lastStatus.status as status, "+
+			" MAX(ministry_activity.strategy) as strategy, "+
+			" MAX(ministry_locallevel.name) as teamName, MAX(ministry_locallevel.teamID) as teamID, MAX(ministry_targetarea.targetAreaID) as campusID, "+
+			address+ //this portion of query generated based on type of report requested
+			" FROM (ministry_activity INNER JOIN ministry_targetarea ON ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID) "+
+			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID "+
+			" LEFT JOIN "+lastStatus(date)+" ON ministry_activity.ActivityID=lastStatus.activity_id "+
+			" WHERE "+ 
+			" ministry_activity.strategy in ("+strategyList+") and "+
+			" lastStatus.status in ('AC','TR','LA','KE','PI','FR') "+
+			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and ministry_targetarea.region = '"+region+"' ":"")+
+			" GROUP BY "+group+
+			" ORDER BY "+ processedOrder( order)+
+			";";
+	}
+	private static String convertStatus(String code){
+		Hashtable<String,String> codes=new Hashtable<String,String>();
+		codes.put("IN","Inactive");
+		codes.put("FR","Forerunner");
+		codes.put("PI","Pioneering");
+		codes.put("KE","Key Contact");
+		codes.put("LA","Launched");
+		codes.put("AC","Active");
+		codes.put("TR","Transformational");
+		if(codes.keySet().contains(code.toUpperCase())){
+			return codes.get(code);
+		}
+		else
+		{
+			return "Other";
+		}
+	}
+	private static StringBuffer getMusterTop(String type){
+		StringBuffer renderedReport=new StringBuffer();
+		if (type.equals("movement")){
+			renderedReport.append("<tr ><td colspan=\"2\" class=\"label_darker_blue\">Movements</td>");
+		}
+		else if (type.equals("location")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">Ministry Locations</td>");
+		}
+		else if (type.equals("team")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">Missional Teams</td>");
+		}	
+		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
+		renderedReport.append("<td class=\"report_darker_blue\">City</td><td class=\"report_light_blue\">State</td><td class=\"report_darker_blue\">Country</td>");
+		if (type.equals("movement")){
+			renderedReport.append("<td class=\"report_light_blue\">Status</td><td class=\"report_darker_blue\">Team Name</td>");
+			} 
+		renderedReport.append("</tr>");
+		return renderedReport;
+	}
+	private static StringBuffer getMusterBottom(String type, int rows, int secureRows){
+		StringBuffer renderedReport=new StringBuffer();
+		if (type.equals("movement")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Movements On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Movements Not Displayed</i>":"")+"</td>");
+		}
+		else if (type.equals("location")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Ministry Locations On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Locations Not Displayed</i>":"")+"</td>");
+		}
+		else if (type.equals("team")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Missional Teams On Record</td>");
+		}	
+		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
+		renderedReport.append("<td class=\"report_darker_blue\">City</td><td class=\"report_light_blue\">State</td><td class=\"report_darker_blue\">Country</td>");
+		if (type.equals("movement")){
+			renderedReport.append("<td class=\"report_light_blue\">Status</td><td class=\"report_darker_blue\">Team Name</td>");
+			} 
+		renderedReport.append("</tr>");
+		return renderedReport;
+	}
+	public static String getMuster(String type, String region, String strategyList, String periodEnd, Vector<String> order,java.util.Vector<String> keys) throws Exception{
+		try{
+			
+			String query="";
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			query=countReportQuery( type, region,  periodEnd, strategyList, order);
+			log.debug(query);
+			ResultSet resultSet = stmt1.executeQuery(query);
+			StringBuffer renderedReport=new StringBuffer();
+			renderedReport.append(getMusterTop(type));
+			int rows=0;
+			int secureRows=0;
+			boolean alternate=true;
+			boolean lighter=true;
+			org.alt60m.util.Toolbox box=new org.alt60m.util.Toolbox();
+			while (resultSet.next()){
+				renderedReport=box.renderMuster( renderedReport, lighter,  resultSet,  type,  keys);
+				if (alternate){lighter=!lighter;}
+			rows++;
+			}
+			secureRows=box.getSecureRows();
+			renderedReport.append(getMusterBottom(type,rows,secureRows));
+			resultSet=null;
+			conn.close();
+			return renderedReport.toString();
+			}
+		catch (Exception e) {
+		log.error("Failed to perform getMuster().", e);
+        throw new Exception(e);
+    	}
+	}
+
+
 }

@@ -13,10 +13,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 import java.util.Vector;
 import org.alt60m.security.dbio.manager.SimpleSecurityManager;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
@@ -41,6 +43,7 @@ import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
+
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.CountryCodes;
@@ -1775,6 +1778,56 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveTeamMember().", e);
         }
     }
+    
+    public Vector<String> sortOrderFromRequest(ActionContext ctx){
+    	TreeMap<String,String> sortOrder=new TreeMap<String,String>(convertBracketedParamsToHashtable(ctx).get("order")); //TreeMap is like a hashtable sorted by keys' natural order
+        Vector<String> order=new Vector<String>();
+        for (String key : sortOrder.keySet()){//we dump the sort-by's according to the alpha order of their keys order[a],order[b],order[c] etc.
+     	   order.add(sortOrder.get(key));
+        }
+        return order;
+    }
+    
+    public void showMuster(ActionContext ctx) {
+        try {
+            ActionResults results = new ActionResults("showCampusCountReport");
+            String type=ctx.getInputString("type");
+            String region=ctx.getInputString("region");
+            String periodEndYear=ctx.getInputString("periodEndYear");
+            String periodEndMonth=ctx.getInputString("periodEndMonth");
+            String periodEnd=periodEndYear+"/"+periodEndMonth+"/31";
+            String strategyList="";
+            Collection strategies;
+        	if(ctx.getInputString("strategyList")==null){
+    	    	 strategies=(Collection<String>)convertBracketedParamsToHashtable(ctx).get("strategies").keySet();
+    	    	for (String temp : (Collection<String>)strategies)strategyList += "'" + temp +"', ";
+    	    	strategyList=strategyList.substring(0,strategyList.length()-2);//trim final comma
+        	}
+        	else
+        	{
+        		strategyList=ctx.getInputString("strategyList");
+        		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
+        	}
+        	String report=Reports.getMuster(type, region, periodEnd, strategyList, sortOrderFromRequest(ctx),UnlockCampus.keys((String)ctx.getSessionValue("userName")));
+            results.putValue("report",report);
+            
+           report=null;
+           results.putValue("type", type);
+           results.putValue("strategyList", strategyList);
+           results.putValue("region", region);
+           results.putValue("userName",(String)ctx.getSessionValue("userName"));
+           
+            ctx.setReturnValue(results);
+            results=null;
+           ctx.goToView("showMuster");
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform showMuster().", e);
+        }
+    }
+    
     public void removeTeamMember(ActionContext ctx) {
         try {
         	ActionResults result=new ActionResults("removeTeamMember");
