@@ -66,7 +66,7 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		<NOBR><B>Information that requires approval of your HR team</B></NOBR>
 		<BLOCKQUOTE>
 		
-		For nearly job-related changes such as regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br><!-- 
+		For job-related changes such as regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br><!-- 
 		The exception is Missional Team assignment.<br><br>
 		To add yourself to a Missional Team, navigate to the Missional Team's display page 
 		in the <A HREF="/servlet/InfoBaseController">InfoBase</A>. Click the link that says
