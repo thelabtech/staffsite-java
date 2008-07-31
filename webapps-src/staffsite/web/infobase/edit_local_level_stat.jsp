@@ -8,12 +8,15 @@
 	String updatedBy = null;
 	String updatedAt = null;
 	if(ar.getHashtable("statistic") == null){
+		statistic.put("DecisionsMediaExposures", 0);
+		statistic.put("DecisionsPersonalEvangelismExposures", 0);
+		statistic.put("DecisionsGroupEvangelismExposures", 0);
 		statistic.put("Decisions", 0);
 		statistic.put("MediaExposures", 0);
 		statistic.put("PersonalEvangelismExposures", 0);
 		statistic.put("GroupEvangelismExposures", 0);
 		statistic.put("LaborersSent", 0);
-
+		statistic.put("HolySpiritConversations", 0);
 		statistic.put("GrowthGroupMembers", 0);
 		statistic.put("Multipliers", 0);
 		statistic.put("StudentLeaders", 0);
@@ -24,20 +27,29 @@
 
 		if (current.equals("true"))
 		{
+			statistic.put("DecisionsMediaExposures", editStat.get("DecisionsMediaExposures"));
+			statistic.put("DecisionsPersonalEvangelismExposures", editStat.get("DecisionsPersonalEvangelismExposures"));
+			statistic.put("DecisionsGroupEvangelismExposures", editStat.get("DecisionsGroupEvangelismExposures"));
 			statistic.put("Decisions", editStat.get("Decisions"));
 			statistic.put("MediaExposures", editStat.get("MediaExposures"));
 			statistic.put("PersonalEvangelismExposures", editStat.get("PersonalEvangelismExposures"));
 			statistic.put("GroupEvangelismExposures", editStat.get("GroupEvangelismExposures"));
 			statistic.put("LaborersSent", editStat.get("LaborersSent"));
+			statistic.put("HolySpiritConversations", editStat.get("HolySpiritConversations"));
 			updatedBy = ar.getValue("updatedBy");
 			Date updatedAtDate = (Date) ar.getObject("updatedAt");
 			updatedAt = updatedAtDate == null ? null : updatedAtDate.toString();
 		} else {
+			statistic.put("DecisionsMediaExposures", 0);
+			statistic.put("DecisionsPersonalEvangelismExposures", 0);
+			statistic.put("DecisionsGroupEvangelismExposures", 0);
+			
 			statistic.put("Decisions", 0);
 			statistic.put("MediaExposures", 0);
 			statistic.put("PersonalEvangelismExposures", 0);
 			statistic.put("GroupEvangelismExposures", 0);
 			statistic.put("LaborersSent", 0);
+			statistic.put("HolySpiritConversations", 0);
 		}
 
 		statistic.put("GrowthGroupMembers", editStat.get("GrowthGroupMembers"));
@@ -106,6 +118,7 @@
 					<td width="50" <%=bgcolorL%> align="center">
 						<%=fontB%><%=ar.getValue("periodend")%></font>
 						<input type="hidden" name="PeriodEnd" value="<%=new java.sql.Date(myDate.parse((String)ar.getValue("periodend")).getTime())%>">
+						<input type="hidden" name="Decisions" value="<%=statistic.get("Decisions")%>" >				
 					</td>
 				</tr>
 			</table>
@@ -134,16 +147,26 @@
 					<td><input type="text" name="MediaExposures" value="<%=statistic.get("MediaExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
 					<td width="90%"><i><%=fontB1%>How many people have been exposed to significant gospel content with opportunities to respond in the last month through media exposures? (For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)</font></i></td>
 				</tr>
+				
 				<tr align="left" valign="middle">
-					<th><%=fontB%>Decisions for Christ</font></th>
-					<td><input type="text" name="Decisions" value="<%=statistic.get("Decisions")%>" size="10" onBlur="isInteger(this, this.value)"></td>
-					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord?</font></i></td>
+					<th><%=fontB%>Personal Evangelism Decisions for Christ</font></th>
+					<td><input type="text" name="DecisionsPersonalEvangelismExposures" value="<%=statistic.get("DecisionsPersonalEvangelismExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
+					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord after hearing a personal presentation of the Gospel?</font></i></td>
+				</tr>
+				<tr align="left" valign="middle">
+					<th><%=fontB%>Group Evangelism Decisions for Christ</font></th>
+					<td><input type="text" name="DecisionsGroupEvangelismExposures" value="<%=statistic.get("DecisionsGroupEvangelismExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
+					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord after hearing a large group presentation of the Gospel?</font></i></td>
+				</tr>
+				<tr align="left" valign="middle">
+					<th><%=fontB%>Media Exposure Decisions for Christ</font></th>
+					<td><input type="text" name="DecisionsMediaExposures" value="<%=statistic.get("DecisionsMediaExposures")%>" size="10" onBlur="isInteger(this, this.value)"></td>
+					<td><i><%=fontB1%>How many people have indicated a decision to receive Christ as their Savior and Lord after being exposed to the Gospel via media?</font></i></td>
 				</tr>
 				<tr align="left" valign="middle">
 					<th><%=fontB%>Holy Spirit Presentations</font></th>
-					<td><input type="text" name="HolySpiritConversations" disabled value="Coming August 1, 2008" size="10" onBlur="isInteger(this, this.value)"></td>
-					<td><i><%=fontB1%>	(Coming August 1, 2008)<br>
-										How many people have heard a presentation of the ministry of the Holy Spirit
+					<td><input type="text" name="HolySpiritConversations"  value="<%=statistic.get("HolySpiritConversations")%>" size="10" onBlur="isInteger(this, this.value)"></td>
+					<td><i><%=fontB1%>	How many people have heard a presentation of the ministry of the Holy Spirit
 										with the opportunity to respond?</font></i></td>
 				</tr>
 			</table>

@@ -108,8 +108,8 @@ Hashtable h = ar.getHashtable("staffinfo");
 <% box.setTitle("&nbsp;Misc Information"); %>
 <%=box.printTop() %>
 <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
-				<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
-				<% if(maritalStatus.equals("M"))
+				<!--<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
+				--><% if(maritalStatus.equals("M"))
 					   maritalStatus = "Married";
            else
 					   maritalStatus = "Single";
@@ -132,7 +132,6 @@ Hashtable h = ar.getHashtable("staffinfo");
 					<TR><TD VALIGN="TOP"><%=font%><B>Status: </B></FONT></TD><TD><%= font %><%= status %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Strategy: </B></FONT></TD><TD><%= font %><%= strategy %></A></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Position: </B></FONT></TD><TD><%= font %><%= position %></A></TD></TR>
-					<TR><TD VALIGN="TOP"><%=font%><B>Team: </B></FONT></TD><TD><%= font %><%= team %></A></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Job: </B></FONT></TD><TD><%= font %><%= jobTitle %></A></TD></TR>				
 				<% } %>
 					<TR><TD VALIGN="TOP"><%=font%><B>Note: </B></FONT></TD><TD><%= font %><%= note %></A></TD></TR>
@@ -154,7 +153,6 @@ Hashtable h = ar.getHashtable("staffinfo");
 					<% } %>
 </TD>
 </TR>
-<TR><TD COLSPAN="2"><%=font%>&nbsp;To change your staff information, <A HREF="/servlet/HRUpdateController">click here</A>. 
 </TABLE>
 
 </CENTER>

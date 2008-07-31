@@ -23,6 +23,7 @@ ar = ActionResults.getActionResults(session);
 		String this_preferredName;
 		String this_lastName;
 		String this_personid;
+		String this_staffid;
 		String regionID = "";
 		String mode = (String)ar.getValue("mode");
 		String group = "";
@@ -75,10 +76,14 @@ ar = ActionResults.getActionResults(session);
 			  
 			 this_lastName = (String)currentPerson.getLastName();
 			 this_personid = (String)(currentPerson.getPersonID()+"");
+			 this_staffid = (String)(currentPerson.getAccountNo()+"");
 			 %>
 				<TR>
-				
-				<TD><%=font%><A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%= this_personid %>"> <B><%=this_preferredName +" " + this_lastName %></B></A></FONT></TD>
+				<%if(!((this_personid.equals("0")||this_personid==null)||(this_personid.equals("")))){ %>
+				<TD><%=font%><A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=this_staffid%>&personID=<%= this_personid %>"> <B><%=this_preferredName +" " + this_lastName %></B></A></FONT></TD>
+				<%}else{ %>
+				<TD><%=font%><A HREF="/servlet/InfoBaseController?action=showStaffInfo&staffid=<%= this_staffid %>"> <B><%=this_preferredName +" " + this_lastName %></B></A></FONT></TD>
+				<%} %>
 				<TD><%=font%><% if(!this_address1.trim().equals("")) out.print(this_address1);
 				                if(!this_address2.trim().equals("")) out.print("<BR>"+this_address2);
 				                if(!this_address3.trim().equals("")) out.print("<BR>"+this_address3);

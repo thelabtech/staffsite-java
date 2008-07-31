@@ -169,7 +169,103 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-	
+	public static Vector listStaffAndContactsByLastName(String search) {
+		try {
+			String makeName="";
+			TreeMap<String,Contact>c=new TreeMap<String,Contact>();
+			Vector<String> identities=new Vector<String>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String query2="SELECT ministry_staff.accountNo, ministry_staff.person_id as personID, ministry_staff.firstName, "
+				+"ministry_staff.preferredName, ministry_staff.lastName, "
+				+"ministry_staff.email, ministry_address.address1, ministry_address.address2, ministry_address.address3, "
+				+"ministry_address.city, ministry_address.address4, ministry_address.state, ministry_address.zip, "
+				+"ministry_address.country"
+				+" FROM ministry_staff INNER JOIN ministry_address ON ministry_staff.fk_primaryAddress = ministry_address.AddressID " 
+				+" WHERE UPPER(ministry_staff.lastName) like '" + search.toUpperCase() + "%' and ministry_staff.removedFromPeopleSoft='N' ORDER BY ministry_staff.lastName, ministry_staff.firstName;";
+			log.debug(query2);
+			ResultSet rs2 = stmt2.executeQuery(query2);
+			while (rs2.next()){
+				
+				Contact contact= new Contact();
+				contact.setPersonID(rs2.getInt("personID"));
+				contact.setAccountNo(rs2.getString("accountNo"));
+				contact.setFirstName(rs2.getString("firstName"));
+				contact.setLastName(rs2.getString("lastName"));
+				contact.setPreferredName(rs2.getString("preferredName")==null?"":rs2.getString("preferredName"));
+				contact.setEmail(rs2.getString("email"));
+				makeName="";
+				if(!((contact.getPreferredName()==null)||contact.getPreferredName().equals(""))){
+					makeName=contact.getPreferredName();
+				}else{
+					makeName=contact.getFirstName();
+				}
+				log.debug("makeName= "+makeName);
+				String identityCheck=(contact.getLastName()+makeName+contact.getEmail()).toLowerCase();
+				log.debug(identityCheck);
+				if((contact.getEmail()!=null)&&(!(contact.getEmail().equals("")))){
+					c.put(identityCheck,contact);
+					log.debug(identityCheck+" added to c");
+					identities.add(identityCheck);
+				}else{
+					c.put(identityCheck+"accountNo"+rs2.getString("accountNo"),contact);
+					log.debug(identityCheck+"accountNo"+rs2.getString("accountNo")+" added to c");
+				}
+				
+			}
+			
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" FROM (ministry_person INNER JOIN simplesecuritymanager_user "+
+			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
+			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
+			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ORDER BY ministry_person.lastName, ministry_person.firstName;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				Contact contact= new Contact();
+				contact.setPersonID(rs.getInt("personID"));
+				contact.setFirstName(rs.getString("firstName"));
+				contact.setLastName(rs.getString("lastName"));
+				contact.setPreferredName(rs.getString("preferredName")==null?"":rs.getString("preferredName"));
+				contact.setEmail(rs.getString("email"));
+				makeName="";
+				log.debug(contact.getPreferredName()+contact.getFirstName());
+				if(!((contact.getPreferredName()==null)||contact.getPreferredName().equals(""))){
+					makeName=contact.getPreferredName();
+				}else{
+					makeName=contact.getFirstName();
+				}
+				log.debug("makeName= "+makeName);
+				String identityCheck=(contact.getLastName()+makeName+contact.getEmail()).toLowerCase();
+				log.debug(identityCheck);
+				if(!identities.contains(identityCheck)){
+				c.put(identityCheck+"personID"+rs.getInt("personID"),contact);
+				log.debug(identityCheck+"personID"+rs.getInt("personID")+ " added to c");
+				}else {
+							
+					Contact temp=new Contact();
+					temp=c.get(identityCheck);
+					if(temp.getPersonID()==0){
+					temp.setPersonID(contact.getPersonID());
+					c.put(identityCheck,temp);
+					log.debug(identityCheck+" updated in c");
+					}
+				}
+			}
+			
+			Vector<Contact>result=new Vector<Contact>();
+			for(String s:c.keySet()){
+				result.add(c.get(s));
+			}
+			
+			return result;
+		} catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public static Vector<Statistic> listStatsForTargetArea(String targetAreaId, Date start, Date end) {
 		Activity a = new Activity();
@@ -594,7 +690,8 @@ public class InfoBaseQueries {
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
-			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email,"+
+			" staffsite_staffsiteprofile.accountNo as accountNo "+
 			" FROM (ministry_missional_team_member inner join ministry_person "+
 			" on ministry_person.personID=ministry_missional_team_member.personID INNER JOIN simplesecuritymanager_user "+
 			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
@@ -604,6 +701,7 @@ public class InfoBaseQueries {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setAccountNo(rs.getString("accountNo"));
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName"));

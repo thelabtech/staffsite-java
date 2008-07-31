@@ -158,7 +158,7 @@ else
 	mobilePhone = (String)h.get("CellPhone"); //note not MobilePhone as above
 	fax = (String)h.get("Fax");
 		
-	email = (String)h.get("Email");
+	email = (String)p.get("Email");
 	url = (String)h.get("Url");
 	
 	birthDate = "";
@@ -213,8 +213,8 @@ else
 <% box.setTitle("&nbsp;Misc Information"); %>
 <%=box.printTop() %>
 <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
-				<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
-				<% if(maritalStatus.equals("M"))
+				<!--<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
+				--><% if(maritalStatus.equals("M"))
 					   maritalStatus = "Married";
            else
 					   maritalStatus = "Single";

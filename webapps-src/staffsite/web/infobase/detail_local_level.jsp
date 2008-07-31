@@ -132,7 +132,7 @@ ar = ActionResults.getActionResults(session);
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 		<%} %>-->
-		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%= personID %>"><%=staffName%></A><br>
+		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>"><%=staffName%></A><br>
    <%}%>
 		<P ALIGN="CENTER">
 

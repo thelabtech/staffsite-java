@@ -739,13 +739,12 @@ public class InfoBaseController extends Controller {
         }
         return staffHash;
     }
- private Hashtable<String,Object> getAddressForTeamMember(String personID) throws Exception {
+ private Hashtable<String,Object> getAddressForTeamMember(String accountNo, String personID) throws Exception {
 	 Address address = new Address();   
-	 address.setFk_PersonID(personID);
-	 Person person=new Person(personID);
-        if (!(person.getAccountNo()==null||person.getAccountNo().equals(""))){
+	 
+        if (!(accountNo==null||accountNo.equals(""))){
         	InfoBaseTool ibt = new InfoBaseTool();
-            Staff staff = ibt.getStaffObject(person.getAccountNo());
+            Staff staff = ibt.getStaffObject(accountNo);
             Hashtable<String, Object> staffHash = emulateOldStaffStructure(staff);
             address.setAddress1((String)staffHash.get("Address1"));
             address.setAddress2((String)staffHash.get("Address2"));
@@ -756,9 +755,8 @@ public class InfoBaseController extends Controller {
             address.setZip((String)staffHash.get("Zip"));
             address.setCountry((String)staffHash.get("Country"));
             address.setWorkPhone(staff.getWorkPhone());
-        }else{
-        
-        
+        }else if(!(personID.equals("0")||personID==null||personID.equals(""))){
+        address.setFk_PersonID(personID);
         address.setAddressType("current");
         address.select();
         if (address==null){
@@ -1082,18 +1080,26 @@ public class InfoBaseController extends Controller {
             String searchText = ctx.getInputString("searchtext", true);
            
             if (searchText.length() > 0) {
-            	 Vector<Contact> contacts=InfoBaseQueries.listContactsByLastName(searchText);
+            	 Vector<Contact> contacts=InfoBaseQueries.listStaffAndContactsByLastName(searchText);
+            	 
             	 Vector<Hashtable<String, Object> > addresses=new Vector<Hashtable<String, Object> >();
             	 Iterator contactsIter = contacts.iterator();
-          	   while(contactsIter.hasNext()) {
+            	 Hashtable <String, Object> thisAddress=new Hashtable <String, Object>();
+            	 while(contactsIter.hasNext()) {
           			 Contact currentContact = (Contact)contactsIter.next();
-          			 Hashtable <String, Object> thisAddress=getAddressForTeamMember(currentContact.getPersonID()+"");
+          			 thisAddress=getAddressForTeamMember(currentContact.getAccountNo()+"",currentContact.getPersonID()+"");
+          			
           			 addresses.add(thisAddress);
+          			 
           	   }
             	results.addCollection("contacts", contacts);
+            	
+            		
             	results.addCollection("addresses", addresses);
             } else {
                 results.addCollection("staff", new Vector());
+                results.addCollection("contacts", new Vector<Contact>());
+            	results.addCollection("addresses", new Vector<Hashtable<String, Object> >());
             }
             
             ctx.setReturnValue(results);
@@ -1527,7 +1533,8 @@ public class InfoBaseController extends Controller {
 					"PeriodEnd", "PersonalEvangelismExposures",
 					"GroupEvangelismExposures", "MediaExposures", "Decisions",
 					"Multipliers", "StudentLeaders", "InvolvedStudents",
-					"LaborersSent" });
+					"LaborersSent","DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
+					"DecisionsGroupEvangelismExposures","HolySpiritConversations"});
 			Map<String, String> statMap = new HashMap<String, String>();
 			for (String key : keys) {
 				statMap.put(key, (String) request.get(key));
@@ -1625,15 +1632,28 @@ public class InfoBaseController extends Controller {
 						"PeriodEnd", "PersonalEvangelismExposures",
 						"GroupEvangelismExposures", "MediaExposures", "Decisions",
 						"Multipliers", "StudentLeaders", "InvolvedStudents",
-						"LaborersSent", "PeopleGroup", "HolySpiritConversations", "Seekers" });
+						"LaborersSent", "PeopleGroup", "DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
+						"DecisionsGroupEvangelismExposures","HolySpiritConversations", "Seekers" });
 				 statMap = new HashMap<String, String>();
 				for (String key : keys) 
 				{
-					if(!("PeriodBegin PeriodEnd PeopleGroup".contains((String)key))&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)==null)))
+					if(!("PeriodBegin PeriodEnd PeopleGroup ".contains((String)key))
+							&&(!(((String) (key)).contains("Before")))
+							&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))
+							&&(!((String) thisStat.get(key)).equals(""))
+							&&(!((String) thisStat.get(key)).equals("null"))
+							&&(!((String) thisStat.get(key)==null))
+							&&(!(((String) thisStat.get(key)).equals((String) thisStat.get("Before"+key))))
+							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key)).equals("")))
+							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key)).equals("null")))
+							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key))==null))
+							)
 					{
 						hasData=true;
+						log.debug((String) thisStat.get(key)+", "+(String) thisStat.get("Before"+key));
+						log.debug("hasData="+hasData);
 					}
-					log.debug("hasData="+hasData);
+					
 					if(("PeriodBegin PeriodEnd".contains((String)key)))
 					{
 						statMap.put(key, (String) thisStat.get(key));
@@ -2031,18 +2051,32 @@ public class InfoBaseController extends Controller {
         try {
             ActionResults results = new ActionResults("showPersonInfo");
             String personID = ctx.getInputString("personID", true);
-			Person person = new Person(personID);
+            String accountNo = ctx.getInputString("accountNo", true);
+			
+            log.debug(accountNo+" accountNo, "+personID+" personID");
+            Person person = new Person(personID);
+            User user=new User();
+            user.setUserID(person.getFk_ssmUserID());
+            user.select();
 			Hashtable<String,Object>personHash=org.alt60m.util.ObjectHashUtil.obj2hash(person);
+			if(user!=null){
+				if(user.getUsername()!=null){
+				personHash.put("Email", user.getUsername());
+				}else{
+					personHash.put("Email", "");
+				}
+			}
             personHash.put("SpouseFirstName", new Person(person.getFk_spouseID()).getFirstName());
-			Hashtable<String, Object> addressHash = getAddressForTeamMember(personID);
+			Hashtable<String, Object> addressHash = getAddressForTeamMember(accountNo,personID);
             Hashtable<String,Object> staffHash=new Hashtable<String,Object>();
             Vector<Hashtable<String, String>>teams=InfoBaseTool.listTeamsForPerson(personID);
 			String isStaff="false";
             Collection<String> dependentInfo = new Vector<String>();
-            if (!(person.getAccountNo().equals("")||person.getAccountNo()==null)){
+            if (!(accountNo.trim().equals("")||accountNo==null)){
+            	log.debug("isStaff!");
             	isStaff="true";
             	InfoBaseTool ibt = new InfoBaseTool();
-                Staff staff = ibt.getStaffObject(person.getAccountNo());
+                Staff staff = ibt.getStaffObject(accountNo);
             	staffHash=emulateOldStaffStructure(staff);
 	            for (Iterator iDependents = staff.getDependents().iterator(); iDependents.hasNext(); ) {
 	                Dependent theDependent = (Dependent)iDependents.next();

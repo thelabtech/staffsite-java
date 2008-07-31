@@ -20,7 +20,7 @@ public class Contact extends Object {
 
 
     private int personID = 0;
-	
+    private String accountNo = "";
 	private String lastName = "";
 	private String firstName = "";
 	private String preferredName="";
@@ -70,6 +70,8 @@ public class Contact extends Object {
 	public int getPersonID() {
 		return personID;
 	}
+	public String getAccountNo() { return accountNo; }
+	public void setAccountNo(String accountNo) { this.accountNo = accountNo; }
 	/**
 	 * @param lastName The personID to set.
 	 */

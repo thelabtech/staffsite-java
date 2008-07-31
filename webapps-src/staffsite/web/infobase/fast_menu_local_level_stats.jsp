@@ -237,11 +237,11 @@ while (miniResultsCounter.hasNext()) //start input fields
 		{	//note the id attributes below are for a possible future improvement 
 			//using javascript.
 			if(mr.getValue("strategy").equals("BR")){
-				specialHeight=150;
+				specialHeight=120;
 			}
 			else
 			{
-				specialHeight=120;
+				specialHeight=150;
 			}
 			if (!mr.getValue("activityid").equals(lastMovement)){
 				flipColor=!flipColor;lastMovement=mr.getValue("activityid");displayName=(String)mr.getValue("displayname");
@@ -252,7 +252,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 			if (flipColor){movementColor="#eeeeee";}else{movementColor="white";}%>
 			
 			
-			<div style="position:absolute;z-index:0;top:<%=70+errorJog+(formHeight) %>px;background-color:<%=movementColor%>;height:<%=specialHeight %>px;margin:none;padding:none;border:none;display:block;width:100%" id="div_week_<%=counter%>" >
+			<div style="position:absolute;z-index:0;top:<%=70+errorJog+(formHeight) %>px;background-color:<%=movementColor%>;height:<%=specialHeight+70 %>px;margin:none;padding:none;border:none;display:block;width:100%" id="div_week_<%=counter%>" >
 			<center>
 			<%=fontB3%>
 			<%=displayName.replace("&%@!"," - ")%></font></center>
@@ -265,8 +265,18 @@ while (miniResultsCounter.hasNext()) //start input fields
 			<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[activityid]" value="<%=mr.getValue("activityid")%>">
 			<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[PeopleGroup]" value="<%=mr.getValue("peopleGroup")%>">
 			<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[targetareaid]" value="<%=mr.getValue("targetareaid")%>">
-			
-			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:20px;z-index:1;display:block;padding:0px;width:200px;text-align:right;height:<%=specialHeight-30 %>px;">
+			<input    id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[BeforeMultipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>"  >
+			<input    id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[BeforeStudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>"  >
+			<input    id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[BeforeInvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforePersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeGroupEvangelismExposures]" value="<%if(criteria.get("GroupEvangelismExposures")!=null){out.print(criteria.get("GroupEvangelismExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeMediaExposures]" value="<%if(criteria.get("MediaExposures")!=null){out.print(criteria.get("MediaExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeHolySpiritConversations]" value="<%if(criteria.get("HolySpiritConversations")!=null){out.print(criteria.get("HolySpiritConversations"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeSeekers]" value="<%if(criteria.get("BeforeSeekers")!=null){out.print(criteria.get("BeforeSeekers"));}%>"  onBlur="" >
+			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:20px;z-index:1;display:block;padding:0px;width:200px;text-align:right;height:<%=specialHeight %>px;">
 			<button style="<%=hoverHelpStyle%>width:90px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','multipliers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Multipliers</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:120px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','student_leaders');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Student Leaders</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','involved_students');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Involved Students</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" onBlur=""><br>
@@ -283,16 +293,20 @@ while (miniResultsCounter.hasNext()) //start input fields
 			}
 			%>
 			</div>
-			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:220px;z-index:1;display:block;padding:0px;width:270px;text-align:right;height:<%=specialHeight-30 %>px;">
+			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:220px;z-index:1;display:block;padding:0px;width:270px;text-align:right;height:<%=specialHeight %>px;">
 			<button style="<%=hoverHelpStyle%>width:140px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','personal_evangelism');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Personal Evangelism</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[PersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','group_evangelism');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Group Evangelism</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[GroupEvangelismExposures]" value="<%if(criteria.get("GroupEvangelismExposures")!=null){out.print(criteria.get("GroupEvangelismExposures"));}%>"  onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:120px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','media_exposures');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Media Exposures</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[MediaExposures]" value="<%if(criteria.get("MediaExposures")!=null){out.print(criteria.get("MediaExposures"));}%>"  onBlur="" ><br>
+			<button style="<%=hoverHelpStyle%>;width:160px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','holy_spirit_conversations');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Holy Spirit Presentations</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[HolySpiritConversations]" value="<%if(criteria.get("HolySpiritConversations")!=null){out.print(criteria.get("HolySpiritConversations"));}%>"  onBlur="" ><br>
+			
 			</div>
-			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:510px;z-index:1;display:block;padding-right:0px;width:310px;text-align:right;height:<%=specialHeight-30 %>px;margin-bottom:-500px;">
-			<button style="<%=hoverHelpStyle%>width:80px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Decisions]" value="<%if(criteria.get("Decisions")!=null){out.print(criteria.get("Decisions"));}%>"  onBlur="" ><br>
+			<div style=" position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:510px;z-index:1;display:block;padding-right:0px;width:310px;text-align:right;height:<%=specialHeight %>px;margin-bottom:-300px;">
+			<input   tabIndex="3000" id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[Decisions]" value=""  onBlur="" >
+			<button style="<%=hoverHelpStyle%>width:200px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions_personal');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Personal Evangelism Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" ><br>
+			<button style="<%=hoverHelpStyle%>width:200px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions_group');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Group Evangelism Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" ><br>
+			<button style="<%=hoverHelpStyle%>width:180px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions_media');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Media Exposure Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" ><br>
+			
 			<button style="<%=hoverHelpStyle%>width:100px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Laborers Sent</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ><br>
-					<input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[HolySpiritConversations]" value="<%if(criteria.get("HolySpiritConversations")!=null){out.print(criteria.get("HolySpiritConversations"));}%>"  onBlur="" >
-			<button style="<%=hoverHelpStyle%>;width:160px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','holy_spirit_conversations');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Holy Spirit Presentations</font></button><input  disabled tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>;width=150px;" name="<%=uniqueStat%>[decoy]" value="Coming Soon (8/1/2008)"  onBlur="" ><br>
 			</div>
 			<div id="<%=uniqueStat%>_info_box" 
 				style="position:absolute;top:<%=formHeight+specialHeight+25 %>px;left:100px;
@@ -317,7 +331,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 		counter++;
 	}
 	movements++;
-	formHeight+=specialHeight;
+	formHeight+=specialHeight+30;
 }	
 %>
 
@@ -359,10 +373,22 @@ to respond in the last month through media exposures?
 <br>(For instance: myeverystudent.com/ES.com, FSKs; Bible, book or magazine giveaways; etc.)
 </font>
 </div>
-<h5 style="margin:0px;margin-top:10px;">Decisions</h5>
-<div style="display:block" id="decisions_info_box">
+<h5 style="margin:0px;margin-top:10px;">Personal Evangelism Decisions</h5>
+<div style="display:block" id="decisions_personal_info_box">
 <%=fontB%>
-How many people have indicated a decision to receive Christ as their Savior and Lord?
+How many people have indicated a decision to receive Christ as their Savior and Lord through Personal Evangelism?
+</font>
+</div>
+<h5 style="margin:0px;margin-top:10px;">Group Evangelism Decisions</h5>
+<div style="display:block" id="decisions_group_info_box">
+<%=fontB%>
+How many people have indicated a decision to receive Christ as their Savior and Lord through Group Evangelism?
+</font>
+</div>
+<h5 style="margin:0px;margin-top:10px;">Media Exposure Decisions</h5>
+<div style="display:block" id="decisions_media_info_box">
+<%=fontB%>
+How many people have indicated a decision to receive Christ as their Savior and Lord through Media Exposures?
 </font>
 </div>
 <h5 style="margin:0px;margin-top:10px;">Involved Students</h5>
