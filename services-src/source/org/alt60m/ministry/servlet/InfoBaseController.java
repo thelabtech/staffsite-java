@@ -1852,7 +1852,7 @@ public class InfoBaseController extends Controller {
         try {
         	ActionResults result=new ActionResults("removeTeamMember");
     		result.putValue("personID",ctx.getInputString("personID"));
-    		
+    		result.putValue("accountNo",ctx.getInputString("accountNo"));
         	String teamID = ctx.getInputString("teamID", true);
             String personID = ctx.getInputString("personID");
             InfoBaseTool ibt = new InfoBaseTool();
@@ -1928,6 +1928,7 @@ public class InfoBaseController extends Controller {
         try {
         	ActionResults result=new ActionResults("IB index");
     		result.putValue("personID",getUsersPersonId(ctx));
+    		result.putValue("accountNo",(String)ctx.getSessionValue("accountNo"));
     		ctx.setReturnValue(result);
         	ctx.goToView("index");
         }
@@ -2221,8 +2222,7 @@ public class InfoBaseController extends Controller {
             	}
             	
             }
-            log.debug("The LAB!");
-            	isLAB="true";
+           
             
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 

@@ -255,7 +255,7 @@ else
 				<TD>
 				<%if ((ar.getValue("userPersonID").equals(ar.getValue("personID")))||(isHr)){ %>
 				<A style="border:none;"
-					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= ar.getValue("personID") %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=person">
+					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffID %>&personID=<%= ar.getValue("personID") %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=person">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 				<%} %>
 				

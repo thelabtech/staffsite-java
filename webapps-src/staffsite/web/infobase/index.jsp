@@ -33,7 +33,7 @@ String pageTitle = "Main Page"; %>
 				
 				<%thisTeam=(Hashtable<String,String>)teamsIter.next();%>
 				<A style="border:none;"
-					HREF="/servlet/InfoBaseController?action=removeTeamMember&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=IBindex">
+					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=ar.getValue("accountNo")%>&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=IBindex">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 				
 				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A>
