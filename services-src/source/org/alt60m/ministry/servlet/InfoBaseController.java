@@ -2208,6 +2208,22 @@ public class InfoBaseController extends Controller {
             person.setFk_ssmUserID(user.getUserID());
             person.select();
             String personID = person.getPersonID()+"";
+            String isLAB="false";
+            LocalLevel lab=new LocalLevel();
+            lab.setName("The LAB");
+            lab.setRegion("NC");
+            lab.select();
+            Vector<Contact> labMembers=InfoBaseQueries.getTeamMembers(lab.getLocalLevelId());
+            for (Contact c:labMembers){
+            	if((c.getPersonID()+"").equals(personID)){
+            		log.debug("The LAB!");
+            		isLAB="true";
+            	}
+            	
+            }
+            log.debug("The LAB!");
+            	isLAB="true";
+            
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
@@ -2250,6 +2266,7 @@ public class InfoBaseController extends Controller {
 				}
             }
             results.putValue("personID",personID);
+            results.putValue("isLAB",isLAB);
 			results.addCollection("activetarget", activeTargetInfo);
 			results.addCollection("inactivetarget", inactiveTargetInfo);
 			results.addCollection("forerunnertarget", forerunnerTargetInfo);
