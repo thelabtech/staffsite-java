@@ -1928,7 +1928,7 @@ public class InfoBaseController extends Controller {
         try {
         	ActionResults result=new ActionResults("IB index");
     		result.putValue("personID",getUsersPersonId(ctx));
-    		result.putValue("accountNo",(String)ctx.getSessionValue("accountNo"));
+    		
     		ctx.setReturnValue(result);
         	ctx.goToView("index");
         }
