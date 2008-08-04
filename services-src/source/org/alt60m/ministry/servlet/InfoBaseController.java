@@ -1596,6 +1596,33 @@ public class InfoBaseController extends Controller {
     	}
     	return  output;
 	}
+	public Boolean isBlank(String string){
+		return (
+				(string).equals("")
+				||
+				(string).equals("null")
+				||
+				(string)==null
+				)
+				
+				;
+	}
+	public Boolean isBlankOrNonNumeric(String string){
+		return (
+				(string).replaceAll("[^0123456789]","error").contains("error")
+				||
+				isBlank(string)
+				)
+				;
+	}
+	public Boolean blankEqualsZeroCompare(String string,String compareString){
+		if (isBlank(string)){string="0";}
+		if (isBlank(compareString)){string="0";}
+		return (
+				string.equals(compareString)
+				)
+				;
+	}
     public void saveFastSuccessCriteria(ActionContext ctx) {//IJK
     	if (! loginCheck(ctx)) {
     		return;
@@ -1637,23 +1664,46 @@ public class InfoBaseController extends Controller {
 				 statMap = new HashMap<String, String>();
 				for (String key : keys) 
 				{
-					if(!("PeriodBegin PeriodEnd PeopleGroup ".contains((String)key))
-							&&(!(((String) (key)).contains("Before")))
-							&&(!(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error")))
-							&&(!((String) thisStat.get(key)).equals(""))
-							&&(!((String) thisStat.get(key)).equals("null"))
-							&&(!((String) thisStat.get(key)==null))
-							&&(!(((String) thisStat.get(key)).equals((String) thisStat.get("Before"+key))))
-							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key)).equals("")))
-							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key)).equals("null")))
-							&&(!(((String) thisStat.get(key)).equals("0")&&((String) thisStat.get("Before"+key))==null))
-							)
-					{
-						hasData=true;
-						log.debug((String) thisStat.get(key)+", "+(String) thisStat.get("Before"+key));
-						log.debug("hasData="+hasData);
-					}
 					
+					if(("PersonalEvangelismExposures GroupEvangelismExposures  MediaExposures  " +
+							"Decisions Multipliers  StudentLeaders  InvolvedStudents LaborersSent" +
+							"  PeopleGroup  DecisionsMediaExposures DecisionsPersonalEvangelismExposures " +
+							" DecisionsGroupEvangelismExposures HolySpiritConversations  Seekers ").contains((String)key)){//we only test the stats entered by user
+						log.debug(key+": "+(String) thisStat.get(key)+", Before"+key+": "+(String) thisStat.get("Before"+key));
+							
+						if(
+								(! //no blank or invalid values in supplied data
+									isBlankOrNonNumeric((String)thisStat.get(key))
+								)
+								&&
+								(
+									(//demographic stats must be new non zero value to count as changed (i.e. 4 to 0 is changed, null to 0 is not)
+											//otherwise an autofilled value could be mistaken for a new value; autofill
+											//will always supply zero in place of null.
+											(("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key))
+											&&
+											(!
+													blankEqualsZeroCompare((String)thisStat.get(key),(String) thisStat.get("Before"+key))
+													//blankequalszerocompare treats any blank as string "0" in either input.
+											)
+									)
+										||
+									(//other stats only need to be new value, because they are not autofilled.
+											//We test to make sure it's not demographic data
+											//to prevent this from giving a false positive for those stats.
+											(!("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key))
+											&&
+											(!(((String) thisStat.get(key)).equals((String) thisStat.get("Before"+key))))	
+									)
+								)
+							)	
+							
+						{
+							hasData=true;
+							log.debug(key+": "+(String) thisStat.get(key)+", BeforeKey: "+(String) thisStat.get("Before"+key));
+							log.debug("hasData="+hasData);
+						}
+					}
 					if(("PeriodBegin PeriodEnd".contains((String)key)))
 					{
 						statMap.put(key, (String) thisStat.get(key));

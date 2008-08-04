@@ -1432,7 +1432,7 @@ public class HRUpdateController extends Controller {
 				log.debug("after getting user data");
 			}
 			ActionResults result=new ActionResults("HRindex");
-			result.putValue("personID", org.alt60m.ministry.servlet.InfoBaseController.getUsersPersonId(ctx));
+			result.putValue("personID", (org.alt60m.ministry.servlet.InfoBaseController.getUsersPersonId(ctx)==null)?"":org.alt60m.ministry.servlet.InfoBaseController.getUsersPersonId(ctx));
 			ctx.setReturnValue(result);
 			
 			ctx.goToView("index");

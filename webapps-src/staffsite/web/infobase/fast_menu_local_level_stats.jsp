@@ -207,6 +207,7 @@ errorJog=55;
 Integer involvedStudentsPasser = 0;
 Integer studentLeadersPasser = 0;
 Integer multipliersPasser = 0;
+Integer seekersPasser = 0;
 miniResultsCounter = ar.getActionResultsIterator();
 while (miniResultsCounter.hasNext()) //start input fields
 {
@@ -220,7 +221,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 	involvedStudentsPasser = 0;
 	studentLeadersPasser = 0;
 	multipliersPasser = 0;
-	
+	seekersPasser = 0;
 	while(slist.hasNext())
 	{
 		
@@ -230,6 +231,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 			involvedStudentsPasser = (Integer)criteria.get("InvolvedStudents");
 			studentLeadersPasser = (Integer)criteria.get("StudentLeaders");
 			multipliersPasser = (Integer)criteria.get("Multipliers");
+			seekersPasser = (Integer)criteria.get("Seekers");
 			}
 		
 		uniqueStat=mr.getValue("activityid")+"_"+(String)criteria.get("PeriodBegin")+"_"+(String)(mr.getValue("peopleGroup"));
@@ -275,7 +277,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" >
 			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" >
 			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" >
-			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeSeekers]" value="<%if(criteria.get("BeforeSeekers")!=null){out.print(criteria.get("BeforeSeekers"));}%>"  onBlur="" >
+			<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeSeekers]" value="<%=seekersPasser==null?"":seekersPasser%>"  onBlur="" >
 			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:20px;z-index:1;display:block;padding:0px;width:200px;text-align:right;height:<%=specialHeight %>px;">
 			<button style="<%=hoverHelpStyle%>width:90px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','multipliers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Multipliers</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:120px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','student_leaders');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Student Leaders</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ><br>
@@ -283,7 +285,7 @@ while (miniResultsCounter.hasNext()) //start input fields
 			<%
 			if(mr.getValue("strategy").equals("BR")){
 					%>
-					<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','seekers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Seekers</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Seekers]"  value="<%if(criteria.get("Seekers")!=null){out.print(criteria.get("Seekers"));}%>" onBlur=""><br>
+					<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','seekers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Seekers</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Seekers]"  value="<%=seekersPasser==null?"":seekersPasser%>" onBlur=""><br>
 					<%
 			}
 			else
@@ -425,7 +427,6 @@ fulfill the Great Commission.
 <h5 style="margin:0px;margin-top:10px;">Holy Spirit Presentations</h5>
 <div style="display:block" id="holy_spirit_conversations_info_box">
 <%=fontB%>
-(Coming August 1, 2008)<br>
 How many people have heard a presentation of the ministry of the Holy Spirit
 with the opportunity to respond?
 </font>
@@ -433,7 +434,7 @@ with the opportunity to respond?
 <h5 style="margin:0px;margin-top:10px;">Seekers</h5>
 <div style="display:block" id="seekers_info_box">
 <%=fontB%>
-(Coming August 1, 2008)<br>
+
 This statistic is for Bridges movements only.
 </font>
 </div>

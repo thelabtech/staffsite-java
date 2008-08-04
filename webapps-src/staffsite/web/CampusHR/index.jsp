@@ -66,7 +66,7 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		<NOBR><B>Information that requires approval of your HR team</B></NOBR>
 		<BLOCKQUOTE>
 		
-		For job-related changes such as regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br><!-- 
+		For job-related changes such as relocation, regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br> 
 		The exception is Missional Team assignment.<br><br>
 		To add yourself to a Missional Team, navigate to the Missional Team's display page 
 		in the <A HREF="/servlet/InfoBaseController">InfoBase</A>. Click the link that says
@@ -75,9 +75,9 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		To remove yourself from a Missional Team, click the red "X" beside its name <br>
 		on your <A HREF="/servlet/StaffController?action=showHome">staff homepage</A>, 
 		the <A HREF="/servlet/InfoBaseController">InfoBase</A> home page or your 
-		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%=ar.getValue("personID") %>">personal info</A> page.<br><br>
+		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=accountNo%>&personID=<%=ar.getValue("personID") %>">personal info</A> page.<br><br>
 		
-		--><NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
+		<NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
 	</TD>
 </TR>
 </TABLE>
