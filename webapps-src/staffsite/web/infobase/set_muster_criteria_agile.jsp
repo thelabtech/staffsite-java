@@ -104,8 +104,6 @@ Integer yearvar=1998;
 	<td style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
 			Field Strategies<input type="checkbox" name="strategies[FS]"  checked value="FS" ><br>
-			Staffed Campus<input type="checkbox" name="strategies[SC]" checked value="SC" ><br>
-			Catalytic<input type="checkbox" name="strategies[CA]"  checked value="CA" ><br>
 			ESM-Impact<input type="checkbox" name="strategies[II]"  checked value="II" ><br>
 			ESM-Epic<input type="checkbox" name="strategies[IE]"  checked value="IE" ><br>
 			ESM-Destino<input type="checkbox" name="strategies[ID]"  checked value="ID" ><br>

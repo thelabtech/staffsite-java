@@ -41,8 +41,6 @@
 						  <option value="state">state(abbr)</a>
 						  <option value="country">country</a>
 						  <option value="FS">Field Strategies</a>
-						  <option value="CA">Catalytic</a>	
-						  <option value="SC">Staffed Campus</a>			  
 						  <option value="II">ESM-Impact</a>
 						  <option value="IE">ESM-Epic</a>
 						  <option value="ID">ESM-Destino</a>
