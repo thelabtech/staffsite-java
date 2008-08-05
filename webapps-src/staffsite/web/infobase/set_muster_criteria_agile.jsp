@@ -109,8 +109,7 @@ Integer yearvar=1998;
 			ESM-Destino<input type="checkbox" name="strategies[ID]"  checked value="ID" ><br>
 			ESM-Nations<input type="checkbox" name="strategies[IN]"  checked value="IN" ><br>
 			Bridges<input type="checkbox" name="strategies[BR]"  checked value="BR" ><br>
-			WSN Stint<input type="checkbox" name="strategies[WS]"   value="WS" ><br>
-			WSN ICS<input type="checkbox" name="strategies[WI]"   value="WI" ><br>
+			WSN Local Teams<input type="checkbox" name="strategies[WS]"   value="WS" ><br>
 			Athletes In Action<input type="checkbox" name="strategies[AA]"  checked value="AA" ><br>
 			Faculty Commons<input type="checkbox" name="strategies[CL]"  checked value="CL" ><br>
 			Korean CCC<input type="checkbox" name="strategies[KC]"  checked value="KC" ><br>

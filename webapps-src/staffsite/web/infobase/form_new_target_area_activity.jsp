@@ -14,8 +14,7 @@ if (strategy.equals("SC")) {strategyName = "Staffed Campus";}
 
 else if (strategy.equals("FS")) {strategyName = "Field Strategies";}
 else if (strategy.equals("CA")) {strategyName = "Catalytic";}
-else if (strategy.equals("WS")) {strategyName = "WSN STINT";}
-else if (strategy.equals("WI")) {strategyName = "WSN ICS";}
+else if (strategy.equals("WS")) {strategyName = "WSN Local Teams";}
 else if (strategy.equals("ID")) {strategyName = "Destino";}
 else if (strategy.equals("IE")) {strategyName = "Epic";}
 else if (strategy.equals("II")) {strategyName = "Impact";}

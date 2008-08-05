@@ -188,8 +188,7 @@ ar = ActionResults.getActionResults(session);
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=ID">add ESM-D</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IE">add ESM-E</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=II">add ESM-I</A>] <BR>
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=WI">add WSN ICS</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=WS">add WSN STINT</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=WS">add WSN Local Teams</A>] 
 			</TD></TR></TABLE>
 
 		<%=box.printBottom()%><P>

@@ -46,8 +46,7 @@
 						  <option value="ID">ESM-Destino</a>
 						  <option value="IN">ESM-Nations</a>
 						  <option value="BR">Bridges</a>
-						  <option value="WS">WSN Stint</a>
-						  <option value="WI">WSN ICS</a>
+						  <option value="WS">WSN Local Teams</a>
 						 
 						  <option value="AA">Athletes In Action</a>
 						  <option value="CL">Faculty Commons</a>
