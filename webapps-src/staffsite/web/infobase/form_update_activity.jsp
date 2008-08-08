@@ -130,8 +130,7 @@ function setDefinition(setTo) {
 	<%}%>
 	<%
 	EnumSet<Strategy> strategies = EnumSet.allOf(Strategy.class);
-	strategies.remove(Strategy.SC);
-	strategies.remove(Strategy.CA);
+	
 	for (Strategy strategyItr : strategies) {
 		EnumSet<Status> statusOptions;
 		if (Strategy.campusStrategies().contains(strategyItr)) {
