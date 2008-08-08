@@ -6,8 +6,6 @@ import java.util.List;
 
 public enum Strategy {
 	FS ("Field Strategies"),
-	CA ("Catalytic"), 
-	SC ("Staffed Campus"),
 	IE ("Epic"),
 	ID ("Destino"), 
 	II ("Impact"),
@@ -51,7 +49,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> usCampusStrategies() {
-		return EnumSet.of(FS, CA, SC, IE, ID, II, IN, BR);
+		return EnumSet.of(FS,  IE, ID, II, IN, BR);
 	}
 
 	public static EnumSet<Strategy> campusNoSuccessCriteriaStrategies() {
@@ -90,11 +88,7 @@ public enum Strategy {
 	public static ArrayList<String> listStrategiesToCheck(String strategy) {
 		ArrayList<String> result = new ArrayList<String>();
 		result.add(strategy);
-		if("CA".equals(strategy)) {
-			result.add("SC");
-		} else if ("SC".equals(strategy)) {
-			result.add("CA");
-		}
+		
 		return result;
 	}
 }
