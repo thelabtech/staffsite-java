@@ -1791,7 +1791,22 @@ public class InfoBaseController extends Controller {
 		}
 		return true;
 	}
-
+    public void showHeatMap(ActionContext ctx){
+    	try{
+    		ActionResults results=new ActionResults("heat map");
+    		InfoBaseTool ibt=new InfoBaseTool();
+    		Hashtable<String,Integer> enrollment=new Hashtable<String,Integer>();
+    		
+    		results.addHashtable("enrollment", enrollment);
+    		ctx.setReturnValue(results);
+            ctx.goToView("heatMap");
+    	 }catch (Exception e) {
+             ctx.setError();
+             ctx.goToErrorView();
+             log.error("Failed to perform showHeatMap().", e);
+         }
+    }
+    
 	/** @param ctx ActionContext object */
     public void saveTargetAreaInfo(ActionContext ctx) {
         try {

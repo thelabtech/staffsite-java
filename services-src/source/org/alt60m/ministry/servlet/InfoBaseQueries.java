@@ -29,6 +29,7 @@ public class InfoBaseQueries {
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
+		
 		String qry = "SELECT name FROM ministry_targetarea ta " +
 						"INNER JOIN ministry_activity act ON act.fk_targetAreaID=ta.TargetAreaID " +
 						"INNER JOIN ministry_staff staff ON staff.fk_teamID=act.fk_teamID " +
@@ -39,7 +40,41 @@ public class InfoBaseQueries {
 		return TextUtils.listToCommaDelimitedQuotedString(rs, "'");
 	}
 	
-	
+	public static Hashtable<String,Hashtable<String,Double>>getZipsLatLong()throws Exception{
+		Hashtable<String,Hashtable<String,Double>>result=new Hashtable<String,Hashtable<String,Double>>();
+		Connection conn = DBConnectionFactory.getDatabaseConn();
+		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+		String qry = "Select truncate(lat_long_by_zip_code.lat,1) as latitude, truncate(lat_long_by_zip_code.long,1) as longitude, lat_long_by_zip_code.zip as zip from lat_long_by_zip_code ;";
+		log.debug(qry);				
+		ResultSet rs = stmt.executeQuery(qry);
+		while(rs.next()){
+			Hashtable<String,Double>coords=new Hashtable<String,Double>();
+			coords.put("latitude",rs.getBigDecimal("latitude").doubleValue());
+			coords.put("longitude",rs.getBigDecimal("longitude").doubleValue());
+			result.put(rs.getString("zip"), coords);
+		}
+		return result;
+	}
+	public static Vector<Hashtable<String,Object>> getEnrollmentForLatLong()throws Exception{
+		Hashtable<String, Object> points=new Hashtable<String, Object>();
+		Vector<Hashtable<String,Object>>result=new Vector<Hashtable<String,Object>>();
+		Connection conn = DBConnectionFactory.getDatabaseConn();
+		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+		String qry = "Select substring(ta.zip,1,5) as zip, ta.enrollment from ministry_targetarea ta ;";
+		log.debug(qry);				
+		ResultSet rs = stmt.executeQuery(qry);
+		while (rs.next()){
+			points=new Hashtable<String, Object>();
+			points.put("zip",rs.getString("zip")==null?"":rs.getString("zip"));
+			points.put("enrollment",rs.getInt("enrollment"));
+			result.add(points);
+		}
+		
+		conn.close();
+		return result;
+	}
 	public static Vector getRegionalStats(String region, Date periodBegin, Date periodEnd) {
 				
 		RegionalTeam rt = new RegionalTeam();
@@ -171,9 +206,9 @@ public class InfoBaseQueries {
 	}
 	public static Vector listStaffAndContactsByLastName(String search) {
 		try {
-			String makeName="";
+			
 			TreeMap<String,Contact>c=new TreeMap<String,Contact>();
-			Vector<String> identities=new Vector<String>();
+			StringBuffer identities=new StringBuffer();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query2="SELECT ministry_staff.accountNo, ministry_staff.person_id as personID, ministry_staff.firstName, "
@@ -182,7 +217,7 @@ public class InfoBaseQueries {
 				+"ministry_address.city, ministry_address.address4, ministry_address.state, ministry_address.zip, "
 				+"ministry_address.country"
 				+" FROM ministry_staff INNER JOIN ministry_address ON ministry_staff.fk_primaryAddress = ministry_address.AddressID " 
-				+" WHERE UPPER(ministry_staff.lastName) like '" + search.toUpperCase() + "%' and ministry_staff.removedFromPeopleSoft='N' ORDER BY ministry_staff.lastName, ministry_staff.firstName;";
+				+" WHERE UPPER(ministry_staff.lastName) like '" + search.toUpperCase() + "%' and ministry_staff.removedFromPeopleSoft='N' ;";
 			log.debug(query2);
 			ResultSet rs2 = stmt2.executeQuery(query2);
 			while (rs2.next()){
@@ -194,25 +229,11 @@ public class InfoBaseQueries {
 				contact.setLastName(rs2.getString("lastName"));
 				contact.setPreferredName(rs2.getString("preferredName")==null?"":rs2.getString("preferredName"));
 				contact.setEmail(rs2.getString("email"));
-				makeName="";
-				if(!((contact.getPreferredName()==null)||contact.getPreferredName().equals(""))){
-					makeName=contact.getPreferredName();
-				}else{
-					makeName=contact.getFirstName();
+				if (contact.getPersonID()!=0){
+				identities.append(" '"+contact.getPersonID()+"', ");}
+				c.put(rs2.getString("lastName")+" "+rs2.getString("preferredName")==null?rs2.getString("firstName"):rs2.getString("preferredName")+" "+"accountNo"+rs2.getString("accountNo"),contact);
 				}
-				log.debug("makeName= "+makeName);
-				String identityCheck=(contact.getLastName()+makeName+contact.getEmail()).toLowerCase();
-				log.debug(identityCheck);
-				if((contact.getEmail()!=null)&&(!(contact.getEmail().equals("")))){
-					c.put(identityCheck,contact);
-					log.debug(identityCheck+" added to c");
-					identities.add(identityCheck);
-				}else{
-					c.put(identityCheck+"accountNo"+rs2.getString("accountNo"),contact);
-					log.debug(identityCheck+"accountNo"+rs2.getString("accountNo")+" added to c");
-				}
-				
-			}
+			identities.append("''");
 			
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
@@ -220,7 +241,7 @@ public class InfoBaseQueries {
 			" FROM (ministry_person INNER JOIN simplesecuritymanager_user "+
 			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
 			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
-			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ORDER BY ministry_person.lastName, ministry_person.firstName;";
+			" WHERE (ministry_person.personID not in ("+identities.toString()+")) and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -230,34 +251,14 @@ public class InfoBaseQueries {
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName")==null?"":rs.getString("preferredName"));
 				contact.setEmail(rs.getString("email"));
-				makeName="";
-				log.debug(contact.getPreferredName()+contact.getFirstName());
-				if(!((contact.getPreferredName()==null)||contact.getPreferredName().equals(""))){
-					makeName=contact.getPreferredName();
-				}else{
-					makeName=contact.getFirstName();
+				c.put(rs.getString("lastName")+" "+rs.getString("preferredName")==null?rs.getString("firstName"):rs.getString("preferredName")+" "+"personID"+rs.getInt("personID"),contact);
 				}
-				log.debug("makeName= "+makeName);
-				String identityCheck=(contact.getLastName()+makeName+contact.getEmail()).toLowerCase();
-				log.debug(identityCheck);
-				if(!identities.contains(identityCheck)){
-				c.put(identityCheck+"personID"+rs.getInt("personID"),contact);
-				log.debug(identityCheck+"personID"+rs.getInt("personID")+ " added to c");
-				}else {
-							
-					Contact temp=new Contact();
-					temp=c.get(identityCheck);
-					if(temp.getPersonID()==0){
-					temp.setPersonID(contact.getPersonID());
-					c.put(identityCheck,temp);
-					log.debug(identityCheck+" updated in c");
-					}
-				}
-			}
+			
 			
 			Vector<Contact>result=new Vector<Contact>();
-			for(String s:c.keySet()){
-				result.add(c.get(s));
+			Iterator iter=c.keySet().iterator();
+			while(iter.hasNext()){
+				result.add(c.get(iter.next()));
 			}
 			
 			return result;
