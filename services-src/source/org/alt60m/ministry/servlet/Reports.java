@@ -379,6 +379,7 @@ public class Reports {
 		orderCodes.put("status"," field(lastStatus.status,'AC','TR','LA','KE','PI','FR') ");
 		orderCodes.put("team","teamName");
 		orderCodes.put("campus","campusName");
+		orderCodes.put("region","region");
 		orderCodes.put("city","country, state, city ");
 		for (String o : order){
 				if (orderCodes.keySet().contains(o)){
@@ -392,22 +393,20 @@ public class Reports {
 	private static String countReportQuery(String type, String region, String strategyList, String date, Vector<String> order){
 		String group="";
 		String address="";
-		if (type.equals("movement")){
+		if (type.equals("movement")||type.equals("location")){
 			group="ministry_targetarea.targetAreaID,  ministry_activity.strategy ";
-			 address=" MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
+			 address=" MAX(ministry_targetarea.region) as region, MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
 		}
-		else if (type.equals("location")){
-			group="ministry_targetarea.targetAreaID ";
-			 address="MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
-		}
-		else if (type.equals("team")){
+		
+		else if (type.equals("teamorg")||type.equals("teamgeo")){
 			group="ministry_locallevel.teamID ";
-			 address="MAX(ministry_locallevel.city) as city,  MAX(ministry_locallevel.state) as state, MAX(ministry_locallevel.country) as country ";
+			 address=" MAX(ministry_locallevel.region) as region, MAX(ministry_locallevel.city) as city,  MAX(ministry_locallevel.state) as state, MAX(ministry_locallevel.country) as country ";
 		}
+		
 		
 		
 		return "SELECT MAX(ministry_targetarea.name) as campusName, MAX(ministry_targetarea.isSecure) as isSecure,"+
-			" MAX(ministry_targetarea.region) as region, lastStatus.status as status, "+
+			"  lastStatus.status as status, "+
 			" MAX(ministry_activity.strategy) as strategy, "+
 			" MAX(ministry_locallevel.name) as teamName, MAX(ministry_locallevel.teamID) as teamID, MAX(ministry_targetarea.targetAreaID) as campusID, "+
 			address+ //this portion of query generated based on type of report requested
@@ -417,7 +416,7 @@ public class Reports {
 			" WHERE "+ 
 			" ministry_activity.strategy in ("+strategyList+") and "+
 			" lastStatus.status in ('AC','TR','LA') "+
-			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and ministry_targetarea.region = '"+region+"' ":"")+
+			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and "+(type.equals("teamorg")?"ministry_locallevel.":"ministry_targetarea.")+"region = '"+region+"' ":"")+
 			" GROUP BY "+group+
 			" ORDER BY "+ processedOrder( order)+
 			";";
@@ -447,7 +446,10 @@ public class Reports {
 		else if (type.equals("location")){
 			renderedReport.append("<tr ><td class=\"label_darker_blue\">Ministry Locations</td>");
 		}
-		else if (type.equals("team")){
+		else if (type.equals("teamorg")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">Missional Teams</td>");
+		}
+		else if (type.equals("teamgeo")){
 			renderedReport.append("<tr ><td class=\"label_darker_blue\">Missional Teams</td>");
 		}	
 		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
@@ -466,7 +468,10 @@ public class Reports {
 		else if (type.equals("location")){
 			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Ministry Locations On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Locations Not Displayed</i>":"")+"</td>");
 		}
-		else if (type.equals("team")){
+		else if (type.equals("teamorg")){
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Missional Teams On Record</td>");
+		}
+		else if (type.equals("teamgeo")){
 			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Missional Teams On Record</td>");
 		}	
 		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
@@ -536,7 +541,7 @@ public class Reports {
 						){ 
 							renderedReport.append("<tr >");
 							renderedReport.append("<td class=\"label_"+(!type.equals("movement")?cell:cellAlt) +"\">"+(secure?"<i>":""));
-							if(type.equals("team")){ 
+							if(type.equals("teamorg")||type.equals("teamgeo")){ 
 								renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTeam&locallevelid="+resultSet.getString("teamID")+"\">");
 								renderedReport.append(resultSet.getString("teamName"));
 							}
