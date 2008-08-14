@@ -416,7 +416,7 @@ public class Reports {
 			" LEFT JOIN "+lastStatus(date)+" ON ministry_activity.ActivityID=lastStatus.activity_id "+
 			" WHERE "+ 
 			" ministry_activity.strategy in ("+strategyList+") and "+
-			" lastStatus.status in ('AC','TR','LA','KE','PI','FR') "+
+			" lastStatus.status in ('AC','TR','LA') "+
 			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and ministry_targetarea.region = '"+region+"' ":"")+
 			" GROUP BY "+group+
 			" ORDER BY "+ processedOrder( order)+
