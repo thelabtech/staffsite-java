@@ -30,38 +30,99 @@ Integer yearvar=1998;
 	}
 	function setSortOrder(type)
 	{
+	var tdWidth="200px";
 	if(type=="movement")
 		{
+		
 		document.getElementById('order[a]').value="campus";
 		document.getElementById('order[b]').value="strategy";
 		document.getElementById('order[c]').value="";
 		document.getElementById('order[d]').value="";
+		document.getElementById('order[e]').value="";
+		document.getElementById('order[f]').value="";
+		document.getElementById('order[g]').value="";
+		document.getElementById('order[h]').value="";
+		document.getElementById('option[-1]').style.display="inline";
+		document.getElementById('option[-2]').style.display="inline";
+		document.getElementById('option[0]').style.display="inline";
+		document.getElementById('option[1]').style.display="inline";
+		document.getElementById('option[2]').style.display="none";
+		document.getElementById('option[3]').style.display="none";
+		document.getElementById('option[4]').style.display="none";
+		document.getElementById('option[5]').style.display="none";
+		document.getElementById('optionLabel[0]').style.display="inline";
+		document.getElementById('optionLabel[1]').style.display="inline";
+		document.getElementById('blankCell[0]').style.display="none";
+		document.getElementById('blankCell[1]').style.display="none";
+		document.getElementById('blankLabelCell[0]').style.display="none";
+		document.getElementById('blankLabelCell[1]').style.display="none";
+		
 		}
 	else if(type=="location")
 		{
-		document.getElementById('order[a]').value="campus";
+		
+			document.getElementById('order[a]').value="";
 		document.getElementById('order[b]').value="";
 		document.getElementById('order[c]').value="";
 		document.getElementById('order[d]').value="";
+		document.getElementById('order[e]').value="campus";
+		document.getElementById('order[f]').value="";
+		document.getElementById('order[g]').value="";
+		document.getElementById('order[h]').value="";
+		document.getElementById('option[0]').style.display="none";
+		document.getElementById('option[1]').style.display="none";
+		document.getElementById('option[-1]').style.display="none";
+		document.getElementById('option[-2]').style.display="none";
+		document.getElementById('option[2]').style.display="inline";
+		document.getElementById('option[3]').style.display="inline";
+		document.getElementById('option[4]').style.display="none";
+		document.getElementById('option[5]').style.display="none";
+		document.getElementById('optionLabel[0]').style.display="none";
+		document.getElementById('optionLabel[1]').style.display="none";
+		
+		document.getElementById('blankCell[0]').style.width=tdWidth;
+		document.getElementById('blankCell[1]').style.width=tdWidth;
+		document.getElementById('blankLabelCell[0]').style.width=tdWidth;
+		document.getElementById('blankLabelCell[1]').style.width=tdWidth;
+		document.getElementById('blankCell[0]').style.display="inline";
+		document.getElementById('blankCell[1]').style.display="inline";
+		document.getElementById('blankLabelCell[0]').style.display="inline";
+		document.getElementById('blankLabelCell[1]').style.display="inline";
 		}
 	else if(type=="team")
 		{
-		document.getElementById('order[a]').value="team";
+		
+		document.getElementById('order[a]').value="";
 		document.getElementById('order[b]').value="";
 		document.getElementById('order[c]').value="";
 		document.getElementById('order[d]').value="";
+		document.getElementById('order[e]').value="";
+		document.getElementById('order[f]').value="";
+		document.getElementById('order[g]').value="team";
+		document.getElementById('order[h]').value="";
+		document.getElementById('option[0]').style.display="none";
+		document.getElementById('option[1]').style.display="none";
+		document.getElementById('option[-1]').style.display="none";
+		document.getElementById('option[-2]').style.display="none";
+		
+		document.getElementById('option[2]').style.display="none";
+		document.getElementById('option[3]').style.display="none";
+		document.getElementById('option[4]').style.display="inline";
+		document.getElementById('option[5]').style.display="inline";
+		document.getElementById('optionLabel[0]').style.display="none";
+		document.getElementById('optionLabel[1]').style.display="none";
+		
+		document.getElementById('blankCell[0]').style.width=tdWidth;
+		document.getElementById('blankCell[1]').style.width=tdWidth;
+		document.getElementById('blankLabelCell[0]').style.width=tdWidth;
+		document.getElementById('blankLabelCell[1]').style.width=tdWidth;
+		document.getElementById('blankCell[0]').style.display="inline";
+		document.getElementById('blankCell[1]').style.display="inline";
+		document.getElementById('blankLabelCell[0]').style.display="inline";
+		document.getElementById('blankLabelCell[1]').style.display="inline";
 		}
 	}
-	function unlockSubmit()
-	{
-		if (document.getElementById('region').selectedIndex!=0){
-		document.getElementById('conditionalSubmit').disabled=false;
-		}
-		else
-		{
-		document.getElementById('conditionalSubmit').disabled=true;
-		}
-	}
+	
 	
 </script>
 
@@ -73,17 +134,21 @@ Integer yearvar=1998;
 <center>
 <table><tr>
 <!-- Left panel -->
-	<td><%=fontB%>
+<td><table><tr>
+	<td style="width:200px;"><%=fontB%>
 		<div style="display:block;width:200px;text-align:right;padding-right:50px;">
-		<p>What do you want to count?</p>
-		<p>Movements <input type="radio" name="type" value="movement" checked onClick="setSortOrder('movement');"></input></p>
-		<p>Ministry Locations <input type="radio" name="type" value="location" onClick="setSortOrder('location');"></input></p>
-		<p>Teams <input type="radio" name="type" value="team" onClick="setSortOrder('team');"></input></p></div>
+		<table>
+		<tr><td colspan=2><%=fontB%>What do you want to count?</td></tr>
+		<tr><td><%=fontB%>Movements </td><td><input type="radio" name="type" value="movement" checked onClick="setSortOrder('movement');"></input></td></tr>
+		<tr><td><%=fontB%>Ministry Locations </td><td><input type="radio" name="type" value="location" onClick="setSortOrder('location');"></input></td></tr>
+		<tr><td><%=fontB%>Missional Teams Supervised By Selected Region</td><td><input type="radio" name="type" value="teamorg" onClick="setSortOrder('team');"></input></td></tr>
+		<tr><td><%=fontB%>Missional Teams Active In Selected Region</td><td><input type="radio" name="type" value="teamgeo" onClick="setSortOrder('team');"></input></td></tr>
+		</table>
+		</div>
 		
 		<br><br>
 		Select A Region:<br>
-			<select id="region" name="region"  onClick="unlockSubmit();">
-		<option value="invalid" selected >Required</option>
+			<select id="region" name="region"  >
 		<OPTION VALUE="National">All (will take a minute or two)</OPTION>
 		<OPTION VALUE="NE">Northeast</OPTION>
 		<OPTION VALUE="NW">Greater Northwest</OPTION>
@@ -120,10 +185,10 @@ Integer yearvar=1998;
 	<td width="3px" style="margin:none;border-left:none;border-top:solid 1 black;border-right:solid 1 black;border-bottom:solid 1 black;">
 	&nbsp;
 	</td>
-	<td style="width:150px;">
+	<td style="width:200px;">
 	<p style="padding-left:10px;text-align:left;"><%=fontB%>Select which CCC strategies you would like included
 			  in your report.</font></p>
-	</td>
+	</td></tr></table></td>
 </tr>
 <!-- Bottom Panel -->
 <tr><td colspan="4">
@@ -131,51 +196,97 @@ Integer yearvar=1998;
 			<table style="border-collapse:collapse;"  >
 			  
 			  <tr >
-				<td style="padding:5px;"><%=fontB%>Sort By</td>
+				<td style="padding:5px;width:200px;"><%=fontB%>Sort By</td>
 				<td style="padding:5px;"><%=fontB%>Then By</td>
-				<td style="padding:5px;"><%=fontB%>Then By</td>
-				<td style="padding:5px;"><%=fontB%>Then By</td>
+				<td id="optionLabel[0]" style="padding:5px;"><%=fontB%>Then By</td>
+				<td id="optionLabel[1]" style="padding:5px;"><%=fontB%>Then By</td>
+				<td id="blankLabelCell[0]"  style="display:none;padding:5px;width:200px;">&nbsp;</td>
+				<td id="blankLabelCell[1]"  style="display:none;padding:5px;width:200px;">&nbsp;</td>
 			  </tr>
 			  <tr >
-				<td style="padding:5px;">
+				<td id="option[-2]" style="padding:5px;width:200px;">
 				  <select name="order[a]" id="order[a]">
 				  <option value="campus" selected>Campus Name</option>
-				  <option value="strategy">Strategy</option>
-				 <option value="city">Location</option>
-				 <option value="status">Status</option>
+				 <option value="city">City/State</option>
 				 <option value="team">Missional Team Name</option>
+				 <option value="region">Region</option>
+				 <option value="status">Status</option>
+				 <option value="strategy">Strategy</option>
+				 
 				  </select>
 				</td>
-				<td style="padding:5px;">
+				<td id="option[-1]" style="padding:5px;width:200px;">
 				  <select name="order[b]" id="order[b]">
 				  <option value="" ></option>
 				  <option value="campus">Campus Name</option>
-				  <option value="strategy" selected>Strategy</option>
-				 <option value="city">Location</option>
-				 <option value="status">Status</option>
+				  <option value="city">City/State</option>
 				 <option value="team">Missional Team Name</option>
+				 <option value="region">Region</option>
+				 <option value="status">Status</option>
+				 <option value="strategy" selected>Strategy</option>
 				</select>
 				</td>
-				<td style="padding:5px;">
+				<td id="option[0]" style="padding:5px;width:200px;">
 				  <select name="order[c]" id="order[c]">
 				<option value="" selected></option>
 				  <option value="campus">Campus Name</option>
-				  <option value="strategy">Strategy</option>
-				 <option value="city">Location</option>
-				<option value="status">Status</option>
+				<option value="city">City/State</option>
 				 <option value="team">Missional Team Name</option>
+				 <option value="region">Region</option>
+				 <option value="status">Status</option>
+				 <option value="strategy">Strategy</option>
 					  </select>
 				</td>
-					<td style="padding:5px;">
+					<td id="option[1]" style="padding:5px;width:200px;">
 				  <select name="order[d]" id="order[d]">
 				<option value="" selected></option>
 				  <option value="campus">Campus Name</option>
-				  <option value="strategy">Strategy</option>
-				 <option value="city">Location</option>
-				<option value="status">Status</option>
+				  <option value="city">City/State</option>
 				 <option value="team">Missional Team Name</option>
+				 <option value="region">Region</option>
+				 <option value="status">Status</option>
+				 <option value="strategy">Strategy</option>
 					  </select>
-		</td>
+				</td>
+					<td id="option[2]" style="padding:5px;width:200px;display:none;">
+				  <select name="order[e]" id="order[e]">
+				<option value=""></option>
+				  <option value="campus" >Campus Name</option>
+				 <option value="city">City/State</option>
+				 <option value="region">Region</option>
+				 </select>
+				</td>
+					<td id="option[3]" style="padding:5px;width:200px;display:none;">
+				  <select name="order[f]" id="order[f]">
+				<option value="" ></option>
+				  <option value="campus">Campus Name</option>
+				 <option value="city">City/State</option>
+				 <option value="region">Region</option>
+					  </select>
+				</td>
+				<td id="option[4]" style="padding:5px;width:200px;display:none;">
+				  <select name="order[g]" id="order[g]">
+				<option value=""></option>
+				 
+				 <option value="city">City/State</option>
+				
+				 <option value="team" >Missional Team Name</option>
+				 <option value="region">Region</option>
+					  </select>
+				</td>
+					<td id="option[5]" style="padding:5px;width:200px;display:none;">
+				  <select name="order[h]" id="order[h]">
+				<option value="" ></option>
+				 <option value="city">City/State</option>
+				
+				 <option value="team">Missional Team Name</option>
+				 <option value="region">Region</option>
+					  </select>
+				</td>
+				  
+		
+		<td id="blankCell[0]"  style="display:none;padding:5px;width:200px;">&nbsp;</td>
+				<td id="blankCell[1]"  style="display:none;padding:5px;width:200px;">&nbsp;</td>
 	  </tr>
 	</table>
 	<table style="border-collapse:collapse;"  >
@@ -219,10 +330,7 @@ Integer yearvar=1998;
 	<p><%=fontB%><i>Click here to view your report (Make sure you <u>click</u> your region first):</i></font></p>
 			<p>
 	<input id="conditionalSubmit" type="submit" value="Make My Report">
-		  <script type="text/javascript" language="javascript">
-		  document.getElementById('conditionalSubmit').disabled=true;
-		  unlockSubmit();
-		  </script>
+		 
 	<%= box.printBottom() %>
 	</center>
 </form>
