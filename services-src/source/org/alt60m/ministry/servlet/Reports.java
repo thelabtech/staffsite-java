@@ -491,6 +491,7 @@ public class Reports {
 			query=countReportQuery( type, region,  periodEnd, strategyList, order);
 			log.debug(query);
 			ResultSet resultSet = stmt1.executeQuery(query);
+			
 			StringBuffer renderedReport=new StringBuffer();
 			renderedReport.append(getMusterTop(type));
 			int rows=0;

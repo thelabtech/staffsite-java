@@ -388,9 +388,7 @@ public class InfoBaseController extends Controller {
             } else {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
-                results.putValue("fromMonth", Integer.toString(cal.get(Calendar.MONTH) + 1));
-                results.putValue("toMonth", Integer.toString(cal.get(Calendar.MONTH) + 1));
-                results.putValue("fromYear", Integer.toString(cal.get(Calendar.YEAR) - 1));
+               results.putValue("fromYear", Integer.toString(cal.get(Calendar.YEAR) - 1));
                 results.putValue("toYear", Integer.toString(cal.get(Calendar.YEAR)));
                 results.putValue("type", type);
                 ctx.setReturnValue(results);
@@ -1901,7 +1899,7 @@ public class InfoBaseController extends Controller {
            results.putValue("strategyList", strategyList);
            results.putValue("region", region);
            results.putValue("userName",(String)ctx.getSessionValue("userName"));
-           
+           results.addCollection("order", sortOrderFromRequest(ctx));
             ctx.setReturnValue(results);
             results=null;
            ctx.goToView("showMuster");

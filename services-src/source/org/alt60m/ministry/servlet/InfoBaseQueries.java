@@ -439,6 +439,7 @@ public class InfoBaseQueries {
 			String movementsQuery = "SELECT count(ActivityID) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by ActivityID ;";
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement movementsStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			log.debug("movementsQuery: "+movementsQuery);
 			ResultSet movementsRS = movementsStmt.executeQuery(movementsQuery);
 			result.put("movements", 0);
 			while(movementsRS.next()){
@@ -446,6 +447,7 @@ public class InfoBaseQueries {
 			}
 			String enrollmentQuery = "SELECT Max(enrollment) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by targetAreaID ;";
 			Statement enrollmentStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			log.debug("enrollmentQuery: "+enrollmentQuery);
 			ResultSet enrollmentRS = enrollmentStmt.executeQuery(enrollmentQuery);
 			result.put("enrollment", 0);
 			while(enrollmentRS.next()){
