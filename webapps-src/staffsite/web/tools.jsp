@@ -211,7 +211,7 @@ int curr_tab = 3; %>
 		</tr>
 		-->
 		<tr>
-			<td valign="center" align="center"><a href="http://conferenceregistrationtool.com"><img src="/crs/images/crs_icon.jpg" BORDER="0"></a></td>
+			<td valign="center" align="center"><a href="http://conferenceregistrationtool.com"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td>
 				<%=font%><b>Conference Registration System 2.0 (CRS) - Beta Version</b></font></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
