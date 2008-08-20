@@ -1,4 +1,4 @@
-<%@ page import="org.alt60m.servlet.*, org.alt60m.ministry.model.dbio.ReportRow, java.util.*, java.sql.*" %>
+<%@ page import="org.alt60m.servlet.*, org.alt60m.ministry.model.dbio.ReportRow, java.util.*, java.sql.*, java.text.*" %>
 <%@page import="org.alt60m.util.DateUtils"%>
 
 <%
@@ -84,7 +84,14 @@ if (ar.getCollection("report").size()>0){	%>
 		<br>
 	<%if(!(ar.getHashtable("census")==null))
 			{
-		out.print("<br><b>"+ar.getHashtable("census").get("movements")+"</b> Active, Launched or Transformational Movements, <b>"+ar.getHashtable("census").get("enrollment")+"</b> Enrollment (as of today)");
+		String prettyEnrollment="";
+		String enr=(ar.getHashtable("census").get("enrollment"))+"";
+		while(enr.length()>3){
+			prettyEnrollment=","+enr.substring(enr.length()-3,enr.length())+prettyEnrollment;
+			enr=enr.substring(0,enr.length()-3);
+		}
+		prettyEnrollment=enr+prettyEnrollment;
+		out.print("<br><b>"+ar.getHashtable("census").get("movements")+"</b> Active, Launched or Transformational Movements, <b>"+prettyEnrollment+"</b> Enrollment (as of today)");
 		out.print("<br><i>(Note: not all of the movements shown below are necessarily included in this count, and vice versa. Only movements with stats are listed below.)</i>");
 			}%>
 	
@@ -116,7 +123,7 @@ while(report.hasNext()){
 		<%
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 		%>
-		<td class="report_Verydark_blue" >&nbsp;</td>
+		<td class="report_Verydark_blue"  style="color:yellow;padding-bottom:0px;padding-top:5px;">Decisions </td>
 		<%} %>
 		<td class="report_darker_blue" style="width:140px"><center>Sending</center></td>
 		<td class="report_light_blue" <%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
@@ -143,7 +150,7 @@ while(report.hasNext()){
 		<%
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 		%>
-		<td class="report_Verydark_blue">Lump Decisions <%=row.getFunction().equals("top")? "(Before 8/1/2008)":""%></td>
+		<td class="report_Verydark_blue"  style="color:yellow;padding-top:0px;padding-bottom:5px;">Before 8/1/2008</td>
 		<%} %>
 		<td class="report_darker_blue" >Holy Spirit Pres.  </td>
 		<td class="report_darker_blue" >Laborers Sent</td>

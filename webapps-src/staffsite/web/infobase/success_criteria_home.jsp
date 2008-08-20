@@ -97,7 +97,8 @@
 			<%=box.printTop()%>
 					<%=fontB%>
 					<ul>
-						<li><a href="/servlet/InfoBaseController?action=showCampusCountReport">Movement Report</a> <I>(# of Movements)</I>
+						<li><a style="text-decoration:none;" href="/infobase/set_muster_criteria_agile.jsp"><p style="color:yellow;display:inline;"><b>New!&nbsp;</b></p><u>Movement Rollcall</u>
+						(Generates custom listing of movements, ministry locations or teams sorted by your choice of criteria)</a>
 						<!-- <li>National Report is Under Construction -->
 						<!-- <li><a href="/sc?page=/ib/spec_report.jsp">National Report</a> (<a href="/sc?page=/ib/report_nation.jsp">YTD</a>) -->
             <li>

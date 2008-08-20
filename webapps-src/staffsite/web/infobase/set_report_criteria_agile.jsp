@@ -141,18 +141,18 @@ Integer yearvar=1998;
 				</td>
 				<td>
 				  <select name="frommonth">
-				  <option value='1'<% if(((String)ar.getValue("fromMonth")).equals("1")) out.print(" SELECTED"); %>>Jan</option>
-				  <option value='2'<% if(((String)ar.getValue("fromMonth")).equals("2")) out.print(" SELECTED"); %>>Feb</option>
-				  <option value='3'<% if(((String)ar.getValue("fromMonth")).equals("3")) out.print(" SELECTED"); %>>Mar</option>
-				  <option value='4'<% if(((String)ar.getValue("fromMonth")).equals("4")) out.print(" SELECTED"); %>>Apr</option>
-				  <option value='5'<% if(((String)ar.getValue("fromMonth")).equals("5")) out.print(" SELECTED"); %>>May</option>
-				  <option value='6'<% if(((String)ar.getValue("fromMonth")).equals("6")) out.print(" SELECTED"); %>>Jun</option>
-				  <option value='7'<% if(((String)ar.getValue("fromMonth")).equals("7")) out.print(" SELECTED"); %>>Jul</option>
-				  <option value='8'<% if(((String)ar.getValue("fromMonth")).equals("8")) out.print(" SELECTED"); %>>Aug</option>
-				  <option value='9'<% if(((String)ar.getValue("fromMonth")).equals("9")) out.print(" SELECTED"); %>>Sep</option>
-				  <option value='10'<% if(((String)ar.getValue("fromMonth")).equals("10")) out.print(" SELECTED"); %>>Oct</option>
-				  <option value='11'<% if(((String)ar.getValue("fromMonth")).equals("11")) out.print(" SELECTED"); %>>Nov</option>
-				  <option value='12'<% if(((String)ar.getValue("fromMonth")).equals("12")) out.print(" SELECTED"); %>>Dec</option>
+				  <option value='1'>Jan</option>
+				  <option value='2'>Feb</option>
+				  <option value='3'>Mar</option>
+				  <option value='4'>Apr</option>
+				  <option value='5'>May</option>
+				  <option value='6'>Jun</option>
+				  <option value='7'>Jul</option>
+				  <option value='8' selected>Aug</option>
+				  <option value='9'>Sep</option>
+				  <option value='10'>Oct</option>
+				  <option value='11'>Nov</option>
+				  <option value='12'>Dec</option>
 				  </select>
 				</td>
 				<td>
@@ -171,18 +171,18 @@ Integer yearvar=1998;
 				</td>
 				<td>
 				  <select name="tomonth">
-				  <option value='1'<% if(((String)ar.getValue("toMonth")).equals("1")) out.print(" SELECTED"); %>>Jan</option>
-				  <option value='2'<% if(((String)ar.getValue("toMonth")).equals("2")) out.print(" SELECTED"); %>>Feb</option>
-				  <option value='3'<% if(((String)ar.getValue("toMonth")).equals("3")) out.print(" SELECTED"); %>>Mar</option>
-				  <option value='4'<% if(((String)ar.getValue("toMonth")).equals("4")) out.print(" SELECTED"); %>>Apr</option>
-				  <option value='5'<% if(((String)ar.getValue("toMonth")).equals("5")) out.print(" SELECTED"); %>>May</option>
-				  <option value='6'<% if(((String)ar.getValue("toMonth")).equals("6")) out.print(" SELECTED"); %>>Jun</option>
-				  <option value='7'<% if(((String)ar.getValue("toMonth")).equals("7")) out.print(" SELECTED"); %>>Jul</option>
-				  <option value='8'<% if(((String)ar.getValue("toMonth")).equals("8")) out.print(" SELECTED"); %>>Aug</option>
-				  <option value='9'<% if(((String)ar.getValue("toMonth")).equals("9")) out.print(" SELECTED"); %>>Sep</option>
-				  <option value='10'<% if(((String)ar.getValue("toMonth")).equals("10")) out.print(" SELECTED"); %>>Oct</option>
-				  <option value='11'<% if(((String)ar.getValue("toMonth")).equals("11")) out.print(" SELECTED"); %>>Nov</option>
-				  <option value='12'<% if(((String)ar.getValue("toMonth")).equals("12")) out.print(" SELECTED"); %>>Dec</option>
+				<option value='1'>Jan</option>
+				  <option value='2'>Feb</option>
+				  <option value='3'>Mar</option>
+				  <option value='4'>Apr</option>
+				  <option value='5'>May</option>
+				  <option value='6'>Jun</option>
+				  <option value='7'>Jul</option>
+				  <option value='8' selected>Aug</option>
+				  <option value='9'>Sep</option>
+				  <option value='10'>Oct</option>
+				  <option value='11'>Nov</option>
+				  <option value='12'>Dec</option>
 				  </select>
 				</td>
 			  </tr>

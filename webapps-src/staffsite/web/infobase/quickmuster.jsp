@@ -54,7 +54,25 @@ ar = ActionResults.getActionResults(session);
         if(i<(displayList.length-1)) out.print(", ");
 	}
 		%><br>
-	
+	Sorted By:
+<%
+
+Hashtable translateSortOrder=new Hashtable();
+		translateSortOrder.put("campus","Campus Name, ");
+		translateSortOrder.put("city","City/State, ");
+		translateSortOrder.put("team","Missional Team Name, ");
+		translateSortOrder.put("region","Region, ");
+		translateSortOrder.put("status","Status, ");
+		translateSortOrder.put("strategy","Strategy, ");
+String sort="";
+for (String s:(Vector<String>)ar.getCollection("order")){
+	sort+=translateSortOrder.keySet().contains(s)?translateSortOrder.get(s):"";
+}
+if(sort.length()>2){
+	sort=sort.substring(0,sort.length()-2);
+}
+out.print(sort);
+%>
 	
 	</font></p>
 	
