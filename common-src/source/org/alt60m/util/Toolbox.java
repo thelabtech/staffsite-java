@@ -24,13 +24,33 @@ public final class Toolbox
 	//the value "fox" will produce null, as will "abc123". "123abc" and "123" will both produce (Integer)123.
 	public static Integer stringToInteger(String numeric){
 		String numberMaybe=cleanNumeric(numeric);
-		if (numberMaybe!=null){
+		if ((numberMaybe!=null)&&(!numberMaybe.equals(""))){
 			return Integer.valueOf(numberMaybe);
 		}
 		else 
 		{
 			return null;
 		}
+	}
+	public static Integer stringToIntegerForceZero(String numeric){
+		String numberMaybe=cleanNumeric(numeric);
+		if ((numberMaybe!=null)&&(!numberMaybe.equals(""))){
+			return Integer.valueOf(numberMaybe);
+		}
+		else 
+		{
+			return 0;
+		}
+	}
+	public static String commatize(String numeric){
+		String prettyOutput="";
+		String num=stringToIntegerForceZero(numeric)+"";
+		while(num.length()>3){
+			prettyOutput=","+num.substring(num.length()-3,num.length())+prettyOutput;
+			num=num.substring(0,num.length()-3);
+		}
+		prettyOutput=num+prettyOutput;
+		return prettyOutput;
 	}
 	public static String escapeSingleQuotes(String fixme){
 		return fixme.replace("'","%27");
