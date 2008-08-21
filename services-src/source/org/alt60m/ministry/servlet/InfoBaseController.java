@@ -1393,7 +1393,27 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveContact().", e);
         }
     }
-
+//public void combBadActivityHistories(ActionContext ctx) {
+//	try{
+//	ActionResults results=new ActionResults("");
+//	
+//	String today="8/01/2008";
+//	Vector<Hashtable<String,String>>badHistories=new Vector<Hashtable<String,String>>();
+//	badHistories=InfoBaseQueries.getBadHistories();
+//	for(Hashtable<String,String>entry:badHistories){
+//		log.debug(entry.get("activity")+": "+entry.get("status"));
+//		Activity act=new Activity(entry.get("activity"));
+//		act.select();
+//		InfoBaseTool.saveEditActivity(act.getActivityId(), today, act.getStrategy(), entry.get("status"), ctx.getProfileID(), act.getLocalLevelId(), act.getUrl(), act.getFacebook());
+//	}
+//	log.debug(today);
+//	ctx.goToView("staffHome");
+//	}catch (Exception e) {
+//        ctx.setError();
+//        ctx.goToErrorView();
+//        log.error("Failed to perform combBadActivityHistories().", e);
+//    }
+//}
     /** @param ctx ActionContext object */
     public void saveEditActivity(ActionContext ctx) {
         try {
@@ -2090,8 +2110,7 @@ public class InfoBaseController extends Controller {
     		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
     	}
     	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
-    	results.addHashtable("census", InfoBaseQueries.getActivityCountByParametersAndStrategies(type, region, teamID, targetAreaId, strategies)); //runs two queries
-	    results.putValue("type", type);
+    	results.putValue("type", type);
     	results.putValue("region", region);
     	results.putValue("teamID", teamID);
     	results.putValue("fromyear", fromYear);

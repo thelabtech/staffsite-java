@@ -393,11 +393,14 @@ public class Reports {
 	private static String countReportQuery(String type, String region, String strategyList, String date, Vector<String> order){
 		String group="";
 		String address="";
-		if (type.equals("movement")||type.equals("location")){
+		if (type.equals("movement")){
 			group="ministry_targetarea.targetAreaID,  ministry_activity.strategy ";
 			 address=" MAX(ministry_targetarea.region) as region, MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
 		}
-		
+		else if (type.equals("location")){
+			group="ministry_targetarea.targetAreaID ";
+			 address=" MAX(ministry_targetarea.region) as region, MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
+		}
 		else if (type.equals("teamorg")||type.equals("teamgeo")){
 			group="ministry_locallevel.teamID ";
 			 address=" MAX(ministry_locallevel.region) as region, MAX(ministry_locallevel.city) as city,  MAX(ministry_locallevel.state) as state, MAX(ministry_locallevel.country) as country ";
@@ -406,7 +409,7 @@ public class Reports {
 		
 		
 		return "SELECT MAX(ministry_targetarea.name) as campusName, MAX(ministry_targetarea.isSecure) as isSecure,"+
-			"  lastStatus.status as status, "+
+			"  lastStatus.status as status,  MAX(ministry_targetarea.enrollment) as enrollment, "+
 			" MAX(ministry_activity.strategy) as strategy, "+
 			" MAX(ministry_locallevel.name) as teamName, MAX(ministry_locallevel.teamID) as teamID, MAX(ministry_targetarea.targetAreaID) as campusID, "+
 			address+ //this portion of query generated based on type of report requested
@@ -454,31 +457,37 @@ public class Reports {
 		}	
 		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
 		renderedReport.append("<td class=\"report_darker_blue\">City</td><td class=\"report_light_blue\">State</td><td class=\"report_darker_blue\">Country</td>");
-		if (type.equals("movement")){
-			renderedReport.append("<td class=\"report_light_blue\">Status</td><td class=\"report_darker_blue\">Team Name</td>");
+		if (type.equals("location")){
+			renderedReport.append("<td class=\"report_light_blue\">Enrollment</td>");
 			} 
+		if (type.equals("movement")){
+			renderedReport.append("<td colspan=\"2\" class=\"report_light_blue\">Missional Team</td>");
+		}
 		renderedReport.append("</tr>");
 		return renderedReport;
 	}
-	private static StringBuffer getMusterBottom(String type, int rows, int secureRows){
+	private static StringBuffer getMusterBottom(String type, int rows, int secureRows, int enrollment){
 		StringBuffer renderedReport=new StringBuffer();
 		if (type.equals("movement")){
-			renderedReport.append("<tr ><td colspan=\"2\" class=\"label_darker_blue\">"+rows+" Movements On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Movements Not Displayed</i>":"")+"</td>");
+			renderedReport.append("<tr ><td colspan=\"2\" class=\"label_darker_blue\">"+org.alt60m.util.Toolbox.commatize(rows+"")+" Movements On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Movements Not Displayed</i>":"")+"</td>");
 		}
 		else if (type.equals("location")){
-			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Ministry Locations On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Locations Not Displayed</i>":"")+"</td>");
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+org.alt60m.util.Toolbox.commatize(rows+"")+" Ministry Locations On Record<br>"+(secureRows>0?"<i>"+secureRows+" Sensitive Locations Not Displayed</i>":"")+"</td>");
 		}
 		else if (type.equals("teamorg")){
-			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Missional Teams On Record</td>");
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+org.alt60m.util.Toolbox.commatize(rows+"")+" Missional Teams On Record</td>");
 		}
 		else if (type.equals("teamgeo")){
-			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+rows+" Missional Teams On Record</td>");
+			renderedReport.append("<tr ><td class=\"label_darker_blue\">"+org.alt60m.util.Toolbox.commatize(rows+"")+" Missional Teams On Record</td>");
 		}	
 		renderedReport.append("<td class=\"report_light_blue\">Region</td>");
 		renderedReport.append("<td class=\"report_darker_blue\">City</td><td class=\"report_light_blue\">State</td><td class=\"report_darker_blue\">Country</td>");
-		if (type.equals("movement")){
-			renderedReport.append("<td class=\"report_light_blue\">Status</td><td class=\"report_darker_blue\">Team Name</td>");
+		if (type.equals("location")){
+			renderedReport.append("<td class=\"report_light_blue\">Enrollment <br>("+org.alt60m.util.Toolbox.commatize(enrollment+"")+" total)</td>");
 			} 
+		if (type.equals("movement")){
+			renderedReport.append("<td colspan=\"2\" class=\"report_light_blue\">Missional Team</td>");
+		}
 		renderedReport.append("</tr>");
 		return renderedReport;
 	}
@@ -495,6 +504,7 @@ public class Reports {
 			StringBuffer renderedReport=new StringBuffer();
 			renderedReport.append(getMusterTop(type));
 			int rows=0;
+			int enrollment=0;
 			int secureRows=0;
 			boolean alternate=true;
 			boolean lighter=true;
@@ -503,9 +513,11 @@ public class Reports {
 				renderedReport=renderMuster( renderedReport, lighter,  resultSet,  type,  keys);
 				if (alternate){lighter=!lighter;}
 			rows++;
+			enrollment+=org.alt60m.util.Toolbox.stringToIntegerForceZero(resultSet.getString("enrollment"));
+				
 			}
 			secureRows=getSecureRows();
-			renderedReport.append(getMusterBottom(type,rows,secureRows));
+			renderedReport.append(getMusterBottom(type,rows,secureRows,enrollment));
 			resultSet=null;
 			conn.close();
 			return renderedReport.toString();
@@ -562,16 +574,19 @@ public class Reports {
 							}
 						 
 						
-						renderedReport.append("</td><td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("region")+"</td>");
+						renderedReport.append("</td><td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+org.alt60m.ministry.Regions.expandRegion(resultSet.getString("region"))+"</td>");
 						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("city")+"</td>");
 						renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("state")+"</td>");
 						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("country")+"</td>");
 						if (type.equals("movement")){ 
-							 renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("status")+"</td>");
-							 renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":""));
+							 
+							 renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":""));
 							 renderedReport.append("<a href=\"/servlet/InfoBaseController?action=showTeam&locallevelid="+resultSet.getString("teamID")+"\">"+resultSet.getString("teamName")+"</a>");	
 									 renderedReport.append("</td>");
 						} 
+						if(type.equals("location")){
+							renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+org.alt60m.util.Toolbox.commatize(resultSet.getString("enrollment"))+"</td>");
+						}
 			renderedReport.append("</tr>");
 					}else{
 			secureRows++;

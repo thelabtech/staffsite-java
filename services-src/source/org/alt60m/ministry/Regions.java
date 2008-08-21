@@ -9,8 +9,8 @@ public class Regions {
     // Static stuff
     // ****************************************
 	// User-readable string
-	public static final String[] abbrevRegion = new String[] {"NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW"};
-	public static final String[] expandedRegion = new String[] {"Northeast", "Mid-Atlantic", "MidSouth", "Southeast", "Great Lakes", "Upper Midwest", "Great Plains Int'l", "Red River", "Greater Northwest", "Pacific Southwest"};
+	public static final String[] abbrevRegion = new String[] {"NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW","NC"};
+	public static final String[] expandedRegion = new String[] {"Northeast", "Mid-Atlantic", "MidSouth", "Southeast", "Great Lakes", "Upper Midwest", "Great Plains Int'l", "Red River", "Greater Northwest", "Pacific Southwest","National Campus Office"};
 
 
 	public static String expandRegion(String abbrev) {

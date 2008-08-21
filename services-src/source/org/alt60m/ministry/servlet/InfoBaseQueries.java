@@ -24,7 +24,38 @@ public class InfoBaseQueries {
 		Vector v = ll.selectList("isActive = 'T' ORDER BY name");
 		return v;
 	}
-
+	  static public Vector<Hashtable<String,String>> getBadHistories()throws Exception {
+		  Vector<Hashtable<String,String>>result=new Vector<Hashtable<String,String>>();
+		  Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String qry="SELECT MAX(ministry_targetarea.name) as campusName, MAX(ministry_targetarea.isSecure) as isSecure, "+
+			" ministry_activity.status as realStatus, lastStatus.status as status,  MAX(ministry_activity.strategy) as strategy, "+
+			" MAX(ministry_locallevel.name) as teamName, MAX(ministry_locallevel.teamID) as teamID, "+
+			" MAX(ministry_targetarea.targetAreaID) as campusID, ministry_activity.ActivityID as activity_id, "+
+			" MAX(ministry_targetarea.region) as region, MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, "+
+			" MAX(ministry_targetarea.country) as country  FROM (ministry_activity INNER JOIN ministry_targetarea ON "+
+			" ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID)  INNER JOIN ministry_locallevel ON "+
+			" ministry_activity.fk_teamID = ministry_locallevel.teamID  LEFT JOIN "+
+			" (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status, "+
+			" ministry_activity_history.period_begin as periodBegin FROM	(	SELECT ministry_activity_history.activity_id as activity_id, "+
+			" MAX(ministry_activity_history.id) as id  FROM ministry_activity_history WHERE  (ministry_activity_history.period_begin<='2008/8/31') "+
+			" AND (ministry_activity_history.toStrategy Is Null)  GROUP BY ministry_activity_history.activity_id ) lastDates "+
+			" INNER JOIN ministry_activity_history  ON (lastDates.activity_id=ministry_activity_history.activity_id AND "+
+			" lastDates.id=ministry_activity_history.id)) lastStatus  ON ministry_activity.ActivityID=lastStatus.activity_id  "+
+			" WHERE  ministry_activity.strategy in ('FS', 'GK', 'WS', 'CL', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') "+
+			" and  (ministry_activity.status<>lastStatus.status) and lastStatus.status in ('AC','TR','LA','PI','KE','FR','IN')  "+
+			" GROUP BY   ministry_activity.ActivityID  ORDER BY campusName, strategy;";
+				
+				ResultSet rs = stmt.executeQuery(qry);
+			while (rs.next()){
+				Hashtable<String,String> entry=new Hashtable<String,String>();
+				entry.put("activity",rs.getString("activity_id"));
+				entry.put("status", rs.getString("realStatus"));
+				result.add(entry);
+			}
+			conn.close();
+			return result;
+	    }
 	public static String getCampusesForStaffTeam(String accountno) throws Exception {
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -413,10 +444,12 @@ public class InfoBaseQueries {
 					+ "and (isClosed<> 'T' or isClosed is NULL) ORDER BY name");
 		}
 	}
-	public static Hashtable<String,Integer> getActivityCountByParametersAndStrategies(String type, String region, String teamID, String targetAreaID, Collection<String> strategies) {
+	public static Hashtable<String,Integer> getActivityCountByParametersAndStrategies(String type, String region, String teamID, String targetAreaID, Collection<String> strategies,String periodEnd) {
 		try{
 			Hashtable<String,Integer> result=new Hashtable<String,Integer>();
-			String queryPortion="and strategy in (";
+		
+			
+			String queryPortion=" lastStatus.status in ('AC','TR','LA')  and ministry_activity.strategy in (";
 			Iterator strategIt=strategies.iterator();
 			while(strategIt.hasNext())
 			{
@@ -429,6 +462,7 @@ public class InfoBaseQueries {
 				}
 			else if (type.equals("national")){
 				queryPortion+="";
+				
 				}
 			else if (type.equals("regional")){
 				queryPortion+=" and ministry_targetarea.region = '"+region+"'";
@@ -436,16 +470,40 @@ public class InfoBaseQueries {
 			else if (type.equals("locallevel")){
 				queryPortion+=" and ministry_locallevel.teamID = '"+teamID+"'";
 				}
-			String movementsQuery = "SELECT count(ActivityID) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by ActivityID ;";
+			
+			
+			
+			
+			String movementsQuery =" select count(rows.id) as counted from (SELECT ministry_activity.ActivityID as id  FROM "+
+			" (ministry_activity INNER JOIN ministry_targetarea ON ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID) "+
+			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID  LEFT JOIN  "+
+			" (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status, "+
+			" ministry_activity_history.period_begin as periodBegin FROM	(	SELECT ministry_activity_history.activity_id as activity_id, "+
+			" MAX(ministry_activity_history.period_begin) as periodBegin  FROM ministry_activity_history WHERE "+
+			" (ministry_activity_history.period_begin<="+periodEnd+" and ministry_activity_history.toStrategy Is Null)   GROUP BY ministry_activity_history.activity_id ) lastDates "+
+			" INNER JOIN ministry_activity_history  ON (lastDates.activity_id=ministry_activity_history.activity_id AND "+
+			" lastDates.periodBegin=ministry_activity_history.period_begin)) lastStatus  ON ministry_activity.ActivityID=lastStatus.activity_id  "+
+			" WHERE  "+queryPortion+"   GROUP BY ministry_targetarea.targetAreaID,  ministry_activity.strategy )rows;";
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement movementsStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			
 			log.debug("movementsQuery: "+movementsQuery);
 			ResultSet movementsRS = movementsStmt.executeQuery(movementsQuery);
-			result.put("movements", 0);
-			while(movementsRS.next()){
-				result.put("movements", result.get("movements")+movementsRS.getInt(1));
+			result.put("movements",0 );
+			if(movementsRS.next()){
+				result.put("movements", movementsRS.getInt("counted"));
 			}
-			String enrollmentQuery = "SELECT Max(enrollment) from ministry_locallevel right join ministry_activity on ministry_activity.fk_teamID = ministry_locallevel.teamID INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by targetAreaID ;";
+			String enrollmentQuery = " SELECT max(ministry_targetArea.enrollment)  FROM "+
+			" (ministry_activity INNER JOIN ministry_targetarea ON ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID) "+
+			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID  LEFT JOIN  "+
+			" (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status, "+
+			" ministry_activity_history.period_begin as periodBegin FROM	(	SELECT ministry_activity_history.activity_id as activity_id, "+
+			" MAX(ministry_activity_history.period_begin) as periodBegin  FROM ministry_activity_history WHERE "+
+			" (ministry_activity_history.period_begin<="+periodEnd+" and ministry_activity_history.toStrategy Is Null)  GROUP BY ministry_activity_history.activity_id ) lastDates "+
+			" INNER JOIN ministry_activity_history  ON (lastDates.activity_id=ministry_activity_history.activity_id AND "+
+			" lastDates.periodBegin=ministry_activity_history.period_begin)) lastStatus  ON ministry_activity.ActivityID=lastStatus.activity_id  "+
+					" WHERE  "+queryPortion+" group by ministry_targetArea.targetAreaID ;";
 			Statement enrollmentStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			log.debug("enrollmentQuery: "+enrollmentQuery);
 			ResultSet enrollmentRS = enrollmentStmt.executeQuery(enrollmentQuery);
@@ -462,14 +520,15 @@ public class InfoBaseQueries {
 	
 	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {//will be deprecated by getActivityCountByParametersAndStrategies  
 		try{
-			String queryPortion="and strategy in (";
+			String queryToMatch=" ministry_activity.strategy in ('FS', 'GK', 'WS', 'CL', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') and  lastStatus.status in ('AC','TR','LA')  and ministry_targetarea.region = 'NW' ";
+			String queryPortion=" lastStatus.status in ('AC','TR','LA')  and ministry_activity.strategy in (";
 			Iterator strategIt=strategies.iterator();
 			while(strategIt.hasNext())
 			{
 			queryPortion+="'"+strategIt.next()+"'";
 			if (strategIt.hasNext()) queryPortion+=", ";
 			}
-			queryPortion+=") and region in (";
+			queryPortion+=") and ministry_targetarea.region in (";
 			if(!region.equals("National")){
 				queryPortion+="'"+region+"'";
 			}
@@ -480,9 +539,19 @@ public class InfoBaseQueries {
 			queryPortion+=")";
 			
 			
-			String movementsQuery = "SELECT count(ActivityID) from ministry_activity INNER JOIN ministry_targetarea on ministry_activity.fk_targetAreaID=ministry_targetarea.targetAreaID WHERE status in ('AC', 'LA', 'TR') "+queryPortion+" group by ActivityID ;";
+			String movementsQuery =" select count(rows.id) from (SELECT ministry_activity.ActivityID as id FROM "+
+			" (ministry_activity INNER JOIN ministry_targetarea ON ministry_activity.fk_targetAreaID = ministry_targetarea.targetAreaID) "+
+			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID  LEFT JOIN  "+
+			" (SELECT ministry_activity_history.activity_id as activity_id, ministry_activity_history.to_status as status, "+
+			" ministry_activity_history.period_begin as periodBegin FROM	(	SELECT ministry_activity_history.activity_id as activity_id, "+
+			" MAX(ministry_activity_history.period_begin) as periodBegin  FROM ministry_activity_history WHERE "+
+			" ministry_activity_history.toStrategy Is Null  GROUP BY ministry_activity_history.activity_id ) lastDates "+
+			" INNER JOIN ministry_activity_history  ON (lastDates.activity_id=ministry_activity_history.activity_id AND "+
+			" lastDates.periodBegin=ministry_activity_history.period_begin)) lastStatus  ON ministry_activity.ActivityID=lastStatus.activity_id  "+
+			" WHERE  "+queryPortion+"   GROUP BY ministry_targetarea.targetAreaID,  ministry_activity.strategy )rows;";
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement movementsStmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			log.debug(movementsQuery);
 			ResultSet movementsRS = movementsStmt.executeQuery(movementsQuery);
 			Hashtable<String,Integer> result=new Hashtable<String,Integer>();
 			result.put("movements", 0);

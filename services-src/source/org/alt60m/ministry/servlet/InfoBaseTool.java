@@ -749,6 +749,7 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
+  
     static private java.sql.Date parseSimpleDate(String date) throws java.text.ParseException {
         StringTokenizer tokens = new StringTokenizer(date, "/");
         if (tokens.countTokens() != 3)
@@ -1173,8 +1174,8 @@ public class InfoBaseTool {
     		oldActivity.setTeam(team);
     		change = true;
     	}
-  
-    	if(!newStatus.equals(oldStatus)) {
+    	if(!newStatus.equals(oldStatus))
+    	 {
     		try {
     			deactivateOldHistory(oldActivity.getActivityId(), periodEnd, profileId);  
     			
@@ -1198,11 +1199,7 @@ public class InfoBaseTool {
             activityHistory.setTransUsername(profileId);
             activityHistory.persist();
             
-            if(oldActivity.getStrategy().equals("SC") && (!newStatus.equals("AC") || !newStatus.equals("IN"))) {
-            	oldActivity.setStrategy("CA");
-            } //else if(oldActivity.getStrategy().equals("CA") && newStatus.equals("AC")) {
-            	//oldActivity.setStrategy("SC");
-            //}
+             
     	}
     	
     	
