@@ -417,7 +417,7 @@ public class Reports {
 			" INNER JOIN ministry_locallevel ON ministry_activity.fk_teamID = ministry_locallevel.teamID "+
 			" LEFT JOIN "+lastStatus(date)+" ON ministry_activity.ActivityID=lastStatus.activity_id "+
 			" WHERE "+ 
-			" ministry_activity.strategy in ("+strategyList+") and "+
+			" ministry_activity.strategy in ("+strategyList+") and (ministry_targetarea.isClosed is null or ministry_targetarea.isClosed='') and "+
 			" lastStatus.status in ('AC','TR','LA') "+
 			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and "+(type.equals("teamorg")?"ministry_locallevel.":"ministry_targetarea.")+"region = '"+region+"' ":"")+
 			" GROUP BY "+group+
@@ -574,7 +574,7 @@ public class Reports {
 							}
 						 
 						
-						renderedReport.append("</td><td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+org.alt60m.ministry.Regions.expandRegion(resultSet.getString("region"))+"</td>");
+						renderedReport.append("</td><td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+org.alt60m.ministry.Regions.expandRegion(resultSet.getString("region")!=null?resultSet.getString("region"):"")+"</td>");
 						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("city")+"</td>");
 						renderedReport.append("<td class=\"report_"+cellAlt +"\">"+(secure?"<i>":"")+""+resultSet.getString("state")+"</td>");
 						renderedReport.append("<td class=\"report_"+cell +"\">"+(secure?"<i>":"")+""+resultSet.getString("country")+"</td>");
