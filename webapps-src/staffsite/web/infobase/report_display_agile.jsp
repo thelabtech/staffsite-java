@@ -82,18 +82,7 @@ document.getElementById("end_"+x).style.display="block";
 		
 if (ar.getCollection("report").size()>0){	%>	
 		<br>
-	<%if(!(ar.getHashtable("census")==null))
-			{
-		String prettyEnrollment="";
-		String enr=(ar.getHashtable("census").get("enrollment"))+"";
-		while(enr.length()>3){
-			prettyEnrollment=","+enr.substring(enr.length()-3,enr.length())+prettyEnrollment;
-			enr=enr.substring(0,enr.length()-3);
-		}
-		prettyEnrollment=enr+prettyEnrollment;
-		out.print("<br><b>"+ar.getHashtable("census").get("movements")+"</b> Active, Launched or Transformational Movements, <b>"+prettyEnrollment+"</b> Enrollment (as of today)");
-		out.print("<br><i>(Note: not all of the movements shown below are necessarily included in this count, and vice versa. Only movements with stats are listed below.)</i>");
-			}%>
+	For a count of Movements, Missional Teams or Ministry Locations with Enrollment, <a href="/infobase/set_muster_criteria_agile.jsp">click here</a>
 	
 	</font></p>
 	

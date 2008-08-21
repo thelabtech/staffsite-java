@@ -10,23 +10,27 @@ ar = ActionResults.getActionResults(session);
 	String[] displayList=strategyList.replace("'","").replace(" ","").split(",");
 	String pageTitle="Ministry Rollcall";
 	String reportTitle ="";
+	String region=ar.getValue("region");
 	String type=ar.getValue("type");
 	String report=ar.getValue("report");
 	if(type.equals("movement")){
-		reportTitle="Movement Rollcall";
+		reportTitle="Count of Movements";
 	}
 	else if(type.equals("location")){
-		reportTitle="Ministry Location Rollcall";
+		reportTitle="Count of Ministry Locations";
 	}
-	else if(type.equals("team")){
-		reportTitle="Missional Team Rollcall";
+	else if(type.equals("teamorg")){
+		reportTitle="Count of Missional Teams Coached by "+region;
+	}
+	else if(type.equals("teamgeo")){
+		reportTitle="Count of Missional Teams With Movements in "+org.alt60m.ministry.Regions.expandRegion(region);
 	}
 	else
 	{
 		reportTitle="Campus Ministry Rollcall";
 	}
 	
-	String region=ar.getValue("region");
+	
 	%>
 <%@page import="org.alt60m.ministry.Strategy"%>
 <%@page import="org.apache.commons.logging.Log"%>

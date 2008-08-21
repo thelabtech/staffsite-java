@@ -141,7 +141,7 @@ Integer yearvar=1998;
 		<tr><td colspan=2><%=fontB%>What do you want to count?</td></tr>
 		<tr><td><%=fontB%>Movements </td><td><input type="radio" name="type" value="movement" checked onClick="setSortOrder('movement');"></input></td></tr>
 		<tr><td><%=fontB%>Ministry Locations </td><td><input type="radio" name="type" value="location" onClick="setSortOrder('location');"></input></td></tr>
-		<tr><td><%=fontB%>Missional Teams Supervised By Selected Region</td><td><input type="radio" name="type" value="teamorg" onClick="setSortOrder('team');"></input></td></tr>
+		<tr><td><%=fontB%>Missional Teams Coached By Selected Region</td><td><input type="radio" name="type" value="teamorg" onClick="setSortOrder('team');"></input></td></tr>
 		<tr><td><%=fontB%>Missional Teams Active In Selected Region</td><td><input type="radio" name="type" value="teamgeo" onClick="setSortOrder('team');"></input></td></tr>
 		</table>
 		</div>
