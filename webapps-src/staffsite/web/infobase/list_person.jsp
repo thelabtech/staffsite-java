@@ -67,7 +67,7 @@ ar = ActionResults.getActionResults(session);
 						(!((String)currentPerson.getPreferredName()).equals(" "))&&
 						(!((String)currentPerson.getPreferredName()).equals((String)currentPerson.getFirstName())))
 				{
-					this_preferredName =( (String)currentPerson.getPreferredName());
+					this_preferredName =( (String)currentPerson.getFirstName())+" ("+( (String)currentPerson.getPreferredName())+")";
 				}
 				else
 				{

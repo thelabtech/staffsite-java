@@ -137,7 +137,7 @@ else
 	
 	title = (String)p.get("Title");
 	isMale = (Boolean)(p.get("Gender").equals("1"));
-	//firstName = (String)p.get("FirstName");
+	firstName = (String)p.get("FirstName");
 	preferredName = (String)p.get("PreferredName");
 	lastName = (String)p.get("LastName");
 	
