@@ -237,7 +237,8 @@ public class InfoBaseQueries {
 	}
 	public static Vector listStaffAndContactsByLastName(String search) {
 		try {
-			
+			int bumpup=0;
+			String key="";
 			TreeMap<String,Contact>c=new TreeMap<String,Contact>();
 			StringBuffer identities=new StringBuffer();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
@@ -261,8 +262,17 @@ public class InfoBaseQueries {
 				contact.setPreferredName(rs2.getString("preferredName")==null?"":rs2.getString("preferredName"));
 				contact.setEmail(rs2.getString("email"));
 				if (contact.getPersonID()!=0){
-				identities.append(" '"+contact.getPersonID()+"', ");}
-				c.put(rs2.getString("lastName")+" "+rs2.getString("preferredName")==null?rs2.getString("firstName"):rs2.getString("preferredName")+" "+"accountNo"+rs2.getString("accountNo"),contact);
+					identities.append(" '"+contact.getPersonID()+"', ");
+					}
+				if(rs2.getString("lastName")!=null&&rs2.getString("firstName")!=null){
+					bumpup=0;
+					key=rs2.getString("lastName")+" "+rs2.getString("firstName")+bumpup;
+					while(c.keySet().contains(key)){
+					bumpup++;
+					key=rs2.getString("lastName")+" "+rs2.getString("firstName")+bumpup;
+					}
+					c.put(key,contact);
+				}
 				}
 			identities.append("''");
 			
@@ -282,7 +292,15 @@ public class InfoBaseQueries {
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName")==null?"":rs.getString("preferredName"));
 				contact.setEmail(rs.getString("email"));
-				c.put(rs.getString("lastName")+" "+rs.getString("preferredName")==null?rs.getString("firstName"):rs.getString("preferredName")+" "+"personID"+rs.getInt("personID"),contact);
+				if(rs.getString("lastName")!=null&&rs.getString("firstName")!=null){
+					bumpup=0;
+					key=rs.getString("lastName")+" "+rs.getString("firstName")+bumpup;
+					while(c.keySet().contains(key)){
+					bumpup++;
+					key=rs.getString("lastName")+" "+rs.getString("firstName")+bumpup;
+					}
+					c.put(key,contact);
+				}
 				}
 			
 			
