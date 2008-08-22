@@ -1075,7 +1075,7 @@ public class InfoBaseController extends Controller {
         try {
             ActionResults results = new ActionResults("listPerson");
 			InfoBaseTool ibt = new InfoBaseTool();
-            String searchText = ctx.getInputString("searchtext", true);
+            String searchText = ctx.getInputString("searchtext", true).replace("'", "\\'");
            
             if (searchText.length() > 0) {
             	 Vector<Contact> contacts=InfoBaseQueries.listStaffAndContactsByLastName(searchText);
