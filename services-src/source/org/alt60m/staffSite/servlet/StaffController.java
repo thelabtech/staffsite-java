@@ -686,7 +686,7 @@ public class StaffController extends Controller {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
-		ctx.goToView("home");
+		showHome(ctx);
 	}
 
 	/**
@@ -1133,7 +1133,7 @@ public class StaffController extends Controller {
 			}
 			// then redirect to home page
 			// ctx.setReturnValue(results);
-			ctx.goToView("home");
+			showHome(ctx);
 
 		} catch (Exception e) {
 			log.error("Failed to perform captureHRinfo", e);
