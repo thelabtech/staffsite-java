@@ -267,7 +267,7 @@ public class InfoBaseController extends Controller {
             java.text.SimpleDateFormat headerFormatter = new java.text.SimpleDateFormat("MM/dd/yyyy");
             results.putValue("date", headerFormatter.format(today.getTime()));
             String searchText = ctx.getInputString("Region", true);
-            Collection hashedTeams = ObjectHashUtil.list(ibt.getLocalLevelTeamsByRegion(searchText));
+            Collection hashedTeams = ObjectHashUtil.list(ibt.getLocalLevelTeamsByRegionExclusive(searchText));
             results.addCollection("teams", hashedTeams);
             ctx.setReturnValue(results);
             ctx.goToView("localLevelMetros");
