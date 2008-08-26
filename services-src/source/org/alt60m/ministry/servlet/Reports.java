@@ -45,12 +45,12 @@ public class Reports {
 		}
 		else if(type.equals("targetarea"))
 		{
-			return " GROUP BY ministry_targetarea.name, ministry_activity.strategy, ministry_statistic.periodEnd, ministry_statistic.peopleGroup ORDER BY ministry_targetarea.name, ministry_activity.strategy, ministry_statistic.periodEnd, ministry_statistic.peopleGroup";
+			return " GROUP BY ministry_activity.ActivityID, ministry_statistic.periodEnd, ministry_statistic.peopleGroup ORDER BY ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy, ministry_statistic.periodEnd, ministry_statistic.peopleGroup";
 		}
 		else
 		{
-		return " GROUP BY ministry_targetarea.name, ministry_activity.strategy, ministry_statistic.peopleGroup"+
-				" ORDER BY ministry_targetarea.name, ministry_activity.strategy, ministry_statistic.peopleGroup ";
+		return " GROUP BY ministry_activity.ActivityID, ministry_statistic.peopleGroup"+
+				" ORDER BY ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy,  ministry_statistic.peopleGroup ";
 		}
 	}
 	private static String summingFieldsPortion(String type){
@@ -102,7 +102,7 @@ public class Reports {
 				
 				" '' as targetAreaID, "+
 				" '' as campusName,"+
-				" 'CA' as strategy, "+
+				" 'FS' as strategy, "+
 				" ministry_targetarea.region as rowid,"+
 				" ''  as enrollment ";
 		}
@@ -136,6 +136,7 @@ public class Reports {
 							
 							" ministry_targetarea.region,"+
 							" ministry_targetarea.targetAreaID, "+
+							" ministry_activity.strategy, "+
 							" ministry_targetarea.name, "+
 							" ministry_statistic.multipliers, "+
 							" ministry_statistic.invldStudents, "+
