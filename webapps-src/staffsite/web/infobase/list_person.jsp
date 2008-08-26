@@ -114,6 +114,12 @@ ar = ActionResults.getActionResults(session);
 			 <%
 		 }
 		%>
+<tr><td colspan="3" style="padding-left:30px;"><%=font%><i>
+<br>
+<p style="font-weight:bold;color:black;line-height:15px;margin:0px;padding:0px;">Black - Record in the PeopleSoft Database Only</p>
+<p style="font-weight:bold;color:blue;line-height:15px;margin:0px;padding:0px;">Blue - Matched Record between PeopleSoft and Campus Databases</p>
+<p style="font-weight:bold;color:green;line-height:15px;margin:0px;padding:0px;">Green - Record in Campus Database Only</p>
+</td></tr>
 		</TABLE>
 		
 <%=box.printBottom()%>
