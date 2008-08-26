@@ -1503,17 +1503,18 @@ public class InfoBaseTool {
             LocalLevel ll;
             if (mode.equals("update")) {
                 ll = new LocalLevel(localLevelId);
+                ll.select(); 
+                
             } else {
                 ll = new LocalLevel();
+                
+                
             }
+            
             ObjectHashUtil.hash2obj(request, ll);
             ll.setIsActive(request.get("IsActive").equals("TRUE"));
 
-            //if(!mode.equals("update"))
-            //{
-            	ll.select(); // make sure new team hasn't already been created
-            //}
-            ll.persist();
+             ll.persist();
         }
         catch (Exception e) {
             log.error("Failed to perform saveTeam().", e);
