@@ -484,7 +484,14 @@ public class InfoBaseTool {
  			throw new Exception(e);
         }
     }
-
+    public Collection getLocalLevelTeamsByRegionExclusive(String region) throws Exception {
+        try {
+			return InfoBaseQueries.getLocalLevelTeamsByRegionExclusive(region);
+        } catch (Exception e) {
+            log.error("Failed to perform getLocalLevelTeamsByRegionExclusive().", e);
+ 			throw new Exception(e);
+        }
+    }
     public NonCccMin getNonCccMin(String nonCccMinId) throws Exception {
         try {
 			return new NonCccMin(nonCccMinId);

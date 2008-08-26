@@ -18,6 +18,11 @@ public class InfoBaseQueries {
 		Vector v = ll.selectList("((hasMultiRegionalAccess='T' AND isActive = 'T') OR (region = '" + region + "' AND isActive = 'T')) ORDER BY name");
 		return v;
 	}
+	public static Vector getLocalLevelTeamsByRegionExclusive(String region) {
+		LocalLevel ll = new LocalLevel();
+		Vector v = ll.selectList(" (region = '" + region + "' AND isActive = 'T') ORDER BY name");
+		return v;
+	}
 	
 	public static Vector getActiveLocalLevelTeams() {
 		LocalLevel ll = new LocalLevel();

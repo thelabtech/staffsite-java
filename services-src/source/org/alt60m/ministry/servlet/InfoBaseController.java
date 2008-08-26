@@ -1061,7 +1061,7 @@ public class InfoBaseController extends Controller {
             ActionResults results = new ActionResults("listLLMetros");
             String region = ctx.getInputString("region", true);
 			InfoBaseTool ibt = new InfoBaseTool();
-            Collection teams = ibt.getLocalLevelTeamsByRegion(region);
+            Collection teams = ibt.getLocalLevelTeamsByRegionExclusive(region);
             results.addCollection("teams", ObjectHashUtil.list(teams));
             ctx.setReturnValue(results);
             ctx.goToView("localLevelMetros");
