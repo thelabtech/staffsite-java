@@ -182,8 +182,7 @@ ar = ActionResults.getActionResults(session);
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
 				<%=font%>Add a Ministry Location to this team:<BR>
-					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=SC">add SC</A>]
-					 				[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CA">add CAT</A>]  
+					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=FS">add FS</A>]  
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=BR">add BR</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=ID">add ESM-D</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IE">add ESM-E</A>] 
