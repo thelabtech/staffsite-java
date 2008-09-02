@@ -395,7 +395,7 @@ public class Reports {
 		String group="";
 		String address="";
 		if (type.equals("movement")){
-			group="ministry_targetarea.targetAreaID,  ministry_activity.strategy ";
+			group="ministry_targetarea.targetAreaID,  ministry_activity.ActivityID ";
 			 address=" MAX(ministry_targetarea.region) as region, MAX(ministry_targetarea.city) as city,  MAX(ministry_targetarea.state) as state, MAX(ministry_targetarea.country) as country ";
 		}
 		else if (type.equals("location")){
