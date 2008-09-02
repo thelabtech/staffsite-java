@@ -190,9 +190,15 @@ public class TargetArea extends DBIOEntity {
 
 	@SuppressWarnings("unchecked")
 	public Vector<Activity> getActivities() {
+		Vector<Activity>result=new Vector<Activity>();
 		Activity a = new Activity();
+		for (org.alt60m.ministry.Strategy strategy : org.alt60m.ministry.Strategy.campusStrategies()) {
+			a = new Activity();
 		a.setTargetAreaId(this.targetAreaId);
-		return a.selectList();
+		a.setStrategy(strategy.toString());
+		result.addAll( a.selectList());
+		}
+		return result;
 	}
 	public Vector getActivities(String orderField, boolean DESC) {
 		Activity a = new Activity();

@@ -2241,7 +2241,8 @@ public class InfoBaseController extends Controller {
 			InfoBaseTool ibt = new InfoBaseTool();
             String targetAreaID = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
             results = getBookmarks(ctx, results, Bookmarks.TARGET_AREA, targetAreaID);
-
+            Vector<String>activityKeys=new Vector<String>();
+            int individualize=0;
 			TargetArea ta = ibt.getTargetArea(targetAreaID);
             Hashtable targetAreaInfo = ObjectHashUtil.obj2hash(ta);
             results.addHashtable("target", targetAreaInfo);
@@ -2264,9 +2265,13 @@ public class InfoBaseController extends Controller {
 						contacts.add(ObjectHashUtil.obj2hash(staff));
 					}
 					activityHash.put("contacts", contacts);
-					results.addHashtable(activity.getStrategy(), activityHash);
+					results.addHashtable(activity.getStrategy()+individualize, activityHash);
+					activityKeys.add(activity.getStrategy()+individualize);
+					
 				}
+				individualize++;
             }
+	        results.addCollection("activityKeys", activityKeys);
             ctx.setReturnValue(results);
             ctx.goToView("targetArea");
         }
