@@ -6,7 +6,7 @@
 String[] strategies = Strategy.strategiesArray();
 Integer yearvar=1998;
 %>
-<% String pageTitle="Campus Ministry Rollcall"; %>
+<% String pageTitle="Campus Ministry Tracker"; %>
 <%@page import="org.alt60m.ministry.Strategy"%>
 <html>
 <head>

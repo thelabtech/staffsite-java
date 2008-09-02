@@ -146,7 +146,7 @@ String pageTitle = "Main Page"; %>
 						</tr>
 						<tr>
 							<td style="padding-top:30px;" colspan="2">
-							<a style="text-decoration:none;font-size:15px;" href="/infobase/set_muster_criteria_agile.jsp"><p style="color:yellow;display:inline;"><b>New!&nbsp;</b></p><u>Movement Rollcall</u></a>
+							<a style="text-decoration:none;font-size:15px;" href="/infobase/set_muster_criteria_agile.jsp"><p style="color:yellow;display:inline;"><b>New!&nbsp;</b></p><u>Movement Tracker</u></a>
 							<p style="font-size:12px;color:#336699;">(Generates custom listing of movements, ministry locations<br> or teams sorted by your choice of criteria)</p>
 							</td>
 						</tr>

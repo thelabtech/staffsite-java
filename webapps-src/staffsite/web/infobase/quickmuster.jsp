@@ -8,7 +8,7 @@ ar = ActionResults.getActionResults(session);
 	Vector<String> keys=UnlockCampus.keys((String)(ActionResults.getActionResults(session).getValue("userName")));
 	String strategyList=ar.getValue("strategyList");
 	String[] displayList=strategyList.replace("'","").replace(" ","").split(",");
-	String pageTitle="Ministry Rollcall";
+	String pageTitle="Ministry Tracker";
 	String reportTitle ="";
 	String region=ar.getValue("region");
 	String type=ar.getValue("type");
@@ -27,7 +27,7 @@ ar = ActionResults.getActionResults(session);
 	}
 	else
 	{
-		reportTitle="Campus Ministry Rollcall";
+		reportTitle="Campus Ministry Tracker";
 	}
 	
 	
