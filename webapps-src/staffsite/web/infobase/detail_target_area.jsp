@@ -67,8 +67,8 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 <%
 	boolean hasMovement = false;
 
-	for (Strategy strategy : Strategy.campusStrategies()) {
-		thisActivity = ar.getHashtable(strategy.name());
+	for (String s : (Vector<String>)ar.getCollection("activityKeys")) {
+		thisActivity = ar.getHashtable(s);
 		
 		if (thisActivity != null) {
 			hasMovement = true;
