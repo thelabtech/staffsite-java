@@ -111,8 +111,8 @@ public class ConnexionBar {
 
 		String content = null;
 
-		String barTicketService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
-		String barService = "https://www.mygcx.org/module/CampusStaff/omnibar/omnibar";
+		String barTicketService = "https://www.mygcx.org/CampusStaff/module/omnibar/omnibar";
+		String barService = "https://www.mygcx.org/CampusStaff/module/omnibar/omnibar";
 
 		String signinService = "signin.mygcx.org";
 		try {
