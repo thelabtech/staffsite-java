@@ -10,7 +10,6 @@ public enum Strategy {
 	ID ("Destino"), 
 	II ("Impact"),
 	IN ("Nations"),
-	WI ("WSN ICS"),
 	WS ("WSN"),
 	BR ("Bridges"),
 	AA ("Athletes In Action"),
@@ -45,7 +44,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> internationalCampusStrategies() {
-		return EnumSet.of(WI, WS);
+		return EnumSet.of( WS);
 	}
 
 	public static EnumSet<Strategy> usCampusStrategies() {

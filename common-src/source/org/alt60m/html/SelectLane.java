@@ -4,8 +4,36 @@ package org.alt60m.html;
 public class SelectLane implements java.io.Serializable {
 	
 	// 11/10/2005 - Added Bridges International (BI) to list of lanes
-    String[] lanes = {" ",  "FS",  "IC", "WS", "OP", "HR", "FD", "ND", "BR" };
-	String[] laneNames = {" ", "Field Strategies", "Ethnic Student Ministries","Worldwide Student Network", "Operations", "Human Resources", "Fund Dev", "National Director's Office", "Bridges Int'l"};
+    String[] lanes = {" ",  
+    		"FS",  
+    		"IC", 
+    		"ID",
+    		"IE",
+    		"II",
+    		"IN",
+    		"WS", 
+    		"OP", 
+    		"HR", 
+    		"FD", 
+    		"BR",
+    		"SV",
+    		"CL",
+    		"OT"};
+	String[] laneNames = {" ", 
+			"Field Strategies", 
+			"Ethnic Student Ministries",
+			"Destino",
+    		"Epic",
+    		"Impact",
+    		"Nations",
+			"Worldwide Student Network", 
+			"Operations", 
+			"Human Resources", 
+			"Fund Dev", 
+			"Bridges Int'l",
+			"Student Venture",
+			"Faculty Commons",
+			"Other"};
 	String currentLane;
     String name;
 
@@ -39,7 +67,7 @@ public class SelectLane implements java.io.Serializable {
 	StringBuffer sb = new StringBuffer();
 	int i;
 
-	for (i = 0; i < 9; ++i) {
+	for (i = 0; i < 15; ++i) {
 		if (lanes[i].equals(currentLane)) {
 			sb.append(laneNames[i]);
 	    } 

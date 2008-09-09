@@ -18,6 +18,18 @@ Integer yearvar=1998;
 <%@page import="org.alt60m.ministry.Strategy"%>
 <html>
 <head>
+<script type="text/javascript" language="javascript">
+var checked=false;
+function check(){
+table=document.getElementById('boxes');
+inputs = table.getElementsByTagName('input');
+	for (i=0;i<inputs.length;i++){
+	inputs[i].checked=!checked;
+	}
+	checked=!checked;
+	document.getElementById('checkAllButton').innerHTML=(checked?'Uncheck All':'Check All');
+}
+</script>
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
@@ -87,22 +99,23 @@ Integer yearvar=1998;
 			<p><%=fontB%><i>Select which CCC ministries you would like included
 			  in your report:</font></p>
 
-			<table border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
+			<table id="boxes" border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
-					<input type="checkbox" name="strategies[FS]"  checked value="FS" >Field Strategies<br>
-					<input type="checkbox" name="strategies[II]"  checked value="II" >ESM-Impact<br>
-					<input type="checkbox" name="strategies[IE]"  checked value="IE" >ESM-Epic<br>
-					<input type="checkbox" name="strategies[ID]"  checked value="ID" >ESM-Destino<br>
-					<input type="checkbox" name="strategies[IN]"  checked value="IN" >ESM-Nations<br>
-					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
+			  		<button id="checkAllButton" onClick="check();">Check All</button><br>
+					<input type="checkbox" name="strategies[FS]"   value="FS" >Field Strategies<br>
+					<input type="checkbox" name="strategies[II]"   value="II" >ESM-Impact<br>
+					<input type="checkbox" name="strategies[IE]"   value="IE" >ESM-Epic<br>
+					<input type="checkbox" name="strategies[ID]"   value="ID" >ESM-Destino<br>
+					<input type="checkbox" name="strategies[IN]"   value="IN" >ESM-Nations<br>
+					<input type="checkbox" name="strategies[BR]"   value="BR" >Bridges<br>
 					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN Local Teams<br>
 					
-					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
-					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
-					<input type="checkbox" name="strategies[GK]"  checked value="GK" >Greek<br>
-					<input type="checkbox" name="strategies[VL]"  checked value="VL" >Valor<br>
-					<input type="checkbox" name="strategies[OT]"  checked value="OT" >Other<br>
+					<input type="checkbox" name="strategies[AA]"   value="AA" >Athletes In Action<br>
+					<input type="checkbox" name="strategies[CL]"   value="CL" >Faculty Commons<br>
+					<input type="checkbox" name="strategies[KC]"   value="KC" >Korean CCC<br>
+					<input type="checkbox" name="strategies[GK]"   value="GK" >Greek<br>
+					<input type="checkbox" name="strategies[VL]"   value="VL" >Valor<br>
+					<input type="checkbox" name="strategies[OT]"   value="OT" >Other<br>
 					
 	
 			  </td></tr>
@@ -177,8 +190,8 @@ Integer yearvar=1998;
 				  <option value='4'>Apr</option>
 				  <option value='5'>May</option>
 				  <option value='6'>Jun</option>
-				  <option value='7'>Jul</option>
-				  <option value='8' selected>Aug</option>
+				  <option value='7' selected>Jul</option>
+				  <option value='8' >Aug</option>
 				  <option value='9'>Sep</option>
 				  <option value='10'>Oct</option>
 				  <option value='11'>Nov</option>
@@ -186,6 +199,7 @@ Integer yearvar=1998;
 				  </select>
 				</td>
 			  </tr>
+			  <tr><td colspan="4"><%=fontB%>Report will cover from the first of the "from" month through the end of the "to" month.</td></tr>
 			</table>
 			<p>&nbsp;</p>
 		  </td>

@@ -21,7 +21,7 @@ else if (strategy.equals("II")) {strategyName = "Impact";}
 else if (strategy.equals("BR")) {strategyName = "Bridges";}
 %>
 
-<% String pageTitle="Add "+ ar.getValue("strategy") + " strategy at " + ar.getValue("targetAreaName"); %>
+<% String pageTitle="Add "+ strategyName + " strategy at " + ar.getValue("targetAreaName"); %>
 <html>
 <head>
 <title><%= pageTitle %></title>
@@ -34,6 +34,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 			alert("You must select a Missional Team.");
 		}
 		else {
+			document.getElementById('subber').style.display='none';
 			document.addTargetAreaActivityForm.submit();
 		}
 	}
@@ -91,7 +92,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 					<a href="javascript:pickdate(document.addTargetAreaActivityForm.periodbegin)">[select date]</font></a>
 				</td>
 			</tr>
-			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a href="javascript:submitForm()" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';" ><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr></center></td></tr>
+			<tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><tr <%=bgcolorL%>><td colspan="2" nowrap><center><br><a id="subber" onClick="submitForm();" onMouseOver="document.addstrategyButton.src='/images/add_bon.gif';" onMouseOut="document.addstrategyButton.src='/images/add_boff.gif';" ><img name="addstrategyButton" src="/images/add_boff.gif" border="0" align="top"></a></center></td></tr></center></td></tr>
 			<tr <%=bgcolorL%>>
 				<td colspan=2 align=center>
 					<br>

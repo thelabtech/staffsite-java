@@ -10,6 +10,18 @@ Integer yearvar=1998;
 <%@page import="org.alt60m.ministry.Strategy"%>
 <html>
 <head>
+<script type="text/javascript" language="javascript">
+var checked=false;
+function check(){
+table=document.getElementById('boxes');
+inputs = table.getElementsByTagName('input');
+	for (i=0;i<inputs.length;i++){
+	inputs[i].checked=!checked;
+	}
+	checked=!checked;
+	document.getElementById('checkAllButton').innerHTML=(checked?'Uncheck All':'Check All');
+}
+</script>
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/infobase/ibheader.jspf" %>
@@ -166,21 +178,22 @@ Integer yearvar=1998;
 		</font>		 
 	</td>
 <!--  Right panel  -->
-	<td style="width:200px;text-align:right;margin-right:none;">
+	<td id="boxes" style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
-			Field Strategies<input type="checkbox" name="strategies[FS]"  checked value="FS" ><br>
-			ESM-Impact<input type="checkbox" name="strategies[II]"  checked value="II" ><br>
-			ESM-Epic<input type="checkbox" name="strategies[IE]"  checked value="IE" ><br>
-			ESM-Destino<input type="checkbox" name="strategies[ID]"  checked value="ID" ><br>
-			ESM-Nations<input type="checkbox" name="strategies[IN]"  checked value="IN" ><br>
-			Bridges<input type="checkbox" name="strategies[BR]"  checked value="BR" ><br>
+			<button id="checkAllButton" onClick="check();">Check All</button><br>
+			Field Strategies<input type="checkbox" name="strategies[FS]"   value="FS" ><br>
+			ESM-Impact<input type="checkbox" name="strategies[II]"   value="II" ><br>
+			ESM-Epic<input type="checkbox" name="strategies[IE]"   value="IE" ><br>
+			ESM-Destino<input type="checkbox" name="strategies[ID]"   value="ID" ><br>
+			ESM-Nations<input type="checkbox" name="strategies[IN]"   value="IN" ><br>
+			Bridges<input type="checkbox" name="strategies[BR]"   value="BR" ><br>
 			WSN Local Teams<input type="checkbox" name="strategies[WS]"   value="WS" ><br>
-			Athletes In Action<input type="checkbox" name="strategies[AA]"  checked value="AA" ><br>
-			Faculty Commons<input type="checkbox" name="strategies[CL]"  checked value="CL" ><br>
-			Korean CCC<input type="checkbox" name="strategies[KC]"  checked value="KC" ><br>
-			Greek<input type="checkbox" name="strategies[GK]"  checked value="GK" ><br>
-			Valor<input type="checkbox" name="strategies[VL]"  checked value="VL" ><br>
-			Other<input type="checkbox" name="strategies[OT]"  checked value="OT" ><br>
+			Athletes In Action<input type="checkbox" name="strategies[AA]"   value="AA" ><br>
+			Faculty Commons<input type="checkbox" name="strategies[CL]"   value="CL" ><br>
+			Korean CCC<input type="checkbox" name="strategies[KC]"   value="KC" ><br>
+			Greek<input type="checkbox" name="strategies[GK]"   value="GK" ><br>
+			Valor<input type="checkbox" name="strategies[VL]"   value="VL" ><br>
+			Other<input type="checkbox" name="strategies[OT]"   value="OT" ><br>
 	</td>
 	<td width="3px" style="margin:none;border-left:none;border-top:solid 1 black;border-right:solid 1 black;border-bottom:solid 1 black;">
 	&nbsp;

@@ -30,7 +30,7 @@ function teamVerify() {
 	var isValid = true;
 	isValid = verifyInput(document.TeamInfoForm.Name, document.TeamInfoForm.Lane, document.TeamInfoForm.Region, document.TeamInfoForm.Country);
 	if(!isValid) {
-		alert("You must provide the Missional Team name, lane, region, and country.");
+		alert("You must provide the Missional Team name, strategy, region, and country.");
 	}
 	return isValid;
 }
@@ -76,7 +76,7 @@ function teamVerify() {
 		</tr>
 		<tr <%=bgcolorL%>> 
 			<td> 
-				<div align="right"><%=fontB%>*Lane:</font></div>
+				<div align="right"><%=fontB%>*Strategy:</font></div>
 			</td>
 			<td>
 				<% lanes.setName("Lane"); %>

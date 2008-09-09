@@ -14,7 +14,7 @@
 	ar = ActionResults.getActionResults(session);
 
 	Hashtable taTable = ar.getHashtable("target");
-
+	Vector<String>strategiesRepresented=new Vector<String>();
 	Hashtable thisActivity = null; //used to store the actXX
 	Collection otherMinistries = ar.getCollection("noncccmin");
 	Collection contColl = null;
@@ -72,6 +72,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		
 		if (thisActivity != null) {
 			hasMovement = true;
+			strategiesRepresented.add((String)thisActivity.get("strategy"));
 %>
 			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
 				BGCOLOR="#D0DDEA">
@@ -148,225 +149,10 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		}
 	}
 	
-	/* ---------------------------------------------------------------------------------------
- 	*  This code is being removed as part of the Movement/Success Criteria changes.  See note at 
- 	*  the top of the code.  This section of code deals with the ministries:   
- 	*  ChristianLeadership Ministries, and Korean CCC.  This code can be completely removed 
- 	*  eventually. 
- 	* -----------------------------------------------------------------------------------------
-	for (Strategy strategy : Strategy.campusNoSuccessCriteriaStrategies()) {
-		thisActivity = ar.getHashtable(strategy.name());
-		
-		if (thisActivity != null) {
-			hasMovement = true;
-%>
-			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2
-					WIDTH="80%" BGCOLOR="#D0DDEA">
-					<TR>
-						<TD COLSPAN="3" BGCOLOR="<%= color1 %>" ALIGN="CENTER"><%=font4L%><B><%=thisActivity
-														.get("strategyName")%>
-						</B></FONT></TD>
-					</TR>
-					<TR>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
-							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
-						Information:</B>&nbsp;<A
-							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
-					</TR>
-					<TR>
-						<TD COLSPAN="3"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>
-						<%
-			contColl = (Collection) thisActivity.get("contacts");
-			int numContacts = contColl.size();
-			Iterator contacts = contColl.iterator();
-			Hashtable thisContact = null;
-			if (!contacts.hasNext())
-				out.print("No Contacts<BR>");
-			while (contacts.hasNext()) {
-				thisContact = (Hashtable) contacts.next();
-						%>&nbsp; <A
-							HREF="/servlet/InfoBaseController?action=showStaffInfo&staffid=<%= thisContact.get("AccountNo") %>"><%=thisContact
-															.get("PreferredName")
-													+ " "
-													+ thisContact
-															.get("LastName")%></A>
-
-						&nbsp;[<A
-							HREF="/servlet/InfoBaseController?action=removeContact&staffid=<%= thisContact.get("AccountNo") %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>">Remove</A>]
-						<BR>
-						<%
-			}
-			if (numContacts < 2) {
-			%>
-			<A HREF="/servlet/InfoBaseController?action=addContact&activityid=<%= thisActivity.get("activityID") %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>&mode=region">Add
-						Contact</A> 
-			<%
-			}
-			%>
-						</TD>
-					</TR>
-				</TABLE>
-			<br>
-			<%
-		}
-	}
-  --- End Of Comment Block -------------------------*/
-  /* ---------------------------------------------------------------------------------------
-	*  This code is being removed as part of the Movement/Success Criteria changes.  See the 
-	*  note at the top of the code.  This section of code deals with the ministries: Greek, Valor 
-	*  & Other.  This code can be completly removed eventually.
-	* -----------------------------------------------------------------------------------------
+	
+ 	
   
-	for (Strategy strategy : Strategy.microCultures()) {
-		thisActivity = ar.getHashtable(strategy.name());
-		
-		if (thisActivity != null) {
-	hasMovement = true;
-%>
-			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2
-					WIDTH="80%" BGCOLOR="#D0DDEA">
-					<TR>
-						<TD COLSPAN="3" BGCOLOR="<%= color1 %>" ALIGN="CENTER"><%=font4L%><B><%=thisActivity
-														.get("strategyName")%>
-						</B></FONT></TD>
-					</TR>
-					<TR>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
-							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
-						Information:</B>&nbsp;<A
-							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
-					</TR>
-					<TR>
-						<TD COLSPAN="3"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>
-						<%
-										contColl = (Collection) thisActivity
-										.get("contacts");
-										int numContacts = contColl.size();
-										Iterator contacts = contColl.iterator();
-										Hashtable thisContact = null;
-										if (!contacts.hasNext())
-									out.print("No Contacts<BR>");
-										while (contacts.hasNext()) {
-									thisContact = (Hashtable) contacts.next();
-						%>&nbsp; <A
-							HREF="/servlet/InfoBaseController?action=showStaffInfo&staffid=<%= thisContact.get("AccountNo") %>"><%=thisContact
-															.get("PreferredName")
-													+ " "
-													+ thisContact
-															.get("LastName")%></A>
-
-						&nbsp;[<A
-							HREF="/servlet/InfoBaseController?action=removeContact&staffid=<%= thisContact.get("AccountNo") %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>">Remove</A>]
-						<BR>
-						<%
-										}
-										if (numContacts < 2) {
-						%><A
-							HREF="/servlet/InfoBaseController?action=addContact&activityid=<%= thisActivity.get("activityID") %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>&mode=region">Add
-						Contact</A> <%
- }
- %>
-						</TD>
-					</TR>
-				</TABLE>
-			<br>
-			<%
-		}
-	}
-  --- End Of Comment Block -------------------------*/	
   
-  /* ---------------------------------------------------------------------------------------
-	*  This code is being removed as part of the Movement/Success Criteria changes.  See note at 
-	*  the top of the code.  This section of code deals with the ministries: Military Ministry   
-	*  and Athletes in Action. This code can be completly removed eventually.
-	* -----------------------------------------------------------------------------------------
-	for (Strategy strategy : Strategy.nonCampusStrategies()) {
-		thisActivity = ar.getHashtable(strategy.name());
-		
-		if (thisActivity != null) {
-			hasMovement = true;
-%>
-			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2
-					WIDTH="80%" BGCOLOR="#D0DDEA">
-					<TR>
-						<TD COLSPAN="3" BGCOLOR="<%= color1 %>" ALIGN="CENTER"><%=font4L%><B><%=thisActivity
-														.get("strategyName")%>
-						</B></FONT></TD>
-					</TR>
-					<TR>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> Active</FONT><%=fontS%>[<A
-							HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>">Change</A>]</FONT></TD>
-						<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team
-						Information:</B>&nbsp;<A
-							HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
-					</TR>
-					<TR>
-						<TD COLSPAN="3"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>
-						<%
-			contColl = (Collection) thisActivity.get("contacts");
-			int numContacts = contColl.size();
-			Iterator contacts = contColl.iterator();
-			Hashtable thisContact = null;
-			if (!contacts.hasNext())
-				out.print("No Contacts<BR>");
-			while (contacts.hasNext()) {
-				thisContact = (Hashtable) contacts.next();
-						%>&nbsp; <A
-							HREF="/servlet/InfoBaseController?action=showStaffInfo&staffid=<%= thisContact.get("AccountNo") %>"><%=thisContact
-															.get("PreferredName")
-													+ " "
-													+ thisContact
-															.get("LastName")%></A>
-
-						&nbsp;[<A
-							HREF="/servlet/InfoBaseController?action=removeContact&staffid=<%= thisContact.get("AccountNo") %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>">Remove</A>]
-						<BR>
-						<%
-			}
-			if (numContacts < 2) {
-			%>
-			<A HREF="/servlet/InfoBaseController?action=addContact&activityid=<%= thisActivity.get("activityID") %>&region=<%= taTable.get("Region") %>&targetareaid=<%= request.getParameter("targetareaid") %>&mode=region">Add
-						Contact</A> 
-			<%
-			}
-			%>
-						</TD>
-					</TR>
-				</TABLE>
-			<br>
-			<%
-		}
-	}
-  --- End Of Comment Block -------------------------*/	
-	if (otherMinistries.size() > 0) {
-		hasMovement = true;
-		%>
-		<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2
-			WIDTH="80%" BGCOLOR="#D0DDEA">
-			<TR>
-				<TD COLSPAN="2" BGCOLOR="<%= color1 %>" ALIGN="CENTER"><%=font4L%><B>Other
-				Ministries</B></FONT></TD>
-			</TR>
-			<%
-							for (Iterator i = otherMinistries.iterator(); i
-							.hasNext();) {
-						String otherMinistryID = "";
-						Hashtable otherministry = (Hashtable) i.next();
-			%>
-			<TR>
-				<TD ALIGN="CENTER"><%=font%>&nbsp;<A
-					HREF="/servlet/InfoBaseController?action=showMin&noncccminid=<%= otherministry.get("NonCccMinId") %>"><%=otherministry.get("Ministry")%></A>&nbsp;<%=otherministry.get("FirstName")%>&nbsp;<%=otherministry.get("LastName")%></FONT></TD>
-				<TD ALIGN="CENTER" WIDTH="10%"><%=font%>[<A
-					HREF="/servlet/InfoBaseController?action=removeMin&from=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&noncccminid=<%= otherministry.get("NonCccMinId") %>">Remove</A>]</FONT></TD>
-			</TR>
-			<%
-			}
-			%>
-		</TABLE>
-		<%
-		}
 	
 	
 	%>
@@ -390,25 +176,8 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 	<%
 	
    	for (Strategy strategy : Strategy.campusStrategies()) {
-   		thisActivity = ar.getHashtable(strategy.name());
-   		boolean showAddLink = false;
-   		if (thisActivity == null) {
-   			showAddLink = true;
-   			
-   			// Check for exclusion of CA/SC
-   			if (strategy.name().equals("CA")) {
-   				thisActivity = ar.getHashtable("SC");
-   				if (thisActivity != null) {
-   					showAddLink = false;
-   				}
-   			}
-   			else if (strategy.name().equals("SC")) {
-   				thisActivity = ar.getHashtable("CA");
-   				if (thisActivity != null) {
-   					showAddLink = false;
-   				}
-   			}
-   		}
+   		Boolean showAddLink=true;
+   		if(!strategiesRepresented.contains(strategy.toString())){
 		if ((Strategy.internationalCampusStrategies().contains(strategy) && (taTable.get("Country")).equals("USA")) ||
 			(Strategy.usCampusStrategies().contains(strategy) && !(taTable.get("Country")).equals("USA")))
 		{
@@ -425,6 +194,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 			<br>
 			<%
 			
+   		}
    		}
 	}
 		

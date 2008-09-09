@@ -1,4 +1,5 @@
 <%@ page import="org.alt60m.servlet.*, java.util.*" %>
+<jsp:useBean id="lanes" class="org.alt60m.html.SelectLane" />
 <%
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
@@ -17,6 +18,23 @@ ar = ActionResults.getActionResults(session);
 		}
 	}
 	String teamLane = (String)teamTable.get("Lane");
+	lanes.setCurrentValue(teamLane);
+	teamLane=lanes.display();
+	String title="";
+	if(Arrays.asList(
+			"Field Strategies", 
+			"Ethnic Student Ministries",
+			"Destino",
+    		"Epic",
+    		"Impact",
+    		"Nations",
+			"Worldwide Student Network", "Bridges Int'l"
+			).contains(teamLane)){
+		title="Missional Team Info";
+		
+	}else{
+		title="Team Info";
+	}
 	String teamAddress = (String)teamTable.get("Address1");
 	String teamAddress2 = (String)teamTable.get("Address2");
 	String teamCity = (String)teamTable.get("City");
@@ -83,11 +101,11 @@ ar = ActionResults.getActionResults(session);
 	<table width="100%" border=0><tr><td WIDTH="30%" ALIGN="CENTER" VALIGN="TOP">
 <% box.setTitleColor("#336699");%>
 <% box.setColor("#FFFFFF");%>
-<% box.setTitle("&nbsp;Missional Team Info");%>
+<% box.setTitle("&nbsp;"+title);%>
 <% box.setWidth("98%");%>
 <%=box.printTop()%>
 				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
-				<% if(!teamLane.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Lane: </B></FONT></TD><TD><%= font %><%= teamLane %></TD></TR><% } %>
+				<% if(!teamLane.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Strategy: </B></FONT></TD><TD><%= font %><%= teamLane %></TD></TR><% } %>
 				<% if(!teamRegion.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Region: </B></FONT></TD><TD><%= font %><%= teamRegionName %></TD></TR><% } %>
 				<% if(!teamAddress.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Address: </B></FONT></TD><TD style="padding-bottom:5px;"><%= fontS %><%= teamAddress  %></TD></TR><% } %>
 				<% if(!teamPhone.equals("")) { %><TR><TD VALIGN="TOP"><%=font%><B>Phone: </B></FONT></TD><TD><%= font %><%= teamPhone %></TD></TR><% } %>
@@ -126,6 +144,7 @@ ar = ActionResults.getActionResults(session);
 		if(!staffEmail.equals("")) {
 			emailList = emailList + staffEmail + "; ";
 		}
+	
 		%>
 		
 		 <%if((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isLAB").equals("true")){ %>

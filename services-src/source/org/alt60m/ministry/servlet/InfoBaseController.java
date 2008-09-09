@@ -1397,18 +1397,47 @@ public class InfoBaseController extends Controller {
 //	try{
 //	ActionResults results=new ActionResults("");
 //	
-//	String today="8/01/2008";
-//	Vector<Hashtable<String,String>>badHistories=new Vector<Hashtable<String,String>>();
-//	badHistories=InfoBaseQueries.getBadHistories();
-//	for(Hashtable<String,String>entry:badHistories){
-//		log.debug(entry.get("activity")+": "+entry.get("status"));
-//		Activity act=new Activity(entry.get("activity"));
-//		act.select();
-//		InfoBaseTool.saveEditActivity(act.getActivityId(), today, act.getStrategy(), entry.get("status"), ctx.getProfileID(), act.getLocalLevelId(), act.getUrl(), act.getFacebook());
+//	
+//	Vector<Hashtable<String,String>>badHistories=InfoBaseQueries.getAllActivities();
+//	for(Hashtable<String,String> a:badHistories){
+//			org.alt60m.ministry.model.dbio.ActivityHistory ah=new org.alt60m.ministry.model.dbio.ActivityHistory();
+//			ah.setActivity_id(a.get("activityID"));
+//			Vector<org.alt60m.ministry.model.dbio.ActivityHistory>fix=ah.selectList();
+//			if(fix.size()>0){
+//			org.alt60m.ministry.model.dbio.ActivityHistory[] hist=new org.alt60m.ministry.model.dbio.ActivityHistory[fix.size()];
+//			fix.copyInto(hist);
+//			Integer pops=hist.length;
+//			for(int i=pops-1;i>0;i--){
+//				Date startDate=hist[i].getPeriodBegin();
+//				Date endDate=hist[i-1].getPeriodEnd();
+//				if(startDate!=null&&endDate!=null){
+//				
+//				
+//					
+//					
+//					
+//					
+//					if (startDate.toString().equals("2008-08-21")){
+//						log.debug(startDate+" to "+endDate);
+//						
+//						hist[i].setPeriodBegin(endDate);
+//						hist[i].persist();
+//					}
+//					else log.debug(startDate.toString());
+//						
+//					
+//					
+//				}
+//				}
+//			}
+//			
+//			}
+//		
+//		
+//		
 //	}
-//	log.debug(today);
-//	ctx.goToView("staffHome");
-//	}catch (Exception e) {
+//	
+//	catch (Exception e) {
 //        ctx.setError();
 //        ctx.goToErrorView();
 //        log.error("Failed to perform combBadActivityHistories().", e);
@@ -2309,8 +2338,14 @@ public class InfoBaseController extends Controller {
             	}
             	
             }
-           
-            
+           org.alt60m.staffSite.model.dbio.StaffSiteProfile prof=new org.alt60m.staffSite.model.dbio.StaffSiteProfile();
+           prof.setUserName(username);
+           prof.select();
+           Staff staff=new Staff(prof.getAccountNo());
+           if (Arrays.asList("Associate Regional Director","Associate National Director","National Director","Regional Director").contains(staff.getPosition())){
+        	   log.debug("The LAB!");
+       			isLAB="true";
+           }
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
