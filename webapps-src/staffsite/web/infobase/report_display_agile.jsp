@@ -72,7 +72,7 @@ document.getElementById("end_"+x).style.display="block";
 	<br>
 	<%=fontB3%><B><%= reportTitle %></b></font><BR>
 	<%=fontB%>
-	For dates: <%=periodBegin%> to <%=periodEnd%><br>
+	For dates: <%=periodBegin%> up to but not including <%=periodEnd%><br>
 	Including strategies: <%
 		
 	for(int i = 0; i<displayList.length; i++){
