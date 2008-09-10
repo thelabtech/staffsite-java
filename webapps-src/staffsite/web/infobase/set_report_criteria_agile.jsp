@@ -125,6 +125,15 @@ inputs = table.getElementsByTagName('input');
 		</tr>
 		<tr>
 		  <td valign="top"><img src="/infobase/images/2.gif" width="35" height="47"></td>
+<%
+Date thisDate=new Date();
+String toMonth=thisDate.toString().substring(4,7);
+String toYear=thisDate.toString().substring(24,28);
+String fromYear=toYear;
+if(Arrays.asList("Jan","Feb","Mar","Apr","May","Jun","Jul").contains(toMonth)){
+	fromYear=(Integer.parseInt(toYear)-1)+"";
+}
+%>
 		  <td>
 			<p><%=fontB%><i>Select a date range for your report:</i></font></p>
 			<table width="200" border="0" cellpadding="5" cellspacing="5">
@@ -145,7 +154,7 @@ inputs = table.getElementsByTagName('input');
 				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
 					  {
 					  %>
-					<option value="<%=yearvar %>"<% if((Integer.parseInt(ar.getValue("fromYear")))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					<option value="<%=yearvar %>"<% if((Integer.parseInt(fromYear))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
 					
 						<%
 					yearvar++;
@@ -175,7 +184,7 @@ inputs = table.getElementsByTagName('input');
 				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
 					  {
 					  %>
-					<option value="<%=yearvar %>"<% if((Integer.parseInt(ar.getValue("toYear")))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					<option value="<%=yearvar %>"<% if((Integer.parseInt(toYear))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
 					
 						<%
 					yearvar++;
@@ -184,18 +193,21 @@ inputs = table.getElementsByTagName('input');
 				</td>
 				<td>
 				  <select name="tomonth">
-				<option value='1'>Jan</option>
-				  <option value='2'>Feb</option>
-				  <option value='3'>Mar</option>
-				  <option value='4'>Apr</option>
-				  <option value='5'>May</option>
-				  <option value='6'>Jun</option>
-				  <option value='7' selected>Jul</option>
-				  <option value='8' >Aug</option>
-				  <option value='9'>Sep</option>
-				  <option value='10'>Oct</option>
-				  <option value='11'>Nov</option>
-				  <option value='12'>Dec</option>
+
+				<option value='1'<% if((toMonth).equals("Jan")) out.print(" SELECTED"); %>>Jan</option>
+				  <option value='2'<% if((toMonth).equals("Feb")) out.print(" SELECTED"); %>>Feb</option>
+				  <option value='3'<% if((toMonth).equals("Mar")) out.print(" SELECTED"); %>>Mar</option>
+				  <option value='4'<% if((toMonth).equals("Apr")) out.print(" SELECTED"); %>>Apr</option>
+				  <option value='5'<% if((toMonth).equals("May")) out.print(" SELECTED"); %>>May</option>
+				  <option value='6'<% if((toMonth).equals("Jun")) out.print(" SELECTED"); %>>Jun</option>
+				  <option value='7'<% if((toMonth).equals("Jul")) out.print(" SELECTED"); %>>Jul</option>
+				  <option value='8'<% if((toMonth).equals("Aug")) out.print(" SELECTED"); %>>Aug</option>
+				  <option value='9'<% if((toMonth).equals("Sep")) out.print(" SELECTED"); %>>Sep</option>
+				  <option value='10'<% if((toMonth).equals("Oct")) out.print(" SELECTED"); %>>Oct</option>
+				  <option value='11'<% if((toMonth).equals("Nov")) out.print(" SELECTED"); %>>Nov</option>
+				  <option value='12'<% if((toMonth).equals("Dec")) out.print(" SELECTED"); %>>Dec</option>
+				 
+				
 				  </select>
 				</td>
 			  </tr>
