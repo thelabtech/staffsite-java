@@ -31,9 +31,9 @@ public class CommunityAdminInterface {
 
 	private static String GCX_AUTHORIZATION_ADMIN_PASSWORD = "BeThouMyVision12";
 
-	private static String GCX_AUTHORIZATION_ADMIN_URL = "https://www.mygcx.org/system/authz-admin/";
+	private static String GCX_AUTHORIZATION_ADMIN_URL = "https://www.mygcx.org/CampusStaff/authz-admin/";
 
-	private static String GCX_AUTHORIZATION_ADMIN_SERVICENAME = "https://www.mygcx.org/system/authz-admin";
+	private static String GCX_AUTHORIZATION_ADMIN_SERVICENAME = "https://www.mygcx.org/CampusStaff/authz-admin";
 	//maybe make "community" a constant, too?
 	
 	//TODO: There's got to be a better way to tell if we've timed out...
