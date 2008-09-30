@@ -419,9 +419,9 @@ they are receiving?
 <h5 style="margin:0px;margin-top:10px;">Laborers Sent</h5>
 <div style="display:block" id="laborers_sent_info_box">
 <%=fontB%>
-A graduated Christ-centered laborer is someone who is growing in his/her faith, 
-is multiplying his/her life, and has been sent with a personal strategy to help 
-fulfill the Great Commission.
+A graduated Christ-centered laborer (non-staff) is someone who is growing in his/her faith, 
+is multiplying his/her life, and has been sent with a personal strategy to help fulfill the 
+Great Commission.
 </font>
 </div>
 <h5 style="margin:0px;margin-top:10px;">Holy Spirit Presentations</h5>
