@@ -2342,7 +2342,7 @@ public class InfoBaseController extends Controller {
            prof.setUserName(username);
            prof.select();
            Staff staff=new Staff(prof.getAccountNo());
-           if (Arrays.asList("Associate Regional Director","Associate National Director","National Director","Regional Director").contains(staff.getPosition())){
+           if (Arrays.asList("National Director","Regional Director").contains(staff.getJobTitle())){
         	   log.debug("The LAB!");
        			isLAB="true";
            }
