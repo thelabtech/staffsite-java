@@ -28,11 +28,13 @@ inputs = table.getElementsByTagName('input');
 
 <script>
 	function submitReportForm(thisForm) {
-		if (
-			<% for (int i=0; i<strategies.length-1; i++) {
-				out.print("thisForm."+strategies[i]+".checked || ");
-			} %>
-			<% out.print("thisForm."+strategies[strategies.length-1]+".checked)"); %> {
+		var choices = 0;
+		for (i = 0; i < thisForm.strategies.length; i++) {
+			if (thisForm.strategies[i].checked) {
+				choices++;
+			}
+		}		
+		if ( choices > 0 ) {
 			return true;
 		}
 		else {
@@ -181,19 +183,19 @@ inputs = table.getElementsByTagName('input');
 	<td id="boxes" style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
 			<button id="checkAllButton" onClick="check();">Check All</button><br>
-			Field Strategies<input type="checkbox" name="strategies[FS]"   value="FS" ><br>
-			ESM-Impact<input type="checkbox" name="strategies[II]"   value="II" ><br>
-			ESM-Epic<input type="checkbox" name="strategies[IE]"   value="IE" ><br>
-			ESM-Destino<input type="checkbox" name="strategies[ID]"   value="ID" ><br>
-			ESM-Nations<input type="checkbox" name="strategies[IN]"   value="IN" ><br>
-			Bridges<input type="checkbox" name="strategies[BR]"   value="BR" ><br>
-			WSN Local Teams<input type="checkbox" name="strategies[WS]"   value="WS" ><br>
-			Athletes In Action<input type="checkbox" name="strategies[AA]"   value="AA" ><br>
-			Faculty Commons<input type="checkbox" name="strategies[CL]"   value="CL" ><br>
-			Korean CCC<input type="checkbox" name="strategies[KC]"   value="KC" ><br>
-			Greek<input type="checkbox" name="strategies[GK]"   value="GK" ><br>
-			Valor<input type="checkbox" name="strategies[VL]"   value="VL" ><br>
-			Other<input type="checkbox" name="strategies[OT]"   value="OT" ><br>
+			Field Strategies<input type="checkbox" name="strategies"   value="FS" ><br>
+			ESM-Impact<input type="checkbox" name="strategies"   value="II" ><br>
+			ESM-Epic<input type="checkbox" name="strategies"   value="IE" ><br>
+			ESM-Destino<input type="checkbox" name="strategies"   value="ID" ><br>
+			ESM-Nations<input type="checkbox" name="strategies"   value="IN" ><br>
+			Bridges<input type="checkbox" name="strategies"   value="BR" ><br>
+			WSN Local Teams<input type="checkbox" name="strategies"   value="WS" ><br>
+			Athletes In Action<input type="checkbox" name="strategies"   value="AA" ><br>
+			Faculty Commons<input type="checkbox" name="strategies"   value="CL" ><br>
+			Korean CCC<input type="checkbox" name="strategies"   value="KC" ><br>
+			Greek<input type="checkbox" name="strategies"   value="GK" ><br>
+			Valor<input type="checkbox" name="strategies"   value="VL" ><br>
+			Other<input type="checkbox" name="strategies"   value="OT" ><br>
 	</td>
 	<td width="3px" style="margin:none;border-left:none;border-top:solid 1 black;border-right:solid 1 black;border-bottom:solid 1 black;">
 	&nbsp;

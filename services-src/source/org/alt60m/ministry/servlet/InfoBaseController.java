@@ -1931,8 +1931,8 @@ public class InfoBaseController extends Controller {
             String strategyList="";
             Collection strategies;
         	if(ctx.getInputString("strategyList")==null){
-    	    	 strategies=(Collection<String>)convertBracketedParamsToHashtable(ctx).get("strategies").keySet();
-    	    	for (String temp : (Collection<String>)strategies)strategyList += "'" + temp +"', ";
+        		String[] strategiesArray = ctx.getInputStringArray("strategies");
+    	    	for (String temp : strategiesArray)strategyList += "'" + temp +"', ";
     	    	strategyList=strategyList.substring(0,strategyList.length()-2);//trim final comma
         	}
         	else
