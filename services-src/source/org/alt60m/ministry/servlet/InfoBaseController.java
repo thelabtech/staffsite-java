@@ -2123,15 +2123,9 @@ public class InfoBaseController extends Controller {
     	String temp="";
     	Collection strategies;
     	if(ctx.getInputString("strategyList")==null){
-	    	 strategies=(Collection)convertBracketedParamsToHashtable(ctx).get("strategies").keySet();
-	    	Iterator stratIter=strategies.iterator();
-	    	while (stratIter.hasNext()){
-	    		temp=(String)stratIter.next();
-	    		strategyList += "'" + temp +"'";
-	    		if (stratIter.hasNext()){
-	    			strategyList += ",";
-	    		}
-	    	}
+    		String[] strategiesArray = ctx.getInputStringArray("strategies");
+	    	for (String strat : strategiesArray)strategyList += "'" + strat +"',";
+	    	strategyList=strategyList.substring(0,strategyList.length()-1);//trim final comma
     	}
     	else
     	{

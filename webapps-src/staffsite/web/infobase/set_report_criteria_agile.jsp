@@ -35,19 +35,21 @@ inputs = table.getElementsByTagName('input');
 <%@ include file="/infobase/ibheader.jspf" %>
 
 <script>
-	function submitReportForm(thisForm) {
-		if (
-			<% for (int i=0; i<strategies.length-1; i++) {
-				out.print("thisForm."+strategies[i]+".checked || ");
-			} %>
-			<% out.print("thisForm."+strategies[strategies.length-1]+".checked)"); %> {
-			return true;
+function submitReportForm(thisForm) {
+	var choices = 0;
+	for (i = 0; i < thisForm.strategies.length; i++) {
+		if (thisForm.strategies[i].checked) {
+			choices++;
 		}
-		else {
-			alert("You must check at least one strategy");
-			return false;
-		}
+	}		
+	if ( choices > 0 ) {
+		return true;
 	}
+	else {
+		alert("You must check at least one strategy");
+		return false;
+	}
+}
 </script>
 
 <TABLE width="100%">
@@ -102,20 +104,20 @@ inputs = table.getElementsByTagName('input');
 			<table id="boxes" border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
 			  		<button id="checkAllButton" onClick="check();">Check All</button><br>
-					<input type="checkbox" name="strategies[FS]"   value="FS" >Field Strategies<br>
-					<input type="checkbox" name="strategies[II]"   value="II" >ESM-Impact<br>
-					<input type="checkbox" name="strategies[IE]"   value="IE" >ESM-Epic<br>
-					<input type="checkbox" name="strategies[ID]"   value="ID" >ESM-Destino<br>
-					<input type="checkbox" name="strategies[IN]"   value="IN" >ESM-Nations<br>
-					<input type="checkbox" name="strategies[BR]"   value="BR" >Bridges<br>
-					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN Local Teams<br>
+					<input type="checkbox" name="strategies"   value="FS" >Field Strategies<br>
+					<input type="checkbox" name="strategies"   value="II" >ESM-Impact<br>
+					<input type="checkbox" name="strategies"   value="IE" >ESM-Epic<br>
+					<input type="checkbox" name="strategies"   value="ID" >ESM-Destino<br>
+					<input type="checkbox" name="strategies"   value="IN" >ESM-Nations<br>
+					<input type="checkbox" name="strategies"   value="BR" >Bridges<br>
+					<input type="checkbox" name="strategies"   value="WS" >WSN Local Teams<br>
 					
-					<input type="checkbox" name="strategies[AA]"   value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies[CL]"   value="CL" >Faculty Commons<br>
-					<input type="checkbox" name="strategies[KC]"   value="KC" >Korean CCC<br>
-					<input type="checkbox" name="strategies[GK]"   value="GK" >Greek<br>
-					<input type="checkbox" name="strategies[VL]"   value="VL" >Valor<br>
-					<input type="checkbox" name="strategies[OT]"   value="OT" >Other<br>
+					<input type="checkbox" name="strategies"   value="AA" >Athletes In Action<br>
+					<input type="checkbox" name="strategies"   value="CL" >Faculty Commons<br>
+					<input type="checkbox" name="strategies"   value="KC" >Korean CCC<br>
+					<input type="checkbox" name="strategies"   value="GK" >Greek<br>
+					<input type="checkbox" name="strategies"   value="VL" >Valor<br>
+					<input type="checkbox" name="strategies"   value="OT" >Other<br>
 					
 	
 			  </td></tr>
