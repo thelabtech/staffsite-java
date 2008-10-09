@@ -784,14 +784,15 @@ public class InfoBaseQueries {
 			Vector<Contact>c=new Vector<Contact>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
 			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
-			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email,"+
-			" staffsite_staffsiteprofile.accountNo as accountNo "+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent,"+
+			" ministry_person.accountNo as accountNo "+
 			" FROM (ministry_missional_team_member inner join ministry_person "+
-			" on ministry_person.personID=ministry_missional_team_member.personID INNER JOIN simplesecuritymanager_user "+
-			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
-			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
-			" WHERE ministry_missional_team_member.teamID ='"+teamID+"' order by lastName, firstName;";
+			" on ministry_person.personID=ministry_missional_team_member.personID INNER JOIN ministry_newaddress mna1 "+
+			" ON ministry_person.personID = mna1.fk_PersonID INNER JOIN ministry_newaddress mna2"+
+			" ON ministry_person.personID = mna2.fk_PersonID) " +
+			" WHERE ministry_missional_team_member.teamID ='"+teamID+"' and mna1.addressType='current' and mna2.addressType='permanent'  group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -800,7 +801,13 @@ public class InfoBaseQueries {
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName"));
-				contact.setEmail(rs.getString("email"));
+				contact.setEmail(((rs.getString("emailCurrent")==null)||(rs.getString("emailCurrent").equals("")))?
+						(((rs.getString("emailPermanent")==null)||(rs.getString("emailPermanent").equals("")))?
+								""
+								:
+								rs.getString("emailPermanent"))
+						:
+						rs.getString("emailCurrent"));
 				c.add(contact);
 			}
 			return c;
