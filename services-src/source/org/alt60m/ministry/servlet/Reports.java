@@ -228,117 +228,106 @@ public class Reports {
 	}
 	// Returns stats for various Success Criteria Reports
 	public static Vector<ReportRow> getSuccessCriteriaReport(String type, String region, String strategyList, String periodEnd, String periodBegin, String localLevelId, String targetAreaId) throws Exception{
-		try{		
-		String sumsQuery=summingFieldsPortion(type)+summingTablesPortion+
-						conditionsPortion(type, region,  periodEnd, periodBegin,  strategyList, localLevelId, targetAreaId)+
-						groupPortion(type);
-		String demographicQuery=demographicFieldsPortion(type)+demographicTablesPortion(type, periodEnd, periodBegin)+
-						conditionsPortion(type, region, periodEnd, periodBegin, strategyList, localLevelId, targetAreaId)+groupPortion(type);
-				
-		Vector<ReportRow> report=new Vector<ReportRow>();
-		Connection conn = DBConnectionFactory.getDatabaseConn();
-		Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		Statement stmt2 = conn.createStatement();
-		log.debug(sumsQuery);
-		
-		ResultSet sums = stmt1.executeQuery(sumsQuery);
-		
-		log.debug(demographicQuery);
-		ResultSet demos = stmt2.executeQuery(demographicQuery);
-		ReportRow lastRow=new ReportRow();
-		ReportRow row=new ReportRow();
-		ReportRow summingRow=new ReportRow(); //for within Bridges movements
-		ReportRow runningTotal=new ReportRow(); //for totals at report bottoms
-		if (sums.isBeforeFirst()){
-			while (sums.next()){
-			
-			demos.next();
-			row=new ReportRow();
-			if (sums.getString("rowid").equals(demos.getString("rowid"))){
-				row=resultSet2ReportRow(sums,demos);
-				
-				if (type.equals("national")){
-					row.setLabel(org.alt60m.ministry.Regions.expandRegion(row.getRegion()));
-					}
-					else if (type.equals("targetarea"))
-					{
-					row.setLabel((row.getStatPeriodBegin().replace("-","/")+" - "+row.getStatPeriodEnd().replace("-","/")));
-					}
-					else 
-					{
-					row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+" ("+row.getEnrollment()+" enrolled)");
-					}
-			
-				if((!lastRow.getRowid().equals(row.getRowid()))&&(lastRow.getStrategy().equals("BR"))){ //new activity or week after a run of Bridges; the order is important for these functional rows
+		try {		
+			String sumsQuery=summingFieldsPortion(type)+summingTablesPortion+
+							conditionsPortion(type, region,  periodEnd, periodBegin,  strategyList, localLevelId, targetAreaId)+
+							groupPortion(type);
+			String demographicQuery=demographicFieldsPortion(type)+demographicTablesPortion(type, periodEnd, periodBegin)+
+							conditionsPortion(type, region, periodEnd, periodBegin, strategyList, localLevelId, targetAreaId)+groupPortion(type);
 					
-					//put end row on if after Bridges rows, since we are now in new activity
-						ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them into final row
-						endRow.setFunction("end"); 
-						endRow.setLabel(summingRow.getLabel());
-						report.add(endRow);
-						
+			Vector<ReportRow> report=new Vector<ReportRow>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt1 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			Statement stmt2 = conn.createStatement();
+			log.debug(sumsQuery);
+			
+			ResultSet sums = stmt1.executeQuery(sumsQuery);
+			
+			log.debug(demographicQuery);
+			ResultSet demos = stmt2.executeQuery(demographicQuery);
+			ReportRow lastRow=new ReportRow();
+			ReportRow row=new ReportRow();
+			ReportRow summingRow=new ReportRow(); //for within Bridges movements
+			ReportRow runningTotal=new ReportRow(); //for totals at report bottoms
+			if (sums.isBeforeFirst()){
+				while (sums.next()){
+				
+					demos.next();
+					row=new ReportRow();
+					if (sums.getString("rowid").equals(demos.getString("rowid"))){
+						row=resultSet2ReportRow(sums,demos);
+					
+						if (type.equals("national")){
+							row.setLabel(org.alt60m.ministry.Regions.expandRegion(row.getRegion()));
+						} else if (type.equals("targetarea")){
+							row.setLabel((row.getStatPeriodBegin().replace("-","/")+" - "+row.getStatPeriodEnd().replace("-","/")));
+						} else {
+							row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+" ("+row.getEnrollment()+" enrolled)");
 						}
 				
-				if ((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea"))&&(!(lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){ // before the top row of each strategy  we also insert a totals row for the bottom of each strategy
-						report.add(getBottom(type,lastRow,summingRow,runningTotal));
-						runningTotal=new ReportRow();						
-					}					
-				if (((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea")))||((lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){	//always at top and between strategies for targetarea
-					ReportRow top=new ReportRow(row);
-					top.setFunction("top");
-					report.add(top);					
-					}		
-			if ((!lastRow.getRowid().equals(row.getRowid()))&&(row.getStrategy().equals("BR"))){// is new activity and also Bridges; start toggling rows
-				row.setFunction("detail");
-				ReportRow startRow=new ReportRow();
-				startRow.setFunction("start"); 
-				startRow.setRowGroup(row.getRowid());
-				startRow.setStrategy(row.getStrategy());
-				startRow.setCampusName(row.getCampusName());
-				startRow.setEnrollment(row.getEnrollment());
-				startRow.setLabel(row.getLabel());
-				report.add(startRow);
-			}
-			
-			else if (row.getStrategy().equals("BR"))//row within split activity
-			{
-				row.setFunction("detail"); 
+						if((!lastRow.getRowid().equals(row.getRowid()))&&(lastRow.getStrategy().equals("BR"))){ //new activity or week after a run of Bridges; the order is important for these functional rows
+						
+							//put end row on if after Bridges rows, since we are now in new activity
+							ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them into final row
+							endRow.setFunction("end"); 
+							endRow.setLabel(summingRow.getLabel());
+							report.add(endRow);
+							
+						}
+					
+						if ((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea"))&&(!(lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){ // before the top row of each strategy  we also insert a totals row for the bottom of each strategy
+							report.add(getBottom(type,lastRow,summingRow,runningTotal));
+							runningTotal=new ReportRow();						
+						}					
+						if (((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea")))||((lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){	//always at top and between strategies for targetarea
+							ReportRow top=new ReportRow(row);
+							top.setFunction("top");
+							report.add(top);					
+						}		
+						if ((!lastRow.getRowid().equals(row.getRowid()))&&(row.getStrategy().equals("BR"))){// is new activity and also Bridges; start toggling rows
+							row.setFunction("detail");
+							ReportRow startRow=new ReportRow();
+							startRow.setFunction("start"); 
+							startRow.setRowGroup(row.getRowid());
+							startRow.setStrategy(row.getStrategy());
+							startRow.setCampusName(row.getCampusName());
+							startRow.setEnrollment(row.getEnrollment());
+							startRow.setLabel(row.getLabel());
+							report.add(startRow);
+						} else if (row.getStrategy().equals("BR")) {//row within split activity 
+							row.setFunction("detail"); 
+						}
 				
-			}
-			
-			if((!lastRow.getRowid().equals(row.getRowid()))&&(row.getStrategy().equals("BR"))){//new activity and it's Bridges
-				summingRow=new ReportRow();	//we have been totaling the previous Bridges rows, now we clear them before starting a new summing session
+						if((!lastRow.getRowid().equals(row.getRowid()))&&(row.getStrategy().equals("BR"))){//new activity and it's Bridges
+							summingRow=new ReportRow();	//we have been totaling the previous Bridges rows, now we clear them before starting a new summing session
+						}
+				
+						if (row.getStrategy().equals("BR")){ // we sum for Bridges rows only
+							summingRow.addToTotal(row);
+						}
+				
+						runningTotal.addToTotal(row);
+				
+						report.add(row);
+					} else {
+						throw new Exception("Rows do not match in Reports.getSuccessCriteriaReport()") ;
+					}
+					lastRow=new ReportRow(row);
+				}
+				if (lastRow.getStrategy().equals("BR")){//put end row on if last activity was Bridges
+					ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them
+					endRow.setFunction("end"); 
+					report.add(endRow);
 				}
 			
-			if (row.getStrategy().equals("BR")){ // we sum for Bridges rows only
-				summingRow.addToTotal(row);
-			}
+				report.add(getBottom(type,lastRow,summingRow,runningTotal));
+				runningTotal=new ReportRow();
+			}//resultset had data, otherwise return no rows in Vector<ReportRow> 'report'
 			
-			runningTotal.addToTotal(row);
-			
-			report.add(row);
-			}
-			else
-			{
-				throw new Exception("Rows do not match in Reports.getSuccessCriteriaReport()") ;
-			}
-			lastRow=new ReportRow(row);
-		}
-		if (lastRow.getStrategy().equals("BR")){//put end row on if last activity was Bridges
-			ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them
-			endRow.setFunction("end"); 
-			report.add(endRow);
-		}
-		
-		report.add(getBottom(type,lastRow,summingRow,runningTotal));
-		runningTotal=new ReportRow();
-		}//resultset had data, otherwise return no rows in Vector<ReportRow> 'report'
-		
-		return report;
-		}
-		catch (Exception e) {
-			log.error("Failed to perform getSuccessCriteriaReport().", e);
-            throw new Exception(e);
+			return report;
+		} catch (Exception e) {
+				log.error("Failed to perform getSuccessCriteriaReport().", e);
+	            throw new Exception(e);
         }
 	}
 
