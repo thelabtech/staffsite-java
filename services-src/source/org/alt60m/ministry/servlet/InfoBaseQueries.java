@@ -92,7 +92,7 @@ public class InfoBaseQueries {
 		}
 		return result;
 	}
-	public static Vector<Hashtable<String,Object>> getEnrollmentForLatLong()throws Exception{
+	public static Vector<Hashtable<String,Object>> getEnrollmentForZip()throws Exception{
 		Hashtable<String, Object> points=new Hashtable<String, Object>();
 		Vector<Hashtable<String,Object>>result=new Vector<Hashtable<String,Object>>();
 		Connection conn = DBConnectionFactory.getDatabaseConn();
@@ -219,11 +219,12 @@ public class InfoBaseQueries {
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
-			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
-			" FROM (ministry_person INNER JOIN simplesecuritymanager_user "+
-			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
-			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
-			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ORDER BY ministry_person.lastName, ministry_person.firstName;";
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(ministry_newaddress.email) as email,"+
+			" ministry_person.accountNo as accountNo "+
+			" FROM (ministry_person INNER JOIN ministry_newaddress "+
+			" ON ministry_person.personID = ministry_newaddress.fk_PersonID) "+ 
+			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + 
+			"%' and ministry_newaddress.email is not null group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -779,7 +780,7 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-	public static Vector<Contact> getTeamMembers(String teamID){
+		public static Vector<Contact> getTeamMembers(String teamID){
 		try{
 			Vector<Contact>c=new Vector<Contact>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
