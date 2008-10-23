@@ -859,8 +859,8 @@ public class SimpleSecurityManager implements SecurityManager {
 			replacedPerson.setFk_ssmUserID(replacedUser.getUserID());
 			if (replacedPerson.select()) {
 				//we balk because this is crazy talk, to delete a valid user on another user's say-so
-				log.error("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+")");
-				throw new SsmUserAlreadyExistsException("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+")") ;
+				log.error("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+").  Unable to change " + oldUsername + ".");
+				throw new SsmUserAlreadyExistsException("Username "+username+" already exists and is in use by Person record "+replacedPerson.getPersonID()+" ("+replacedPerson.getFirstName()+" "+replacedPerson.getLastName()+").  Unable to change " + oldUsername + ".");
 								
 			}
 			log.warn("To avoid username collision deleting existing user record: " + replacedUser.getUserID());
