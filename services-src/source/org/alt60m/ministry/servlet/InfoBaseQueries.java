@@ -92,7 +92,7 @@ public class InfoBaseQueries {
 		}
 		return result;
 	}
-	public static Vector<Hashtable<String,Object>> getEnrollmentForZip()throws Exception{
+	public static Vector<Hashtable<String,Object>> getEnrollmentForLatLong()throws Exception{
 		Hashtable<String, Object> points=new Hashtable<String, Object>();
 		Vector<Hashtable<String,Object>>result=new Vector<Hashtable<String,Object>>();
 		Connection conn = DBConnectionFactory.getDatabaseConn();
@@ -780,7 +780,7 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-		public static Vector<Contact> getTeamMembers(String teamID){
+	public static Vector<Contact> getTeamMembers(String teamID){
 		try{
 			Vector<Contact>c=new Vector<Contact>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
