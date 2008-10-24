@@ -20,17 +20,24 @@ ar = ActionResults.getActionResults(session);
 		box.setWidth("");
 		out.print(box.printTop());
 %>
+<%= font %>
+If the person you wish to add is not in the list below, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="/servlet/InfoBaseController?action=makeNewPerson&teamID=<%= request.getParameter("teamID")%>">click here</A>.
+
+<P ALIGN="center">
+				 <INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= (request.getParameter("lastName") == null) ? "" : request.getParameter("lastName") %>">&nbsp;
+				 <INPUT TYPE="submit" VALUE="Search">
 <P ALIGN="CENTER">
 <%= font %>
 <%
  if (ar.getValue("infoMessage")==null){ %>
-Here is a list of people with the last name you typed.<BR>Select one to add them as a Missional Team member.<% } 
+Here is a list of people in the Campus Ministry system.<BR>Select one to add them as a Missional Team member.<% } 
 	else { 
 		out.print(ar.getValue("infoMessage"));
  } %>
 
 
 </FONT>
+
 <P ALIGN="CENTER">
 <SELECT NAME="personID">
 	<% Iterator contacts = ar.getCollection("contacts").iterator();
@@ -54,12 +61,8 @@ Here is a list of people with the last name you typed.<BR>Select one to add them
 <FORM NAME="addPersonContact" ACTION="/servlet/InfoBaseController?action=addMissionalTeamMember" METHOD="POST">
 <INPUT TYPE="HIDDEN" NAME="targetareaid" VALUE="<%= request.getParameter("targetareaid") %>">
 <INPUT TYPE="HIDDEN" NAME="teamID" VALUE="<%= request.getParameter("teamID") %>">
-				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName"><%= font %>
-If the person you wish to add is not in the list above, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="mailto:help@campuscrusadeforchrist.com">contact us</A>.
+				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName">
 
-<P ALIGN="center">
-				 <INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= (request.getParameter("lastName") == null) ? "" : request.getParameter("lastName") %>">&nbsp;
-				 <INPUT TYPE="submit" VALUE="Search">
 				 </FORM>
 <%= box.printBottom() %>
 				 
