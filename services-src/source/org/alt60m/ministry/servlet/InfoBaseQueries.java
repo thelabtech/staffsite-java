@@ -224,7 +224,7 @@ public class InfoBaseQueries {
 			" FROM (ministry_person INNER JOIN ministry_newaddress "+
 			" ON ministry_person.personID = ministry_newaddress.fk_PersonID) "+ 
 			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + 
-			"%' and ministry_newaddress.email is not null group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
+			"%' and ministry_newaddress.email is not null and ministry_newaddress.addressType='current' group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
