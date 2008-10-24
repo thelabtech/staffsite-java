@@ -66,12 +66,5 @@
     <TD align=middle width="50%"><IMG height=40 alt=alt60M 
       src="../hr_ms/images/alt60mlogosmall.gif" width=100 border=0><BR><FONT 
       size=1>© 2002</FONT> </TD></TR></TBODY></TABLE>
-       	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
       </BODY></HTML>

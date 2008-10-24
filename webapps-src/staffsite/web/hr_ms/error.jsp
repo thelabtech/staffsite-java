@@ -10,13 +10,6 @@ Sorry, but an error occured.<br />
 <i>© 2002 Campus Crusade for Christ International
 </i><br>
 </div>
- 	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
 </BODY>
 </HTML>

@@ -43,13 +43,6 @@ private String prettyPrintProjects(Collection projects, String title, String reg
 		<%=prettyPrintProjects(regionalWsnProjects, _title, _region, _type)%>
 	</TD></TR>
 </TABLE>
- 	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
 </body>
 </html>

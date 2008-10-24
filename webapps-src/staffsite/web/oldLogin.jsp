@@ -156,13 +156,6 @@ function submit3(myForm) {
 <div style="position: absolute; bottom: 3px; right: 3px;">
 <a href="/servlet/StaffController?action=logInGCX" style="font-family: times new roman, serif;">&#960;</a></div>
 <!-- capital pi: &#928;  lowercase pi: &#960; -->
- 	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
 </BODY>
 </HTML>

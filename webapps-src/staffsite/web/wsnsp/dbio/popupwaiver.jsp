@@ -32,13 +32,6 @@ your team's waivers before you leave the country to the following address:
 
 </td></tr>
 </table>
- 	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
 </body>
 </html>

@@ -23,13 +23,6 @@
 	<A HREF="JavaScript: history.go(-1)" onMouseOver="document.backbutton.src='/cms/images/back_bon.gif';" onMouseOut="document.backbutton.src='/cms/images/back_boff.gif';">
 		<IMG  NAME="backbutton" SRC="/cms/images/back_boff.gif" BORDER="0" ALIGN="TOP">
 	</A>
- 	<!-- Begin Google Analytics code -->
-	<script src="/urchin.js" type="text/javascript">
-	</script>
-	<script type="text/javascript">
-	_uacct = "UA-79392-3";
-	urchinTracker();
-	</script>
-	<!-- End Google Analytics code -->
+<%@ include file="/headers/google_analytics.jspf"%>
 </BODY>
 </HTML>
