@@ -10,8 +10,8 @@ ar = ActionResults.getActionResults(session);
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
-<P ALIGN="CENTER"><FORM NAME="addPersonContact" ACTION="/servlet/InfoBaseController?action=saveTeamMember" METHOD="POST">
-
+<P ALIGN="CENTER">
+<FORM NAME="addPersonContact" ACTION="/servlet/InfoBaseController?action=addMissionalTeamMember" METHOD="POST">
 <INPUT TYPE="HIDDEN" NAME="teamID" VALUE="<%= request.getParameter("teamID") %>">
 <INPUT TYPE="HIDDEN" NAME="locallevelid" VALUE="<%= request.getParameter("teamID") %>">
 <%
@@ -39,6 +39,8 @@ Here is a list of people in the Campus Ministry system.<BR>Select one to add the
 </FONT>
 
 <P ALIGN="CENTER">
+</FORM>
+<FORM NAME="addPersonContact" ACTION="/servlet/InfoBaseController?action=saveTeamMember" METHOD="POST">
 <SELECT NAME="personID">
 	<% Iterator contacts = ar.getCollection("contacts").iterator();
 	   while(contacts.hasNext()) {
@@ -57,12 +59,12 @@ Here is a list of people in the Campus Ministry system.<BR>Select one to add the
 					<%= (String)currentContact.getLastName()+ " (" +(String)currentContact.getEmail()+")" %>
 			</OPTION>
 				<% } %>
-</SELECT>&nbsp;<INPUT TYPE="SUBMIT" VALUE="Assign"></FORM>
-<FORM NAME="addPersonContact" ACTION="/servlet/InfoBaseController?action=addMissionalTeamMember" METHOD="POST">
+</SELECT>&nbsp;
 <INPUT TYPE="HIDDEN" NAME="targetareaid" VALUE="<%= request.getParameter("targetareaid") %>">
 <INPUT TYPE="HIDDEN" NAME="teamID" VALUE="<%= request.getParameter("teamID") %>">
+<INPUT TYPE="HIDDEN" NAME="locallevelid" VALUE="<%= request.getParameter("teamID") %>">
 				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName">
-
+<INPUT TYPE="SUBMIT" VALUE="Assign">
 				 </FORM>
 <%= box.printBottom() %>
 				 
