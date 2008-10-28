@@ -50,7 +50,7 @@ public class Reports {
 		else
 		{
 		return " GROUP BY ministry_activity.ActivityID, ministry_statistic.peopleGroup"+
-				" ORDER BY ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy,  ministry_statistic.peopleGroup ";
+				" ORDER BY ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy,  ministry_statistic.peopleGroup, ministry_activity.ActivityID ";
 		}
 	}
 	private static String summingFieldsPortion(String type){
