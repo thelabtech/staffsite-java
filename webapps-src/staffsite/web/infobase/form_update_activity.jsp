@@ -207,10 +207,10 @@ function setDefinition(setTo) {
 	<tr><td>
 		<table>
 		<tr>
-		<td align="right" ><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="256" name="url"  value="<%=Url%>"></FONT></td>
+		<td align="right" ><%=font%>&nbsp;<B>URL:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="250" name="url"  value="<%=Url%>"></FONT></td>
 		</tr>
 		<tr>
-		<td align="right" ><%=font%>&nbsp;<B>Facebook/MySpace:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="256" name="facebook"  value="<%=Facebook%>"></FONT></td>
+		<td align="right" ><%=font%>&nbsp;<B>Facebook/MySpace:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="250" name="facebook"  value="<%=Facebook%>"></FONT></td>
 		</tr>
 		</table>
 	</td></tr>
