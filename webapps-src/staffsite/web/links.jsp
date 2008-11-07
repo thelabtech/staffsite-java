@@ -82,7 +82,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<% box.setTitle("CCC Partnership links");	%>
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
-					  <TR><td><%=fontB%><a href="/leaving.jsp?url=http://www.268generation.com/enter_random.htm" target="_blank">Passion Conferences</a></td></tr>
+					  <TR><td><%=fontB%><a href="/leaving.jsp?url=http://www.268generation.com" target="_blank">Passion Conferences</a></td></tr>
 					  <tr><td><%=fontB%><a href="http://liveabove.com/" target="_blank">LiveAbove.com</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
