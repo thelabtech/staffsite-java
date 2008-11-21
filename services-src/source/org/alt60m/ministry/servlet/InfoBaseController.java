@@ -2336,7 +2336,7 @@ public class InfoBaseController extends Controller {
            prof.setUserName(username);
            prof.select();
            Staff staff=new Staff(prof.getAccountNo());
-           if (Arrays.asList("National Director","Regional Director").contains(staff.getJobTitle())){
+           if (staff.getJobTitle().contains("Regional Director")){
         	   log.debug("The LAB!");
        			isLAB="true";
            }
