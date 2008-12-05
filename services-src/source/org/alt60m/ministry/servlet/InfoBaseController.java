@@ -2474,7 +2474,7 @@ public class InfoBaseController extends Controller {
             String teamID = ctx.getInputString("teamID", true);
             
             Vector<Contact> contacts;
-            contacts = ibt.listContactsByLastName(search.toUpperCase());
+            contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
             contacts=ibt.removeCurrentTeamMembersFromContactList(contacts, teamID); 
             results.addCollection("contacts", contacts);
             results.putValue("teamID", teamID);
