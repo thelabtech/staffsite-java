@@ -2463,18 +2463,21 @@ public class InfoBaseController extends Controller {
         	ActionResults results = new ActionResults("addMissionalTeamMember");
             InfoBaseTool ibt = new InfoBaseTool();
             String search = "";
-            if(ctx.getInputString("lastName")!= "A"){
+            Vector<Contact> contacts=new Vector<Contact>();
+            if((ctx.getInputString("lastName")!= "snrfglt")&&((ctx.getInputString("lastName")!= ""))){
             	search = ctx.getInputString("lastName") + "%";
+            	 contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
             }
             else
             {
-	            search = "A%";
+	            
 	        	results.putValue("infoMessage", "You need to specify a last name.");
+	        	
             }
             String teamID = ctx.getInputString("teamID", true);
             
-            Vector<Contact> contacts;
-            contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
+            
+           
             contacts=ibt.removeCurrentTeamMembersFromContactList(contacts, teamID); 
             results.addCollection("contacts", contacts);
             results.putValue("teamID", teamID);
