@@ -216,8 +216,14 @@ else
 				<!--<TR><TD VALIGN="TOP"><%=font%><B>Gender: </B></FONT></TD><TD><%= font %><%= (isMale.booleanValue() ? "Male" : "Female") %></TD></TR>
 				--><% if(maritalStatus.equals("M"))
 					   maritalStatus = "Married";
-           else
+           else if (maritalStatus.equals("S"))
 					   maritalStatus = "Single";
+           else if (maritalStatus.equals("D"))
+			   maritalStatus = "Divorced";
+           else if (maritalStatus.equals("W"))
+			   maritalStatus = "Widowed";
+           else
+        	   	maritalStatus="Not Listed";
 						 %>
 				<TR><TD VALIGN="TOP"><%=font%><B>Marital Status: </B></FONT></TD><TD><%= font %><%= maritalStatus %></TD></TR>
         <% if(maritalStatus.equals("Married")) { %>
