@@ -1188,8 +1188,12 @@ public class InfoBaseController extends Controller {
     			ctx.getInputString("lastName")!=null&&(!ctx.getInputString("lastName").equals("")));
     		
     		String email=ctx.getInputString("email")!=null?ctx.getInputString("email"):"";
-    		Vector<Person>perps=InfoBaseTool.personMatchesByEmail(email);
-    		Vector<Person>suspects=InfoBaseTool.personMatchesByNames( holdPerson);
+    		Vector<Person>perps=new Vector<Person>();
+    		Vector<Person>suspects=new Vector<Person>();
+    		if (complete){
+    			perps=InfoBaseTool.personMatchesByEmail(email);
+    			suspects=InfoBaseTool.personMatchesByNames( holdPerson);
+    		}
 	    	Boolean unique=((perps.size()<1)&&((suspects.size()<1)||ctx.getInputString("confirmed").equals("confirmed")));
     		if(unique&&complete){
 				InfoBaseTool.saveNewInfoBasePerson(holdPerson);
