@@ -68,9 +68,15 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		
 		For job-related changes such as relocation, regional transfer, strategy, status or job description change, please contact your region's HR approver.<br><br> 
 		The exception is Missional Team assignment.<br><br>
-		To add yourself to a Missional Team, navigate to the Missional Team's display page 
-		in the <A HREF="/servlet/InfoBaseController">InfoBase</A>. Click the link that says
-		"Join this Missional Team"  and you will become a member of that team, along with your current teams.<br><br>
+		To add yourself to a Missional Team, click the name of your team's region below and then click the Join link by your team's name. 
+		<%
+		String[] regions=org.alt60m.html.SelectRegion.regions;
+		String[] regionNames=org.alt60m.html.SelectRegion.regionNames;
+			for(int i=0;i<regions.length;i++){
+				%><a href="/servlet/InfoBaseController?action=listLLMetros&region=<%=regions[i] %>"><%=regionNames[i] %></a>&nbsp;-&nbsp;<% 
+			}
+		%>
+		<br><br>
 		
 		To remove yourself from a Missional Team, click the red "X" beside its name <br>
 		on your <A HREF="/servlet/StaffController?action=showHome">staff homepage</A>, 
