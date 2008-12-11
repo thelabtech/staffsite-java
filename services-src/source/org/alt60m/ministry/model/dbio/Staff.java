@@ -92,7 +92,8 @@ public class Staff extends DBIOEntity {
 	private String contributionsToAcntNo = "";
 	private String removedFromPeopleSoft = "";
 	private String isNonUSStaff = "";  // Currently used so Review360 can see people not in PS
-
+	private int personID=0;
+	
 	public Staff(String id) {
 		accountNo = id;
 		if (!id.equals("")) {
@@ -193,7 +194,7 @@ public class Staff extends DBIOEntity {
 		setMetadata("TeamId","fk_teamID",table);
 		setMetadata("PrimaryAddressId","fk_primaryAddress",table);
 		setMetadata("SecondaryAddressId","fk_secondaryAddress",table);
-
+		setMetadata("PersonID","person_id",table);
 		setAutodetectProperties(false);
 	}
 
@@ -455,6 +456,12 @@ public class Staff extends DBIOEntity {
 	public void setTeamId(int fk_localLevelId) {
 		this.teamId = fk_localLevelId;
 	}
+	  public int getPersonID() {
+			return personID;
+		}
+		public void setPersonID(int personID) {
+			this.personID = personID;
+		}
 	
 	public String getLocalLevelId(){ return String.valueOf(getTeamId()); }
     public void setLocalLevelId(String id) {
