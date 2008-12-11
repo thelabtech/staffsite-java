@@ -146,7 +146,7 @@ else {
     <tr><td align=right ><%=fontB%>State: </td><td><input type="text" name="state" value="<%=holdPerson.get("state")!=null?holdPerson.get("state"):"" %>" /></td></tr>
     <tr><td align=right ><%=fontB%>Zip: </td><td><input type="text" name="zip" value="<%=holdPerson.get("zip")!=null?holdPerson.get("zip"):"" %>" /></td></tr>
     <tr><td align=right ><%=fontB%>Country:</td><td><input type="text" name="country" value="<%=holdPerson.get("country")!=null?holdPerson.get("country"):"" %>" /></td></tr>
-    <tr><td><input type="submit" name="Submit" value="Submit" /></td></tr>
+    <tr><td><input type="submit" name="Submit" value="<%=confirmed?"Just Do It":"Submit"%>" /></td></tr>
         </form>
  </table>
 <%} %>
