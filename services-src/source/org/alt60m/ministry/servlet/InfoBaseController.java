@@ -1176,7 +1176,55 @@ public class InfoBaseController extends Controller {
 		return allDates;
 	}
 	
-	
+	public void checkNewPerson(ActionContext ctx){
+    	try{
+    		ActionResults results=new ActionResults("checkNewPerson");
+    		Hashtable holdPerson=ctx.getHashedRequest();
+    		results.addHashtable("holdPerson", holdPerson);
+    		Integer personID;
+    		Boolean complete=(
+    			ctx.getInputString("email")!=null&&(!ctx.getInputString("email").equals(""))&&
+    			ctx.getInputString("firstName")!=null&&(!ctx.getInputString("firstName").equals(""))&&
+    			ctx.getInputString("lastName")!=null&&(!ctx.getInputString("lastName").equals("")));
+    		
+    		String email=ctx.getInputString("email")!=null?ctx.getInputString("email"):"";
+    		Vector<Person>perps=InfoBaseTool.personMatchesByEmail(email);
+    		Vector<Person>suspects=InfoBaseTool.personMatchesByNames( holdPerson);
+	    	Boolean unique=((perps.size()<1)&&((suspects.size()<1)||ctx.getInputString("confirmed").equals("confirmed")));
+    		if(unique&&complete){
+				InfoBaseTool.saveNewInfoBasePerson(holdPerson);
+				showTeam(ctx);
+			}else{
+				if (!complete){
+					results.putValue("infoMessage","You must specify a unique email, plus first name and last name.");
+				}
+				results.addCollection("perps",perps);
+				results.addCollection("suspects",suspects);
+				results.putValue("teamID",ctx.getInputString("teamID"));
+				ctx.setReturnValue(results);
+				ctx.goToView("makeMember"); //back to entry form, with any matches
+			}
+    	}
+    	 catch (Exception e) {
+             ctx.setError();
+             ctx.goToErrorView();
+             log.error("Failed to perform checkNewPerson().", e);
+         }
+    }
+	public void makeNewPerson(ActionContext ctx){
+		try{
+			ActionResults results=new ActionResults("makeNewPerson");
+			results.putValue("teamID",ctx.getInputString("teamID"));
+			ctx.setReturnValue(results);
+			ctx.goToView("makeMember");
+		
+		}
+		catch (Exception e) {
+		 ctx.setError();
+		 ctx.goToErrorView();
+		 log.error("Failed to perform makeNewPerson().", e);
+		}
+	}
 	/** @param ctx ActionContext object */
 	public void proposeNewTargetArea(ActionContext ctx) {
 		try {
