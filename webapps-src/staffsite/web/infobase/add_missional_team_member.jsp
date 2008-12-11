@@ -21,10 +21,10 @@ ar = ActionResults.getActionResults(session);
 		out.print(box.printTop());
 %>
 <%= font %>
-If the person you wish to add is not in the list below, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="mailto:help@uscm.org">contact us</A>.
+If the person you wish to add is not in the list below, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="/servlet/InfoBaseController?action=makeNewPerson&teamID=<%= request.getParameter("teamID")%>">click here</A>.
 
 <P ALIGN="center">
-				 <INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= ((request.getParameter("lastName") == null)||("snrfglt".equals(request.getParameter("lastName")))) ? "" : request.getParameter("lastName") %>">&nbsp;
+				 <INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= (request.getParameter("lastName") == null) ? "" : request.getParameter("lastName") %>">&nbsp;
 				 <INPUT TYPE="submit" VALUE="Search">
 <P ALIGN="CENTER">
 <%= font %>
