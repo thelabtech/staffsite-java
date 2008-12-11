@@ -435,38 +435,38 @@ public class InfoBaseTool {
 			throw new Exception(e);
 		}
 	}
-	public Hashtable<String, Integer> getEnrollmentHeatMap()throws Exception{
-		Hashtable<String,Integer>result=new Hashtable<String,Integer>();
-		String zone="";
-		Integer students=0;
-		Integer mostStudents=0;
-		Vector<Hashtable<String, Object>> enrollmentLatLong=new Vector<Hashtable<String, Object>>( InfoBaseQueries.getEnrollmentForLatLong());
-		Hashtable<String,Hashtable<String,Double>>zips=new Hashtable<String,Hashtable<String,Double>>( InfoBaseQueries.getZipsLatLong());
-		for (Hashtable<String, Object>points:enrollmentLatLong){
-			students=0;
-				
-			if(zips.keySet().contains((String)points.get("zip"))){
-				Double latitude=((zips.get((String)points.get("zip")).get("latitude")));
-				Double longitude=((zips.get((String)points.get("zip")).get("longitude")));
-				zone=((Double)(latitude)).toString().replace(".","")+"_"+((Double)(longitude)).toString().replace(".","");
-				if(result.keySet().contains(zone)){
-					students=result.get(zone);
-					students+=(Integer)points.get("enrollment");
-					result.put(zone, students);
-					if (students>mostStudents)mostStudents=students;
-					log.debug("zone: "+zone+" enrollment: "+students);
-				}else
-				{
-					students+=(Integer)points.get("enrollment");
-					result.put(zone, students);
-					if (students>mostStudents)mostStudents=students;
-					log.debug("zone: "+zone+" enrollment: "+students);
-				}
-			}
-		}
-		result.put("max",mostStudents);
-		return result;
-	}
+//	public Hashtable<String, Integer> getEnrollmentHeatMap()throws Exception{
+//		Hashtable<String,Integer>result=new Hashtable<String,Integer>();
+//		String zone="";
+//		Integer students=0;
+//		Integer mostStudents=0;
+//		Vector<Hashtable<String, Object>> enrollmentLatLong=new Vector<Hashtable<String, Object>>( InfoBaseQueries.getEnrollmentForZip());
+//		Hashtable<String,Hashtable<String,Double>>zips=new Hashtable<String,Hashtable<String,Double>>( InfoBaseQueries.getZipsLatLong());
+//		for (Hashtable<String, Object>points:enrollmentLatLong){
+//			students=0;
+//				
+//			if(zips.keySet().contains((String)points.get("zip"))){
+//				Double latitude=((zips.get((String)points.get("zip")).get("latitude")));
+//				Double longitude=((zips.get((String)points.get("zip")).get("longitude")));
+//				zone=((Double)(latitude)).toString().replace(".","")+"_"+((Double)(longitude)).toString().replace(".","");
+//				if(result.keySet().contains(zone)){
+//					students=result.get(zone);
+//					students+=(Integer)points.get("enrollment");
+//					result.put(zone, students);
+//					if (students>mostStudents)mostStudents=students;
+//					log.debug("zone: "+zone+" enrollment: "+students);
+//				}else
+//				{
+//					students+=(Integer)points.get("enrollment");
+//					result.put(zone, students);
+//					if (students>mostStudents)mostStudents=students;
+//					log.debug("zone: "+zone+" enrollment: "+students);
+//				}
+//			}
+//		}
+//		result.put("max",mostStudents);
+//		return result;
+//	}
     public LocalLevel getLocalLevelTeam(String llId) throws Exception {
         try {
 			return new LocalLevel(llId);
