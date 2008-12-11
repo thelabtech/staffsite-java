@@ -69,7 +69,7 @@ String pageTitle = "Main Page"; %>
             </table>
 			<br>
 			<table width="100%" border="0" bgcolor="#E3E3E3" bordercolor="#7788BB"> 
-				<tr><TD <%=tableCenterB%>><%=fontW%><B>Regional Offices</B></font></td></tr>
+				<tr><TD <%=tableCenterB%>><%=fontW%><B>Region Info</B></font></td></tr>
 				<tr <%=bgcolorL%> bordercolor="#6699CC" valign="middle">
 					<td>
 						<center>
