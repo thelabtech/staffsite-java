@@ -133,6 +133,7 @@ else {
      <tr><td align=right ><%=fontB%>*Email: </td><td><input bgcolor="yellow" type="text" name="email" value="<%=holdPerson.get("email")!=null?holdPerson.get("email"):"" %>" required/></td></tr>
 <tr><td align=right ><%=fontB%>Marital Status: </td><td><select bgcolor="yellow"  name="marital"  >
 																<%Hashtable marital=new Hashtable();
+																if(holdPerson.get("marital")==null)holdPerson.put("marital","");
 																marital.put("","Not Specified");
 																marital.put("M","Married");
 																marital.put("S","Single");
