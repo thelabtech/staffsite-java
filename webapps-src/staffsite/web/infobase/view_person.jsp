@@ -168,10 +168,10 @@ else
 	
 }
 %>
-<% String pageTitle = "Missional Team Member Information: " + preferredName + " " + lastName; %>
+<% String pageTitle =  firstName +(preferredName.equals("")?" ":" \""+preferredName+"\" ")+ lastName; %>
 <html>
 <head>
-<title><%= pageTitle %></title>
+<title style="font-size:15px;"><%= pageTitle %></title>
 </head>
 
 <%@ include file="/infobase/ibheader.jspf" %>
