@@ -60,4 +60,6 @@
 	<view name="waymore_detail" url="/locator/waymore/detail.jsp"></view>
 	<view name="login" url="/servlet/StaffController?action=logInGCX"></view>
 	<view name="staffHome" url="/servlet/StaffController?action=showHome"></view>
+	<view name="heatMap" url="/infobase/heat_map.jsp"></view>
+	<view name="makeMember" url="/infobase/make_missional_team_member.jsp"></view>
 </views>
