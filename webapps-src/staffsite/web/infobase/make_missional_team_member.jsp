@@ -36,7 +36,7 @@ for(Person p:perps){
 	%>
 	<tr><td>
 <%if(firstAdd){ %>
-<a href="/servlet/InfoBaseController?action=checkNewPerson&confirmed=confirmed&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>That's the One!</a>
+<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>That's the One!</a>
 <%} %>
 </td><td><%=fontB%>
 <%=firstAdd?p.getFirstName():"&nbsp;" %>
@@ -83,7 +83,7 @@ else {
 			%>
 			<tr><td>
 		<%if(firstAdd){ %>
-		<a href="/servlet/InfoBaseController?action=checkNewPerson&confirmed=confirmed&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>Choose this person</a>
+		<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>Choose this person</a>
 		<%} %>
 		</td><td><%=fontB%>
 		<%=firstAdd?p.getFirstName():"&nbsp;" %>
@@ -131,10 +131,20 @@ else {
 <tr><td align=right ><%=fontB%>(Preferred Name): </td><td><input bgcolor="yellow" type="text" name="preferredName" value="<%=holdPerson.get("preferredName")!=null?holdPerson.get("preferredName"):"" %>" /></td></tr>
      <tr><td align=right ><%=fontB%>*Last Name: </td><td><input bgcolor="yellow" type="text" name="lastName" value="<%=holdPerson.get("lastName")!=null?holdPerson.get("lastName"):"" %>" required/></td></tr>
      <tr><td align=right ><%=fontB%>*Email: </td><td><input bgcolor="yellow" type="text" name="email" value="<%=holdPerson.get("email")!=null?holdPerson.get("email"):"" %>" required/></td></tr>
-<tr><td align=right ><%=fontB%>Marital Status: </td><td><select bgcolor="yellow"  name="marital" value="<%=holdPerson.get("marital")!=null?holdPerson.get("marital"):"" %>" >
-																<option value="S">Single</option>
-																<option value="M">Married</option>
-																<option selected value="">Not Specified</option>
+<tr><td align=right ><%=fontB%>Marital Status: </td><td><select bgcolor="yellow"  name="marital"  >
+																<%Hashtable marital=new Hashtable();
+																marital.put("","Not Specified");
+																marital.put("M","Married");
+																marital.put("S","Single");
+																Iterator wed=marital.keySet().iterator();
+																while (wed.hasNext()){
+																	String ms=(String)wed.next();
+																	//why is all this necessary? excellence. We want a nice dropdown that looks neat and retains its data through error-checking cycles.
+																	%>
+																	<option <%= ms.equals(holdPerson.get("marital"))?"selected":"" %> value="<%=ms %>"><%= marital.get(ms)%></option>
+																	<%
+																}
+																%>
 														</select></td></tr>
 <tr><td colspan="2"><%=fontB %><Center> Current Contact Info (Optional but helpful):</Center></td></tr>     
 <tr><td align=right ><%=fontB%>Home Phone: </td><td><input type="text" name="homePhone" value="<%=holdPerson.get("homePhone")!=null?holdPerson.get("homePhone"):"" %>" /></td></tr>
