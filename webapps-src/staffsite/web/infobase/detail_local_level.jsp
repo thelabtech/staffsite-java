@@ -161,7 +161,7 @@ ar = ActionResults.getActionResults(session);
 			<A HREF="mailto: <%= emailList %>">E-mail</A> all Missional Team members<br>
 		<% } %>
 		  <%if(session.getValue("isHR").equals("true")||ar.getValue("isLAB").equals("true")){ %>
-		<A HREF="/servlet/InfoBaseController?action=addMissionalTeamMember&teamID=<%=teamID %>&lastName=snrfglt">Add a Missional Team Member</A><br>
+		<A HREF="/servlet/InfoBaseController?action=addMissionalTeamMember&teamID=<%=teamID %>&lastName=">Add a Missional Team Member</A><br>
 		<%} %>
 		<%if (!present){%>
 		<A HREF="/servlet/InfoBaseController?action=saveTeamMember&teamID=<%=teamID %>&locallevelid=<%=teamID %>&personID=<%= ar.getValue("personID") %>">Join This Missional Team</A>
