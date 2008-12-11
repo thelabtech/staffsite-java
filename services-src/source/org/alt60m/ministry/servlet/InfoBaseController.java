@@ -1060,6 +1060,13 @@ public class InfoBaseController extends Controller {
         try {
             ActionResults results = new ActionResults("listLLMetros");
             String region = ctx.getInputString("region", true);
+            User user=new User();
+            user.setUsername((String) ctx.getSessionValue("userName"));
+            user.select();
+            Person person=new Person();
+            person.setFk_ssmUserID(user.getUserID());
+            person.select();
+            results.putValue("personID", person.getPersonID()+"");
 			InfoBaseTool ibt = new InfoBaseTool();
             Collection teams = ibt.getLocalLevelTeamsByRegionExclusive(region);
             results.addCollection("teams", ObjectHashUtil.list(teams));
@@ -1168,7 +1175,8 @@ public class InfoBaseController extends Controller {
 		}
 		return allDates;
 	}
-
+	
+	
 	/** @param ctx ActionContext object */
 	public void proposeNewTargetArea(ActionContext ctx) {
 		try {
@@ -2161,17 +2169,30 @@ public class InfoBaseController extends Controller {
 			
             log.debug(accountNo+" accountNo, "+personID+" personID");
             Person person = new Person(personID);
-            User user=new User();
-            user.setUserID(person.getFk_ssmUserID());
-            user.select();
-			Hashtable<String,Object>personHash=org.alt60m.util.ObjectHashUtil.obj2hash(person);
-			if(user!=null){
-				if(user.getUsername()!=null){
-				personHash.put("Email", user.getUsername());
-				}else{
-					personHash.put("Email", "");
-				}
-			}
+            Hashtable<String,Object>personHash=org.alt60m.util.ObjectHashUtil.obj2hash(person);
+            Address address=new Address();
+          address.setFk_PersonID(personID);
+          address.setAddressType("current");
+          if (address.select()){
+        	  if (address.getEmail()!=null){
+        		  personHash.put("Email",address.getEmail());
+        	  }
+        	  else
+        	  {
+        		  address=new Address();
+                  address.setFk_PersonID(personID);
+                  address.setAddressType("permanent");
+                  if (address.getEmail()!=null){
+            		  personHash.put("Email",address.getEmail());
+            	  }
+                  else
+                  {
+                	  personHash.put("Email","");
+                  }
+        	  }
+          }
+			
+			
             personHash.put("SpouseFirstName", new Person(person.getFk_spouseID()).getFirstName());
 			Hashtable<String, Object> addressHash = getAddressForTeamMember(accountNo,personID);
             Hashtable<String,Object> staffHash=new Hashtable<String,Object>();
@@ -2464,7 +2485,7 @@ public class InfoBaseController extends Controller {
             InfoBaseTool ibt = new InfoBaseTool();
             String search = "";
             Vector<Contact> contacts=new Vector<Contact>();
-            if((ctx.getInputString("lastName")!= "snrfglt")&&((ctx.getInputString("lastName")!= ""))){
+            if((ctx.getInputString("lastName")!= "")){
             	search = ctx.getInputString("lastName") + "%";
             	 contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
             }
