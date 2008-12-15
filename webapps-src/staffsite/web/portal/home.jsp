@@ -33,6 +33,7 @@ function toggleDiv(who){
 		}
 }
 </script>
+
 <TITLE>Campus Staff Site</TITLE>
 <STYLE TYPE="text/css">
 	<!--.nounderline A {text-decoration:none}-->
@@ -79,7 +80,9 @@ function toggleDiv(who){
 	margin:0px;
 	}
 </STYLE>	
+<script  src="/holly.js" type="text/javascript" language="javascript">
 
+</script>
 </HEAD>
 
 <% String pageTitle = "&nbsp;";
@@ -96,6 +99,15 @@ function toggleDiv(who){
 
 <% region = (String)profile.get("region"); %>
 <% try { %>
+
+<img onClick="stop();" style="position:absolute;top:10px;left:10px;z-index:10;" src="/images/holly.gif" id="holly">
+<%for (int j=0;j<4;j++){%>
+	<img style="position:absolute;z-index:10;top:0px;left:0px;" src="/images/berry.gif" id="berry[<%= j%>]">
+	<%
+}%>
+<script  type="text/javascript" language="javascript">
+timer=setTimeout(adjust(),500);
+</script>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
 	<tr valign=top>
 		<td width="140">
@@ -454,6 +466,7 @@ function toggleDiv(who){
 	</tr>
 </TABLE>
 <br>
+
 <% } catch (Exception e) { e.printStackTrace(); }%>
 <%@ include file="/frontpagefooter.jspf" %>
 </HTML>
