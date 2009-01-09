@@ -29,8 +29,9 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a href="http://lakehartstint.org" target="_blank">Lake Hart Stint</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://crupress.campuscrusadeforchrist.com" target="_blank">CruPress</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://centerfield.campuscrusadeforchrist.com" target="_blank">Centerfield Productions</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://staff.campuscrusadeforchrist.com/seminary/" target="_blank">Seminary Partnerships</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://staff.campuscrusadeforchrist.com/gradstudy/" target="_blank">Graduate Study Program</a></td></tr>
+						<TR><td><%=fontB%><a href="http://campusprhelp.com" target="_blank">Campus PR Help</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com/ibs/SeminaryPartnerships/index.html" target="_blank">Seminary Partnerships</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com/ibs/GraduateStudy/index.html" target="_blank">Graduate Study Program</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com" target="_blank">Institute of Biblical Studies</a></td></tr>
 					  <TR><td><%=fontB%><a href="/leaving.jsp?url=https://www.ronblue.com/ccci/" target="_blank">Ronald Blue & Co - Access to your 403(b) Account</a></td></tr>
 				</table>
