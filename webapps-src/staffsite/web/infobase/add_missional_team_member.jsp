@@ -21,7 +21,7 @@ ar = ActionResults.getActionResults(session);
 		out.print(box.printTop());
 %>
 <%= font %>
-If the person you wish to add is not in the list below, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="/servlet/InfoBaseController?action=makeNewPerson&teamID=<%= request.getParameter("teamID")%>">click here</A>.
+If the person you wish to add is not in the list below, check the spelling of their<BR>last name and try again.  If you still cannot find them, <A HREF="/servlet/InfoBaseController?action=makeNewPerson&purpose=team&activityid=&teamID=<%= request.getParameter("teamID")%>">click here</A>.
 
 <P ALIGN="center">
 				 <INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= (request.getParameter("lastName") == null) ? "" : request.getParameter("lastName") %>">&nbsp;

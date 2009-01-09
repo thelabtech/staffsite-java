@@ -25,6 +25,7 @@
 	<view name="addTeamToCampus" url="/infobase/form_new_target_area_activity.jsp"></view>
 	<view name="addMinToCampus" url="/infobase/form_new_target_area_ministry.jsp"></view>
 	<view name="editActivity" url="/infobase/form_update_activity.jsp"></view>
+	<view name="enterEventSuccessCriteria" url="/infobase/enter_event_stat.jsp"></view>
 	<view name="successCriteriaHome" url="/infobase/success_criteria_home.jsp"></view>
 	<view name="campusCountReport" url="/infobase/report_campus_count.jsp"></view>
 	<view name="setReportCriteria" url="/infobase/set_report_criteria.jsp"></view>
@@ -61,5 +62,5 @@
 	<view name="login" url="/servlet/StaffController?action=logInGCX"></view>
 	<view name="staffHome" url="/servlet/StaffController?action=showHome"></view>
 	<view name="heatMap" url="/infobase/heat_map.jsp"></view>
-	<view name="makeMember" url="/infobase/make_missional_team_member.jsp"></view>
+	<view name="makePerson" url="/infobase/make_person.jsp"></view>
 </views>

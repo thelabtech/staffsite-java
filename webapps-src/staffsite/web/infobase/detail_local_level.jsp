@@ -147,7 +147,7 @@ ar = ActionResults.getActionResults(session);
 	
 		%>
 		
-		 <%if((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isLAB").equals("true")){ %>
+		 <%if((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true")){ %>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
@@ -160,7 +160,7 @@ ar = ActionResults.getActionResults(session);
 		<% if(!emailList.equals("")) { %>
 			<A HREF="mailto: <%= emailList %>">E-mail</A> all Missional Team members<br>
 		<% } %>
-		  <%if(session.getValue("isHR").equals("true")||ar.getValue("isLAB").equals("true")){ %>
+		  <%if(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true")){ %>
 		<A HREF="/servlet/InfoBaseController?action=addMissionalTeamMember&teamID=<%=teamID %>&lastName=">Add a Missional Team Member</A><br>
 		<%} %>
 		<%if (!present){%>

@@ -1,4 +1,4 @@
-<%@ page import="org.alt60m.servlet.*, org.alt60m.ministry.model.dbio.Person,org.alt60m.ministry.model.dbio.Address, java.util.*" %>
+<%@ page import="org.alt60m.servlet.*, org.alt60m.ministry.model.dbio.Person,org.alt60m.ministry.model.dbio.Activity,org.alt60m.ministry.model.dbio.TargetArea,org.alt60m.ministry.model.dbio.Address, java.util.*" %>
 <%
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
@@ -7,6 +7,10 @@ if (ar.getHashtable("holdPerson")!=null){
 	holdPerson=ar.getHashtable("holdPerson");
 }
 String teamID=ar.getValue("teamID");
+String activityid=ar.getValue("activityid");
+Activity act=new Activity(activityid);
+TargetArea ta=new TargetArea(act.getTargetAreaId());
+String purpose=ar.getValue("purpose");
 Boolean confirmed=false;
  String pageTitle= "Add New Person To InfoBase "; %>
 <html>
@@ -36,7 +40,11 @@ for(Person p:perps){
 	%>
 	<tr><td>
 <%if(firstAdd){ %>
-<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>That's the One!</a>
+<%if (purpose.equals("team")){%>
+<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>"><%=fontB%>That's the One!</a>
+<%} else if (purpose.equals("contact")){%>
+	<a href="/servlet/InfoBaseController?action=savePersonContact&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>&targetareaid=<%=ta.getTargetAreaId() %>"><%=fontB%>That's the One!</a>
+<% }%>
 <%} %>
 </td><td><%=fontB%>
 <%=firstAdd?p.getFirstName():"&nbsp;" %>
@@ -83,8 +91,11 @@ else {
 			%>
 			<tr><td>
 		<%if(firstAdd){ %>
-		<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>"><%=fontB%>Choose this person</a>
-		<%} %>
+		<%if (purpose.equals("team")){%>
+<a href="/servlet/InfoBaseController?action=saveTeamMember&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>"><%=fontB%>That's the One!</a>
+<%} else if (purpose.equals("contact")){%>
+	<a href="/servlet/InfoBaseController?action=savePersonContact&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>&targetareaid=<%=ta.getTargetAreaId() %>"><%=fontB%>That's the One!</a>
+<% }%><%} %>
 		</td><td><%=fontB%>
 		<%=firstAdd?p.getFirstName():"&nbsp;" %>
 		</td><td><%=fontB%>
@@ -126,6 +137,9 @@ else {
             <input type="hidden" name="action" value="checkNewPerson"/>
             <input type="hidden" name="teamID" value="<%=teamID%>"/>
 			<input type="hidden" name="locallevelid" value="<%=teamID%>"/>
+			<input type="hidden" name="activityid" value="<%=activityid%>"/>
+			<input type="hidden" name="purpose" value="<%=purpose%>"/>
+			<input type="hidden" name="targetareaid" value="<%=ta.getTargetAreaId()%>"/>
 	<input type="hidden" name="confirmed" value="<%=confirmed?"confirmed":"no" %>"/>
      <tr><td align=right ><%=fontB%>*First Name: </td><td><input bgcolor="yellow" type="text" name="firstName" value="<%=holdPerson.get("firstName")!=null?holdPerson.get("firstName"):"" %>" required/></td></tr>
 <tr><td align=right ><%=fontB%>(Preferred Name): </td><td><input bgcolor="yellow" type="text" name="preferredName" value="<%=holdPerson.get("preferredName")!=null?holdPerson.get("preferredName"):"" %>" /></td></tr>

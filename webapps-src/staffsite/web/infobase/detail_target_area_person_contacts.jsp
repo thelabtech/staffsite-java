@@ -1,12 +1,4 @@
-<!--  May 30, 2007 - following changes by Mark Davis per Todd Gross
-	  This page was changed to no longer seperate certain ministries.  Now all  
-      ministries will see the same STATUS and SUCCESS CRITERIA information.  
-      Further comments are embedded in this page.  This change effects  
-      modules:  Strategy.java, detail_target_area.jsp and set_report_criteria.jsp
-      
-      Ministries effected: Military Ministry (now Valor), Athletes In Action, 
-      Christian Leadership Ministries (now Faculty COmmons), Korean CCC, Greek, Valor and Other
- -->
+
 
 <%@ page import="org.alt60m.servlet.*,java.util.*,org.alt60m.ministry.Strategy,org.alt60m.ministry.model.dbio.Contact"%>
 <%
@@ -103,7 +95,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 									out.print("No Contacts<BR>");
 								while (contacts.hasNext()) {
 									thisContact = (Contact) contacts.next();
-					%>&nbsp; <A HREF="/servlet/InfoBaseController?action=showPersonInfo&personID=<%= thisContact.getPersonID()%>">
+					%>&nbsp; <A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=thisContact.getAccountNo() %>&personID=<%= thisContact.getPersonID()%>">
 								<%
 								if((thisContact.getPreferredName()!=null)&&
 									(!((String)thisContact.getPreferredName()).equals(""))&&
@@ -118,16 +110,16 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 								%>
 								<%= (String)thisContact.getLastName() %>
 							</A>
-
+<%if(ar.getValue("isRD").equals("true")){ %>
 					&nbsp;[<A
 						HREF="/servlet/InfoBaseController?action=removePersonContact&personID=<%= thisContact.getPersonID() %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>">Remove</A>]
-					<BR>
+					<%} %><BR>
 					<%
 								}
 								
-					%><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=A">Add
+					%><%if(ar.getValue("isRD").equals("true")){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
 					Contact
-					</A>
+					</A><%} %>
 					</TD>
 <!--  -->
 					
