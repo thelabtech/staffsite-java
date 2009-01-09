@@ -104,11 +104,11 @@ public class References implements java.io.Serializable {
 					}
 					// end new query
 				}
-				*/
+				
 
 				// display all SI references for this staff
 				refString = refString
-						+ /*"<BR>*/"<font size=2><B>STINT</B></font><BR>";
+						+ "<BR>"<font size=2><B>STINT</B></font><BR>";
 				if (accountNo.trim().length() == 0) {
 					// many staff login accounts do not have an AccountNo. So
 					// don't
@@ -176,7 +176,9 @@ public class References implements java.io.Serializable {
 
 				refString = refString
 						+ "<BR>(Completed references are also listed.)";
+				*/
 			}
+			refString = "<i>Unfortunately this feature is not available this year.</i><br />";
 			return refString;
 		} catch (Exception e) {
 			log.error("ReferencesError:", e);
