@@ -181,7 +181,62 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform addContact().", e);
         }
     }
+    public void addPersonContact(ActionContext ctx) {
+        try {
+        	ActionResults results = new ActionResults("addPersonContact");
+            InfoBaseTool ibt = new InfoBaseTool();
+            String search = "";
+            if(!ctx.getInputString("lastName").equals("")){
+            	search = ctx.getInputString("lastName") + "%";
+            }
+           
+            String activityId = ctx.getInputString("activityid", true);
+            String targetAreaId = ctx.getInputString("targetareaid", true);
+            Vector<Contact> contacts;
+            contacts = ibt.listContactsByLastName(search.toUpperCase());
+            contacts=ibt.removeCurrentContactsFromContactList(contacts, activityId); 
+            results.addCollection("contacts", contacts);
+            results.putValue("activityid", activityId);
+            results.putValue("targetareaid", targetAreaId);
+            ctx.setReturnValue(results);
+            ctx.goToView("addPersonContact");
+        }
+        catch (Exception e) {
+			ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform addPersonContact().", e);
+        }
+    }
+    public void removePersonContact(ActionContext ctx) {
+        try {
+            String activityId = ctx.getInputString("activityid", true);
+            String personID = ctx.getInputString("personID");
+            InfoBaseTool ibt = new InfoBaseTool();
+			ibt.removePersonContact( personID,activityId);
+            showTargetArea(ctx);
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform removePersonContact().", e);
+        }
+    }
 
+    public void savePersonContact(ActionContext ctx) {
+        try {
+            String activityId = ctx.getInputString("activityid", true);
+            String personID = ctx.getInputString("personID", true);
+            InfoBaseTool ibt = new InfoBaseTool();
+            ibt.savePersonContact(personID, activityId);
+            showTargetArea(ctx);
+            
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform savePersonContact().", e);
+        }
+    }
     /** @param ctx ActionContext object */
    
     public void addMinToCampus(ActionContext ctx) {
@@ -388,7 +443,7 @@ public class InfoBaseController extends Controller {
             } else {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
-               results.putValue("fromYear", Integer.toString(cal.get(Calendar.YEAR) - 1));
+                results.putValue("fromYear", Integer.toString(cal.get(Calendar.YEAR) - 1));
                 results.putValue("toYear", Integer.toString(cal.get(Calendar.YEAR)));
                 results.putValue("type", type);
                 ctx.setReturnValue(results);
@@ -947,6 +1002,74 @@ public class InfoBaseController extends Controller {
              log.error("Failed to perform deleteFastSuccessCriteriaBookmark ().", e);
          }
     }
+//    public void enterEventSuccessCriteria(ActionContext ctx) {//IJK
+//        try {
+//        	
+//        	ActionResults results=new ActionResults();
+//        	TargetArea event=new TargetArea();
+//        	Activity activity=new Activity();
+//        	Statistic statistic=new Statistic();
+//        	String eventType=ctx.getInputString("eventType");
+//        	String eventKeyID=ctx.getInputString("eventKeyID");
+//        	String region=ctx.getInputString("region");
+//        	String name=ctx.getInputString("name");
+//        	String isSecure=ctx.getInputString("isSecure");
+//        	String email=ctx.getInputString("email");
+//        	String dater="";
+//        	if (eventType.equals("C1")){
+//        		dater="EEE MMM dd HH:mm:ss z yyyy";
+//        	}else if (eventType.equals("C2")){
+//        		dater="EEE MMM dd HH:mm:ss z yyyy";
+//        	} else if (eventType.equals("SP")){
+//        		dater="EEE MMM dd HH:mm:ss z yyyy";
+//        	}
+//        	java.text.DateFormat format=new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+//        	
+//        	
+//        	Date periodEnd=format.parse(ctx.getInputString("periodEnd"));
+//        	Date periodBegin=format.parse(ctx.getInputString("periodBegin"));
+//        	
+//        	event.setEventType(eventType);
+//        	event.setEventKeyID(eventKeyID);
+//        	event.select(); //we select based on eventType and eventKeyID.
+//        	event.setName(name);
+//        	event.setRegion(region);
+//        	
+//        	event.setIsSecureString(isSecure);
+//        	event.setUrl(event.getEventLink());
+//        	event.setEmail(email);
+//        	event.persist(); //we always save the most recent data for the event, populated from the toolside link.
+//        	
+//        	activity.setTargetAreaId(event.getTargetAreaId());
+//        	activity.select();
+//        	activity.setStrategy("EV"); 
+//        	activity.setStatus("IN");
+//        	activity.setLocalLevelId("0");
+//        	
+//        	activity.persist();
+//        	
+//        	statistic.setActivityId(activity.getActivityId());
+//        	statistic.select();
+//        	statistic.setPeriodBegin(periodBegin);
+//        	statistic.setPeriodEnd(periodEnd);
+//        	statistic.persist();
+//        	
+//        	
+//        	results.putValue("name", name);
+//        	results.putValue("redirect", ctx.getInputString("redirect"));
+//        	results.putObject("statistic", statistic);
+//        	ctx.setReturnValue(results);
+//        	
+//            ctx.goToView("enterEventSuccessCriteria");
+//            	
+//        }
+//        
+//        catch (Exception e) {
+//            ctx.setError();
+//            ctx.goToErrorView();
+//            log.error("Failed to perform enterEventSuccessCriteria ().", e);
+//        }
+//    }
     
     public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {//IJK
         try {
@@ -1197,7 +1320,12 @@ public class InfoBaseController extends Controller {
 	    	Boolean unique=((perps.size()<1)&&((suspects.size()<1)||ctx.getInputString("confirmed").equals("confirmed")));
     		if(unique&&complete){
 				InfoBaseTool.saveNewInfoBasePerson(holdPerson);
-				showTeam(ctx);
+				if (ctx.getInputString("purpose").equals("team")){
+					showTeam(ctx);
+					}else if (ctx.getInputString("purpose").equals("contact")){
+					showTargetArea(ctx);
+					}
+				
 			}else{
 				if (!complete){
 					results.putValue("infoMessage","You must specify a unique email, plus first name and last name.");
@@ -1205,8 +1333,10 @@ public class InfoBaseController extends Controller {
 				results.addCollection("perps",perps);
 				results.addCollection("suspects",suspects);
 				results.putValue("teamID",ctx.getInputString("teamID"));
+				results.putValue("activityid",ctx.getInputString("activityid"));
+				results.putValue("purpose",ctx.getInputString("purpose"));
 				ctx.setReturnValue(results);
-				ctx.goToView("makeMember"); //back to entry form, with any matches
+				ctx.goToView("makePerson"); //back to entry form, with any matches
 			}
     	}
     	 catch (Exception e) {
@@ -1219,8 +1349,10 @@ public class InfoBaseController extends Controller {
 		try{
 			ActionResults results=new ActionResults("makeNewPerson");
 			results.putValue("teamID",ctx.getInputString("teamID"));
+			results.putValue("activityid",ctx.getInputString("activityid"));
+			results.putValue("purpose",ctx.getInputString("purpose"));
 			ctx.setReturnValue(results);
-			ctx.goToView("makeMember");
+			ctx.goToView("makePerson");
 		
 		}
 		catch (Exception e) {
@@ -1656,6 +1788,40 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveSuccessCriteria().", e);
         }
     }
+//    public void saveEventSuccessCriteria(ActionContext ctx) {
+//    	if (! loginCheck(ctx)) {
+//    		return;
+//    	}
+//        try {
+//            
+//			InfoBaseTool ibt = new InfoBaseTool();
+//            Statistic stat;
+//            String statisticId = ctx.getInputString("statisticid", true);
+//            stat = ibt.getStatObject(statisticId);
+//			
+//			Hashtable request = ctx.getHashedRequest();
+//			List<String> keys = Arrays.asList(new String[] { "PeriodBegin",
+//					"PeriodEnd", "PersonalEvangelismExposures",
+//					"GroupEvangelismExposures", "MediaExposures", "Decisions",
+//					"Multipliers", "StudentLeaders", "InvolvedStudents",
+//					"LaborersSent","DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
+//					"DecisionsGroupEvangelismExposures","HolySpiritConversations","Seekers"});
+//			Map<String, String> statMap = new HashMap<String, String>();
+//			for (String key : keys) {
+//				statMap.put(key, (String) request.get(key));
+//			}
+//        	String username = (String) ctx.getSessionValue("userName");
+//        	stat.setUpdatedBy(username);
+//			ibt.saveStatObjectWithActivity(statMap, stat);
+//			log.debug("redirecting to: "+ctx.getInputString("redirect"));
+//			ctx.getResponse().sendRedirect(ctx.getInputString("redirect"));
+//			
+//		} catch (Exception e) {
+//            ctx.setError();
+//            ctx.goToErrorView();
+//            log.error("Failed to perform saveSuccessCriteria().", e);
+//        }
+//    }
 	public Hashtable<String,Hashtable<String,String>> convertBracketedParamsToHashtable(ActionContext ctx) {
 		Hashtable input=(ctx.getHashedRequest());
 		
@@ -1889,7 +2055,7 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveFastSuccessCriteria().", e);
         }
     }
-
+    
     private boolean loginCheck(ActionContext ctx) {
 		String username = (String) ctx.getSessionValue("userName");
 		if (username == null) {
@@ -2337,8 +2503,7 @@ public class InfoBaseController extends Controller {
 			InfoBaseTool ibt = new InfoBaseTool();
             String targetAreaID = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
             results = getBookmarks(ctx, results, Bookmarks.TARGET_AREA, targetAreaID);
-            Vector<String>activityKeys=new Vector<String>();
-            int individualize=0;
+
 			TargetArea ta = ibt.getTargetArea(targetAreaID);
             Hashtable targetAreaInfo = ObjectHashUtil.obj2hash(ta);
             results.addHashtable("target", targetAreaInfo);
@@ -2356,20 +2521,25 @@ public class InfoBaseController extends Controller {
 					activityHash.put("statusName", activity.getStatusFullName());
 					activityHash.put("Url", activity.getUrl());
 					activityHash.put("Facebook", activity.getFacebook());
-					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>();
-					for (Staff staff : activity.getActivityContacts()) {
-						contacts.add(ObjectHashUtil.obj2hash(staff));
-					}
+					Vector<Contact> contacts = new Vector<Contact>(InfoBaseQueries.getMovementContacts(activity.getActivityId())); //under development
+//					Vector<Hashtable<String, Object>> contacts = new Vector<Hashtable<String, Object>>(); //old way; comment out for testing existing system
+//					for (Staff staff : activity.getActivityContacts()) {
+//						contacts.add(ObjectHashUtil.obj2hash(staff));
+//					}
 					activityHash.put("contacts", contacts);
-					results.addHashtable(activity.getStrategy()+individualize, activityHash);
-					activityKeys.add(activity.getStrategy()+individualize);
-					
+					results.addHashtable(activity.getStrategy(), activityHash);
 				}
-				individualize++;
             }
-	        results.addCollection("activityKeys", activityKeys);
+	        String username = (String) ctx.getSessionValue("userName");
+            User user=new User();
+            user.setUsername(username);
+            user.select();
+            Person person=new Person();
+            person.setFk_ssmUserID(user.getUserID());
+            person.select();
+            results.putValue("isRD",isRD(person));
             ctx.setReturnValue(results);
-            ctx.goToView("targetArea");
+            ctx.goToView("targetAreaPersonContacts");
         }
         catch (Exception e) {
             ctx.setError();
@@ -2377,42 +2547,39 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform showTargetArea().", e);
         }
     }
-
+    private String isRD(Person person)
+    {
+    	
+        String personID = person.getPersonID()+"";
+        String isRD="false";
+        LocalLevel lab=new LocalLevel(); //LAB members are honorary RDees!!
+        lab.setName("The LAB");
+        lab.setRegion("NC");
+        lab.select();
+        Vector<Contact> labMembers=InfoBaseQueries.getTeamMembers(lab.getLocalLevelId());
+        for (Contact c:labMembers){
+        	if((c.getPersonID()+"").equals(personID)){
+        		log.debug("The LAB!");
+        		isRD="true";
+        	}
+        	
+        }
+       
+       Staff staff=new Staff(person.getAccountNo());
+       if (staff.getJobTitle().contains("Regional Director")){
+    	   log.debug("Real RDee!");
+   			isRD="true";
+   			
+       }
+       return isRD;
+    }
     /** @param ctx ActionContext object */
     public void showTeam(ActionContext ctx) {
         try {
             ActionResults results = new ActionResults("showTeam");
             InfoBaseTool ibt = new InfoBaseTool();
             String llId = ctx.getInputString(LOCAL_LEVEL_ID_TOKEN, true);
-            String username = (String) ctx.getSessionValue("userName");
-            User user=new User();
-            user.setUsername(username);
-            user.select();
-            Person person=new Person();
-            person.setFk_ssmUserID(user.getUserID());
-            person.select();
-            String personID = person.getPersonID()+"";
-            String isLAB="false";
-            LocalLevel lab=new LocalLevel();
-            lab.setName("The LAB");
-            lab.setRegion("NC");
-            lab.select();
-            Vector<Contact> labMembers=InfoBaseQueries.getTeamMembers(lab.getLocalLevelId());
-            for (Contact c:labMembers){
-            	if((c.getPersonID()+"").equals(personID)){
-            		log.debug("The LAB!");
-            		isLAB="true";
-            	}
-            	
-            }
-           org.alt60m.staffSite.model.dbio.StaffSiteProfile prof=new org.alt60m.staffSite.model.dbio.StaffSiteProfile();
-           prof.setUserName(username);
-           prof.select();
-           Staff staff=new Staff(prof.getAccountNo());
-           if (staff.getJobTitle().contains("Regional Director")){
-        	   log.debug("The LAB!");
-       			isLAB="true";
-           }
+            
             results = getBookmarks(ctx, results, Bookmarks.LOCAL_LEVEL, llId);
 
             LocalLevel ll = ibt.getLocalLevelTeam(llId);
@@ -2454,8 +2621,15 @@ public class InfoBaseController extends Controller {
 					}
 				}
             }
-            results.putValue("personID",personID);
-            results.putValue("isLAB",isLAB);
+            String username = (String) ctx.getSessionValue("userName");
+            User user=new User();
+            user.setUsername(username);
+            user.select();
+            Person person=new Person();
+            person.setFk_ssmUserID(user.getUserID());
+            person.select();
+            results.putValue("personID",person.getPersonID()+"");
+            results.putValue("isRD",isRD(person));
 			results.addCollection("activetarget", activeTargetInfo);
 			results.addCollection("inactivetarget", inactiveTargetInfo);
 			results.addCollection("forerunnertarget", forerunnerTargetInfo);

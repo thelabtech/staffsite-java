@@ -1494,7 +1494,11 @@ public class InfoBaseTool {
 			newAddress.setToolName("IB");
 			newAddress.persist();
 			InfoBaseTool ibt= new InfoBaseTool();
+			if (holdPerson.get("purpose").equals("team")){
 			ibt.saveTeamMember(saveMe.getPersonID()+"",(String) holdPerson.get("teamID"));
+			}else if (holdPerson.get("purpose").equals("contact")){
+			ibt.savePersonContact(saveMe.getPersonID()+"",(String) holdPerson.get("activityid"));
+			}
 		}
     	catch (Exception e) {
     		log.error("Failed to perform saveNewInfoBasePerson().", e);

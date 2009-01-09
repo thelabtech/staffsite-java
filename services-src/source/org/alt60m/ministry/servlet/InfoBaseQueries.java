@@ -216,6 +216,7 @@ public class InfoBaseQueries {
 	public static Vector listContactsByLastName(String search) {
 		try {
 			Vector<Contact>c=new Vector<Contact>();
+			if (search.length()>0){
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
@@ -229,11 +230,13 @@ public class InfoBaseQueries {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setAccountNo(rs.getString("accountNo"));
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName"));
 				contact.setEmail(rs.getString("email"));
 				c.add(contact);
+			}
 			}
 			return c;
 		} catch (Exception e) {
@@ -284,11 +287,11 @@ public class InfoBaseQueries {
 			
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			String query="SELECT ministry_person.personID as personID, ministry_person.firstName as firstName,"+
-			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
-			" FROM (ministry_person INNER JOIN simplesecuritymanager_user "+
-			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
-			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
-			" WHERE (ministry_person.personID not in ("+identities.toString()+")) and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' ;";
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent"+
+			" FROM (ministry_person Left JOIN ministry_newaddress mna1 "+
+			" ON (ministry_person.personID = mna1.fk_PersonID and mna1.addressType='current' )Left JOIN ministry_newaddress mna2"+
+			" ON (ministry_person.personID = mna2.fk_PersonID and mna2.addressType='permanent' )) " +
+			" WHERE (ministry_person.personID not in ("+identities.toString()+")) and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' group by ministry_person.personID ;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -297,8 +300,14 @@ public class InfoBaseQueries {
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName")==null?"":rs.getString("preferredName"));
-				contact.setEmail(rs.getString("email"));
-				if(rs.getString("lastName")!=null&&rs.getString("firstName")!=null){
+				contact.setEmail(((rs.getString("emailCurrent")==null)||(rs.getString("emailCurrent").equals("")))?
+						(((rs.getString("emailPermanent")==null)||(rs.getString("emailPermanent").equals("")))?
+								""
+								:
+								rs.getString("emailPermanent"))
+						:
+						rs.getString("emailCurrent"));
+				if(rs.getString("lastName")!=null&&rs.getString("firstName")!=null&&!contact.getEmail().equals("")){
 					bumpup=0;
 					key=rs.getString("lastName")+" "+rs.getString("firstName")+bumpup;
 					while(c.keySet().contains(key)){
@@ -750,27 +759,35 @@ public class InfoBaseQueries {
 		   return 0;
 		   
 	}
-	
 	public static Vector<Contact> getMovementContacts(String activityId){
 		try{
 			Vector<Contact>c=new Vector<Contact>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
 			String query="SELECT ministry_movement_contact.personID as personID, ministry_person.firstName as firstName,"+
-			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, simplesecuritymanager_user.username as email"+
+			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent,"+
+			" ministry_person.accountNo as accountNo "+
 			" FROM (ministry_movement_contact inner join ministry_person "+
-			" on ministry_person.personID=ministry_movement_contact.personID INNER JOIN simplesecuritymanager_user "+
-			" ON ministry_person.fk_ssmUserId = simplesecuritymanager_user.userID) INNER JOIN staffsite_staffsiteprofile"+
-			" ON simplesecuritymanager_user.username = staffsite_staffsiteprofile.userName " +
-			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"' order by lastName, firstName;";
+			" on ministry_person.personID=ministry_movement_contact.personID Left JOIN ministry_newaddress mna1 "+
+			" ON (ministry_person.personID = mna1.fk_PersonID and mna1.addressType='current' )Left JOIN ministry_newaddress mna2"+
+			" ON (ministry_person.personID = mna2.fk_PersonID and mna2.addressType='permanent' )) " +
+			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"'   group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setAccountNo(rs.getString("accountNo"));
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
 				contact.setPreferredName(rs.getString("preferredName"));
-				contact.setEmail(rs.getString("email"));
+				contact.setEmail(((rs.getString("emailCurrent")==null)||(rs.getString("emailCurrent").equals("")))?
+						(((rs.getString("emailPermanent")==null)||(rs.getString("emailPermanent").equals("")))?
+								""
+								:
+								rs.getString("emailPermanent"))
+						:
+						rs.getString("emailCurrent"));
 				c.add(contact);
 			}
 			return c;
@@ -780,6 +797,7 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
+	
 	public static Vector<Contact> getTeamMembers(String teamID){
 		try{
 			Vector<Contact>c=new Vector<Contact>();
