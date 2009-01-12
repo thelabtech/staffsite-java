@@ -68,7 +68,7 @@ function preloadImages() {
 				ONMOUSEOUT="changeImages('header_10', '/images/header_10.gif'); return true;">
 				<IMG NAME="header_10" SRC="<% if(curr_tab == 3){%>/images/header_10-over.gif<%} 
 				else {%>/images/header_10.gif <%}%>" WIDTH=55 HEIGHT=21 BORDER=0></A></TD>
-		<TD><A HREF="/servlet/CmsController"
+		<TD><A HREF="http://wiki.uscm.org/" target="_blank"
 				ONMOUSEOVER="changeImages('header_11', '/images/header_11-over.gif'); return true;"
 				ONMOUSEOUT="changeImages('header_11', '/images/header_11.gif'); return true;">
 				<IMG NAME="header_11" SRC="<% if(curr_tab == 4){%>/images/header_11-over.gif<%} 
