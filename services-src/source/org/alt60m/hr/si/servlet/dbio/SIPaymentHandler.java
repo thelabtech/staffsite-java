@@ -859,7 +859,7 @@ public class SIPaymentHandler {
 				SendMessage msg = new SendMessage(); 
 				msg.setTo(applicantEmailAddress);
 				msg.setFrom(EMAILFROM);
-				msg.setSubject("Application Payment Notification");
+				msg.setSubject("ccApplication Payment Notification");
 				msg.setBody(text.toString());
 				msg.send();
 			return true;
@@ -870,7 +870,7 @@ public class SIPaymentHandler {
 		}
 	}
 	/**
-	 * emails Sarah clemens about the staff having paid.
+	 * emails Erik Kinyon about the staff having paid.
 	 * I know that hard coding email addresses is bad, but there it is
 	 * @param personid
 	 * @return boolean
@@ -890,7 +890,7 @@ public class SIPaymentHandler {
 			text.append("Campus Crusade for Christ\n\n\n");
 
 			SendMessage msg = new SendMessage(); 
-			msg.setTo("sarah.clemens@uscm.org"); // HARD CODED!!!
+			msg.setTo("erik.kinyon@uscm.org"); // HARD CODED!!!
 			msg.setFrom(EMAILFROM);
 			msg.setSubject("Application Payment Notification");
 			msg.setBody(text.toString());
