@@ -238,15 +238,14 @@ else
 				<TR><TD VALIGN="TOP"><%=font%><B>Region: </B></FONT></TD><TD><%= font %><%= region %></TD></TR>
 				<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(ministry)) { %>
 					<TR><TD VALIGN="TOP"><%=font%><B>Dept. Name: </B></FONT></TD><TD><%= font %><%= deptName %></TD></TR>
-					<TR><TD VALIGN="TOP"><%=font%><B>Job Title: </B></FONT></TD><TD><%= font %><%= jobTitle %></TD></TR>
+					<TR><TD VALIGN="TOP"><%=font%><B>PeopleSoft Job Title: </B></FONT></TD><TD><%= font %><%= jobTitle %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Job Code: </B></FONT></TD><TD><%= font %><%= jobCode %></A></TD></TR>
 				<% } else { %>
 					<TR><TD VALIGN="TOP"><%=font%><B>Ministry: </B></FONT></TD><TD><%= font %><%= ministry %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Status: </B></FONT></TD><TD><%= font %><%= status %></TD></TR>
 					<TR><TD VALIGN="TOP"><%=font%><B>Strategy: </B></FONT></TD><TD><%= font %><%= strategy %></A></TD></TR>
-					<TR><TD VALIGN="TOP"><%=font%><B>Position: </B></FONT></TD><TD><%= font %><%= position %></A></TD></TR>
 					
-					<TR><TD VALIGN="TOP"><%=font%><B>Job: </B></FONT></TD><TD><%= font %><%= jobTitle %></A></TD></TR>				
+					<TR><TD VALIGN="TOP"><%=font%><B>PeopleSoft Job Title: </B></FONT></TD><TD><%= font %><%= jobTitle %></A></TD></TR>				
 				<% } %>
 					<TR><TD VALIGN="TOP"><%=font%><B>Note: </B></FONT></TD><TD><%= font %><%= note %></A></TD></TR>
 				<%} %>
