@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
-<user name="mat.weiss@uscm.org" role="moderator"></user>
 <user name="todd.gross@uscm.org" role="moderator"></user>
 <user name="jeff.helms@uscm.org" role="moderator"></user>
 <user name="jody.hanford@uscm.org" role="moderator"></user>
-<user name="anna.sander@uscm.org" role="moderator"></user>
-<user name="irene.ramirez@uscm.org" role="moderator"></user>
-<user name="amanda.hitchcock@uscm.org" role="moderator"></user>
+<user name="ruth.rhea@uscm.org" role="moderator"></user>
+<user name="laura.viauz@uscm.org" role="moderator"></user>
 <user name="larry.stephens@uscm.org" role="moderator"></user>
 <user name="jeff.bridgforth@uscm.org" role="moderator"></user>
 <user name="kathy.schwab@uscm.org" role="moderator"></user>
@@ -19,21 +17,15 @@
 <user name="mark.niemeyer@uscm.org" role="moderator"></user>
 <user name="anna.patterson@uscm.org" role="moderator"></user>
 <user name="betsy.harman@uscm.org" role="moderator"></user>
-<user name="philip.turner@uscm.org" role="moderator"></user>
 <user name="brock.zagel@uscm.org" role="moderator"></user>
 <user name="tina.hood@uscm.org" role="moderator"></user>
-<user name="vicki.guinn@uscm.org" role="moderator"></user>
 <user name="todd.williams@uscm.org" role="moderator"></user>
 <user name="cenia.wong@uscm.org" role="moderator"></user>
 <user name="eric.litman@uscm.org" role="moderator"></user>
 <user name="justin.sabelko@uscm.org" role="moderator"></user>
-<user name="shawnda.crippen@uscm.org" role="moderator"></user>
 <user name="matthew.drees@uscm.org" role="moderator"></user>
 <user name="steve.vaneerden@uscm.org" role="moderator"></user>
-<user name="scott.welch@uscm.org" role="moderator"></user>
 <user name="josh.starcher@uscm.org" role="moderator"></user>
-<user name="amanda.starcher@uscm.org" role="moderator"></user>
-<user name="corey.jackson@uscm.org" role="moderator"></user>
 <user name="jeff.hardy@uscm.org" role="moderator"></user>
 <user name="mark.kohman@uscm.org" role="moderator"></user>
 <user name="adrienne.coogan@uscm.org" role="moderator"></user>
