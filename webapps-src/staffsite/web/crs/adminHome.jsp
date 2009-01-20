@@ -5,7 +5,7 @@
 	class="org.alt60m.html.SelectRegion"
 	scope="request" />
 <%
-	String pageTitle = "Welcome to the Campus Crusade Conference Registration System";
+	String pageTitle = "Former Conference Registration System -- PhaseOut in Progress";
 	Conference conference = new Conference();
 %>
 <%@ include file="/crs/e_header.jspf"%>

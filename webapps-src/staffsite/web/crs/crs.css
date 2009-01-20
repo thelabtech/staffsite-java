@@ -39,7 +39,7 @@ TD {
 }
 
 HR {
-	color: #336699;
+	color: #333333;
 	height: 1;
 }
 
@@ -47,14 +47,14 @@ INPUT, TEXTAREA, SELECT{
 	font-family: Arial, sans-serif;	
 	font-size: 11px;
 	background: #EEEEEE;
-	color: #336699;
-	border: solid 1px #336699;
+	color: #333333;
+	border: solid 1px #333333;
 }
 .header{
-	color: #336699;
-	background: url("/crs/images/crs_logo.gif") #D0DDEA no-repeat right;
+	color: #333333;
+	background: url("/crs/images/crs_logo.gif") #dddddd no-repeat right;
 	height: 40px;
-	border-bottom: 2px dashed #336699;
+	border-bottom: 2px dashed #333333;
 	font-family: Arial, sans-serif;	
 	font-size: 18px;
 	padding: 5px 10px;
@@ -67,7 +67,7 @@ INPUT, TEXTAREA, SELECT{
 	background: #FFFFFF;
 	border-width: 1px 2px 2px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 }
 
 .migrate{
@@ -77,13 +77,13 @@ INPUT, TEXTAREA, SELECT{
 	background: #FFFFFF;
 	border-width: 1px 2px 2px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 }
 
 .boxheader{
-	color: #336699;
-	background: #D0DDEA;
-	border-bottom: 2px dashed #336699;
+	color: #333333;
+	background: #dddddd;
+	border-bottom: 2px dashed #333333;
 	font-family: Arial, sans-serif;	
 	font-size: 14px;
 	padding: 5px 3px;
@@ -91,9 +91,9 @@ INPUT, TEXTAREA, SELECT{
 }
 
 .subboxheader{
-	color: #336699;
-	background: #D0DDEA;
-	border-bottom: 1px dashed #336699;
+	color: #333333;
+	background: #dddddd;
+	border-bottom: 1px dashed #333333;
 	font-family: Arial, sans-serif;	
 	font-size: 11px;
 	padding: 5px 3px;
@@ -102,8 +102,8 @@ INPUT, TEXTAREA, SELECT{
 
 
 .boxfooter{
-	color: #336699;
-	border-top: 2px dashed #336699;
+	color: #333333;
+	border-top: 2px dashed #333333;
 	background: #D0DDEA;
 	font-family: Arial, sans-serif;	
 	font-size: 12px;
@@ -111,7 +111,7 @@ INPUT, TEXTAREA, SELECT{
 }
 
 TD.button{
-	color: #336699;
+	color: #333333;
 	background: #D0DDEA;
 	font-family: Arial, sans-serif;	
 	font-size: 11px;
@@ -123,7 +123,7 @@ TD.button{
 	font-family: Arial, sans-serif;	
 	font-size: 11px;
 	color: #000000;
-	background: #D0DDEA;
+	background: #dddddd;
 	border-bottom: 1px solid #FFFFFF;
 	padding: 3px;
 }
@@ -165,10 +165,10 @@ TD.button{
 TD.menuactive {
 	padding: 0px;
 	width: 150px;
-	border-top: 1px solid #336699;
-	border-bottom: 1px solid #336699;
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #333333;
 	font-size: 11px;
-	background: #DDDDDD;
+	background: #dddddd;
 	font-weight: bold;
 }
 TD.menuinactive {
@@ -190,7 +190,7 @@ TD.menu {
 
 A.menu:link, A.menu:active, A.menu:visited {
 	padding: 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	width: 150px;
 	display: block;
@@ -198,7 +198,7 @@ A.menu:link, A.menu:active, A.menu:visited {
 
 A.menuactive:link, A.menuactive:active, A.menuactive:visited {
 	padding: 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	width: 150px;
 	font-weight: bold;
@@ -209,7 +209,7 @@ A.menuactive:link, A.menuactive:active, A.menuactive:visited {
 A.menuactive:hover{
 	background: #F5F58F;
 	padding: 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	cursor: hand;
 	width: 150px;
@@ -221,24 +221,24 @@ A.menuactive:hover{
 A.menu:hover{
 	background: #FFFF99;
 	padding: 3px 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	cursor: hand;
 	width: 150px;
 	border-width: 1px 0px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 	display: block;
 }
 
 TD.tabactive {
 	padding: 0px;
 	text-align: center;
-	background: #336699;
+	background: #333333;
 	font-size: 11px;
 	border-width: 1px 1px 0px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 }
 
 TD.tab {
@@ -248,7 +248,7 @@ TD.tab {
 	font-size: 11px;
 	border-width: 1px 1px 0px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 }
 
 .pager {
@@ -256,7 +256,7 @@ TD.tab {
 	text-align: center;
 	background: #EEEEEE;
 	font-size: 11px;
-	border-bottom: #336699 solid 1px;
+	border-bottom: #333333 solid 1px;
 }
 
 .smallpager {
@@ -264,12 +264,12 @@ TD.tab {
 	text-align: center;
 	background: #EEEEEE;
 	font-size: 11px;
-	border-top: #336699 solid 1px;
+	border-top: #333333 solid 1px;
 }
 
 A.tab:link, A.tab:active, A.tab:visited {
 	padding: 3px 10px;
-	color: #336699;
+	color: #333333;
 	background: #FFFFFF;
 	text-decoration: none;
 	width: 100%;
@@ -279,7 +279,7 @@ A.tab:link, A.tab:active, A.tab:visited {
 A.tabactive:link, A.tabactive:active, A.tabactive:visited {
 	padding: 3px 10px;
 	color: #FFFFFF;
-	background: #336699;
+	background: #333333;
 	text-decoration: none;
 	width: 100%;
 	font-weight: bold;
@@ -302,7 +302,7 @@ A.tabactive:hover{
 A.tab:hover{
 	background: #FFFF99;
 	padding: 3px, 10px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	cursor: hand;
 	width: 100%;
@@ -314,25 +314,25 @@ TD.sortactive {
 	font-size: 11px;
 	border-width: 0px 1px 1px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 }
 
 TD.sort {
 	padding: 0px;
-	border-bottom: 1px solid #336699;
+	border-bottom: 1px solid #333333;
 	font-size: 11px;
 }
 
 TD.nosort {
 	padding: 2px 4px;
-	border-bottom: 1px solid #336699;
+	border-bottom: 1px solid #333333;
 	font-size: 11px;
 }
 
 
 A.sort:link, A.sort:active, A.sort:visited {
 	padding: 2px 4px;
-	color: #336699;
+	color: #333333;
 	background: #FFFFFF;
 	text-decoration: none;
 	width: 100%;
@@ -341,7 +341,7 @@ A.sort:link, A.sort:active, A.sort:visited {
 
 A.sortactive:link, A.sortactive:active, A.sortactive:visited {
 	padding: 2px 4px;
-	color: #336699;
+	color: #333333;
 	background: #EEEEEE;
 	text-decoration: none;
 	width: 100%;
@@ -353,7 +353,7 @@ A.sortactive:link, A.sortactive:active, A.sortactive:visited {
 A.sortactive:hover{
 	background: #F5F58F;
 	padding: 2px 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	cursor: hand;
 	width: 100%;
@@ -365,7 +365,7 @@ A.sortactive:hover{
 A.sort:hover{
 	background: #FFFF99;
 	padding: 2px 4px;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	cursor: hand;
 	width: 100%;
@@ -392,7 +392,7 @@ A.linkcell2:link, A.linkcell2:active, A.linkcell2:visited,
 A.linkcell:link, A.linkcell:active, A.linkcell:visited {
 	padding: 4px;
 	width: 100%;
-	color: #336699;
+	color: #333333;
 	text-decoration: none;
 	display: block;
 }
@@ -400,31 +400,31 @@ A.linkcell:link, A.linkcell:active, A.linkcell:visited {
 A.linkcell:hover {
 	padding: 3px;
 	width: 100%;
-	color: #336699;
+	color: #333333;
 	background: #FFFF99;
 	text-decoration: none;
-	border: 1px solid #336699;
+	border: 1px solid #333333;
 	display: block;
 }
 
 A.linkcell2:hover {
 	padding: 3px;
 	width: 100%;
-	color: #336699;
+	color: #333333;
 	background: #F5F58F;
 	text-decoration: none;
-	border: 1px solid #336699;
+	border: 1px solid #333333;
 	display: block;
 }
 
 A.button:link, A.button:active, A.button:visited {
 	padding: 1px 5px;
-	color: #336699;
+	color: #333333;
 	background: #FFFFFF;
 	text-decoration: none;
 	border-width: 1px 2px 2px 1px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
@@ -432,25 +432,25 @@ A.button:link, A.button:active, A.button:visited {
 
 A.button:hover {
 	padding: 1px 5px;
-	color: #336699;
+	color: #333333;
 	background: #FFFF99;
 	text-decoration: none;
 	cursor: hand;
 	border-width: 2px 1px 1px 2px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
 }
 A.inactivebutton:link, A.inactivebutton:visited, A.inactivebutton:hover, A.inactivebutton:active{
 	padding: 1px 5px;
-	color: #336699;
+	color: #333333;
 	background: #DDDDDD;
 	text-decoration: none;
 	border-width: 2px 1px 1px 2px;
 	border-style: solid;
-	border-color: #336699;
+	border-color: #333333;
 	text-align: center;
 	font-size: 11px;
 	font-weight: bold;
@@ -465,7 +465,7 @@ A.inactivebutton:link, A.inactivebutton:visited, A.inactivebutton:hover, A.inact
 }
 
 .reqactive, .active{
-	background: #D0DDEA;
+	background: #dddddd;
 }
 
 .question{
@@ -479,6 +479,6 @@ A.inactivebutton:link, A.inactivebutton:visited, A.inactivebutton:hover, A.inact
 
 
 // rollover colors:
-// 1 - #336699 - #85A35C
+// 1 - #333333 - #85A35C
 // 2 - #EEEEEE - #F5F58F
 // 3 - #FFFFFF - #FFFF99

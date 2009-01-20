@@ -195,12 +195,7 @@ int curr_tab = 3; %>
 		}
 		%>
 				
-		<tr>
-			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
-			<td>
-				<%=font%><b>Conference Registration System (CRS)</b></font></td>
-			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
-		</tr>
+		
 		<!--
 		<tr>
 			<td valign="center" align="center"><img src="/crs/images/crs_logo.gif" BORDER="0"></td>
@@ -213,7 +208,7 @@ int curr_tab = 3; %>
 		<tr>
 			<td valign="center" align="center"><a href="http://conferenceregistrationtool.com/admin/"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td>
-				<%=font%><b>Conference Registration System 2.0 (CRS) - Beta Version</b></font></td>
+				<%=font%><b>Conference Registration System 2.0 (CRS) </b></font></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
 		</tr>
 		<tr>
@@ -239,6 +234,12 @@ int curr_tab = 3; %>
 				member more effective personally and in ministry. Come experience the adventure within the 360 review tool online!
 				</font>
 			</td>
+		</tr>
+		<tr>
+			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
+			<td>
+				<%=font%><b><i>Conference Registration System (CRS) </i>-- PhaseOut in progress</b></font></td>
+			<td><%=fontS%>Available for administrating existing conferences only-- use CRS 2.0 for new conferences.</font></td>
 		</tr>
 				<%// } %>			
 	</table>

@@ -43,14 +43,14 @@
 		toolsMenu.setNames(new String[]{
 			"CRS Home", 
 			"Select a Conference", 
-			"Create a New Conference", 
-			"Clone an Existing Conference",
+			"<del>Create a New Conference </del> (phased out; use CRS 2.0)", 
+			"<del>Clone an Existing Conference</del> (phased out; create a new conference in CRS 2.0-- cannot clone between tools)",
 		});
 		toolsMenu.setURLs(new String[]{
 			"/servlet/CRSAdmin?action=adminHome",
 			"/servlet/CRSAdmin?action=listConferences",
-			"/servlet/CRSAdmin?action=createConference",
-			"/servlet/CRSAdmin?action=cloneConference",
+			"/servlet/CRSAdmin?action=showConference",
+			"/servlet/CRSAdmin?action=showConference",
 		});
 	}
 
@@ -60,7 +60,7 @@
 		"Conference Details", 
 		"Manage Registrants",
 		"View Reports",
-		"Clone this Conference",
+		"<del>Clone an Existing Conference</del> (phased out; create a new conference in CRS 2.0-- cannot clone between tools)",
 		"Delete this Conference",
 		"Edit Conference Info",
 		"Edit Additional Conference Information",
@@ -77,7 +77,7 @@
 		"/servlet/CRSAdmin?action=showConference",
 		"/servlet/CRSAdmin?action=lookupRegistrations",
 		"/servlet/CRSAdmin?action=listReports",
-		"/servlet/CRSAdmin?action=cloneConference",
+		"/servlet/CRSAdmin?action=showConference",
 		"/servlet/CRSAdmin?action=confirmDeleteConference",
 		"/servlet/CRSAdmin?action=editConferenceDetails",
 		"/servlet/CRSAdmin?action=listCustomItems",
