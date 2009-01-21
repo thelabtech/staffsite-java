@@ -23,7 +23,7 @@ function openWin(input){
 <% String pageTitle = "Main Page"; %>
 <%@ include file="/cms/cmsheader.jspf"%>
 <blockquote><%=font%>
-Looking for resources to reach students? Need them fast? You've come to the right place! From this page you can search for materials and resources needed to maximize your ministry's impact. Share your work as well. Submit a resource you've created and allow your staff family to benefit from your ideas.
+We recommend that you use the Campus Wiki instead of this Resource Center whenever possible.  The Resource Center will not go away anytime soon, but we strongly encourage resources to be put on the Campus Wiki whenever possible.  Our desire is to have one main location to store and share ministry materials and resources which is best fulfilled with the Campus Wiki <A HREF='http://wiki.uscm.org/'>Campus Wiki</a>
 </font></blockquote>
 <center>
 <TABLE WIDTH="98%" border=0>
