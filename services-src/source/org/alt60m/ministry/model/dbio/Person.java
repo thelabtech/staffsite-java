@@ -75,7 +75,8 @@ public class Person extends DBIOEntity {
 		setMetadata("Fk_StaffSiteProfileID", "fk_StaffSiteProfileID", table);
 		setMetadata("Fk_spouseID", "fk_spouseID", table);
 		setMetadata("Fk_childOf", "fk_childOf", table);
-			
+		setMetadata("IsSecureString","isSecure",table);
+		
 		setAutodetectProperties(false);		
 	}
 
@@ -111,7 +112,7 @@ public class Person extends DBIOEntity {
     private int fk_StaffSiteProfileID = 0;
     private int fk_spouseID = 0;
     private int fk_childOf = 0;
-    
+    private String isSecure = "";
     //not saved (directly) to database; but used for changedBy and createdBy
     private String toolName = "NONE SPECIFIED";
 
@@ -558,4 +559,9 @@ public class Person extends DBIOEntity {
 	public void setUniversityState(String universityState) {
 		this.universityState = universityState;
 	}
+	
+	public boolean getIsSecure() { return isSecure != null && isSecure.equals("T"); }
+	public void setIsSecure(boolean val) { this.isSecure = val ? "T" : "F"; }
+	public String getIsSecureString() { return isSecure; }
+	public void setIsSecureString(String val) { this.isSecure = val; }
 }
