@@ -61,7 +61,7 @@ public class PersonUpdater {
 		result.put("person.preferredName","staff.preferredName");
 		
 		result.put("person.maritalStatus","staff.maritalStatus");
-		
+		result.put("person.isSecure","staff.isSecure");
 		
     	return result;
     }
@@ -129,7 +129,8 @@ public class PersonUpdater {
 			  }
 		  }
 		copyStaffToPerson(s);}
-		
+	  
+	  log.info("PersonUpdater is finished and wants a biscuit.");
   }
   public void copyStaffToPerson(Staff staff)throws Exception {
 	  if (staff.getPersonID()>0){
@@ -137,6 +138,7 @@ public class PersonUpdater {
 		  //person record properties
 	  Person person=new Person(staff.getPersonID());
 	  person.setAccountNo(staff.getAccountNo());
+	  person.setIsSecureString(staff.getIsSecureString());
 	  person.setFirstName(staff.getFirstName());
 	  person.setPreferredName(staff.getPreferredName());
 	  person.setLastName(staff.getLastName());
