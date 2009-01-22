@@ -472,7 +472,7 @@ public class StaffUpdater {
 		if (!"SECURE".equalsIgnoreCase(ccode)) {
 			setAddr(staff, rs);
 		}
-
+		staff.setIsSecure(rs.getString("SECURE_EMPLOYEE").equals("Y"));
 		Hashtable after = ObjectHashUtil.obj2hash(staff);
 		log.info("Account No. " + staff.getAccountNo());
 		showWhatChanged(before, after);
