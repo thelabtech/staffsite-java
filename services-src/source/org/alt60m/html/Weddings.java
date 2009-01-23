@@ -85,10 +85,10 @@ public class Weddings implements java.io.Serializable {
 				String bdQuery ="";
 
 				if (justCampus){
-					bdQuery = "region<>'' and maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "region<>'' and maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				else{
-					bdQuery = "maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "maritalStatus='M' and MONTH(marriageDate)= "+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)="+today.get(Calendar.DATE)+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 					
 				log.debug(bdQuery);
@@ -146,10 +146,10 @@ public class Weddings implements java.io.Serializable {
 				FileWriter fw = new FileWriter (theWeekFile);
 				String bdQuery ="";
 				if (justCampus){
-					bdQuery ="region<>'' and maritalStatus='M' and ( (MONTH(marriageDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)>="+today.get(Calendar.DATE)+" and DAY(marriageDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(marriageDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(marriageDate))) AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery ="region<>'' and maritalStatus='M' and ( (MONTH(marriageDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)>="+today.get(Calendar.DATE)+" and DAY(marriageDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(marriageDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(marriageDate)))  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				else{
-					bdQuery ="maritalStatus='M' and ( (MONTH(marriageDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)>="+today.get(Calendar.DATE)+" and DAY(marriageDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(marriageDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(marriageDate))) AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery ="maritalStatus='M' and ( (MONTH(marriageDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(marriageDate)>="+today.get(Calendar.DATE)+" and DAY(marriageDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(marriageDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(marriageDate)))  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 
 				Collection stafflist = new Staff().selectList(bdQuery);// staffAdaptor.list(bdQuery, new String[]{"PreferredName","LastName","AccountNo","SpouseFirstName","MarriageDate"});

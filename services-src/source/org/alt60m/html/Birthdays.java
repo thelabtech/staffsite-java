@@ -89,10 +89,10 @@ public class Birthdays implements java.io.Serializable {
 				int day = (new Integer(today.get(Calendar.DATE))).intValue();
 
 				if (justCampus){
-					bdQuery = "region<>'' and MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "region<>'' and MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				else{
-					bdQuery = "MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "MONTH(birthDate) = "+month+" and DAY(birthDate)="+day+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				
 				log.debug(bdQuery);
@@ -149,10 +149,10 @@ public class Birthdays implements java.io.Serializable {
                 };
 
 				if (justCampus){
-					bdQuery = "region IN('GL','GP','MA','MS','NC','NE','NW','RR','SE','SW','UM') and ( (MONTH(birthDate)="+params[0]+" and DAY(birthDate)>="+params[1]+" and DAY(birthDate)<=("+params[2]+" + 7 )) or ("+params[3]+"!="+params[6]+" and MONTH(birthDate)="+params[5]+" and "+params[6]+">=DAY(birthDate)))  AND (removedFromPeopleSoft='N')  order by region, lastName";
+					bdQuery = "region IN('GL','GP','MA','MS','NC','NE','NW','RR','SE','SW','UM') and ( (MONTH(birthDate)="+params[0]+" and DAY(birthDate)>="+params[1]+" and DAY(birthDate)<=("+params[2]+" + 7 )) or ("+params[3]+"!="+params[6]+" and MONTH(birthDate)="+params[5]+" and "+params[6]+">=DAY(birthDate)))   and not(isSecure<=>'T') AND (removedFromPeopleSoft='N')  order by region, lastName";
 				}
 				else{
-					bdQuery = "( (MONTH(birthDate)="+params[0]+" and DAY(birthDate)>="+params[1]+" and DAY(birthDate)<=("+params[2]+" + 7 )) or ("+params[3]+"!="+params[4]+" and MONTH(birthDate)="+params[5]+" and "+params[6]+">=DAY(birthDate))) AND (removedFromPeopleSoft='N')  order by region, lastName";
+					bdQuery = "( (MONTH(birthDate)="+params[0]+" and DAY(birthDate)>="+params[1]+" and DAY(birthDate)<=("+params[2]+" + 7 )) or ("+params[3]+"!="+params[4]+" and MONTH(birthDate)="+params[5]+" and "+params[6]+">=DAY(birthDate)))  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N')  order by region, lastName";
 				}
 
 				Collection stafflist = new Staff().selectList(bdQuery);// _ministryStaffAdaptor.list(bdQuery);
