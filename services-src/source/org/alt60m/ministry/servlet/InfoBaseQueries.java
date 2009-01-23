@@ -1,5 +1,6 @@
 package org.alt60m.ministry.servlet;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.alt60m.ministry.model.dbio.*;
@@ -189,7 +190,7 @@ public class InfoBaseQueries {
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String qry = "SELECT personID, preferredName, lastName  FROM ministry_person " +
-							"WHERE lastName='"+region+"'";
+							"WHERE lastName='"+region+"' and not(isSecure<=>'T') ";
 							
 			ResultSet rs = stmt.executeQuery(qry);
 			while(rs.next()){
@@ -224,7 +225,7 @@ public class InfoBaseQueries {
 			" ministry_person.accountNo as accountNo "+
 			" FROM (ministry_person INNER JOIN ministry_newaddress "+
 			" ON ministry_person.personID = ministry_newaddress.fk_PersonID) "+ 
-			" WHERE UPPER(ministry_person.lastName) like '" + search.toUpperCase() + 
+			" WHERE    not(isSecure<=>'T') and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + 
 			"%' and ministry_newaddress.email is not null and ministry_newaddress.addressType='current' group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
@@ -252,13 +253,15 @@ public class InfoBaseQueries {
 			StringBuffer identities=new StringBuffer();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
 			String query2="SELECT ministry_staff.accountNo, ministry_staff.person_id as personID, ministry_staff.firstName, "
 				+"ministry_staff.preferredName, ministry_staff.lastName, "
 				+"ministry_staff.email, ministry_address.address1, ministry_address.address2, ministry_address.address3, "
 				+"ministry_address.city, ministry_address.address4, ministry_address.state, ministry_address.zip, "
 				+"ministry_address.country"
 				+" FROM ministry_staff INNER JOIN ministry_address ON ministry_staff.fk_primaryAddress = ministry_address.AddressID " 
-				+" WHERE UPPER(ministry_staff.lastName) like '" + search.toUpperCase() + "%' and ministry_staff.removedFromPeopleSoft='N' ;";
+				
+				+" WHERE UPPER(ministry_staff.lastName) like '" + search.toUpperCase() + "%' and not(ministry_staff.isSecure<=>'T') and ministry_staff.removedFromPeopleSoft='N'  ;";
 			log.debug(query2);
 			ResultSet rs2 = stmt2.executeQuery(query2);
 			while (rs2.next()){
@@ -291,7 +294,8 @@ public class InfoBaseQueries {
 			" FROM (ministry_person Left JOIN ministry_newaddress mna1 "+
 			" ON (ministry_person.personID = mna1.fk_PersonID and mna1.addressType='current' )Left JOIN ministry_newaddress mna2"+
 			" ON (ministry_person.personID = mna2.fk_PersonID and mna2.addressType='permanent' )) " +
-			" WHERE (ministry_person.personID not in ("+identities.toString()+")) and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' group by ministry_person.personID ;";
+			" inner join simplesecuritymanager_user ssm on ministry_person.fk_ssmUserId=ssm.userID "+
+			" WHERE (ministry_person.personID not in ("+identities.toString()+")) and not(ministry_person.isSecure<=>'T') and UPPER(ministry_person.lastName) like '" + search.toUpperCase() + "%' and ssm.userID is not null and ssm.userID<>'' group by ministry_person.personID ;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -772,7 +776,7 @@ public class InfoBaseQueries {
 			" on ministry_person.personID=ministry_movement_contact.personID Left JOIN ministry_newaddress mna1 "+
 			" ON (ministry_person.personID = mna1.fk_PersonID and mna1.addressType='current' )Left JOIN ministry_newaddress mna2"+
 			" ON (ministry_person.personID = mna2.fk_PersonID and mna2.addressType='permanent' )) " +
-			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"'   group by ministry_person.personID order by lastName, firstName;";
+			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"' and not(isSecure<=>'T')  group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -811,7 +815,7 @@ public class InfoBaseQueries {
 			" on ministry_person.personID=ministry_missional_team_member.personID Left JOIN ministry_newaddress mna1 "+
 			" ON (ministry_person.personID = mna1.fk_PersonID and mna1.addressType='current' )Left JOIN ministry_newaddress mna2"+
 			" ON (ministry_person.personID = mna2.fk_PersonID and mna2.addressType='permanent' )) " +
-			" WHERE ministry_missional_team_member.teamID ='"+teamID+"'   group by ministry_person.personID order by lastName, firstName;";
+			" WHERE ministry_missional_team_member.teamID ='"+teamID+"'  and not(isSecure<=>'T') group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
@@ -840,11 +844,18 @@ public class InfoBaseQueries {
 	public static void savePersonContact (String personID, String activityId){
 		try 
 		{
+			if(!(new Person(personID)).getIsSecure()){
 			Connection conn = DBConnectionFactory.getDatabaseConn();
+			
 			String query="INSERT INTO ministry_movement_contact (personID, ActivityID) VALUES ("+personID+","+activityId+");";
 			log.debug(query);
 			Statement stmt=conn.prepareStatement(query);
 			stmt.executeUpdate(query);
+			}
+			else
+			{
+				log.debug("Not saved as movement contact: secure person record");
+			}
 		}
 		catch (Exception e) 
 		{
@@ -854,11 +865,17 @@ public class InfoBaseQueries {
 	public static void saveTeamMember (String personID, String teamID){
 		try 
 		{
+			if(!(new Person(personID)).getIsSecure()){
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			String query="INSERT INTO ministry_missional_team_member (personID, teamID) VALUES ("+personID+","+teamID+");";
 			log.debug(query);
 			Statement stmt=conn.prepareStatement(query);
 			stmt.executeUpdate(query);
+			}
+			else
+			{
+				log.debug("Not saved as team member: secure person record");
+			}
 		}
 		catch (Exception e) 
 		{
