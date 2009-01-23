@@ -91,10 +91,10 @@ public class StaffAnniversaries implements java.io.Serializable {
                 };
 
 				if (justCampus){
-					bdQuery = "region<>'' and MONTH(hireDate) = "+params[0]+" and DAY(hireDate)="+params[1]+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "region<>'' and MONTH(hireDate) = "+params[0]+" and DAY(hireDate)="+params[1]+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				else{
-					bdQuery = "MONTH(hireDate) = "+params[0]+" and DAY(hireDate)="+params[1]+" AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery = "MONTH(hireDate) = "+params[0]+" and DAY(hireDate)="+params[1]+"  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 
 				Collection stafflist = new Staff().selectList(bdQuery);
@@ -145,10 +145,10 @@ public class StaffAnniversaries implements java.io.Serializable {
 				String bdQuery ="";
 
 				if (justCampus){
-					bdQuery ="region<>'' and ( (MONTH(hireDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(hireDate)>="+today.get(Calendar.DATE)+" and DAY(hireDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(hireDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(hireDate))) AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery ="region<>'' and ( (MONTH(hireDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(hireDate)>="+today.get(Calendar.DATE)+" and DAY(hireDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(hireDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(hireDate)))  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 				else{
-					bdQuery ="( (MONTH(hireDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(hireDate)>="+today.get(Calendar.DATE)+" and DAY(hireDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(hireDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(hireDate))) AND (removedFromPeopleSoft='N') order by lastName";
+					bdQuery ="( (MONTH(hireDate)="+(today.get(Calendar.MONTH)+1)+" and DAY(hireDate)>="+today.get(Calendar.DATE)+" and DAY(hireDate)<=("+today.get(Calendar.DATE)+" + 7 )) or ("+today.get(Calendar.MONTH)+"!="+weekfromnow.get(Calendar.MONTH)+" and MONTH(hireDate)="+(weekfromnow.get(Calendar.MONTH)+1)+" and "+weekfromnow.get(Calendar.DATE)+">=DAY(hireDate)))  and not(isSecure<=>'T') AND (removedFromPeopleSoft='N') order by lastName";
 				}
 
 				Collection stafflist = new Staff().selectList(bdQuery);// _ministryAdaptor.list(bdQuery, new String[]{"FirstName","LastName","AccountNo","SpouseName","HireDate"});
