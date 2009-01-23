@@ -2460,37 +2460,37 @@ public class InfoBaseController extends Controller {
         }
     }
     /** @param ctx ActionContext object */
-    public void showStaffInfo(ActionContext ctx) {
-        try {
-            ActionResults results = new ActionResults("showStaffInfo");
-            String staffId = ctx.getInputString("staffid", true);
-			InfoBaseTool ibt = new InfoBaseTool();
-            Staff staff = ibt.getStaffObject(staffId);
-            Hashtable<String, Object> staffHash = emulateOldStaffStructure(staff);
-			if (staff.getMembership()!=null) {staffHash.put("Team", staff.getMembership().getName());}
-			else {staffHash.put("Team", "");}
-            Collection<String> dependentInfo = new Vector<String>();
-            for (Iterator iDependents = staff.getDependents().iterator(); iDependents.hasNext(); ) {
-                Dependent theDependent = (Dependent)iDependents.next();
-                dependentInfo.add(theDependent.getLastName() + ", " + theDependent.getFirstName() + " " +
-                    theDependent.getMiddleName());
-            }
-            String isHR =  (String)ctx.getSessionValue("isHR");
-            if (isHR == null) {
-            	isHR = "false";
-            }
-            results.putValue("isHR", isHR);
-            results.addCollection("dependentInfo", dependentInfo);
-            results.addHashtable("staffinfo", staffHash);
-            ctx.setReturnValue(results);
-            ctx.goToView("staffDetail");
-        }
-        catch (Exception e) {
-            ctx.setError();
-            ctx.goToErrorView();
-            log.error("Failed to perform showStaffInfo().", e);
-        }
-    }
+//    public void showStaffInfo(ActionContext ctx) {
+//        try {
+//            ActionResults results = new ActionResults("showStaffInfo");
+//            String staffId = ctx.getInputString("staffid", true);
+//			InfoBaseTool ibt = new InfoBaseTool();
+//            Staff staff = ibt.getStaffObject(staffId);
+//            Hashtable<String, Object> staffHash = emulateOldStaffStructure(staff);
+//			if (staff.getMembership()!=null) {staffHash.put("Team", staff.getMembership().getName());}
+//			else {staffHash.put("Team", "");}
+//            Collection<String> dependentInfo = new Vector<String>();
+//            for (Iterator iDependents = staff.getDependents().iterator(); iDependents.hasNext(); ) {
+//                Dependent theDependent = (Dependent)iDependents.next();
+//                dependentInfo.add(theDependent.getLastName() + ", " + theDependent.getFirstName() + " " +
+//                    theDependent.getMiddleName());
+//            }
+//            String isHR =  (String)ctx.getSessionValue("isHR");
+//            if (isHR == null) {
+//            	isHR = "false";
+//            }
+//            results.putValue("isHR", isHR);
+//            results.addCollection("dependentInfo", dependentInfo);
+//            results.addHashtable("staffinfo", staffHash);
+//            ctx.setReturnValue(results);
+//            ctx.goToView("staffDetail");
+//        }
+//        catch (Exception e) {
+//            ctx.setError();
+//            ctx.goToErrorView();
+//            log.error("Failed to perform showStaffInfo().", e);
+//        }
+//    }
 
     /** @param ctx ActionContext object */
     public void showSuccessCriteriaHome(ActionContext ctx) {
