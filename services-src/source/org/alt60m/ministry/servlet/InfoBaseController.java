@@ -2387,6 +2387,7 @@ public class InfoBaseController extends Controller {
 			
             log.debug(accountNo+" accountNo, "+personID+" personID");
             Person person = new Person(personID);
+            if(!person.getIsSecure()){
             Hashtable<String,Object>personHash=org.alt60m.util.ObjectHashUtil.obj2hash(person);
             Address address=new Address();
           address.setFk_PersonID(personID);
@@ -2444,6 +2445,13 @@ public class InfoBaseController extends Controller {
             results.addHashtable("staffInfo", staffHash);
             ctx.setReturnValue(results);
             ctx.goToView("personDetail");
+                     
+            }
+            else
+            {
+            	log.info("Secure person; will not display info");
+            	ctx.goToView("staffHome");
+            }
         }
         catch (Exception e) {
             ctx.setError();
