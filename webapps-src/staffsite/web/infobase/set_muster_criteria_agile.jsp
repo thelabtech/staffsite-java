@@ -307,8 +307,8 @@ inputs = table.getElementsByTagName('input');
 	<table style="border-collapse:collapse;"  >
 			  
 			  <tr >
-				<td style="padding:5px;"><%=fontB%>As of (Month)</td>
-				<td style="padding:5px;"><%=fontB%>(Year)</td>
+				<td style="padding:5px;"><%=fontB%>At End of Month</td>
+				<td style="padding:5px;"><%=fontB%>Year</td>
 				
 			  </tr>
 			  <tr >
