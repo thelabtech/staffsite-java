@@ -201,11 +201,31 @@ ar = ActionResults.getActionResults(session);
 			<% } %>
 				</TABLE><P ALIGN="CENTER"><TABLE WIDTH="90%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
 				<%=font%>Add a Ministry Location to this team:<BR>
+																<!--	FS ("Field Strategies"),-->
+																<!--	IE ("Epic"),-->
+																<!--	ID ("Destino"), -->
+																<!--	II ("Impact"),-->
+																<!--	IN ("Nations"),-->
+																<!--	WS ("WSN"),-->
+																<!--	BR ("Bridges"),-->
+																<!--	AA ("Athletes In Action"),-->
+																<!--	CL ("Faculty Commons"),-->
+																<!--	KC ("Korean CCC"),-->
+																<!--	GK ("Greek"),-->
+																<!--	VL ("Valor"),-->
+																<!--	EV ("Events"),-->
+																<!--	OT ("Other")-->
 					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=FS">add FS</A>]  
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=BR">add BR</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=ID">add ESM-D</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IE">add ESM-E</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=II">add ESM-I</A>] <BR>
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=II">add ESM-I</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IN">add ESM-N</A>] <BR>
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=AA">add AIA</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CL">add Faculty Commons</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=KC">add KCCC</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=GK">add Greek</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=VL">add Valor</A>]<BR>
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=WS">add WSN Local Teams</A>] 
 			</TD></TR></TABLE>
 

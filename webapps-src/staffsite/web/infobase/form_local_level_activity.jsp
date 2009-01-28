@@ -2,7 +2,7 @@
 <%
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
-Iterator campuses = ar.getCollection("campuses").iterator();
+String campuses = (String)ar.getValue("campuses");
 %>
 <% String pageTitle="Add "+ ar.getValue("strategy") +" strategy to " + ar.getValue("teamName"); %>
 <html>
@@ -35,15 +35,9 @@ Iterator campuses = ar.getCollection("campuses").iterator();
 				<td colspan="2" nowrap> 
 					<select name="targetareaid">
 						<option value="none"></option>
-						<%
+						<%=campuses %>
 						//loop through each record
-						while(campuses.hasNext()) {
-							Hashtable h = (Hashtable)campuses.next();
-						%>
-								<option value="<%=h.get("TargetAreaId")%>"><%=h.get("Name")%></option>
-						<%
-						}
-						%>
+						
 					</select>
 				</td>
 			</tr>
