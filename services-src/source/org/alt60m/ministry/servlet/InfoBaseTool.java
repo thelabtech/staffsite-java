@@ -677,6 +677,15 @@ public class InfoBaseTool {
  			throw new Exception(e);
         }
     }
+    public Vector<Hashtable<String,String>> getTargetAreasByRegionWithoutStrategy(String region,String strategy) throws Exception {
+        try {
+        	Vector<Hashtable<String,String>>tas = InfoBaseQueries.getTargetAreasByRegionWithoutStrategy(region,strategy);
+			return tas;
+        } catch (Exception e) {
+            log.error("Failed to perform getTargetAreasByRegionWithoutStrategy().", e);
+ 			throw new Exception(e);
+        }
+    }
 
 	public Collection<Hashtable<String, Object>> getTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates) throws Exception {
         try {

@@ -94,27 +94,14 @@ public class InfoBaseController extends Controller {
    			InfoBaseTool ibt = new InfoBaseTool();
             LocalLevel ll = ibt.getLocalLevelTeam(localLevelId);
             results.putValue("teamName", ll.getName());
-            /* TODO: The following is a bit inefficient.  It is collecting all the campuses
-             * and then narrowing them down instead of narrowing them down first in the search parameters...
-             */
-            Collection tasInRegion = ibt.getTargetAreasByRegion(ll.getRegion());
-            Vector<Hashtable<String, Object>> tasInRegionHash = new Vector<Hashtable<String, Object>>();
-            for (Iterator iTA = tasInRegion.iterator(); iTA.hasNext(); ) {
-                TargetArea ta = (TargetArea)iTA.next();
-                Iterator activitiesIter = ta.getActivities().iterator();
-                boolean addCampus = true;
-				while (activitiesIter.hasNext()) {
-                	 Activity act = (Activity)activitiesIter.next();
-                	 if (act.getStrategy().equals(strategy) && !act.getStatus().equals("IN")) {
-                	 	addCampus = false;
-                	 	break;
-                	 }
-                }
-                if (addCampus) {
-                	tasInRegionHash.add(ObjectHashUtil.obj2hash(ta));
-                }
-            }
-            results.addCollection("campuses", tasInRegionHash);
+            
+            Vector<Hashtable<String,String>> tasInRegionWithoutStrategy = ibt.getTargetAreasByRegionWithoutStrategy(ll.getRegion(),strategy);
+            StringBuffer campusOptions=new StringBuffer();
+            for(Hashtable<String,String>h:tasInRegionWithoutStrategy){
+				campusOptions.append("<option value=\""+h.get("targetareaid")+"\">"+h.get("name")+"</option>");
+				}
+				    
+            results.putValue("campuses", campusOptions.toString());
             ctx.setReturnValue(results);
             ctx.goToView("addCampusToTeam");
         }
@@ -1054,7 +1041,7 @@ public class InfoBaseController extends Controller {
 //        	statistic.setPeriodEnd(periodEnd);
 //        	statistic.persist();
 //        	
-//        	
+//        	results.putValue("isVersion",ctx.getInputString("isVersion")==null?"null":ctx.getInputString("isVersion"));
 //        	results.putValue("name", name);
 //        	results.putValue("redirect", ctx.getInputString("redirect"));
 //        	results.putObject("statistic", statistic);
@@ -1819,7 +1806,7 @@ public class InfoBaseController extends Controller {
 //		} catch (Exception e) {
 //            ctx.setError();
 //            ctx.goToErrorView();
-//            log.error("Failed to perform saveSuccessCriteria().", e);
+//            log.error("Failed to perform saveEventSuccessCriteria().", e);
 //        }
 //    }
 	public Hashtable<String,Hashtable<String,String>> convertBracketedParamsToHashtable(ActionContext ctx) {
@@ -2612,6 +2599,18 @@ public class InfoBaseController extends Controller {
 			Vector<Hashtable<String, Object>> activeTargetInfo = new Vector<Hashtable<String, Object>>();
 			Vector<Hashtable<String, Object>> inactiveTargetInfo = new Vector<Hashtable<String, Object>>();
 			Vector<Hashtable<String, Object>> forerunnerTargetInfo = new Vector<Hashtable<String, Object>>();
+			Vector<String>distinguishMe=new Vector<String>();
+			Vector<String>names=new Vector<String>();
+			Vector<String>campusIds=new Vector<String>();
+			for (Iterator iActivities = ll.getSortedActivities().iterator(); iActivities.hasNext(); ) {
+				Activity activity = (Activity)iActivities.next();
+				TargetArea ta = activity.getTargetArea();
+				if(names.contains(ta.getName())&&!campusIds.contains(ta.getTargetAreaId()))distinguishMe.add(ta.getName());
+					//name logged but not taID; we know therefore it is a same-name campus of a different TA. Either way save both name and id.
+						names.add(ta.getName());
+						campusIds.add(ta.getTargetAreaId());
+						
+			}
             for (Iterator iActivities = ll.getSortedActivities().iterator(); iActivities.hasNext(); ) {
 				Activity activity = (Activity)iActivities.next();
 				TargetArea ta = activity.getTargetArea();
@@ -2622,7 +2621,7 @@ public class InfoBaseController extends Controller {
 					row.put("Strategy",(activity.getStrategy() != null) ? activity.getStrategy() : "");
 					row.put("Status",(activity.getStatus() != null) ? activity.getStatus() : "");
 					row.put("TargetAreaID", ta.getTargetAreaId());
-					row.put("Name", (ta.getName() != null) ? ta.getName() : "");
+					row.put("Name", (ta.getName() != null) ? ta.getName()+(distinguishMe.contains(ta.getName())?"<font color=\"black\"><i>&nbsp("+ta.getCity()+", "+(ta.getState()!=null?ta.getState():ta.getCountry() )+")":""): "");
 					row.put("StrategyName", activity.getStrategyFullName());
 					row.put("StatusName", activity.getStatusFullName());
 					row.put("Url", activity.getUrl());
