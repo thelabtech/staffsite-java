@@ -24,7 +24,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 <table width="75%" border="0" cellspacing="0" cellpadding=3 align=center <%=bgcolorL%>>
 	<form method="post" action="/servlet/InfoBaseController">
 	<input type=hidden name="action" value="submitNewTargetAreaRequest">
-	<input type="hidden" name="to" value="Yvonne.Rivera@uscm.org">
+	<input type="hidden" name="to" value="Trent.Murray@uscm.org">
 	<input type="hidden" name="subject" value="New Ministry Location Proposal">
 	<input type="hidden" name="mpta" size="27" maxlength=35>
 	<input type="hidden" name="admin" value="<%=admin%>">
