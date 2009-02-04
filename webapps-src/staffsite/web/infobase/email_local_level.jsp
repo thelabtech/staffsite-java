@@ -45,7 +45,7 @@ function teamVerify() {
 <table width="75%" border="0" cellspacing="0" cellpadding=3 align=center <%=bgcolorL%>>
 	<form method="post"  name="TeamInfoForm" action="/servlet/InfoBaseController" onSubmit="return teamVerify()">
 	<input type=hidden name="action" value="submitNewLocalLevelRequest">
-	<input type="hidden" name="to" value="Yvonne.Rivera@uscm.org">
+	<input type="hidden" name="to" value="Trent.Murray@uscm.org">
 	<input type="hidden" name="subject" value="New Missional Team Proposal">
 	<input type="hidden" name="admin" value="<%=admin%>">
 		<tr <%=bgcolorB%>><td colspan="2"><%=fontW3%><b>Missional Team Info:</b></font></td></tr>
