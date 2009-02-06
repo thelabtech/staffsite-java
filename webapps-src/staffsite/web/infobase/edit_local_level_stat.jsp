@@ -65,6 +65,14 @@
 <% String pageTitle="Entering Success Criteria"; %>
 <html>
 <head>
+<script type="text/javascript" language="javascript">
+	function submitForm() {
+		
+			document.getElementById('subber').style.disabled=true;
+			document.ll_stat.submit();
+		
+	}
+</script>
 <title><%= pageTitle %></title>
 </head>
 <%@ include file="/validate.js"%>
@@ -207,7 +215,7 @@
 
 			<br>
 			<img src="/infobase/images/3.gif"><%=fontB%>When you're finished, click this button:</font>
-			<A HREF="JavaScript: document.ll_stat.submit()" onMouseOver="document.submitbutton.src='/images/submit_bon.gif';" onMouseOut="document.submitbutton.src='/images/submit_boff.gif';"><IMG NAME="submitbutton" SRC="/images/submit_boff.gif" BORDER="0" ALIGN="BOTTOM"></A>
+			<A id="subber" onClick="submitForm();" onMouseOver="document.submitbutton.src='/images/submit_bon.gif';" onMouseOut="document.submitbutton.src='/images/submit_boff.gif';"><IMG NAME="submitbutton" SRC="/images/submit_boff.gif" BORDER="0" ALIGN="BOTTOM"></A>
 
 		</td>
 	</tr>
