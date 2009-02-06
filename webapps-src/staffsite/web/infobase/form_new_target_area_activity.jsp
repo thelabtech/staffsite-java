@@ -3,6 +3,20 @@
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
 %>
+																<!--	FS ("Field Strategies"),-->
+																<!--	IE ("Epic"),-->
+																<!--	ID ("Destino"), -->
+																<!--	II ("Impact"),-->
+																<!--	IN ("Nations"),-->
+																<!--	WS ("WSN"),-->
+																<!--	BR ("Bridges"),-->
+																<!--	AA ("Athletes In Action"),-->
+																<!--	CL ("Faculty Commons"),-->
+																<!--	KC ("Korean CCC"),-->
+																<!--	GK ("Greek"),-->
+																<!--	VL ("Valor"),-->
+																<!--	EV ("Events"),-->
+																<!--	OT ("Other")-->
 <%
 String targetAreaID = new String (request.getParameter("targetareaid"));
 String strategy = new String (request.getParameter("strategy"));
@@ -18,7 +32,13 @@ else if (strategy.equals("WS")) {strategyName = "WSN Local Teams";}
 else if (strategy.equals("ID")) {strategyName = "Destino";}
 else if (strategy.equals("IE")) {strategyName = "Epic";}
 else if (strategy.equals("II")) {strategyName = "Impact";}
+else if (strategy.equals("IN")) {strategyName = "Nations";}
+else if (strategy.equals("II")) {strategyName = "Impact";}
 else if (strategy.equals("BR")) {strategyName = "Bridges";}
+else if (strategy.equals("AA")) {strategyName = "Athletes In Action";}
+else if (strategy.equals("CL")) {strategyName = "Faculty Commons";}
+else if (strategy.equals("KC")) {strategyName = "Korean CCC";}
+else  {strategyName = strategy;}
 %>
 
 <% String pageTitle="Add "+ strategyName + " strategy at " + ar.getValue("targetAreaName"); %>
@@ -34,7 +54,7 @@ else if (strategy.equals("BR")) {strategyName = "Bridges";}
 			alert("You must select a Missional Team.");
 		}
 		else {
-			document.getElementById('subber').style.display='none';
+			document.getElementById('subber').style.disabled=true;
 			document.addTargetAreaActivityForm.submit();
 		}
 	}
