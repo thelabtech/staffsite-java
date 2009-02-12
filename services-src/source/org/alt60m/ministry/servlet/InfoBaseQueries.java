@@ -712,7 +712,8 @@ public class InfoBaseQueries {
 		String qry="select mta.targetAreaId as id, concat(mta.name,' (',if(mta.city is not null,mta.city,''),if(mta.state is not null and not(mta.state<=>'') ,concat(',',mta.state),if(mta.country is not null and not(mta.country<=>''),concat(',',mta.country),'')),')') as name from ministry_targetArea mta left join "+
 					"(Select ma.fk_targetAreaId as id  from ministry_activity ma "+
 					" where ma.strategy = '"+strategy+"' and ma.status <> 'IN'  group by ma.fk_targetAreaId) bad "+
-					" on mta.targetAreaId=bad.id where bad.id is null and mta.name is not null and mta.region='"+region+"' and mta.name<>'' and not(mta.isClosed<=>'T') and mta.isSecure='F' order by mta.name ;";
+					" on mta.targetAreaId=bad.id where bad.id is null and mta.name is not null and mta.region='"+
+					region+"' and mta.name<>'' and not(mta.isClosed<=>'T') and (mta.eventType is Null or mta.eventType<=> '') and mta.isSecure='F' order by mta.name ;";
 					
 		log.debug(qry);
 		ResultSet rs = stmt.executeQuery(qry);
