@@ -1619,6 +1619,17 @@ public class InfoBaseTool {
 
 	public void sendTargetAreaRequestEmail(Hashtable request, String to, String profileId) throws Exception {
 		try {
+			org.alt60m.staffSite.model.dbio.StaffSiteProfile profile=new org.alt60m.staffSite.model.dbio.StaffSiteProfile(profileId);
+			Staff sender=new Staff();
+			if(profile.getAccountNo()!=null&&!profile.getAccountNo().equals("")){
+			sender=new Staff(profile.getAccountNo());
+			}
+			else
+			{
+			sender.setFirstName(profile.getFirstName());
+			sender.setLastName(profile.getLastName());
+			sender.setEmail(profile.getUserName());
+			}
 			SendMessage msg = new SendMessage();
 			msg.setTo(to);
 			msg.setFrom("\"StaffSite_InfoBase\" <help@campuscrusadeforchrist.com>");
@@ -1652,7 +1663,7 @@ public class InfoBaseTool {
 				msgText.append("CIA URL: " + request.get("ciaUrl") + "\n");
 				msgText.append("Submitters Email Address: " + request.get("from") + "\n");
 				msgText.append("-----------------------------------------------------------------\n");
-				msgText.append(" As entered by userid '" + profileId + "' on " + new Date().toString() + ".");
+				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ".");
 			msg.setBody(msgText.toString());
 			msg.send();
 		}
@@ -1664,6 +1675,17 @@ public class InfoBaseTool {
 
 	public void sendLocalLevelRequestEmail(Hashtable request, String to, String profileId) throws Exception {
 		try {
+			org.alt60m.staffSite.model.dbio.StaffSiteProfile profile=new org.alt60m.staffSite.model.dbio.StaffSiteProfile(profileId);
+			Staff sender=new Staff();
+			if(profile.getAccountNo()!=null&&!profile.getAccountNo().equals("")){
+			sender=new Staff(profile.getAccountNo());
+			}
+			else
+			{
+			sender.setFirstName(profile.getFirstName());
+			sender.setLastName(profile.getLastName());
+			sender.setEmail(profile.getUserName());
+			}
 			SendMessage msg = new SendMessage();
 			msg.setTo(to);
 			msg.setFrom("\"StaffSite_InfoBase\" <help@campuscrusadeforchrist.com>");
@@ -1688,7 +1710,7 @@ public class InfoBaseTool {
 				msgText.append("Is this team active? " + (request.get("IsActive").equals("TRUE") ? "Yes" : "No") + "\n");
 				msgText.append("Note: " + request.get("Note") + "\n");
 				msgText.append("-----------------------------------------------------------------\n");
-				msgText.append(" As entered by userid '" + profileId + "' on " + new Date().toString() + ".");
+				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ".");
 			msg.setBody(msgText.toString());
 			msg.send();
 		}
