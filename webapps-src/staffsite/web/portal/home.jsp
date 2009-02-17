@@ -331,6 +331,7 @@ function toggleDiv(who){
 				<a href="http://staffweb.ccci.org/legal/index.aspx" targe="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
 				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
 				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0' style="margin-right:5px;">See National Discount Programs</a><br>
+				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Information about CSU 2009</a>
 			<%// } %>
 			</font>
 			<%=box.printBottom()%>
