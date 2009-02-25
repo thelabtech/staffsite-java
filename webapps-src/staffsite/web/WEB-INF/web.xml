@@ -259,6 +259,18 @@
 			org.alt60m.ministry.servlet.InfoBaseController
 		</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>TestOracleController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.TestOracleController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GraphicsController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.GraphicsController
+		</servlet-class>
+	</servlet>
 
 	<servlet>
 		<servlet-name>GlobalInfoBaseController</servlet-name>
@@ -509,7 +521,14 @@
 		<servlet-name>InfoBaseController</servlet-name>
 		<url-pattern>/servlet/InfoBaseController</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>TestOracleController</servlet-name>
+		<url-pattern>/servlet/TestOracleController</url-pattern>
+	</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>GraphicsController</servlet-name>
+		<url-pattern>/servlet/GraphicsController</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GlobalInfoBaseController</servlet-name>
 		<url-pattern>/servlet/GlobalInfoBaseController</url-pattern>
