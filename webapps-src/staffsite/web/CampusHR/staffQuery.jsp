@@ -31,23 +31,7 @@
 			<TD>&nbsp;<INPUT TYPE="text" NAME="lastName">
 			</TD>
 		</TR>
-		<TR>
-			<TD><NOBR>
-				<INPUT TYPE="checkbox" NAME="queryFields" VALUE="newStaffTrainingDate" CLASS="noborder"> <B>New Staff Training Date</B>:</NOBR>
-			</TD>
-			<TD>&nbsp;<INPUT TYPE="text" NAME="newStaffTrainingDate"><%=fontB%>[<A HREF="javascript:pickdate(document.queryForm.newStaffTrainingDate)"><%=fontB%>select date</A>]</FONT>
-			</TD>
-		</TR>
-
-		<!--
-		<TR>
-			<TD><NOBR>
-				<INPUT TYPE="checkbox" NAME="queryFields" VALUE="position" CLASS="noborder"> <B>Position</B>:</NOBR>
-			</TD>
-			<TD>&nbsp;<INPUT TYPE="text" NAME="position">
-			</TD>
-		</TR>
-		-->
+		
 		<TR>
 			<TD><NOBR>
 				<INPUT TYPE="checkbox" NAME="queryFields" VALUE="jobStatus" CLASS="noborder"> <B>Status</B>:</NOBR>
