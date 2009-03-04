@@ -442,7 +442,7 @@ public class InfoBaseTool {
 									  //"AND act.periodEnd IS null)) "+	// only show activities with no end date
 									  "))"+
 									  "taId ON ta.TargetAreaID = taId.fk_targetAreaID "+
-						   "WHERE ("+whereClause+" AND (ta.isClosed <> 'T' OR ta.isClosed is NULL)) "+
+									  "WHERE ("+whereClause+" AND (ta.eventType is null or ta.eventType <=> '') and (ta.isClosed <> 'T' OR ta.isClosed is NULL)) "+
 						   "ORDER BY ta.name";
 
 			java.sql.Connection conn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
@@ -1569,7 +1569,7 @@ public class InfoBaseTool {
         try {
         	ObjectHashUtil.hash2obj(statMap, stat);
         	stat.setUpdatedAt(new Timestamp(new Date().getTime()));
-			String logMessage = "Saving stat;";
+			String logMessage = "Saving stat ID: "+stat.getStatisticId()+" for Activity: "+stat.getActivityId()+" ; ";
 			for (String key : statMap.keySet()) {
 				logMessage += " " + key + ": " + statMap.get(key);
 			}
