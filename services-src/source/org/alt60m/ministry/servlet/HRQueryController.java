@@ -70,7 +70,10 @@ public class HRQueryController extends Controller {
 			String[] values = si.getDistinctFieldValues(field);
 
 			for (int i = 0; i < values.length; i++) {
-				results.put(values[i]==null?"":values[i], values[i]==null?"":values[i]);
+				if ((values[i]!=null)&&!(values[i].equals(""))){
+				results.put(values[i], values[i]);
+				}
+				
 			}
 		} catch (Exception e) {
 			log.error(e, e);
