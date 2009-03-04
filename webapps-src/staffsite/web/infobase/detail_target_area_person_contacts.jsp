@@ -119,7 +119,14 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 								
 					%><%if(ar.getValue("isRD").equals("true")){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
 					Contact
-					</A><%} %>
+					</A><%} 
+					else
+					{
+					%>
+					<br>
+					<%=fontS %>If this contact info is incorrect, please email your Regional Director with the correct information.
+					<%
+					}%>
 					</TD>
 <!--  -->
 					
