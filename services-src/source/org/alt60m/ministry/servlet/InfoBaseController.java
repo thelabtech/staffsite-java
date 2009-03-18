@@ -80,7 +80,7 @@ public class InfoBaseController extends Controller {
     public InfoBaseController() {
         log.debug("InfoBaseController constructor");
     }
-
+    
     /** @param ctx ActionContext object */
     public void addActivity(ActionContext ctx) {
         try {
@@ -338,7 +338,7 @@ public class InfoBaseController extends Controller {
 		}
 		return allDates;
 	}
-
+    
     String buildCommaDelimitedQuotedList(Collection col) {
         String result = "";
         Iterator i = col.iterator();
@@ -989,74 +989,84 @@ public class InfoBaseController extends Controller {
              log.error("Failed to perform deleteFastSuccessCriteriaBookmark ().", e);
          }
     }
-//    public void enterEventSuccessCriteria(ActionContext ctx) {//IJK
-//        try {
-//        	
-//        	ActionResults results=new ActionResults();
-//        	TargetArea event=new TargetArea();
-//        	Activity activity=new Activity();
-//        	Statistic statistic=new Statistic();
-//        	String eventType=ctx.getInputString("eventType");
-//        	String eventKeyID=ctx.getInputString("eventKeyID");
-//        	String region=ctx.getInputString("region");
-//        	String name=ctx.getInputString("name");
-//        	String isSecure=ctx.getInputString("isSecure");
-//        	String email=ctx.getInputString("email");
-//        	String dater="";
-//        	if (eventType.equals("C1")){
-//        		dater="EEE MMM dd HH:mm:ss z yyyy";
-//        	}else if (eventType.equals("C2")){
-//        		dater="EEE MMM dd HH:mm:ss z yyyy";
-//        	} else if (eventType.equals("SP")){
-//        		dater="EEE MMM dd HH:mm:ss z yyyy";
-//        	}
-//        	java.text.DateFormat format=new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
-//        	
-//        	
-//        	Date periodEnd=format.parse(ctx.getInputString("periodEnd"));
-//        	Date periodBegin=format.parse(ctx.getInputString("periodBegin"));
-//        	
-//        	event.setEventType(eventType);
-//        	event.setEventKeyID(eventKeyID);
-//        	event.select(); //we select based on eventType and eventKeyID.
-//        	event.setName(name);
-//        	event.setRegion(region);
-//        	
-//        	event.setIsSecureString(isSecure);
-//        	event.setUrl(event.getEventLink());
-//        	event.setEmail(email);
-//        	event.persist(); //we always save the most recent data for the event, populated from the toolside link.
-//        	
-//        	activity.setTargetAreaId(event.getTargetAreaId());
-//        	activity.select();
-//        	activity.setStrategy("EV"); 
-//        	activity.setStatus("IN");
-//        	activity.setLocalLevelId("0");
-//        	
-//        	activity.persist();
-//        	
-//        	statistic.setActivityId(activity.getActivityId());
-//        	statistic.select();
-//        	statistic.setPeriodBegin(periodBegin);
-//        	statistic.setPeriodEnd(periodEnd);
-//        	statistic.persist();
-//        	
-//        	results.putValue("isVersion",ctx.getInputString("isVersion")==null?"null":ctx.getInputString("isVersion"));
-//        	results.putValue("name", name);
-//        	results.putValue("redirect", ctx.getInputString("redirect"));
-//        	results.putObject("statistic", statistic);
-//        	ctx.setReturnValue(results);
-//        	
-//            ctx.goToView("enterEventSuccessCriteria");
-//            	
-//        }
-//        
-//        catch (Exception e) {
-//            ctx.setError();
-//            ctx.goToErrorView();
-//            log.error("Failed to perform enterEventSuccessCriteria ().", e);
-//        }
-//    }
+    public void enterEventSuccessCriteria(ActionContext ctx) {//IJK
+        try {
+        	
+        	ActionResults results=new ActionResults();
+        	TargetArea event=new TargetArea();
+        	Activity activity=new Activity();
+        	Statistic statistic=new Statistic();
+        	String eventType=ctx.getInputString("eventType");
+        	String eventKeyID=ctx.getInputString("eventKeyID");
+        	String region=ctx.getInputString("region");
+        	String name=ctx.getInputString("name");
+        	String isSecure=ctx.getInputString("isSecure");
+        	String email=ctx.getInputString("email");
+        	
+        	
+        	
+        	Date periodEnd=new Date(Long.parseLong(ctx.getInputString("periodEnd")));
+        	Date periodBegin=new Date(Long.parseLong(ctx.getInputString("periodBegin")));
+        	
+        	event.setEventType(eventType);
+        	event.setEventKeyID(eventKeyID);
+        	event.select(); //we select based on eventType and eventKeyID.
+        	event.setName(name);
+        	event.setRegion(region.equals("null")?"":region);
+        	
+        	event.setIsSecureString(isSecure);
+        	event.setUrl(event.getEventLink());
+        	event.setEmail(email);
+        	
+        	event.persist(); //we always save the most recent data for the event, populated from the toolside link.
+        	
+        	activity.setTargetAreaId(event.getTargetAreaId());
+        	activity.select();
+        	 
+        	activity.setStatus("IN");
+        	activity.setLocalLevelId("0");
+        	int pgStart=0;
+        	int pgEnd=1;
+        	String[] pg={"","(Other Internationals)","East Asian","Ishmael Project","Japanese","South Asian"};
+        	if (ctx.getInputString("strategy")!=null){
+        	if(ctx.getInputString("strategy").equals("Bridges")){
+        		activity.setStrategy("BR");
+        		pgStart=1;
+        		pgEnd=6;
+        	}}
+        	activity.persist();
+        	Vector<Statistic>eventStats=new Vector<Statistic>();
+        	
+        	for(int i=pgStart;i<pgEnd;i++){
+	        	statistic=new Statistic();
+	        	statistic.setActivityId(activity.getActivityId());
+	        	statistic.setPeopleGroup(pg[i]);
+	        	statistic.setPeriodBegin(periodBegin);
+	        	statistic.setPeriodEnd(periodEnd);
+	        	statistic.select(); //get any existing stat matching these criteria
+	        	statistic.persist(); //save it
+	        	eventStats.add(statistic);
+        	}
+        	results.putValue("strategy", (activity.getStrategy()==null||activity.getStrategy().equals(""))?"EV":activity.getStrategy());
+        	results.putValue("name", name);
+        	results.putValue("activityID",activity.getActivityId());
+        	results.putValue("eventKeyID",eventKeyID);
+        	results.putValue("eventType", eventType);
+        	String redirect=ctx.getInputString("redirect");
+        	results.putValue("redirect", redirect);
+        	results.putObject("eventStats", eventStats);
+        	ctx.setReturnValue(results);
+        	
+            ctx.goToView("enterEventSuccessCriteria");
+            	
+        }
+        
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform enterEventSuccessCriteria ().", e);
+        }
+    }
     
     public void enterFastSuccessCriteriaForActivity(ActionContext ctx) {//IJK
         try {
@@ -1775,40 +1785,6 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveSuccessCriteria().", e);
         }
     }
-//    public void saveEventSuccessCriteria(ActionContext ctx) {
-//    	if (! loginCheck(ctx)) {
-//    		return;
-//    	}
-//        try {
-//            
-//			InfoBaseTool ibt = new InfoBaseTool();
-//            Statistic stat;
-//            String statisticId = ctx.getInputString("statisticid", true);
-//            stat = ibt.getStatObject(statisticId);
-//			
-//			Hashtable request = ctx.getHashedRequest();
-//			List<String> keys = Arrays.asList(new String[] { "PeriodBegin",
-//					"PeriodEnd", "PersonalEvangelismExposures",
-//					"GroupEvangelismExposures", "MediaExposures", "Decisions",
-//					"Multipliers", "StudentLeaders", "InvolvedStudents",
-//					"LaborersSent","DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
-//					"DecisionsGroupEvangelismExposures","HolySpiritConversations","Seekers"});
-//			Map<String, String> statMap = new HashMap<String, String>();
-//			for (String key : keys) {
-//				statMap.put(key, (String) request.get(key));
-//			}
-//        	String username = (String) ctx.getSessionValue("userName");
-//        	stat.setUpdatedBy(username);
-//			ibt.saveStatObjectWithActivity(statMap, stat);
-//			log.debug("redirecting to: "+ctx.getInputString("redirect"));
-//			ctx.getResponse().sendRedirect(ctx.getInputString("redirect"));
-//			
-//		} catch (Exception e) {
-//            ctx.setError();
-//            ctx.goToErrorView();
-//            log.error("Failed to perform saveEventSuccessCriteria().", e);
-//        }
-//    }
 	public Hashtable<String,Hashtable<String,String>> convertBracketedParamsToHashtable(ActionContext ctx) {
 		Hashtable input=(ctx.getHashedRequest());
 		
@@ -1883,6 +1859,76 @@ public class InfoBaseController extends Controller {
 				)
 				;
 	}
+	
+	public void saveFastEventSuccessCriteria(ActionContext ctx) {//IJK
+    	if (! loginCheck(ctx)) {
+    		return;
+    	}
+        try {
+        	HttpServletRequest tempCtx=ctx.getRequest();
+        	ActionResults errorResults=new ActionResults("fast_event_stats_error");
+        	Hashtable<String,Hashtable<String,String>> newStats=new Hashtable<String,Hashtable<String,String>>(convertBracketedParamsToHashtable(ctx));
+        	log.debug(newStats);
+        	Hashtable<String,String> thisStat;
+        	Iterator scanStats=(newStats.keySet().iterator());
+        	String activityId=ctx.getInputString("activityId");
+        	String peopleGroup="";
+        	Activity act=new Activity(activityId);
+        	act.setStrategy(ctx.getInputString("strategy"));
+        	act.persist();
+        	Boolean hasData=false;
+        	Boolean hasProblem=false;
+        	Hashtable<String,String> badSaves=new Hashtable<String,String>();
+        	InfoBaseTool ibt;
+        	 Statistic stat;
+        	 String statisticId;
+        	 String username = (String) ctx.getSessionValue("userName");
+        	 List<String> keys;
+        	 Map<String, String> statMap;
+        	while (scanStats.hasNext())
+        	{
+        		hasData=new Boolean(false);
+        		log.debug("hasData="+hasData);
+        		thisStat=new Hashtable<String,String>();
+        		thisStat=newStats.get(scanStats.next());
+	            activityId = thisStat.get("activityid");
+	            peopleGroup = thisStat.get("PeopleGroup");
+				ibt = new InfoBaseTool();
+				stat = new Statistic();
+				keys = Arrays.asList(new String[] { "PersonalEvangelismExposures",
+						"GroupEvangelismExposures", "MediaExposures", "Decisions",
+						"Multipliers", "StudentLeaders", "InvolvedStudents",
+						"LaborersSent", "PeopleGroup", "DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
+						"DecisionsGroupEvangelismExposures","HolySpiritConversations", "Seekers" });
+				 statMap = new HashMap<String, String>();
+				for (String key : keys) 
+				{
+					statMap.put(key, (String) thisStat.get(key));	
+				}
+	        	
+				
+		            statisticId = thisStat.get("statisticid");
+		            stat = ibt.getStatObject(statisticId);
+		            
+					username = (String) ctx.getSessionValue("userName");
+		        	stat.setUpdatedBy(username);
+		        	ibt.saveStatObjectWithActivity(statMap, stat);
+	        	
+			}
+        	
+        		String redirect=ctx.getInputString("redirect");
+    			redirect=redirect.replace("%and%", "&");
+    			redirect=redirect.replace("%question%", "?");
+    			log.debug("redirecting to: "+redirect);
+    			ctx.getResponse().sendRedirect(redirect);
+        		
+        }catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform saveFastEventSuccessCriteria().", e);
+        }
+    }
+	
     public void saveFastSuccessCriteria(ActionContext ctx) {//IJK
     	if (! loginCheck(ctx)) {
     		return;
@@ -2153,6 +2199,7 @@ public class InfoBaseController extends Controller {
         		strategyList=ctx.getInputString("strategyList");
         		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
         	}
+        	
         	String report=Reports.getMuster(type, region, periodEnd, strategyList, sortOrderFromRequest(ctx),UnlockCampus.keys((String)ctx.getSessionValue("userName")));
             results.putValue("report",report);
             
@@ -2345,6 +2392,7 @@ public class InfoBaseController extends Controller {
     		strategyList=ctx.getInputString("strategyList");
     		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
     	}
+    	if ((strategyList.length()>0)&&(!strategyList.contains("'EV'")))strategyList+=",'EV'";
     	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
     	results.putValue("type", type);
     	results.putValue("region", region);
@@ -2507,6 +2555,9 @@ public class InfoBaseController extends Controller {
             results = getBookmarks(ctx, results, Bookmarks.TARGET_AREA, targetAreaID);
 
 			TargetArea ta = ibt.getTargetArea(targetAreaID);
+			if ((ta.getEventType()+"").equals("")){
+				
+			
             Hashtable targetAreaInfo = ObjectHashUtil.obj2hash(ta);
             results.addHashtable("target", targetAreaInfo);
             Collection nonCCCMinInfo = ObjectHashUtil.list(ta.getOtherMinistries());
@@ -2542,6 +2593,13 @@ public class InfoBaseController extends Controller {
             results.putValue("isRD",isRD(person));
             ctx.setReturnValue(results);
             ctx.goToView("targetAreaPersonContacts");
+			}
+			else
+			{
+				ctx.setError();
+	            ctx.goToErrorView();
+	            log.error("TargetAreaID supplied is for an event TargetArea().");
+			}
         }
         catch (Exception e) {
             ctx.setError();
@@ -2616,7 +2674,7 @@ public class InfoBaseController extends Controller {
 				TargetArea ta = activity.getTargetArea();
 				Hashtable<String, Object> row = new Hashtable<String, Object>();
 				ObjectHashUtil.obj2hash(activity);
-				if (ta != null) {
+				if ((ta != null)&&((ta.getEventType()+"").equals(""))) {
 					row.put("ActivityId",(activity.getActivityId() != null) ? activity.getActivityId() : "");
 					row.put("Strategy",(activity.getStrategy() != null) ? activity.getStrategy() : "");
 					row.put("Status",(activity.getStatus() != null) ? activity.getStatus() : "");
