@@ -17,7 +17,9 @@ public enum Strategy {
 	KC ("Korean CCC"),
 	GK ("Greek"),
 	VL ("Valor"),
-	OT ("Other");
+	EV ("Events"),
+	OT ("Other")
+	;
 	
 	
 	private String name;

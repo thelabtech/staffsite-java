@@ -54,6 +54,8 @@ public class TargetArea extends DBIOEntity {
 		setMetadata("Aoa", "aoa", table);
 		setMetadata("CiaUrl", "ciaUrl", table);
 		setMetadata("InfoUrl", "infoUrl", table);
+		setMetadata("EventType", "eventType", table);
+		setMetadata("EventKeyID", "eventKeyID", table);
 
 		setAutodetectProperties(false);
 	}
@@ -90,6 +92,8 @@ public class TargetArea extends DBIOEntity {
 	private String aoa = "";
 	private String ciaUrl = "";
 	private String infoUrl = "";
+	private String eventType = "";
+	private String eventKeyID = "";
 
 	public String getTargetAreaId() { return targetAreaId; }
 	public void setTargetAreaId(String targetAreaId) { this.targetAreaId = targetAreaId; }
@@ -187,6 +191,12 @@ public class TargetArea extends DBIOEntity {
 	
 	public String getInfoUrl() { return infoUrl; }
 	public void setInfoUrl(String infoUrl) { this.infoUrl = infoUrl; }
+	
+	public String getEventType() {return eventType;}
+	public void setEventType( String eventType) {this.eventType=eventType;}
+	
+	public String getEventKeyID() {return eventKeyID;}
+	public void setEventKeyID( String eventKeyID) {this.eventKeyID=eventKeyID;}
 
 	@SuppressWarnings("unchecked")
 	public Vector<Activity> getActivities() {
@@ -250,4 +260,18 @@ public class TargetArea extends DBIOEntity {
         public void getFieldvalue() { }  public String getFieldvalue(String foo) { return ""; }
         public void getHeaderName() { }  public String getHeaderName(String foo) { return ""; }
         public void getColumnName() { }  public String getColumnName(String foo) { return ""; }
+        
+    public String getEventLink() {
+    	String eventLink="";
+    	if (this.getEventType().equals("C1")){
+    		eventLink="https://staff.campuscrusadeforchrist.com/servlet/CRSAdmin?action=showConference&conferenceID="+eventKeyID;
+    	}
+    	else if (this.getEventType().equals("C2")){
+    		eventLink="https://www.conferenceregistrationtool.com/conferenceInfo.seam?conferenceId="+eventKeyID;
+    	}
+    	else if (this.getEventType().equals("SP")){
+    		eventLink="https://sp.campuscrusadeforchrist.com/projects/"+eventKeyID+"/version";
+    	}
+    	return eventLink;	
+    }
 }

@@ -37,6 +37,10 @@ public class ReportRow extends Object {
 		this.setStatPeriodEnd(row.getStatPeriodEnd());
 		this.setStatPeriodBegin(row.getStatPeriodBegin());
 		
+		this.setEventKeyID(row.getEventKeyID());
+		this.setEventType(row.getEventType());
+		
+		
 	}
 	private String rowid="";
 	private String activityID="";
@@ -68,6 +72,8 @@ public class ReportRow extends Object {
 	private Integer invldStudents=0;
 	private Integer seekers=0;
 	private Integer studentLeaders=0;
+	private String eventType="";
+	private String eventKeyID="";
 	
 	public String getRowid(){return this.rowid;}
 	public void setRowid(String value){this.rowid=value;}
@@ -157,6 +163,19 @@ public class ReportRow extends Object {
 	public int getStudentLeaders(){ return this.studentLeaders;}
 	public void setStudentLeaders(int value){this.studentLeaders=value;}
 	
+	public String getEventType(){
+		return this.eventType;
+	}
+	public void setEventType(String type){
+		this.eventType=type;
+	}
+	public String getEventKeyID(){
+		return this.eventKeyID;
+	}
+	public void setEventKeyID(String id){
+		this.eventType=id;
+	}
+	
 	public void addToTotal(ReportRow row){
 		
 		this.setEvangelisticOneOnOne(this.getEvangelisticOneOnOne()+row.getEvangelisticOneOnOne());//then we add the receiving row's already totals
@@ -194,6 +213,8 @@ public class ReportRow extends Object {
 		String string="";
 		string+="  rowid: "+this.getRowid()+" ";
 		string+="  activityID: "+this.getActivityID()+" ";
+		string+="  eventType: "+this.getEventType()+" ";
+		string+="  eventKeyID: "+this.getEventKeyID()+" ";
 		string+="  campusName: "+this.getCampusName()+" ";
 		string+="  strategy: "+this.getStrategy()+" ";
 		string+="  region: "+this.getRegion()+" ";
