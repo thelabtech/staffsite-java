@@ -29,6 +29,15 @@ inputs = table.getElementsByTagName('input');
 	checked=!checked;
 	document.getElementById('checkAllButton').innerHTML=(checked?'Uncheck All':'Check All');
 }
+function checkAll(){
+	table=document.getElementById('boxes');
+	inputs = table.getElementsByTagName('input');
+		for (i=0;i<inputs.length;i++){
+		inputs[i].checked=true;
+		}
+		checked=true;
+		document.getElementById('checkAllButton').innerHTML='Uncheck All';
+	}
 </script>
 <title><%= pageTitle %></title>
 </head>
@@ -100,7 +109,7 @@ function submitReportForm(thisForm) {
 		  <td>
 			<p><%=fontB%><i>Select which CCC ministries you would like included
 			  in your report:</font></p>
-
+<table<%=bgcolorL%>><tr><td>
 			<table id="boxes" border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
 			  		<button id="checkAllButton" onClick="check();">Check All</button><br>
@@ -122,19 +131,32 @@ function submitReportForm(thisForm) {
 	
 			  </td></tr>
 			</table>
+			<table <%=bgcolorL%>>
+				<tr><td><%=fontB%>
+					<input type="checkbox" name="strategies"  checked value="CM" >Campus Report (traditional Success Criteria report)<br>
+					<input type="checkbox" name="strategies" onClick="checkAll();"  value="C2" >Conference Stats<br>
+					<input type="checkbox" name="strategies" onClick="checkAll();"  value="SP" >Summer Project Stats<br>
+				</td></tr>
+			</table>
+</td></tr></table>
 			<p>
 		  </td>
 		</tr>
 		<tr>
 		  <td valign="top"><img src="/infobase/images/2.gif" width="35" height="47"></td>
 <%
-Date thisDate=new Date();
-String toMonth=thisDate.toString().substring(4,7);
-String toYear=thisDate.toString().substring(24,28);
-String fromYear=toYear;
-if(Arrays.asList("Jan","Feb","Mar","Apr","May","Jun","Jul").contains(toMonth)){
-	fromYear=(Integer.parseInt(toYear)-1)+"";
+Calendar thisDate=Calendar.getInstance();
+Date now=new Date();
+thisDate.setTimeInMillis(now.getTime());
+String[] months={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+String toMonth=months[thisDate.get(Calendar.MONTH)];
+
+int toYear=thisDate.get(Calendar.YEAR);
+int fromYear=toYear;
+if(thisDate.get(Calendar.MONTH)<=7){
+	fromYear=toYear-1;
 }
+
 %>
 		  <td>
 			<p><%=fontB%><i>Select a date range for your report:</i></font></p>
@@ -153,10 +175,10 @@ if(Arrays.asList("Jan","Feb","Mar","Apr","May","Jun","Jul").contains(toMonth)){
 				<td>
 				  <select name="fromyear">
 				  <%
-				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
+				  while (yearvar<(toYear+1))
 					  {
 					  %>
-					<option value="<%=yearvar %>"<% if((Integer.parseInt(fromYear))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					<option value="<%=yearvar %>"<% if(fromYear==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
 					
 						<%
 					yearvar++;
@@ -183,10 +205,10 @@ if(Arrays.asList("Jan","Feb","Mar","Apr","May","Jun","Jul").contains(toMonth)){
 				  <select name="toyear">
 						  <%
 						  yearvar=1998;
-				  while (yearvar<(Integer.parseInt(ar.getValue("toYear"))+1))
+				  while (yearvar<(toYear+1))
 					  {
 					  %>
-					<option value="<%=yearvar %>"<% if((Integer.parseInt(toYear))==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
+					<option value="<%=yearvar %>"<% if(toYear==yearvar) out.print(" SELECTED"); %>><%=yearvar%></option>
 					
 						<%
 					yearvar++;

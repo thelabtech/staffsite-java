@@ -76,8 +76,10 @@ document.getElementById("end_"+x).style.display="block";
 	Including strategies: <%
 		
 	for(int i = 0; i<displayList.length; i++){
+		if (!"CM C2 SP".contains(displayList[i])){
         out.print(Strategy.expandStrategy(displayList[i]));
         if(i<(displayList.length-1)) out.print(", ");
+		}
 	}
 		
 if (ar.getCollection("report").size()>0){	%>	
@@ -95,6 +97,7 @@ if (ar.getCollection("report").size()>0){	%>
 boolean display=true;
 boolean alternate=true;
 boolean lighter=true;
+boolean newEventType=false;
 String cell="light";
 String cellAlt="dark";
 
@@ -103,6 +106,17 @@ while(report.hasNext()){
 	
 	<%if((row.getFunction().equals("top"))||(row.getFunction().equals("bottom"))){ %>
 		<table class="row">
+			<%
+			if((row.getFunction().equals("top"))&&!newEventType){ 
+				%>
+				<tr><td>&nbsp;</td></tr>
+				<%
+			}
+			else
+			{
+				newEventType=false;
+			} 
+			%>
 		<tr>
 		<td class="label_darker_blue" > &nbsp;</td>
 		
@@ -181,11 +195,31 @@ while(report.hasNext()){
 			
 			</tr>
 			
-			<tr><td style="background-color:none;">&nbsp;</td></tr>
+			
 			</table>
 			
 		<%} %>
-	<%	} else	{//display data rows%>
+	<%	} 
+	else if (row.getFunction().equals("eventBlockTop")){%>
+		<table class="event_block">
+		<tr>
+		<td >&nbsp;</td>
+		</tr>
+		<tr>
+		<td class="event_block" >Begin <%=row.getLabel()%> Report</td>
+		</tr>
+		</table>
+	<% newEventType=true;}
+	else if (row.getFunction().equals("eventBlockBottom")){%>
+	<table class="event_block">
+
+	<tr>
+	<td class="event_block" >End <%=row.getLabel()%> Report</td>
+	</tr>
+	</table>
+<%}
+	
+	else	{//display data rows%>
 	
 	<%
 	display=!row.getFunction().equals("start"); //boolean assignment: show stats if not a split-stat start row
@@ -229,8 +263,8 @@ while(report.hasNext()){
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
-		<%=row.getLabel() %><%if (!type.equals("targetarea")){%></A><%} %>&nbsp;
-			<%if(row.getStatus().equals("IN")){%>
+		<%=row.getLabel().equals("")?"Not Specified": row.getLabel()%><%if (!type.equals("targetarea")){%></A><%} %>&nbsp;
+			<%if((row.getStatus().equals("IN"))&&(row.getEventType().equals("Campus"))){%>
 			(active starting <%=row.getActivityPeriodBegin() %>)
 			<%} %>
 	<%} %>
