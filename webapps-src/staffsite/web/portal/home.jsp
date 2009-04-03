@@ -56,7 +56,7 @@ function toggleDiv(who){
 		}
 	a.sideBar
 	{
-	lineheight:20px;
+	margin-top:10px;
 	}
 </STYLE>	
 
