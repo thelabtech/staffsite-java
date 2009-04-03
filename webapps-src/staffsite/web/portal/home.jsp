@@ -54,10 +54,7 @@ function toggleDiv(who){
 		color:<%=color1%>;
 		
 		}
-	a.sideBar
-	{
-	margin-top:10px;
-	}
+	
 </STYLE>	
 
 </HEAD>
@@ -87,9 +84,7 @@ function toggleDiv(who){
 				<% box.setTitle("Check Email");	%>
 				<%=box.printTop()%>
 				<center>
-<!--				<a href="JavaScript: popupWindow('http://mymail.ccci.org', 'LoginEmail', 'dependent=no,scrollbars=yes,resizable')" onMouseOver="window.status='Show my uscm email'; return true;" onMouseOut="window.status=''; return true;"><br>Upgraded USCM Mailbox<br><br></A>-->
-				<a href="JavaScript: popupWindow('http://mymail.uscm.org', 'LoginEmail', 'dependent=no,scrollbars=yes,resizable')" onMouseOver="window.status='Show my uscm email'; return true;" onMouseOut="window.status=''; return true;">My USCM Mailbox<br>(use Outlook password)<br><br></A>
-<!--				<a href="JavaScript: popupWindow('/help/help_mailbox.jsp', 'MailboxLogin', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">&nbsp;&nbsp;Which link (above) should I use?</a><br></font></center>-->
+	<a href="JavaScript: popupWindow('http://mymail.uscm.org', 'LoginEmail', 'dependent=no,scrollbars=yes,resizable')" onMouseOver="window.status='Show my uscm email'; return true;" onMouseOut="window.status=''; return true;">My USCM Mailbox<br>(use Outlook password)</A>
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
@@ -137,12 +132,14 @@ function toggleDiv(who){
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=(String)session.getValue("accountNo")%>&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=home">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 				
-				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A>
-                <br>
-				<a href="/servlet/HRUpdateController">Change Personal Info.</A></font></center>
-				<br><%
+				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A><br>
+                <%
 				firsty++;
-				}%><%=box.printBottom()%>
+				}%>
+				
+				<a href="/servlet/HRUpdateController">Join Teams</A>
+				
+				<%=box.printBottom()%>
 				<br>
 				<!--<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
@@ -212,52 +209,14 @@ function toggleDiv(who){
 			<% weddings.setJustCampus(campusOnly);%>
 			<%=weddings.print()%>
 			<%=box.printBottom()%>
-			<!-- start generic search module -->
-			<!-- <% box.setTitle("Search");%>
-				<%=box.printTop()%>
-				<FORM name="miscsearch" action="JavaScript:miscsearch();">
-					<input type=radio name="search" checked> Internet
-					<input type=radio name="search"> <a href="http://bible.gospelcom.net/cgi-bin/bible?language=english" target="_blank">Bible</a><br>
-					<center>
-					<INPUT TYPE=text size=15 maxlength=255 ALIGN="CENTER" NAME="query"><br>
-					<A HREF="JavaScript: document.miscsearch.submit()" onMouseOver="document.miscsearchbutton.src='/images/search_bon.gif';" onMouseOut="document.miscsearchbutton.src='/images/search_boff.gif';"><IMG NAME="miscsearchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></A>
-					</center>
-				<%=box.printBottom()%>
-				</form>
-
-				<script>
-					function miscsearch() {
-						if (document.miscsearch.search[0].checked) {
-							document.google.q.value = document.miscsearch.query.value;
-							document.google.submit();
-						}
-						if (document.miscsearch.search[1].checked) {
-							document.gospelcom.search.value = document.miscsearch.query.value;
-							document.gospelcom.submit();
-						}
-					}
-				</script>
-
-				<form NAME="gospelcom" ACTION="http://bible.gospelcom.net/cgi-bin/bible" Target="_blank" METHOD="POST">
-				<input type="hidden" name="version" value="NASB">
-				<input type="hidden" NAME="search">
-				<input type="hidden" name="maxmatches" value="10">
-				</form>
-
-				<FORM name="google" action="http://www.google.com/custom" TARGET="_blank" method=GET>
-				<INPUT TYPE=hidden name=q>
-				<INPUT type=hidden name=cof VALUE="T:<%=color1%>;GFNT:<%=color2%>;AH:left;L:http://teststaff.uscm.org/images/CMlogobig.gif;LH:141;LW:75;AWFID:863b3dadb1d27dcd;">
-				<!--GIMP:importanttextcolor;T:txtcolor;BIMG:bgrnd url;ALC:alink;L:http://mylogo;LH:50%;LW:50%;GFNT:faint text;LC:lnkcolor;BGC:bgcolor;AH:left;VLC:vlink;GALT:alt text;AWFID:863b3dadb1d27dcd;-->
-				<!--</FORM> -->
-			<!-- end generic search module -->
-
+			
 		</td>
 		<td width="2%"></td>
 
 		<% box.setStyle("neoclassic");%>
 
 		<td valign="top"  width="540">
-		<p>&nbsp;<br>
+		
 
 			<%	//REGIONAL ARTICLES INSERTED HERE
 				regionalarticles.setRegion(region);
@@ -271,20 +230,7 @@ function toggleDiv(who){
 			</font>
 
 
-			<%--<b><i><FONT FACE="Arial" SIZE="3" COLOR="#336699">Other News...</a></font></b></i><br>&nbsp;<br>--%>
-			<%--<%=newsfeed.print()%>--%>
-			<%--
-			String url = "http://p.moreover.com/cgi-local/page?c=Religion%20news&o=xml";
-
-			Source xsl = new StreamSource(this.getServletConfig().getServletContext().getRealPath("/newsfeed.xsl"));
-			Source xml = new StreamSource(url);
-
-			System.setProperty("javax.xml.transform.TransformerFactory", "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");  //Needed for JDK 1.5.0
-			TransformerFactory tFactory = TransformerFactory.newInstance();
-			Transformer transformer = tFactory.newTransformer(xsl);
-			transformer.transform(xml, new StreamResult(out));
-			--%>
-
+			
 		</td>
 
 		<% box.setStyle(boxStyle); box.setScreenAlign("right");%>
@@ -307,13 +253,19 @@ function toggleDiv(who){
 			</font>
 			<%=box.printBottom()%>
 			<br>
+      <style type=text/css>
+      a.sideBar
+      {
+      height:20px;
+      }
+      </style>
 			<!-- start 'Staff Services' module -->
 			<% box.setTitle("Staff Services");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A class="sideBar" href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
-				<a class="sideBar" href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
-				<a class="sideBar" href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a>
+				<A  class="sideBar"   class="sideBar" href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
@@ -321,11 +273,11 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Web");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a class="sideBar" href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Discount Programs</a><br>
-				<a class="sideBar" href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
-				<a class="sideBar" href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
-				<a class="sideBar" href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
-				<a class="sideBar" href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
+				<A  class="sideBar"   href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>Nat'l Discount Programs</a><br>
+				<A  class="sideBar"   href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
+				<A  class="sideBar"   href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
+				<A  class="sideBar"   href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
+				<A  class="sideBar"   href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
@@ -333,8 +285,8 @@ function toggleDiv(who){
 			<% box.setTitle("Way Forward");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a class="sideBar" href="http://campuscrusadeforchrist.com/wayforward/">Podcasts</a><br>
-				<a class="sideBar" href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Directional Card (pdf)</a>
+				<A  class="sideBar"   href="http://campuscrusadeforchrist.com/wayforward/">Podcasts</a><br>
+				<A  class="sideBar"   href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Directional Card (pdf)</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>				
