@@ -98,9 +98,7 @@ public class HomePageArticles implements java.io.Serializable {
 				Collection catFiles = file.selectList("CmsCategoryID='"+categoryId+"' AND quality='B' ORDER BY dateAdded DESC");
 
 				Iterator iter = catFiles.iterator();
-				if (iter.hasNext()) {
-					stringBuffer = stringBuffer + "<br><b><i><FONT FACE=\"Arial\" SIZE=\"3\" COLOR=\"#000000\">National News</a></font></b></i><br>&nbsp;<br>";
-				}
+				
 				for(int i=0; i<numToDisplay && iter.hasNext(); i++) {
 					File recent = (File) iter.next();
 					
