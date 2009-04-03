@@ -54,29 +54,9 @@ function toggleDiv(who){
 		color:<%=color1%>;
 		
 		}
-	#wayforward{
-		width:140px;
-		margin-bottom:25px;
-		border: solid #0071ce 1px;
-	}
-	#wayforward h1{
-	width:140px;
-	height:38px;
-	padding:0px;
-	margin:0px;
-	background:#fff url(https://staff.campuscrusadeforchrist.com/cms/content/5833.jpg) top left no-repeat;
-	}
-	#wayforward li{
-	padding:0px;
-	margin:0px;
-	list-style:none;
-	font-size:10px;
-	font-family:verdana,arial,sans-serif;
-	padding-bottom:10px;
-	}
-	#podcasts{
-	padding:5px;
-	margin:0px;
+	a.sideBar
+	{
+	lineheight:20px;
 	}
 </STYLE>	
 
@@ -174,7 +154,6 @@ function toggleDiv(who){
 				<%=box.printBottom()%>
 				<br> -->
 			<%// } %>
-			<br>
 			<!-- end infobase search module -->
 				<% box.setTitle("Search the InfoBase");%>
 				<%=box.printTop()%>
@@ -184,7 +163,7 @@ function toggleDiv(who){
 					<!--<img src="/images/blank.gif" width="15" height="1"><INPUT TYPE=radio name="search"> Team<br>-->
 					<center>
 					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="query" value='<%=profile.get("LastName")%>'><br>
-
+					<br>
 					<A HREF="JavaScript: ibsearch();" onMouseOver="document.ibsearchbutton.src='/images/search_bon.gif';" onMouseOut="document.ibsearchbutton.src='/images/search_boff.gif';"><IMG NAME="ibsearchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></A>
 					<br>
 					<img src="/images/blank.gif" width="1" height="15" valign="bottom">
@@ -220,7 +199,6 @@ function toggleDiv(who){
 				<input type="hidden" name="searchstring">
 				</FORM>
 			<!-- end infobase search module -->
-			<br>
 			<% box.setTitle("Staff Birthdays");	%>
 			<%=box.printTop()%>
 			<% birthdays.initBirthdays(getServletContext().getRealPath("/")); %>
@@ -333,9 +311,9 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Services");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
-				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
-				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a><br>
+				<A class="sideBar" href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
+				<a class="sideBar" href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
+				<a class="sideBar" href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
@@ -343,11 +321,11 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Web");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Discount Programs</a><br>
-				<a href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
-				<a href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
-				<a href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
-				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
+				<a class="sideBar" href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Discount Programs</a><br>
+				<a class="sideBar" href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
+				<a class="sideBar" href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
+				<a class="sideBar" href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
+				<a class="sideBar" href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
@@ -355,8 +333,8 @@ function toggleDiv(who){
 			<% box.setTitle("Way Forward");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a href="http://campuscrusadeforchrist.com/wayforward/">Way Forward Podcasts</a>
-				<a href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Way Forward Directional Card (pdf)</a>
+				<a class="sideBar" href="http://campuscrusadeforchrist.com/wayforward/">Podcasts</a><br>
+				<a class="sideBar" href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Directional Card (pdf)</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>				
