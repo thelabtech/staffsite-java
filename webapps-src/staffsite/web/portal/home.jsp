@@ -6,8 +6,8 @@ ActionResults ar;
 ar = ActionResults.getActionResults(session);
 %>
 <%@ include file="/header.jspf" %>
-<jsp:useBean id="internetsearch" class="org.alt60m.html.InternetSearch" />
-<jsp:useBean id="biblesearch" class="org.alt60m.html.BibleSearch" />
+<!-- <jsp:useBean id="internetsearch" class="org.alt60m.html.InternetSearch" />
+     <jsp:useBean id="biblesearch" class="org.alt60m.html.BibleSearch" /> -->
 <jsp:useBean id="birthdays" class="org.alt60m.html.Birthdays" />
 <jsp:useBean id="weddings" class="org.alt60m.html.Weddings" />
 <jsp:useBean id="staffSearch" class="org.alt60m.html.InfoBaseLookup" />
@@ -123,17 +123,17 @@ function toggleDiv(who){
 			<br> -->
 
 			<!-- This section is for Summer Project and STINT/Internship Reference links -->
-			<%// if (isStudent.equals("false")) { %>
+			<!--<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("My References");%>
 				<%=box.printTop()%>
 				<center>
 				<% references.initReferences((String)session.getValue("accountNo")); %>
 				<%=references.print() %>
 				<!-- End section for Summer Project and STINT/Internship Reference links -->
-				</center>
+				<!-- </center>
 				<%=box.printBottom()%>
 				<br>
-			<%// } %>
+			<%// } %> -->
 		<!--	<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("2008 SLICE Survey");	%>
 				<%=box.printTop()%>
@@ -158,20 +158,21 @@ function toggleDiv(who){
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 				
 				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A>
-				
+                <br>
+				<a href="/servlet/HRUpdateController">Change Personal Info.</A></font></center>
 				<br><%
 				firsty++;
 				}%><%=box.printBottom()%>
 				<br>
-				<% box.setTitle("Important");	%>
+				<!--<% box.setTitle("Important");	%>
 				<%=box.printTop()%>
 				<center>
 				<!-- This link goes in each year in Feb. for 2 weeks
-				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Take te SLICE survey</b></A></font><br><%=fontS%><br><br>
+				<%=fontR%><b>New!</b><BR></font><%=fontB%><a href="http://staff.uscm.org/survey"><b>Take the SLICE survey</b></A></font><br><%=fontS%><br><br>
 			    -->				
-				<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
+				<!--<a href="/servlet/HRUpdateController">Change my Personal or Job Information</A></font></center>
 				<%=box.printBottom()%>
-				<br>
+				<br> -->
 			<%// } %>
 			<% box.setTitle("Staff Birthdays");	%>
 			<%=box.printTop()%>
@@ -234,7 +235,7 @@ function toggleDiv(who){
 			<!-- end infobase search module -->
 
 			<!-- start generic search module -->
-				<% box.setTitle("Search");%>
+			<!-- <% box.setTitle("Search");%>
 				<%=box.printTop()%>
 				<FORM name="miscsearch" action="JavaScript:miscsearch();">
 					<input type=radio name="search" checked> Internet
@@ -269,7 +270,7 @@ function toggleDiv(who){
 				<INPUT TYPE=hidden name=q>
 				<INPUT type=hidden name=cof VALUE="T:<%=color1%>;GFNT:<%=color2%>;AH:left;L:http://teststaff.uscm.org/images/CMlogobig.gif;LH:141;LW:75;AWFID:863b3dadb1d27dcd;">
 				<!--GIMP:importanttextcolor;T:txtcolor;BIMG:bgrnd url;ALC:alink;L:http://mylogo;LH:50%;LW:50%;GFNT:faint text;LC:lnkcolor;BGC:bgcolor;AH:left;VLC:vlink;GALT:alt text;AWFID:863b3dadb1d27dcd;-->
-				</FORM>
+				<!--</FORM> -->
 			<!-- end generic search module -->
 
 		</td>
@@ -315,24 +316,37 @@ function toggleDiv(who){
 		<td valign='top' width=140>
 
 			<!-- start 'Quicklinks' module -->
-			<% box.setTitle("I want to...");%>
+			<% box.setTitle("Quick Links");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-			<a href='http://wiki.uscm.org/'><img src="/images/wiki_icon.png" border='0' style="margin-right:5px;">Go to the Wiki</a><br>
-				<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">Log on to OneCard</a><br>
-			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Go to Success Criteria</a><br>
-			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">Work on a 360 review</a><br>
+			<a href='http://wiki.uscm.org/' target='_blank'><img src="/images/wiki_icon.png" border='0' style="margin-right:5px;">Wiki</a><br>
+			<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">OneCard</a><br>
+			<a href='/servlet/InfoBaseController?action=showSuccessCriteriaHome'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Success Criteria</a><br>
+			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">360 Review</a><br>
 			<%// if (isStudent.equals("false")) { %>
-				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0' style="margin-right:5px;">Get forms</a><br>
-				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">See my staff account</a><br>
-				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Reimburse Expenses</A><BR>
-				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0' style="margin-right:5px;">Get Help</a><br>
-				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Go to StaffWeb</a><br>
-				<a href="http://staffweb.ccci.org/legal/index.aspx" targe="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
-				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
-				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0' style="margin-right:5px;">See National Discount Programs</a><br>
-				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Information about CSU 2009</a>
+			<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
 			<%// } %>
+			</font>
+			<%=box.printBottom()%>
+			<br>
+			<!-- start 'Staff Services' module -->
+			<% box.setTitle("Staff Services");%>
+			<%=box.printTop()%>
+			<%=fontS%>
+				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Reimbursements</A><BR>
+				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Staff Account</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0' style="margin-right:5px;">Forms</a><br>
+			</font>
+			<%=box.printBottom()%>
+			<br>
+			<!-- start 'Staff Web' module -->
+			<% box.setTitle("Staff Web");%>
+			<%=box.printTop()%>
+			<%=fontS%>
+				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0' style="margin-right:5px;">See National Discount Programs</a><br>
+				<a href="http://staffweb.ccci.org/legal/index.aspx" target="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
+				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Go to StaffWeb</a><br>
+				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Information about CSU 2009</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
