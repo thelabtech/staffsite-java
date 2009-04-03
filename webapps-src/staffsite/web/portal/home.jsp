@@ -174,19 +174,6 @@ function toggleDiv(who){
 				<%=box.printBottom()%>
 				<br> -->
 			<%// } %>
-			<% box.setTitle("Staff Birthdays");	%>
-			<%=box.printTop()%>
-			<% birthdays.initBirthdays(getServletContext().getRealPath("/")); %>
-			<% birthdays.setJustCampus(campusOnly);%>
-			<%=birthdays.print()%>
-			<%=box.printBottom()%>
-			<br>
-			<% box.setTitle("Wedding Anniv.");	%>
-			<%=box.printTop()%>
-			<% weddings.initWeddings(getServletContext().getRealPath("/")); %>
-			<% weddings.setJustCampus(campusOnly);%>
-			<%=weddings.print()%>
-			<%=box.printBottom()%>
 			<br>
 			<!-- end infobase search module -->
 				<% box.setTitle("Search the InfoBase");%>
@@ -233,7 +220,20 @@ function toggleDiv(who){
 				<input type="hidden" name="searchstring">
 				</FORM>
 			<!-- end infobase search module -->
-
+			<br>
+			<% box.setTitle("Staff Birthdays");	%>
+			<%=box.printTop()%>
+			<% birthdays.initBirthdays(getServletContext().getRealPath("/")); %>
+			<% birthdays.setJustCampus(campusOnly);%>
+			<%=birthdays.print()%>
+			<%=box.printBottom()%>
+			<br>
+			<% box.setTitle("Wedding Anniv.");	%>
+			<%=box.printTop()%>
+			<% weddings.initWeddings(getServletContext().getRealPath("/")); %>
+			<% weddings.setJustCampus(campusOnly);%>
+			<%=weddings.print()%>
+			<%=box.printBottom()%>
 			<!-- start generic search module -->
 			<!-- <% box.setTitle("Search");%>
 				<%=box.printTop()%>
@@ -333,9 +333,9 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Services");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank"><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Reimbursements</A><BR>
-				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'><img src="/images/small_dollar.gif" border='0' style="margin-right:5px;">Staff Account</a><br>
-				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'><img src="/images/small_note.gif" border='0' style="margin-right:5px;">Forms</a><br>
+				<A href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
+				<a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
+				<a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a><br>
 			</font>
 			<%=box.printBottom()%>
 			<br>
@@ -343,20 +343,23 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Web");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'><img src="/images/national_discounts.gif" border='0' style="margin-right:5px;">See National Discount Programs</a><br>
-				<a href="http://staffweb.ccci.org/legal/index.aspx" target="_blank"><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Legal Rights on Campus</a><br>
-				<a href='http://staffweb.ccci.org' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Go to StaffWeb</a><br>
-				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'><img src="/images/staffweb_icon.gif" border='0' style="margin-right:5px;">Information about CSU 2009</a>
+				<a href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Discount Programs</a><br>
+				<a href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
+				<a href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
+				<a href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
+				<a href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
 			</font>
 			<%=box.printBottom()%>
 			<br>
-				<div id="wayforward">
-					<h1></h1>
-					<ul id="podcasts">
-						<li><a href="http://campuscrusadeforchrist.com/wayforward/">All 11 Episodes of Way Forward Podcast</a></li>
-						<li><a href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Way Forward Directional Card (pdf)</a></li>
-					</ul>
-				</div>
+			<!-- start 'Way Forward' module -->
+			<% box.setTitle("Way Forward");%>
+			<%=box.printTop()%>
+			<%=fontS%>
+				<a href="http://campuscrusadeforchrist.com/wayforward/">Way Forward Podcasts</a>
+				<a href="http://wiki.uscm.org/download/attachments/18088024/WayForward+card+2-up.pdf?version=1">Way Forward Directional Card (pdf)</a>
+			</font>
+			<%=box.printBottom()%>
+			<br>				
 			<!-- start 'SLICE' module -->
 			<!-- <% box.setTitle("SLICE Survey 2007");%>
 			<%=box.printTop()%>
@@ -371,7 +374,7 @@ function toggleDiv(who){
 			<% box.setTitle("Staff Opportunities");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<a href='/servlet/CmsController?action=browse&catId=1000155'>See all opportunities</a><br>
+				<a href='/servlet/CmsController?action=browse&catId=1000155'>Opportunities</a><br>
 			</font>
 			<%=box.printBottom()%>
 			<br>
