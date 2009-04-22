@@ -300,14 +300,14 @@ function toggleDiv(who){
 			<br>-->
 			<!-- *******************************************************-->
 			
-			<!-- start 'Staff Opportunities' module -->
+			<!-- start 'Staff Opportunities' module
 			<% box.setTitle("Staff Opportunities");%>
 			<%=box.printTop()%>
 			<%=fontS%>
 				<a href='/servlet/CmsController?action=browse&catId=1000155'>Opportunities</a><br>
 			</font>
 			<%=box.printBottom()%>
-			<br>
+			<br> -->
 			<!-- *******************************************************-->
 
 			<!-- start infobase search module -->
