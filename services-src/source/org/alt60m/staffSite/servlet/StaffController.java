@@ -601,7 +601,8 @@ public class StaffController extends Controller {
 
 		int maxage = 60 * 60 * 24 * 30; // one month
 		mainCookie.setMaxAge(maxage);
-
+		mainCookie.setSecure(true);
+		
 		String requestedURL = (String) ctx.getSessionValue("onLogInGoto");
 		ctx.getSession().removeAttribute("onLogInGoto");
 		log.debug("requestedURL: " + requestedURL);
