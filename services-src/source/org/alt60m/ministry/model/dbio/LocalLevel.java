@@ -42,7 +42,7 @@ public class LocalLevel extends DBIOEntity {
 		setMetadata("StopDate","stopdate",table);
 		setMetadata("No","no",table);
 		setMetadata("Abbrv","abbrv",table);
-
+		setMetadata("DeptID","dept_id",table);
 		setAutodetectProperties(false);
 	}
 
@@ -68,7 +68,8 @@ public class LocalLevel extends DBIOEntity {
 	private Date   stopDate = null;
 	private String no = "";
 	private String abbrv = "";
-
+	private String deptID = "";
+	
 	public String getLocalLevelId(){ return localLevelId; }
     public void setLocalLevelId(String localLevelId){ this.localLevelId = localLevelId; }
 
@@ -138,6 +139,9 @@ public class LocalLevel extends DBIOEntity {
 	public String getAbbrv(){ return abbrv; }
     public void setAbbrv(String abbrv){ this.abbrv = abbrv; }
 
+    public String getDeptID(){ return deptID; }
+    public void setDeptID(String deptID){ this.deptID = deptID; }
+    
 	public Vector getSortedActivities() {
             Activity a = new Activity();
             String table = "ministry_viewSortedActivities";
