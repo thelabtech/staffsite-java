@@ -7,6 +7,126 @@
 <HTML>
 <HEAD>
 <TITLE>Campus Crusade Login Help</TITLE>
+<script type="text/javascript" language="javascript">
+var digits = /[0123456789]/g;
+var lowers = /[abcdefghijklmnopqrstuvwxyz]/g;
+var uppers = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/g;
+var symbols = /[~!#$%^+*()]/g;
+function checkpw()
+{
+	pw=document.getElementById('pw').value;
+	fn=document.getElementById('firstName').value.toLowerCase();
+	ln=document.getElementById('lastName').value.toLowerCase();
+	var divs = new Array();
+	var passes=4;
+	var problems="Your password must have 3 out of 4 of : ";
+	var fatals="";
+	
+	if(pw.match(digits)==null) {
+		passes=passes-1;
+		problems=problems+"at least one digit, ";
+		divs.push('digit');
+	}
+	else
+	{
+		if(document.getElementById('digit').style.color=="red"){document.getElementById('digit').style.color="green";}
+	}
+	if(pw.match(uppers)==null) {
+		passes=passes-1;
+		problems=problems+"at least one UPPERCASE LETTER, ";
+		divs.push('upper');
+	}
+	else
+	{
+		if(document.getElementById('upper').style.color=="red"){document.getElementById('upper').style.color="green";}
+	}
+	if(pw.match(lowers)==null) {
+		passes=passes-1;
+		problems=problems+"at least one lowercase letter, ";
+		divs.push('lower');
+	}
+	else
+	{
+		if(document.getElementById('lower').style.color=="red"){document.getElementById('lower').style.color="green";}
+	}
+	if(pw.match(symbols)==null) {
+		passes=passes-1;
+		problems=problems+"at least one symbol ~!#$%^+*(), ";
+		divs.push('symbol');
+	}
+	else
+	{
+		if(document.getElementById('symbol').style.color=="red"){document.getElementById('symbol').style.color="green";}
+	}
+	
+	if(pw.toLowerCase().indexOf('password')!=-1) {
+		passes=0;
+		problems="";
+		fatals=fatals+"Password must not contain the word 'password'. ";
+		document.getElementById('passwordword').style.color="red";
+		divs = new Array();
+	}
+	else
+	{
+		if(document.getElementById('passwordword').style.color=="red"){document.getElementById('passwordword').style.color="green";}
+	}
+
+	
+	if((pw.toLowerCase().indexOf(fn)!=-1)||(pw.toLowerCase().indexOf(ln)!=-1)) {
+		passes=0;
+		problems="";
+		fatals=fatals+"Password must not contain any part of your name. ";
+		document.getElementById('your_name').style.color="red";
+		divs = new Array();
+	}
+	else
+	{
+		if(document.getElementById('your_name').style.color=="red"){document.getElementById('your_name').style.color="green";}
+	}
+	
+	if(pw.length<8) {
+		passes=0;
+		problems="";
+		fatals=fatals+"Password must have 8 or more characters. ";
+		document.getElementById('eight').style.color="red";
+		divs = new Array();
+	}
+	else
+	{
+		if(document.getElementById('eight').style.color=="red"){document.getElementById('eight').style.color="green";}
+	}
+	
+	if(problems.length>0){problems=problems+"to be valid. ";}
+	if (passes<3)
+	{
+		document.getElementById('pw').value="";
+		document.getElementById('pwconf').value="";	
+		document.getElementById('pw').focus();
+		for(i=0;i<divs.length;i++){
+		document.getElementById(divs[i]).style.color="red";
+		}
+	alert (problems+fatals);
+	}
+	
+	
+	
+}
+function checkpwconf(){
+	checkpw()
+	pw=document.getElementById('pw').value;
+	pwc=document.getElementById('pwconf').value;
+	if (pw!==pwc){
+		
+		document.getElementById('pwconf').value="";	
+		document.getElementById('pwconf').focus();
+		alert('Password and password confirmation do not match!');
+		}
+}
+</script>
+<style type="text/css">
+div
+{display:inline;margin:none;border:none;background-color:none;padding:none;}
+</style>
 </HEAD>
 <body>
 <center>
@@ -42,16 +162,27 @@
 				
 				<tr><td colspan="4" bgcolor="#9999FF">	<%=fontB%><font color=white> If you are with another CCC ministry and you are <br>only requesting access to the Campus Staff Site, <br>please give your reason and then proceed with form:</font></font></td><td colspan="2" width="30%" bgcolor="#9999FF" >	<input type=textarea rows=3 width=20 name="nonCampusStaffSiteAccessReason">	</td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>First Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="firstName">	</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Last Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="lastName">	</td></tr>
+				<tr><td colspan="4" align=right>	<%=fontB%>First Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="firstName" name="firstName">	</td></tr>
+				<tr><td colspan="4" align=right>	<%=fontB%>Last Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="lastName" name="lastName">	</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>Middle Initial: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="middleInitial">	</td></tr> 
 				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>Staff Account #: 	</td><td colspan="2" width="30%">	<input type=text size=12 name="accountNo">	</td></tr>
 				<tr><td>&nbsp;</td></tr>
 				
-				<tr><td colspan="4" align=right>	<%=fontB%>GCX Password
-				<br>(The password for the GCX account you have just activated):</td><td colspan="2" width="30%">	<input type=password size=12 name="password"> </td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Re-enter password:</td><td colspan="2" width="30%">	<input type=password size=12 name="passwordConf"></td></tr>
+				<tr><td colspan="4" align=right>	<%=fontB%>Password:<br>
+													
+					</td><td colspan="2" width="30%">	<input type=password id="pw" onchange="checkpw();" required size=12 name="password"> </td></tr>
+<tr><td colspan="4" align=right>	<%=fontB%>Re-enter password:</td><td colspan="2" width="30%">	<input type=password id="pwconf" required onchange="checkpwconf();" size=12 name="passwordConf"></td></tr>
+								
+<tr><td colspan="6"><%=fontB%>Your Password must be <div id="eight">at least 8 characters long,&nbsp;</div> 
+													and include 3 or 4 of the following types:&nbsp;<br>
+													<b><div id="upper">UPPERCASE LETTER,&nbsp;</div></b> 
+													<b><div id="lower">lowercase letter,&nbsp;</div></b> 
+													<b>number such as <div id="digit">1234567890,&nbsp;</div> </b>
+													<b>and/or symbol such as <div id="symbol">~!#$%^+*(). </div></b> 
+													Also it cannot contain any <div id="spaces">spaces&nbsp;</div>
+													 or <div id="your_name">any part of your name&nbsp;</div> 
+													or the word <div id="passwordword">"password"&nbsp;</div></td></tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="4" align=right>	<%=fontB%>If female and married, is your husband on staff? </td><td colspan="2" width="30%"> <select name="married"> <option> <option>Yes <option>No </select> </td></tr>
 				<tr><td>&nbsp;</td></tr>
