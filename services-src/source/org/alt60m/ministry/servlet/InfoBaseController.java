@@ -2590,6 +2590,7 @@ public class InfoBaseController extends Controller {
             Person person=new Person();
             person.setFk_ssmUserID(user.getUserID());
             person.select();
+            results.putValue("personID", person.getPersonID()+"");
             results.putValue("isRD",isRD(person));
             ctx.setReturnValue(results);
             ctx.goToView("targetAreaPersonContacts");
