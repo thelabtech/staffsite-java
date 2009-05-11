@@ -58,7 +58,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 <BR>
 <%
 	boolean hasMovement = false;
-
+Boolean present=false;
 	for (Strategy strategy : Strategy.campusStrategies()) {
 		thisActivity = ar.getHashtable(strategy.name());
 		
@@ -110,14 +110,20 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 								%>
 								<%= (String)thisContact.getLastName() %>
 							</A>
-<%if(ar.getValue("isRD").equals("true")){ %>
-					&nbsp;[<A
-						HREF="/servlet/InfoBaseController?action=removePersonContact&personID=<%= thisContact.getPersonID() %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>">Remove</A>]
+<%if(ar.getValue("isRD").equals("true")||(thisContact.getPersonID()+"").equals(ar.getValue("personID"))){ %>
+					&nbsp;<A
+						HREF="/servlet/InfoBaseController?action=removePersonContact&personID=<%= thisContact.getPersonID() %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>"><img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 					<%} %><BR>
 					<%
-								}
+					if ((thisContact.getPersonID()+"").equals(ar.getValue("personID"))){present=true;}
+					}
 								
-					%><%if(ar.getValue("isRD").equals("true")){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
+					%>
+					<%if (!present){%>
+		
+<br><A HREF="/servlet/InfoBaseController?action=savePersonContact&personID=<%= ar.getValue("personID") %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>"><%=fontS %>Become a Contact for this Movement</A>
+	<br>	<%} %>
+					<%if(ar.getValue("isRD").equals("true")){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
 					Contact
 					</A><%} 
 					else
