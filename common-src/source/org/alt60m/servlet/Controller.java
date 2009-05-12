@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.alt60m.staffSite.bean.dbio.Bookmarks;
+import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
@@ -35,8 +37,8 @@ public abstract class Controller extends HttpServlet {
 
 	// Maintains count of # of threads in this object
 	private int _thread_ctr;
-
-	protected class ActionContext
+	
+	public class ActionContext
 	{
 		private final String ERR_TOKEN = "error";
 		private final String RETURN_TOKEN = "tub";
