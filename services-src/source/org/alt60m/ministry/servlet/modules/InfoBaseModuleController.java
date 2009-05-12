@@ -75,7 +75,7 @@ public class InfoBaseModuleController extends Controller {
     }
     private final String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW" };
 
-    private Bookmarks _bookmarks;
+    protected Bookmarks _bookmarks;
     private final String[] _expandRegion = new String[] { "Northeast", "Mid-Atlantic", "MidSouth", "Southeast", "Great Lakes", "Upper Midwest", "Great Plains Int'l", "Red River", "Greater Northwest", "Pacific Southwest" };
 
     final String[] _reportTypes = new String[] { "locallevel", "targetarea", "regional", "national" };
@@ -287,7 +287,7 @@ public class InfoBaseModuleController extends Controller {
         }
     }
 
-    private List<Hashtable<String, Object>> blankStatsCalendar(String statId) {
+    protected List<Hashtable<String, Object>> blankStatsCalendar(String statId) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
@@ -1150,7 +1150,7 @@ public class InfoBaseModuleController extends Controller {
         return new java.sql.Date(c.getTime().getTime());
     }
 
-	private List<Hashtable<String, Object>> populateStatsCalendar(Iterator<Hashtable<String, Object>> enteredStats, List<Hashtable<String, Object>> allDates) {
+	protected List<Hashtable<String, Object>> populateStatsCalendar(Iterator<Hashtable<String, Object>> enteredStats, List<Hashtable<String, Object>> allDates) {
 		SimpleDateFormat sqlFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		while (enteredStats.hasNext()) {
 			Hashtable<String, Object> row = enteredStats.next();
@@ -1954,7 +1954,7 @@ public class InfoBaseModuleController extends Controller {
         }
     }
     
-    private boolean loginCheck(ActionContext ctx) {
+    protected boolean loginCheck(ActionContext ctx) {
 		String username = (String) ctx.getSessionValue("userName");
 		if (username == null) {
 			ctx.goToView("login");
