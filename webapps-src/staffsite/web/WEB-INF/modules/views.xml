@@ -4,6 +4,7 @@
 	<view name="nonNumeric" url="/modules/layout.jsp"></view>
 	<view name="activityError" url="/modules/layout.jsp"></view>
 	<view name="index" url="/modules/layout.jsp"></view>
+	<view name="enter_stat" url="/modules/enter_stat.jsp"></view>
 	<view name="staffList" url="/modules/layout.jsp"></view>
 	<view name="personList" url="/modules/layout.jsp"></view>
 	<view name="staffDetail" url="/modules/layout.jsp"></view>

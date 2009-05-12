@@ -1,4 +1,4 @@
-<%if(!h.get("contacts").equals(new Vector<Hashtable<String,Object>>())){ %>
+
 <tr><td colspan="3">
 <table>
 
@@ -41,6 +41,4 @@ if (!present){%>
 		<%
 		}%>
 </td></tr>					
-</table></td></tr><%
-}
-%>
+</table></td></tr>

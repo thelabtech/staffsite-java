@@ -30,6 +30,7 @@ for(Hashtable h:rows){%>
 
 
 	<td><i><%=h.get("size") %> students</i></td>
+	<td><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
 </tr>	
 	<%
 	if(module.equals("campus")||module.equals("location")){
