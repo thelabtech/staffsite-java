@@ -33,7 +33,12 @@ public enum Strategy {
 	}
 
 	public static String expandStrategy(String abbrev) {
+		try{
 		return valueOf(abbrev).getName();
+		}
+		catch (Exception e){
+		return "";	
+		}
 	}
 
 	public static EnumSet<Strategy> microCultures() {
