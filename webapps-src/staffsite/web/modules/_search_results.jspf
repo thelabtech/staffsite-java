@@ -1,0 +1,9 @@
+<%
+Vector<Hashtable<String,String>>rows=section.getRows();
+for(Hashtable h:rows){%>
+	<A href="/servlet/<%=section.getType() %>?action=content&id=<%= h.get("id") %>"><%= h.get("name") %></A>
+	<%=h.get("city") %>,&nbsp;
+	<%=h.get("state") %>&nbsp;
+	<%=h.get("region") %>&nbsp;
+	<br>
+<%}%>

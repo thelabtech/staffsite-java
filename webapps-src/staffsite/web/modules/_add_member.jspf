@@ -1,0 +1,58 @@
+<%if(mode.equals("addMember")){%>
+
+	<div class="associate">
+	<FORM NAME="addPersonContact" ACTION="/servlet/Team?action=addMissionalTeamMember" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="id" VALUE="<%= ar.getHashtable("info").get("locallevelid") %>">
+
+Search by <i>Last Name</i>. If the person you wish to add is not in the list below, check the spelling of their 
+last name and try again. <br>
+<INPUT TYPE="text" NAME="lastName" MAXLENGTH="30" VALUE="<%= (request.getParameter("lastName") == null) ? "" : request.getParameter("lastName") %>">
+&nbsp;
+<INPUT TYPE="submit" VALUE="Search">
+<br>
+<%
+ if (ar.getValue("infoMessage")==null){ %>
+Here is a list of people in the Campus Ministry system.<BR>Select one to add them as a Missional Team member.<% } 
+	else { 
+		out.print(ar.getValue("infoMessage"));
+ } %>
+
+
+</FONT>
+
+
+</FORM>
+<FORM NAME="addPersonContact" ACTION="/servlet/Team?action=saveTeamMember" METHOD="POST">
+<SELECT NAME="personID">
+	<% Iterator contacts = ar.getCollection("contacts").iterator();
+	   while(contacts.hasNext()) {
+			 Contact currentContact = (Contact)contacts.next();
+			 %>
+			<OPTION VALUE="<%= currentContact.getPersonID() %>">
+					<%= (String)currentContact.getFirstName() + " "%>
+					<%if((currentContact.getPreferredName()!=null)&&
+							(!((String)currentContact.getPreferredName()).equals(""))&&
+							(!((String)currentContact.getPreferredName()).equals(" "))&&
+							(!((String)currentContact.getPreferredName()).equals((String)currentContact.getFirstName())))
+					{
+						out.print( "'"+(String)currentContact.getPreferredName()+"' ");
+					}
+					%>
+					<%= (String)currentContact.getLastName()+ " (" +(String)currentContact.getEmail()+")" %>
+			</OPTION>
+				<% } %>
+</SELECT>&nbsp;
+
+<INPUT TYPE="HIDDEN" NAME="id" VALUE="<%= ar.getHashtable("info").get("locallevelid") %>">
+				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName">
+<INPUT TYPE="SUBMIT" VALUE="Assign">
+				 </FORM>
+<br>
+ If you still cannot find them, 
+<A HREF="/servlet/InfoBaseController?action=makeNewPerson&purpose=team&activityid=&teamID=<%= request.getParameter("teamID")%>">click here</A>.
+<br>
+<A href="/servlet/Team?action=content&id=<%=ar.getHashtable("info").get("locallevelid") %>">Cancel</A>	
+</div>
+	
+<%}
+%>

@@ -1,0 +1,24 @@
+<%Hashtable info=ar.getHashtable("info"); %>
+<%if(infoModes.contains(mode)){ %>
+	<b><%=info.get("name")%><br></b>
+	Address: <br><%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
+	<%=info.get("city")%>,&nbsp;<%=info.get("state")%><br>
+	<%=info.get("zip")%><br>
+	<%String region=(String)info.get("region"); %>
+	Region: <%=org.alt60m.ministry.Regions.expandRegion(region) %> <br>
+	<%if(module.equals("person")){%>
+		Work Phone: <%=info.get("workphone")%><br>
+		Mobile Phone: <%=info.get("cellphone")%><br>
+		Home Phone: <%=info.get("homephone")%><br>
+	<%}else{ %>	
+		Phone: <%=info.get("phone")%><br>
+	<%} %>
+	Email: <%=info.get("email")%><br>
+	<%if(module.equals("person")){%>
+	<% }else if(module.equals("campus")||module.equals("location")){%>
+		Enrollment: <%=info.get("enrollment")%>
+	<% }else if(module.equals("team")){%>
+		
+	<%} %>
+
+<%}%>

@@ -1,0 +1,31 @@
+<%Hashtable search=ar.getHashtable("search"); 
+%>
+<input type="hidden" name="action" value="search"/>
+Name:<input name="name" type="text" value="<%=search.get("name")!=null?search.get("name"):"" %>"/><br>
+City:<input name="city" type="text" value="<%=search.get("city")!=null?search.get("city"):"" %>"/><br>
+State:<input name="state" type="text" value="<%=search.get("state")!=null?search.get("state"):"" %>"/><br>
+Region:
+<select name="region"  >
+		<OPTION VALUE="">All</OPTION>
+		<OPTION VALUE="NE">Northeast</OPTION>
+		<OPTION VALUE="NW">Greater Northwest</OPTION>
+		<OPTION VALUE="MA">Mid-Atlantic</OPTION>
+		<OPTION VALUE="MS">MidSouth</OPTION>
+		<OPTION VALUE="UM">Upper Midwest</OPTION>
+		<OPTION VALUE="GL">Great Lakes</OPTION>
+		<OPTION VALUE="GP">Great Plains</OPTION>
+		<OPTION VALUE="SW">Pacific Southwest</OPTION>
+		<OPTION VALUE="SE">Southeast</OPTION>
+		<OPTION VALUE="RR">Red River</OPTION>
+</select><br>
+<%if(module.equals("home")){ %>
+						Select type of information:
+						<%String search_type= search.get("type")!=null?(String)search.get("type"):"";%>
+						<select name="type" >
+							<option value="campus" <%= search_type.equals("campus")?"selected":"" %>>Campus</option>
+							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
+							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
+						</select>
+						<%}else{ %>
+						<input type="hidden" name="type" value="<%=module%>"/>						
+						<%} %>

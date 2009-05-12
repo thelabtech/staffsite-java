@@ -260,6 +260,51 @@
 			org.alt60m.ministry.servlet.InfoBaseController
 		</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>InfoBaseModuleController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.InfoBaseModuleController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PersonController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.person.PersonController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TeamController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.team.TeamController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReportController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.report.ReportController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>StatController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.stat.StatController
+		</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>MovementController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.campus.movement.MovementController
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LocationController</servlet-name>
+		<servlet-class>
+			org.alt60m.ministry.servlet.modules.campus.location.LocationController
+		</servlet-class>
+	</servlet>
+	
 	<servlet>
 		<servlet-name>TestOracleController</servlet-name>
 		<servlet-class>
@@ -522,6 +567,40 @@
 		<servlet-name>InfoBaseController</servlet-name>
 		<url-pattern>/servlet/InfoBaseController</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+	<servlet-name>InfoBaseModuleController</servlet-name>
+		<url-pattern>/servlet/Home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	<servlet-name>ReportController</servlet-name>
+		<url-pattern>/servlet/Report</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LocationController</servlet-name>
+		<url-pattern>/servlet/Location</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MovementController</servlet-name>
+		<url-pattern>/servlet/Movement</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LocationController</servlet-name>
+		<url-pattern>/servlet/Campus</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StatController</servlet-name>
+		<url-pattern>/servlet/Stat</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonController</servlet-name>
+		<url-pattern>/servlet/Person</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TeamController</servlet-name>
+		<url-pattern>/servlet/Team</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>TestOracleController</servlet-name>
 		<url-pattern>/servlet/TestOracleController</url-pattern>

@@ -1,0 +1,27 @@
+<%
+String type="";
+if (contentModes.contains(mode)){
+Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
+for(Section section:subordinate_objects){
+	%><b><%= section.getName() %></b><br>
+	<%
+	type=section.getType();
+	if(type.equals("Team")){%>
+		<%@ include file="/modules/_list_teams.jspf" %>
+	<%} else if(type.equals("Person")){%>
+		<%@ include file="/modules/_list_persons.jspf" %>
+	<%} else if(type.equals("Campus")){%>
+		<%@ include file="/modules/_list_campuses.jspf" %>
+	<%}  else if(type.equals("Movement")){%>
+		<%@ include file="/modules/_list_movements.jspf" %>
+	<%} else {%>
+	What is supposed to go here?
+	<%}%>
+<%}
+}
+else
+{%>
+	Use the search box to find your content.
+<%	
+}
+%>

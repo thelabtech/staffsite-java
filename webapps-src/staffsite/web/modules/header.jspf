@@ -1,0 +1,20 @@
+
+<HTML>
+<HEAD>
+<TITLE><%=ar.getValue("title") %></TITLE>
+<link rel="stylesheet" type="text/css" href="/modules/layout.css" />
+</HEAD>
+<body>
+<div id="total">
+<div id="tabs_main" >
+<table><tr>
+<% String[] tabs={"Home","Campus","People","Teams"};  %>
+<% String[] tabValues={"Home","Campus","Person","Team"};  %>
+<% for(int i=0;i<tabs.length;i++){ %>
+<td id="tab_<%=i%>" class="<%=module.equalsIgnoreCase(tabValues[i])?"tab_current":"tab" %>">
+<A href="<%=tabValues[i]%>"><%=tabs[i]%></A>
+</td>
+<%} %>
+</tr></table>
+</div>
+<div id="panel_main" >	

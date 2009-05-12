@@ -1,0 +1,11 @@
+<table>
+<%
+Vector<Hashtable<String,Object>>rows=section.getRows();
+for(Hashtable h:rows){%>
+<tr>
+	<td><A href="/servlet/Campus?action=content&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>
+	<%String region=(String)h.get("region"); %>
+	<td><%=h.get("city") %>, <%=h.get("state") %>, <%=org.alt60m.ministry.Regions.expandRegion(region) %> </td>
+</tr>
+<%}%>
+</table>

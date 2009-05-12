@@ -1,0 +1,34 @@
+<table>
+<%
+boolean present=false;
+Vector<Hashtable<String,Object>>rows=section.getRows();
+for(Hashtable h:rows){%>
+<tr>
+	<td>
+		<%if(module.equals("team")&&ar.getValue("personID").equals(h.get("id"))){present=true;} %>
+	 <%if(module.equals("team")&&((session.getValue("isHR").equals("true"))||h.get("id").equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true"))){ %>
+		<A style="border:none;"
+					HREF="/servlet/Team?action=removeTeamMember&id=<%=ar.getHashtable("info").get("locallevelid") %>&personID=<%= h.get("id") %>">
+				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
+		<%} %>
+	<A href="/servlet/Person?action=content&id=<%= h.get("id") %>&accountNo=<%=h.get("accountNo")%>"><%=((String) h.get("name")).replace(" (null)","") %></A></td>
+	<td><%=h.get("city") %>, <%=h.get("state") %></td>
+			
+		
+</tr>
+<%}%>
+  <%if(module.equals("team")&&(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true"))){ %>
+<tr><td colspan="2">		
+<A HREF="/servlet/Team?action=addMissionalTeamMember&id=<%=ar.getHashtable("info").get("locallevelid") %>&lastName=">
+<center><i>
+Add a Missional Team Member</i></center></A>
+		</td></tr>
+		<%} %>
+<%if (module.equals("team")&&!present){%>
+<tr><td colspan="2">		
+<A HREF="/servlet/Team?action=saveTeamMember&id=<%=ar.getHashtable("info").get("locallevelid") %>&personID=<%= ar.getValue("personID") %>">
+<center><i>Join This Missional Team</i></center></A>
+		</td></tr>
+		<%} %>
+		</table>
+		<%@ include file="/modules/_add_member.jspf" %>

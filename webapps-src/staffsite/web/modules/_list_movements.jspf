@@ -1,0 +1,45 @@
+<table>
+<%
+boolean isFirst=true;
+boolean topRow=true;
+Vector<Hashtable<String,Object>>rows=section.getRows();
+for(Hashtable h:rows){%>
+	<%if(!isFirst||topRow){ %>
+		<tr>
+		<%if(!module.equals("campus")&&!module.equals("location")){ %>	
+		<td>Campus:</td>
+		<%}%>
+		<td>Strategy:</td>
+		<%if(module.equals("campus")||module.equals("location")){ %>	
+		<td>Team:</td>
+		<%}%>
+		<td>Size:</td>
+		</tr>
+	<%} %>
+	<%isFirst=true;
+%>
+<tr>
+	<%if(!module.equals("campus")&&!module.equals("location")){ %>	
+	<td><A href="/servlet/Campus?action=content&id=<%= h.get("location_id") %>"><%= h.get("location") %></A></td>
+	
+	<%}%>
+	<td><i><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></i></td>
+	<%if(module.equals("campus")||module.equals("location")){ %>	
+	<td><A href="/servlet/Team?action=content&id=<%= h.get("team_id") %>"><%= h.get("team") %></A></td>
+	<%}%>
+
+
+	<td><i><%=h.get("size") %> students</i></td>
+</tr>	
+	<%
+	if(module.equals("campus")||module.equals("location")){
+		
+			%>
+			<%@ include file="/modules/_list_contacts.jspf" %>
+			<%
+		
+	} %>
+<%topRow=false; %>
+<%}%>
+</table>
+<%@ include file="/modules/_add_contact.jspf" %>
