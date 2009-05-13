@@ -73,12 +73,12 @@ public class InfoBaseModuleController extends Controller {
         Date lastUpdated;
 		Hashtable staffByRegion = new Hashtable();
     }
-    private final String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW" };
+    protected final String[] _abbrevRegion = new String[] { "NE", "MA", "MS", "SE", "GL", "UM", "GP", "RR", "NW", "SW" };
 
     protected Bookmarks _bookmarks;
     private final String[] _expandRegion = new String[] { "Northeast", "Mid-Atlantic", "MidSouth", "Southeast", "Great Lakes", "Upper Midwest", "Great Plains Int'l", "Red River", "Greater Northwest", "Pacific Southwest" };
 
-    final String[] _reportTypes = new String[] { "locallevel", "targetarea", "regional", "national" };
+    protected final String[] _reportTypes = new String[] { "locallevel", "targetarea", "regional", "national" };
     protected final String LOCAL_LEVEL_ID_TOKEN = "locallevelid";
     protected final String TARGET_AREA_ID_TOKEN = "targetareaid";
    
@@ -1028,7 +1028,7 @@ public class InfoBaseModuleController extends Controller {
         _bookmarks = new Bookmarks();
     }
 
-    boolean inList(String[] list, String value) {
+    protected boolean inList(String[] list, String value) {
         for (int i = 0; i < list.length; i++) {
             if (list[i].equalsIgnoreCase(value)) return true;
         }
