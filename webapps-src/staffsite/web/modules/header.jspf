@@ -1,4 +1,26 @@
-
+<%@ include file="/headers/auth.jspf"%>
+<%@ page import="org.alt60m.servlet.*,java.util.*,org.alt60m.ministry.*,org.alt60m.ministry.model.dbio.*"%>
+<%@ page import="org.alt60m.ministry.servlet.modules.model.*"%>
+<%
+	ActionResults ar;
+	ar = ActionResults.getActionResults(session);
+	String infoBox="";
+	String subModule="";
+	String module=ar.getValue("module");
+	String[] splitModule=module.split("_");
+	if (splitModule.length>1) {
+		subModule=splitModule[1];
+		subModule=(subModule!=null&&!subModule.equals(""))?subModule+"/":"";
+		module=splitModule[0];
+	}
+	String moduleRoot="/modules/"+ module +"/";
+	
+	String mode=ar.getValue("mode")!=null?ar.getValue("mode"):"index";
+	List normalModules=Arrays.asList("home","person","campus","location","movement","team");
+	List contentModes=Arrays.asList("content","list","edit","addMember","addContact");
+	List infoModes=Arrays.asList("content","addMember","addContact");
+	String layout=(normalModules.contains(module))?"normal":"special";
+%>
 <HTML>
 <HEAD>
 <TITLE><%=ar.getValue("title") %></TITLE>
@@ -8,13 +30,13 @@
 <div id="total">
 <div id="tabs_main" >
 <table><tr>
-<% String[] tabs={"Home","Campus","People","Teams","Stats"};  %>
-<% String[] tabValues={"Home","Campus","Person","Team","Stat"};  %>
+<% String[] tabs={"Home","Campus","People","Teams","Stats","Reports"};  %>
+<% String[] tabValues={"Home","Campus","Person","Team","Stat","Report"};  %>
 <% for(int i=0;i<tabs.length;i++){ %>
-<td id="tab_<%=i%>" class="<%=module.equalsIgnoreCase(tabValues[i])?"tab_current":"tab" %>">
-<A href="<%=tabValues[i]%>"><%=tabs[i]%></A>
-</td>
-<%} %>
+	<td id="tab_<%=i%>" class="<%=module.equalsIgnoreCase(tabValues[i])?"tab_current":"tab" %>">
+	<A href="<%=tabValues[i]%>"><%=tabs[i]%></A>
+	</td>
+<%}%>
 </tr></table>
 </div>
 <div id="panel_main" >	

@@ -30,14 +30,15 @@
 	<view name="successCriteriaHome" url="/modules/layout.jsp"></view>
 	<view name="campusCountReport" url="/modules/layout.jsp"></view>
 	<view name="setReportCriteria" url="/modules/layout.jsp"></view>
-	<view name="setReportCriteriaAgile" url="/modules/layout.jsp"></view>
+	<view name="setReportCriteriaAgile" url="/modules/choose_report.jsp"></view>
+	<view name="setMusterCriteriaAgile" url="/modules/choose_muster.jsp"></view>
 	<view name="targetAreaProposal" url="/modules/layout.jsp"></view>
 	<view name="targetAreaProposalError" url="/modules/layout.jsp"></view>
 	<view name="targetAreaProposalThankYou" url="/modules/layout.jsp"></view>
 	<view name="localLevelProposalThankYou" url="/modules/layout.jsp"></view>
 	<view name="localLevelProposal" url="/modules/layout.jsp"></view>
 	<view name="reportDisplay" url="/modules/layout.jsp"></view>
-	<view name="reportDisplayAgile" url="/modules/layout.jsp"></view>
+	<view name="reportDisplayAgile" url="/modules/stat_report.jsp"></view>
 	<view name="reportDisplayDetail" url="/modules/layout.jsp"></view>
 	<view name="enterSuccessCriteria" url="/modules/layout.jsp"></view>
 	<view name="enterFastSuccessCriteria" url="/modules/layout.jsp"></view>
@@ -51,6 +52,6 @@
 	<view name="addContact" url="/modules/layout.jsp"></view>
 	<view name="addPersonContact" url="/modules/layout.jsp"></view>
 	<view name="addMissionalTeamMember" url="/modules/layout.jsp"></view>
-	<view name="showMuster" url="/modules/layout.jsp"></view>
+	<view name="showMuster" url="/modules/show_muster.jsp"></view>
 	<view name="makePerson" url="/modules/layout.jsp"></view>
 </views>

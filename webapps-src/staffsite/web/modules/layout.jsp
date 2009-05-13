@@ -1,26 +1,4 @@
-<%@ include file="/headers/auth.jspf"%>
-<%@ page import="org.alt60m.servlet.*,java.util.*,org.alt60m.ministry.*,org.alt60m.ministry.model.dbio.*"%>
-<%@ page import="org.alt60m.ministry.servlet.modules.model.*"%>
-<%
-	ActionResults ar;
-	ar = ActionResults.getActionResults(session);
-	String infoBox="";
-	String subModule="";
-	String module=ar.getValue("module");
-	String[] splitModule=module.split("_");
-	if (splitModule.length>1) {
-		subModule=splitModule[1];
-		subModule=(subModule!=null&&!subModule.equals(""))?subModule+"/":"";
-		module=splitModule[0];
-	}
-	String moduleRoot="/modules/"+ module +"/";
-	
-	String mode=ar.getValue("mode")!=null?ar.getValue("mode"):"index";
-	List normalModules=Arrays.asList("home","person","campus","location","movement","team");
-	List contentModes=Arrays.asList("content","list","edit","addMember","addContact");
-	List infoModes=Arrays.asList("content","addMember","addContact");
-	String layout=(normalModules.contains(module))?"normal":"special";
-%>
+
 <%@ include file="/modules/header.jspf"%>
 <%if(mode.equals("content")){ %><center><b><%=ar.getHashtable("info").get("name") %></b></center><%} %>
 		<div id="left_pane">
