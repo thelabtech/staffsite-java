@@ -27,13 +27,7 @@ public class Reports {
 		if (!strategyList.contains("SP")){
 			queryPortion+=" and not(ministry_targetarea.eventType <=> 'SP') ";
 		}
-		if (strategyList.contains("C2")||strategyList.contains("SP")){
-			Boolean addEvents=true;
-			for (String s:org.alt60m.ministry.Strategy.strategiesArray()){
-				if(strategyList.contains(s))addEvents=false;
-			}
-			if(addEvents){strategyList+=" ,'EV' ";}
-		}
+		
 		queryPortion+=	" and ministry_statistic.periodEnd < "+periodEnd+
 			" AND ministry_statistic.periodEnd >="+periodBegin+
 			" and ministry_activity.Strategy in ("+strategyList+") ";
