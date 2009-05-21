@@ -38,6 +38,10 @@ function checkAll(){
 		checked=true;
 		document.getElementById('checkAllButton').innerHTML='Uncheck All';
 	}
+function checkEvents(){
+	document.getElementById("C2").checked=true;
+	document.getElementById("SP").checked=true;
+}
 </script>
 <title><%= pageTitle %></title>
 </head>
@@ -128,14 +132,14 @@ function submitReportForm(thisForm) {
 					<input type="checkbox" name="strategies"   value="VL" >Valor<br>
 					<input type="checkbox" name="strategies"   value="OT" >Other<br>
 					
-	
+					<input type="checkbox" name="strategies"  onclick="checkEvents();" value="EV" >Projects and Conferences without a specified Strategy<br>
 			  </td></tr>
 			</table>
 			<table <%=bgcolorL%>>
 				<tr><td><%=fontB%>
 					<input type="checkbox" name="strategies"  checked value="CM" >Campus Report (traditional Success Criteria report)<br>
-					<input type="checkbox" name="strategies" onClick="checkAll();"  value="C2" >Conference Stats<br>
-					<input type="checkbox" name="strategies" onClick="checkAll();"  value="SP" >Summer Project Stats<br>
+					<input type="checkbox" name="strategies" id="C2" onClick="checkAll();"  value="C2" >Conference Stats<br>
+					<input type="checkbox" name="strategies" id="SP" onClick="checkAll();"  value="SP" >Summer Project Stats<br>
 				</td></tr>
 			</table>
 </td></tr></table>
