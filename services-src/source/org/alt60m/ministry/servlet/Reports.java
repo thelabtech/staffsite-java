@@ -27,7 +27,13 @@ public class Reports {
 		if (!strategyList.contains("SP")){
 			queryPortion+=" and not(ministry_targetarea.eventType <=> 'SP') ";
 		}
-		
+		if (strategyList.contains("C2")||strategyList.contains("SP")){
+			Boolean addEvents=true;
+			for (String s:org.alt60m.ministry.Strategy.strategiesArray()){
+				if(strategyList.contains(s))addEvents=false;
+			}
+			if(addEvents){strategyList+=" ,'EV' ";}
+		}
 		queryPortion+=	" and ministry_statistic.periodEnd < "+periodEnd+
 			" AND ministry_statistic.periodEnd >="+periodBegin+
 			" and ministry_activity.Strategy in ("+strategyList+") ";
@@ -284,9 +290,18 @@ public class Reports {
 					row=new ReportRow();
 					if (sums.getString("rowid").equals(demos.getString("rowid"))){
 						row=resultSet2ReportRow(sums,demos);
-						if(!(row.getEventType()+"").equals(lastRow.getEventType()+"")){
-							//we separate event categories here
+						if((!lastRow.getRowid().equals(row.getRowid()))&&(lastRow.getStrategy().equals("BR"))){ //new activity or week after a run of Bridges; the order is important for these functional rows
 							
+							//put end row on if after Bridges rows, since we are now in new activity
+							ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them into final row
+							endRow.setFunction("end"); 
+							endRow.setLabel(summingRow.getLabel());
+							report.add(endRow);
+							
+						}
+						if(!(row.getEventType()+"").equals(lastRow.getEventType()+"")){
+							
+							//we separate event categories here
 							if (!(lastRow.getRowid()+"").equals("")){
 								report.add(getBottom(type,lastRow,summingRow,runningTotal));
 								runningTotal=new ReportRow();
@@ -297,6 +312,7 @@ public class Reports {
 								eventBlock.setLabel(eventTypes().get(lastRow.getEventType()));
 								report.add(eventBlock);
 							}
+							
 							ReportRow eventTopper=new ReportRow();
 							eventTopper.setFunction("eventBlockTop");
 							eventTopper.setEventType(row.getEventType()+"");
@@ -317,15 +333,7 @@ public class Reports {
 							row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+(row.getEventType().equals("Campus")?" ("+row.getEnrollment()+" enrolled)":""));
 						}
 				
-						if((!lastRow.getRowid().equals(row.getRowid()))&&(lastRow.getStrategy().equals("BR"))){ //new activity or week after a run of Bridges; the order is important for these functional rows
 						
-							//put end row on if after Bridges rows, since we are now in new activity
-							ReportRow endRow=new ReportRow(summingRow); //we have been totaling the previous Bridges rows, now we dump them into final row
-							endRow.setFunction("end"); 
-							endRow.setLabel(summingRow.getLabel());
-							report.add(endRow);
-							
-						}
 					
 						if ((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea"))&&(!(lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){ // before the top row of each strategy  we also insert a totals row for the bottom of each strategy
 							report.add(getBottom(type,lastRow,summingRow,runningTotal));
