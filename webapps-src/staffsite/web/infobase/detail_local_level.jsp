@@ -151,6 +151,15 @@ ar = ActionResults.getActionResults(session);
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
+		 <%if(staffMember.getIsLeader()){ %>
+		<A style="border:none;"
+					HREF="/servlet/InfoBaseController?action=removeTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
+				[Demote]</A>
+		<%} else {%>
+		<A style="border:none;"
+					HREF="/servlet/InfoBaseController?action=saveTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
+				[Promote]</A>
+		<%} %>
 		<%} %>
  <%if(staffMember.getIsLeader()){ %>
 		<b><%} %>
