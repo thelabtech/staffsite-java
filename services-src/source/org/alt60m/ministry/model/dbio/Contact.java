@@ -25,6 +25,8 @@ public class Contact extends Object {
 	private String firstName = "";
 	private String preferredName="";
 	private String email="";
+	private Boolean isLeader=false;
+	private Boolean isPeopleSoft=false;
 	private int fk_ssmUserID = 0;
     
 	/**
@@ -105,6 +107,17 @@ public class Contact extends Object {
 			this.email=email;
 	}
 	
-	
+	public Boolean getIsLeader(){
+		return this.isLeader;
+	}
+	public void  setIsLeader(Boolean value) {
+		this.isLeader=value;
+}
+	public Boolean getIsPeopleSoft(){
+		return this.isPeopleSoft;
+	}
+	public void  setIsPeopleSoft(Boolean value) {
+		this.isPeopleSoft=value;
+}
 
 }

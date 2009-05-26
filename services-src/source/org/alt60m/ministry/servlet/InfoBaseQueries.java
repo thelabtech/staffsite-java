@@ -829,7 +829,9 @@ public class InfoBaseQueries {
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
-			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
+			String query="SELECT ministry_missional_team_member.is_leader as is_leader, "+
+			" ministry_missional_team_member.is_people_soft as is_people_soft, "+
+			" ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
 			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent,"+
 			" ministry_person.accountNo as accountNo "+
 			" FROM (ministry_missional_team_member inner join ministry_person "+
@@ -841,6 +843,8 @@ public class InfoBaseQueries {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
+				contact.setIsLeader(rs.getString("is_leader")==null?false:(rs.getString("is_leader").equals("1")));
+				contact.setIsPeopleSoft(rs.getString("is_people_soft")==null?false:(rs.getString("is_people_soft").equals("1")));
 				contact.setAccountNo(rs.getString("accountNo"));
 				contact.setFirstName(rs.getString("firstName"));
 				contact.setLastName(rs.getString("lastName"));
@@ -861,7 +865,28 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-	
+	 public static Boolean isTeamLeader(Person person,LocalLevel ll)throws Exception
+	    {
+	    	
+	        String personID = person.getPersonID()+"";
+	       String llid=ll.getLocalLevelId();
+	       Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			String query="SELECT max(ministry_missional_team_member.is_leader) as is_leader "+
+			" FROM ministry_missional_team_member  WHERE ministry_missional_team_member.teamID ="+llid+
+			" and ministry_missional_team_member.personID="+personID+" group by ministry_missional_team_member.teamID, ministry_missional_team_member.personID  ; ";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			if (rs.next()){
+			if(rs.getString("is_leader")==null){
+				 return false;
+			} else {
+				return rs.getString("is_leader").equals("1");
+			}
+			}
+			return false;
+	    }
 	public static void savePersonContact (String personID, String activityId){
 		try 
 		{
@@ -953,7 +978,9 @@ public class InfoBaseQueries {
 			Vector<Hashtable<String,String>>t=new Vector<Hashtable<String,String>>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			String query="SELECT ministry_missional_team_member.teamID, ministry_locallevel.name"+
+			String query="SELECT ministry_missional_team_member.is_leader as is_leader, "+
+			" ministry_missional_team_member.is_people_soft as is_people_soft, "+
+			" ministry_missional_team_member.teamID, ministry_locallevel.name"+
 			" FROM (ministry_missional_team_member inner join ministry_locallevel "+
 			" on ministry_missional_team_member.teamID=ministry_locallevel.teamID) " +
 			" WHERE ministry_missional_team_member.personID ='"+personID+"' order by ministry_locallevel.name;";
@@ -964,6 +991,8 @@ public class InfoBaseQueries {
 				h=new Hashtable<String,String>();
 				h.put("teamID", rs.getString("teamID"));
 				h.put("name", rs.getString("name"));
+				h.put("is_leader",(rs.getString("is_leader")==null?"":rs.getString("is_leader")));
+				h.put("is_people_soft",(rs.getString("is_people_soft")==null?"":rs.getString("is_people_soft")));
 				t.add(h);
 			}
 			return t;

@@ -2392,7 +2392,7 @@ public class InfoBaseController extends Controller {
     		strategyList=ctx.getInputString("strategyList");
     		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
     	}
-    	if ((strategyList.length()>0)&&(!strategyList.contains("'EV'")))strategyList+=",'EV'";
+    	
     	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
     	results.putValue("type", type);
     	results.putValue("region", region);
@@ -2405,6 +2405,9 @@ public class InfoBaseController extends Controller {
     	results.putValue("periodEnd",  toMonth+ "/1/" + toYear);
     	results.putValue("strategyList", strategyList);
     	results.addCollection("report", report);
+    	for(ReportRow testRow:report){
+    		log.debug(testRow.getFunction()+" "+testRow.getLabel()+" "+testRow.getStrategy());
+    	}
     	ctx.setReturnValue(results);
     	ctx.goToView("reportDisplayAgile");
     	}
@@ -2634,6 +2637,16 @@ public class InfoBaseController extends Controller {
        }
        return isRD;
     }
+    private String isTeamLeader(Person person,LocalLevel ll) throws Exception
+    {
+    	
+        if(isRD(person).equals("true")){
+        	return "true";
+        }
+    	String personID = person.getPersonID()+"";
+       Boolean isLeader=InfoBaseQueries.isTeamLeader(person,ll);
+      return isLeader?"true":"false";
+    }
     /** @param ctx ActionContext object */
     public void showTeam(ActionContext ctx) {
         try {
@@ -2702,7 +2715,7 @@ public class InfoBaseController extends Controller {
             person.setFk_ssmUserID(user.getUserID());
             person.select();
             results.putValue("personID",person.getPersonID()+"");
-            results.putValue("isRD",isRD(person));
+            results.putValue("isRD",isTeamLeader(person,ll));
 			results.addCollection("activetarget", activeTargetInfo);
 			results.addCollection("inactivetarget", inactiveTargetInfo);
 			results.addCollection("forerunnertarget", forerunnerTargetInfo);
