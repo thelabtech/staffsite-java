@@ -2169,7 +2169,21 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform saveTeamMember().", e);
         }
     }
-    
+    public void saveTeamLeader(ActionContext ctx) {
+        try {
+            String teamID = ctx.getInputString("teamID", true);
+            String personID = ctx.getInputString("personID", true);
+            InfoBaseTool ibt = new InfoBaseTool();
+            ibt.saveTeamLeader(personID, teamID);
+            showTeam(ctx);
+            
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform saveTeamMember().", e);
+        }
+    }
     public Vector<String> sortOrderFromRequest(ActionContext ctx){
     	TreeMap<String,String> sortOrder=new TreeMap<String,String>(convertBracketedParamsToHashtable(ctx).get("order")); //TreeMap is like a hashtable sorted by keys' natural order
         Vector<String> order=new Vector<String>();
@@ -2219,7 +2233,23 @@ public class InfoBaseController extends Controller {
             log.error("Failed to perform showMuster().", e);
         }
     }
-    
+    public void removeTeamLeader(ActionContext ctx) {
+        try {
+        	ActionResults result=new ActionResults("removeTeamMember");
+    		result.putValue("personID",ctx.getInputString("personID"));
+    		result.putValue("accountNo",ctx.getInputString("accountNo"));
+        	String teamID = ctx.getInputString("teamID", true);
+            String personID = ctx.getInputString("personID");
+            InfoBaseTool ibt = new InfoBaseTool();
+			ibt.removeTeamLeader( personID,teamID);
+			showTeam(ctx);
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform removeTeamMember().", e);
+        }
+    }
     public void removeTeamMember(ActionContext ctx) {
         try {
         	ActionResults result=new ActionResults("removeTeamMember");

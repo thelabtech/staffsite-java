@@ -848,6 +848,16 @@ public class InfoBaseTool {
   			throw new Exception(e);
         }
     }
+    public void removeTeamLeader(String personID,String teamID) throws Exception {
+        try {
+            InfoBaseQueries.removeTeamMember(personID, teamID );
+            InfoBaseQueries.saveTeamMember(personID, teamID);
+        }
+        catch (Exception e) {
+            log.error("Failed to perform removeTeamMember().", e);
+  			throw new Exception(e);
+        }
+    }
     public void removeMin(String targetAreaId, String nonCccMinId) throws Exception {
         try {
             NonCccMin ministry = new NonCccMin(nonCccMinId);
@@ -994,6 +1004,17 @@ public class InfoBaseTool {
         }
         catch (Exception e) {
             log.error("Failed to perform saveTeamMember().", e);
+  			throw new Exception(e);
+        }
+    }
+    public void saveTeamLeader(String personID, String teamID) throws Exception {
+        try {
+        	InfoBaseQueries.removeTeamMember(personID,teamID);
+            InfoBaseQueries.saveTeamLeader(personID,teamID);
+            
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveTeamLeader().", e);
   			throw new Exception(e);
         }
     }

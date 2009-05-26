@@ -928,6 +928,26 @@ public class InfoBaseQueries {
 			log.error(e, e);
 		}
 	}
+	public static void saveTeamLeader (String personID, String teamID){
+		try 
+		{
+			if(!(new Person(personID)).getIsSecure()){
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			String query="INSERT INTO ministry_missional_team_member (personID, teamID, is_leader) VALUES ("+personID+","+teamID+",1);";
+			log.debug(query);
+			Statement stmt=conn.prepareStatement(query);
+			stmt.executeUpdate(query);
+			}
+			else
+			{
+				log.debug("Not saved as team leader: secure person record");
+			}
+		}
+		catch (Exception e) 
+		{
+			log.error(e, e);
+		}
+	}
 	public static void removePersonContact( String personID,String activityId){
 		try 
 		{
@@ -958,6 +978,7 @@ public class InfoBaseQueries {
 			log.error(e, e);
 		}
 	}
+
 	public static void removeAllTeamAssociations( String personID,String teamID){
 		try 
 		{
