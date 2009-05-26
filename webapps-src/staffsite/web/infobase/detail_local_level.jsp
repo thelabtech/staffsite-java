@@ -147,14 +147,19 @@ ar = ActionResults.getActionResults(session);
 	
 		%>
 		
-		 <%if((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true")){ %>
+		 <%if(!staffMember.getIsPeopleSoft()&&((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true"))){ %>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 		<%} %>
+ <%if(staffMember.getIsLeader()){ %>
+		<b><%} %>
 		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>"><%=staffName%></A><br>
+   <%if(staffMember.getIsLeader()){ %>
+		</b><%} %>
    <%}%>
-		<P ALIGN="CENTER">
+		
+<P ALIGN="CENTER">
 
 		
 		<% if(!emailList.equals("")) { %>
