@@ -151,23 +151,24 @@ ar = ActionResults.getActionResults(session);
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
-		 <%if(staffMember.getIsLeader()){ %>
-		<A style="border:none;"
+	
+		<%} %>
+ 
+		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>"><%=staffName%></A>
+   <%if(staffMember.getIsLeader()){ %>
+		<img alt="Missional Team Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/leader.gif"><%} %>
+   
+			 <%if(!staffMember.getIsPeopleSoft()&&((session.getValue("isHR").equals("true"))||ar.getValue("isRD").equals("true"))){ %>
+<%if(staffMember.getIsLeader()){ %>		
+<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
-				[Demote]</A>
+				<img alt="Demote Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/fire.gif"></A>
 		<%} else {%>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=saveTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
-				[Promote]</A>
-		<%} %>
-		<%} %>
- <%if(staffMember.getIsLeader()){ %>
-		<b><%} %>
-		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>"><%=staffName%></A><br>
-   <%if(staffMember.getIsLeader()){ %>
-		</b><%} %>
-   <%}%>
-		
+				<img alt="Make Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/hire.gif"></A>
+		<%}} %><br>
+	<%}%>
 <P ALIGN="CENTER">
 
 		
