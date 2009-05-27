@@ -64,6 +64,19 @@ ar = ActionResults.getActionResults(session);
 %>
 <html>
 <head>
+<script type="text/javascript">
+var lastOpen="";
+function show(personID){
+	hide();
+	document.getElementById(personID+"_leader_status").style.display='inline';
+	lastOpen=personID;
+}
+function hide(){
+	if (lastOpen!==""){
+	document.getElementById(lastOpen+"_leader_status").style.display='none';
+	}
+}
+</script>
 <title><%=teamName%>&nbsp;Details</title>
 </head>
 
@@ -146,7 +159,6 @@ ar = ActionResults.getActionResults(session);
 		}
 	
 		%>
-		
 		 <%if(!staffMember.getIsPeopleSoft()&&((session.getValue("isHR").equals("true"))||personID.equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true"))){ %>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
@@ -156,19 +168,34 @@ ar = ActionResults.getActionResults(session);
  
 		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>"><%=staffName%></A>
    <%if(staffMember.getIsLeader()){ %>
-		<img alt="Missional Team Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/leader.gif"><%} %>
+		<img alt="Missional Team Leader" onMouseOver="show('<%=staffMember.getPersonID() %>');" id="<%=staffMember.getPersonID() %>_leader_hover" style="border:none;" src="/infobase/images/leader.gif"><%} else {%>
+		<img alt="Missional Team Member" onMouseOver="show('<%=staffMember.getPersonID() %>');" id="<%=staffMember.getPersonID() %>_leader_hover" style="border:none;" src="/infobase/images/member.gif"><%} %>
    
-			 <%if(!staffMember.getIsPeopleSoft()&&((session.getValue("isHR").equals("true"))||ar.getValue("isRD").equals("true"))){ %>
+			 
+<div id="<%=staffMember.getPersonID() %>_leader_status" >
+<i>
+<%if(staffMember.getIsLeader()){ %>
+Team Leader
+<%} else { %>
+Team Member
+<%} %>
+<%if(!staffMember.getIsPeopleSoft()&&((session.getValue("isHR").equals("true"))||ar.getValue("isRD").equals("true"))){ %>
+<br>
 <%if(staffMember.getIsLeader()){ %>		
 <A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=removeTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
-				<img alt="Demote Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/fire.gif"></A>
+			 Change <%=staffName%> to Member</A>
 		<%} else {%>
 		<A style="border:none;"
 					HREF="/servlet/InfoBaseController?action=saveTeamLeader&accountNo=<%=staffMember.getAccountNo()%>&personID=<%= personID %>&locallevelid=<%= teamID %>&teamID=<%= teamID %>&view=team">
-				<img alt="Make Leader" style="border:none;height:15px;width:15px;" src="/infobase/images/hire.gif"></A>
-		<%}} %><br>
-	<%}%>
+			Change <%=staffName%> to Leader</A>
+		<%}} %>
+	
+</i>	</div>
+<script type="text/javascript" language="javascript">
+document.getElementById('<%=staffMember.getPersonID() %>_leader_status').style.display='none';
+</script>
+<br>	<%}%>
 <P ALIGN="CENTER">
 
 		
