@@ -822,7 +822,30 @@ public class InfoBaseQueries {
 			return null;
 		}
 	}
-	
+	public static Vector<String> getMovementLeaders(String activityId){
+		try{
+			Vector<String>c=new Vector<String>();
+			Connection conn = DBConnectionFactory.getDatabaseConn();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			String query="SELECT tm.personID as leader_id "+
+			" FROM ministry_missional_team_member tm inner join ministry_locallevel ml "+
+			" on (tm.teamID=ml.teamID and tm.is_leader=1) inner JOIN ministry_activity act "+
+			" ON ml.teamID=act.fk_teamID " +
+			" WHERE act.ActivityID ='"+activityId+"'   group by tm.personID;";
+			log.debug(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				String leader= rs.getString("leader_id")+"";
+				c.add(leader);
+			}
+			return c;
+		}
+		catch (Exception e) {
+			log.error(e, e);
+			return null;
+		}
+	}
 	public static Vector<Contact> getTeamMembers(String teamID){
 		try{
 			Vector<Contact>c=new Vector<Contact>();

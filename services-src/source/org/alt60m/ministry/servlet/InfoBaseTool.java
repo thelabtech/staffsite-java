@@ -1606,6 +1606,8 @@ public class InfoBaseTool {
         try {
             TargetArea ta = new TargetArea(targetAreaId);
             ObjectHashUtil.hash2obj(request, ta);
+            ta.setEventType(null);
+            ta.setEventKeyID(null);
             ta.persist();
         }
         catch (Exception e) {

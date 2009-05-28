@@ -2612,7 +2612,11 @@ public class InfoBaseController extends Controller {
 //					for (Staff staff : activity.getActivityContacts()) {
 //						contacts.add(ObjectHashUtil.obj2hash(staff));
 //					}
+					
+					
 					activityHash.put("contacts", contacts);
+					Vector<String>leaders=new Vector<String>(InfoBaseQueries.getMovementLeaders(activity.getActivityId()));
+					activityHash.put("leaders", leaders);
 					results.addHashtable(activity.getStrategy(), activityHash);
 				}
             }
