@@ -110,7 +110,7 @@ Boolean present=false;
 								%>
 								<%= (String)thisContact.getLastName() %>
 							</A>
-<%if(ar.getValue("isRD").equals("true")||(thisContact.getPersonID()+"").equals(ar.getValue("personID"))){ %>
+<%if(ar.getValue("isRD").equals("true")||(thisContact.getPersonID()+"").equals(ar.getValue("personID"))||((Vector<String>)thisActivity.get("leaders")).contains(ar.getValue("personID"))){ %>
 					&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=removePersonContact&personID=<%= thisContact.getPersonID() %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>"><img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 					<%} %><BR>
@@ -123,7 +123,7 @@ Boolean present=false;
 		
 <br><A HREF="/servlet/InfoBaseController?action=savePersonContact&personID=<%= ar.getValue("personID") %>&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>"><%=fontS %>Become a Contact for this Movement</A>
 	<br>	<%} %>
-					<%if(ar.getValue("isRD").equals("true")){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
+					<%if(ar.getValue("isRD").equals("true")||((Vector<String>)thisActivity.get("leaders")).contains(ar.getValue("personID"))){ %><A HREF="/servlet/InfoBaseController?action=addPersonContact&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>&lastName=">Add
 					Contact
 					</A><%} 
 					else
