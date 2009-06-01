@@ -73,6 +73,7 @@ function toggleDiv(who){
 
 <% region = (String)profile.get("region"); %>
 <% try { %>
+
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
 	<tr valign=top>
 		<td width="140">
@@ -216,7 +217,7 @@ function toggleDiv(who){
 		<% box.setStyle("neoclassic");%>
 
 		<td valign="top"  width="540">
-		
+		<br>
 
 			<%	//REGIONAL ARTICLES INSERTED HERE
 				regionalarticles.setRegion(region);
