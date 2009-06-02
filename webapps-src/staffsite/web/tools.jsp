@@ -235,12 +235,7 @@ int curr_tab = 3; %>
 				</font>
 			</td>
 		</tr>
-		<tr>
-			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
-			<td>
-				<%=font%><b><i>Conference Registration System (CRS) </i>-- PhaseOut in progress</b></font></td>
-			<td><%=fontS%>Available for administrating existing conferences only-- use CRS 2.0 for new conferences.</font></td>
-		</tr>
+		
 				<%// } %>			
 	</table>
 <%=box.printBottom()%>
