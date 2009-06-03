@@ -15,10 +15,14 @@ public final class Toolbox
 	//the value "fox" will produce null, as will "abc123". "123abc" and "123" will both produce (String)"123".
 	public static String cleanNumeric(String numericParameter){
 		String retValue=new String("");
+		String oneStop="";
 		if (numericParameter!=null){
 			retValue=numericParameter;
 			}
-		return retValue.trim().replaceAll("[^-0123456789]","a").split("a",1)[0];
+		oneStop=retValue.trim().replaceAll("[^-0123456789]","a");
+		
+		String[] splitStop=oneStop.split("a");
+		return splitStop[0];
 	}
 	//converts a String to an Integer without throwing an exception on an invalid input value.
 	//the value "fox" will produce null, as will "abc123". "123abc" and "123" will both produce (Integer)123.
