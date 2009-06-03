@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -32,6 +33,7 @@ import org.alt60m.ministry.model.dbio.Contact;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.ministry.servlet.modules.model.Section;
+import org.alt60m.ministry.servlet.modules.team.TeamHelper;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller.ActionContext;
 import org.alt60m.util.CountryCodes;
@@ -69,18 +71,19 @@ public class InfoBaseModuleHelper {
         }
         return result;
     }
-    public static Section getSearchResults(String type,String name,String city,String state,String region)throws Exception{
+    public static Section getSearchResults(String type,String name,String city,String state,String region, String strategy)throws Exception{
     	Section t=new Section();
 		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
 		t.setName(t.getType()+" Search Results");
     	
-    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region);
+    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region,strategy);
     	while (rs.next()){
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			object.put("name",rs.getString("name")+"");
 			object.put("city",rs.getString("city")+"");
 			object.put("state",rs.getString("state")+"");
 			object.put("region",rs.getString("region")+"");
+			object.put("strategy",rs.getString("strategy")+"");
 			object.put("id",rs.getString("id")+"");
 			if(type.equals("person")){
 				object.put("accountNo",rs.getString("accountNo")+"");	
@@ -169,29 +172,31 @@ public class InfoBaseModuleHelper {
 	public void createNewTargetArea(Hashtable request) throws Exception {
 		try {
 			TargetArea target = new TargetArea();
-			target.setName((String)request.get("name"));
-			target.setAddress1((String)request.get("address1"));
-			target.setAddress2((String)request.get("address2"));
-			target.setCity((String)request.get("city"));
-			target.setState((String)request.get("state"));
-			target.setZip((String)request.get("zip"));
-			target.setCountry((String)request.get("country"));
-			target.setPhone((String)request.get("phone"));
-			target.setFax((String)request.get("fax"));
-			target.setEmail((String)request.get("email"));
-			target.setUrl((String)request.get("url"));
-			target.setAbbrv((String)request.get("abbrv"));
-			target.setFice((String)request.get("fice"));
+			target.setName((String)request.get("Name"));
+			target.setAddress1((String)request.get("Address1"));
+			target.setAddress2((String)request.get("Address2"));
+			target.setCity((String)request.get("City"));
+			target.setState((String)request.get("State"));
+			target.setZip((String)request.get("Zip"));
+			target.setCountry((String)request.get("Country"));
+			target.setPhone((String)request.get("Phone"));
+			target.setFax((String)request.get("Fax"));
+			target.setEmail((String)request.get("Email"));
+			target.setUrl((String)request.get("Url"));
+			target.setAbbrv((String)request.get("Abbrv"));
+			target.setFice((String)request.get("Fice"));
 			//target.setPopulation((String)request.get("population"));
-			target.setNote((String)request.get("note"));
-			target.setAltName((String)request.get("altName"));
+			target.setNote((String)request.get("Note"));
+			target.setAltName((String)request.get("AltName"));
 			target.setIsSecure(((String)request.get("isSecure") != null && ((String)request.get("isSecure")).equalsIgnoreCase("true")) ? true : false);
-			target.setRegion((String)request.get("region"));
-			target.setMpta((String)request.get("mpta"));
-			target.setAoa((String)request.get("aoa"));
-			target.setAoaPriority((String)request.get("aoaPriority"));
-			target.setInfoUrl((String)request.get("infoUrl"));
-			target.setCiaUrl((String)request.get("ciaUrl"));
+			target.setRegion((String)request.get("Region"));
+			target.setMpta((String)request.get("Mpta"));
+			target.setAoa((String)request.get("Aoa"));
+			target.setAoaPriority((String)request.get("AoaPriority"));
+			target.setInfoUrl((String)request.get("InfoUrl"));
+			target.setCiaUrl((String)request.get("CiaUrl"));
+			target.setEventType(null);
+			target.setEventKeyID(null);
 			target.persist();
 		} catch (Exception e) {
 			log.error("Failed to perform createNewTargetArea().", e);
@@ -566,7 +571,7 @@ public class InfoBaseModuleHelper {
         }
     }
 
-    public Collection getLocalLevelTeamsByRegion(String region) throws Exception {
+    public static Collection getLocalLevelTeamsByRegion(String region) throws Exception {
         try {
 			return InfoBaseModuleQueries.getLocalLevelTeamsByRegion(region);
         } catch (Exception e) {
@@ -888,15 +893,7 @@ public class InfoBaseModuleHelper {
   			throw new Exception(e);
         }
     }
-    public void removeTeamMember(String personID,String teamID) throws Exception {
-        try {
-            InfoBaseModuleQueries.removeTeamMember(personID, teamID );
-        }
-        catch (Exception e) {
-            log.error("Failed to perform removeTeamMember().", e);
-  			throw new Exception(e);
-        }
-    }
+ 
     public void removeMin(String targetAreaId, String nonCccMinId) throws Exception {
         try {
             NonCccMin ministry = new NonCccMin(nonCccMinId);
@@ -1035,28 +1032,8 @@ public class InfoBaseModuleHelper {
   			throw new Exception(e);
         }
     }
-    public void saveTeamMember(String personID, String teamID) throws Exception {
-        try {
-        	InfoBaseModuleQueries.removeTeamMember(personID,teamID);
-            InfoBaseModuleQueries.saveTeamMember(personID,teamID);
-            
-        }
-        catch (Exception e) {
-            log.error("Failed to perform saveTeamMember().", e);
-  			throw new Exception(e);
-        }
-    }
-    public void moveTeamMember(String personID, String teamID) throws Exception {
-        try {
-        	InfoBaseModuleQueries.removeAllTeamAssociations(personID,teamID);
-            InfoBaseModuleQueries.saveTeamMember(personID,teamID);
-            
-        }
-        catch (Exception e) {
-            log.error("Failed to perform saveTeamMember().", e);
-  			throw new Exception(e);
-        }
-    }
+    
+
 	public static void saveActivityCheck(String localLevelId, String targetAreaId, String strategy, String status, String periodBegin, String profileID, String Url) throws ActivityExistsException, Exception {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
 			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);
@@ -1551,7 +1528,7 @@ public class InfoBaseModuleHelper {
 			newAddress.setFk_PersonID(saveMe.getPersonID());
 			newAddress.setToolName("IB");
 			newAddress.persist();
-			InfoBaseModuleHelper ibt= new InfoBaseModuleHelper();
+			TeamHelper ibt= new TeamHelper();
 			if (holdPerson.get("purpose").equals("team")){
 			ibt.saveTeamMember(saveMe.getPersonID()+"",(String) holdPerson.get("teamID"));
 			}else if (holdPerson.get("purpose").equals("contact")){
@@ -1687,33 +1664,59 @@ public class InfoBaseModuleHelper {
 				msgText.append("To whom it may concern, \n");
 				msgText.append("   This is an automated request for a new target area.\n\n\n");
 				msgText.append("-----------------------------------------------------------------\n");
-				msgText.append("Campus Name: " + request.get("name") + "\n");
-				msgText.append("Campus Address 1: " + request.get("address1") + "\n");
-				msgText.append("Campus Address 2: " + request.get("address2") + "\n");
-				msgText.append("Campus City: " + request.get("city") + "\n");
-				msgText.append("State: " + request.get("state") + "\n");
-				msgText.append("Campus ZIP: " + request.get("zip") + "\n");
-				msgText.append("Country: " + request.get("country") + "\n");
-				msgText.append("Campus Phone: " + request.get("phone") + "\n");
-				msgText.append("Campus Fax: " + request.get("fax") + "\n");
-				msgText.append("Campus Email: " + request.get("email") + "\n");
-				msgText.append("Campus Webpage URL: " + request.get("url") + "\n");
-				msgText.append("Campus Abbreviation: " + request.get("abbrv") + "\n");
-				msgText.append("Campus Fice: " + request.get("fice") + "\n");
+				msgText.append("Campus Name: " + request.get("Name") + "\n");
+				msgText.append("Campus Address 1: " + request.get("Address1") + "\n");
+				msgText.append("Campus Address 2: " + request.get("Address2") + "\n");
+				msgText.append("Campus City: " + request.get("City") + "\n");
+				msgText.append("State: " + request.get("State") + "\n");
+				msgText.append("Campus ZIP: " + request.get("Zip") + "\n");
+				msgText.append("Country: " + request.get("Country") + "\n");
+				msgText.append("Campus Phone: " + request.get("Phone") + "\n");
+				msgText.append("Campus Fax: " + request.get("Fax") + "\n");
+				msgText.append("Campus Email: " + request.get("Email") + "\n");
+				msgText.append("Campus Webpage URL: " + request.get("Url") + "\n");
+				msgText.append("Campus Abbreviation: " + request.get("Abbrv") + "\n");
+				msgText.append("Campus Fice: " + request.get("Fice") + "\n");
 				//msgText.append("Campus Population: " + request.get("population") + "\n");
-				msgText.append("Campus Notes: " + request.get("note") + "\n");
-				msgText.append("Campus Alternate Name: " + request.get("altName") + "\n");
+				msgText.append("Campus Notes: " + request.get("Note") + "\n");
+				msgText.append("Campus Alternate Name: " + request.get("AltName") + "\n");
 				msgText.append("Is this campus secure/closed? " + request.get("isSecure") + "\n");
-				msgText.append("Campus Region: " + request.get("region") + "\n");
-				msgText.append("Campus MPTA: " + request.get("mpta") + "\n");
-				msgText.append("Campus AOA: " + request.get("aoa") + "\n");
-				msgText.append("Campus AOA Priority: " + request.get("aoaPriority") + "\n");
-				msgText.append("Info URL: " + request.get("infoUrl") + "\n");
-				msgText.append("CIA URL: " + request.get("ciaUrl") + "\n");
-				msgText.append("Submitters Email Address: " + request.get("from") + "\n");
+				msgText.append("Campus Region: " + request.get("Region") + "\n");
+				msgText.append("Campus MPTA: " + request.get("Mpta") + "\n");
+				msgText.append("Campus AOA: " + request.get("Aoa") + "\n");
+				msgText.append("Campus AOA Priority: " + request.get("AoaPriority") + "\n");
+				msgText.append("Info URL: " + request.get("InfoUrl") + "\n");
+				msgText.append("CIA URL: " + request.get("CiaUrl") + "\n");
 				msgText.append("-----------------------------------------------------------------\n");
-				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ".");
-			msg.setBody(msgText.toString());
+				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ". ");
+				msgText.append(" Please click or paste the following into your browser to approve/edit this proposal: ");
+				StringBuffer msgLinkText = new StringBuffer(2000);
+				msgLinkText.append("http://localhost:8080/servlet/Campus?action=content&id=0&new=true&");
+				msgLinkText.append("Name=" + request.get("Name") + "&");
+				msgLinkText.append("AltName=" + request.get("AltName") + "&");
+				msgLinkText.append("Mpta=" + request.get("Mpta") + "&");
+				msgLinkText.append("Aoa=" + request.get("Aoa") + "&");
+				msgLinkText.append("AoaPriority=" + request.get("AoaPriority") + "&");
+				msgLinkText.append("InfoUrl=" + request.get("InfoUrl") + "&");
+				msgLinkText.append("CiaUrl=" + request.get("CiaUrl") + "&");
+				msgLinkText.append("Region=" + request.get("Region") + "&");
+				msgLinkText.append("Address1=" + request.get("Address1") + "&");
+				msgLinkText.append("Address2=" + request.get("Address2") + "&");
+				msgLinkText.append("City=" + request.get("City") + "&");
+				msgLinkText.append("State=" + request.get("State") + "&");
+				msgLinkText.append("Zip=" + request.get("Zip") + "&");
+				msgLinkText.append("Country=" + request.get("Country") + "&");
+				msgLinkText.append("Phone=" + request.get("Phone") + "&");
+				msgLinkText.append("Fax=" + request.get("Fax") + "&");
+				msgLinkText.append("Email=" + request.get("Email") + "&");
+				msgLinkText.append("Url=" + request.get("Url") + "&");
+				msgLinkText.append("isSecure=" + request.get("isSecure") + "&");
+				msgLinkText.append("IsSemester=" + request.get("IsSemester") + "&");
+				msgLinkText.append("Note=" + request.get("Note"));
+				
+				msg.setBody(msgText.toString()+msgLinkText.toString().replace(" ","+"));
+				
+				
 			msg.send();
 		}
 		catch (Exception e) {
@@ -1737,6 +1740,7 @@ public class InfoBaseModuleHelper {
 			}
 			SendMessage msg = new SendMessage();
 			msg.setTo(to);
+			
 			msg.setFrom("\"StaffSite_InfoBase\" <help@campuscrusadeforchrist.com>");
 			msg.setSubject("New Local Level Request");
 			StringBuffer msgText = new StringBuffer(2000);
@@ -1760,11 +1764,31 @@ public class InfoBaseModuleHelper {
 				msgText.append("Note: " + request.get("Note") + "\n");
 				msgText.append("-----------------------------------------------------------------\n");
 				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ".");
-			msg.setBody(msgText.toString());
+				
+				msgText.append(" Click here or paste it to your browser to approve/edit: ");
+				StringBuffer msgLinkText = new StringBuffer(2000);
+				msgLinkText.append("http://localhost:8080/servlet/Team?action=content&id=0&new=true&");
+				msgLinkText.append("Name=" + request.get("Name") + "&");
+				msgLinkText.append("Lane=" + request.get("Lane") + "&");
+				msgLinkText.append("Region=" + request.get("Region") + "&");
+				msgLinkText.append("Address1=" + request.get("Address1") + "&");
+				msgLinkText.append("Address2=" + request.get("Address2") + "&");
+				msgLinkText.append("City=" + request.get("City") + "&");
+				msgLinkText.append("State=" + request.get("State") + "&");
+				msgLinkText.append("Zip=" + request.get("Zip") + "&");
+				msgLinkText.append("Country=" + request.get("Country") + "&");
+				msgLinkText.append("Phone=" + request.get("Phone") + "&");
+				msgLinkText.append("Fax=" + request.get("Fax") + "&");
+				msgLinkText.append("Email=" + request.get("Email") + "&");
+				msgLinkText.append("Url=" + request.get("Url") + "&");
+				msgLinkText.append("IsActive=" + request.get("IsActive") + "&");
+				msgLinkText.append("Note=" + request.get("Note"));
+				
+				msg.setBody(msgText.toString()+msgLinkText.toString().replace(" ","+"));
 			msg.send();
 		}
 		catch (Exception e) {
-			log.error("Failed to perform sendTargetAreaRequestEmail().", e);
+			log.error("Failed to perform sendLocalLevelRequestEmail().", e);
 			throw new Exception(e);
 		}
 	}
@@ -1842,6 +1866,12 @@ public class InfoBaseModuleHelper {
 			Hashtable<String,Object>h=new Hashtable<String,Object>();
 			h.put("id" , rs.getString("id")+"");
 			h.put("team_id", rs.getString("team_id")+"");
+			String[] leaders= (rs.getString("leader_id")+"").split(",");//a movement may have multiple leaders via its team
+			Vector<String>movement_leaders=new Vector<String>();
+			for(int i=0;i<leaders.length;i++){
+				movement_leaders.add(leaders[i]);
+			}
+			h.put("leader_id",movement_leaders);
 			h.put("team", rs.getString("team")+"");
 			h.put("location_id", rs.getString("location_id")+"");
 			h.put("location", rs.getString("location")+"");
@@ -1878,10 +1908,11 @@ public class InfoBaseModuleHelper {
 		}
 		return s;
 	}
-	   public static Hashtable sessionSearch(ActionContext ctx){
+	   public static Hashtable sessionSearch(ActionContext ctx,String type){
 	    	Hashtable result=new Hashtable();
-	    	if (ctx.getSessionValue("home_search")!=null){
-	    		return (Hashtable)ctx.getSessionValue("home_search");
+	    	String key=type+"_search";
+	    	if (ctx.getSessionValue(key)!=null){
+	    		return (Hashtable)ctx.getSessionValue(key);
 	    	}
 	    	else
 	    	{
@@ -1890,23 +1921,39 @@ public class InfoBaseModuleHelper {
 	            searchHash.put("name", "");
 	            searchHash.put("city", "");
 	            searchHash.put("state", "");
-	            searchHash.put("region", "");
-	            ctx.setSessionValue("home_search",searchHash);
+	            searchHash.put("region", "()");
+	            searchHash.put("strategy", "()");
+	            ctx.setSessionValue(key,searchHash);
 	            return searchHash;
 	    	}
 	    }
-	   public static void storeSearch(ActionContext ctx){
+	   public static void storeSearch(ActionContext ctx,String key){
 		   String type=ctx.getInputString("type");
 	    	String name = ctx.getInputString("name");
 	        String city = ctx.getInputString("city");
 	        String state = ctx.getInputString("state");
-	        String region = ctx.getInputString("region");
+	        String[] strategies=ctx.getInputStringArray("strategy");
+            String strategy="(";
+            for (String strat:strategies){
+            	strategy+="'"+strat+"',";
+            }
+            strategy+=")";
+            strategy=strategy.replace(",)",")");
+            log.debug(strategy);
+            String[] regions=ctx.getInputStringArray("region");
+            String region="(";
+            for (String reg:regions){
+            	region+="'"+reg+"',";
+            }
+            region+=")";
+            region=region.replace(",)",")");
 	    	Hashtable searchHash=new Hashtable();
 	    	searchHash.put("type", type);
 	        searchHash.put("name", name);
 	        searchHash.put("city", city);
 	        searchHash.put("state", state);
 	        searchHash.put("region", region);
-	        ctx.setSessionValue("home_search", searchHash);
+	        searchHash.put("strategy", strategy);
+	        ctx.setSessionValue(key+"_search", searchHash);
 	    }
 }

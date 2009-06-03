@@ -40,6 +40,7 @@ import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.ReportRow;
 import org.alt60m.ministry.model.dbio.TargetArea;
+import org.alt60m.ministry.servlet.InfoBaseQueries;
 import org.alt60m.ministry.servlet.modules.model.Section;
 import org.alt60m.ministry.servlet.modules.person.PersonHelper;
 import org.alt60m.ministry.servlet.modules.team.TeamHelper;
@@ -455,12 +456,26 @@ public class InfoBaseModuleController extends Controller {
         	String name = ctx.getInputString("name", true);
             String city = ctx.getInputString("city", true);
             String state = ctx.getInputString("state", true);
-            String region = ctx.getInputString("region", true);  
-            InfoBaseModuleHelper.storeSearch(ctx);
-			Section list=InfoBaseModuleHelper.getSearchResults(type,name,city,state,region);
+            String[] strategies=ctx.getInputStringArray("strategy");
+            String strategy="(";
+            for (String strat:strategies){
+            	strategy+="'"+strat+"',";
+            }
+            strategy+=")";
+            strategy=strategy.replace(",)",")");
+            log.debug(strategy);
+            String[] regions=ctx.getInputStringArray("region");
+            String region="(";
+            for (String reg:regions){
+            	region+="'"+reg+"',";
+            }
+            region+=")";
+            region=region.replace(",)",")");
+            InfoBaseModuleHelper.storeSearch(ctx,"home");
+			Section list=InfoBaseModuleHelper.getSearchResults(type,name,city,state,region,strategy);
 			Vector<Section> content=new Vector<Section>();
 			content.add(list);
-			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
+			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx,"home"));
 			results.addCollection("content", content);
 			results.putValue("module", "home");
 			results.putValue("title", "Home");
@@ -1035,7 +1050,7 @@ public class InfoBaseModuleController extends Controller {
         return false;
     }
 
-    boolean isNullOrEmpty(String string) {
+    protected boolean isNullOrEmpty(String string) {
         return !(string != null && string.length() > 0);
     }
 
@@ -2071,22 +2086,7 @@ public class InfoBaseModuleController extends Controller {
         }
     }
     
-    
-    public void moveTeamMember(ActionContext ctx) {
-        try {
-            String teamID = ctx.getInputString("teamID", true);
-            String personID = ctx.getInputString("personID", true);
-            InfoBaseModuleHelper ibt = new InfoBaseModuleHelper();
-            ibt.moveTeamMember(personID, teamID);
-          //  showTeam(ctx);
-            
-        }
-        catch (Exception e) {
-            ctx.setError();
-            ctx.goToErrorView();
-            log.error("Failed to perform saveTeamMember().", e);
-        }
-    }
+ 
     /** @param ctx ActionContext object */
     public void showCampusCountReport(ActionContext ctx) {
         try {
@@ -2122,8 +2122,8 @@ public class InfoBaseModuleController extends Controller {
         	String id=(String)ctx.getSessionValue("home")!=null?(String)ctx.getSessionValue("home"):"";
         	if(id.equals("search")){
         		log.debug("search");
-    			Hashtable search=InfoBaseModuleHelper.sessionSearch(ctx);
-    			Section list=InfoBaseModuleHelper.getSearchResults((String)search.get("type"),(String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"));
+    			Hashtable search=InfoBaseModuleHelper.sessionSearch(ctx,"home");
+    			Section list=InfoBaseModuleHelper.getSearchResults((String)search.get("type"),(String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"),(String)search.get("strategy"));
     			Vector<Section> content=new Vector<Section>();
     			content.add(list);
     			result.addCollection("content",content);
@@ -2131,7 +2131,7 @@ public class InfoBaseModuleController extends Controller {
     		}
         	
     		result.putValue("personID",getUsersPersonId(ctx));
-    		result.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
+    		result.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx,"home"));
     		result.putValue("module",this.module);
     		result.putValue("title",this.title);
     		ctx.setReturnValue(result);
@@ -2273,9 +2273,9 @@ public class InfoBaseModuleController extends Controller {
         lab.setName("The LAB");
         lab.setRegion("NC");
         lab.select();
-        Vector<Hashtable<String,Object>> labMembers=InfoBaseModuleQueries.getTeamMembers(lab.getLocalLevelId()).getRows();
-        for (Hashtable<String,Object> c:labMembers){
-        	if((c.get("id").equals(personID))){
+        Section labMembers=InfoBaseModuleQueries.getTeamMembers(lab.getLocalLevelId());
+        for (Hashtable c:labMembers.getRows()){
+        	if((c.get("id")+"").equals(personID)){
         		log.debug("The LAB!");
         		isRD="true";
         	}
@@ -2289,6 +2289,16 @@ public class InfoBaseModuleController extends Controller {
    			
        }
        return isRD;
+    }
+    protected String isTeamLeader(Person person,LocalLevel ll) throws Exception
+    {
+    	
+        if(isRD(person).equals("true")){
+        	return "true";
+        }
+    	String personID = person.getPersonID()+"";
+       Boolean isLeader=InfoBaseModuleQueries.isTeamLeader(person,ll);
+      return isLeader?"true":"false";
     }
     
     

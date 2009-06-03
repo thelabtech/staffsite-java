@@ -8,6 +8,7 @@ import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleQueries;
 import org.alt60m.ministry.servlet.modules.model.Section;
 import org.alt60m.servlet.Controller.ActionContext;
+import org.alt60m.util.ObjectHashUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper {
@@ -30,12 +31,12 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 		result=infotize(ta);
 	    return result;
 	}
-    public static Section getCampusSearchResults(String name,String city,String state,String region)throws Exception{
+    public static Section getCampusSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
     	Section t=new Section();
 		t.setType("Campus");
 		t.setName("Location Search Results");
     	
-    	ResultSet rs= LocationQueries.getSearchResults("campus",name,city,state,region);
+    	ResultSet rs= LocationQueries.getSearchResults("campus",name,city,state,region,strategy);
     	while (rs.next()){
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			object.put("name",rs.getString("name")+"");
@@ -47,32 +48,18 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 		}
     	return t;
     }
-    public static void storeSearch(ActionContext ctx){
-    	String name = ctx.getInputString("name");
-        String city = ctx.getInputString("city");
-        String state = ctx.getInputString("state");
-        String region = ctx.getInputString("region");
-    	Hashtable searchHash=new Hashtable();
-        searchHash.put("name", name);
-        searchHash.put("city", city);
-        searchHash.put("state", state);
-        searchHash.put("region", region);
-        ctx.setSessionValue("campus_search", searchHash);
+    public void saveTargetAreaInfo(Hashtable request, String targetAreaId) throws Exception {
+        try {
+            TargetArea ta = new TargetArea(targetAreaId);
+            ObjectHashUtil.hash2obj(request, ta);
+            ta.setEventType(null);
+            ta.setEventKeyID(null);
+            ta.persist();
+        }
+        catch (Exception e) {
+            log.error("Failed to perform saveTargetAreaInfo().", e);
+ 			throw new Exception(e);
+       }
     }
-    public static Hashtable sessionSearch(ActionContext ctx){
-    	Hashtable result=new Hashtable();
-    	if (ctx.getSessionValue("campus_search")!=null){
-    		return (Hashtable)ctx.getSessionValue("campus_search");
-    	}
-    	else
-    	{
-    		Hashtable searchHash=new Hashtable();
-            searchHash.put("name", "");
-            searchHash.put("city", "");
-            searchHash.put("state", "");
-            searchHash.put("region", "");
-            ctx.setSessionValue("campus_search",searchHash);
-            return searchHash;
-    	}
-    }
+    
 }

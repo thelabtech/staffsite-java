@@ -32,12 +32,12 @@ public class PersonHelper extends org.alt60m.ministry.servlet.modules.InfoBaseMo
 		result=infotize(person);
 	    return result;
 	}
-    public static Section getPersonSearchResults(String name,String city,String state,String region)throws Exception{
+    public static Section getPersonSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
     	Section t=new Section();
 		t.setType("Person");
 		t.setName("Person Search Results");
     	
-    	ResultSet rs= PersonQueries.getSearchResults("person", name,city,state,region);
+    	ResultSet rs= PersonQueries.getSearchResults("person", name,city,state,region,strategy);
     	while (rs.next()){
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			object.put("name",rs.getString("name")+"");
@@ -50,32 +50,5 @@ public class PersonHelper extends org.alt60m.ministry.servlet.modules.InfoBaseMo
 		}
     	return t;
     }
-    public static void storeSearch(ActionContext ctx){
-    	String name = ctx.getInputString("name");
-        String city = ctx.getInputString("city");
-        String state = ctx.getInputString("state");
-        String region = ctx.getInputString("region");
-    	Hashtable searchHash=new Hashtable();
-        searchHash.put("name", name);
-        searchHash.put("city", city);
-        searchHash.put("state", state);
-        searchHash.put("region", region);
-        ctx.setSessionValue("person_search", searchHash);
-    }
-    public static Hashtable sessionSearch(ActionContext ctx){
-    	Hashtable result=new Hashtable();
-    	if (ctx.getSessionValue("person_search")!=null){
-    		return (Hashtable)ctx.getSessionValue("person_search");
-    	}
-    	else
-    	{
-    		Hashtable searchHash=new Hashtable();
-            searchHash.put("name", "");
-            searchHash.put("city", "");
-            searchHash.put("state", "");
-            searchHash.put("region", "");
-            ctx.setSessionValue("person_search",searchHash);
-            return searchHash;
-    	}
-    }
+    
 }

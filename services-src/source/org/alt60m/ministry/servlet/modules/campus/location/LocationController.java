@@ -1,18 +1,22 @@
 
 package org.alt60m.ministry.servlet.modules.campus.location;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import org.alt60m.ministry.model.dbio.Activity;
 import org.alt60m.ministry.model.dbio.Contact;
 import org.alt60m.ministry.model.dbio.Person;
 import org.alt60m.ministry.model.dbio.TargetArea;
+import org.alt60m.ministry.servlet.InfoBaseTool;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleQueries;
 import org.alt60m.ministry.servlet.modules.model.Section;
 import org.alt60m.ministry.servlet.modules.person.PersonHelper;
+import org.alt60m.ministry.servlet.modules.team.TeamHelper;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller.ActionContext;
@@ -46,11 +50,11 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
         try {
         	ActionResults result=new ActionResults("IB index");
     		String id=(String)ctx.getSessionValue("campus")!=null?(String)ctx.getSessionValue("campus"):"";
-
+    		ctx.setSessionValue("lastClass", "Campus");
         	if(id.equals("search")){
     			
-    			Hashtable search=LocationHelper.sessionSearch(ctx);
-    			Section list=LocationHelper.getCampusSearchResults((String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"));
+    			Hashtable search=LocationHelper.sessionSearch(ctx,"campus");
+    			Section list=LocationHelper.getCampusSearchResults((String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"),(String)search.get("strategy"));
     			Vector<Section> content=new Vector<Section>();
     			content.add(list);
     			result.addCollection("content",content);
@@ -63,7 +67,7 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
                 result.putValue("isRD",isRD(person));
                 result.putValue("mode","content");
         	}
-        	result.addHashtable("search",LocationHelper.sessionSearch(ctx));
+        	result.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));
         	result.putValue("module",this.module);
     		result.putValue("title",this.title);
     		ctx.setReturnValue(result);
@@ -83,15 +87,45 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
 			
             String targetAreaID = ctx.getInputString("id");
             ctx.setSessionValue("campus", ctx.getInputString("id"));
-
-			results.addHashtable("search",LocationHelper.sessionSearch(ctx));	
+            ctx.setSessionValue("lastClass", "Campus");
+			results.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));	
 			
-            results.addHashtable("info", LocationHelper.info(targetAreaID));
+			Hashtable info=LocationHelper.info(targetAreaID);
+			if(ctx.getInputString("new")!=null){
+            	Hashtable<String,String> newTeam=ctx.getHashedRequest();
+            	log.debug(newTeam.toString());
+            	log.debug(info.toString());
+            	for(Object o:info.keySet()){
+            		if (newTeam.get(o)!=null){
+	            			String val=newTeam.get(o);
+	            			log.debug(val);
+	            			if(val.toLowerCase().equals("true")){
+	            				info.put(o,true);
+	            				info.put(((String)o).toLowerCase(),true);
+	            				info.put(((String)o).toUpperCase(),true);
+	            			}else if(val.toLowerCase().equals("false")){
+	            				info.put(o,false);
+	            				info.put(((String)o).toLowerCase(),false);
+	            				info.put(((String)o).toUpperCase(),false);
+	            			}else{
+	            			info.put(o,val);
+	            			info.put(((String)o).toLowerCase(),val);
+            				info.put(((String)o).toUpperCase(),val);
+	            			}
+            		}
+            	}
+            	log.debug(info.toString());
+            	
+            }
+            results.addHashtable("info", info);
             results.addCollection("content",LocationHelper.content(targetAreaID));
+			
             Person person=getUserPerson(ctx);
             results.putValue("personID",person.getPersonID()+"");
             results.putValue("isRD",isRD(person));
             results.putValue("mode","content");
+            if(ctx.getInputString("edit")!=null)results.putValue("mode", "editLocation");
+            if(ctx.getInputString("new")!=null)results.putValue("mode", "newLocation");
             results.putValue("module",this.module);
             results.putValue("title",this.title);
             ctx.setReturnValue(results);
@@ -108,15 +142,30 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
         try {
         	ActionResults results = new ActionResults("listCampus");
         	ctx.setSessionValue("campus", "search");
+        	ctx.setSessionValue("lastClass", "Campus");
         	String name = ctx.getInputString("name", true);
             String city = ctx.getInputString("city", true);
             String state = ctx.getInputString("state", true);
-            String region = ctx.getInputString("region", true);  
-            LocationHelper.storeSearch(ctx);
-			Section list=LocationHelper.getCampusSearchResults(name,city,state,region);
+            String[] strategies=ctx.getInputStringArray("strategy");
+            String strategy="(";
+            for (String strat:strategies){
+            	strategy+="'"+strat+"',";
+            }
+            strategy+=")";
+            strategy=strategy.replace(",)",")");
+            log.debug(strategy);
+            String[] regions=ctx.getInputStringArray("region");
+            String region="(";
+            for (String reg:regions){
+            	region+="'"+reg+"',";
+            }
+            region+=")";
+            region=region.replace(",)",")");
+            LocationHelper.storeSearch(ctx,"campus");
+			Section list=LocationHelper.getCampusSearchResults(name,city,state,region,strategy);
 			Vector<Section> content=new Vector<Section>();
 			content.add(list);
-			results.addHashtable("search",LocationHelper.sessionSearch(ctx));
+			results.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));
 			results.addCollection("content", content);
 			results.putValue("module", this.module);
 			results.putValue("title", this.title);
@@ -129,6 +178,41 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
             ctx.setError();
             ctx.goToErrorView();
             log.error("Failed to perform detailedListCampus().", e);
+        }
+    }
+    public void saveTargetAreaInfo(ActionContext ctx) {
+        try {
+            if(ctx.getInputString("new")==null){
+        	String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
+			LocationHelper ibt = new LocationHelper();
+            ibt.saveTargetAreaInfo(ctx.getHashedRequest(), targetAreaId);
+        	content(ctx);
+            } else {
+            	LocationHelper ibt = new LocationHelper();
+            	List admins=Arrays.asList("trent.murray@uscm.org","todd.gross@uscm.org");
+    			boolean admin = admins.contains(((String)ctx.getSessionValue("userName")).toLowerCase());
+    			if (isNullOrEmpty(ctx.getInputString("Name")) || isNullOrEmpty(ctx.getInputString("City")) ||
+    				isNullOrEmpty(ctx.getInputString("Country")) || isNullOrEmpty(ctx.getInputString("isSecure"))) {
+    				ctx.setSessionValue("confirm", "One or more required fields was empty. Please try again.");
+    			} else { // required fields OK
+    				Hashtable request = ctx.getHashedRequest();
+    				if (!admin) {
+    					ibt.sendTargetAreaRequestEmail(request, "isaac.kimball@uscm.org", ctx.getProfileID());
+    					ctx.setSessionValue("confirm", "Your location proposal has been sent.");
+    				} else {
+    					ibt.createNewTargetArea(request);
+    					ctx.setSessionValue("confirm", "The location has been saved.");
+    				}
+            	
+            	
+            }
+    			index(ctx);
+        }
+        }
+        catch (Exception e) {
+            ctx.setError();
+            ctx.goToErrorView();
+            log.error("Failed to perform saveTargetAreaInfo().", e);
         }
     }
 }

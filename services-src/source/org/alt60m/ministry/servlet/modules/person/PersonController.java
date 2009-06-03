@@ -46,11 +46,11 @@ public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBa
     public void index(ActionContext ctx) {
         try {
         	ActionResults result=new ActionResults("IB index");
-    		
+        	ctx.setSessionValue("lastClass", "Person");
     		String id=(String)ctx.getSessionValue("person")!=null?(String)ctx.getSessionValue("person"):"";
     		if(id.equals("search")){
-    			Hashtable search=PersonHelper.sessionSearch(ctx);
-    			Section list=PersonHelper.getPersonSearchResults((String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"));
+    			Hashtable search=PersonHelper.sessionSearch(ctx,"person");
+    			Section list=PersonHelper.getPersonSearchResults((String)search.get("name"),(String)search.get("city"),(String)search.get("state"),(String)search.get("region"),(String)search.get("strategy"));
     			Vector<Section> content=new Vector<Section>();
     			content.add(list);
     			result.addCollection("content",content);
@@ -61,7 +61,7 @@ public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBa
                 result.addCollection("content",PersonHelper.content(id));
                 result.putValue("mode","content");
         	}
-    		result.addHashtable("search",PersonHelper.sessionSearch(ctx));
+    		result.addHashtable("search",PersonHelper.sessionSearch(ctx,"person"));
     		result.putValue("module",this.module);
     		result.putValue("title",this.title);
     		ctx.setReturnValue(result);
@@ -79,10 +79,10 @@ public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBa
             String personID = ctx.getInputString("id", true);
             ctx.setSessionValue("person", ctx.getInputString("id"));
             String accountNo = ctx.getInputString("accountNo", true);
-			
+            ctx.setSessionValue("lastClass", "Person");
             log.debug(accountNo+" accountNo, "+personID+" personID");
            
-            results.addHashtable("search",PersonHelper.sessionSearch(ctx));
+            results.addHashtable("search",PersonHelper.sessionSearch(ctx,"person"));
             results.addHashtable("info", PersonHelper.info(personID));
             results.addCollection("content", PersonHelper.content(personID));
             results.putValue("module",this.module);
@@ -156,15 +156,30 @@ public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBa
         try {
         	ActionResults results = new ActionResults("listCampus");
         	ctx.setSessionValue("person", "search");
+        	ctx.setSessionValue("lastClass", "Person");
         	String name = ctx.getInputString("name", true);
             String city = ctx.getInputString("city", true);
             String state = ctx.getInputString("state", true);
-            String region = ctx.getInputString("region", true);  
-            PersonHelper.storeSearch(ctx);
-			Section list=PersonHelper.getPersonSearchResults(name,city,state,region);
+            String[] strategies=ctx.getInputStringArray("strategy");
+            String strategy="(";
+            for (String strat:strategies){
+            	strategy+="'"+strat+"',";
+            }
+            strategy+=")";
+            strategy=strategy.replace(",)",")");
+            log.debug(strategy);
+            String[] regions=ctx.getInputStringArray("region");
+            String region="(";
+            for (String reg:regions){
+            	region+="'"+reg+"',";
+            }
+            region+=")";
+            region=region.replace(",)",")");
+            PersonHelper.storeSearch(ctx,"person");
+			Section list=PersonHelper.getPersonSearchResults(name,city,state,region,strategy);
 			Vector<Section> content=new Vector<Section>();
 			content.add(list);
-			results.addHashtable("search",PersonHelper.sessionSearch(ctx));
+			results.addHashtable("search",PersonHelper.sessionSearch(ctx,"person"));
 			results.addCollection("content", content);
 			results.putValue("module", this.module);
 			results.putValue("title", this.title);

@@ -68,8 +68,8 @@ public class SelectStatus implements java.io.Serializable {
 			}
 			sb.append("<input type=radio name=" + name + " value=" + status
 					+ checked + "> <SPAN NAME=\"" + toDef(status)
-					+ "\" onMouseOver=\"setDefinition(" + toDef(status)
-					+ ")\" onMouseOut=\"setDefinition(empty)\">"
+					+ "\" onMouseOver=\"setDefinition(" + toDef(status)+",'"+strategyName
+					+ "');\" onMouseOut=\"setDefinition('empty','');\">"
 					+ status.getName().toUpperCase() + "</SPAN> "
 					+ strategyName + " campus.<br>");
 			sb.append(lineSep);

@@ -44,12 +44,14 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
             if(type==null||!Arrays.asList(_reportTypes).contains(type)){
             	type="national";
             }
-            
+            Boolean skip=false;
             String isMuster=ctx.getInputString("isMuster");
             if(isMuster==null){
             	 if(ctx.getSessionValue("report")!=null){
                  	ctx.setReturnValue(ctx.getSessionValue("report"));
+                 	ctx.setSessionValue("isMuster", (String)ctx.getSessionValue("report_view")==null?"false":((String)ctx.getSessionValue("report_view")).equals("showMuster")?"true":"false");
                  	ctx.goToView((String)ctx.getSessionValue("report_view"));
+                 	skip=true;
                  }
             	isMuster=(String)ctx.getSessionValue("isMuster");
             }
@@ -73,11 +75,12 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
 	    		results.putValue("title",this.title);
 	    		results.putValue("mode","content");
 	    		ctx.setReturnValue(results);
-	    		 if(isMuster.equals("true")){
+	    		if(!skip){
+	    		if(isMuster.equals("true")){
 	             	ctx.goToView("setMusterCriteriaAgile");
 	             }else{
 	    		ctx.goToView("setReportCriteriaAgile");
-	           }
+	           }}
         }
         catch (Exception e) {
             ctx.goToErrorView();
@@ -120,7 +123,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
     		strategyList=ctx.getInputString("strategyList");
     		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
     	}
-    	if ((strategyList.length()>0)&&(!strategyList.contains("'EV'")))strategyList+=",'EV'";
+    	
     	Vector<ReportRow> report=org.alt60m.ministry.servlet.Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
     	results.putValue("type", type);
     	results.putValue("region", region);

@@ -32,30 +32,43 @@ public class InfoBaseModuleQueries {
 		return v;
 	}
 	  
-	public static ResultSet getSearchResults(String type,String name,String city,String state,String region)throws Exception{
+	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String strategy)throws Exception{
 		Vector<Object>result=new Vector<Object>();
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		Boolean reqMovement=false;
+		Boolean reqStrategy=false;
 		String tables="";
 		String select="";
+		String group="";
 		String conditions="";
 		String typeConditions="";
 		String nameExp="";
+		if (!strategy.equals("")&&!strategy.toUpperCase().equals("('NONNULL')")&&strategy!=null){
+			reqStrategy=true;
+			reqMovement=true;
+		}
 		if (type.equals("person")){
-			tables=" ministry_person mp left join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') ";
+			group=" mp.personID ";
+			tables=" ministry_person mp left join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') "+
+					(reqMovement?" inner ":" left ")+" join ministry_movement_contact mmc on mmc.personID= mp.personID "+
+					(reqMovement?" inner ":" left ")+" join ministry_activity mact "+
+					" on ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ";
 			select=" Select concat(mp.firstName,' (',mp.preferredName,') ',mp.lastName) as name, "+
-					" ma.city as city, ma.state as state, mp.region as region, mp.personID as id, mp.accountNo as accountNo ";
+					" ma.city as city, ma.state as state, mp.region as region, mact.strategy as strategy, mact.status as status, mp.personID as id, mp.accountNo as accountNo ";
 			nameExp=" concat(mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
 		}else if (type.equals("team")){
-			tables=" ministry_locallevel ml ";
+			group=" ml.teamID ";
+			tables=" ministry_locallevel ml "+(reqMovement?" inner ":" left ")+"  join ministry_activity mact on (ml.teamID=mact.fk_teamID and mact.status <> 'IN' and mact.status is not null ) ";
 			select=" Select ml.name as name, "+
-					" ml.city as city, ml.state as state, ml.region as region, ml.teamID as id ";
+					" ml.city as city, ml.state as state, ml.region as region, mact.strategy as strategy,  mact.status as status, ml.teamID as id ";
 			nameExp=" ml.name ";
 			
 		}else { //if (type.equals("campus")) is our default
-			tables=" ministry_targetarea mt ";
+			group=" mt.targetAreaID ";
+			tables=" ministry_targetarea mt "+(reqMovement?" inner ":" left ")+" join ministry_activity mact on (mt.targetAreaID=mact.fk_targetAreaID and mact.status <> 'IN' and mact.status is not null  ) ";
 			select=" Select mt.name as name, "+
-					" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as id ";
+					" mt.city as city, mt.state as state, mt.region as region, mact.strategy as strategy,  mact.status as status, mt.targetAreaID as id ";
 			nameExp=" mt.name ";
 			typeConditions=" and (mt.eventType is null or mt.eventType<=>'') ";
 			
@@ -77,17 +90,25 @@ public class InfoBaseModuleQueries {
 			}
 			conditions +=" and upper("+nameExp+") like '"+testPhrase+"' ";
 		}
+		else
+		{
+			conditions +=" and upper("+nameExp+") is not null ";
+		}
 		if (!city.equals("")&&city!=null){
 			conditions +=" and upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
 		}
 		if (!state.equals("")&&state!=null){
 			conditions +=" and upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
 		}
-		if (!region.equals("")&&region!=null){
-			conditions +=" and upper(region) = '"+region.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"' ";
+		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
+			
+			conditions +=" and upper(region) in "+region.toUpperCase()+" ";
+		}
+		if (reqStrategy){
+			conditions +=" and upper(strategy) in "+strategy.toUpperCase()+" ";
 		}
 		if(conditions.equals("")){conditions=" and false ";}
-		String qry=select + " from "+tables+" where true "+conditions+typeConditions+" order by name asc;";
+		String qry=select + " from "+tables+" where true "+conditions+typeConditions+" group by "+group+" order by name asc;";
 		log.debug(qry);
 		return stmt.executeQuery(qry);
 		
@@ -897,13 +918,13 @@ public class InfoBaseModuleQueries {
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
-			" ms.invldStudents as size "+
+			" if(stats.invldStudents is null,0,stats.invldStudents) as size "+
 			" from ministry_targetarea mt inner join ministry_activity ma on ma.fk_targetareaid=mt.targetareaid "+
 			" inner join ministry_movement_contact mmc on mmc.ActivityID=ma.ActivityID "+
 			" inner join ministry_locallevel ml on ml.teamID=ma.fk_teamID "+
-			" inner join ministry_statistic ms  on ms.fk_Activity=ma.ActivityID "+
+			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
-			"  on lastStat.id=ms.StatisticID "+
+			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
 			" where mmc.personID="+personID+"  and ma.status<>'IN'  order by size desc ;";
 			
@@ -926,12 +947,12 @@ public class InfoBaseModuleQueries {
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
-			" ms.invldStudents as size "+
+			" if(stats.invldStudents is null,0,stats.invldStudents) as size "+
 			" from ministry_targetarea mt inner join ministry_activity ma on ma.fk_targetareaid=mt.targetareaid "+
 			" inner join ministry_locallevel ml on ml.teamID=ma.fk_teamID "+
-			" inner join ministry_statistic ms  on ms.fk_Activity=ma.ActivityID "+
+			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
-			"  on lastStat.id=ms.StatisticID "+
+			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
 			" where ma.fk_teamID="+teamID+" and ma.status<>'IN'  order by size desc  ;";
 			
@@ -954,12 +975,15 @@ public class InfoBaseModuleQueries {
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
-			" ms.invldStudents as size "+
+			" if(stats.invldStudents is null,0,stats.invldStudents) as size, "+
+			" leaders.leader_id as leader_id "+
 			" from ministry_targetarea mt inner join ministry_activity ma on ma.fk_targetareaid=mt.targetareaid "+
 			" inner join ministry_locallevel ml on ml.teamID=ma.fk_teamID "+
-			" inner join ministry_statistic ms  on ms.fk_Activity=ma.ActivityID "+
+			" left join (select group_concat(tm.personID separator ',') as leader_id, tm.teamID as teamID "+
+			" from ministry_missional_team_member tm where tm.is_leader=1 group by tm.teamID) leaders on leaders.teamID=ml.teamID  "+
+			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
-			"  on lastStat.id=ms.StatisticID "+
+			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
 			" where ma.fk_targetAreaId="+taID+" and ma.status<>'IN' order by size desc ;";
 			
@@ -983,6 +1007,8 @@ public class InfoBaseModuleQueries {
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
+			" ministry_missional_team_member.is_leader as is_leader, "+
+			" ministry_missional_team_member.is_people_soft as is_people_soft, "+
 			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent,"+
 			" ministry_person.accountNo as accountNo, max(mna1.city) as city, max(mna1.state) as state "+
 			" FROM (ministry_missional_team_member inner join ministry_person "+
@@ -995,6 +1021,8 @@ public class InfoBaseModuleQueries {
 			while (rs.next()){
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
+				h.put("is_leader",rs.getString("is_leader")==null?false:rs.getString("is_leader").equals("1"));
+				h.put("is_people_soft",rs.getString("is_people_soft")==null?false:rs.getString("is_people_soft").equals("1"));
 				h.put("accountNo",rs.getString("accountNo")+"");
 				h.put("city",rs.getString("city")+"");
 				h.put("state",rs.getString("state")+"");
@@ -1020,7 +1048,28 @@ public class InfoBaseModuleQueries {
 			return null;
 		}
 	}
-	
+	public static Boolean isTeamLeader(Person person,LocalLevel ll)throws Exception
+    {
+    	
+        String personID = person.getPersonID()+"";
+       String llid=ll.getLocalLevelId();
+       Connection conn = DBConnectionFactory.getDatabaseConn();
+		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+		String query="SELECT max(ministry_missional_team_member.is_leader) as is_leader "+
+		" FROM ministry_missional_team_member  WHERE ministry_missional_team_member.teamID ="+llid+
+		" and ministry_missional_team_member.personID="+personID+" group by ministry_missional_team_member.teamID, ministry_missional_team_member.personID  ; ";
+		log.debug(query);
+		ResultSet rs = stmt.executeQuery(query);
+		if (rs.next()){
+		if(rs.getString("is_leader")==null){
+			 return false;
+		} else {
+			return rs.getString("is_leader").equals("1");
+		}
+		}
+		return false;
+    }
 	public static void savePersonContact (String personID, String activityId){
 		try 
 		{
@@ -1042,26 +1091,7 @@ public class InfoBaseModuleQueries {
 			log.error(e, e);
 		}
 	}
-	public static void saveTeamMember (String personID, String teamID){
-		try 
-		{
-			if(!(new Person(personID)).getIsSecure()){
-			Connection conn = DBConnectionFactory.getDatabaseConn();
-			String query="INSERT INTO ministry_missional_team_member (personID, teamID) VALUES ("+personID+","+teamID+");";
-			log.debug(query);
-			Statement stmt=conn.prepareStatement(query);
-			stmt.executeUpdate(query);
-			}
-			else
-			{
-				log.debug("Not saved as team member: secure person record");
-			}
-		}
-		catch (Exception e) 
-		{
-			log.error(e, e);
-		}
-	}
+	
 	public static void removePersonContact( String personID,String activityId){
 		try 
 		{
@@ -1077,21 +1107,7 @@ public class InfoBaseModuleQueries {
 			log.error(e, e);
 		}
 	}
-	public static void removeTeamMember( String personID,String teamID){
-		try 
-		{
-			Connection conn = DBConnectionFactory.getDatabaseConn();
-			String query=" DELETE FROM ministry_missional_team_member "+
-			" WHERE ministry_missional_team_member.personID="+personID+" AND ministry_missional_team_member.teamID="+teamID+";";
-			log.debug(query);
-			Statement stmt=conn.prepareStatement(query);
-			stmt.executeUpdate(query);
-		}
-		catch (Exception e) 
-		{
-			log.error(e, e);
-		}
-	}
+
 	public static void removeAllTeamAssociations( String personID,String teamID){
 		try 
 		{
