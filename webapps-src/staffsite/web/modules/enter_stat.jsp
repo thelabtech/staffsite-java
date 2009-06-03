@@ -64,7 +64,7 @@ document.getElementById(mW+'_info_box').innerHTML='';
 </script>
 
 
-<div class="wrapper" id="wrapper">
+<div class="enter_stat" id="enter_stat">
 <div style="position:absolute;width:1000px;margin:auto;">
 <style>
 div.weekTab

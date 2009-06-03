@@ -13,7 +13,7 @@ for(Hashtable h:rows){%>
 		<%} %>
 	<A href="/servlet/Person?action=content&id=<%= h.get("id") %>&accountNo=<%=h.get("accountNo")%>"><%=((String) h.get("name")).replace(" (null)","") %></A></td>
 	<td><%=h.get("city") %>, <%=h.get("state") %></td>
-			
+	<td><%@ include file="/modules/_team_leader.jspf" %></td>		
 		
 </tr>
 <%}%>

@@ -1,209 +1,73 @@
-a
+div#muster_report
 {
-font-family:verdana,arial,sans-serif;
-text-decoration:none;
-color:black;
-
-font-size:10px;	
-}
-table
+	position:absolute;
+	top:135px;
+	
+	}
+	
+	div#muster_report  td.label_darker_blue,
+	div#muster_report  td.report_light_blue,
+	div#muster_report  td.report_darker_blue
 {
-border-collapse:collapse;
-}
-td
-{
-padding:0;
-padding-top:0px;
-padding-bottom:0px;
-margin:0;
-border:none;
-overflow:hidden;
-
-}
-table.report
-{
-border:none;
-width:auto;
-text-align:center;
-border-collapse:collapse;
-}
-table.row
-{
-width:auto;
-border:none;
-border-collapse:collapse;
-}
-td.report_light
-{
-	padding:3px;
+display:block;
+	float:left;
 padding-top:3px;
 padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
+text-align:center;
+font-family:verdana,arial,sans-serif;
+color:black;
+font-size:10px;
+border:solid 1px #cdcdcd;
+height:15px;
+background-color:#f4d0c0;
+}
+
+
+	div#muster_report  td.report_light,
+	div#muster_report  td.report_darker,
+	div#muster_report  td.report_veryDark,
+	div#muster_report  td.label_darker,
+	div#muster_report  td.label_veryDark,
+	div#muster_report  td.label_light
+{
+	display:block;
+	float:left;
+	margin:none;
+	padding:none;
+padding-top:3px;
+padding-bottom:3px;
+font-family:verdana,arial,sans-serif;
+color:black;
 background-color:#ffffff;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
 font-size:10px;
-width:auto;
-}
-td.report_darker
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
+height:25px;
 overflow:hidden;
-background-color:#eeeeee;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:auto;
+border:solid 1px #cdcdcd;
 }
-td.report_veryDark
+	div#muster_report  td.label_darker_blue,
+	
+	div#muster_report  td.label_darker,
+	div#muster_report  td.label_veryDark,
+	div#muster_report  td.label_light
 {
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-background-color:#dddddd;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:auto;
-}
-
-td.label_light
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-	overflow:hidden;
-background-color:#ffffff;
-text-align:right;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:250px;
-}
-td.label_darker
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-		overflow:hidden;
-background-color:#eeeeee;
-text-align:right;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:250px;
-}
-td.label_veryDark
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-		overflow:hidden;
-background-color:#dddddd;
-text-align:right;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:250px;
-}
-
-
-
-td.report_light_blue
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-background-color:#bbbbff;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:auto;
-}
-td.report_darker_blue
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-background-color:#aaaaff;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:auto;
-}
-td.report_veryDark_blue
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-background-color:#9999ee;
-text-align:center;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:auto;
-}
-td.label_light_blue
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-	overflow:hidden;
-background-color:#bbbbff;
-text-align:right;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:250px;
-}
-td.label_darker_blue
-{
-	padding:3px;
-padding-top:3px;
-padding-bottom:3px;
-margin:0;
-border:none;
-overflow:hidden;
-		overflow:hidden;
-background-color:#aaaaff;
-text-align:right;
-font-family:verdana,arial,sans-serif;
-color:black;
-font-size:10px;
-width:250px;
-}
+		background-color:#ffffff;
+		width:230px;
+		text-align:right;
+		padding-right:5px;
+	}
+	
+	div#muster_report  td.label_darker_blue
+	{
+	background-color:#f4d0c0;
+	}
+div#muster_report  td.report_light,
+	div#muster_report  td.report_darker,
+	div#muster_report  td.report_veryDark,
+	
+	div#muster_report  td.report_light_blue,
+	div#muster_report  td.report_darker_blue
+	{
+	text-align:center;
+	width:120px;
+	}
+	

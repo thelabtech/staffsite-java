@@ -30,7 +30,13 @@ for(Hashtable h:rows){%>
 
 
 	<td><i><%=h.get("size") %> students</i></td>
+<%if(module.equals("campus")||module.equals("location")){ %>
 	<td><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
+<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+		<td><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>">
+		Edit
+		</A></td><%}%>
+	<%}%>
 </tr>	
 	<%
 	if(module.equals("campus")||module.equals("location")){
@@ -44,3 +50,4 @@ for(Hashtable h:rows){%>
 <%}%>
 </table>
 <%@ include file="/modules/_add_contact.jspf" %>
+<%@ include file="/modules/_edit_movement.jspf" %>

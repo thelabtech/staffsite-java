@@ -2,27 +2,8 @@
 
 
 <%@ include file="/modules/header.jspf"%>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript" language="javascript" src="/modules/ib.js">
 
-var checked=false;
-function check(){
-table=document.getElementById('boxes');
-inputs = table.getElementsByTagName('input');
-	for (i=0;i<inputs.length;i++){
-	inputs[i].checked=!checked;
-	}
-	checked=!checked;
-	document.getElementById('checkAllButton').innerHTML=(checked?'Uncheck All':'Check All');
-}
-function checkAll(){
-	table=document.getElementById('boxes');
-	inputs = table.getElementsByTagName('input');
-		for (i=0;i<inputs.length;i++){
-		inputs[i].checked=true;
-		}
-		checked=true;
-		document.getElementById('checkAllButton').innerHTML='Uncheck All';
-	}
 </script>
 
 
@@ -44,22 +25,12 @@ function submitReportForm(thisForm) {
 	}
 }
 </script>
+<div id="stat_report">
 
-<TABLE width="100%">
-	<TR>
-		<TD align=right><a href="JavaScript: popupWindow('/help/help_success_criteria_reports.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help with Success Criteria Reports</a></font></TD>
-	</TR>
-	<tr>
-		<td>
-		<br/>
-		If you experience any technical problems while either entering your success criteria or running a report, please give us as much information as possible about the problem by using this <A href="/general/feedback.jsp">Help Request form</A>.</font>
-		</td>
-	</tr>
-</TABLE>
 
 <br/>
 <form name="reportCriteria" method="post" action="/servlet/Report" onsubmit="return submitReportForm(this)">
-<input type="hidden" name="action" value="statReport">
+<li class="choose_report"><input type="hidden" name="action" value="statReport">
 <%
 Integer yearvar=1998;	
 String teamID="";
@@ -76,54 +47,52 @@ String teamID="";
 	}
 	
 %>
-	<input type=hidden name="teamID" value="<%=teamID%>">
-	<input type=hidden name="region" value="<%=region%>">
-	<input type=hidden name="targetareaid" value="<%=targetAreaID%>">
+	<li class="choose_report"><input type=hidden name="teamID" value="<%=teamID%>">
+	<li class="choose_report"><input type=hidden name="region" value="<%=region%>">
+	<li class="choose_report"><input type=hidden name="targetareaid" value="<%=targetAreaID%>">
 	
-	<input type=hidden name=type value="<%= ar.getValue("type") %>">
+	<li class="choose_report"><input type=hidden name=type value="<%= ar.getValue("type") %>">
 	<CENTER>
 	
-	<table width="90%" border="0" cellpadding="0" cellspacing="0">
-		<tr>
-		  <td valign="top"><img src="/infobase/images/1.gif" width="32" height="48"></td>
-		  <td>
-			<p><i>Select which CCC ministries you would like included
-			  in your report:</font></p>
-<table><tr><td>
-			<table id="boxes" border="0" cellpadding="5" cellspacing="5" >
-			  <tr><td>
-			  		<button id="checkAllButton" onClick="check();">Check All</button><br>
-					<input type="checkbox" name="strategies"   value="FS" >Field Strategies<br>
-					<input type="checkbox" name="strategies"   value="II" >ESM-Impact<br>
-					<input type="checkbox" name="strategies"   value="IE" >ESM-Epic<br>
-					<input type="checkbox" name="strategies"   value="ID" >ESM-Destino<br>
-					<input type="checkbox" name="strategies"   value="IN" >ESM-Nations<br>
-					<input type="checkbox" name="strategies"   value="BR" >Bridges<br>
-					<input type="checkbox" name="strategies"   value="WS" >WSN Local Teams<br>
-					
-					<input type="checkbox" name="strategies"   value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies"   value="CL" >Faculty Commons<br>
-					<input type="checkbox" name="strategies"   value="KC" >Korean CCC<br>
-					<input type="checkbox" name="strategies"   value="GK" >Greek<br>
-					<input type="checkbox" name="strategies"   value="VL" >Valor<br>
-					<input type="checkbox" name="strategies"   value="OT" >Other<br>
-					
 	
-			  </td></tr>
-			</table>
-			<table >
-				<tr><td>
-					<input type="checkbox" name="strategies"  checked value="CM" >Campus Report (traditional Success Criteria report)<br>
-					<input type="checkbox" name="strategies" onClick="checkAll();"  value="C2" >Conference Stats<br>
-					<input type="checkbox" name="strategies" onClick="checkAll();"  value="SP" >Summer Project Stats<br>
-				</td></tr>
-			</table>
-</td></tr></table>
-			<p>
-		  </td>
-		</tr>
-		<tr>
-		  <td valign="top"><img src="/infobase/images/2.gif" width="35" height="47"></td>
+		
+		  
+<div class="choose_report_across">
+		<ul class="choose_report_across">
+			<li class="choose_report_across_extra_wide"><i>Select which CCC ministries you would like included
+			  in your report:</i></li>
+		</ul>
+			<ul id="boxes" class="choose_report" >
+			 		<li class="choose_report"><img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/></li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="FS" ></li><li class="choose_report_check_label">Field Strategies</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="II" ></li><li class="choose_report_check_label">ESM-Impact</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="IE" ></li><li class="choose_report_check_label">ESM-Epic</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="ID" ></li><li class="choose_report_check_label">ESM-Destino</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="IN" ></li><li class="choose_report_check_label">ESM-Nations</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="BR" ></li><li class="choose_report_check_label">Bridges</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="WS" ></li><li class="choose_report_check_label">WSN Local Teams</li>
+					
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="AA" ></li><li class="choose_report_check_label">Athletes In Action</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="CL" ></li><li class="choose_report_check_label">Faculty Commons</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="KC" ></li><li class="choose_report_check_label">Korean CCC</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="GK" ></li><li class="choose_report_check_label">Greek</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="VL" ></li><li class="choose_report_check_label">Valor</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"   value="OT" ></li><li class="choose_report_check_label">Other</li>
+					<li class="choose_report_check"><input type="checkbox" name="strategies"  onclick="checkEvents();" value="EV" ></li><li class="choose_report_check_label">Projects and Conferences without a specified Strategy</li>
+		</ul>
+</div>
+<div class="choose_report_across">
+		<ul class="choose_report">
+			<li class="choose_report_across_extra_wide"><i>Which type of stats do you want included?</i></li>
+		</ul>
+		<ul class="choose_report">
+			<li class="choose_report_check"><input type="checkbox" name="strategies"  checked value="CM" ></li><li class="choose_report_check_label">Campus Report (traditional Success Criteria report)</li>
+			<li class="choose_report_check"><input type="checkbox" name="strategies" id="C2" onClick="checkAll();"  value="C2" ></li><li class="choose_report_check_label">Conference Stats</li>
+			<li class="choose_report_check"><input type="checkbox" name="strategies" id="SP" onClick="checkAll();"  value="SP" ></li><li class="choose_report_check_label">Summer Project Stats</li>
+		</ul>
+
+<br><br>		
+		  
 <%
 Calendar thisDate=Calendar.getInstance();
 Date now=new Date();
@@ -138,21 +107,25 @@ if(thisDate.get(Calendar.MONTH)<=7){
 }
 
 %>
-		  <td>
-			<p><i>Select a date range for your report:</i></font></p>
-			<table width="200" border="0" cellpadding="5" cellspacing="5">
-			  <tr >
-				<td colspan="2"><b>From</b></td>
-				<td colspan="2"><b>To</b></td>
-			  </tr>
-			  <tr >
-				<td>Year</td>
-				<td>Month</td>
-				<td>Year</td>
-				<td>Month</td>
-			  </tr>
-			  <tr >
-				<td>
+
+		<ul class="choose_report_across">
+			<li class="choose_report_across_extra_wide"><i>Select a date range for your report:</i></li>
+		</ul>
+		<ul class="choose_report_across">
+			  
+			<li class="choose_report_across_wide"><b>From</b></li>
+			<li class="choose_report_across_wide"><b>To</b></li>
+		</ul>
+		<ul class="choose_report_across">
+			
+			<li class="choose_report_across">Year</li>
+			<li class="choose_report_across">Month</li>
+			<li class="choose_report_across">Year</li>
+			<li class="choose_report_across">Month</li>
+			  
+		</ul>
+		<ul class="choose_report_across">
+			<li class="choose_report_across">
 				  <select name="fromyear">
 				  <%
 				  while (yearvar<(toYear+1))
@@ -164,8 +137,8 @@ if(thisDate.get(Calendar.MONTH)<=7){
 					yearvar++;
 					}%>
 				  </select>
-				</td>
-				<td>
+			</li>
+			<li class="choose_report_across">
 				  <select name="frommonth">
 				  <option value='1'>Jan</option>
 				  <option value='2'>Feb</option>
@@ -180,8 +153,8 @@ if(thisDate.get(Calendar.MONTH)<=7){
 				  <option value='11'>Nov</option>
 				  <option value='12'>Dec</option>
 				  </select>
-				</td>
-				<td>
+			</li>
+			<li class="choose_report_across">
 				  <select name="toyear">
 						  <%
 						  yearvar=1998;
@@ -194,8 +167,8 @@ if(thisDate.get(Calendar.MONTH)<=7){
 					yearvar++;
 					}%>
 					  </select>
-				</td>
-				<td>
+			</li>
+			<li class="choose_report_across">
 				  <select name="tomonth">
 
 				<option value='1'<% if((toMonth).equals("Jan")) out.print(" SELECTED"); %>>Jan</option>
@@ -213,25 +186,27 @@ if(thisDate.get(Calendar.MONTH)<=7){
 				 
 				
 				  </select>
-				</td>
-			  </tr>
-			  <tr><td colspan="4">Report will cover from the first of the "from" month through the end of the "to" month.</td></tr>
-			</table>
-			<p>&nbsp;</p>
-		  </td>
-		</tr>
-		<tr>
-		  <td valign="top"><img src="/infobase/images/3.gif" width="34" height="45"></td>
-		  <td>
-			<p><i>Click here to view your report:</i></font></p>
-			<p>
+			</li>
+		</ul>
+		<ul class="choose_report_across">
+			  <li class="choose_report_across_extra_wide">Report will cover from the first of the "from" month through the end of the "to" month.</li>
+		</ul>
+		
+</div>
+		
+		
+		  
+	<div class="choose_report_submit">	
+			<i>Click here to view your report:</i>
+		
 		  <input type="submit" value="Make My Report">
-			</p>
-		  </td>
-		</tr>
-	</table>
+		
+	</div>	 
+		
 	
-	</center>
+	
+	
 </form>
-<a href="/servlet/Report?action=index&isMuster=true">I wanted the rollcall report!</a>
+</div>
+
 <%@ include file="/modules/footer.jspf"%>

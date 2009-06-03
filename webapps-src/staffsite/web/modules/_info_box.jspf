@@ -3,9 +3,8 @@
 	<b><%=info.get("name")%><br></b>
 	Address: <br><%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
 	<%=info.get("city")%>,&nbsp;<%=info.get("state")%><br>
-	<%=info.get("zip")%><br>
-	<%String region=(String)info.get("region"); %>
-	Region: <%=org.alt60m.ministry.Regions.expandRegion(region) %> <br>
+	<%=info.get("zip")%>, <%=info.get("Country") %><br>
+	Region: <%=org.alt60m.ministry.Regions.expandRegion((String)info.get("region")) %> <br>
 	<%if(module.equals("person")){%>
 		Work Phone: <%=info.get("workphone")%><br>
 		Mobile Phone: <%=info.get("cellphone")%><br>
@@ -16,9 +15,26 @@
 	Email: <%=info.get("email")%><br>
 	<%if(module.equals("person")){%>
 	<% }else if(module.equals("campus")||module.equals("location")){%>
-		Enrollment: <%=info.get("enrollment")%>
+		Enrollment: <%=info.get("enrollment")%><br>
+		Semester? <%= (((Boolean) info.get("IsSemester")).booleanValue()) ?"Yes":"No"%><br>
+		School Year: <%=info.get("MonthSchoolStarts")%> - <%=info.get("MonthSchoolStops")%><br>
+		<A href="/servlet/Campus?action=content&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true">Edit this Location</A><br>
+	
 	<% }else if(module.equals("team")){%>
+		<% org.alt60m.html.SelectLane strategy= new org.alt60m.html.SelectLane();
+		strategy.setCurrentValue((String)info.get("lane"));
 		
+		%>
+	Strategy: 	<%=strategy.display()%><br>
+	Team Website: 	<a href="<%=info.get("url")%>"><%=info.get("url")%></a><br>
+	<A href="/servlet/Team?action=content&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true">Edit this Team</A><br>
+
 	<%} %>
 
+<%} else {%>
+	<%if(module.equals("campus")||module.equals("location")){%>
+		<A href="/servlet/Campus?action=content&id=0&new=true">Propose New Location</A>
+		<% }else if(module.equals("team")){%>
+		<A href="/servlet/Team?action=content&id=0&new=true">Propose New Team</A>
+	<%} %>
 <%}%>

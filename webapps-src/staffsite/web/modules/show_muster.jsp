@@ -39,11 +39,9 @@
 
 
 <!--% java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat ("MM/dd/yy"); %-->
-<style>
-<%@ include file="./muster.css"%>
-</style>
 
 
+<div id="muster_report">
 	<p style="margin-left:20px;">
 	<br>
 	<B><%= reportTitle %></b></font><BR>
@@ -74,8 +72,7 @@ if(sort.length()>2){
 }
 out.print(sort);
 %>
-	<br><a href="/servlet/Report?action=index&isMuster=true">New Rollcall Report</a>
-<br><a href="/servlet/Report?action=index&isMuster=false">New Stats Report</a>
+	
 	</font></p>
 	
 <center>
@@ -87,6 +84,14 @@ out.print(report);
 </td></tr>
 </table>
 </center>
-
+</div>
+<%if(type.equals("movement")){%>
+<style type="text/css">
+div#muster_report  td.label_darker_blue
+{
+width:352px;
+}
+</style>
+<%} %>
 <%@ include file="/modules/footer.jspf"%>
 

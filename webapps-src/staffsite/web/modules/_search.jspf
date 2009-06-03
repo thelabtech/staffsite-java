@@ -1,23 +1,30 @@
 <%Hashtable search=ar.getHashtable("search"); 
 %>
-<input type="hidden" name="action" value="search"/>
+
+<%@page import="org.alt60m.ministry.Strategy"%>
+<%@page import="org.alt60m.ministry.Regions"%><input type="hidden" name="action" value="search"/>
 Name:<input name="name" type="text" value="<%=search.get("name")!=null?search.get("name"):"" %>"/><br>
 City:<input name="city" type="text" value="<%=search.get("city")!=null?search.get("city"):"" %>"/><br>
 State:<input name="state" type="text" value="<%=search.get("state")!=null?search.get("state"):"" %>"/><br>
-Region:
-<select name="region"  >
-		<OPTION VALUE="">All</OPTION>
-		<OPTION VALUE="NE">Northeast</OPTION>
-		<OPTION VALUE="NW">Greater Northwest</OPTION>
-		<OPTION VALUE="MA">Mid-Atlantic</OPTION>
-		<OPTION VALUE="MS">MidSouth</OPTION>
-		<OPTION VALUE="UM">Upper Midwest</OPTION>
-		<OPTION VALUE="GL">Great Lakes</OPTION>
-		<OPTION VALUE="GP">Great Plains</OPTION>
-		<OPTION VALUE="SW">Pacific Southwest</OPTION>
-		<OPTION VALUE="SE">Southeast</OPTION>
-		<OPTION VALUE="RR">Red River</OPTION>
-</select><br>
+
+<table><tr>
+<td>
+Strategy:<br>
+<input name="strategy" type="hidden" value="nonnull"/>
+<%
+
+for(String s:Strategy.strategiesArray()){ %>
+<%if(!s.equals("EV")){ %>
+<input type="checkbox" name="strategy"  <%=(((String)search.get("strategy")).contains(s))?"checked":"" %> value="<%=s%>" ><%=Strategy.expandStrategy(s) %><br>
+<%} }%>
+</td><td>
+Region:<br>
+<input name="region" type="hidden" value="nonnull"/>
+<%for(String r:Regions.abbrevRegion){ %>
+<input type="checkbox" name="region"  <%=(((String)search.get("region")).contains(r))?"checked":"" %> value="<%=r%>" ><%=Regions.expandRegion(r) %><br>
+<%} %>
+</td>
+</tr></table>
 <%if(module.equals("home")){ %>
 						Select type of information:
 						<%String search_type= search.get("type")!=null?(String)search.get("type"):"";%>
@@ -29,3 +36,4 @@ Region:
 						<%}else{ %>
 						<input type="hidden" name="type" value="<%=module%>"/>						
 						<%} %>
+	

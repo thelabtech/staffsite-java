@@ -6,37 +6,74 @@
 	ar = ActionResults.getActionResults(session);
 	String infoBox="";
 	String subModule="";
+	
 	String module=ar.getValue("module");
+	String majorModule=ar.getValue("module");
 	String[] splitModule=module.split("_");
 	if (splitModule.length>1) {
 		subModule=splitModule[1];
-		subModule=(subModule!=null&&!subModule.equals(""))?subModule+"/":"";
 		module=splitModule[0];
 	}
 	String moduleRoot="/modules/"+ module +"/";
 	
 	String mode=ar.getValue("mode")!=null?ar.getValue("mode"):"index";
 	List normalModules=Arrays.asList("home","person","campus","location","movement","team");
-	List contentModes=Arrays.asList("content","list","edit","addMember","addContact");
-	List infoModes=Arrays.asList("content","addMember","addContact");
+	List contentModes=Arrays.asList("content","list","edit","addMember","addContact","editLocation","editMovement");
+	List searchModules=Arrays.asList("person","campus","location","movement","team");
+	if(searchModules.contains(module))majorModule=(session.getValue("lastClass")==null)?"Campus":(String)session.getValue("lastClass");
+	List infoModes=Arrays.asList("content","addMember","addContact","edit","editLocation","editMovement");
 	String layout=(normalModules.contains(module))?"normal":"special";
+	String isMuster=(session.getValue("isMuster")==null)?"false":((String)session.getValue("isMuster"));
+	int isMusterInt=(isMuster.equals("true"))?1:0;
 %>
 <HTML>
 <HEAD>
+<script type="text/javascript" src="/modules/ib.js" language="javascript"></script>
 <TITLE><%=ar.getValue("title") %></TITLE>
 <link rel="stylesheet" type="text/css" href="/modules/layout.css" />
 </HEAD>
 <body>
 <div id="total">
+<div id="panel_main" >
 <div id="tabs_main" >
-<table><tr>
-<% String[] tabs={"Home","Campus","People","Teams","Stats","Reports"};  %>
-<% String[] tabValues={"Home","Campus","Person","Team","Stat","Report"};  %>
+<ul >
+<% String[] tabs={"Home","Search","Stats","Reports"};  %>
+<% String[] tabValues={"Home",session.getValue("lastClass")==null?"Campus":(String)session.getValue("lastClass"),"Stat","Report"};  %>
 <% for(int i=0;i<tabs.length;i++){ %>
-	<td id="tab_<%=i%>" class="<%=module.equalsIgnoreCase(tabValues[i])?"tab_current":"tab" %>">
+	<li id="tab_<%=i%>" class="<%=majorModule.equalsIgnoreCase(tabValues[i])?"tab_current":"tab" %>">
 	<A href="<%=tabValues[i]%>"><%=tabs[i]%></A>
-	</td>
+	</li>
 <%}%>
-</tr></table>
+</ul>
 </div>
-<div id="panel_main" >	
+	<div id="tabs_minor" >
+<ul class="minor_tabs_<%=module %>" >
+<%if(searchModules.contains(module)){ %>
+<% String[] minorTabs={"Campus","People","Teams"};  
+String[] minorTabValues={"Campus","Person","Team"};  
+for(int i=0;i<minorTabs.length;i++){ %>
+<li id="minor_tab_<%=i%>" class="<%=module.equalsIgnoreCase((String)minorTabValues[i])?"minor_tab_current":"minor_tab" %>">
+<A href="<%=minorTabValues[i]%>"><%=minorTabs[i]%></A>
+</li>
+<%}
+%>
+<%} else if (module.equals("report")) { %>
+<% String[] minorTabs={"Success Criteria","Ministry Rollcall"};  %>
+
+
+<% 
+String[] minorTabValues={"/servlet/Report?action=index&isMuster=false","/servlet/Report?action=index&isMuster=true"}; 
+
+
+
+ for(int i=0;i<minorTabs.length;i++){ %>
+<li id="minor_tab_<%=i%>" class="<%=i==isMusterInt?"minor_tab_current":"minor_tab" %>">
+<A href="<%=minorTabValues[i]%>"><%=minorTabs[i]%></A>
+</li>
+<%}
+}
+%>
+
+
+</ul>
+</div>
