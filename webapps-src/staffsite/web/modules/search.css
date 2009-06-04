@@ -1,0 +1,16 @@
+div#search_box
+{
+display:block;
+width:280px;
+border:solid 1px #cdcdcd;
+padding:5px;
+color:black;
+background-color:white;
+
+overflow:hidden;
+}
+
+div#search_box td
+{
+font-size:12px;
+}

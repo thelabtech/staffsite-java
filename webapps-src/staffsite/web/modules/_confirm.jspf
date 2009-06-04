@@ -1,0 +1,4 @@
+<div class="confirm">
+<%=session.getValue("confirm") %><br>
+<A href="/servlet/<%=module.substring(0,1).toUpperCase()+module.substring(1).toLowerCase() %>">Close</A>
+</div>

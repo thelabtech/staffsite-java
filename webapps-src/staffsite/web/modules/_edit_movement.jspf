@@ -1,0 +1,112 @@
+<%if(mode.equals("editMovement")){%>
+
+<jsp:useBean id="statusHelper" class="org.alt60m.ministry.html.SelectStatus" />
+	<div class="edit_object">
+
+	<input type=hidden name="action" value="saveEditActivity">
+<% Hashtable movement=ar.getHashtable("movement");%>
+	<table cellspacing=0 cellpadding=5 border=0 align="center" >
+	<form name="updateActivityForm" method="post" action="/servlet/Movement">
+	<input type=hidden name="action" value="saveEditActivity">
+	<input type=hidden name="activityid" value="<%=movement.get("activityid")%>">
+	<input type=hidden name="strategy" value=<%=movement.get("strategy")%>>
+	<input type=hidden name="locallevelid" value=<%=movement.get("locallevelid")%>>
+	<input type=hidden name="targetareaid" value=<%=movement.get("targetareaid")%>>
+	<input type=hidden name="id" value=<%=movement.get("targetareaid")%>>
+
+	<tr><td align="left" COLSPAN="2">
+	<b>Use the radio buttons to change the status below:<BR>
+<BR>
+</b></font></td></tr>
+	<%
+	
+	EnumSet<Status> statusOptions;
+	
+	statusOptions = EnumSet.allOf(Status.class);
+	%>
+		<tr>
+			<td>
+				
+				<b>This Ministry Location is a(n)...</B><BR>
+				<%
+					statusHelper.setName("updateoption");
+					statusHelper.setCurrentValue((String)movement.get("status"));
+					statusHelper.setStrategyName(org.alt60m.ministry.Strategy.expandStrategy((String)movement.get("strategy")));
+					statusHelper.setStatuses(statusOptions);
+				%>
+				<%=statusHelper.printRadio()%>
+				</font>
+			</td>
+	<%
+		
+	
+	%>
+	
+			<TD>
+						<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0"><TR><TD CLASS="definition"><SPAN ID="definition">Move your mouse pointer over a <BR>capitalized word to see a short explanation.</SPAN></FONT></TD></TR></TABLE>
+			</TD>
+		</TR>
+		
+
+<tr> 
+		<td nowrap align=left COLSPAN="2">
+			<b>What date did this status change take place?</b></font>
+		</td>
+	</tr>
+<tr>
+		<td align=left COLSPAN="2">
+			<input type="text" name="datechanged" size="10" maxlength="10" onFocus="this.blur()" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>">
+			&nbsp;
+			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
+		</td>
+	</tr>
+
+	<tr>
+		<td	align="left" COLSPAN="2">
+			<b>To change the Missional Team that is responsible for this Ministry Location, select the name of the new Missional Team from this menu.</b>
+			</font>
+		</td>
+	</tr>
+
+	<tr>
+		<td nowrap align=left COLSPAN="2">
+			<select name="teamid">
+				<option value="none"></option>
+				<%
+				//loop through each record
+				Iterator teams = ar.getCollection("teams").iterator();
+				while(teams.hasNext()) {
+					Hashtable thisTeam = (Hashtable)teams.next();
+				%>
+					<option value="<%=thisTeam.get("LocalLevelId")%>" <%=((String)thisTeam.get("LocalLevelId")).equals(movement.get("locallevelid"))?" selected":""%>><%=thisTeam.get("Name")%></option>
+				<%
+				}
+				%>
+			</select>**</font><br>
+			** Can't find the right Missional Team?  Propose one to be entered here: </font>
+			<a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
+		</td>
+	</tr>
+<!-- URL and Facebook-->  
+	<tr><td>
+		<table>
+		<tr>
+		<td align="right" >&nbsp;<B>URL:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="250" name="url"  value="<%=movement.get("url")%>"></FONT></td>
+		</tr>
+		<tr>
+		<td align="right" >&nbsp;<B>Facebook/MySpace:&nbsp&nbsp</B></td><td><input type="text" size=25 MAXLENGTH="250" name="facebook"  value="<%=movement.get("facebook")%>"></FONT></td>
+		</tr>
+		</table>
+	</td></tr>
+	
+ 
+	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:submitForm()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
+	</table>
+	</form>
+	
+<A href="/servlet/Campus?action=content&id=<%= movement.get("targetareaid") %>">Cancel</A>	
+</div>
+	
+<%} else {%>
+
+<%}%>

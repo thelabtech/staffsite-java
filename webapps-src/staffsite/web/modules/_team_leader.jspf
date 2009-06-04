@@ -1,0 +1,30 @@
+<%if(module.equals("team")){%> 
+ <%if(h.get("is_leader").equals(true)){ %>
+		<img alt="Missional Team Leader" onMouseOver="show('<%=h.get("id") %>');" id="<%=h.get("id") %>_leader_hover" style="border:none;" src="/infobase/images/leader.gif"><%} else {%>
+		<img alt="Missional Team Member" onMouseOver="show('<%=h.get("id") %>');" id="<%=h.get("id") %>_leader_hover" style="border:none;" src="/infobase/images/member.gif"><%} %>
+   
+			 
+<div id="<%=h.get("id") %>_leader_status" >
+<i>
+<%if(h.get("is_leader").equals(true)){ %>
+Team Leader
+<%} else { %>
+Team Member
+<%} %>
+<%if(!h.get("is_people_soft").equals(true)&&((session.getValue("isHR").equals("true"))||ar.getValue("isRD").equals("true"))){ %>
+&nbsp;:&nbsp;
+<%if(h.get("is_leader").equals(true)){ %>		
+<A style="border:none;"
+					HREF="/servlet/Team?action=removeTeamLeader&accountNo=<%=h.get("accountNo")%>&personID=<%= h.get("id") %>&id=<%= ar.getHashtable("info").get("locallevelid") %>&teamID=<%= ar.getHashtable("info").get("locallevelid") %>&view=team">
+			 Change to Member</A>
+		<%} else {%>
+		<A style="border:none;"
+					HREF="/servlet/Team?action=saveTeamLeader&accountNo=<%=h.get("accountNo")%>&personID=<%= h.get("id") %>&id=<%= ar.getHashtable("info").get("locallevelid") %>&teamID=<%= ar.getHashtable("info").get("locallevelid") %>&view=team">
+			Change to Leader</A>
+		<%}} %>
+	
+</i>	</div>
+<script type="text/javascript" language="javascript">
+document.getElementById('<%=h.get("id") %>_leader_status').style.display='none';
+</script>
+<%}%>
