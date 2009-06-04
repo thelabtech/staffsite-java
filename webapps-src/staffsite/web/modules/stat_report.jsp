@@ -59,11 +59,7 @@ document.getElementById("start_"+x).style.display="none";
 document.getElementById("end_"+x).style.display="block";
 }
 </script>
-<ul width="100%">
-	<TR>
-		<li align=right><a href="JavaScript: popupWindow('/help/help_success_criteria_reports.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help with Success Criteria Reports</a></font></li>
-	</TR>
-</ul>
+
 <div id="stat_report">
 	<p class="report_top">
 	<br>
@@ -95,13 +91,16 @@ String cellAlt="dark";
 
 while(report.hasNext()){
 	ReportRow row=(ReportRow)report.next();%>
-	
+	<%if (row.getFunction().equals("end")||row.getFunction().equals("detail")){
+		
+	}else{
+	%><div class="regular"><%}%>
 	<%if((row.getFunction().equals("top"))||(row.getFunction().equals("bottom"))){ %>
-		<div class="regular"><ul class="row">
+		<table class="row"><tr>
 			<%
 			if((row.getFunction().equals("top"))&&!newEventType){ 
 				%>
-				<tr><li>&nbsp;</li></tr>
+				<td>&nbsp;</td></tr><tr>
 				<%
 			}
 			else
@@ -111,83 +110,83 @@ while(report.hasNext()){
 			%>
 		
 		<%if(type.equals("national")){ %>
-		<li class="report_header_label" ><center> Region</center></li>
+		<td class="report_header_label" ><center> Region</center></td>
 		<%}
 		else if(type.equals("targetarea")){%>
-		<li class="report_header_label" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy()) %></center></li>
+		<td class="report_header_label" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy()) %></center></td>
 		<%}else{ %>
-		<li class="report_header_label" > <center>Ministry Location - Strategy (enrollment)</center></li>
+		<td class="report_header_label" > <center>Ministry Location - Strategy (enrollment)</center></td>
 		<%} %>
 		
-		<li class="report_header_double" ><center>Personal Evangelism <ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></li>
-		<li class="report_header_double" ><center>Group Evangelism<ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></li>
-		<li class="report_header_double" ><center>Media Exposures<ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></li>
+		<td class="report_header_double" ><center>Personal Evangelism <ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></td>
+		<td class="report_header_double" ><center>Group Evangelism<ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></td>
+		<td class="report_header_double" ><center>Media Exposures<ul class="micro"><li>Exp.</li><li> Dec.</li></ul></center></td>
 		<%
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 		%>
-		<li class="report_header"  ><i>Decisions <br>Before 8/1/2008</i></li>
+		<td class="report_header"  ><i>Decisions <br>Before 8/1/2008</i></td>
 		<%} %>
-		<li class="report_header_double" ><center>Sending
-			<ul class="micro"><li>Holy Spirit Pres.</li><li>Laborers Sent</li>  </ul>
-</center></li>
-		<li class="report_header_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
+		<td class="report_header_double" ><center>Sending
+			<ul class="micro"><li>Holy Spirit Pres.</li><li>Laborers Sent</li></ul>
+</center></td>
+		<td class="report_header_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"quadruple":"triple" %>" ><center>Demographics
 		<ul class="micro"><li>Students Involved</li><li>Multipliers</li><li>Student Leaders</li>
 		       <%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"<li>Seekers (Bridges)</li>":"" %>
-		</ul></center></li>
+		</li></ul></center></td>
 		
 		
-		</ul></div>
+		</tr></table>
 		
 		
 		<%if(row.getFunction().equals("bottom")){ //show totals%>
-			<div class="regular"><ul class="row">
+			<table class="row"><tr>
 	
 			
-			<li class="report_header_label"><center> Totals </center></li>
+			<td class="report_header_label"><center> Totals </center></td>
 			
 			
-			<li class="report_header"><%=display?row.getEvangelisticOneOnOne():"" %></li>
-			<li class="report_header"><%=display?row.getDecisionsPersonalEvangelismExposures():"" %></li>
-			<li class="report_header"><%=display?row.getEvangelisticGroup():""%></li>
-			<li class="report_header"><%=display?row.getDecisionsGroupEvangelismExposures():"" %></li>
-			<li class="report_header"><%=display?row.getExposuresViaMedia():"" %></li>
-			<li class="report_header"><%=display?row.getDecisionsMediaExposures():"" %></li>
+			<td class="report_header"><%=display?row.getEvangelisticOneOnOne():"" %></td>
+			<td class="report_header"><%=display?row.getDecisionsPersonalEvangelismExposures():"" %></td>
+			<td class="report_header"><%=display?row.getEvangelisticGroup():""%></td>
+			<td class="report_header"><%=display?row.getDecisionsGroupEvangelismExposures():"" %></td>
+			<td class="report_header"><%=display?row.getExposuresViaMedia():"" %></td>
+			<td class="report_header"><%=display?row.getDecisionsMediaExposures():"" %></td>
 			<%
 			if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 			%>
-			<li class="report_header"  ><i><%=display?row.getDecisions():"" %></i></li>
+			<td class="report_header"  ><i><%=display?row.getDecisions():"" %></i></td>
 			<%} %>
-			<li class="report_header"><%=display?row.getHolySpirit():"" %></li>
-			<li class="report_header"><%=display?row.getLaborersSent():"" %></li>
-			<li class="report_header"><%=display?row.getInvldStudents():"" %></li>
-			<li class="report_header"><%=display?row.getMultipliers():"" %></li>
-			<li class="report_header"><%=display?row.getStudentLeaders():"" %></li>
+			<td class="report_header"><%=display?row.getHolySpirit():"" %></td>
+			<td class="report_header"><%=display?row.getLaborersSent():"" %></td>
+			<td class="report_header"><%=display?row.getInvldStudents():"" %></td>
+			<td class="report_header"><%=display?row.getMultipliers():"" %></td>
+			<td class="report_header"><%=display?row.getStudentLeaders():"" %></td>
 			<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
-			<li class="report_header"><i><%=display?row.getSeekers():"" %></i></li>
+			<td class="report_header"><i><%=display?row.getSeekers():"" %></i></td>
 			<%display=!row.getFunction().equals("start"); // return to standard display %>
 			<%} %>
 			
 			</tr>
 			
 			
-			</ul></div>
+			</tr></table>
 			
 		<%} %>
 	<%	} 
 	else if (row.getFunction().equals("eventBlockTop")){%>
-		<div class="regular"><ul class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
+		<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"bridges":"non_bridges" %>">
-		<li >&nbsp;</li>
-		<li class="event_block" >Begin <%=row.getLabel()%> Report</li>
-		</ul></div>
+		<tr><td >&nbsp;</td></tr>
+		<tr><td class="event_block" >Begin <%=row.getLabel()%> Report</td>
+		</tr></table>
 	<% newEventType=true;}
 	else if (row.getFunction().equals("eventBlockBottom")){%>
-	<div class="regular"><ul class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
-				"bridges":"non_bridges" %>">
-<li class="event_block" >End <%=row.getLabel()%> Report</li>
-	</ul></div>
+	<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
+				"bridges":"non_bridges" %>"><tr>
+<td class="event_block" >End <%=row.getLabel()%> Report</td>
+	</tr></table>
 <%}
 	
 	else	{//display data rows%>
@@ -207,17 +206,17 @@ while(report.hasNext()){
 	
 	<%
 	if(lighter){%>
-		<ul class="row_lighter">
+		<table class="row_lighter"><tr>
 	<%}
 	else
 	{%>
-		<ul class="row">
+		<table class="row"><tr>
 	<%}
 	%>
 
 	
 	
-	<li class="label">
+	<td class="label">
 	<%if(!row.getFunction().equals("detail")){ %>
 		<%if (!type.equals("targetarea")){%>
 		<A  href="Report?action=statReport&type=<%
@@ -253,33 +252,33 @@ while(report.hasNext()){
 		else if(row.getStrategy().equals("BR")){out.print("stats prior to 4/23/2008");}
 		}
 	%>
-	</li>
+	</td>
 	
 	
-	<li class="report_light"><%=display?row.getEvangelisticOneOnOne():"" %></li>
-	<li class="report_darker"><%=display?row.getDecisionsPersonalEvangelismExposures():"" %></li>
-	<li class="report_light"><%=display?row.getEvangelisticGroup():""%></li>
-	<li class="report_darker"><%=display?row.getDecisionsGroupEvangelismExposures():"" %></li>
-	<li class="report_light"><%=display?row.getExposuresViaMedia():"" %></li>
-	<li class="report_darker"><%=display?row.getDecisionsMediaExposures():"" %></li>
+	<td class="report_light"><%=display?row.getEvangelisticOneOnOne():"" %></td>
+	<td class="report_darker"><%=display?row.getDecisionsPersonalEvangelismExposures():"" %></td>
+	<td class="report_light"><%=display?row.getEvangelisticGroup():""%></td>
+	<td class="report_darker"><%=display?row.getDecisionsGroupEvangelismExposures():"" %></td>
+	<td class="report_light"><%=display?row.getExposuresViaMedia():"" %></td>
+	<td class="report_darker"><%=display?row.getDecisionsMediaExposures():"" %></td>
 	<%
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 		%>
-		<li class="report_light"  ><i><%=display?row.getDecisions():"" %></i></li>
+		<td class="report_light"  ><i><%=display?row.getDecisions():"" %></i></td>
 		<%} %>
-	<li class="report_light"><%=display?row.getHolySpirit():"" %></li>
-	<li class="report_darker"><%=display?row.getLaborersSent():"" %></li>
-	<li class="report_light"><%=display?row.getInvldStudents():"" %></li>
-	<li class="report_darker"><%=display?row.getMultipliers():"" %></li>
-	<li class="report_light"><%=display?row.getStudentLeaders():"" %></li>
+	<td class="report_light"><%=display?row.getHolySpirit():"" %></td>
+	<td class="report_darker"><%=display?row.getLaborersSent():"" %></td>
+	<td class="report_light"><%=display?row.getInvldStudents():"" %></td>
+	<td class="report_darker"><%=display?row.getMultipliers():"" %></td>
+	<td class="report_light"><%=display?row.getStudentLeaders():"" %></td>
 	<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
 	<%display=(display)&&((row.getStrategy().equals("BR"))||(ar.getValue("type").equals("national"))); //only display if Bridges %>
-	<li class="report_darker"><i><%=display?row.getSeekers():"" %></i></li>
+	<td class="report_darker"><i><%=display?row.getSeekers():"" %></i></td>
 	<%display=!row.getFunction().equals("start"); // return to standard display %>
 	<%} %>
 	
 	
-	</ul>
+	</tr></table>
 	<%if (row.getFunction().equals("end")){
 		alternate=true;
 	%>
@@ -292,8 +291,12 @@ while(report.hasNext()){
 	if(alternate){
 		lighter=!lighter;
 	}
-	}//end topper/data conditional test
 	
+	}//end topper/data conditional test
+	if (row.getFunction().equals("start")||row.getFunction().equals("detail")){
+		
+	}else{
+	%></div><%}
 }
 
 %>
@@ -350,16 +353,7 @@ div#total
 
 width:1060px;
 }
-ul.event_block_bridges
-{
-	width:1032px;
 
-}
-ul.event_block_non_bridges
-{
-	width:970px;
-
-}
 </style>
 <%} %>
 

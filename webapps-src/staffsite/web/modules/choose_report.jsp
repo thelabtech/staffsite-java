@@ -30,7 +30,7 @@ function submitReportForm(thisForm) {
 
 <br/>
 <form name="reportCriteria" method="post" action="/servlet/Report" onsubmit="return submitReportForm(this)">
-<li class="choose_report"><input type="hidden" name="action" value="statReport">
+<input type="hidden" name="action" value="statReport">
 <%
 Integer yearvar=1998;	
 String teamID="";
@@ -47,11 +47,11 @@ String teamID="";
 	}
 	
 %>
-	<li class="choose_report"><input type=hidden name="teamID" value="<%=teamID%>">
-	<li class="choose_report"><input type=hidden name="region" value="<%=region%>">
-	<li class="choose_report"><input type=hidden name="targetareaid" value="<%=targetAreaID%>">
+<input type=hidden name="teamID" value="<%=teamID%>">
+<input type=hidden name="region" value="<%=region%>">
+<input type=hidden name="targetareaid" value="<%=targetAreaID%>">
 	
-	<li class="choose_report"><input type=hidden name=type value="<%= ar.getValue("type") %>">
+<input type=hidden name=type value="<%= ar.getValue("type") %>">
 	<CENTER>
 	
 	
