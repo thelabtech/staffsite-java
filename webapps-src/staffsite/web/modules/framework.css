@@ -1,0 +1,91 @@
+
+body{
+	text-align:center;
+	background-color:#ffffff;
+	height:100%;
+	font-family:verdana,arial,sans-serif;
+	font-size:10px;
+}
+td{
+	
+	font-family:verdana,arial,sans-serif;
+	font-size:10px;
+}
+
+
+
+div#left_pane
+{
+display:block;
+width:300px;
+height:auto;
+position:absolute;
+top:135px;
+left:10px;
+border:none;
+padding:none;
+margin:none;
+color:none;
+background-color:none;
+overflow:hidden;
+font-family:verdana,arial,sans-serif;
+font-size:10px;
+}
+div#main_pane
+{
+	margin:none;
+display:block;
+width:690px;
+height:auto;
+position:absolute;
+top:135px;
+margin-left:310px;
+border:none;
+padding:none;
+
+background-color:none;
+font-family:verdana,arial,sans-serif;
+font-size:10px;
+}
+div#panel_main
+{
+display:block;
+width:1020px;
+height:1000px;
+position:absolute;
+top:49px;
+border:solid 1px #cdcdcd;
+
+padding:5px;
+
+background-color:#ffffff;
+}
+div#total
+{
+	text-align:left;
+display:block;
+width:1020px;
+height:100%;
+
+margin:0px auto;
+border:none;
+padding:none;
+color:none;
+background-color:#ffffff;
+overflow:visible;
+font-family:verdana,arial,sans-serif;
+font-size:10px;
+}
+div.narrow_left_panel
+{
+display:block;
+width:auto;
+height:auto;
+font-family:verdana,arial,sans-serif;
+font-size:10px;
+}
+div#enter_stat
+{
+position:absolute;
+top:135px;
+}
