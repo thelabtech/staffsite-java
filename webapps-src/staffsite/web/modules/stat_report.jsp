@@ -205,8 +205,8 @@ while(report.hasNext()){
 	
 	
 	<%
-	if(lighter){%>
-		<table class="row_lighter"><tr>
+	if(!type.equals("regional")||row.getFunction().equals("detail")){%>
+		<table class="row_short"><tr>
 	<%}
 	else
 	{%>

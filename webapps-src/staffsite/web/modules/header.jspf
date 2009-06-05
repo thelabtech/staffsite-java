@@ -30,7 +30,7 @@
 <HEAD>
 <script type="text/javascript" src="/modules/ib.js" language="javascript"></script>
 <TITLE><%=ar.getValue("title") %></TITLE>
-<link rel="stylesheet" type="text/css" href="/modules/layout.css" />
+<link rel="stylesheet" type="text/css" href="/modules/layout_css.jsp" />
 </HEAD>
 <body>
 <div id="total">
