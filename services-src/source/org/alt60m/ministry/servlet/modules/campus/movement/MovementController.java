@@ -41,58 +41,15 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
         }
     }
     /** @param ctx ActionContext object Request parameters: <none> */
-    public void index(ActionContext ctx) {
-        try {
-        	ctx.setSessionValue("lastClass", "Campus");
-        	ActionResults result=new ActionResults("IB index");
-    		result.putValue("personID",getUsersPersonId(ctx));
-    		result.putValue("module",this.module);
-    		result.putValue("title",this.title);
-    		ctx.setReturnValue(result);
-    		
-        	ctx.goToView("index");
-        }
-        catch (Exception e) {
-            ctx.goToErrorView();
-            log.error("Failed to perform showIndex().", e);
-        }
-    }
-    public void content(ActionContext ctx) {
-        try {
-            
-        	ActionResults results = new ActionResults("showTargetArea");
-			
-            String targetAreaID = ctx.getInputString("targetareaid");
-            ctx.setSessionValue("campus", ctx.getInputString("targetareaid"));
-            ctx.setSessionValue("lastClass", "Campus");
-			results.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));	
-			
-            results.addHashtable("info", LocationHelper.info(targetAreaID));
-            results.addCollection("content",LocationHelper.content(targetAreaID));
-            Person person=getUserPerson(ctx);
-            results.putValue("personID",person.getPersonID()+"");
-            results.putValue("isRD",isRD(person));
-            results.putValue("mode","content");
-            results.putValue("module",this.module);
-            results.putValue("title",this.title);
-            
-            ctx.setReturnValue(results);
-            ctx.goToView("index");
-			
-        }
-        catch (Exception e) {
-            ctx.setError();
-            ctx.goToErrorView();
-            log.error("Failed to perform showTargetArea().", e);
-        }
-    }
+    
+ 
     public void savePersonContact(ActionContext ctx) {
         try {
             String activityId = ctx.getInputString("activityid", true);
             String personID = ctx.getInputString("personID", true);
-            InfoBaseModuleHelper ibt = new InfoBaseModuleHelper();
+            MovementHelper ibt = new MovementHelper();
             ibt.savePersonContact(personID, activityId);
-            content(ctx);
+            index(ctx);
             
         }
         catch (Exception e) {
@@ -105,9 +62,9 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
         try {
             String activityId = ctx.getInputString("activityid", true);
             String personID = ctx.getInputString("personID");
-            InfoBaseModuleHelper ibt = new InfoBaseModuleHelper();
+            MovementHelper ibt = new MovementHelper();
 			ibt.removePersonContact( personID,activityId);
-			content(ctx);
+			 index(ctx);
         }
         catch (Exception e) {
             ctx.setError();
@@ -131,7 +88,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             results.addCollection("contacts", contacts);
             results.putValue("activityid", activityId);
             results.putValue("targetareaid", targetAreaId);
-            results.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));
+            results.addHashtable("search",LocationHelper.sessionSearch(ctx));
 			results.addCollection("content", LocationHelper.content(targetAreaId));
 			results.addHashtable("info", LocationHelper.info(targetAreaId));
 			Person person=getUserPerson(ctx);
@@ -156,7 +113,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             String activityId = ctx.getInputString("activityid", true);
             results.addHashtable("movement", MovementHelper.info(activityId));
             String targetAreaId = ctx.getInputString("targetareaid", true);
-            results.addHashtable("search",LocationHelper.sessionSearch(ctx,"campus"));
+            results.addHashtable("search",LocationHelper.sessionSearch(ctx));
 			results.addCollection("content", LocationHelper.content(targetAreaId));
 			results.addHashtable("info", LocationHelper.info(targetAreaId));
 			TargetArea ta=new TargetArea(targetAreaId);
@@ -190,7 +147,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             String updateOption = ctx.getInputString("updateoption", true);
 
            MovementHelper.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url, Facebook);
-            content(ctx);
+           index(ctx);
         }
         catch (ActivityExistsException aee) {
         	ctx.setError("Strategy is already active for this target area.");

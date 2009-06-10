@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.alt60m.ministry.MissingTargetAreaIdException;
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
+import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
@@ -52,7 +53,9 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         try {
         	
         	ActionResults results=new ActionResults();
+        	ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
         	Hashtable<String,String> activities=new Hashtable<String,String>();
+        	
             
             if(ctx.getInputString("addBookmark")!=null){
             	
@@ -83,7 +86,8 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         	}else{
         		results.putValue("statSuccess", "");
         	}
-        	
+        	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
+        	results.addHashtable("search", InfoBaseModuleHelper.sessionSearch(ctx));
         	results.addHashtable("activities", activities);
         	results.putValue("module",this.module);
 			results.putValue("title",this.title);
@@ -140,7 +144,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         	Boolean hasData=false;
         	Boolean hasProblem=false;
         	Hashtable<String,String> badSaves=new Hashtable<String,String>();
-        	InfoBaseModuleHelper ibt;
+        	StatHelper ibt;
         	 Statistic stat;
         	 String statisticId;
         	 String username = (String) ctx.getSessionValue("userName");
@@ -154,7 +158,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         		thisStat=newStats.get(scanStats.next());
 	            activityId = thisStat.get("activityid");
 	            peopleGroup = thisStat.get("PeopleGroup");
-				ibt = new InfoBaseModuleHelper();
+				ibt = new StatHelper();
 				stat = new Statistic();
 				keys = Arrays.asList(new String[] { "PeriodBegin",
 						"PeriodEnd", "PersonalEvangelismExposures",

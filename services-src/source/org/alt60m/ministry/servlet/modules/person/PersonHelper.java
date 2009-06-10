@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.alt60m.ministry.model.dbio.Person;
+import org.alt60m.ministry.model.dbio.Staff;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleQueries;
@@ -50,5 +51,12 @@ public class PersonHelper extends org.alt60m.ministry.servlet.modules.InfoBaseMo
 		}
     	return t;
     }
-    
+  public Staff getStaffObject(String staffId) throws Exception {
+  try {
+		return new Staff(staffId);
+  } catch (Exception e) {
+      log.error("Failed to perform saveStatObjectWithActivity().", e);
+		throw new Exception(e);
+ }
+}
 }

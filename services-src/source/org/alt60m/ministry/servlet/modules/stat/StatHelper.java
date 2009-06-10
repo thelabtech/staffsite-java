@@ -1,4 +1,5 @@
 package org.alt60m.ministry.servlet.modules.stat;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,14 +9,18 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.alt60m.ministry.MissingTargetAreaIdException;
 import org.alt60m.ministry.Strategy;
 import org.alt60m.ministry.model.dbio.Activity;
+import org.alt60m.ministry.model.dbio.Statistic;
 import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
+import org.alt60m.ministry.servlet.modules.InfoBaseModuleQueries;
 import org.alt60m.servlet.ActionResults;
+import org.alt60m.util.ObjectHashUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 public class StatHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper {
@@ -71,7 +76,7 @@ public class StatHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
                     results.putValue("status", status);
                     results.putValue("strategy", strategy);
                     results.putValue("peopleGroup", peopleGroup);
-                    stats = ibt.getBridgesTargetAreaStats(targetAreaId, allDates, strategy, peopleGroup);
+                    stats = getBridgesTargetAreaStats(targetAreaId, allDates, strategy, peopleGroup);
                     allDates = populateStatsCalendar(stats.iterator(), allDates);
                     for (int cnt = 0; cnt < 16; cnt++) 
                     {
@@ -89,7 +94,18 @@ public class StatHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
         }
     	return multiResults;
     }
-
+	public static Collection<Hashtable<String, Object>> getBridgesTargetAreaStats(String targetAreaId, List<Hashtable<String, Object>> allDates, String strategy, String peopleGroup) throws Exception {
+  try {
+  	      	
+		Collection<Hashtable<String, Object>> c = ObjectHashUtil.list(StatQueries.listBridgesStatsForTargetArea(targetAreaId, (Date)allDates.get(0).get("PeriodBegin"),
+          (Date)allDates.get(15).get("PeriodEnd"), strategy, peopleGroup));
+		return c;
+	}
+  catch (Exception e) {
+      log.error("Failed to perform getBridgesTargetAreaStats().", e);
+		throw new Exception(e);
+}
+}
 	  protected static List<Hashtable<String, Object>> blankStatsCalendar(String statId) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
@@ -119,5 +135,38 @@ public class StatHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
 			}
 			return allDates;
 		}
-  
+		public Statistic createStatObject() throws Exception {
+			try  {
+				Statistic stat = new Statistic();
+				stat.persist();
+				return stat;
+			} catch (Exception e) {
+	            log.error("Failed to perform createStatObject().");
+				throw e;
+			}
+		}
+		public Statistic getStatObject(String statisticId) throws Exception {
+			try  {
+				return new Statistic(statisticId);
+			} catch (Exception e) {
+	            log.error("Failed to perform getStatObject().", e);
+				throw new Exception(e);
+			}
+		}
+	    public void saveStatObjectWithActivity(Map<String, String> statMap, Statistic stat) throws Exception {
+	        try {
+	        	ObjectHashUtil.hash2obj(statMap, stat);
+	        	stat.setUpdatedAt(new Timestamp(new Date().getTime()));
+				String logMessage = "Saving stat ID: "+stat.getStatisticId()+" for Activity: "+stat.getActivityId()+" ; ";
+				for (String key : statMap.keySet()) {
+					logMessage += " " + key + ": " + statMap.get(key);
+				}
+				log.info(logMessage);
+				stat.persist();
+	        } catch (Exception e) {
+	            log.error("Failed to perform saveStatObjectWithActivity().", e);
+	 			throw new Exception(e);
+	 		}
+	    }
+
 }
