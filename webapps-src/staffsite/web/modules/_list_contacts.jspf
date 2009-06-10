@@ -8,10 +8,10 @@ Vector<Hashtable<String,Object>>contacts=(Vector<Hashtable<String,Object>>)h.get
 for(Hashtable<String,Object> c:contacts){%>
 <tr>
 	<td>&nbsp;&nbsp;&nbsp;</td><td><%=isFirst?"<i>Movement Contacts:&nbsp;</i>":"&nbsp;" %></td>
-<td><A href="/servlet/Person?action=content&id=<%= c.get("id") %>&accountNo=<%=c.get("accountNo")%>"><%= ((String) c.get("name")).replace(" (null)","") %></A>
+<td><A href="/servlet/Person?action=content&module=person&id=<%= c.get("id") %>&accountNo=<%=c.get("accountNo")%>"><%= ((String) c.get("name")).replace(" (null)","") %></A>
 <%if(ar.getValue("isRD").equals("true")||c.get("id").equals(ar.getValue("personID"))||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
 	&nbsp;<A
-		HREF="/servlet/Movement?action=removePersonContact&personID=<%= c.get("id") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
+		HREF="/servlet/Movement?action=removePersonContact&module=location&personID=<%= c.get("id") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
 		<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A></td>
 	<%} %>
 	<%
@@ -26,12 +26,12 @@ isFirst=false;
 }
 if (!present){%>
 <tr><td colspan="3">
-	<A HREF="/servlet/Movement?action=savePersonContact&personID=<%=ar.getValue("personID") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
+	<A HREF="/servlet/Movement?action=savePersonContact&module=location&personID=<%=ar.getValue("personID") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
 	<center><i>Become a Contact for this Movement</i></center></A>
 	</td></tr>	<%} %>
 		<tr><td colspan="3">
 		<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-		<A HREF="/servlet/Movement?action=addPersonContact&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&lastName=">
+		<A HREF="/servlet/Movement?action=addPersonContact&module=location&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&lastName=">
 		<center><i>Add Contact</i></center>
 		</A><%} 
 		else

@@ -10,7 +10,7 @@ for(Section section:subordinate_objects){
 		<%@ include file="/modules/_list_teams.jspf" %>
 	<%} else if(type.equals("Person")){%>
 		<%@ include file="/modules/_list_persons.jspf" %>
-	<%} else if(type.equals("Campus")){%>
+	<%} else if(type.equals("Campus")||type.equals("Location")){%>
 		<%@ include file="/modules/_list_campuses.jspf" %>
 	<%}  else if(type.equals("Movement")){%>
 		<%@ include file="/modules/_list_movements.jspf" %>

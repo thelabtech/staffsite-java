@@ -44,6 +44,7 @@ Here is a list of people in the Campus Ministry system.<BR>Select one to add the
 </SELECT>&nbsp;
 
 <INPUT TYPE="HIDDEN" NAME="id" VALUE="<%= ar.getHashtable("info").get("locallevelid") %>">
+<input type="hidden" name="module" value="team">
 				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName">
 <INPUT TYPE="SUBMIT" VALUE="Assign">
 				 </FORM>

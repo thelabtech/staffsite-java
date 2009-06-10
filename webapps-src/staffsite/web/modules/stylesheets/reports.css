@@ -1,7 +1,7 @@
 div#stat_report
 {
-	position:absolute;
-	top:135px;
+	display:block;
+	overflow:hidden;
 	
 	}
 

@@ -1,4 +1,12 @@
-<%if(mode.equals("edit")||mode.equals("newTeam")){%>
+<%if(mode.equals("edit_team")||mode.equals("new_team")){%>
+<%
+Hashtable source=new Hashtable();
+if (mode.equals("new_team")){
+	source=ar.getHashtable("newInfo");
+}else{
+	source=ar.getHashtable("info");
+	
+	}%>
 
 	<div class="edit_object">
 <jsp:useBean id="lanes" class="org.alt60m.html.SelectLane" />
@@ -8,8 +16,9 @@
 	<table align="center" border="0" cellspacing="0" cellpadding=3>
 	<form method="post" name="TeamInfoForm" action="/servlet/Team" >
 	<input type="hidden" name="action" value="saveTeam">
-<input type="hidden" name="locallevelid" value="<%=ar.getHashtable("info").get("locallevelid") %>">
-<input type="hidden" name="id" value="<%=ar.getHashtable("info").get("locallevelid") %>">
+<input type="hidden" name="locallevelid" value="<%=source.get("locallevelid") %>">
+<input type="hidden" name="module" value="team">
+<input type="hidden" name="id" value="<%=source.get("locallevelid") %>">
 <%=!mode.equals("newTeam")?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
 
 		<tr > 
@@ -24,7 +33,7 @@
 				<div align="right">*Name:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Name" value="<%=ar.getHashtable("info").get("Name") != null ? ar.getHashtable("info").get("Name") : ""%>" size="27" maxlength=100 <%=mode.equals("newTeam")?"":"readonly=\"true\"" %>>
+				<input type="text" name="Name" value="<%=source.get("Name") != null ? source.get("Name") : ""%>" size="27" maxlength=100 <%=mode.equals("newTeam")?"":"readonly=\"true\"" %>>
 			</td>
 		</tr>
 		<tr > 
@@ -34,7 +43,7 @@
 			<td>
 				<%
 				lanes.setName("Lane");
-				if(ar.getHashtable("info").get("Lane")!=null)lanes.setCurrentValue((String)ar.getHashtable("info").get("Lane"));
+				if(source.get("Lane")!=null)lanes.setCurrentValue((String)source.get("Lane"));
 				%>
 				<%=lanes.print()%>
 			</td>
@@ -46,7 +55,7 @@
 			<td>
 				<%
 				regions.setName("Region");
-				if(ar.getHashtable("info").get("Region")!=null)regions.setCurrentValue((String)ar.getHashtable("info").get("Region"));
+				if(source.get("Region")!=null)regions.setCurrentValue((String)source.get("Region"));
 				
 				%>
 				<%=regions.print()%>
@@ -57,7 +66,7 @@
 				<div align="right">Address 1:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Address1" value="<%=ar.getHashtable("info").get("Address1") != null ? ar.getHashtable("info").get("Address1") : ""%>" size="27" maxlength=35>
+				<input type="text" name="Address1" value="<%=source.get("Address1") != null ? source.get("Address1") : ""%>" size="27" maxlength=35>
 			</td>
 		</tr>
 		<tr > 
@@ -65,7 +74,7 @@
 				<div align="right">Address 2:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Address2" value="<%=ar.getHashtable("info").get("Address2") != null ? ar.getHashtable("info").get("Address2") : ""%>" size="27" maxlength=35>
+				<input type="text" name="Address2" value="<%=source.get("Address2") != null ? source.get("Address2") : ""%>" size="27" maxlength=35>
 			</td>
 		</tr>
 		<tr > 
@@ -73,7 +82,7 @@
 				<div align="right">City:</font></div>
 			</td>
 			<td>
-				<input type="text" name="City" value="<%=ar.getHashtable("info").get("City") != null ? ar.getHashtable("info").get("City") : ""%>" size="27" maxlength=30>
+				<input type="text" name="City" value="<%=source.get("City") != null ? source.get("City") : ""%>" size="27" maxlength=30>
 			</td>
 		</tr>
 		<tr > 
@@ -83,7 +92,7 @@
 			<td>
 				<%
 				states.setName("State");
-				if(ar.getHashtable("info").get("State")!=null)states.setCurrentValue((String)ar.getHashtable("info").get("State"));
+				if(source.get("State")!=null)states.setCurrentValue((String)source.get("State"));
 				%>
 				<%=states.print()%>
 			</td>
@@ -93,7 +102,7 @@
 				<div align="right">ZIP:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Zip" value="<%=ar.getHashtable("info").get("Zip") != null ? ar.getHashtable("info").get("Zip") : ""%>" size="10" maxlength=10>
+				<input type="text" name="Zip" value="<%=source.get("Zip") != null ? source.get("Zip") : ""%>" size="10" maxlength=10>
 			</td>
 		</tr>
 		<tr > 
@@ -103,7 +112,7 @@
 			<td>
 				<%
 				countries.setName("Country");
-				if(ar.getHashtable("info").get("Country")!=null)countries.setCurrentValue((String)ar.getHashtable("info").get("Country"));
+				if(source.get("Country")!=null)countries.setCurrentValue((String)source.get("Country"));
 				%>
 				<%=countries.print()%>
 			</td>
@@ -113,7 +122,7 @@
 				<div align="right">Phone:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Phone" value="<%=ar.getHashtable("info").get("Phone") != null ? ar.getHashtable("info").get("Phone") : ""%>" size="27" maxlength=24>
+				<input type="text" name="Phone" value="<%=source.get("Phone") != null ? source.get("Phone") : ""%>" size="27" maxlength=24>
 			</td>
 		</tr>
 		<tr > 
@@ -121,23 +130,23 @@
 				<div align="right">Fax:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Fax" size="27" value="<%=ar.getHashtable("info").get("Fax") != null ? ar.getHashtable("info").get("Fax") : ""%>" maxlength=24>
+				<input type="text" name="Fax" size="27" value="<%=source.get("Fax") != null ? source.get("Fax") : ""%>" maxlength=24>
 			</td>
 		</tr>
 		<tr > 
 			<td> 
-				<div align="right"><a href="mailto:<%=ar.getHashtable("info").get("Email") != null ? ar.getHashtable("info").get("Email") : ""%>">Email:</a></font></div>
+				<div align="right"><a href="mailto:<%=source.get("Email") != null ? source.get("Email") : ""%>">Email:</a></font></div>
 			</td>
 			<td>
-				<input type="text" name="Email" size="27" value="<%=ar.getHashtable("info").get("Email") != null ? ar.getHashtable("info").get("Email") : ""%>" maxlength=50>
+				<input type="text" name="Email" size="27" value="<%=source.get("Email") != null ? source.get("Email") : ""%>" maxlength=50>
 			</td>
 		</tr>
 		<tr > 
 			<td>
-				<div align="right"><a href="<%=ar.getHashtable("info").get("Url") != null ? ar.getHashtable("info").get("Url") : ""%>">CCC Webpage:</font></a></div>
+				<div align="right"><a href="<%=source.get("Url") != null ? source.get("Url") : ""%>">CCC Webpage:</font></a></div>
 			</td>
 			<td>
-				(ex: http://www.und.edu/ccc)</font><BR><input type="text" name="Url" size="27" value="<%=ar.getHashtable("info").get("Url") != null ? ar.getHashtable("info").get("Url") : ""%>" maxlength=255>
+				(ex: http://www.und.edu/ccc)</font><BR><input type="text" name="Url" size="27" value="<%=source.get("Url") != null ? source.get("Url") : ""%>" maxlength=255>
 			</td>
 		</tr>
 		<%
@@ -147,7 +156,7 @@
 			<td>Is this Team Active?</td>
 			<td >
 				<%
-				boolean isActive = ar.getHashtable("info").get("IsActive") != null ? ((Boolean)ar.getHashtable("info").get("IsActive")).booleanValue() : true;
+				boolean isActive = source.get("IsActive") != null ? ((Boolean)source.get("IsActive")).booleanValue() : true;
 
 				
 					if(isActive) 
@@ -168,7 +177,7 @@
 				<div align="right">Note:<br>(max. of <br>255 <br>characters)</font></div>
 			</td>
 			<td>
-				<textarea name="Note" cols="22" rows="5" wrap="VIRTUAL"><%=ar.getHashtable("info").get("Note") != null ? ar.getHashtable("info").get("Note") : ""%></textarea>
+				<textarea name="Note" cols="22" rows="5" wrap="VIRTUAL"><%=source.get("Note") != null ? source.get("Note") : ""%></textarea>
 			</td>
 		</tr>
 		<tr > 
@@ -181,7 +190,7 @@
 
 
 <%if(!mode.equals("newTeam")){ %>
-<A href="/servlet/Team?action=content&id=<%= ar.getHashtable("info").get("locallevelid") %>">Cancel</A>	
+<A href="/servlet/Team?action=content&id=<%= source.get("locallevelid") %>">Cancel</A>	
 <%} else { %>
 <A href="/servlet/Team">Cancel</A>
 <%} %>

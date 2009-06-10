@@ -1,21 +1,29 @@
-<%if(mode.equals("editLocation")||mode.equals("newLocation")){%>
-
+<%if(mode.equals("edit_location")||mode.equals("new_location")){%>
+<%
+Hashtable source=new Hashtable();
+if (mode.equals("new_location")){
+	source=ar.getHashtable("newInfo");
+}else{
+	source=ar.getHashtable("info");
+	
+	}%>
 	<div class="edit_object">
-<FORM NAME="updateForm" METHOD="POST" ACTION="/servlet/Campus?action=saveTargetAreaInfo&targetareaid=<%= ar.getHashtable("info").get("targetareaid") %>">
-<INPUT TYPE="hidden" VALUE="<%= ar.getHashtable("info").get("Fice") %>" NAME="Fice" >
-<INPUT TYPE="hidden" VALUE="<%= ar.getHashtable("info").get("targetareaid") %>" NAME="id" >
-<INPUT TYPE="hidden" VALUE="<%= ar.getHashtable("info").get("Mpta") %>" NAME="Mpta" >
+<FORM NAME="updateForm" METHOD="POST" ACTION="/servlet/Campus?action=saveTargetAreaInfo&targetareaid=<%= source.get("targetareaid") %>">
+<INPUT TYPE="hidden" VALUE="<%= source.get("Fice") %>" NAME="Fice" >
+<INPUT TYPE="hidden" VALUE="<%= source.get("targetareaid") %>" NAME="id" >
+<input type="hidden" name="module" value="location">
+<INPUT TYPE="hidden" VALUE="<%= source.get("Mpta") %>" NAME="Mpta" >
 <%=!mode.equals("newLocation")?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
 <TABLE BORDER=0 CELLPADDING=5 CELLSPACING=0 ALIGN="CENTER">
 <jsp:useBean id="mySelectR" class="org.alt60m.html.SelectRegion"/>
 <jsp:useBean id="mySelectS" class="org.alt60m.html.SelectState"/>
 <jsp:useBean id="mySelectC" class="org.alt60m.html.SelectCountry"/>
 <%
-mySelectR.setCurrentValue((String)ar.getHashtable("info").get("Region"));
+mySelectR.setCurrentValue((String)source.get("Region"));
 mySelectR.setName("Region");
-mySelectS.setCurrentValue((String)ar.getHashtable("info").get("State"));
+mySelectS.setCurrentValue((String)source.get("State"));
 mySelectS.setName("State");
-mySelectC.setCurrentValue((String)ar.getHashtable("info").get("Country"));
+mySelectC.setCurrentValue((String)source.get("Country"));
 mySelectC.setName("Country");
 %>
 <TR><TD> </TD><TD>(* = required field)</FONT></TD>
@@ -26,19 +34,19 @@ mySelectC.setName("Country");
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Name:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("Name") %>" NAME="Name" SIZE="27" MAXLENGTH="100" <%=mode.equals("newLocation")?"":"readonly=\"true\"" %>></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Name") %>" NAME="Name" SIZE="27" MAXLENGTH="100" <%=mode.equals("newLocation")?"":"readonly=\"true\"" %>></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Alternate Name:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("AltName") %>" NAME="AltName" SIZE="27" MAXLENGTH="100"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("AltName") %>" NAME="AltName" SIZE="27" MAXLENGTH="100"></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Abbreviation:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("Abbrv") %>" NAME="Abbrv" SIZE="27" MAXLENGTH="31"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Abbrv") %>" NAME="Abbrv" SIZE="27" MAXLENGTH="31"></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">*City:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("City") %>" NAME="City" SIZE="27" MAXLENGTH="29"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("City") %>" NAME="City" SIZE="27" MAXLENGTH="29"></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">State:</FONT></TD>
@@ -46,7 +54,7 @@ mySelectC.setName("Country");
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Zip:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("Zip") %>" NAME="Zip" SIZE="10" MAXLENGTH="10"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Zip") %>" NAME="Zip" SIZE="10" MAXLENGTH="10"></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">*Country:</FONT></TD>
@@ -54,40 +62,40 @@ mySelectC.setName("Country");
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Local Level Ministry URL:<BR>(include "http://")</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("Url") %>" NAME="Url" SIZE="27" MAXLENGTH="254"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Url") %>" NAME="Url" SIZE="27" MAXLENGTH="254"></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Official School Website URL:<BR>(include "http://")</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("InfoUrl") %>" NAME="InfoUrl" SIZE="27" MAXLENGTH="254"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("InfoUrl") %>" NAME="InfoUrl" SIZE="27" MAXLENGTH="254"></TD>
 </TR>
 
 <TR>
 	<TD ALIGN="RIGHT">Population/Enrollment/Scope:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("enrollment") %>" NAME="Enrollment" SIZE="27" MAXLENGTH="9"></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("enrollment") %>" NAME="Enrollment" SIZE="27" MAXLENGTH="9"></TD>
 </TR>
 
 
 <TR>
 	<TD ALIGN="RIGHT">Ministry Location Logo URL:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("UrlToLogo") %>" NAME="UrlToLogo" SIZE="27" MAXLENGTH="255">[<a href="JavaScript: popupWindow('/help/help_infobase.jsp#addlogo', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">help</a>]</TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("UrlToLogo") %>" NAME="UrlToLogo" SIZE="27" MAXLENGTH="255">[<a href="JavaScript: popupWindow('/help/help_infobase.jsp#addlogo', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">help</a>]</TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Month and Day School Starts:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("MonthSchoolStarts") %>" NAME="MonthSchoolStarts" SIZE="5" MAXLENGTH="10">&nbsp;(ie: AUG30)</TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("MonthSchoolStarts") %>" NAME="MonthSchoolStarts" SIZE="5" MAXLENGTH="10">&nbsp;(ie: AUG30)</TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Month and Day School Stops:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= ar.getHashtable("info").get("MonthSchoolStops") %>" NAME="MonthSchoolStops" SIZE="5" MAXLENGTH="10">&nbsp;(ie: MAY06)</TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("MonthSchoolStops") %>" NAME="MonthSchoolStops" SIZE="5" MAXLENGTH="10">&nbsp;(ie: MAY06)</TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Semester System?</FONT></TD>
-	<%boolean semester = ((Boolean)ar.getHashtable("info").get("IsSemester")).booleanValue();%>
+	<%boolean semester = ((Boolean)source.get("IsSemester")).booleanValue();%>
 	<TD><INPUT TYPE="RADIO" NAME="IsSemester" VALUE="true" <%=semester?"CHECKED=\"checked\"":"" %>> Yes<INPUT TYPE="RADIO" NAME="IsSemester" VALUE="false" <%=semester?"":" CHECKED=\"checked\" " %>> No</TD>
 </TR>
 <%if(mode.equals("newLocation")){ %>
 <TR>
 	<td >
-<%boolean secure = ((Boolean)ar.getHashtable("info").get("IsSecure"));%>
+<%boolean secure = ((Boolean)source.get("IsSecure"));%>
 *Is this Ministry Location secure?</td>
 <td> <input type="radio" name="isSecure" value="true" <%=secure?"CHECKED=\"checked\"":"" %>>Yes <input type="radio" name="isSecure" value="false" <%=secure?"":" CHECKED=\"checked\" " %> >No</td>
 </TR>   
@@ -95,7 +103,7 @@ mySelectC.setName("Country");
 <%} %>
 <TR>
 	<TD ALIGN="RIGHT">Note:</FONT></TD>
-	<TD><textarea name="Note" cols="22" rows="5" wrap="VIRTUAL"><%= ar.getHashtable("info").get("Note") %></textarea></TD>
+	<TD><textarea name="Note" cols="22" rows="5" wrap="VIRTUAL"><%= source.get("Note") %></textarea></TD>
 </TR>
 <TR>
 	<TD ALIGN="CENTER" COLSPAN="2"><A HREF="JavaScript: document.updateForm.submit()" onMouseOver="document.targetAreaButton.src='/images/submit_bon.gif';" onMouseOut="document.targetAreaButton.src='/images/submit_boff.gif';"><IMG NAME="targetAreaButton" SRC="/images/submit_boff.gif" BORDER="0" ALIGN="TOP"></A>
@@ -105,7 +113,7 @@ mySelectC.setName("Country");
 
 </TABLE>
 <%if(!mode.equals("newLocation")){ %>
-<A href="/servlet/Campus?action=content&id=<%= ar.getHashtable("info").get("targetareaid") %>">Cancel</A>	
+<A href="/servlet/Campus?action=content&id=<%= source.get("targetareaid") %>">Cancel</A>	
 <%} else { %>
 <A href="/servlet/Campus">Cancel</A>
 <%} %>

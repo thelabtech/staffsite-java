@@ -45,6 +45,7 @@ last name and try again.  <br>
 
 <INPUT TYPE="HIDDEN" NAME="activityid" VALUE="<%= ar.getValue("activityid") %>">
 <INPUT TYPE="HIDDEN" NAME="targetareaid" VALUE="<%= ar.getValue("targetareaid") %>">
+<input type="hidden" name="module" value="location">
 				 <INPUT TYPE="hidden" NAME="search" VALUE="lastName">
 <INPUT TYPE="SUBMIT" VALUE="Assign">
 				 </FORM>

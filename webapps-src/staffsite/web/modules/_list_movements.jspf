@@ -20,12 +20,12 @@ for(Hashtable h:rows){%>
 %>
 <tr>
 	<%if(!module.equals("campus")&&!module.equals("location")){ %>	
-	<td><A href="/servlet/Campus?action=content&id=<%= h.get("location_id") %>"><%= h.get("location") %></A></td>
+	<td><A href="/servlet/Campus?action=content&module=location&id=<%= h.get("location_id") %>"><%= h.get("location") %></A></td>
 	
 	<%}%>
 	<td><i><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></i></td>
 	<%if(module.equals("campus")||module.equals("location")){ %>	
-	<td><A href="/servlet/Team?action=content&id=<%= h.get("team_id") %>"><%= h.get("team") %></A></td>
+	<td><A href="/servlet/Team?action=content&module=team&id=<%= h.get("team_id") %>"><%= h.get("team") %></A></td>
 	<%}%>
 
 
@@ -33,7 +33,7 @@ for(Hashtable h:rows){%>
 <%if(module.equals("campus")||module.equals("location")){ %>
 	<td><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
 <%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-		<td><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>">
+		<td><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
 		Edit
 		</A></td><%}%>
 	<%}%>

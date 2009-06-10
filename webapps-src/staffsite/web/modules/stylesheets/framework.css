@@ -47,10 +47,10 @@ background-color:none;
 font-family:verdana,arial,sans-serif;
 font-size:10px;
 }
-div#panel_main
+div#innerwrapper
 {
 display:block;
-width:1020px;
+width:900px;
 height:1000px;
 position:absolute;
 top:49px;
@@ -60,11 +60,11 @@ padding:5px;
 
 background-color:#ffffff;
 }
-div#total
+div#wrapper
 {
 	text-align:left;
 display:block;
-width:1020px;
+width:900px;
 height:100%;
 
 margin:0px auto;
@@ -84,8 +84,14 @@ height:auto;
 font-family:verdana,arial,sans-serif;
 font-size:10px;
 }
-div#enter_stat
+
+div#content
 {
-position:absolute;
-top:135px;
+display:block;
+width:auto;
+}
+div#innercontent
+{
+display:block;
+width:auto;
 }

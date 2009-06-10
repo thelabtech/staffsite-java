@@ -1,4 +1,9 @@
-</div></div>
+					</div><!-- innercontent -->
+				</div><!-- content -->
+			<div id="footer">
+			</div><!-- footer -->
+		</div><!-- innerwrapper -->
+	</div><!-- wrapper -->
 </body>
 </html>
 <%} %>

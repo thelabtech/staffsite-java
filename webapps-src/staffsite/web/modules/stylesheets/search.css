@@ -1,0 +1,44 @@
+div#quicksearch
+{
+	position:absolute;
+	right:0px;
+	margin:none;
+	z-index:30;
+display:block;
+width:280px;
+
+padding:5px;
+color:black;
+
+
+
+overflow:hidden;
+}
+div.quicksearch_open
+{
+	border:solid 1px #cdcdcd;
+	height:450px;
+	background-color:#ffffee;
+	}
+	div.quicksearch_closed
+{
+	background-color:none;
+	border:none;
+	height:20px;
+	}
+		div.quicksearch_closed form
+{
+	display:none;
+	}
+div#quicksearch td
+{
+font-size:10px;
+}
+div.quicksearch_closed a:link,div.quicksearch_closed a:active,div.quicksearch_closed a:visited
+{
+color:white;
+}
+div.quicksearch_open a:link,div.quicksearch_open a:active,div.quicksearch_open a:visited
+{
+color:#333388;
+}

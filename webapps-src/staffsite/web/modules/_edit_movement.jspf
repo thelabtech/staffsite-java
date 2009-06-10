@@ -8,6 +8,7 @@
 	<table cellspacing=0 cellpadding=5 border=0 align="center" >
 	<form name="updateActivityForm" method="post" action="/servlet/Movement">
 	<input type=hidden name="action" value="saveEditActivity">
+	<input type="hidden" name="module" value="location">
 	<input type=hidden name="activityid" value="<%=movement.get("activityid")%>">
 	<input type=hidden name="strategy" value=<%=movement.get("strategy")%>>
 	<input type=hidden name="locallevelid" value=<%=movement.get("locallevelid")%>>

@@ -340,22 +340,35 @@ else
 		
 	
 <%
+int wide=900;
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
+			wide+=60;}
+		if(strategyList.contains("BR")){
+			wide+=60;}
 		%>
 <style type="text/css" >
-div#panel_main
+div#wrapper
 {
 
-width:1060px;
+width:<%=wide%>px;
 }
-div#total
+div#innerwrapper
 {
 
-width:1060px;
+width:<%=wide%>px;
 }
+div#content
+{
 
+width:<%=wide%>px;
+}
+div#innercontent
+{
+
+width:<%=wide%>px;
+}
 </style>
-<%} %>
+
 
 <%@ include file="/modules/footer.jspf"%>
 

@@ -223,5 +223,4 @@
 	</center>
 </form>
 </div>
-<a href="/servlet/Report?action=index&isMuster=false">I wanted the stats report!</a>
 <%@ include file="/modules/footer.jspf"%>

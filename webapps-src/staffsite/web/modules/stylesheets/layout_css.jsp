@@ -6,3 +6,5 @@
 <%@ include file="content.css"%>
 <%@ include file="reports.css"%>
 <%@ include file="muster.css"%>
+<%@ include file="enter_stats.css"%>
+<%@ include file="bannerbar.css"%>

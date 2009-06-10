@@ -1,0 +1,60 @@
+div.logoside
+{
+	display:block;
+	height:auto;
+	width:auto;
+	}
+div#menubar
+	{
+	
+	border:none;
+	
+	
+	background-color:#8b381a;
+	background-image:url('/modules/images/major_tabs.gif');
+background-repeat:repeat-x;
+	
+	display:block;
+	width:100%;
+	height:80px;
+	
+	
+	}
+ul#mainmenu
+{
+display:block;
+
+
+}
+ul#mainmenu li.active,ul#mainmenu li.inactive 
+{
+	padding:10px;
+	width:auto;
+display:block;
+float:left;	
+	
+}
+
+
+ul#mainmenu li  a, ul#mainmenu li  a:visited
+{
+	color:#cdcdcd;
+}
+
+ ul#mainmenu li.active  a, ul#mainmenu li.active  a:visited
+{
+	color:white;
+}
+ 
+ul#submenu
+{
+	display:block;
+}
+li.submenu
+{
+padding:10px;
+	width:auto;;
+	display:block;
+float:left;
+	
+}

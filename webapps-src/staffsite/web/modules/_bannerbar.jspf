@@ -1,0 +1,3 @@
+			<div id="bannerbar">
+			      <a href="banner"><img src="/modules/images/<%=module %>_banner.gif" alt="" /></a>
+			 </div>

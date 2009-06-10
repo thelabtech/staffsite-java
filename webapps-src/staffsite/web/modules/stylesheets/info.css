@@ -2,7 +2,7 @@ div#info_box
 {
 	text-align:left;
 	display:block;
-	width:280px;
+	
 	margin-top:10px;
 
 border:solid 1px #cdcdcd;
@@ -12,17 +12,23 @@ background-color:white;
 
 overflow:hidden;
 }
-div#info_box td
+div#info_box li
 	{
-	padding-top:3px;
-	padding-bottom:3px;
-	margin 3px;
-	font-size:15px;
-	line-height:17px;
-	border-top:solid 1 blue;
-	border-bottom:solid 1 blue;
-	}
+	display:block;
+	float:left;
+	padding:5px;
 	
+	width:300px;
+	font-size:10px;
+	line-height:17px;
+	border:none;
+	height:70px;
+	}
+div#info_box ul
+	{	display:block;
+	overflow:hidden;
+	width:100%;
+}
 div.edit_object
 {
 
@@ -58,3 +64,6 @@ padding-bottom:30px;
 
 padding:10px;
 }
+div#info_box a
+	{display:block;
+	}

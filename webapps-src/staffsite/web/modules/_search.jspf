@@ -1,8 +1,19 @@
-<%Hashtable search=ar.getHashtable("search"); 
-%>
+<%if(session.getValue("quicksearch")!=null){ %>
+
+<div id="quicksearch" class="quicksearch_open">
+<a href="<%=moduleUrl %>?action=index&module=<%=module %>"><i>Close Quick Search</i></a><br><br>
+<% session.putValue("quicksearch",null); %>
+<%} else {
+%><div id="quicksearch" class="quicksearch_closed">
+<a href="<%=moduleUrl %>?action=index&module=<%=module %>&quicksearch=true">Quick Search</a>
+<%} %>
+
+		            	<%String searchUrl="Home";%>
+						<form action="<%=searchUrl%>" method="post">
 
 <%@page import="org.alt60m.ministry.Strategy"%>
-<%@page import="org.alt60m.ministry.Regions"%><input type="hidden" name="action" value="search"/>
+<%@page import="org.alt60m.ministry.Regions"%>
+<input type="hidden" name="action" value="search"/>
 Name:<input name="name" type="text" value="<%=search.get("name")!=null?search.get("name"):"" %>"/><br>
 City:<input name="city" type="text" value="<%=search.get("city")!=null?search.get("city"):"" %>"/><br>
 State:<input name="state" type="text" value="<%=search.get("state")!=null?search.get("state"):"" %>"/><br>
@@ -25,15 +36,15 @@ Region:<br>
 <%} %>
 </td>
 </tr></table>
-<%if(module.equals("home")){ %>
+
 						Select type of information:
 						<%String search_type= search.get("type")!=null?(String)search.get("type"):"";%>
-						<select name="type" >
-							<option value="campus" <%= search_type.equals("campus")?"selected":"" %>>Campus</option>
+						<select name="module" >
+							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Campus</option>
 							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
 							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
 						</select>
-						<%}else{ %>
-						<input type="hidden" name="type" value="<%=module%>"/>						
-						<%} %>
-	
+						
+	<input type="submit" id="search_submit" name="search_submit" value="Search"/>
+						</form>
+		          </div>	
