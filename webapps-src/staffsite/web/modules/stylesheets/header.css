@@ -58,3 +58,8 @@ padding:10px;
 float:left;
 	
 }
+div#content h1
+{
+display:block;
+overflow:hidden;
+}

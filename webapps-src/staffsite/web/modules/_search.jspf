@@ -1,11 +1,11 @@
 <%if(session.getValue("quicksearch")!=null){ %>
 
 <div id="quicksearch" class="quicksearch_open">
-<a href="<%=moduleUrl %>?action=index&module=<%=module %>"><i>Close Quick Search</i></a><br><br>
+<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><i>Close Quick Search</i></a><br><br>
 <% session.putValue("quicksearch",null); %>
 <%} else {
 %><div id="quicksearch" class="quicksearch_closed">
-<a href="<%=moduleUrl %>?action=index&module=<%=module %>&quicksearch=true">Quick Search</a>
+<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Quick Search</a>
 <%} %>
 
 		            	<%String searchUrl="Home";%>

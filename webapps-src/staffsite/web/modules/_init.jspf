@@ -35,5 +35,16 @@
 	if(searchModules.contains(module)){
 		searchModuleUrl=module.substring(0,1).toUpperCase()+module.substring(1).toLowerCase();	
 		}
+	String pageTitle="InfoBase";
+	if(infoModes.contains(mode)&&searchModules.contains(module)){
+		pageTitle=(String)info.get("name");
+	}else if(mode.equals("list")&&searchModules.contains(module)){
+			pageTitle=searchModuleUrl+" Search";
 		
+	}else if (module.equals("report")){
+		pageTitle=isMuster.equals("true")?"Movement Rollcall Report":"Success Criteria Report";
+			
+	}else if (module.equals("stat")){
+		pageTitle="Enter Stats";
+	}
 %>

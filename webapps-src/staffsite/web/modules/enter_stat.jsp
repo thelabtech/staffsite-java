@@ -42,7 +42,7 @@ Integer specialHeight=0;
 		
 	Integer weeksBack= new Integer (Integer.parseInt(ar.getValue("weeksBack")));
 %>
-<% String pageTitle="Entering Success Criteria";%>
+
 
 
 <script type="text/javascript" language="javascript">
@@ -129,7 +129,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 				%>
 				<br>
 				<center><font color="red">
-				<%=ar.getValue("message")%>
+				<%=ar.getValue("message")%></font>
 				</center>
 				
 				<%} %>

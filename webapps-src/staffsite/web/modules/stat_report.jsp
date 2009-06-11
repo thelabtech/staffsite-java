@@ -15,7 +15,7 @@
 	String periodEnd=ar.getValue("periodEnd");
 	String strategyList=ar.getValue("strategyList");
 	String[] displayList=strategyList.replace("'","").split(",");
-	String pageTitle="Success Criteria Reports";
+	
 	String reportTitle ="";
 	String type=ar.getValue("type");
 	if(type.equals("custom")){
@@ -340,11 +340,11 @@ else
 		
 	
 <%
-int wide=900;
+int wide=920;
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
 			wide+=60;}
 		if(strategyList.contains("BR")){
-			wide+=60;}
+			wide+=80;}
 		%>
 <style type="text/css" >
 div#wrapper
