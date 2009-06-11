@@ -19,6 +19,7 @@ import org.alt60m.ministry.servlet.modules.model.Section;
 import org.alt60m.ministry.servlet.modules.team.TeamHelper;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller.ActionContext;
+import org.alt60m.staffSite.bean.dbio.Bookmarks;
 import org.alt60m.util.ObjectHashUtil;
 
 public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBaseModuleController {
@@ -43,7 +44,11 @@ public class PersonController extends org.alt60m.ministry.servlet.modules.InfoBa
             log.fatal("Failed to init!", e);
         }
     }
-   
+    protected void initState() throws Exception {
+        initViews(getServletContext().getRealPath("/WEB-INF/modules/views.xml"));
+        setDefaultAction("index");
+        _bookmarks = new Bookmarks();
+    }
     private Hashtable<String, Object> emulateOldStaffStructure(Staff staff) throws Exception {
         Hashtable<String, Object> staffHash = ObjectHashUtil.obj2hash(staff);
         OldAddress pa = staff.getPrimaryAddress();

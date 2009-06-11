@@ -73,6 +73,14 @@ public class InfoBaseModuleController extends Controller {
     public void home(ActionContext ctx) {
         try {
         	ActionResults results = new ActionResults("home");
+        	ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
+        	String lastClass=InfoBaseModuleHelper.lastClass(ctx);
+        	results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
+        	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
+        	results.putValue("module", "home");
+			results.putValue("title", "Home");
+			results.putValue("mode", "home");
+			ctx.setReturnValue(results);
             ctx.goToView("home");
         }
         catch (Exception e) {
@@ -87,6 +95,7 @@ public class InfoBaseModuleController extends Controller {
     public void search(ActionContext ctx) {
         try {
         	ActionResults results = new ActionResults("search");
+        	
         	String lastClass=InfoBaseModuleHelper.lastClass(ctx);
         	
     		ctx.setSessionValue("lastClass", lastClass);
@@ -190,7 +199,7 @@ public class InfoBaseModuleController extends Controller {
 
     protected void initState() throws Exception {
         initViews(getServletContext().getRealPath("/WEB-INF/modules/views.xml"));
-        setDefaultAction("index");
+        setDefaultAction("home");
         _bookmarks = new Bookmarks();
     }
 

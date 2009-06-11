@@ -15,6 +15,7 @@ import org.alt60m.ministry.model.dbio.ReportRow;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller.ActionContext;
+import org.alt60m.staffSite.bean.dbio.Bookmarks;
 
 public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBaseModuleController {
 
@@ -37,6 +38,11 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
         } catch (Exception e) {
             log.fatal("Failed to init!", e);
         }
+    }
+    protected void initState() throws Exception {
+        initViews(getServletContext().getRealPath("/WEB-INF/modules/views.xml"));
+        setDefaultAction("index");
+        _bookmarks = new Bookmarks();
     }
     /** @param ctx ActionContext object Request parameters: <none> */
     public void index(ActionContext ctx) {

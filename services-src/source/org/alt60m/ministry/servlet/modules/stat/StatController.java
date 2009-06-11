@@ -48,7 +48,11 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             log.fatal("Failed to init!", e);
         }
     }
- 
+    protected void initState() throws Exception {
+        initViews(getServletContext().getRealPath("/WEB-INF/modules/views.xml"));
+        setDefaultAction("index");
+        _bookmarks = new Bookmarks();
+    }
     public void index(ActionContext ctx) {//IJK
         try {
         	

@@ -45,7 +45,11 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
             log.fatal("Failed to init!", e);
         }
     }
-
+    protected void initState() throws Exception {
+        initViews(getServletContext().getRealPath("/WEB-INF/modules/views.xml"));
+        setDefaultAction("index");
+        _bookmarks = new Bookmarks();
+    }
 
     public void saveTargetAreaInfo(ActionContext ctx) {
         try {
