@@ -234,7 +234,7 @@ document.getElementById('<%=staffMember.getPersonID() %>_leader_status').style.d
 			<% while(activeTargetCampusI.hasNext()) {
 				   row = (Hashtable)activeTargetCampusI.next();
 				   org.alt60m.ministry.model.dbio.Activity thisAct=new org.alt60m.ministry.model.dbio.Activity((String)row.get("ActivityId"));
-				   Boolean isLink=!(thisAct.getSentTeamId()+"").equals("");
+				   Boolean isLink=thisAct.getSentTeamId()!=null;
 				%>
 				<TR>
 					<TD><%=font%>

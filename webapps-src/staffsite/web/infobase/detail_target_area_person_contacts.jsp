@@ -67,7 +67,7 @@ Boolean present=false;
 			hasMovement = true;
 			org.alt60m.ministry.model.dbio.Activity sentTeamActivity=new org.alt60m.ministry.model.dbio.Activity((String)thisActivity.get("activityID"));
 
-			Boolean isLink=(!(sentTeamActivity.getSentTeamId()+"").equals(""));
+			Boolean isLink=(sentTeamActivity.getSentTeamId()!=null);
 %>
 			<%if(!isLink){ %>
 			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
