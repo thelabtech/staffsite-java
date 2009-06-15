@@ -29,7 +29,7 @@ public class Activity extends DBIOEntity {
 
 	// KEY
 	private String fk_localLevelId = new String();
-	private String sent_teamID = new String();
+	private String sent_teamID = null;
 
 	private String fk_targetAreaId = new String();
 
