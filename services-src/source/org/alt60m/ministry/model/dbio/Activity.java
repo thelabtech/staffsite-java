@@ -29,6 +29,7 @@ public class Activity extends DBIOEntity {
 
 	// KEY
 	private String fk_localLevelId = new String();
+	private String sent_teamID = new String();
 
 	private String fk_targetAreaId = new String();
 
@@ -59,6 +60,7 @@ public class Activity extends DBIOEntity {
 
 		setMetadata("ActivityId", "ActivityID", "IDENTITY");
 		setMetadata("LocalLevelId", "fk_teamID", table);
+		setMetadata("SentTeamId", "sent_teamID", table);
 		setMetadata("TargetAreaId", "fk_targetAreaID", table);
 		setMetadata("Status", "status", table);
 		setMetadata("Strategy", "strategy", table);
@@ -148,6 +150,18 @@ public class Activity extends DBIOEntity {
 
 	public LocalLevel getLocalLevel() {
 		return new LocalLevel(fk_localLevelId);
+	}
+	
+	public String getSentTeamId() {
+		return sent_teamID;
+	}
+
+	public void setSentTeamId(String value) {
+		this.sent_teamID = value;
+	}
+
+	public LocalLevel getSentTeam() {
+		return new LocalLevel(sent_teamID);
 	}
 
 	public String getUrl() {

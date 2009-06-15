@@ -144,7 +144,13 @@ public class LocalLevel extends DBIOEntity {
     
 	public Vector getSortedActivities() {
             Activity a = new Activity();
-            String table = "ministry_viewSortedActivities";
+            String table = " (select targetarea.name AS name, activity.sent_teamID as sent_teamID, activity.url AS url,activity.facebook AS facebook, "+
+            	" activity.ActivityID AS ActivityID,activity.status AS status,activity.periodBegin AS periodBegin, "+
+            	" activity.strategy AS strategy,activity.transUsername AS transUsername,activity.fk_teamID AS fk_teamID, "+
+            	" activity.fk_targetAreaID AS fk_targetAreaID "+
+            	" from "+
+            	" (ministry_targetarea targetarea join ministry_activity activity on "+
+            	" ((targetarea.targetAreaID = activity.fk_targetAreaID))) order by targetarea.name) ministry_viewSortedActivities ";
             a.changeTargetTable(table);
             return a.selectList("fk_teamID = '"+this.getLocalLevelId()+"'");
 		/*Vector acts = new Vector();
@@ -230,7 +236,13 @@ public class LocalLevel extends DBIOEntity {
 	}
 	public Boolean hasNoActiveActivities() {
 		 Activity a = new Activity();
-       String table = "ministry_viewSortedActivities";
+       String table =  " (select targetarea.name AS name, activity.sent_teamID as sent_teamID, activity.url AS url,activity.facebook AS facebook, "+
+   	" activity.ActivityID AS ActivityID,activity.status AS status,activity.periodBegin AS periodBegin, "+
+	" activity.strategy AS strategy,activity.transUsername AS transUsername,activity.fk_teamID AS fk_teamID, "+
+	" activity.fk_targetAreaID AS fk_targetAreaID "+
+	" from "+
+	" (ministry_targetarea targetarea join ministry_activity activity on "+
+	" ((targetarea.targetAreaID = activity.fk_targetAreaID))) order by targetarea.name) ministry_viewSortedActivities ";
        a.changeTargetTable(table);
        return (a.selectList("fk_teamID = '"+this.getLocalLevelId()+"' and status in ('AC','LA','TR','KE','PI','FR')")).isEmpty();
 	}

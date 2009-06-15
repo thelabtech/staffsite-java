@@ -26,6 +26,7 @@ public class TargetArea extends DBIOEntity {
 		setMetadata("TargetAreaId", "targetAreaId", "IDENTITY");
 
 		setMetadata("Name", "name", table);
+		setMetadata("Type", "type", table);
 		setMetadata("Address1", "address1", table);
 		setMetadata("Address2", "address2", table);
 		setMetadata("City", "city", table);
@@ -94,12 +95,16 @@ public class TargetArea extends DBIOEntity {
 	private String infoUrl = "";
 	private String eventType = "";
 	private String eventKeyID = "";
-
+	private String type="";
+	
 	public String getTargetAreaId() { return targetAreaId; }
 	public void setTargetAreaId(String targetAreaId) { this.targetAreaId = targetAreaId; }
 	
 	public String getName() { return name; }
 	public void setName(String name) { this.name = name; }
+	
+	public String getType() { return type; }
+	public void setType(String type) { this.type = type; }
 	
 	public String getAddress1() { return address1; }
 	public void setAddress1(String address1) { this.address1 = address1; }

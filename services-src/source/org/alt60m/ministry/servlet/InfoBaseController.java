@@ -267,6 +267,7 @@ public class InfoBaseController extends Controller {
 
             String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
             String strategy = ctx.getInputString("strategy", true);
+            
             String from = ctx.getInputString("from", true);
 
 			java.util.GregorianCalendar today = new java.util.GregorianCalendar();
@@ -275,7 +276,9 @@ public class InfoBaseController extends Controller {
             results.putValue("strategy", strategy);
 
             TargetArea target = ibt.getTargetArea(targetAreaId);
-
+            log.debug(target.getType());
+            Boolean isStudentVenture=((strategy.equals("SV"))&&(!target.getType().equals("High School")));
+            
             Collection teams = ibt.getLocalLevelTeamsByRegion(target.getRegion()!=null?target.getRegion():"");
             Vector<Hashtable<String, Object>> hashedTeams = new Vector<Hashtable<String, Object>>();
 
@@ -287,6 +290,7 @@ public class InfoBaseController extends Controller {
             }
 
             results.addCollection("teams", hashedTeams);
+            if(isStudentVenture){results.putValue("isStudentVenture", "true");}
             results.putValue("targetAreaName", target.getName());
             ctx.setReturnValue(results);
             if (from.equals("addTeamToCampus"))
@@ -479,10 +483,10 @@ public class InfoBaseController extends Controller {
     /** @param ctx ActionContext object */
     public void detailedListCampus(ActionContext ctx) {
         final String[] allowedSearchBy = {"name", "city", "state", "country", "zip", "region", 
-        /*Movments: */ "FS", "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS",  "MM", "AA", "CL", "KC", "GK", "VL", "OT"};
+        /*Movments: */ "FS", "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS",  "MM", "AA", "CL", "KC", "GK", "VL", "SV", "OT"};
         
         final String[] validMovement = {"FS", "SC", "CA", "II", "IE", "IE", "ID", "IN", "BR", "WS",  
-        								"MM", "AA", "CL", "KC", "GK", "VL", "OT"};
+        								"MM", "AA", "CL", "KC", "GK", "VL", "SV","OT"};
 
         try {
 
@@ -1527,11 +1531,12 @@ public class InfoBaseController extends Controller {
 			String status = null;
 			if (strategy.equalsIgnoreCase("CA"))
 				status = ctx.getInputString("status", true);
-	//		Not needed here?
-	//		String url = ctx.getInputString("url", true);
-	//		
+			String sent_teamID = null;
+			if (strategy.equalsIgnoreCase("SV"))
+				sent_teamID = ctx.getInputString("sent_teamID");
+
 			InfoBaseTool ibt = new InfoBaseTool();
-			ibt.saveAddTeamToCampus(strategy, targetAreaId, localLevelId, periodBegin, ctx.getProfileID(), status);
+			ibt.saveAddTeamToCampus(strategy, targetAreaId, localLevelId, periodBegin, ctx.getProfileID(), status, sent_teamID);
             showTargetArea(ctx);
         }
         catch (Exception e) {

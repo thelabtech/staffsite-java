@@ -913,7 +913,7 @@ public class InfoBaseTool {
         }
     }
 
-    public void saveAddTeamToCampus(String strategy, String targetAreaId, String localLevelId, String periodBegin, String profileId, String status) throws Exception {
+    public void saveAddTeamToCampus(String strategy, String targetAreaId, String localLevelId, String periodBegin, String profileId, String status, String sent_teamID) throws Exception {
         try {
 			Activity activity = new Activity();
 			ActivityHistory activityHistory = new ActivityHistory();
@@ -924,6 +924,7 @@ public class InfoBaseTool {
             activity.setStrategy(strategy);
             activity.setTargetArea(target);
             activity.setTeam(team);
+            activity.setSentTeamId(sent_teamID);
             
             if (strategy.equalsIgnoreCase("CA"))
                 activity.setStatus(status);

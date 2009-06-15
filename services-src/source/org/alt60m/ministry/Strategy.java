@@ -17,6 +17,7 @@ public enum Strategy {
 	KC ("Korean CCC"),
 	GK ("Greek"),
 	VL ("Valor"),
+	SV ("Student Venture"),
 	EV ("Events"),
 	OT ("Other")
 	;
@@ -42,7 +43,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> microCultures() {
-		return EnumSet.of(GK, VL, OT);
+		return EnumSet.of(GK, VL, SV, OT);
 	}
 
 	public static EnumSet<Strategy> nonCampusStrategies() {
