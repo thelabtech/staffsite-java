@@ -233,9 +233,19 @@ document.getElementById('<%=staffMember.getPersonID() %>_leader_status').style.d
 			</TR>
 			<% while(activeTargetCampusI.hasNext()) {
 				   row = (Hashtable)activeTargetCampusI.next();
+				   org.alt60m.ministry.model.dbio.Activity thisAct=new org.alt60m.ministry.model.dbio.Activity((String)row.get("ActivityId"));
+				   Boolean isLink=!(thisAct.getSentTeamId()+"").equals("");
 				%>
 				<TR>
-					<TD><%=font%><A HREF="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=row.get("TargetAreaID")%>"><B><%=row.get("Name")%></B></A></FONT></TD>
+					<TD><%=font%>
+						<%if (!isLink){ %>
+							<A HREF="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=row.get("TargetAreaID")%>">
+									<B><%=row.get("Name")%></B></A><%} else { %>
+								<%org.alt60m.ministry.model.dbio.LocalLevel sentTeam=new org.alt60m.ministry.model.dbio.LocalLevel(thisAct.getSentTeamId()); %>
+							<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= sentTeam.getLocalLevelId() %>">
+						Sent Team: <%=sentTeam.getName()%></A><%} %>
+
+						</FONT></TD>
 					<TD><%=font%><%=row.get("StrategyName")%></FONT></TD>
 					<TD><%=font%><%=row.get("StatusName")%></FONT></TD>
 					<TD><%=font%>[<A HREF="/servlet/InfoBaseController?action=editActivity&locallevelid=<%= teamID %>&referrer=locallevel&targetareaid=<%= row.get("TargetAreaID") %>&strategy=<%= row.get("Strategy") %>&activityid=<%= row.get("ActivityId") %>&status=<%= row.get("Status") %>&url=<%= row.get("Url") %>&facebook=<%= row.get("Facebook") %>">Update</A>]</FONT></TD>

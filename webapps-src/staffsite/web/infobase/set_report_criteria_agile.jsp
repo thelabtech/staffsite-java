@@ -116,7 +116,7 @@ function submitReportForm(thisForm) {
 <table<%=bgcolorL%>><tr><td>
 			<table id="boxes" border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
-			  		<button id="checkAllButton" onClick="check();">Check All</button><br>
+			  		<img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/><br>
 					<input type="checkbox" name="strategies"   value="FS" >Field Strategies<br>
 					<input type="checkbox" name="strategies"   value="II" >ESM-Impact<br>
 					<input type="checkbox" name="strategies"   value="IE" >ESM-Epic<br>
@@ -130,6 +130,7 @@ function submitReportForm(thisForm) {
 					<input type="checkbox" name="strategies"   value="KC" >Korean CCC<br>
 					<input type="checkbox" name="strategies"   value="GK" >Greek<br>
 					<input type="checkbox" name="strategies"   value="VL" >Valor<br>
+					<input type="checkbox" name="strategies"   value="SV" >Student Venture<br>
 					<input type="checkbox" name="strategies"   value="OT" >Other<br>
 					
 					<input type="checkbox" name="strategies"  onclick="checkEvents();" value="EV" >Projects and Conferences without a specified Strategy<br>

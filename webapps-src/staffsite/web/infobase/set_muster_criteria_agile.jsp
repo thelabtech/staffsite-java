@@ -182,7 +182,7 @@ inputs = table.getElementsByTagName('input');
 <!--  Right panel  -->
 	<td id="boxes" style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
-			<button id="checkAllButton" onClick="check();">Check All</button><br>
+			<img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/><br>
 			Field Strategies<input type="checkbox" name="strategies"   value="FS" ><br>
 			ESM-Impact<input type="checkbox" name="strategies"   value="II" ><br>
 			ESM-Epic<input type="checkbox" name="strategies"   value="IE" ><br>
@@ -195,6 +195,7 @@ inputs = table.getElementsByTagName('input');
 			Korean CCC<input type="checkbox" name="strategies"   value="KC" ><br>
 			Greek<input type="checkbox" name="strategies"   value="GK" ><br>
 			Valor<input type="checkbox" name="strategies"   value="VL" ><br>
+			Student Venture<input type="checkbox" name="strategies"   value="SV" ><br>
 			Other<input type="checkbox" name="strategies"   value="OT" ><br>
 	</td>
 	<td width="3px" style="margin:none;border-left:none;border-top:solid 1 black;border-right:solid 1 black;border-bottom:solid 1 black;">

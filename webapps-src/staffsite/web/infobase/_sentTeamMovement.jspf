@@ -1,0 +1,22 @@
+<%
+if(sentTeamActivity.getSentTeamId()!=null){
+org.alt60m.ministry.model.dbio.LocalLevel sentTeam=new org.alt60m.ministry.model.dbio.LocalLevel(sentTeamActivity.getSentTeamId());
+
+
+%>
+<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
+				BGCOLOR="#D0DDEA">
+				<TR>
+					<TD  BGCOLOR="<%= color1 %>" ALIGN="CENTER"><%=font4L%><B><%=thisActivity
+																	.get("strategyName")%>
+					</B></FONT></TD>
+				</TR>
+				<TR>
+					<TD ALIGN="CENTER"><%=font%>&nbsp;
+						<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= sentTeam.getLocalLevelId() %>">
+						Sent Team: <%=sentTeam.getName()%></A>
+						
+					</TD>
+				</TR>
+</TABLE>
+<%}%>

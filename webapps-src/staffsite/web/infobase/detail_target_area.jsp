@@ -18,6 +18,8 @@
 	Hashtable thisActivity = null; //used to store the actXX
 	Collection otherMinistries = ar.getCollection("noncccmin");
 	Collection contColl = null;
+	
+	
 %>
 <%
 String pageTitle = (String) taTable.get("Name") + " Details";
@@ -73,6 +75,7 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 		if (thisActivity != null) {
 			hasMovement = true;
 			strategiesRepresented.add((String)thisActivity.get("strategy"));
+			
 %>
 			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
 				BGCOLOR="#D0DDEA">
@@ -87,10 +90,14 @@ String pageTitle = (String) taTable.get("Name") + " Details";
 						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team Information:</B>&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
-					<TD ALIGN="CENTER"><%=font%><A
+					<TD ALIGN="CENTER"><%=font%>
+						
+						<A
 						HREF="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>">Enter
 					Success Criteria<img valign="absmiddle" border=0
-						src="/infobase/images/check.gif"></A></TD>
+						src="/infobase/images/check.gif"></A>
+					
+					</TD>
 				</TR>
 				<TR>
 					<TD COLSPAN="1"><%=font%>&nbsp;<B>Contacts</B>: (2 maximum)<BR>

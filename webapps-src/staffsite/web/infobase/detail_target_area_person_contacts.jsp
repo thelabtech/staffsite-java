@@ -10,6 +10,7 @@
 	Hashtable thisActivity = null; //used to store the actXX
 	Collection otherMinistries = ar.getCollection("noncccmin");
 	Collection contColl = null;
+	org.alt60m.ministry.model.dbio.TargetArea ta=new org.alt60m.ministry.model.dbio.TargetArea((String)taTable.get("TargetAreaId"));
 %>
 <%
 String pageTitle = (String) taTable.get("Name") + " Details";
@@ -64,7 +65,11 @@ Boolean present=false;
 		
 		if (thisActivity != null) {
 			hasMovement = true;
+			org.alt60m.ministry.model.dbio.Activity sentTeamActivity=new org.alt60m.ministry.model.dbio.Activity((String)thisActivity.get("activityID"));
+
+			Boolean isLink=(!(sentTeamActivity.getSentTeamId()+"").equals(""));
 %>
+			<%if(!isLink){ %>
 			<TABLE ALIGN="CENTER" CELLPADDING=2 BORDER=1 CELLSPACING=2 WIDTH="80%"
 				BGCOLOR="#D0DDEA">
 				<TR>
@@ -73,12 +78,18 @@ Boolean present=false;
 					</B></FONT></TD>
 				</TR>
 				<TR>
-					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> <%=thisActivity.get("statusName")%>
-					</FONT><%=fontS%>[<A
-						HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">Change</A>]</FONT></TD>
+					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>Status:</B> 
+						
+							<%=thisActivity.get("statusName")%>
+							</FONT><%=fontS%>[
+							<A 	HREF="/servlet/InfoBaseController?action=editActivity&activityid=<%= thisActivity.get("activityID") %>&referrer=targetarea&targetareaid=<%= request.getParameter("targetareaid") %>&strategy=<%= thisActivity.get("strategy") %>&locallevelid=<%= thisActivity.get("LocalLevelId") %>&status=<%= thisActivity.get("status") %>&url=<%=thisActivity.get("Url")%>&facebook=<%=thisActivity.get("Facebook")%>">
+							Change
+							</A>]
+						</FONT></TD>
 					<TD ALIGN="CENTER"><%=font%>&nbsp;<B>View Missional Team Information:</B>&nbsp;<A
 						HREF="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisActivity.get("LocalLevelId") %>"><%=thisActivity.get("name")%></A>&nbsp;</FONT></TD>
-					<TD ALIGN="CENTER"><%=font%><A
+					<TD ALIGN="CENTER"><%=font%>
+<A
 						HREF="/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid=<%= thisActivity.get("activityID") %>&targetareaid=<%= request.getParameter("targetareaid") %>">Enter
 					Success Criteria<img valign="absmiddle" border=0
 						src="/infobase/images/check.gif"></A></TD>
@@ -157,7 +168,13 @@ Boolean present=false;
 			</TABLE>
 			<br>
 			<%
+			}else{
+				%>
+				<%@ include file="/infobase/_sentTeamMovement.jspf"%>
+				<%
+			}
 		}
+		
 	}
 	%>
 	

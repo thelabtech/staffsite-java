@@ -49,9 +49,18 @@ else  {strategyName = strategy;}
 
 <%@ include file="/infobase/ibheader.jspf" %>
 <script>
+var checkSentTeam=false;
 	function submitForm() {
-		if (document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.locallevelid.selectedIndex].value == "") {
+		if (checkSentTeam&&
+				(document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.sent_teamID.selectedIndex].value == ""||
+				document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.locallevelid.selectedIndex].value == "")) {
+			alert("You must select a Sent Team and a Supervising a Missional Team.");
+		}
+		else if (document.addTargetAreaActivityForm.locallevelid.options[document.addTargetAreaActivityForm.locallevelid.selectedIndex].value == "") {
 			alert("You must select a Missional Team.");
+			
+			
+			
 		}
 		else {
 			document.getElementById('subber').style.disabled=true;
@@ -90,6 +99,30 @@ else  {strategyName = strategy;}
 					</select>**</font>
 				</td>
 			</tr>
+<%if(ar.getValue("isStudentVenture")!=null){ %>
+			<tr><td	nowrap align="right"><%=fontB%>*Sent Team:</font></td>
+				<td nowrap><%=fontB%>
+					<select name="sent_teamID">
+						<option value=""></option>
+						<%
+						//loop through each record
+						teams = ar.getCollection("teams").iterator();
+						while(teams.hasNext()) {
+							Hashtable h = (Hashtable)teams.next();
+						%>
+							<option value="<%=h.get("LocalLevelID")%>"><%=h.get("Name")%></option>
+						<%
+						}
+						%>
+
+					</select>**</font>
+				</td>
+			</tr>
+			<Script type="text/javascript" language="javascript">
+			 checkSentTeam=true;
+			</script>
+<%}  %>
+			
 			<%if (strategy.equals("CA")) { %>
 				<tr>
 					<td align=right valign=top><%=fontB%>Status:</font></td>
@@ -105,6 +138,7 @@ else  {strategyName = strategy;}
 				</tr>
 			<%}%>
 			<tr> 
+
 				<td nowrap align="right"><%=fontB%>Date this strategy was<br>or will be initiated here:</font></td>
 				<td align=left>
 					<input type="text" name="periodbegin" size="10" maxlength="10" onFocus="this.blur()" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>">
@@ -116,8 +150,8 @@ else  {strategyName = strategy;}
 			<tr <%=bgcolorL%>>
 				<td colspan=2 align=center>
 					<br>
-					<%=fontB%>** Can't find the right Missional Team?<br>
-						Add a new Missional Team to the InfoBase here: </font>
+					<%=fontB%>** Can't find the right Team?<br>
+						Add a new Team to the InfoBase here: </font>
 					<%=fontB%><a href="/servlet/InfoBaseController?action=editTeam&mode=add&targetareaid=<%=targetAreaID%>&strategy=<%=strategy%>&from=addTeamToCampus">[New Team]</a><br></font><br>
 				</td>
 			</tr>
