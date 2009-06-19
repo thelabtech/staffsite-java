@@ -50,7 +50,7 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
         setDefaultAction("index");
         _bookmarks = new Bookmarks();
     }
-
+   
     public void saveTargetAreaInfo(ActionContext ctx) {
         try {
             if(ctx.getInputString("new")==null){

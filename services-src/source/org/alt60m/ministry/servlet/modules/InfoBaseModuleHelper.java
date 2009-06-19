@@ -38,27 +38,64 @@ public class InfoBaseModuleHelper {
     }
 
 
-    public static Section getSearchResults(String type,String name,String city,String state,String region, String strategy)throws Exception{
+    public static Section getSearchResults(String type,String name,String city,String state,String region,String country, String strategy)throws Exception{
     	Section t=new Section();
 		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
 		t.setName(t.getType()+" Search Results");
-    	if ((name+city+state+region+strategy).equals("('nonnull')('nonnull')")){
+    	if ((name+city+state+region+strategy).equals("('nonnull')('nonnull')")&&(country.equals("USA")||country.equals(""))){
     		return t;//return empty
     	}
-    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region,strategy);
+    	
+    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region,country,strategy);
     	while (rs.next()){
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			object.put("name",rs.getString("name")+"");
 			object.put("city",rs.getString("city")+"");
 			object.put("state",rs.getString("state")+"");
 			object.put("region",rs.getString("region")+"");
+			object.put("country",rs.getString("country")+"");
 			object.put("strategy",rs.getString("strategy")+"");
 			object.put("id",rs.getString("id")+"");
 			if(type.equals("person")){
 				object.put("accountNo",rs.getString("accountNo")+"");	
 			}
-			log.debug(object.toString());
 			t.addRow(object);
+		}
+    	return t;
+    }
+    public static Section getBreadcrumbSearchResults(String type,String name,String city,String state,String region, String country, String granularity)throws Exception{
+    	Section t=new Section();
+		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
+		String granularTitle=granularity.substring(0,1).toUpperCase()+granularity.substring(1).toLowerCase();
+		t.setName("Look for your "+t.getType()+" by selecting the "+granularTitle+" below:");
+    	ResultSet rs= InfoBaseModuleQueries.getBreadcrumbSearchResults(type,name,city,state,region,country, granularity);
+    	boolean hasEmpty=false;
+    	boolean isEmpty=false;
+    	while (rs.next()){
+    		isEmpty=false;
+			Hashtable<String,Object> object=new Hashtable<String,Object>();
+			String objectName=rs.getString("name")+"";
+			if(granularity.equals("country"))objectName=org.alt60m.util.CountryCodes.codeToName(objectName)+"";
+			if(granularity.equals("region"))objectName=org.alt60m.ministry.Regions.expandRegion(objectName);
+			if(granularity.equals("state"))objectName=org.alt60m.ministry.States.expandState(objectName);
+			object.put("city","city name".contains(granularity)?rs.getString("city")+"":"");
+			object.put("state","state city name".contains(granularity)&&(rs.getString("country")+"").equals("USA")?rs.getString("state")+"":"");
+			object.put("country","country state city name".contains(granularity)?rs.getString("country")+"":"");
+			object.put("region","region country state city name".contains(granularity)?rs.getString("region")+"":"");
+			if(objectName.equals("")||objectName.equals("null")){
+				objectName="Empty "+granularity;
+				object.put(granularity, objectName);
+				isEmpty=true;
+			}
+			object.put("name",objectName);
+			object.put("strategy","");
+			object.put("id",rs.getString("id")+"");
+			if(type.equals("person")){
+				object.put("accountNo",rs.getString("accountNo")+"");	
+			}
+			if(!isEmpty){
+				t.addRow(object);
+			}
 		}
     	return t;
     }
@@ -130,7 +167,6 @@ public class InfoBaseModuleHelper {
     public Vector<Contact> listContactsByLastName(String search) throws Exception {
     	try{
     		return InfoBaseModuleQueries.listContactsByLastName(search);
-    		
     	}
     	catch (Exception e) {
             log.error("Failed to perform listContactsByLastName().", e);
@@ -139,7 +175,6 @@ public class InfoBaseModuleHelper {
     }
 
 	public static Section listTeamsForPerson(String personID){
-		
 		return InfoBaseModuleQueries.listTeamsForPerson(personID);
 	}
 	
@@ -209,6 +244,7 @@ public class InfoBaseModuleHelper {
 			h.put("state", rs.getString("state")+"");
 			h.put("url", rs.getString("url")+"");
 			h.put("facebook", rs.getString("facebook")+"");
+			h.put("contacts", InfoBaseModuleQueries.getMovementContacts(rs.getString("id")+""));
 			s.addRow(h);
 		}
 		return s;
@@ -219,18 +255,17 @@ public class InfoBaseModuleHelper {
         	if (lastClass.equals("")) lastClass=(String)ctx.getSessionValue("lastClass");
         	if (lastClass.equals("")) lastClass="location";
 	    	String key=lastClass+"_search";
-	    	
 	    	if (ctx.getSessionValue(key)!=null){
-	    		
 	    		return (Hashtable)ctx.getSessionValue(key);
 	    	}
 	    	else
 	    	{
 	    		Hashtable searchHash=new Hashtable();
-	    		searchHash.put("type", "");
+	    		searchHash.put("type", lastClass);
 	            searchHash.put("name", "");
 	            searchHash.put("city", "");
 	            searchHash.put("state", "");
+	            searchHash.put("country", "");
 	            searchHash.put("region", "('nonnull')");
 	            searchHash.put("strategy", "('nonnull')");
 	            ctx.setSessionValue(key,searchHash);
@@ -240,18 +275,12 @@ public class InfoBaseModuleHelper {
 	    }
 	  public static Hashtable lastSearch(ActionContext ctx)
 	  {
-		 
 		   		return org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper.sessionSearch(ctx);
-		   
 	  }
    	public static String lastClass(ActionContext ctx){
    		String lastClass=ctx.getInputString("module");
-   		log.debug(lastClass);
    		if (lastClass==null) lastClass=(String)ctx.getSessionValue("lastClass");
-   		log.debug(lastClass);
-       	if (lastClass==null) lastClass="location";
-       	log.debug(lastClass);
-       	
+       	if (lastClass==null) lastClass="location";       	
    		ctx.setSessionValue("lastClass", lastClass);
    		return lastClass;
    	}
@@ -265,6 +294,7 @@ public class InfoBaseModuleHelper {
        	String name = ctx.getInputString("name")==null?(String)sessionSearch.get("name"):ctx.getInputString("name");
            String city = ctx.getInputString("city")==null?(String)sessionSearch.get("city"):ctx.getInputString("city");
            String state = ctx.getInputString("state")==null?(String)sessionSearch.get("state"):ctx.getInputString("state");
+           String country = ctx.getInputString("country")==null?(String)sessionSearch.get("country"):ctx.getInputString("country");
            String strategy="(";
            if(ctx.getInputStringArray("strategy")!=null){
            String[] strategies=ctx.getInputStringArray("strategy");
@@ -297,6 +327,7 @@ public class InfoBaseModuleHelper {
 	        searchHash.put("city", city);
 	        searchHash.put("state", state);
 	        searchHash.put("region", region);
+	        searchHash.put("country", country);
 	        searchHash.put("strategy", strategy);
 	        log.debug(searchHash.toString());
 	        ctx.setSessionValue(type+"_search", searchHash);

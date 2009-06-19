@@ -49,7 +49,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             String personID = ctx.getInputString("personID", true);
             MovementHelper ibt = new MovementHelper();
             ibt.savePersonContact(personID, activityId);
-            index(ctx);
+            content(ctx);
             
         }
         catch (Exception e) {
@@ -64,7 +64,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             String personID = ctx.getInputString("personID");
             MovementHelper ibt = new MovementHelper();
 			ibt.removePersonContact( personID,activityId);
-			 index(ctx);
+			content(ctx);
         }
         catch (Exception e) {
             ctx.setError();

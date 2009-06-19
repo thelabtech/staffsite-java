@@ -28,4 +28,14 @@ public class TestOracleController extends Controller {
 		tsu.performUpdate();
 		ctx.goToURL("/servlet/StaffController?action=showHome");
 	}
+	public void testTeamUpdater(ActionContext ctx){
+		org.alt60m.ministry.bean.TeamUpdater tu = new org.alt60m.ministry.bean.TeamUpdater();
+		tu.performUpdate();
+		ctx.goToURL("/servlet/StaffController?action=showHome");
+	}
+	public void stealTeamObjects(ActionContext ctx) throws Exception{
+		org.alt60m.ministry.bean.TeamUpdater tu = new org.alt60m.ministry.bean.TeamUpdater();
+		tu.stealTeamObjects();
+		ctx.goToURL("/servlet/StaffController?action=showHome");
+	}
 }

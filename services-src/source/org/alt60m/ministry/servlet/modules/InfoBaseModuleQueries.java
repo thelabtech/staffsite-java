@@ -20,8 +20,87 @@ public class InfoBaseModuleQueries {
 		Vector v = ll.selectList("((hasMultiRegionalAccess='T' AND isActive = 'T') OR (region = '" + region + "' AND isActive = 'T')) ORDER BY name");
 		return v;
 	}
-  
-	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String strategy)throws Exception{
+	public static ResultSet getBreadcrumbSearchResults(String type,String name,String city,String state,String region,String country,  String granularity)throws Exception{
+		Vector<Object>result=new Vector<Object>();
+		Connection conn = DBConnectionFactory.getDatabaseConn();
+		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		String tables="";
+		String select="";
+		String group="";
+		String orderBy="name";
+		String conditions="";
+		String typeConditions="";
+		String nameExp="";
+		String tableAbbr="";
+		city=city.replace("'","''");
+		country=country.replace("'","''");
+		boolean isWSN= (!country.equals("USA")&&!country.equals(""));
+		name=name.replace("'","''");
+		if (type.equals("person")){
+			tableAbbr=" ma.";
+			typeConditions="  and (mp.lastName<>'' and mp.firstName<>'' and ma.email<>'') ";
+			
+			tables=" ministry_person mp inner join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') ";
+			if(granularity.equals("country")){
+				orderBy="ma.country";
+				
+			}else if(granularity.equals("region")){
+				tableAbbr=" mp.";
+			}else {
+				
+			}
+			group=tableAbbr+granularity+" ";
+			select=" Select "+tableAbbr+granularity+" as name, "+
+			" ma.city as city, ma.state as state, ma.country as country, mp.region as region,  mp.personID as id, mp.accountNo as accountNo ";
+	
+		}else if (type.equals("team")){
+			tableAbbr=" ml.";
+			group=tableAbbr+granularity+" ";
+			tables=" ministry_locallevel ml ";
+			select=" Select "+tableAbbr+granularity+" as name, "+
+					" ml.city as city, ml.state as state, ml.region as region,  ml.country as country, ml.teamID as id ";
+			typeConditions="  ";
+			
+		}else { 
+			tableAbbr=" mt.";
+			group=tableAbbr+granularity+" ";
+			tables=" ministry_targetarea mt ";
+			select=" Select "+tableAbbr+granularity+" as name, "+
+					" mt.city as city, mt.state as state, mt.region as region,   mt.country as country, mt.targetAreaID as id ";
+			
+			typeConditions="  and (mt.eventType is null or mt.eventType<=>'') ";
+			
+		}
+
+		if (!city.equals("")&&city!=null&&!city.toUpperCase().equals("EMPTY CITY")){
+			conditions +=" and upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
+		}else if (city.toUpperCase().equals("EMPTY CITY")){
+			conditions +=" and (city is null or city='') ";
+		}
+		if (!state.equals("")&&state!=null&&!state.toUpperCase().equals("EMPTY STATE")){
+			conditions +=" and upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
+		}else if (state.toUpperCase().equals("EMPTY STATE")&&!isWSN){
+			conditions +=" and (state is null or state='') ";
+		}
+		if (!country.equals("")&&country!=null&&!country.toUpperCase().equals("EMPTY COUNTRY")){
+			conditions +=" and upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
+		}else if (country.toUpperCase().equals("EMPTY COUNTRY")){
+			conditions +=" and (country is null or country='') ";
+		}
+		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null&&!region.toUpperCase().equals("('EMPTY REGION')")){
+			
+			conditions +="  and upper(region) in "+region.toUpperCase()+" ";
+		}else if (region.toUpperCase().equals("('EMPTY REGION')")&&!isWSN){
+			conditions +=" and (region is null or country='') ";
+		}
+		
+		
+		String qry=select + " from "+tables+" where  true "+conditions+typeConditions+" group by "+group+" order by "+orderBy+" asc;";
+		log.debug(qry);
+		return stmt.executeQuery(qry);
+		
+	} 
+	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String country,String strategy)throws Exception{
 		Vector<Object>result=new Vector<Object>();
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -33,6 +112,10 @@ public class InfoBaseModuleQueries {
 		String conditions="";
 		String typeConditions="";
 		String nameExp="";
+		String nameTestExp="";
+		city=city.replace("'","''");
+		country=country.replace("'","''");
+		name=name.replace("'","''");
 		if (!strategy.equals("")&&!strategy.toUpperCase().equals("('NONNULL')")&&strategy!=null){
 			reqStrategy=true;
 			reqMovement=true;
@@ -43,22 +126,24 @@ public class InfoBaseModuleQueries {
 					(reqMovement?" inner ":" left ")+" join ministry_movement_contact mmc on mmc.personID= mp.personID "+
 					(reqMovement?" inner ":" left ")+" join ministry_activity mact "+
 					" on ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ";
-			select=" Select concat(mp.firstName,' (',mp.preferredName,') ',mp.lastName) as name, "+
-					" ma.city as city, ma.state as state, mp.region as region, mact.strategy as strategy, mact.status as status, mp.personID as id, mp.accountNo as accountNo ";
-			nameExp=" concat(mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
+			select=" Select concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName)  as name, "+
+					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, mact.strategy as strategy, mact.status as status, mp.personID as id, mp.accountNo as accountNo ";
+			nameExp=" concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
+			nameTestExp=" concat(mp.firstName,mp.lastName) ";
 		}else if (type.equals("team")){
 			group=" ml.teamID ";
 			tables=" ministry_locallevel ml "+(reqMovement?" inner ":" left ")+"  join ministry_activity mact on (ml.teamID=mact.fk_teamID and mact.status <> 'IN' and mact.status is not null ) ";
 			select=" Select ml.name as name, "+
-					" ml.city as city, ml.state as state, ml.region as region, mact.strategy as strategy,  mact.status as status, ml.teamID as id ";
+					" ml.city as city, ml.state as state, ml.country as country, ml.region as region, mact.strategy as strategy,  mact.status as status, ml.teamID as id ";
 			nameExp=" ml.name ";
-			
+			nameTestExp=nameExp;
 		}else { 
 			group=" mt.targetAreaID ";
 			tables=" ministry_targetarea mt "+(reqMovement?" inner ":" left ")+" join ministry_activity mact on (mt.targetAreaID=mact.fk_targetAreaID and mact.status <> 'IN' and mact.status is not null  ) ";
 			select=" Select mt.name as name, "+
-					" mt.city as city, mt.state as state, mt.region as region, mact.strategy as strategy,  mact.status as status, mt.targetAreaID as id ";
+					" mt.city as city, mt.state as state,  mt.country as country, mt.region as region, mact.strategy as strategy,  mact.status as status, mt.targetAreaID as id ";
 			nameExp=" mt.name ";
+			nameTestExp=nameExp;
 			typeConditions=" and (mt.eventType is null or mt.eventType<=>'') ";
 			
 		}
@@ -81,13 +166,16 @@ public class InfoBaseModuleQueries {
 		}
 		else
 		{
-			conditions +=" and upper("+nameExp+") is not null ";
+			conditions +=" and upper("+nameTestExp+") is not null ";
 		}
 		if (!city.equals("")&&city!=null){
 			conditions +=" and upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
 		}
 		if (!state.equals("")&&state!=null){
 			conditions +=" and upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
+		}
+		if (!country.equals("")&&country!=null){
+			conditions +=" and upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
 		}
 		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
 			
@@ -192,7 +280,7 @@ public class InfoBaseModuleQueries {
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
-			" where mmc.personID="+personID+"  and ma.status<>'IN'  order by size desc ;";
+			" where mmc.personID="+personID+"  and ma.status<>'IN'  order by  location asc, strategy asc, size desc ;";
 			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
@@ -220,7 +308,7 @@ public class InfoBaseModuleQueries {
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
-			" where ma.fk_teamID="+teamID+" and ma.status<>'IN'  order by size desc  ;";
+			" where ma.fk_teamID="+teamID+" and ma.status<>'IN'  order by location asc, strategy asc, size desc  ;";
 			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
@@ -251,7 +339,7 @@ public class InfoBaseModuleQueries {
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" "+
-			" where ma.fk_targetAreaId="+taID+" and ma.status<>'IN' order by size desc ;";
+			" where ma.fk_targetAreaId="+taID+" and ma.status<>'IN' order by team asc, strategy asc, size desc ;";
 			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
@@ -355,12 +443,12 @@ public class InfoBaseModuleQueries {
 			Hashtable<String,Object> h=new Hashtable<String,Object>();
 			while (rs.next()){
 				h=new Hashtable<String,Object>();
-				h.put("id", rs.getString("teamID"));
-				h.put("name", rs.getString("name"));
-				h.put("city", rs.getString("city"));
-				h.put("state", rs.getString("state"));
-				h.put("region", rs.getString("region"));
-				h.put("strategy", rs.getString("strategy"));
+				h.put("id", rs.getString("teamID")+"");
+				h.put("name", rs.getString("name")+"");
+				h.put("city", rs.getString("city")+"");
+				h.put("state", rs.getString("state")+"");
+				h.put("region", rs.getString("region")+"");
+				h.put("strategy", rs.getString("strategy")+"");
 				t.addRow(h);
 			}
 			return t;

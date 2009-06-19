@@ -95,19 +95,26 @@ public class InfoBaseModuleController extends Controller {
     public void search(ActionContext ctx) {
         try {
         	ActionResults results = new ActionResults("search");
-        	
+        	String granularity="name";
         	String lastClass=InfoBaseModuleHelper.lastClass(ctx);
-        	
     		ctx.setSessionValue("lastClass", lastClass);
     		ctx.setSessionValue(lastClass, "search");
         	ctx.setSessionValue("home", "search");
            
             Hashtable terms=InfoBaseModuleHelper.storeSearch(ctx);
-            
-			Section list=InfoBaseModuleHelper.getSearchResults((String)terms.get("type"),
+            Section list;
+            if(ctx.getInputString("breadcrumb")==null||(!((String)terms.get("city")).equals(""))||(!((String)terms.get("name")).equals(""))){
+					list=InfoBaseModuleHelper.getSearchResults((String)terms.get("type"),
 					(String)terms.get("name"),(String)terms.get("city"),(String)terms.get("state"),
-					(String)terms.get("region"),(String)terms.get("strategy"));
-			
+					(String)terms.get("region"),(String)terms.get("country"),(String)terms.get("strategy"));
+            } else {
+            	granularity=(String)ctx.getInputString("breadcrumb");
+            	list=InfoBaseModuleHelper.getBreadcrumbSearchResults((String)terms.get("type"),
+    					(String)terms.get("name"),(String)terms.get("city"),(String)terms.get("state"),
+    					(String)terms.get("region"),(String)terms.get("country"),granularity);
+            	results.putValue("breadcrumb","true");
+            	
+            }
 			Vector<Section> content=new Vector<Section>();
 			content.add(list);
 			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
@@ -116,9 +123,10 @@ public class InfoBaseModuleController extends Controller {
 			results.putValue("module", lastClass);
 			results.putValue("title", "Search Results");
 			results.putValue("mode", "list");
+			results.putValue("granularity", granularity);
             ctx.setReturnValue(results);
             ctx.setSessionValue(lastClass+"_response", results);
-            
+            ctx.setSessionValue("breadcrumb",null);
             ctx.goToView("index");
         }
         catch (Exception e) {
@@ -168,11 +176,31 @@ public class InfoBaseModuleController extends Controller {
         try {
         	String lastClass=InfoBaseModuleHelper.lastClass(ctx);
         	ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
-        	String id=(String)ctx.getSessionValue(lastClass)!=null?(String)ctx.getSessionValue(lastClass):"0";
+        	String id=ctx.getInputString("id");
+        	if(id==null){
+        		id=(String)ctx.getSessionValue(lastClass);
+        		}
+        	if(id==null||id.equals("0")||id.equals("")){
+        		ActionResults results = new ActionResults(lastClass+"_home");
+        		Section list=InfoBaseModuleHelper.getBreadcrumbSearchResults(lastClass,"","","","('nonnull')","","region");
+        		Vector<Section> content=new Vector<Section>();
+    			content.add(list);
+    			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
+    			results.addCollection("content", content);
+            	results.putValue("breadcrumb","true");
+            	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
+            	results.putValue("module", lastClass);
+    			results.putValue("title", lastClass+" home");
+    			results.putValue("mode", "home");
+    			results.putValue("granularity", "region");
+    			ctx.setReturnValue(results);
+                ctx.goToView(lastClass+"_home");
+        	}
+        	log.debug("id= "+id);
         	if (ctx.getSessionValue(lastClass+"_response")==null){
-	        	if(id.equals("search")||id.equals("0")){
+	        	if(id.equals("search")){
 	    			search(ctx);
-	    		}else {
+	    		}else if(!id.equals("0")&&!id.equals("")){
 	    			content(ctx);
 	        	}
         	} else
