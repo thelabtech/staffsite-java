@@ -65,23 +65,23 @@ public class TeamHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
         }
 		return newInfo;
 	}
-    public static Section getTeamSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
-    	Section t=new Section();
-		t.setType("Team");
-		t.setName("Team Search Results");
-    	ResultSet rs= TeamQueries.getSearchResults("team",name,city,state,region,strategy);
-    	while (rs.next()){
-    		log.debug(rs.getString("strategy")+" "+rs.getString("status"));
-			Hashtable<String,Object> object=new Hashtable<String,Object>();
-			object.put("name",rs.getString("name")+"");
-			object.put("city",rs.getString("city")+"");
-			object.put("state",rs.getString("state")+"");
-			object.put("region",rs.getString("region")+"");
-			object.put("id",rs.getString("id")+"");
-			t.addRow(object);
-		}
-    	return t;
-    }
+//    public static Section getTeamSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
+//    	Section t=new Section();
+//		t.setType("Team");
+//		t.setName("Team Search Results");
+//    	ResultSet rs= TeamQueries.getSearchResults("team",name,city,state,region,strategy);
+//    	while (rs.next()){
+//    		log.debug(rs.getString("strategy")+" "+rs.getString("status"));
+//			Hashtable<String,Object> object=new Hashtable<String,Object>();
+//			object.put("name",rs.getString("name")+"");
+//			object.put("city",rs.getString("city")+"");
+//			object.put("state",rs.getString("state")+"");
+//			object.put("region",rs.getString("region")+"");
+//			object.put("id",rs.getString("id")+"");
+//			t.addRow(object);
+//		}
+//    	return t;
+//    }
     public static synchronized void saveTeam(Hashtable request, String localLevelId, String mode) throws Exception {
         try {
             LocalLevel ll;

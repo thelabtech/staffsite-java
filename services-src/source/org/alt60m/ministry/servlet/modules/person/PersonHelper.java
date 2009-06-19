@@ -33,24 +33,24 @@ public class PersonHelper extends org.alt60m.ministry.servlet.modules.InfoBaseMo
 		result=infotize(person);
 	    return result;
 	}
-    public static Section getPersonSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
-    	Section t=new Section();
-		t.setType("Person");
-		t.setName("Person Search Results");
-    	
-    	ResultSet rs= PersonQueries.getSearchResults("person", name,city,state,region,strategy);
-    	while (rs.next()){
-			Hashtable<String,Object> object=new Hashtable<String,Object>();
-			object.put("name",rs.getString("name")+"");
-			object.put("city",rs.getString("city")+"");
-			object.put("state",rs.getString("state")+"");
-			object.put("region",rs.getString("region")+"");
-			object.put("id",rs.getString("id")+"");
-			object.put("accountNo",rs.getString("accountNo")+"");	//differs from other modules
-			t.addRow(object);
-		}
-    	return t;
-    }
+//    public static Section getPersonSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
+//    	Section t=new Section();
+//		t.setType("Person");
+//		t.setName("Person Search Results");
+//    	
+//    	ResultSet rs= PersonQueries.getSearchResults("person", name,city,state,region,strategy);
+//    	while (rs.next()){
+//			Hashtable<String,Object> object=new Hashtable<String,Object>();
+//			object.put("name",rs.getString("name")+"");
+//			object.put("city",rs.getString("city")+"");
+//			object.put("state",rs.getString("state")+"");
+//			object.put("region",rs.getString("region")+"");
+//			object.put("id",rs.getString("id")+"");
+//			object.put("accountNo",rs.getString("accountNo")+"");	//differs from other modules
+//			t.addRow(object);
+//		}
+//    	return t;
+//    }
   public Staff getStaffObject(String staffId) throws Exception {
   try {
 		return new Staff(staffId);

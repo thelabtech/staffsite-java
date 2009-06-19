@@ -34,23 +34,23 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 		result=infotize(ta);
 	    return result;
 	}
-    public static Section getCampusSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
-    	Section t=new Section();
-		t.setType("Campus");
-		t.setName("Location Search Results");
-    	
-    	ResultSet rs= LocationQueries.getSearchResults("campus",name,city,state,region,strategy);
-    	while (rs.next()){
-			Hashtable<String,Object> object=new Hashtable<String,Object>();
-			object.put("name",rs.getString("name")+"");
-			object.put("city",rs.getString("city")+"");
-			object.put("state",rs.getString("state")+"");
-			object.put("region",rs.getString("region")+"");
-			object.put("id",rs.getString("id")+"");
-			t.addRow(object);
-		}
-    	return t;
-    }
+//    public static Section getCampusSearchResults(String name,String city,String state,String region,String strategy)throws Exception{
+//    	Section t=new Section();
+//		t.setType("Campus");
+//		t.setName("Location Search Results");
+//    	
+//    	ResultSet rs= LocationQueries.getSearchResults("campus",name,city,state,region,strategy);
+//    	while (rs.next()){
+//			Hashtable<String,Object> object=new Hashtable<String,Object>();
+//			object.put("name",rs.getString("name")+"");
+//			object.put("city",rs.getString("city")+"");
+//			object.put("state",rs.getString("state")+"");
+//			object.put("region",rs.getString("region")+"");
+//			object.put("id",rs.getString("id")+"");
+//			t.addRow(object);
+//		}
+//    	return t;
+//    }
     public void saveTargetAreaInfo(Hashtable request, String targetAreaId) throws Exception {
         try {
             TargetArea ta = new TargetArea(targetAreaId);
