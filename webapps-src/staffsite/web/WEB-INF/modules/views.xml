@@ -5,6 +5,11 @@
 	<view name="activityError" url="/modules/layout.jsp"></view>
 	<view name="index" url="/modules/layout.jsp"></view>
 	<view name="home" url="/modules/home.jsp"></view>
+	<view name="location_home" url="/modules/ministry_home.jsp"></view>
+	<view name="campus_home" url="/modules/ministry_home.jsp"></view>
+	<view name="movement_home" url="/modules/ministry_home.jsp"></view>
+	<view name="person_home" url="/modules/ministry_home.jsp"></view>
+	<view name="team_home" url="/modules/ministry_home.jsp"></view>
 	<view name="enter_stat" url="/modules/enter_stat.jsp"></view>
 	<view name="staffList" url="/modules/layout.jsp"></view>
 	<view name="personList" url="/modules/layout.jsp"></view>
