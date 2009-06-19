@@ -1,11 +1,4 @@
 
-body{
-	text-align:center;
-	background-color:#ffffff;
-	height:100%;
-	font-family:verdana,arial,sans-serif;
-	font-size:10px;
-}
 td{
 	
 	font-family:verdana,arial,sans-serif;
@@ -74,7 +67,7 @@ color:none;
 background-color:#ffffff;
 overflow:visible;
 font-family:verdana,arial,sans-serif;
-font-size:10px;
+
 }
 div.narrow_left_panel
 {
@@ -82,7 +75,7 @@ display:block;
 width:auto;
 height:auto;
 font-family:verdana,arial,sans-serif;
-font-size:10px;
+
 }
 
 div#content

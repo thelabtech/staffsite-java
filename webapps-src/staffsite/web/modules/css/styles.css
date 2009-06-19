@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, Verdana;
+	font-size: 12px;
+	}
+
+h1 {padding-left: 8px;}
+img {border: none;}
+a {padding: 0; margin: 0; display: inline; color: #6c2a10;}
+
+#wrapper {
+	max-width: 1200px;
+	min-width: 940px;
+	margin: 0 auto;
+	}
+	
+	#innerwrapper {
+		margin: 0 20px 0 20px;
+		}
+
+#logobar {
+	background: none;
+	min-height: 80px;
+	}
+	
+	.logoside {float: left;}
+	
+		a.logo {
+			background: url(../images/infobaselogo.png) no-repeat 50% 50%;
+			width: 127px;
+			height: 45px;
+			display: block;
+			margin-left: 15px;
+			margin-top: 22px;
+			}
+
+	.quicksearch {
+		padding: 6px;
+		width: 218px;
+		background: #dbdbdb;
+		min-height: 23px;
+		display: block;
+		z-index:30;
+		margin-top: 25px;
+		float: right;
+		}
+		
+		.quicksearch img { margin-top: 3px; margin-left: 8px;}
+		.quicksearch:focus,
+		.quicksearch:hover{
+		height: 100px;
+		}
+
+	
+#menubar {
+	height: 69px;
+	background:url(../images/topmenubg.png) repeat-x bottom left;
+	}
+
+#mainmenu {
+	width: 100%;
+	}
+
+#bannerbar {
+	margin-top: 0px;
+	height: 112px;
+	width: auto;
+	background: #E7C379;
+	padding: 0;
+	text-align: right;
+	}
+
+#breadcrumb {
+	font-size: 12px;
+	padding: 10px 8px;
+	}
+
+#breadcrumb .breadcrumbspacer{
+	margin: 0 3px 0 3px;
+	color: gray;
+	}
+
+div.textfieldwrap {width: 185px; background: #fff; clear: none; display: block; float: left; padding: 2px;}
+div.textfieldwrap input{ border: none; width: 100%;}
+
+
+/* ********************* */
+ul.results {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+ul.results li{
+height: 35px;
+overflow: hidden;
+background: #f0f0f0;
+margin-bottom: 2px;
+}
+
+ul.results li.selected {
+height: auto;
+background: #e7e7e7;
+}
+
+table.movementheader {
+width: 100%;
+border-collapse: collapse;
+padding: 0;
+margin: 0;
+height: 35px;
+}
+
+table.movementheader th {
+font-weight: normal;
+text-align: left;
+font-size: 12px;
+padding-left: 8px;
+}
+
+th.expand, td.expand {width: 60px; background: url(../images/expand.png) 50% 50% no-repeat; }
+ul.results li.selected th.expand {width: 60px; background: url(../images/contract.png) 50% 50% no-repeat; }
+th.schoolname, td.schoolname{width: 50%;}
+th.region, td.region{width: 7%;}
+th.city, td.city{width: 20%;}
+th.state, td.state{width: 10%;}
+th.zip, td.zip{width: 10%;}
+
+
+table.movementlist {
+font-size: 12px;
+}
+
+table.movementlist td.schoolname {padding: 3px 3px 3px 20px;}
+table.movementlist td.expand {background: none;}

@@ -1,5 +1,6 @@
 <table>
 <%
+
 Vector<Hashtable<String,Object>>rows=section.getRows();
 for(Hashtable h:rows){%>
 <tr>
@@ -7,6 +8,5 @@ for(Hashtable h:rows){%>
 	<%String region=(String)h.get("region"); %>
 	<td><%=h.get("city") %>, <%=h.get("state") %>, <%=org.alt60m.ministry.Regions.expandRegion(region) %> </td>
 	<td><i><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></i></td>
-</tr>
 <%}%>
 </table>

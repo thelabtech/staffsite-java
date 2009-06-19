@@ -6,7 +6,9 @@ for(Section section:subordinate_objects){
 	%><b><%= section.getName() %></b><br>
 	<%
 	type=section.getType();
-	if(type.equals("Team")){%>
+	if(mode.equals("list")){%>
+		<%@ include file="/modules/_search_results.jspf" %>
+	<%}	else if(type.equals("Team")){%>
 		<%@ include file="/modules/_list_teams.jspf" %>
 	<%} else if(type.equals("Person")){%>
 		<%@ include file="/modules/_list_persons.jspf" %>

@@ -1,9 +1,12 @@
 <table>
 <%
+
 boolean present=false;
 Vector<Hashtable<String,Object>>rows=section.getRows();
 for(Hashtable h:rows){%>
+
 <tr>
+
 	<td>
 		<%if(module.equals("team")&&ar.getValue("personID").equals(h.get("id"))){present=true;} %>
 	 <%if(module.equals("team")&&((session.getValue("isHR").equals("true"))||h.get("id").equals(ar.getValue("personID"))||ar.getValue("isRD").equals("true"))){ %>
@@ -14,8 +17,6 @@ for(Hashtable h:rows){%>
 	<A href="/servlet/Person?action=content&module=person&id=<%= h.get("id") %>&accountNo=<%=h.get("accountNo")%>"><%=((String) h.get("name")).replace(" (null)","") %></A></td>
 	<td><%=h.get("city") %>, <%=h.get("state") %></td>
 	<td><%@ include file="/modules/_team_leader.jspf" %></td>		
-		
-</tr>
 <%}%>
   <%if(module.equals("team")&&(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true"))){ %>
 <tr><td colspan="2">		

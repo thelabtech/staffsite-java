@@ -8,7 +8,7 @@
 	Vector<String> keys=UnlockCampus.keys((String)(ActionResults.getActionResults(session).getValue("userName")));
 	String strategyList=ar.getValue("strategyList");
 	String[] displayList=strategyList.replace("'","").replace(" ","").split(",");
-	String pageTitle="Ministry Tracker";
+	
 	String reportTitle ="";
 	String region=ar.getValue("region");
 	String type=ar.getValue("type");

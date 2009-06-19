@@ -9,6 +9,20 @@
 <TITLE><%=ar.getValue("title") %></TITLE>
 
 <link rel="stylesheet" type="text/css" href="/modules/stylesheets/layout_css.jsp" />
+  	<link rel="stylesheet" type="text/css" href="/modules/css/superfish.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/modules/css/superfish-navbar.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/modules/css/styles.css" media="screen">
+    <script type="text/javascript" src="/modules/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/modules/js/hoverIntent.js"></script>
+    <script type="text/javascript" src="/modules/js/superfish.js"></script>
+
+    <script type="text/javascript" src="/modules/js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+			// initialise plugins
+			jQuery(function(){
+				jQuery('ul.sf-menu').superfish();
+			});
+    </script>
 </HEAD>
 <body>
 	<div id="wrapper">
@@ -16,12 +30,14 @@
 			<div id="logobar">
 		          <div class="logoside">
 		
-		           	 <a href="Home" alt="InfoBase Home"><img src="/modules/images/home.gif"></a>
+		           	 <a href="Home" class="logo" alt="InfoBase Home"><img src="/modules/images/home.gif"></a>
 		          </div><!-- logoside -->
 		          
-						<%@ include file="/modules/_search.jspf" %>
 						
 						
+				
+           		 <%@ include file="/modules/_search.jspf" %>
+					
 					
         	</div><!-- logobar -->
 <%@ include file="/modules/_menubar.jspf" %>

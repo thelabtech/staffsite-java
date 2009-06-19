@@ -1,11 +1,12 @@
 <table>
 <%
+
 Vector<Hashtable<String,Object>>rows=section.getRows();
 for(Hashtable h:rows){%>
 <tr>
-	<td><A href="/servlet/Campus?action=content&module=location&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>
+
+	<td><A href="/servlet/<%=searchUrl %>?action=content&module=location&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>
 	<%String region=(String)h.get("region"); %>
-	<td><%=h.get("city") %>, <%=h.get("state") %>, <%=org.alt60m.ministry.Regions.expandRegion(region) %> </td>
-</tr>
+	<td><%=h.get("city") %>, <%=org.alt60m.ministry.States.expandState((String)h.get("state")) %>, <%=org.alt60m.ministry.Regions.expandRegion(region) %> </td>
 <%}%>
 </table>

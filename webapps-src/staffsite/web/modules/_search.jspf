@@ -17,7 +17,23 @@
 Name:<input name="name" type="text" value="<%=search.get("name")!=null?search.get("name"):"" %>"/><br>
 City:<input name="city" type="text" value="<%=search.get("city")!=null?search.get("city"):"" %>"/><br>
 State:<input name="state" type="text" value="<%=search.get("state")!=null?search.get("state"):"" %>"/><br>
-
+Country:<select name="country" >
+		<%String selectedCountry=search.get("country")!=null?(String)search.get("country"):"";
+		String[] countrySearchArray=org.alt60m.util.CountryCodes.countryList;
+		int countriesLength=countrySearchArray.length;
+		int realLength=countriesLength/2;
+		for(int i=0;i<realLength;i++){
+			String countryCode=countrySearchArray[(i*2)+1];
+			String countryName=countrySearchArray[(i*2)];
+			%>
+<option value="<%=countryCode %>"  <%=selectedCountry.equals(countryCode)?"selected":"" %>><%=countryName %></option>
+<%
+			
+		}
+		
+		
+		%>					
+</select>
 <table><tr>
 <td>
 Strategy:<br>

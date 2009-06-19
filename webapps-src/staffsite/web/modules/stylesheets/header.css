@@ -31,7 +31,8 @@ ul#mainmenu li.active,ul#mainmenu li.inactive
 	padding:10px;
 	width:auto;
 display:block;
-float:left;	
+float:left;
+color:white;
 	
 }
 
@@ -41,10 +42,7 @@ ul#mainmenu li  a, ul#mainmenu li  a:visited
 	color:#cdcdcd;
 }
 
- ul#mainmenu li.active  a, ul#mainmenu li.active  a:visited
-{
-	color:white;
-}
+
  
 ul#submenu
 {
@@ -58,8 +56,31 @@ padding:10px;
 float:left;
 	
 }
+
+li.submenu_active
+{
+padding:10px;
+	width:auto;;
+	display:block;
+float:left;
+	
+}
 div#content h1
 {
 display:block;
 overflow:hidden;
+}
+span.breadcrumbspacer
+{
+display:none;
+
+}
+div.breadcrumb 
+{
+display:block;
+width:600px;
+}
+div.breadcrumb a
+{
+display:inline;
 }

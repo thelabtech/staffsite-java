@@ -7,6 +7,7 @@
 	String subModule="";
 	String thisRegion=null;
 	String thisState=null;
+	String thisCountry=null;
 	String thisCity=null;
 	String module=ar.getValue("module")==null?"location":ar.getValue("module");
 	String majorModule=ar.getValue("module")==null?"location":ar.getValue("module");
@@ -23,11 +24,12 @@
 	List contentModes=Arrays.asList("content","list","edit","addMember","addContact","editLocation","editMovement");
 	List searchModules=Arrays.asList("person","campus","location","movement","team");
 	if(searchModules.contains(module)&&contentModes.contains(mode)){
+		thisCountry=(String)ar.getHashtable("info").get("country");
 		thisRegion=(String)ar.getHashtable("info").get("region");
 		thisState=(String)ar.getHashtable("info").get("state");
 		thisCity=(String)ar.getHashtable("info").get("city");
 	}
-	if(searchModules.contains(module))majorModule=(session.getValue("lastClass")==null)?"Campus":(String)session.getValue("lastClass");
+	if(searchModules.contains(module))majorModule=(session.getValue("lastClass")==null)?"Location":(String)session.getValue("lastClass");
 	List infoModes=Arrays.asList("content","addMember","addContact","edit","editLocation","editMovement");
 	String layout=(normalModules.contains(module))?"normal":"special";
 	String isMuster=(session.getValue("isMuster")==null)?"false":((String)session.getValue("isMuster"));
@@ -38,8 +40,8 @@
 	String pageTitle="InfoBase";
 	if(infoModes.contains(mode)&&searchModules.contains(module)){
 		pageTitle=(String)info.get("name");
-	}else if(mode.equals("list")&&searchModules.contains(module)){
-			pageTitle=searchModuleUrl+" Search";
+	}else if(searchModules.contains(module)){
+			pageTitle="";
 		
 	}else if (module.equals("report")){
 		pageTitle=isMuster.equals("true")?"Movement Rollcall Report":"Success Criteria Report";

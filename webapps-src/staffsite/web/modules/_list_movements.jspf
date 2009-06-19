@@ -1,53 +1,89 @@
-<table>
+<ul class="results">
+
 <%
+
+int record=1;
+boolean isLocation=(module.equals("location")||module.equals("campus"));
 boolean isFirst=true;
 boolean topRow=true;
+String collapse_section_id="";
+String current_section_id="";
+String rowType="";
+String rowId="";
+if(isLocation){ 
+	rowType="Team";
+	rowId="team_id";
+}else{
+	rowType="Campus";
+	rowId="location_id";
+}
 Vector<Hashtable<String,Object>>rows=section.getRows();
-for(Hashtable h:rows){%>
-	<%if(!isFirst||topRow){ %>
+
+for(Hashtable h:rows){
+		String recordTitle="";
+		current_section_id=(String) h.get(rowId);
+		String strategyTags="";
+		for(Hashtable miniHash:rows){ //get strategy for each record in collapsing section
+			if(miniHash.get(rowId).equals(h.get(rowId))){
+				strategyTags+= org.alt60m.ministry.Strategy.expandStrategy((String)miniHash.get("strategy"))+", ";
+			}
+		}
+		if(isLocation){ 	
+			strategyTags+=" ";
+			strategyTags=strategyTags.replace(",  "," ");
+			recordTitle= strategyTags+" ( "+(String)h.get("team")+" ) ";
+		} else {
+			strategyTags+=")";
+			strategyTags=strategyTags.replace(", )"," )");
+			recordTitle=(String)h.get("location")+" ( "+strategyTags;
+		}%>
+		<!-- <%=collapse_section_id%> -->
+		<!-- <%=current_section_id%> --><%
+		if(!collapse_section_id.equals(current_section_id)){
+			collapse_section_id=current_section_id;
+			topRow=true; 
+			record++;
+		}
+		else
+		{
+			topRow=false;
+		}
+		if(topRow){ 
+			if(record>1){ %>
+		</table>
+		</li><%} %>
+		<li id="<%=record%>">
+		<table class="movementheader">
+				<tr onClick="javascript:$('#<%=record%>').toggleClass('selected');">
+		                <th class="expand"></th>
+						<th class="recordtitle"><A href="/servlet/<%=rowType%>?action=content&module=<%=rowType.toLowerCase() %>&id=<%= h.get(rowId) %>"><%=recordTitle%></A></th>
+				
+				</tr>
+		</table>
+		<table class="movementlist">
+			<%} %>
+			<%isFirst=true;%>
 		<tr>
-		<%if(!module.equals("campus")&&!module.equals("location")){ %>	
-		<td>Campus:</td>
-		<%}%>
-		<td>Strategy:</td>
-		<%if(module.equals("campus")||module.equals("location")){ %>	
-		<td>Team:</td>
-		<%}%>
-		<td>Size:</td>
-		</tr>
-	<%} %>
-	<%isFirst=true;
-%>
-<tr>
-	<%if(!module.equals("campus")&&!module.equals("location")){ %>	
-	<td><A href="/servlet/Campus?action=content&module=location&id=<%= h.get("location_id") %>"><%= h.get("location") %></A></td>
-	
-	<%}%>
-	<td><i><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></i></td>
-	<%if(module.equals("campus")||module.equals("location")){ %>	
-	<td><A href="/servlet/Team?action=content&module=team&id=<%= h.get("team_id") %>"><%= h.get("team") %></A></td>
-	<%}%>
+			<td class="expand"></td>
+			<td class="strategy"><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></td>
+			<td class="size"><%=h.get("size") %> students</td>
+			<td class="enter_stat"><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
+		<%if(isLocation){ %>
+			<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+				<td class="edit_movement"><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
+				Edit
+				</A></td>
+			<%}%>
+		<%} %>
+			
+		</tr>	
+			<%if(isLocation){ %>
+					<%@ include file="/modules/_list_contacts.jspf" %>
+			<%} %>		
 
-
-	<td><i><%=h.get("size") %> students</i></td>
-<%if(module.equals("campus")||module.equals("location")){ %>
-	<td><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
-<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-		<td><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
-		Edit
-		</A></td><%}%>
-	<%}%>
-</tr>	
-	<%
-	if(module.equals("campus")||module.equals("location")){
-		
-			%>
-			<%@ include file="/modules/_list_contacts.jspf" %>
-			<%
-		
-	} %>
-<%topRow=false; %>
 <%}%>
 </table>
+</li>
+</ul>
 <%@ include file="/modules/_add_contact.jspf" %>
 <%@ include file="/modules/_edit_movement.jspf" %>
