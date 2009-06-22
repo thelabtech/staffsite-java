@@ -65,7 +65,8 @@ function popupWindow(cUrl,cName,cFeatures) {
 			<%=fontHLXL%><b>GCX Account Not Verified</b></font><p>
 			<%=fontXL%>
 			Your GCX account has not yet been verified.<p>
-			<a href="/servlet/StaffController?action=verifyGCX">Verify GCX Account</a>. 
+<!--			<a href="/servlet/StaffController?action=verifyGCX">Verify GCX Account</a>. -->
+			<a href="https://signin.mygcx.org/sso/selfservice/activateAccount.jsp?service=http://staff.campuscrusadeforchrist.com">Verify GCX Account</a>.
 			<BR><BR>Then, if you are unable to login, click <A HREF="JavaScript: popupWindow('/help/help_logging_in.jsp', 'loginhelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">here for help.</a></font>
 		
 		<% } else if (errorCode.equalsIgnoreCase("ssmUserAlreadyExists")) { %>

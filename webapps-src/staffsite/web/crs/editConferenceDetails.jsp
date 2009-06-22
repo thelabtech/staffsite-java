@@ -564,6 +564,25 @@ try{
 					maxlength=50
 					value="<%=conference.getContactEmail()%>"></TD>
 			</TR>
+				<TR>
+				<TD
+					CLASS="hl"
+					ALIGN="RIGHT"
+					VALIGN="TOP">
+<%String statLink= "/servlet/InfoBaseController?action=enterEventSuccessCriteria&eventType=C1&eventKeyID="+conference.getConferenceID()+
+		"&name="+conference.getName()+
+		"&region="+conference.getRegion()+
+		"&email="+conference.getContactEmail()+
+		"&isSecure="+conference.getIsCloakedString()+
+		"&redirect=CRSAdmin%3Faction%3DeditConferenceDetails%26conferenceID%3D"+conference.getConferenceID()+
+		"&periodBegin="+conference.getMasterDefaultDateArrive().getTime()+
+		"&periodEnd="+conference.getMasterDefaultDateLeave().getTime();
+		
+		
+%>
+				<A href="<%=statLink %>">Enter Conference Stats</A></TD>
+				
+			</TR>
 			<% 
 		if(newEvent){
 %>

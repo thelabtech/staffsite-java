@@ -5,10 +5,10 @@
 	Hashtable search=ar.getHashtable("search");
 	String infoBox="";
 	String subModule="";
-	String thisRegion=null;
-	String thisState=null;
-	String thisCountry=null;
-	String thisCity=null;
+	String thisRegion="";
+	String thisState="";
+	String thisCountry="";
+	String thisCity="";
 	String module=ar.getValue("module")==null?"location":ar.getValue("module");
 	String majorModule=ar.getValue("module")==null?"location":ar.getValue("module");
 	String[] splitModule=module.split("_");

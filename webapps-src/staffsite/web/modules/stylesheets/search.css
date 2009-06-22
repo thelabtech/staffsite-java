@@ -24,11 +24,11 @@ div.quicksearch_open
 {
 	background-color:none;
 	border:none;
-	height:20px;
+	height:30px;
 	}
 		div.quicksearch_closed form
 {
-	display:none;
+	display:inline;
 	}
 div#quicksearch td
 {
@@ -36,7 +36,8 @@ font-size:10px;
 }
 div.quicksearch_closed a:link,div.quicksearch_closed a:active,div.quicksearch_closed a:visited
 {
-color:white;
+color:#333388;
+diaplsy:inline;
 }
 div.quicksearch_open a:link,div.quicksearch_open a:active,div.quicksearch_open a:visited
 {

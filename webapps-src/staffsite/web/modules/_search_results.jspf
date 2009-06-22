@@ -4,8 +4,7 @@ boolean firstRow=true;
 String granularity=(String)ar.getValue("granularity");
 Hashtable nextGran=new Hashtable();
 nextGran.put("class","region");
-nextGran.put("region","country");
-nextGran.put("country","state");
+nextGran.put("region","state");
 nextGran.put("state","city");
 nextGran.put("city","name");
 nextGran.put("name","name");
@@ -19,16 +18,7 @@ for(Hashtable h:rows){
 	String drillState=(((String)h.get("state")).equals("")||((String)h.get("state")).equals("null"))?"":((String)h.get("state"));
 	String drillCity=(((String)h.get("city")).equals("")||((String)h.get("city")).equals("null"))?"":((String)h.get("city"));
 	String crumbGran=(String)nextGran.get(granularity);
-	if(!drillCountry.equals("USA")&&crumbGran.equals("state"))crumbGran="city";
-	if (firstRow){
-		thisCountry=(!"class region country".contains(granularity))?drillCountry:"";
-		thisRegion=(!"class region ".contains(granularity))?drillRegion:"";
-		thisState=(!"class region country state ".contains(granularity)&&drillCountry.equals("USA"))?drillState:"";
-		thisCity=(!"class region country state city".contains(granularity))?drillCity:"";
-		
-	%><tr><td>
-	<%@ include file="/modules/_breadcrumb.jspf" %>	
-	</td></tr><%} %>
+%>
 <tr>
 <%if(ar.getValue("breadcrumb")==null){ %>
 	<td><A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>

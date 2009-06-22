@@ -1,3 +1,0 @@
-<a href="<%=moduleUrl %>?id=0&action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&forceType=true&quicksearch=true">
-Search for <%=moduleUrl%>s
-</a>

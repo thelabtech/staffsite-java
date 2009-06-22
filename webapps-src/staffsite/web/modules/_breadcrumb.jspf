@@ -1,23 +1,28 @@
 			  <div id="breadcrumb">
-				<%if (!searchModuleUrl.equals("Home")){ %>
+
+				<%if(searchModules.contains(module)){ %>
+
+				<%if (!thisRegion.equals("")){ %>
 			      	<a href="<%=searchUrl %>?action=search&type=<%=module %>&module=<%=module %>&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region"><%=moduleUrl %></a>
 						<span class="breadcrumbspacer"></span>
-							<%if (thisRegion!=null){ %>
-					<a href="<%=searchUrl %>?action=search&type=<%=module %>&module=<%=module %>&country=&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=&city=&name=&strategy=nonnull&breadcrumb=country"><%=thisRegion.equals("")?"":">"+org.alt60m.ministry.Regions.expandRegion(thisRegion)%></a>
+							
+					<a href="<%=searchUrl %>?action=search&type=<%=module %>&module=<%=module %>&country=&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=&city=&name=&strategy=nonnull&breadcrumb=state"><%=thisRegion.equals("")?"":">"+org.alt60m.ministry.Regions.expandRegion(thisRegion)%></a>
 						<span class="breadcrumbspacer"></span>
-										<%if (thisCountry!=null){ %>
+										
 					<a href="<%=searchUrl %>?action=search&type=<%=module %>&module=<%=module %>&country=<%=thisCountry.equals("")?"":thisCountry%>&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=&city=&name=&strategy=nonnull&breadcrumb=<%=thisCountry.equals("USA")?"state":"city" %>"><%=thisCountry.equals("")?"":">"+org.alt60m.util.CountryCodes.codeToName(thisCountry)%></a>
 						<span class="breadcrumbspacer"></span>		
-													<%if (thisState!=null){ %>
+													
 					<a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=thisCountry.equals("")?"":thisCountry%>&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=<%=thisState %>&city=&name=&strategy=nonnull&breadcrumb=city"><%=(!thisCountry.equals("USA")||thisState.equals(""))?"":">"+org.alt60m.ministry.States.expandState(thisState)%></a>
 						<span class="breadcrumbspacer"></span>
-																			<%if (thisCity!=null){ %>
+																			
 					<a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=thisCountry.equals("")?"":thisCountry%>&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=<%=thisState %>&city=<%=thisCity %>&name=&strategy=nonnull&breadcrumb=name"><%=thisCity.equals("")?"":">"+thisCity%></a>
 						<span class="breadcrumbspacer"></span>
-																		      <%} %>
-												      <%} %>
-								      <%} %>
-							<%} %>
-			      <%} %>
+																		    
+			      <%} else {%>
+					<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Quick Search for <%=moduleUrl %>s</a>
+				<%} %>
+				<%} else { %>
 
+
+				<%} %>
 			  </div>
