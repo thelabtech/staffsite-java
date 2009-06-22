@@ -39,7 +39,8 @@ public class InfoBaseModuleQueries {
 		if (type.equals("person")){
 			tableAbbr=" ma.";
 			typeConditions="  and (mp.lastName<>'' and mp.firstName<>'' and ma.email<>'') ";
-			
+			typeConditions+=granularity.equals("country")?" and ma.country <> 'USA' ":"";
+			typeConditions+=granularity.equals("state")?" and ma.country = 'USA' ":"";
 			tables=" ministry_person mp inner join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') ";
 			if(granularity.equals("country")){
 				orderBy="ma.country";
@@ -60,6 +61,8 @@ public class InfoBaseModuleQueries {
 			select=" Select "+tableAbbr+granularity+" as name, "+
 					" ml.city as city, ml.state as state, ml.region as region,  ml.country as country, ml.teamID as id ";
 			typeConditions="  ";
+			typeConditions+=granularity.equals("country")?" and ml.country <> 'USA' ":"";
+			typeConditions+=granularity.equals("state")?" and ml.country = 'USA' ":"";
 			
 		}else { 
 			tableAbbr=" mt.";
@@ -69,35 +72,31 @@ public class InfoBaseModuleQueries {
 					" mt.city as city, mt.state as state, mt.region as region,   mt.country as country, mt.targetAreaID as id ";
 			
 			typeConditions="  and (mt.eventType is null or mt.eventType<=>'') ";
-			
+			typeConditions+=granularity.equals("country")?" and mt.country <> 'USA' ":"";
+			typeConditions+=granularity.equals("state")?" and mt.country = 'USA' ":"";
 		}
 
-		if (!city.equals("")&&city!=null&&!city.toUpperCase().equals("EMPTY CITY")){
-			conditions +=" and upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}else if (city.toUpperCase().equals("EMPTY CITY")){
-			conditions +=" and (city is null or city='') ";
+		if (!city.equals("")&&city!=null){
+			conditions +=" and ((upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%') ) ";
 		}
-		if (!state.equals("")&&state!=null&&!state.toUpperCase().equals("EMPTY STATE")){
-			conditions +=" and upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}else if (state.toUpperCase().equals("EMPTY STATE")&&!isWSN){
-			conditions +=" and (state is null or state='') ";
+		if (!state.equals("")&&state!=null){
+			conditions +=" and ((upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%') ) ";
 		}
-		if (!country.equals("")&&country!=null&&!country.toUpperCase().equals("EMPTY COUNTRY")){
-			conditions +=" and upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}else if (country.toUpperCase().equals("EMPTY COUNTRY")){
-			conditions +=" and (country is null or country='') ";
+		
+		if (!country.equals("")&&country!=null){
+			conditions +=" and ((upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%'))  ";
 		}
-		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null&&!region.toUpperCase().equals("('EMPTY REGION')")){
+		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
 			
-			conditions +="  and upper(region) in "+region.toUpperCase()+" ";
-		}else if (region.toUpperCase().equals("('EMPTY REGION')")&&!isWSN){
-			conditions +=" and (region is null or country='') ";
+			conditions +="  and ((upper(region) in "+region.toUpperCase()+") ) ";
 		}
 		
 		
 		String qry=select + " from "+tables+" where  true "+conditions+typeConditions+" group by "+group+" order by "+orderBy+" asc;";
 		log.debug(qry);
-		return stmt.executeQuery(qry);
+		ResultSet rs=stmt.executeQuery(qry);
+		
+		return rs;
 		
 	} 
 	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String country,String strategy)throws Exception{
@@ -148,6 +147,7 @@ public class InfoBaseModuleQueries {
 			
 		}
 		if (!name.trim().equals("")&&name!=null){
+			
 			name=name.replace("%","");
 			String testPhrase="";
 			
@@ -162,7 +162,7 @@ public class InfoBaseModuleQueries {
 				}
 				testPhrase+=s;
 			}
-			conditions +=" and upper("+nameExp+") like '"+testPhrase+"' ";
+			conditions +=" and concat_ws('',upper("+nameExp+"),' ',upper(city)) like '"+testPhrase+"' ";
 		}
 		else
 		{
@@ -187,6 +187,7 @@ public class InfoBaseModuleQueries {
 		if(conditions.equals("")){conditions=" and false ";}
 		String qry=select + " from "+tables+" where true "+conditions+typeConditions+" group by "+group+" order by name asc;";
 		log.debug(qry);
+		
 		return stmt.executeQuery(qry);
 		
 	}
@@ -205,6 +206,7 @@ public class InfoBaseModuleQueries {
 			"%' and ministry_newaddress.email is not null and ministry_newaddress.addressType='current' group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
+			
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
 				contact.setAccountNo(rs.getString("accountNo"));
@@ -237,6 +239,7 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"' and not(isSecure<=>'T')  group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
+			
 			while (rs.next()){
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
@@ -372,6 +375,7 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_missional_team_member.teamID ='"+teamID+"'  and not(isSecure<=>'T') group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
+			
 			while (rs.next()){
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
@@ -415,6 +419,7 @@ public class InfoBaseModuleQueries {
 		" and ministry_missional_team_member.personID="+personID+" group by ministry_missional_team_member.teamID, ministry_missional_team_member.personID  ; ";
 		log.debug(query);
 		ResultSet rs = stmt.executeQuery(query);
+		
 		if (rs.next()){
 		if(rs.getString("is_leader")==null){
 			 return false;
@@ -440,6 +445,7 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_missional_team_member.personID ='"+personID+"' order by ministry_locallevel.name;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
+			
 			Hashtable<String,Object> h=new Hashtable<String,Object>();
 			while (rs.next()){
 				h=new Hashtable<String,Object>();

@@ -619,7 +619,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		// check that account is verified;
 		if (acctNo == null || acctNo.equals("")) {
 
-			log.info("User " + user.getUsername() + " is not verified.");
+			log.info("User " + user.getUsername() + " is not verified (no staff id).");
 			throw new UserNotVerifiedException();
 		}
 		try {

@@ -63,16 +63,14 @@ public class InfoBaseModuleHelper {
 		}
     	return t;
     }
-    public static Section getBreadcrumbSearchResults(String type,String name,String city,String state,String region, String country, String granularity)throws Exception{
+    public static Vector<Section> getBreadcrumbSearchResults(String type,String name,String city,String state,String region, String country, String granularity)throws Exception{
+    	Vector<Section>result=new Vector<Section>();
     	Section t=new Section();
 		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
 		String granularTitle=granularity.substring(0,1).toUpperCase()+granularity.substring(1).toLowerCase();
 		t.setName("Look for your "+t.getType()+" by selecting the "+granularTitle+" below:");
     	ResultSet rs= InfoBaseModuleQueries.getBreadcrumbSearchResults(type,name,city,state,region,country, granularity);
-    	boolean hasEmpty=false;
-    	boolean isEmpty=false;
     	while (rs.next()){
-    		isEmpty=false;
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			String objectName=rs.getString("name")+"";
 			if(granularity.equals("country"))objectName=org.alt60m.util.CountryCodes.codeToName(objectName)+"";
@@ -85,7 +83,7 @@ public class InfoBaseModuleHelper {
 			if(objectName.equals("")||objectName.equals("null")){
 				objectName="Empty "+granularity;
 				object.put(granularity, objectName);
-				isEmpty=true;
+				
 			}
 			object.put("name",objectName);
 			object.put("strategy","");
@@ -93,11 +91,42 @@ public class InfoBaseModuleHelper {
 			if(type.equals("person")){
 				object.put("accountNo",rs.getString("accountNo")+"");	
 			}
-			if(!isEmpty){
-				t.addRow(object);
-			}
+			t.addRow(object);
 		}
-    	return t;
+    	result.add(t);
+    	if(granularity.equals("state")&&!country.equals("USA")){
+    		granularity="country";
+    		t=new Section();
+    		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
+    		t.setName("Or look for your "+t.getType()+" in the Countries below:");
+        	rs= InfoBaseModuleQueries.getBreadcrumbSearchResults(type,name,city,state,region,country, granularity);
+        	while (rs.next()){
+    			Hashtable<String,Object> object=new Hashtable<String,Object>();
+    			String objectName=rs.getString("name")+"";
+    			if(granularity.equals("country"))objectName=org.alt60m.util.CountryCodes.codeToName(objectName)+"";
+    			if(granularity.equals("region"))objectName=org.alt60m.ministry.Regions.expandRegion(objectName);
+    			if(granularity.equals("state"))objectName=org.alt60m.ministry.States.expandState(objectName);
+    			object.put("city","city name".contains(granularity)?rs.getString("city")+"":"");
+    			object.put("state","state city name".contains(granularity)&&(rs.getString("country")+"").equals("USA")?rs.getString("state")+"":"");
+    			object.put("country","country state city name".contains(granularity)?rs.getString("country")+"":"");
+    			object.put("region","region country state city name".contains(granularity)?rs.getString("region")+"":"");
+    			if(objectName.equals("")||objectName.equals("null")){
+    				objectName="Empty "+granularity;
+    				object.put(granularity, objectName);
+    				
+    			}
+    			object.put("name",objectName);
+    			object.put("strategy","");
+    			object.put("id",rs.getString("id")+"");
+    			if(type.equals("person")){
+    				object.put("accountNo",rs.getString("accountNo")+"");	
+    			}
+    			t.addRow(object);
+    		}
+    		result.add(t);
+    	}
+    	
+    	return result;
     }
     public static Hashtable<String,Object>infotize(Object tify){
  	   Hashtable<String,Object> result=new Hashtable<String,Object>();
@@ -273,6 +302,17 @@ public class InfoBaseModuleHelper {
 	            return searchHash;
 	    	}
 	    }
+	   public static Hashtable searchInfo(ActionContext ctx){
+		   Hashtable result=sessionSearch(ctx);
+		   String region=(String)result.get("region");
+		   region=region.replace("nonnull", "");
+		   region=region.replace(",", "");
+		   region=region.replace("(", "");
+		   region=region.replace(")", "");
+		   region=region.replace("'", "");
+		   result.put("region",region);
+		   return result;
+	   }
 	  public static Hashtable lastSearch(ActionContext ctx)
 	  {
 		   		return org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper.sessionSearch(ctx);
