@@ -61,14 +61,19 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
             } else {
             	LocationHelper ibt = new LocationHelper();
             	List admins=Arrays.asList("trent.murray@uscm.org","todd.gross@uscm.org");
+            	log.debug((String)ctx.getSessionValue("userName"));
     			boolean admin = admins.contains(((String)ctx.getSessionValue("userName")).toLowerCase());
     			if (isNullOrEmpty(ctx.getInputString("Name")) || isNullOrEmpty(ctx.getInputString("City")) ||
-    				isNullOrEmpty(ctx.getInputString("Country")) || isNullOrEmpty(ctx.getInputString("isSecure"))) {
-    				ctx.setSessionValue("confirm", "One or more required fields was empty. Please try again.");
+    				isNullOrEmpty(ctx.getInputString("Country")) || isNullOrEmpty(ctx.getInputString("isSecure"))) 
+    			{
+    						ctx.setSessionValue("confirm", "One or more required fields was empty. Please try again.");
     			} else { // required fields OK
     				Hashtable request = ctx.getHashedRequest();
     				if (!admin) {
-    					ibt.sendTargetAreaRequestEmail(request, "isaac.kimball@uscm.org", ctx.getProfileID());
+    					String serverName = (ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "https://"
+    							: "http://")
+    							+ ctx.getRequest().getServerName()+":"+ctx.getRequest().getServerPort();
+    					ibt.sendTargetAreaRequestEmail(request, "isaac.kimball@uscm.org", ctx.getProfileID(),serverName);
     					ctx.setSessionValue("confirm", "Your location proposal has been sent.");
     				} else {
     					ibt.createNewTargetArea(request);

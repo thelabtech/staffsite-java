@@ -38,15 +38,15 @@ public class InfoBaseModuleHelper {
     }
 
 
-    public static Section getSearchResults(String type,String name,String city,String state,String region,String country, String strategy)throws Exception{
+    public static Section getSearchResults(String type,String name,String city,String state,String region,String country, String strategy, boolean singleField)throws Exception{
     	Section t=new Section();
 		t.setType(type.substring(0,1).toUpperCase()+type.substring(1).toLowerCase());
-		t.setName(t.getType()+" Search Results");
+		t.setName(t.getType()+" Search Results"+(singleField?" (matches by name listed first, then matches involving address info)":"")+":");
     	if ((name+city+state+region+strategy).equals("('nonnull')('nonnull')")&&(country.equals("USA")||country.equals(""))){
     		return t;//return empty
     	}
     	
-    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region,country,strategy);
+    	ResultSet rs= InfoBaseModuleQueries.getSearchResults(type,name,city,state,region,country,strategy,singleField);
     	while (rs.next()){
 			Hashtable<String,Object> object=new Hashtable<String,Object>();
 			object.put("name",rs.getString("name")+"");
@@ -322,21 +322,28 @@ public class InfoBaseModuleHelper {
    		if (lastClass==null) lastClass=(String)ctx.getSessionValue("lastClass");
        	if (lastClass==null) lastClass="location";       	
    		ctx.setSessionValue("lastClass", lastClass);
+   		log.debug("lastClass="+lastClass);
    		return lastClass;
    	}
 	   @SuppressWarnings("unchecked")
 	public static Hashtable storeSearch(ActionContext ctx){
+		   Boolean fromForm=false;
 		   String lastClass=lastClass(ctx);
    		ctx.setSessionValue(lastClass, "search");
        	ctx.setSessionValue("home", "search");
        	Hashtable sessionSearch=InfoBaseModuleHelper.sessionSearch(ctx);
        	String type = lastClass;
-       	String name = ctx.getInputString("name")==null?(String)sessionSearch.get("name"):ctx.getInputString("name");
-           String city = ctx.getInputString("city")==null?(String)sessionSearch.get("city"):ctx.getInputString("city");
-           String state = ctx.getInputString("state")==null?(String)sessionSearch.get("state"):ctx.getInputString("state");
-           String country = ctx.getInputString("country")==null?(String)sessionSearch.get("country"):ctx.getInputString("country");
+       	if(ctx.getInputString("name")!=null||ctx.getInputString("city")!=null||ctx.getInputString("state")!=null||
+       			ctx.getInputString("country")!=null||ctx.getInputStringArray("strategy")!=null||ctx.getInputStringArray("region")!=null){
+       		fromForm=true;
+       	}
+       	log.debug("from form?" +fromForm);
+       	String name = !fromForm?(String)sessionSearch.get("name"):ctx.getInputString("name");
+           String city = !fromForm?(String)sessionSearch.get("city"):ctx.getInputString("city");
+           String state = !fromForm?(String)sessionSearch.get("state"):ctx.getInputString("state");
+           String country = !fromForm?(String)sessionSearch.get("country"):ctx.getInputString("country");
            String strategy="(";
-           if(ctx.getInputStringArray("strategy")!=null){
+           if(fromForm){
            String[] strategies=ctx.getInputStringArray("strategy");
            
            for (String strat:strategies){
@@ -349,7 +356,7 @@ public class InfoBaseModuleHelper {
            	strategy=(String)sessionSearch.get("strategy");
            }
            String region="(";
-           if(ctx.getInputStringArray("region")!=null){
+           if(fromForm){
            String[] regions=ctx.getInputStringArray("region");
            
            for (String reg:regions){
@@ -445,7 +452,7 @@ public class InfoBaseModuleHelper {
 	        		}
 	        	}
 	        	
-	        	
+	        	log.debug(blankInfo.toString());	
 	        }
 	    	return blankInfo;
 	    }

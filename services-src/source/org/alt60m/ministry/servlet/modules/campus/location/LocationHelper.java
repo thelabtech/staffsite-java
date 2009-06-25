@@ -95,7 +95,7 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
         }
     	return newInfo;
     }
-	public void sendTargetAreaRequestEmail(Hashtable request, String to, String profileId) throws Exception {
+	public void sendTargetAreaRequestEmail(Hashtable request, String to, String profileId, String serverName) throws Exception {
 		try {
 			org.alt60m.staffSite.model.dbio.StaffSiteProfile profile=new org.alt60m.staffSite.model.dbio.StaffSiteProfile(profileId);
 			Staff sender=new Staff();
@@ -142,8 +142,9 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 				msgText.append("-----------------------------------------------------------------\n");
 				msgText.append(" As entered by " + sender.getFirstName()+" "+sender.getLastName()+"("+sender.getEmail()+")" + " on " + new Date().toString() + ". ");
 				msgText.append(" Please click or paste the following into your browser to approve/edit this proposal: ");
+				
 				StringBuffer msgLinkText = new StringBuffer(2000);
-				msgLinkText.append("http://localhost:8080/servlet/Campus?action=content&id=0&new=true&");
+				msgLinkText.append(serverName+"/servlet/Campus?action=index&module=location&new=true&");
 				msgLinkText.append("Name=" + request.get("Name") + "&");
 				msgLinkText.append("AltName=" + request.get("AltName") + "&");
 				msgLinkText.append("Mpta=" + request.get("Mpta") + "&");

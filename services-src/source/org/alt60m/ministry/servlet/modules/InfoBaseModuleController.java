@@ -108,7 +108,7 @@ public class InfoBaseModuleController extends Controller {
             if(ctx.getInputString("breadcrumb")==null||(!((String)terms.get("city")).equals(""))||(!((String)terms.get("name")).equals(""))){
 					list=InfoBaseModuleHelper.getSearchResults((String)terms.get("type"),
 					(String)terms.get("name"),(String)terms.get("city"),(String)terms.get("state"),
-					(String)terms.get("region"),(String)terms.get("country"),(String)terms.get("strategy"));
+					(String)terms.get("region"),(String)terms.get("country"),(String)terms.get("strategy"),ctx.getInputString("singleField")!=null);
 					content.add(list);
             } else {
             	granularity=(String)ctx.getInputString("breadcrumb");
@@ -120,13 +120,15 @@ public class InfoBaseModuleController extends Controller {
             }
 			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
 			results.addCollection("content", content);
+			results.addHashtable("newInfo",InfoBaseModuleHelper.newInfo(ctx, lastClass) );
 			results.addHashtable("info",InfoBaseModuleHelper.searchInfo(ctx));
 			results.putValue("module", lastClass);
 			results.putValue("title", "Search Results");
 			results.putValue("mode", "list");
+			results.putValue("view", view);
 			results.putValue("granularity", granularity);
-            ctx.setReturnValue(results);
-            ctx.setSessionValue(lastClass+"_response", results);
+			ctx.setSessionValue(lastClass+"_response", results);//put this before switch tests
+			ctx.setReturnValue(results);
             ctx.setSessionValue("breadcrumb",null);
             ctx.goToView(view);
         }
@@ -153,17 +155,14 @@ public class InfoBaseModuleController extends Controller {
             results.addHashtable("newInfo",InfoBaseModuleHelper.newInfo(ctx, lastClass) );
             Person person=getUserPerson(ctx);
             results.putValue("personID",person.getPersonID()+"");
-            
             results.putValue("isRD",isLeader(person,lastClass,id));
 			results.putValue("module",lastClass);
 			results.putValue("title",lastClass);
 			results.putValue("mode","content");
-			if(ctx.getInputString("edit")!=null)results.putValue("mode", "edit_"+lastClass);
-			if(ctx.getInputString("new")!=null)results.putValue("mode", "new_"+lastClass);
-            ctx.setReturnValue(results);
-            ctx.setSessionValue(lastClass+"_response", results);
+			results.putValue("view","index");
+			ctx.setSessionValue(lastClass+"_response", results);//put this before switch tests
+			 ctx.setReturnValue(results);
             ctx.goToView("index");
-            
     	 }
         catch (Exception e) {
 			e.printStackTrace();
@@ -183,19 +182,26 @@ public class InfoBaseModuleController extends Controller {
         		}
         	if(id==null||id.equals("0")||id.equals("")){
         		ActionResults results = new ActionResults(lastClass+"_home");
-        		Vector<Section> content=InfoBaseModuleHelper.getBreadcrumbSearchResults(lastClass,"","","","('nonnull')","","region");
+        		if(!lastClass.equals("person")){
+        		results.addCollection("content", InfoBaseModuleHelper.getBreadcrumbSearchResults(lastClass,"","","","('nonnull')","","region"));
+        		}
     			results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
-    			results.addCollection("content", content);
+    			
             	results.putValue("breadcrumb","true");
             	results.addHashtable("info",InfoBaseModuleHelper.searchInfo(ctx));
+            	results.addHashtable("newInfo",InfoBaseModuleHelper.newInfo(ctx, lastClass) );
+                
             	results.putValue("module", lastClass);
     			results.putValue("title", lastClass+" home");
     			results.putValue("mode", "home");
-    			results.putValue("granularity", "region");
-    			ctx.setReturnValue(results);
+				results.putValue("granularity", "region");
+				if(ctx.getInputString("edit")!=null){results.putValue("edit_"+lastClass,"true" );}else{results.removeValue("edit_"+lastClass);}
+    			if(ctx.getInputString("new")!=null) {results.putValue("new_"+lastClass,"true" ); }else {results.removeValue("new_"+lastClass);}
+    			
+				ctx.setReturnValue(results);    	
                 ctx.goToView(lastClass+"_home");
-        	}
-        	log.debug("id= "+id);
+                id="";
+        	}else{
         	if (ctx.getSessionValue(lastClass+"_response")==null){
 	        	if(id.equals("search")){
 	    			search(ctx);
@@ -204,10 +210,13 @@ public class InfoBaseModuleController extends Controller {
 	        	}
         	} else
         	{
-        		ctx.setReturnValue(ctx.getSessionValue(lastClass+"_response"));
-        		ctx.goToView("index");
+        		ActionResults results=(ActionResults)ctx.getSessionValue(lastClass+"_response");
+    			if(ctx.getInputString("edit")!=null){results.putValue("edit_"+lastClass,"true" );}else{results.removeValue("edit_"+lastClass);}
+    			if(ctx.getInputString("new")!=null) {results.putValue("new_"+lastClass,"true" ); }else {results.removeValue("new_"+lastClass);}
+    			ctx.setReturnValue(results);
+        		ctx.goToView(results.getValue("view"));
         	}
-        	
+        	}
         }
         catch (Exception e) {
             ctx.goToErrorView();

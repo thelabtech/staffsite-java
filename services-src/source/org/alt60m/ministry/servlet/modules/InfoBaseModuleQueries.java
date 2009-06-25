@@ -3,6 +3,7 @@ package org.alt60m.ministry.servlet.modules;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.alt60m.ministry.States;
 import org.alt60m.ministry.model.dbio.*;
 import org.alt60m.ministry.servlet.modules.model.Section;
 
@@ -21,175 +22,180 @@ public class InfoBaseModuleQueries {
 		return v;
 	}
 	public static ResultSet getBreadcrumbSearchResults(String type,String name,String city,String state,String region,String country,  String granularity)throws Exception{
-		Vector<Object>result=new Vector<Object>();
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		String tables="";
 		String select="";
-		String group="";
-		String orderBy="name";
-		String conditions="";
-		String typeConditions="";
-		String nameExp="";
 		String tableAbbr="";
 		city=city.replace("'","''");
 		country=country.replace("'","''");
-		boolean isWSN= (!country.equals("USA")&&!country.equals(""));
 		name=name.replace("'","''");
-		if (type.equals("person")){
-			tableAbbr=" ma.";
-			typeConditions="  and (mp.lastName<>'' and mp.firstName<>'' and ma.email<>'') ";
-			typeConditions+=granularity.equals("country")?" and ma.country <> 'USA' ":"";
-			typeConditions+=granularity.equals("state")?" and ma.country = 'USA' ":"";
-			tables=" ministry_person mp inner join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') ";
-			if(granularity.equals("country")){
-				orderBy="ma.country";
-				
-			}else if(granularity.equals("region")){
-				tableAbbr=" mp.";
-			}else {
-				
-			}
-			group=tableAbbr+granularity+" ";
-			select=" Select "+tableAbbr+granularity+" as name, "+
-			" ma.city as city, ma.state as state, ma.country as country, mp.region as region,  mp.personID as id, mp.accountNo as accountNo ";
-	
-		}else if (type.equals("team")){
+		if (type.equals("team")){
 			tableAbbr=" ml.";
-			group=tableAbbr+granularity+" ";
-			tables=" ministry_locallevel ml ";
-			select=" Select "+tableAbbr+granularity+" as name, "+
-					" ml.city as city, ml.state as state, ml.region as region,  ml.country as country, ml.teamID as id ";
-			typeConditions="  ";
-			typeConditions+=granularity.equals("country")?" and ml.country <> 'USA' ":"";
-			typeConditions+=granularity.equals("state")?" and ml.country = 'USA' ":"";
-			
+			select="  ml.teamID as id from  ministry_locallevel ml  ";
 		}else { 
 			tableAbbr=" mt.";
-			group=tableAbbr+granularity+" ";
-			tables=" ministry_targetarea mt ";
-			select=" Select "+tableAbbr+granularity+" as name, "+
-					" mt.city as city, mt.state as state, mt.region as region,   mt.country as country, mt.targetAreaID as id ";
-			
-			typeConditions="  and (mt.eventType is null or mt.eventType<=>'') ";
-			typeConditions+=granularity.equals("country")?" and mt.country <> 'USA' ":"";
-			typeConditions+=granularity.equals("state")?" and mt.country = 'USA' ":"";
+			select="  mt.targetAreaID as id from  ministry_targetarea mt  ";
 		}
-
-		if (!city.equals("")&&city!=null){
-			conditions +=" and ((upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%') ) ";
-		}
-		if (!state.equals("")&&state!=null){
-			conditions +=" and ((upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%') ) ";
-		}
-		
-		if (!country.equals("")&&country!=null){
-			conditions +=" and ((upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%'))  ";
-		}
-		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
-			
-			conditions +="  and ((upper(region) in "+region.toUpperCase()+") ) ";
-		}
-		
-		
-		String qry=select + " from "+tables+" where  true "+conditions+typeConditions+" group by "+group+" order by "+orderBy+" asc;";
+		String qry=" Select "+selectFields( tableAbbr,  granularity,  select) + 
+				" where  true "+nonNameConditions( city, state, region,  country, "", type,  false)+
+				getBreadcrumbTypeConditions( type, granularity, tableAbbr )+" group by "+tableAbbr+granularity+" order by name asc;";
 		log.debug(qry);
-		ResultSet rs=stmt.executeQuery(qry);
-		
-		return rs;
-		
-	} 
-	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String country,String strategy)throws Exception{
-		Vector<Object>result=new Vector<Object>();
+		return stmt.executeQuery(qry);
+	}
+	public static String selectFields(String tableAbbr, String granularity, String select){
+		String result=tableAbbr+granularity+" as name,  "+tableAbbr+"city as city, "+tableAbbr+"state as state, "+tableAbbr+"region as region,   "+tableAbbr+"country as country, "+select;
+		return result;
+	}
+	public static String getBreadcrumbTypeConditions(String type,String granularity,String tableAbbr ){
+		String typeConditions=(type.equals("team")?"":"  and (mt.eventType is null or mt.eventType<=>'') ");
+		String result=typeConditions+(granularity.equals("country")?" and "+tableAbbr+"country <> 'USA' ":"")+(granularity.equals("state")?" and "+tableAbbr+"country = 'USA' ":"");
+		return result;
+	}
+	public static String getNameExp(String type){
+		if (type.equals("person")){
+			return " concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
+		}else if (type.equals("team")){
+		return " ml.name ";
+		}else { 
+		return " concat_ws('',mt.name,' (',mt.altName,'/',mt.abbrv,')') ";
+			
+		}
+	}
+	public static String getTypeConditions(String type){
+		if (type.equals("person")){
+			return "";
+		}else if (type.equals("team")){
+			return "";
+		}else { 
+			return " and (mt.eventType is null or mt.eventType<=>'') ";
+			}
+	}
+	public static String getSelect(String type, boolean reqMovement){
+		if (type.equals("person")){
+			return " Select concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName)  as name, "+
+					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, mp.accountNo as accountNo ";
+		}else if (type.equals("team")){
+			return " Select ml.name as name, "+
+					" ml.city as city, ml.state as state, ml.country as country, ml.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, ml.teamID as id ";
+		}else { 
+			return " Select mt.name as name, "+
+					" mt.city as city, mt.state as state,  mt.country as country, mt.region as region,  "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,   "+(reqMovement?" mact.status ":" '' ") +"  as status, mt.targetAreaID as id ";
+		}
+	}
+	public static String getGroup(String type){
+		if (type.equals("person")){
+			return " mp.personID ";
+		}else if (type.equals("team")){
+			return " ml.teamID ";
+		}else { 
+			return " mt.targetAreaID ";
+		}
+	}
+	public static String getAddressTable(String type){
+		if (type.equals("person")){
+			return " ma.";
+		}else if (type.equals("team")){
+			return " ml.";
+		}else { 
+			return " mt.";
+		}
+	}
+	public static String getObjectTable(String type){
+		if (type.equals("person")){
+			return " mp.";
+		}else if (type.equals("team")){
+			return " ml.";
+		}else { 
+			return " mt.";
+		}
+	}
+	public static String getTables(String type, boolean reqMovement){
+		if (type.equals("person")){
+			return " ministry_person mp left join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') "+
+					" replace_or_delete_translation_tables "+
+					(reqMovement?" join ministry_movement_contact mmc on mmc.personID= mp.personID  inner join ministry_activity mact  on ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ":"  ");
+		}else if (type.equals("team")){
+			return " ministry_locallevel ml  replace_or_delete_translation_tables "+
+					(reqMovement?" inner  join ministry_activity mact on (ml.teamID=mact.fk_teamID and mact.status <> 'IN' and mact.status is not null ) ":"");
+		}else { 
+			return " ministry_targetarea mt  replace_or_delete_translation_tables "+
+				(reqMovement?" inner  join ministry_activity mact on (mt.targetAreaID=mact.fk_targetAreaID and mact.status <> 'IN' and mact.status is not null  ) ":"");
+		}
+	}
+	public static String addressConditions(String element, String elementType, String addressTable){
+		String result="";
+		element=element.replace("'","''");
+		if (!element.equals("")&&element!=null){
+			result +=" and upper("+addressTable+elementType+") like '%"+element.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
+		}
+		return result;
+	}
+	public static String nonNameConditions(String city,String state,String region, String country,String strategy,String type, boolean reqMovement){
+		String objectTable=getObjectTable(type);
+		String addressTable=getAddressTable(type);
+		String result="";
+		result+=addressConditions(city,"city",addressTable);
+		result+=addressConditions(state,"state",addressTable);
+		result+=addressConditions(country,"country",addressTable);
+		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
+			result +=" and upper("+objectTable+"region) in "+region.toUpperCase()+" ";
+		}
+		if (reqMovement){
+			result +=" and upper(strategy) in "+strategy.toUpperCase()+" ";
+		}
+		return result;
+	}
+	public static Hashtable<String, String>nonBlankNameConditions(String name,String type,String tables,String addressTable,String conditions,String nameOnlyConditions,boolean singleField,String nameExp){
+		Hashtable<String, String>result=new Hashtable<String, String>();
+		boolean hasCountry=false;
+		boolean hasState=false;
+		name=name.replace("%","");
+		name=name.replace("'","''");
+		String[]namePart=name.toUpperCase().split("[ \t\n\f\r]+");
+		for (int i=0;i<namePart.length;i++){
+			String s=namePart[i].trim();
+			hasCountry=(CountryCodes.hasCountry(s)&&singleField)?true:hasCountry;
+			hasState=(States.hasState(s)&&singleField)?true:hasState;
+			if(s.length()>2){
+				s="%"+s+"%";
+			}
+			conditions +=" and concat_ws('',upper("+nameExp+")"+(singleField?" ,' ',upper(city) ":"")+(hasState?",' ',upper(states.state) ":"")+(hasCountry?" ,' ',upper(countries.country) ":"")+") like '"+s+"' ";
+			nameOnlyConditions +=" and (upper("+nameExp+") like '"+s+"') ";
+		}
+		result.put("tables",tables.replace("replace_or_delete_translation_tables",(hasState?" left join states on states.code="+addressTable+"state ":"")+(hasCountry?" left join countries on countries.code="+addressTable+"country ":"")));
+		result.put("nameOnlyConditions", nameOnlyConditions+" ) desc, ");
+		result.put("conditions", conditions);
+		return result;
+	}
+	public static Hashtable<String, String>getNameConditions(String name,String type,String tables,String addressTable,String conditions,boolean singleField){
+		Hashtable<String, String>result=new Hashtable<String, String>();
+		String nameExp=getNameExp(type);
+		if (!name.trim().equals("")&&name!=null){
+			return nonBlankNameConditions( name, type, tables, addressTable, conditions, " (true ",singleField, nameExp);
+			}
+		result.put("nameOnlyConditions", "");
+		result.put("tables", tables.replace("replace_or_delete_translation_tables", ""));
+		result.put("conditions", conditions+" and upper("+(type.equals("person")?" concat_ws('',mp.firstName,mp.lastName) ":nameExp)+") is not null ");
+		return result;
+	}
+	public static ResultSet getSearchResults(String type,String name,String city,String state,String region, String country,String strategy, boolean singleField)throws Exception{
 		Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		Boolean reqMovement=false;
-		Boolean reqStrategy=false;
-		String tables="";
-		String select="";
-		String group="";
-		String conditions="";
-		String typeConditions="";
-		String nameExp="";
-		String nameTestExp="";
-		city=city.replace("'","''");
-		country=country.replace("'","''");
-		name=name.replace("'","''");
-		if (!strategy.equals("")&&!strategy.toUpperCase().equals("('NONNULL')")&&strategy!=null){
-			reqStrategy=true;
-			reqMovement=true;
-		}
-		if (type.equals("person")){
-			group=" mp.personID ";
-			tables=" ministry_person mp left join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') "+
-					(reqMovement?" inner ":" left ")+" join ministry_movement_contact mmc on mmc.personID= mp.personID "+
-					(reqMovement?" inner ":" left ")+" join ministry_activity mact "+
-					" on ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ";
-			select=" Select concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName)  as name, "+
-					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, mact.strategy as strategy, mact.status as status, mp.personID as id, mp.accountNo as accountNo ";
-			nameExp=" concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
-			nameTestExp=" concat(mp.firstName,mp.lastName) ";
-		}else if (type.equals("team")){
-			group=" ml.teamID ";
-			tables=" ministry_locallevel ml "+(reqMovement?" inner ":" left ")+"  join ministry_activity mact on (ml.teamID=mact.fk_teamID and mact.status <> 'IN' and mact.status is not null ) ";
-			select=" Select ml.name as name, "+
-					" ml.city as city, ml.state as state, ml.country as country, ml.region as region, mact.strategy as strategy,  mact.status as status, ml.teamID as id ";
-			nameExp=" ml.name ";
-			nameTestExp=nameExp;
-		}else { 
-			group=" mt.targetAreaID ";
-			tables=" ministry_targetarea mt "+(reqMovement?" inner ":" left ")+" join ministry_activity mact on (mt.targetAreaID=mact.fk_targetAreaID and mact.status <> 'IN' and mact.status is not null  ) ";
-			select=" Select mt.name as name, "+
-					" mt.city as city, mt.state as state,  mt.country as country, mt.region as region, mact.strategy as strategy,  mact.status as status, mt.targetAreaID as id ";
-			nameExp=" mt.name ";
-			nameTestExp=nameExp;
-			typeConditions=" and (mt.eventType is null or mt.eventType<=>'') ";
-			
-		}
-		if (!name.trim().equals("")&&name!=null){
-			
-			name=name.replace("%","");
-			String testPhrase="";
-			
-			String[]namePart=name.toUpperCase().split("[ \t\n\f\r]+");
-			for (int i=0;i<namePart.length;i++){
-				String s=namePart[i];
-				if(s.length()>2){
-					s="%"+s+"%";
-				}
-				if(i<namePart.length-1){
-					s=s+" ";
-				}
-				testPhrase+=s;
-			}
-			conditions +=" and concat_ws('',upper("+nameExp+"),' ',upper(city)) like '"+testPhrase+"' ";
-		}
-		else
-		{
-			conditions +=" and upper("+nameTestExp+") is not null ";
-		}
-		if (!city.equals("")&&city!=null){
-			conditions +=" and upper(city) like '%"+city.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}
-		if (!state.equals("")&&state!=null){
-			conditions +=" and upper(state) like '%"+state.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}
-		if (!country.equals("")&&country!=null){
-			conditions +=" and upper(country) like '%"+country.toUpperCase().replaceAll("[ \t\n\f\r]+", "% %")+"%' ";
-		}
-		if (!region.equals("")&&!region.toUpperCase().equals("('NONNULL')")&&region!=null){
-			
-			conditions +=" and upper(region) in "+region.toUpperCase()+" ";
-		}
-		if (reqStrategy){
-			conditions +=" and upper(strategy) in "+strategy.toUpperCase()+" ";
-		}
+		Boolean reqMovement=(!strategy.equals("")&&!strategy.toUpperCase().equals("('NONNULL')")&&strategy!=null);
+		String addressTable=getAddressTable(type);
+		String select=getSelect(type,reqMovement);
+		String group=getGroup(type);
+		String typeConditions=getTypeConditions(type);
+		String tables=getTables(type,reqMovement);
+		Hashtable<String,String>nameConditions=getNameConditions( name, type, tables, addressTable, "", singleField);
+		tables=nameConditions.get("tables");
+		String conditions=nameConditions.get("conditions");
+		String nameOnlyConditions=nameConditions.get("nameOnlyConditions");
+		conditions+=nonNameConditions( city, state, region,  country, strategy, type,  reqMovement);
 		if(conditions.equals("")){conditions=" and false ";}
-		String qry=select + " from "+tables+" where true "+conditions+typeConditions+" group by "+group+" order by name asc;";
+		String qry=select + " from "+tables+" where true "+conditions+typeConditions+" group by "+group+" order by "+nameOnlyConditions+" name asc;";
 		log.debug(qry);
-		
 		return stmt.executeQuery(qry);
-		
 	}
 	public static Vector listContactsByLastName(String search) {
 		try {
@@ -206,7 +212,6 @@ public class InfoBaseModuleQueries {
 			"%' and ministry_newaddress.email is not null and ministry_newaddress.addressType='current' group by ministry_person.personID ORDER BY ministry_person.lastName, ministry_person.firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
-			
 			while (rs.next()){
 				Contact contact= new Contact(rs.getInt("personID"));
 				contact.setAccountNo(rs.getString("accountNo"));
@@ -228,7 +233,6 @@ public class InfoBaseModuleQueries {
 			Vector<Hashtable<String,Object>>c=new Vector<Hashtable<String,Object>>();
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
 			String query="SELECT ministry_movement_contact.personID as personID, ministry_person.firstName as firstName,"+
 			" ministry_person.preferredName as preferredName, ministry_person.lastName as lastName, max(mna1.email) as emailCurrent,  max(mna2.email) as emailPermanent,"+
 			" ministry_person.accountNo as accountNo "+
@@ -239,7 +243,6 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_movement_contact.ActivityID ='"+activityId+"' and not(isSecure<=>'T')  group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
-			
 			while (rs.next()){
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
@@ -268,10 +271,8 @@ public class InfoBaseModuleQueries {
 	}
 	public static ResultSet getContactMovements(String personID){
 		try{
-			
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
@@ -282,12 +283,9 @@ public class InfoBaseModuleQueries {
 			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
-			" "+
 			" where mmc.personID="+personID+"  and ma.status<>'IN'  order by  location asc, strategy asc, size desc ;";
-			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
-			
 			return rs;
 		}
 		catch (Exception e) {
@@ -297,10 +295,8 @@ public class InfoBaseModuleQueries {
 	}
 	public static ResultSet getTeamMovements(String teamID){
 		try{
-			
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
@@ -310,12 +306,9 @@ public class InfoBaseModuleQueries {
 			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
-			" "+
 			" where ma.fk_teamID="+teamID+" and ma.status<>'IN'  order by location asc, strategy asc, size desc  ;";
-			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
-			
 			return rs;
 		}
 		catch (Exception e) {
@@ -325,10 +318,8 @@ public class InfoBaseModuleQueries {
 	}
 	public static ResultSet getLocationMovements(String taID){
 		try{
-			
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
@@ -341,9 +332,7 @@ public class InfoBaseModuleQueries {
 			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
 			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
 			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
-			" "+
 			" where ma.fk_targetAreaId="+taID+" and ma.status<>'IN' order by team asc, strategy asc, size desc ;";
-			
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
 			
@@ -359,10 +348,8 @@ public class InfoBaseModuleQueries {
 			Section c=new Section();
 			c.setType("Person");
 			c.setName("Missional Team Members");
-			
 			Connection conn = DBConnectionFactory.getDatabaseConn();
 			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
 			String query="SELECT ministry_missional_team_member.personID as personID, ministry_person.firstName as firstName,"+
 			" ministry_missional_team_member.is_leader as is_leader, "+
 			" ministry_missional_team_member.is_people_soft as is_people_soft, "+
@@ -375,7 +362,6 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_missional_team_member.teamID ='"+teamID+"'  and not(isSecure<=>'T') group by ministry_person.personID order by lastName, firstName;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
-			
 			while (rs.next()){
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
@@ -413,13 +399,11 @@ public class InfoBaseModuleQueries {
        String llid=ll.getLocalLevelId();
        Connection conn = DBConnectionFactory.getDatabaseConn();
 		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		
 		String query="SELECT max(ministry_missional_team_member.is_leader) as is_leader "+
 		" FROM ministry_missional_team_member  WHERE ministry_missional_team_member.teamID ="+llid+
 		" and ministry_missional_team_member.personID="+personID+" group by ministry_missional_team_member.teamID, ministry_missional_team_member.personID  ; ";
 		log.debug(query);
 		ResultSet rs = stmt.executeQuery(query);
-		
 		if (rs.next()){
 		if(rs.getString("is_leader")==null){
 			 return false;
@@ -445,7 +429,6 @@ public class InfoBaseModuleQueries {
 			" WHERE ministry_missional_team_member.personID ='"+personID+"' order by ministry_locallevel.name;";
 			log.debug(query);
 			ResultSet rs = stmt.executeQuery(query);
-			
 			Hashtable<String,Object> h=new Hashtable<String,Object>();
 			while (rs.next()){
 				h=new Hashtable<String,Object>();

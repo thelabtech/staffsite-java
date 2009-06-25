@@ -146,7 +146,7 @@ public class TeamHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
   			throw new Exception(e);
         }
     }
-	public void sendLocalLevelRequestEmail(Hashtable request, String to, String profileId) throws Exception {
+	public void sendLocalLevelRequestEmail(Hashtable request, String to, String profileId,String serverName) throws Exception {
 		try {
 			org.alt60m.staffSite.model.dbio.StaffSiteProfile profile=new org.alt60m.staffSite.model.dbio.StaffSiteProfile(profileId);
 			Staff sender=new Staff();
@@ -188,7 +188,7 @@ public class TeamHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
 				
 				msgText.append(" Click here or paste it to your browser to approve/edit: ");
 				StringBuffer msgLinkText = new StringBuffer(2000);
-				msgLinkText.append("http://localhost:8080/servlet/Team?action=content&id=0&new=true&");
+				msgLinkText.append(serverName+"/servlet/Team?action=index&module=team&new=true&");
 				msgLinkText.append("Name=" + request.get("Name") + "&");
 				msgLinkText.append("Lane=" + request.get("Lane") + "&");
 				msgLinkText.append("Region=" + request.get("Region") + "&");

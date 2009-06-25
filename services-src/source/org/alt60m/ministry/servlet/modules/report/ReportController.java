@@ -139,7 +139,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
     		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
     	}
     	
-    	Vector<ReportRow> report=org.alt60m.ministry.servlet.Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
+    	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
     	results.putValue("type", type);
     	results.putValue("region", region);
     	results.putValue("teamID", teamID);
@@ -190,7 +190,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
         		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
         	}
         	
-        	String report=org.alt60m.ministry.servlet.Reports.getMuster(type, region, periodEnd, strategyList, sortOrderFromRequest(ctx),org.alt60m.ministry.servlet.UnlockCampus.keys((String)ctx.getSessionValue("userName")));
+        	String report=Reports.getMuster(type, region, periodEnd, strategyList, sortOrderFromRequest(ctx),org.alt60m.ministry.servlet.UnlockCampus.keys((String)ctx.getSessionValue("userName")));
             results.putValue("report",report);
             
            report=null;
