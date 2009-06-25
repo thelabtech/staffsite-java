@@ -3,11 +3,11 @@ boolean quick=session.getValue("quicksearch")!=null;
 if(quick){ %>
 <%@page import="org.alt60m.ministry.States"%>
 <div id="quicksearch" class="quicksearch_open">
-<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><i>Close Quick Search</i></a><br><br>
+<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><i>Close Advanced Search</i></a><br><br>
 <% session.putValue("quicksearch",null); %>
 <%} else {
 %><div id="quicksearch" class="quicksearch_closed">
-<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">(Advanced)</a><br>
+<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">(Advanced Search)</a><br>
 <%} %>
 
 		            	<%String searchUrl="Home";%>
@@ -21,6 +21,7 @@ if(quick){ %>
 <%
 
 if(quick){%>
+City:<input name="city" type="text" value="<%=search.get("city")!=null&&quick?search.get("city"):"" %>"/>
 State:<select name="state" >
 	<option value="" >Any</option>
 		<%String selectedState=(search.get("state")!=null&&quick)?(String)search.get("state"):"";
@@ -67,8 +68,13 @@ Region:<br>
 </td>
 </tr></table>
 <%} else { %>
+
+<input type="hidden" name="singleField" value="true">
 <input type="hidden" name="region" value="nonnull">
 <input type="hidden" name="strategy" value="nonnull">
+<input type="hidden" name="city" value="">
+<input type="hidden" name="state" value="">
+<input type="hidden" name="country" value="">
 <%} %>
 
 						Select type of information:

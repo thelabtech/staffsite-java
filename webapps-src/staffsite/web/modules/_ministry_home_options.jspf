@@ -1,0 +1,11 @@
+<%if(!module.equals("person")){ %>
+<% 
+String type="";
+Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
+for(Section section:subordinate_objects){
+	%><br><b><%= section.getName() %></b><br>
+	<%	 type=section.getType();%>
+		<%@ include file="/modules/_search_results.jspf" %>
+	<%}
+	
+	}%>

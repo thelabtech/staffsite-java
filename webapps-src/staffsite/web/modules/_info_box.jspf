@@ -1,5 +1,6 @@
 
 <%if(infoModes.contains(mode)){ %>
+<div id="info_box" >
 <b><%=info.get("name")%><br></b>
 <ul><li>
 	
@@ -24,7 +25,7 @@
 		Semester? <%= (((Boolean) info.get("IsSemester")).booleanValue()) ?"Yes":"No"%><br>
 		School Year: <%=info.get("MonthSchoolStarts")%> - <%=info.get("MonthSchoolStops")%>
 </li></ul>
-		<A href="/servlet/Campus?action=content&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true">Edit this Location</A>
+		<A href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true">Edit this Location</A>
 	
 	<% }else if(module.equals("team")){%>
 		<% org.alt60m.html.SelectLane strategy= new org.alt60m.html.SelectLane();
@@ -34,14 +35,10 @@
 	Strategy: 	<%=strategy.display()%><br>
 	Team Website: 	<a href="<%=info.get("url")%>"><%=info.get("url")%></a>
 </li></ul>
-	<A href="/servlet/Team?action=content&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true">Edit this Team</A><br>
+	<A href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true">Edit this Team</A><br>
 
 	<%} %>
-
+</div><!-- info_box -->
 <%} else {%>
-	<%if(module.equals("campus")||module.equals("location")){%>
-		<A href="/servlet/Campus?action=content&id=0&new=true">Propose New Location</A>
-		<% }else if(module.equals("team")){%>
-		<A href="/servlet/Team?action=content&id=0&new=true">Propose New Team</A>
-	<%} %>
+
 <%}%>

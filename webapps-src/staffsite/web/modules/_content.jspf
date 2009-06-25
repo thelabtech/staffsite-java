@@ -1,9 +1,13 @@
 <%
 String type="";
-if (contentModes.contains(mode)){
+if (contentModes.contains(mode)){%>
+<div id="content_box" >
+<%
 Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
 for(Section section:subordinate_objects){
-	%><b><%= section.getName() %></b><br>
+	%>
+
+<b><%= section.getName() %></b><br>
 	<%
 	type=section.getType();
 	if(mode.equals("list")){%>
@@ -19,7 +23,9 @@ for(Section section:subordinate_objects){
 	<%} else {%>
 	What is supposed to go here?
 	<%}%>
-<%}
+<%}%>
+</div><!-- content_box -->
+<%
 }
 else
 {%>

@@ -42,20 +42,15 @@
 
 
 <div id="muster_report">
-	<p style="margin-left:20px;">
-	<br>
-	<B><%= reportTitle %></b></font><BR>
-	
+	<p >
+	<B><%= reportTitle %></b><BR>	
 	Including strategies: <%
-		
 	for(int i = 0; i<displayList.length; i++){
         out.print(Strategy.expandStrategy(displayList[i]));
         if(i<(displayList.length-1)) out.print(", ");
-	}
-		%><br>
+	}%><br>
 	Sorted By:
 <%
-
 Hashtable translateSortOrder=new Hashtable();
 		translateSortOrder.put("campus","Campus Name, ");
 		translateSortOrder.put("city","City/State, ");
@@ -71,20 +66,16 @@ if(sort.length()>2){
 	sort=sort.substring(0,sort.length()-2);
 }
 out.print(sort);
-%>
-	
-	</font></p>
-	
-<center>
-<table class="report">
-<tr><td >
+%></p>
+<table id="muster_report">
+
 <%
 out.print(report);
 %>
-</td></tr>
+
 </table>
-</center>
 </div>
+
 <%if(type.equals("movement")){%>
 <style type="text/css">
 div#muster_report  td.label_darker_blue

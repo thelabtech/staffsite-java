@@ -29,7 +29,7 @@ a {padding: 0; margin: 0; display: inline; color: #6c2a10;}
 	.logoside {float: left;}
 	
 		a.logo {
-			background: url(../images/infobaselogo.png) no-repeat 50% 50%;
+			background: url(/modules/images/infobaselogo.png) no-repeat 50% 50%;
 			width: 127px;
 			height: 45px;
 			display: block;

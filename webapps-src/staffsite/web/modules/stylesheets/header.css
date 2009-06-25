@@ -84,3 +84,7 @@ div.breadcrumb a
 {
 display:inline;
 }
+a#propose
+{
+float:right;
+}

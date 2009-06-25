@@ -1,7 +1,9 @@
-<%if(mode.equals("edit_team")||mode.equals("new_team")){%>
+<!-- _edit_team.jspf -->
+<%if(ar.getValue("edit_team")!=null||ar.getValue("new_team")!=null){%>
 <%
+boolean isNew=ar.getValue("new_team")!=null;
 Hashtable source=new Hashtable();
-if (mode.equals("new_team")){
+if (isNew){
 	source=ar.getHashtable("newInfo");
 }else{
 	source=ar.getHashtable("info");
@@ -19,7 +21,7 @@ if (mode.equals("new_team")){
 <input type="hidden" name="locallevelid" value="<%=source.get("locallevelid") %>">
 <input type="hidden" name="module" value="team">
 <input type="hidden" name="id" value="<%=source.get("locallevelid") %>">
-<%=!mode.equals("newTeam")?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
+<%=!isNew?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
 
 		<tr > 
 			<td> 
@@ -33,7 +35,7 @@ if (mode.equals("new_team")){
 				<div align="right">*Name:</font></div>
 			</td>
 			<td>
-				<input type="text" name="Name" value="<%=source.get("Name") != null ? source.get("Name") : ""%>" size="27" maxlength=100 <%=mode.equals("newTeam")?"":"readonly=\"true\"" %>>
+				<input type="text" name="Name" value="<%=source.get("Name") != null ? source.get("Name") : ""%>" size="27" maxlength=100 <%=isNew?"":"readonly=\"true\"" %>>
 			</td>
 		</tr>
 		<tr > 
@@ -189,11 +191,8 @@ if (mode.equals("new_team")){
 	</table>
 
 
-<%if(!mode.equals("newTeam")){ %>
-<A href="/servlet/Team?action=content&id=<%= source.get("locallevelid") %>">Cancel</A>	
-<%} else { %>
-<A href="/servlet/Team">Cancel</A>
-<%} %>
+
+<A href="/servlet/Team?action=index&module=team">Cancel</A>	
 </div>
 	
 <%} else {%>

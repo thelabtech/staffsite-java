@@ -30,7 +30,7 @@
 			<div id="logobar">
 		          <div class="logoside">
 		
-		           	 <a href="Home" class="logo" alt="InfoBase Home"><img src="/modules/images/home.gif"></a>
+		           	 <a href="Home" class="logo" alt="InfoBase Home"></a>
 		          </div><!-- logoside -->
 		          
 						

@@ -1,7 +1,9 @@
-<%if(mode.equals("edit_location")||mode.equals("new_location")){%>
+<!-- _edit_campus.jspf -->
+<%if(ar.getValue("edit_location")!=null||ar.getValue("new_location")!=null){%>
 <%
+boolean isNew=ar.getValue("new_location")!=null;
 Hashtable source=new Hashtable();
-if (mode.equals("new_location")){
+if (isNew){
 	source=ar.getHashtable("newInfo");
 }else{
 	source=ar.getHashtable("info");
@@ -13,7 +15,7 @@ if (mode.equals("new_location")){
 <INPUT TYPE="hidden" VALUE="<%= source.get("targetareaid") %>" NAME="id" >
 <input type="hidden" name="module" value="location">
 <INPUT TYPE="hidden" VALUE="<%= source.get("Mpta") %>" NAME="Mpta" >
-<%=!mode.equals("newLocation")?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
+<%=!isNew?"":"<input type=\"hidden\" name=\"new\" value=\"true\"> "%>
 <TABLE BORDER=0 CELLPADDING=5 CELLSPACING=0 ALIGN="CENTER">
 <jsp:useBean id="mySelectR" class="org.alt60m.html.SelectRegion"/>
 <jsp:useBean id="mySelectS" class="org.alt60m.html.SelectState"/>
@@ -34,7 +36,7 @@ mySelectC.setName("Country");
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Name:</FONT></TD>
-	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Name") %>" NAME="Name" SIZE="27" MAXLENGTH="100" <%=mode.equals("newLocation")?"":"readonly=\"true\"" %>></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Name") %>" NAME="Name" SIZE="27" MAXLENGTH="100" <%=isNew?"":"readonly=\"true\"" %>></TD>
 </TR>
 <TR>
 	<TD ALIGN="RIGHT">Alternate Name:</FONT></TD>
@@ -92,7 +94,7 @@ mySelectC.setName("Country");
 	<%boolean semester = ((Boolean)source.get("IsSemester")).booleanValue();%>
 	<TD><INPUT TYPE="RADIO" NAME="IsSemester" VALUE="true" <%=semester?"CHECKED=\"checked\"":"" %>> Yes<INPUT TYPE="RADIO" NAME="IsSemester" VALUE="false" <%=semester?"":" CHECKED=\"checked\" " %>> No</TD>
 </TR>
-<%if(mode.equals("newLocation")){ %>
+<%if(isNew){ %>
 <TR>
 	<td >
 <%boolean secure = ((Boolean)source.get("IsSecure"));%>
@@ -112,11 +114,8 @@ mySelectC.setName("Country");
 
 
 </TABLE>
-<%if(!mode.equals("newLocation")){ %>
-<A href="/servlet/Campus?action=content&id=<%= source.get("targetareaid") %>">Cancel</A>	
-<%} else { %>
-<A href="/servlet/Campus">Cancel</A>
-<%} %>
+
+<A href="/servlet/Campus?action=index&module=location">Cancel</A>	
 </div>
 	
 <%} else {%>

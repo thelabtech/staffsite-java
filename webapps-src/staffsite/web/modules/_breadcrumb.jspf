@@ -2,7 +2,7 @@
 
 				<%if(searchModules.contains(module)){ %>
 
-				<%if (!thisRegion.equals("")){ %>
+				<%if (!thisRegion.equals("")&&!module.equals("person")){ %>
 			      	<a href="<%=searchUrl %>?action=search&type=<%=module %>&module=<%=module %>&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region"><%=moduleUrl %></a>
 						<span class="breadcrumbspacer"></span>
 							
@@ -16,11 +16,13 @@
 						<span class="breadcrumbspacer"></span>
 																			
 					<a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=thisCountry.equals("")?"":thisCountry%>&region=<%=thisRegion.equals("")?"nonnull":thisRegion%>&state=<%=thisState %>&city=<%=thisCity %>&name=&strategy=nonnull&breadcrumb=name"><%=thisCity.equals("")?"":">"+thisCity%></a>
-						<span class="breadcrumbspacer"></span>
-																		    
-			      <%} else {%>
+						
+				 <%} else {%>
 					<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Quick Search for <%=moduleUrl %>s</a>
 				<%} %>
+	<%if(module.equals("campus")||module.equals("location")){%><A id="propose" href="/servlet/Campus?action=index&module=location&new=true">Propose New Location</A>
+		<% }else if(module.equals("team")){%><A id="propose" href="/servlet/Team?action=index&module=team&new=true">Propose New Team</A>
+	<%} %>
 				<%} else { %>
 
 

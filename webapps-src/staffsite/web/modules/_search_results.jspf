@@ -23,7 +23,7 @@ for(Hashtable h:rows){
 <%if(ar.getValue("breadcrumb")==null){ %>
 	<td><A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>
 	<%String region=(String)h.get("region"); %>
-	<td><%=h.get("city") %>, <%=org.alt60m.ministry.States.expandState((String)h.get("state")) %>, <%=org.alt60m.ministry.Regions.expandRegion(region) %> </td>
+	<td><%=h.get("city") %><%=((String)h.get("country")).equals("USA")?", "+org.alt60m.ministry.States.expandState((String)h.get("state")):"" %><%=!((String)h.get("country")).equals("USA")?", "+org.alt60m.util.CountryCodes.codeToName((String)h.get("country")):"" %><%=!region.equals("")?", "+org.alt60m.ministry.Regions.expandRegion(region):"" %></td>
 <%} else {%>
 <td><a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=drillCountry%>&region=<%=drillRegion%>&state=<%=drillState%>&city=<%=drillCity%>&name=&strategy=nonnull<%=drillCity.equals("")||drillCity.equals("Empty city")?"&breadcrumb="+crumbGran:"" %>"><%= h.get("name") %></a></td><%} %></tr>
 <%firstRow=false;}%>
