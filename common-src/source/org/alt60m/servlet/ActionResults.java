@@ -99,7 +99,10 @@ public class ActionResults {
 	{
 		_values.put(key, value);
 	}
-
+	public void removeValue(String key)
+	{
+		_values.remove(key);
+	}
 	public Object getObject(String key)
 	{
 		return  _objects.get(key);
