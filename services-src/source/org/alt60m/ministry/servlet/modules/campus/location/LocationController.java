@@ -70,9 +70,9 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
     			} else { // required fields OK
     				Hashtable request = ctx.getHashedRequest();
     				if (!admin) {
-    					String serverName = (ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "https://"
-    							: "http://")
-    							+ ctx.getRequest().getServerName()+":"+ctx.getRequest().getServerPort();
+    					String serverName = (ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "https://": "http://")
+    							+ ctx.getRequest().getServerName()+
+    							(ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "":":"+ctx.getRequest().getServerPort());
     					ibt.sendTargetAreaRequestEmail(request, "isaac.kimball@uscm.org", ctx.getProfileID(),serverName);
     					ctx.setSessionValue("confirm", "Your location proposal has been sent.");
     				} else {

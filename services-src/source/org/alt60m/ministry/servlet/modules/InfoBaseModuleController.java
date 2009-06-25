@@ -213,6 +213,7 @@ public class InfoBaseModuleController extends Controller {
         		ActionResults results=(ActionResults)ctx.getSessionValue(lastClass+"_response");
     			if(ctx.getInputString("edit")!=null){results.putValue("edit_"+lastClass,"true" );}else{results.removeValue("edit_"+lastClass);}
     			if(ctx.getInputString("new")!=null) {results.putValue("new_"+lastClass,"true" ); }else {results.removeValue("new_"+lastClass);}
+    			if(ctx.getInputString("new")!=null) results.addHashtable("newInfo",InfoBaseModuleHelper.newInfo(ctx, lastClass) );
     			ctx.setReturnValue(results);
         		ctx.goToView(results.getValue("view"));
         	}
