@@ -69,7 +69,30 @@ public class CountryCodes
 		return null;
 
 	}
+	public static String partialToCodes(String partial) {
+		partial=partial.toUpperCase().replaceAll("[ \t\n\f\r]+", "");
+		String result="";
+		for(int i=0; i < countryList.length; i += 2) {
+			if(countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial.toLowerCase())) {
+				result+=countryList[i+1]+" ";
+			}
+		}
+		
+		return result;
 
+	}
+	public static boolean hasCountry(String partial) {
+		partial=partial.toUpperCase().replaceAll("[ \t\n\f\r]+", "");
+		boolean result=false;
+		for(int i=0; i < countryList.length; i += 2) {
+			if(countryList[i].toUpperCase().replaceAll("[ \t\n\f\r]+", "").contains(partial.toUpperCase())) {
+				result=true;
+			}
+		}
+		
+		return result;
+
+	}
 
 	public static void main(String[] args) 
 	{
