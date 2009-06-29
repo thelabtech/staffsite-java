@@ -1,5 +1,7 @@
 package org.alt60m.util;
 
+import java.util.Vector;
+
 public class CountryCodes
 {
 
@@ -69,12 +71,12 @@ public class CountryCodes
 		return null;
 
 	}
-	public static String partialToCodes(String partial) {
-		partial=partial.toUpperCase().replaceAll("[ \t\n\f\r]+", "");
-		String result="";
+	public static Vector<String> partialToCodes(String partial) {
+		partial=partial.toLowerCase().replaceAll("[ \t\n\f\r]+", "");
+		Vector<String> result=new Vector<String>();
 		for(int i=0; i < countryList.length; i += 2) {
-			if(countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial.toLowerCase())) {
-				result+=countryList[i+1]+" ";
+			if(countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial)) {
+				result.add(countryList[i+1]);
 			}
 		}
 		
