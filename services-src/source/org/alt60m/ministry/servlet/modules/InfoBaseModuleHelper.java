@@ -143,7 +143,7 @@ public class InfoBaseModuleHelper {
  	 		   result.put(s.toUpperCase(), addHash.get(s));
  	 		   result.put(s, addHash.get(s));
  	 	   }
- 		  result.put("name", ((Person)tify).getFirstName()+" ("+((Person)tify).getPreferredName()+") "+((Person)tify).getLastName());
+ 		  result.put("name", ((Person)tify).getFirstName()+" "+((((Person)tify).getPreferredName()+"").equals("")?"":"("+((Person)tify).getPreferredName()+") ")+((Person)tify).getLastName());
  		  result.put("phone",result.get("workphone"));
  	   } else {
  		  result.put("name", "");
@@ -273,7 +273,6 @@ public class InfoBaseModuleHelper {
 			h.put("state", rs.getString("state")+"");
 			h.put("url", rs.getString("url")+"");
 			h.put("facebook", rs.getString("facebook")+"");
-			h.put("contacts", InfoBaseModuleQueries.getMovementContacts(rs.getString("id")+""));
 			s.addRow(h);
 		}
 		return s;
