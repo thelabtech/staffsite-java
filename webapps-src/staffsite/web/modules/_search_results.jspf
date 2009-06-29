@@ -2,6 +2,10 @@
 <%
 boolean firstRow=true;
 String granularity=(String)ar.getValue("granularity");
+String lastRecord="";
+int lastLen=0;
+int relevanceCode=0;
+int searchWords=((String)search.get("name")).trim().split("[ \t\n\f\r]+").length;
 Hashtable nextGran=new Hashtable();
 nextGran.put("class","region");
 nextGran.put("region","state");
@@ -19,6 +23,14 @@ for(Hashtable h:rows){
 	String drillCity=(((String)h.get("city")).equals("")||((String)h.get("city")).equals("null"))?"":((String)h.get("city"));
 	String crumbGran=(String)nextGran.get(granularity);
 %>
+<%
+String testName=(String)h.get("name");
+int testLen=testName.length();
+if(testLen>4)testLen=4;
+if(lastRecord.substring(0,lastLen).toLowerCase().compareTo(testName.substring(0,testLen).toLowerCase())>0){
+%>
+<tr><td><center><b>Next Relevance Section</b></center></td></tr>
+<%} %>
 <tr>
 <%if(ar.getValue("breadcrumb")==null){ %>
 	<td><A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"><%= h.get("name") %></A></td>
@@ -26,5 +38,9 @@ for(Hashtable h:rows){
 	<td><%=h.get("city") %><%=((String)h.get("country")).equals("USA")?", "+org.alt60m.ministry.States.expandState((String)h.get("state")):"" %><%=!((String)h.get("country")).equals("USA")?", "+org.alt60m.util.CountryCodes.codeToName((String)h.get("country")):"" %><%=!region.equals("")?", "+org.alt60m.ministry.Regions.expandRegion(region):"" %></td>
 <%} else {%>
 <td><a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=drillCountry%>&region=<%=drillRegion%>&state=<%=drillState%>&city=<%=drillCity%>&name=&strategy=nonnull<%=drillCity.equals("")||drillCity.equals("Empty city")?"&breadcrumb="+crumbGran:"" %>"><%= h.get("name") %></a></td><%} %></tr>
-<%firstRow=false;}%>
+
+<%firstRow=false;
+lastRecord=testName;
+lastLen=testLen;
+}%>
 </table>

@@ -1,7 +1,8 @@
 
 div#content_box
-{
-	margin:none;
+{display:block;
+width:890px;
+margin:none;
 	overflow:hidden;
 border:solid 1px #cdcdcd;
 padding:5px;
