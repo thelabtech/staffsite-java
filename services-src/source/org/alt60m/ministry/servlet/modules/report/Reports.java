@@ -164,7 +164,7 @@ public class Reports {
 		else
 		{
 			queryPortion="SELECT ministry_statistic.peopleGroup, "+
-							" ministry_targetarea.region as rowid, "+
+			" concat_ws('',ministry_targetarea.region,'_row') as rowid,"+
 							" ministry_targetarea.region,"+
 							" ministry_targetarea.targetAreaID, "+
 							" ministry_targetarea.name, "+
