@@ -1,0 +1,66 @@
+
+
+<%
+
+int record=1;
+boolean isLocation=(module.equals("location")||module.equals("campus"));
+boolean isFirst=true;
+boolean topRow=true;
+Vector<String> extantStrats=new Vector<String>();
+String collapse_section_id="";
+String current_section_id="";
+String rowType="";
+String rowId="";
+if(isLocation){ 
+	rowType="Team";
+	rowId="team_id";
+}else{
+	rowType="Campus";
+	rowId="location_id";
+}
+Vector<Hashtable<String,Object>>rows=section.getRows();
+%><table class="movement_list"><%
+for(Hashtable h:rows){
+		extantStrats.add((String)h.get("strategy"));
+		isFirst=true;%>
+		<tr>
+			<%if(module.equals("location")||module.equals("campus")){ %>
+			<td class="team"><a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a></td>
+			<%} else { %>
+			<td class="campus"><a href="/servlet/Campus?action=content&module=location&id=<%=h.get("location_id") %>"><%=h.get("location") %></a></td>
+			<%} %>
+			<td class=
+			<td class="strategy"><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></td>
+			<td class="size"><%=h.get("size") %> students</td>
+			<td class="enter_stat"><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
+		<%if(isLocation){ %>
+			<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+				<td class="edit_movement"><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
+				Edit
+				</A></td>
+			<%}%>
+		<%} %>
+		</tr>	
+		<%if(isLocation){ %>
+				<%@ include file="/modules/list/_list_contacts.jspf" %>
+		<%} %>
+<%}%>
+</table>
+<%if(module.equals("location")||module.equals("campus")){ %>
+<table>
+<tr><%
+	extantStrats.add("EV");
+	for(String strat:java.util.Arrays.asList(org.alt60m.ministry.Strategies.strategiesArray())){
+		if(!extantStrats.contains(strat)){
+			%>
+	<td>
+		<A HREF="/servlet/Movement?action=edit&new=true&strategy=<%=strat %>&module=location">
+		Add <%=org.alt60m.ministry.Strategy.expandStrategy(strat) %>
+		</A>
+	</td><%
+		}
+	}%>
+</tr>
+</table>
+<%} %>
+

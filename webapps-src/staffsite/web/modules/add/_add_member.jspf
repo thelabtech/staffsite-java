@@ -50,7 +50,7 @@ Here is a list of people in the Campus Ministry system.<BR>Select one to add the
 				 </FORM>
 <br>
  If you still cannot find them, 
-<A HREF="/servlet/InfoBaseController?action=makeNewPerson&purpose=team&activityid=&teamID=<%= request.getParameter("teamID")%>">click here</A>.
+<A HREF="/servlet/Team?action=makeNewPerson&id=<%=ar.getHashtable("info").get("locallevelid") %>&teamID=<%=ar.getHashtable("info").get("locallevelid") %>">click here</A>.
 <br>
 <A href="/servlet/Team?action=content&id=<%=ar.getHashtable("info").get("locallevelid") %>">Cancel</A>	
 </div>

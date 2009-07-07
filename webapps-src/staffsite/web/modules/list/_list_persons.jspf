@@ -16,7 +16,7 @@ for(Hashtable h:rows){%>
 		<%} %>
 	<A href="/servlet/Person?action=content&module=person&id=<%= h.get("id") %>&accountNo=<%=h.get("accountNo")%>"><%=((String) h.get("name")).replace(" (null)","") %></A></td>
 	<td><%=h.get("city") %>, <%=h.get("state") %></td>
-	<td><%@ include file="/modules/_team_leader.jspf" %></td>		
+	<td><%@ include file="/modules/list/_team_leader.jspf" %></td>		
 <%}%>
   <%if(module.equals("team")&&(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true"))){ %>
 <tr><td colspan="2">		
@@ -32,4 +32,4 @@ Add a Missional Team Member</i></center></A>
 		</td></tr>
 		<%} %>
 		</table>
-		<%@ include file="/modules/_add_member.jspf" %>
+		

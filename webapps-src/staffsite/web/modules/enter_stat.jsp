@@ -1,5 +1,5 @@
 
-<%@ include file="/modules/header.jspf"%>
+<%@ include file="/modules/layout/header.jspf"%>
 <%
 String pileUpSuccessCriteriaIds=""; 
 String weekLink="";
@@ -375,4 +375,4 @@ document.getElementById("input_key").style.display="none";
 </div>
 
 
-<%@ include file="/modules/footer.jspf"%>
+<%@ include file="/modules/layout/footer.jspf"%>

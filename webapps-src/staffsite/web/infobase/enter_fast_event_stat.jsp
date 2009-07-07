@@ -138,13 +138,13 @@ Vector<org.alt60m.ministry.model.dbio.Statistic> eventStats=(Vector<org.alt60m.m
 <%if(ar.getValue("strategy").equals("BR")){%>
 <input type="hidden" name="strategy" value="BR"/>
 <%} else{%>
-<%=fontB%>Strategy Focus (to be used only when necessary)</font>
+<%=fontB%>Strategy these stats will be associated with for reports: </font>
 <select name="strategy" value="<%=ar.getValue("strategy") %>" >
 	<option value="EV" <%=(!Arrays.asList(org.alt60m.ministry.Strategy.strategiesArray()).contains(ar.getValue("strategy")))?"selected":"" %>></option>
 <%
 for(String s:org.alt60m.ministry.Strategy.strategiesArray()){
 	if(!s.equals("BR")){
-	%><option value="<%=s %>" <%=s.equals(ar.getValue("strategy"))?"selected":"" %>><%=org.alt60m.ministry.Strategy.expandStrategy(s) %></option><%
+	%><option value="<%=s %>" <%=s.equals(ar.getValue("strategy"))?"selected":"" %>><%=s.equals("EV")?"Unspecified/All":org.alt60m.ministry.Strategy.expandStrategy(s) %></option><%
 }}
 %>
 </select>
@@ -198,9 +198,8 @@ for(Statistic statistic:eventStats) //start input fields
 			
 			<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[PeopleGroup]" value="<%=statistic.getPeopleGroup()%>">
 			<div style="position:absolute;background-color:<%=movementColor%>;top:<%=90+errorJog+(formHeight) %>px;left:20px;z-index:1;display:block;padding:0px;width:200px;text-align:right;height:<%=specialHeight %>px;">
-			<button style="<%=hoverHelpStyle%>width:90px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','multipliers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Multipliers</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[Multipliers]"  value="<%=statistic.getMultipliers()==0?"":statistic.getMultipliers()%>" onBlur="" ><br>
-			<button style="<%=hoverHelpStyle%>width:120px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','student_leaders');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Student Leaders</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=statistic.getStudentLeaders()==0?"":statistic.getStudentLeaders()%>" onBlur="" ><br>
-			<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','involved_students');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Involved Students</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=(statistic.getInvolvedStudents()==0)?"":statistic.getInvolvedStudents()%>" onBlur=""><br>
+			<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','involved_students');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Student Attendees</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=(statistic.getInvolvedStudents()==0)?"":statistic.getInvolvedStudents()%>" onBlur=""><br>
+			<button style="<%=hoverHelpStyle%>width:125px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','dollars_raised');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Dollars Raised</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DollarsRaised]"  value="<%=(statistic.getDollarsRaised()==0)?"":statistic.getDollarsRaised()%>" onBlur=""><br>
 			<%
 			if(ar.getValue("strategy").equals("BR")){
 					%>
@@ -227,7 +226,6 @@ for(Statistic statistic:eventStats) //start input fields
 			<button style="<%=hoverHelpStyle%>width:200px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions_group');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Group Evangelism Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DecisionsGroupEvangelismExposures]" value="<%=statistic.getDecisionsGroupEvangelismExposures()==0?"":statistic.getDecisionsGroupEvangelismExposures()%>"  onBlur="" ><br>
 			<button style="<%=hoverHelpStyle%>width:180px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','decisions_media');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Media Exposure Decisions</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[DecisionsMediaExposures]" value="<%=statistic.getDecisionsMediaExposures()==0?"":statistic.getDecisionsMediaExposures()%>"  onBlur="" ><br>
 			
-			<button style="<%=hoverHelpStyle%>width:100px;background-color:<%=movementColor%>;" onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;"><%=fontB%>Laborers Sent</font></button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" style="<%=inputStyle%>" name="<%=uniqueStat%>[LaborersSent]" value="<%=statistic.getLaborersSent()==0?"":statistic.getLaborersSent()%>"  onBlur="" ><br>
 			</div>
 			<div id="<%=uniqueStat%>_info_box" 
 				style="position:absolute;top:<%=formHeight+specialHeight+25 %>px;left:100px;
@@ -346,6 +344,12 @@ Great Commission.
 <%=fontB%>
 How many people have heard a presentation of the ministry of the Holy Spirit
 with the opportunity to respond?
+</font>
+</div>
+<h5 style="margin:0px;margin-top:10px;">Dollars Raised</h5>
+<div style="display:block" id="dollars_raised_info_box">
+<%=fontB%>
+How much in <i>whole</i> U.S. dollars was donated by attendees (not including conference fees and gear)?
 </font>
 </div>
 <h5 style="margin:0px;margin-top:10px;">Seekers</h5>

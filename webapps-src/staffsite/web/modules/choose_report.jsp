@@ -1,7 +1,7 @@
 <%@page import="org.alt60m.ministry.Strategy"%>
 
 
-<%@ include file="/modules/header.jspf"%>
+<%@ include file="/modules/layout/header.jspf"%>
 <script type="text/javascript" language="javascript" src="/modules/ib.js">
 
 </script>
@@ -209,4 +209,4 @@ if(thisDate.get(Calendar.MONTH)<=7){
 </form>
 </div>
 
-<%@ include file="/modules/footer.jspf"%>
+<%@ include file="/modules/layout/footer.jspf"%>

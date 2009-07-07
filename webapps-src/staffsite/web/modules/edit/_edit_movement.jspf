@@ -1,5 +1,7 @@
-<%if(mode.equals("editMovement")){%>
-
+<!-- edit_movement.jspf -->
+<%if(ar.getValue("edit_movement")!=null||ar.getValue("new_movement")!=null){
+	boolean isNew=ar.getValue("new_movement")!=null;
+%>
 <jsp:useBean id="statusHelper" class="org.alt60m.ministry.html.SelectStatus" />
 	<div class="edit_object">
 
@@ -9,11 +11,11 @@
 	<form name="updateActivityForm" method="post" action="/servlet/Movement">
 	<input type=hidden name="action" value="saveEditActivity">
 	<input type="hidden" name="module" value="location">
-	<input type=hidden name="activityid" value="<%=movement.get("activityid")%>">
-	<input type=hidden name="strategy" value=<%=movement.get("strategy")%>>
-	<input type=hidden name="locallevelid" value=<%=movement.get("locallevelid")%>>
-	<input type=hidden name="targetareaid" value=<%=movement.get("targetareaid")%>>
-	<input type=hidden name="id" value=<%=movement.get("targetareaid")%>>
+<%if(!isNew){ %>	
+<input type=hidden name="activityid" value="<%=movement.get("activityid")%>"><%} %>
+	<input type=hidden name="strategy" value="<%=isNew?ar.getValue("strategy"):movement.get("strategy")%>">
+	<input type=hidden name="targetareaid" value="<%=info.get("targetareaid")%>">
+	<input type=hidden name="id" value="<%=info.get("targetareaid")%>">
 
 	<tr><td align="left" COLSPAN="2">
 	<b>Use the radio buttons to change the status below:<BR>
@@ -105,7 +107,7 @@
 	</table>
 	</form>
 	
-<A href="/servlet/Campus?action=content&id=<%= movement.get("targetareaid") %>">Cancel</A>	
+<A href="/servlet/Campus?action=index&module=location">Cancel</A>	
 </div>
 	
 <%} else {%>

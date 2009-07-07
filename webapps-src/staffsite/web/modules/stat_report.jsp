@@ -3,12 +3,12 @@
 <%@page import="org.alt60m.ministry.Strategy"%>
 
 
-<%@ include file="/modules/header.jspf"%>
+<%@ include file="/modules/layout/header.jspf"%>
 
 <%
 
 	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.report_display_agile");
-	
+	Boolean isEvent=false;
 	String region=ar.getValue("region");
 	String longRegion=Regions.expandRegion(region);
 	String periodBegin=ar.getValue("periodBegin");
@@ -126,12 +126,13 @@ while(report.hasNext()){
 		%>
 		<td class="report_header"  ><i>Decisions <br>Before 8/1/2008</i></td>
 		<%} %>
-		<td class="report_header_double" ><center>Sending
-			<ul class="micro"><li>Holy Spirit Pres.</li><li>Laborers Sent</li></ul>
+		<td class="report_header_double" ><center><%=!isEvent? "Sending":""%>
+			<ul class="micro"><li>Holy Spirit Pres.</li><li><%=isEvent?"Dollars Raised": "Laborers Sent"%></li></ul>
 </center></td>
-		<td class="report_header_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
-				"quadruple":"triple" %>" ><center>Demographics
-		<ul class="micro"><li>Students Involved</li><li>Multipliers</li><li>Student Leaders</li>
+		<td class="report_header<%=!isEvent?((((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
+				"_quadruple":"_triple"):((((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
+						"_double":"") %>" ><center><%=!isEvent? "Demographics":""%>
+		<ul class="micro"><li>Students Involved</li><%if(!isEvent){ %><li>Multipliers</li><li>Student Leaders</li><%} %>
 		       <%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"<li>Seekers (Bridges)</li>":"" %>
 		</li></ul></center></td>
@@ -159,10 +160,12 @@ while(report.hasNext()){
 			<td class="report_header"  ><i><%=display?row.getDecisions():"" %></i></td>
 			<%} %>
 			<td class="report_header"><%=display?row.getHolySpirit():"" %></td>
-			<td class="report_header"><%=display?row.getLaborersSent():"" %></td>
+			<td class="report_header"><%=display?(isEvent?row.getDollarsRaised(): row.getLaborersSent()):"" %></td>
 			<td class="report_header"><%=display?row.getInvldStudents():"" %></td>
+			<%if(!isEvent){ %>
 			<td class="report_header"><%=display?row.getMultipliers():"" %></td>
 			<td class="report_header"><%=display?row.getStudentLeaders():"" %></td>
+			<%} %>
 			<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
 			<td class="report_header"><i><%=display?row.getSeekers():"" %></i></td>
 			<%display=!row.getFunction().equals("start"); // return to standard display %>
@@ -175,7 +178,8 @@ while(report.hasNext()){
 			
 		<%} %>
 	<%	} 
-	else if (row.getFunction().equals("eventBlockTop")){%>
+	else if (row.getFunction().equals("eventBlockTop")){
+		isEvent=("Conferences Summer Projects").contains(row.getLabel());%>
 		<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"bridges":"non_bridges" %>">
 		<tr><td >&nbsp;</td></tr>
@@ -267,10 +271,12 @@ while(report.hasNext()){
 		<td class="report_light"  ><i><%=display?row.getDecisions():"" %></i></td>
 		<%} %>
 	<td class="report_light"><%=display?row.getHolySpirit():"" %></td>
-	<td class="report_darker"><%=display?row.getLaborersSent():"" %></td>
+	<td class="report_darker"><%=display?(isEvent?row.getDollarsRaised(): row.getLaborersSent()):"" %></td>
 	<td class="report_light"><%=display?row.getInvldStudents():"" %></td>
+<%if(!isEvent){ %>
 	<td class="report_darker"><%=display?row.getMultipliers():"" %></td>
 	<td class="report_light"><%=display?row.getStudentLeaders():"" %></td>
+<%} %>
 	<%if(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR"))){ %>
 	<%display=(display)&&((row.getStrategy().equals("BR"))||(ar.getValue("type").equals("national"))); //only display if Bridges %>
 	<td class="report_darker"><i><%=display?row.getSeekers():"" %></i></td>
@@ -370,5 +376,5 @@ width:<%=wide%>px;
 </style>
 
 
-<%@ include file="/modules/footer.jspf"%>
+<%@ include file="/modules/layout/footer.jspf"%>
 

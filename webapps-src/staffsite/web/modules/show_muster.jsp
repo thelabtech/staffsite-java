@@ -1,7 +1,7 @@
 <%@ page import="org.alt60m.servlet.*,  java.util.*, java.sql.*" %>
 <%@page import="org.alt60m.util.DateUtils"%>
 <%@page import="org.alt60m.ministry.servlet.UnlockCampus"%>
-<%@ include file="/modules/header.jspf"%>
+<%@ include file="/modules/layout/header.jspf"%>
 <%
 
 	Log log = LogFactory.getLog("org.alt60m.infobase.jsp.muster");
@@ -84,5 +84,5 @@ width:352px;
 }
 </style>
 <%} %>
-<%@ include file="/modules/footer.jspf"%>
+<%@ include file="/modules/layout/footer.jspf"%>
 

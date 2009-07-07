@@ -36,14 +36,14 @@
 						
 						
 				
-           		 <%@ include file="/modules/_search.jspf" %>
+           		 <%@ include file="/modules/layout/_search.jspf" %>
 					
 					
         	</div><!-- logobar -->
-<%@ include file="/modules/_menubar.jspf" %>
-<%@ include file="/modules/_bannerbar.jspf" %>
+<%@ include file="/modules/layout/_menubar.jspf" %>
+<%@ include file="/modules/layout/_bannerbar.jspf" %>
 
-<%@ include file="/modules/_breadcrumb.jspf" %>			    
+<%@ include file="/modules/layout/_breadcrumb.jspf" %>			    
 
 			  
 			        <!-- Content Start -->	

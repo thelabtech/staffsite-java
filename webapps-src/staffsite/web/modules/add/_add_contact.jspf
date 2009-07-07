@@ -51,7 +51,7 @@ last name and try again.  <br>
 				 </FORM>
 <br>
 If you still cannot find them, 
-<A HREF="/servlet/InfoBaseController?action=makeNewPerson&purpose=contact&activityid=&teamID=<%= request.getParameter("teamID")%>">click here</A>.
+<A HREF="/servlet/Movement?action=makeNewPerson&id=<%= ar.getValue("targetareaid") %>&activityid=<%= ar.getValue("activityid") %>">click here</A>.
 <br>
 <A href="/servlet/Campus?action=content&id=<%= ar.getValue("targetareaid") %>">Cancel</A>	
 </div>

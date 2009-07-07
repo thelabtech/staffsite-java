@@ -1,7 +1,7 @@
 <%@page import="org.alt60m.ministry.Strategy"%>
 
 
-<%@ include file="/modules/header.jspf"%>
+<%@ include file="/modules/layout/header.jspf"%>
 <%
 
 
@@ -223,4 +223,4 @@
 	</center>
 </form>
 </div>
-<%@ include file="/modules/footer.jspf"%>
+<%@ include file="/modules/layout/footer.jspf"%>
