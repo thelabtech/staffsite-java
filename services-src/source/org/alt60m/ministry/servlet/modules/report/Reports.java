@@ -119,7 +119,7 @@ public class Reports {
 				" '' as targetAreaID, "+
 				" '' as campusName,"+
 				" 'FS' as strategy, "+
-				" ministry_targetarea.region as rowid,"+
+				" concat_ws('',ministry_targetarea.region,'_row') as rowid,"+
 				" ''  as enrollment ";
 		}
 		
