@@ -15,11 +15,13 @@ import org.alt60m.ministry.model.dbio.LocalLevel;
 
 import org.alt60m.ministry.model.dbio.Staff;
 
+import org.alt60m.ministry.servlet.InfoBaseTool;
 import org.alt60m.ministry.servlet.modules.model.Section;
 
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
+import org.alt60m.servlet.Controller.ActionContext;
 
 
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
@@ -393,4 +395,44 @@ public class InfoBaseModuleController extends Controller {
     	} 
       return isLeader?"true":"false";
     } 
+    public void checkNewPerson(ActionContext ctx){
+    	try{
+    		String lastClass=InfoBaseModuleHelper.lastClass(ctx);
+    		ActionResults results=(ActionResults)ctx.getSessionValue(lastClass+"_response");
+    		Hashtable holdPerson=ctx.getHashedRequest();
+    		results.addHashtable("holdPerson", holdPerson);
+    		Integer personID;
+    		Boolean complete=InfoBaseModuleHelper.newPersonComplete(ctx);    		
+    		String email=ctx.getInputString("email")!=null?ctx.getInputString("email"):"";
+    		Vector<Person>perps=new Vector<Person>();
+    		Vector<Person>suspects=new Vector<Person>();
+    		if (complete){
+    			perps=InfoBaseModuleHelper.personMatchesByEmail(email);
+    			suspects=InfoBaseModuleHelper.personMatchesByNames( holdPerson);
+    		}
+	    	Boolean unique=((perps.size()<1)&&((suspects.size()<1)||ctx.getInputString("confirmed").equals("confirmed")));
+    		if(unique&&complete){
+				InfoBaseModuleHelper.saveNewInfoBasePerson(holdPerson);
+				content(ctx);
+			}else{
+				if (!complete){
+					results.putValue("infoMessage","You must specify a unique email, plus first name and last name.");
+				}
+				results.addCollection("perps",perps);
+				results.addCollection("suspects",suspects);
+				results.putValue("teamID",ctx.getInputString("teamID"));
+				results.putValue("activityid",ctx.getInputString("activityid"));
+				results.putValue("purpose",ctx.getInputString("purpose"));
+				results.putValue("id",ctx.getInputString("id"));
+				results.putValue("add_person", "true");
+				ctx.setReturnValue(results);
+				ctx.goToView(results.getValue("view")); //back to entry form, with any matches
+			}
+    	}
+    	 catch (Exception e) {
+             ctx.setError();
+             ctx.goToErrorView();
+             log.error("Failed to perform checkNewPerson().", e);
+         }
+    }
 }

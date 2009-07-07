@@ -41,7 +41,24 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
         }
     }
     /** @param ctx ActionContext object Request parameters: <none> */
-    
+	public void makeNewPerson(ActionContext ctx){
+		try{
+			ActionResults results = (ActionResults)ctx.getSessionValue("location_response");
+        	results.putValue("add_person","true" );
+			results.putValue("teamID","");
+			results.putValue("activityid",ctx.getInputString("activityid"));
+			results.putValue("id",ctx.getInputString("id"));
+			results.putValue("purpose","contact");
+			ctx.setReturnValue(results);
+			ctx.goToView(results.getValue("view"));
+		
+		}
+		catch (Exception e) {
+		 ctx.setError();
+		 ctx.goToErrorView();
+		 log.error("Failed to perform makeNewPerson().", e);
+		}
+	}
  
     public void savePersonContact(ActionContext ctx) {
         try {
@@ -108,26 +125,21 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void edit(ActionContext ctx) {
         try {
-        	ActionResults results = new ActionResults("editMovement");
-            
-            String activityId = ctx.getInputString("activityid", true);
-            results.addHashtable("movement", MovementHelper.info(activityId));
-            String targetAreaId = ctx.getInputString("targetareaid", true);
-            results.addHashtable("search",LocationHelper.sessionSearch(ctx));
-			results.addCollection("content", LocationHelper.content(targetAreaId));
-			results.addHashtable("info", LocationHelper.info(targetAreaId));
-			TargetArea ta=new TargetArea(targetAreaId);
+        	ActionResults results = (ActionResults)ctx.getSessionValue("location_response");
+        	results.putValue("edit_movement","true" );
+			if(ctx.getInputString("new")!=null){
+				results.putValue("strategy",ctx.getInputString("strategy"));
+				results.addHashtable("movement", MovementHelper.info("0"));
+				results.putValue("new_movement","true" ); 
+			}else {
+				results.addHashtable("movement", MovementHelper.info(ctx.getInputString("activityid")));
+				results.removeValue("new_movement");
+			}
+			TargetArea ta=new TargetArea((String)results.getHashtable("info").get("targetareaid"));
 			 Collection colLLs = ObjectHashUtil.list(MovementHelper.getLocalLevelTeamsByRegion(ta.getRegion()));
 	            results.addCollection("teams", colLLs);
-			Person person=getUserPerson(ctx);
-            results.putValue("personID",person.getPersonID()+"");
-            results.putValue("isRD",isRD(person));
-			
-			results.putValue("module",this.module);
-			results.putValue("title",this.title);
-			results.putValue("mode","editMovement");
 			ctx.setReturnValue(results);
-			ctx.goToView("index");
+			ctx.goToView(results.getValue("view"));
         }
         catch (Exception e) {
 			ctx.setError();
@@ -137,7 +149,8 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void saveEditActivity(ActionContext ctx) {
         try {
-            String activityId = ctx.getInputString("activityid", true);
+            String activityId = ctx.getInputString("activityid");
+           
             String periodEnd = ctx.getInputString("datechanged", true);
 
             String Url = ctx.getInputString("url", true);
@@ -145,9 +158,21 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
             
             String updateOption = ctx.getInputString("updateoption", true);
-
+            if (activityId==null){
+            	Activity act=new Activity();
+            	act.setStrategy(strategy);
+            	act.setTargetAreaId(ctx.getInputString("targetareaid"));
+            	if(!act.select()){
+            		act.setLocalLevelId(ctx.getInputString("teamid"));
+            		act.persist();
+            		}else{
+            			log.debug("doubleClick");
+            		}
+            	
+            	activityId=act.getActivityId();
+            }
            MovementHelper.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url, Facebook);
-           index(ctx);
+           content(ctx);
         }
         catch (ActivityExistsException aee) {
         	ctx.setError("Strategy is already active for this target area.");

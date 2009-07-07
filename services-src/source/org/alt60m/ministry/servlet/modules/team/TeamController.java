@@ -55,7 +55,24 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
     /** @param ctx ActionContext object Request parameters: <none> */
   
-  
+	public void makeNewPerson(ActionContext ctx){
+		try{
+			ActionResults results = (ActionResults)ctx.getSessionValue("team_response");
+        	results.putValue("add_person","true" );
+			results.putValue("teamID",ctx.getInputString("teamID"));
+			results.putValue("activityid","");
+			results.putValue("purpose","team");
+			results.putValue("id",ctx.getInputString("id"));
+			ctx.setReturnValue(results);
+			ctx.goToView(results.getValue("view"));
+		
+		}
+		catch (Exception e) {
+		 ctx.setError();
+		 ctx.goToErrorView();
+		 log.error("Failed to perform makeNewPerson().", e);
+		}
+	}
     
     public void saveTeamMember(ActionContext ctx) {
         try {

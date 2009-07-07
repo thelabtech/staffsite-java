@@ -19,7 +19,10 @@ import org.alt60m.ministry.model.dbio.Contact;
 
 import org.alt60m.ministry.model.dbio.TargetArea;
 
+import org.alt60m.ministry.servlet.InfoBaseTool;
+import org.alt60m.ministry.servlet.modules.campus.movement.MovementHelper;
 import org.alt60m.ministry.servlet.modules.model.Section;
+import org.alt60m.ministry.servlet.modules.team.TeamHelper;
 
 import org.alt60m.servlet.Controller.ActionContext;
 
@@ -454,5 +457,99 @@ public class InfoBaseModuleHelper {
 	        	log.debug(blankInfo.toString());	
 	        }
 	    	return blankInfo;
+	    }
+	   public static Boolean newPersonComplete(ActionContext ctx){
+		   return (
+	    			ctx.getInputString("email")!=null&&(!ctx.getInputString("email").equals(""))&&
+	    			ctx.getInputString("firstName")!=null&&(!ctx.getInputString("firstName").equals(""))&&
+	    			ctx.getInputString("lastName")!=null&&(!ctx.getInputString("lastName").equals("")));
+	   }
+	   public static void saveNewInfoBasePerson(Hashtable holdPerson) throws Exception {
+	    	try {
+
+				Person saveMe=new Person();
+				saveMe.setFirstName((String) holdPerson.get("firstName"));
+				saveMe.setPreferredName((String) holdPerson.get("preferredName"));
+				saveMe.setLastName((String) holdPerson.get("lastName"));
+				saveMe.setMaritalStatus((String) holdPerson.get("marital"));
+				saveMe.setToolName("IB");
+				saveMe.setDateCreated(new Date());
+				saveMe.persist();
+				Address newAddress=new Address();
+				newAddress.setAddress1((String) holdPerson.get("address1"));
+				newAddress.setAddress2((String) holdPerson.get("address2"));
+				newAddress.setHomePhone((String) holdPerson.get("homePhone"));
+				newAddress.setWorkPhone((String) holdPerson.get("workPhone"));
+				newAddress.setCellPhone((String) holdPerson.get("mobilePhone"));
+				newAddress.setEmail((String) holdPerson.get("email"));
+				newAddress.setCity((String) holdPerson.get("city"));
+				newAddress.setState((String) holdPerson.get("state"));
+				newAddress.setZip((String) holdPerson.get("zip"));
+				newAddress.setCountry((String) holdPerson.get("country"));
+				newAddress.setAddressType("current");
+				newAddress.setFk_PersonID(saveMe.getPersonID());
+				newAddress.setToolName("IB");
+				newAddress.persist();
+				newAddress=new Address();
+				newAddress.setAddress1("");
+				newAddress.setEmail((String) holdPerson.get("email"));
+				newAddress.setAddressType("permanent");
+				newAddress.setFk_PersonID(saveMe.getPersonID());
+				newAddress.setToolName("IB");
+				newAddress.persist();
+				
+				if (holdPerson.get("purpose").equals("team")){
+					TeamHelper th= new TeamHelper();
+				th.saveTeamMember(saveMe.getPersonID()+"",(String) holdPerson.get("teamID"));
+				}else if (holdPerson.get("purpose").equals("contact")){
+					MovementHelper mh=new MovementHelper();
+				mh.savePersonContact(saveMe.getPersonID()+"",(String) holdPerson.get("activityid"));
+				}
+			}
+	    	catch (Exception e) {
+	    		log.error("Failed to perform saveNewInfoBasePerson().", e);
+				throw new Exception(e);
+	    	}
+	    }
+	   public static Vector<Person> personMatchesByEmail(String email) throws Exception{
+			try{    
+				Vector<Person>perps=new Vector<Person>();
+	    		if(email!=null&&!email.equals("")){
+				Vector<Integer>perpNumbers=new Vector<Integer>();
+	    		Address address=new Address(); //test for email match. This cannot be confirmed away. Emails must be forced unique.
+	    		address.setEmail(email);
+	    		Vector<Address>addresses=(Vector<Address>)address.selectList();
+	    		if(addresses!=null){
+		    		for(Address a:addresses){
+		    			Person person=new Person();
+		    			person.setPersonID(a.getFk_PersonID());
+		    			if(person.select()){
+		    				if(!(perpNumbers.contains(person.getPersonID()))){
+		    					perps.add(person);
+			    				perpNumbers.add(person.getPersonID());
+		    				}
+		    			}
+		    		}
+	    		}}
+				return perps;
+		    } catch (Exception e) {
+				log.error("Failed to perform personMatchesByEmail().", e);
+				throw new Exception(e);
+		   }	
+	    }
+	    public static Vector<Person> personMatchesByNames(Hashtable holdPerson) throws Exception{
+			try{ 
+				Vector<Person>suspects=new Vector<Person>();
+				String lastName=(String)holdPerson.get("lastName")!=null?(String)holdPerson.get("lastName"):"";
+	    		String firstName=(String)holdPerson.get("firstName")!=null?(String)holdPerson.get("firstName"):"";
+	    		String preferredName=(String)holdPerson.get("preferredName")!=null?(String)holdPerson.get("preferredName"):"";
+	    		Person test=new Person();
+	    		String nameQuery="lastName='"+lastName+"' and (preferredName='"+(preferredName.equals("")?firstName:preferredName)+"' or preferredName='"+firstName+"' or firstName='"+firstName+"' or firstName='"+(preferredName.equals("")?firstName:preferredName)+"')";
+	    		suspects.addAll(test.selectList(nameQuery));
+				return suspects;
+		    } catch (Exception e) {
+				log.error("Failed to perform personMatchesByNames().", e);
+				throw new Exception(e);
+		   }	
 	    }
 }
