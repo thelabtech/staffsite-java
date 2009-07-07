@@ -29,10 +29,11 @@ public class States {
 		return org.alt60m.util.TextUtils.translate(abbrevState, expandedState, abbrev);
 	}
 	public static Vector<String> partialToCodes(String partial) {
-		partial=partial.toUpperCase().replaceAll("[ \t\n\f\r]+", "");
+		partial=partial.toLowerCase().replaceAll("[ \t\n\f\r]+", "");
 		Vector<String>result=new Vector<String>();
 		for(int i=0; i < expandedState.length; i++) {
-			if(expandedState[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial.toLowerCase())) {
+			if(partial.length()>3&&expandedState[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial)||
+					partial.length()<=3&&expandedState[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").equals(partial)) {
 				result.add(abbrevState[i]);
 			}
 		}
