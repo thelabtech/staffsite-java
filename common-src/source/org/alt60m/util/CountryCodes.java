@@ -75,7 +75,8 @@ public class CountryCodes
 		partial=partial.toLowerCase().replaceAll("[ \t\n\f\r]+", "");
 		Vector<String> result=new Vector<String>();
 		for(int i=0; i < countryList.length; i += 2) {
-			if(countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial)) {
+			if(partial.length()>3&&countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").contains(partial)||
+					partial.length()<=3&&countryList[i].toLowerCase().replaceAll("[ \t\n\f\r]+", "").equals(partial)) {
 				result.add(countryList[i+1]);
 			}
 		}
