@@ -1902,8 +1902,8 @@ public class InfoBaseController extends Controller {
 				stat = new Statistic();
 				keys = Arrays.asList(new String[] { "PersonalEvangelismExposures",
 						"GroupEvangelismExposures", "MediaExposures", "Decisions",
-						"Multipliers", "StudentLeaders", "InvolvedStudents",
-						"LaborersSent", "PeopleGroup", "DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
+						 "InvolvedStudents","DollarsRaised",
+						 "PeopleGroup", "DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
 						"DecisionsGroupEvangelismExposures","HolySpiritConversations", "Seekers" });
 				 statMap = new HashMap<String, String>();
 				for (String key : keys) 

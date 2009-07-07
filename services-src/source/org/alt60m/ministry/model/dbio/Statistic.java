@@ -32,6 +32,7 @@ public class Statistic extends DBIOEntity {
 	private int involvedStudents;
 	private int seekers;
 	private int holySpiritConversations;
+	private int dollarsRaised;
 	
 	private Timestamp updatedAt;
 
@@ -64,7 +65,8 @@ public class Statistic extends DBIOEntity {
 		setMetadata("MediaExposures", "exposuresViaMedia", table);
 		setMetadata("PersonalEvangelismExposures", "evangelisticOneOnOne", table);
 		setMetadata("GroupEvangelismExposures", "evangelisticGroup", table);
-		setMetadata("HolySpiritConversations", "holySpiritConversations", table);		
+		setMetadata("HolySpiritConversations", "holySpiritConversations", table);	
+		setMetadata("DollarsRaised", "dollars_raised", table);
 		setMetadata("LaborersSent", "laborersSent", table);
 
 		setMetadata("GrowthGroupMembers", "invldNewBlvrs", table);
@@ -112,6 +114,12 @@ public class Statistic extends DBIOEntity {
 	}
 	public void setHolySpiritConversations(int holySpiritConversations) {
 		this.holySpiritConversations = holySpiritConversations;
+	}
+	public int getDollarsRaised() {
+		return dollarsRaised;
+	}
+	public void setDollarsRaised(int value) {
+		this.dollarsRaised = value;
 	}
 	public String getStatisticId() { return statisticId; }
 	public void setStatisticId(String statisticId) { this.statisticId = statisticId; }

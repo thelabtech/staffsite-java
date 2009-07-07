@@ -83,6 +83,7 @@ public class Reports {
 		" SUM(ministry_statistic.decisionsHelpedByGroup) as decisionsGroupEvangelismExposures, "+
 		" SUM(ministry_statistic.decisionsHelpedByMedia) as decisionsMediaExposures, "+
 		" SUM(ministry_statistic.holySpiritConversations) as holySpirit, "+
+		" SUM(ministry_statistic.dollars_raised) as dollarsRaised, "+
 		" SUM(ministry_statistic.laborersSent) as laborersSent, " +
 		" ministry_statistic.peopleGroup, ";
 		
@@ -226,7 +227,7 @@ public class Reports {
 		
 		row.setExposuresViaMedia(sums.getInt("exposuresViaMedia"));
 		row.setHolySpirit(sums.getInt("holySpirit"));
-		
+		row.setDollarsRaised(sums.getInt("dollarsRaised"));
 		row.setDecisions(sums.getInt("decisionSum"));
 		row.setDecisionsPersonalEvangelismExposures(sums.getInt("decisionsPersonalEvangelismExposures"));
 		row.setDecisionsGroupEvangelismExposures(sums.getInt("decisionsGroupEvangelismExposures"));

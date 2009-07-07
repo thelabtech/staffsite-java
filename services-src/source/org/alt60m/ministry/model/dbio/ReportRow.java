@@ -10,6 +10,7 @@ public class ReportRow extends Object {
 		this.setEvangelisticGroup(row.getEvangelisticGroup());
 		this.setExposuresViaMedia(row.getExposuresViaMedia());
 		this.setHolySpirit(row.getHolySpirit());
+		this.setDollarsRaised(row.getDollarsRaised());
 		this.setDecisions(row.getDecisions());
 		this.setDecisionsPersonalEvangelismExposures(row.getDecisionsPersonalEvangelismExposures());
 		this.setDecisionsGroupEvangelismExposures(row.getDecisionsGroupEvangelismExposures());
@@ -63,6 +64,7 @@ public class ReportRow extends Object {
 	private Integer evangelisticGroup=0;
 	private Integer exposuresViaMedia=0;
 	private Integer holySpirit=0;
+	private Integer dollarsRaised=0;
 	private Integer decisions=0;
 	private Integer decisionsPersonalEvangelismExposures=0; 
 	private Integer decisionsGroupEvangelismExposures=0;
@@ -136,6 +138,9 @@ public class ReportRow extends Object {
 	public int getHolySpirit(){ return this.holySpirit;}
 	public void setHolySpirit(int value){this.holySpirit=value;}
 	
+	public int getDollarsRaised(){ return this.dollarsRaised;}
+	public void setDollarsRaised(int value){this.dollarsRaised=value;}
+	
 	public int getDecisions(){ return this.decisions;}
 	public void setDecisions(int value){this.decisions=value;}
 	
@@ -182,6 +187,7 @@ public class ReportRow extends Object {
 		this.setEvangelisticGroup(this.getEvangelisticGroup()+row.getEvangelisticGroup());
 		this.setExposuresViaMedia(this.getExposuresViaMedia()+row.getExposuresViaMedia());
 		this.setHolySpirit(this.getHolySpirit()+row.getHolySpirit());
+		this.setDollarsRaised(this.getDollarsRaised()+row.getDollarsRaised());
 		this.setDecisions(this.getDecisions()+row.getDecisions());
 		this.setDecisionsPersonalEvangelismExposures(this.getDecisionsPersonalEvangelismExposures()+row.getDecisionsPersonalEvangelismExposures());
 		this.setDecisionsGroupEvangelismExposures(this.getDecisionsGroupEvangelismExposures()+row.getDecisionsGroupEvangelismExposures());
@@ -234,6 +240,7 @@ public class ReportRow extends Object {
 		string+="  evangelisticGroup: "+this.getEvangelisticGroup()+" ";
 		string+="  exposuresViaMedia: "+this.getExposuresViaMedia()+" ";
 		string+="  holySpirit: "+this.getHolySpirit()+" ";
+		string+="  dollarsRaised: "+this.getDollarsRaised()+" ";
 		string+="  decisions: "+this.getDecisions()+" ";
 		string+="  decisionsPersonalEvangelismExposures: "+this.getDecisionsPersonalEvangelismExposures()+" "; 
 		string+="  decisionsGroupEvangelismExposures: "+this.getDecisionsGroupEvangelismExposures()+" ";
