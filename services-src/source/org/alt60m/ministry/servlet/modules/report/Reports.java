@@ -2,6 +2,7 @@ package org.alt60m.ministry.servlet.modules.report;
 
 import java.util.*;
 
+import org.alt60m.html.SelectLane;
 import org.alt60m.ministry.model.dbio.*;
 
 import java.sql.Connection;
@@ -59,10 +60,14 @@ public class Reports {
 		{
 			return " GROUP BY substring(ministry_targetarea.eventType,1,1), ministry_activity.ActivityID, ministry_statistic.periodEnd, ministry_statistic.peopleGroup ORDER BY substring(ministry_targetarea.eventType,1,1), ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy, ministry_statistic.periodEnd, ministry_statistic.peopleGroup";
 		}
-		else
+		else if(type.equals("locallevel"))
 		{
 		return " GROUP BY substring(ministry_targetarea.eventType,1,1), ministry_activity.ActivityID, ministry_statistic.peopleGroup"+
 				" ORDER BY substring(ministry_targetarea.eventType,1,1), ministry_targetarea.name,ministry_targetarea.TargetAreaID, ministry_activity.strategy,  ministry_statistic.peopleGroup, ministry_activity.ActivityID ";
+		}
+		else
+		{
+			return " GROUP BY substring(ministry_targetarea.eventType,1,1), ministry_locallevel.TeamID ORDER BY substring(ministry_targetarea.eventType,1,1), ministry_locallevel.TeamID "; 
 		}
 	}
 	private static String summingFieldsPortion(String type){
@@ -99,7 +104,7 @@ public class Reports {
 				" MAX(ministry_targetarea.enrollment) enrollment ";
 		}
 		
-		else if (!type.equals("national")){					
+		else if (type.equals("locallevel")){					
 			queryPortion+=" ministry_activity.status as status, "+
 				
 				" MAX(ministry_targetarea.eventType) as eventType,"+
@@ -109,6 +114,17 @@ public class Reports {
 				" ministry_activity.strategy, "+
 				" ministry_activity.ActivityID as rowid,"+
 				" MAX(ministry_targetarea.enrollment) enrollment ";
+		}
+		else if (type.equals("regional")){					
+			queryPortion+=" '' as status, "+
+			
+			" MAX(ministry_targetarea.eventType) as eventType,"+
+			" '' as eventKeyID,"+
+			" '' as targetAreaID, "+
+			" '' as campusName,"+
+			" ministry_locallevel.lane as strategy, "+
+			" ministry_locallevel.name as rowid,"+
+			" ''  as enrollment ";
 		}
 		else
 		{
@@ -146,7 +162,7 @@ public class Reports {
 							" ministry_statistic.periodEnd, "+
 							" ministry_locallevel.region ";
 		}
-		else if(!type.equals("national")){
+		else if(type.equals("locallevel")){
 			queryPortion="SELECT ministry_statistic.peopleGroup,"+
 							" ministry_activity.ActivityID as rowid, "+
 							
@@ -160,6 +176,20 @@ public class Reports {
 							" ministry_statistic.studentLeaders, "+
 							
 							" ministry_locallevel.region ";
+		}
+		else if (type.equals("regional"))
+		{
+			queryPortion="SELECT ministry_statistic.peopleGroup, "+
+						" ministry_locallevel.name as rowid,"+
+							" ministry_targetarea.region,"+
+							" ministry_targetarea.targetAreaID, "+
+							" ministry_targetarea.name, "+
+							" SUM(ministry_statistic.multipliers) multipliers, "+
+							" SUM(ministry_statistic.invldStudents) invldStudents, "+
+							" SUM(ministry_statistic.ongoingEvangReln) as Seekers, "+
+							" SUM(ministry_statistic.studentLeaders) studentLeaders,"+
+							" ministry_locallevel.region ";
+							
 		}
 		else
 		{
@@ -322,10 +352,15 @@ public class Reports {
 						}
 						if (type.equals("national")){
 							row.setLabel(org.alt60m.ministry.Regions.expandRegion(row.getRegion()));
-						} else if (type.equals("targetarea")){
+						} 
+						else if (type.equals("regional")){
+							SelectLane sl=new SelectLane();							
+							row.setLabel(row.getRowid()+"<br><i>"+sl.transLane(row.getStrategy())+"</i>");
+						}
+						else if (type.equals("targetarea")){
 							row.setLabel((row.getStatPeriodBegin().replace("-","/")+" - "+row.getStatPeriodEnd().replace("-","/")));
 						} else {
-							row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+(row.getEventType().equals("Campus")?" ("+row.getEnrollment()+" enrolled)":""));
+							row.setLabel(row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+(row.getEventType().equals("Campus")?" ("+((row.getEnrollment()+"").equals("")?"?":row.getEnrollment())+" enrolled)":""));
 						}
 				
 						
