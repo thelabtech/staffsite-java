@@ -112,8 +112,18 @@ while(report.hasNext()){
 		<%if(type.equals("national")){ %>
 		<td class="report_header_label" ><center> Region</center></td>
 		<%}
-		else if(type.equals("targetarea")){%>
-		<td class="report_header_label" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy()) %></center></td>
+		else if(type.equals("targetarea")){
+			String inactiveNote="";
+			if((row.getStatus().equals("IN"))&&(row.getEventType().equals("Campus"))){
+			inactiveNote="&nbsp;<i>(Inactive)</i>";
+			}
+			String teamNote="";
+			if(!ar.getValue("teamID").equals("")&&!ar.getValue("teamID").equals(row.getLocalLevelId())){
+				LocalLevel otherTeam=new LocalLevel(row.getLocalLevelId());
+				teamNote="<br><font color=\"red\">(Belongs to another Team: "+otherTeam.getName()+")</font>";
+			}
+		%>
+		<td class="report_header_label" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+inactiveNote+teamNote %></center></td>
 		<%}else{ %>
 		<td class="report_header_label" > <center>Ministry Location - Strategy (enrollment)</center></td>
 		<%} %>
@@ -209,7 +219,7 @@ while(report.hasNext()){
 	
 	
 	<%
-	if(!type.equals("regional")||row.getFunction().equals("detail")){%>
+	if(type.equals("targetarea")||type.equals("national")||row.getFunction().equals("detail")){%>
 		<table class="row_short"><tr>
 	<%}
 	else
@@ -225,6 +235,7 @@ while(report.hasNext()){
 		<%if (!type.equals("targetarea")){%>
 		<A  href="Report?action=statReport&type=<%
 			if(type.equals("national")){out.print("regional");}
+			else if (type.equals("regional")){out.print("locallevel");}
 			else {out.print("targetarea");}
 			%>
 			&frommonth=<%=ar.getValue("frommonth")%>
@@ -237,8 +248,8 @@ while(report.hasNext()){
 			&region=<%=row.getRegion() %>
 			"> <%} %>
 		<%=row.getLabel().equals("")?"Not Specified": row.getLabel()%><%if (!type.equals("targetarea")){%></A><%} %>&nbsp;
-			<%if((row.getStatus().equals("IN"))&&(row.getEventType().equals("Campus"))){%>
-			(active starting <%=row.getActivityPeriodBegin() %>)
+			<%if((row.getStatus().equals("IN"))&&(row.getEventType().equals("Campus"))&&type.equals("locallevel")){%>
+			<i>(Inactive)</i>
 			<%} %>
 	<%} %>
 	
@@ -306,8 +317,21 @@ while(report.hasNext()){
 }
 
 %>
-
 <%if (type.equals("targetarea")){%>
+<A href="Report?action=statReport&type=locallevel
+			&frommonth=<%=ar.getValue("frommonth")%>
+			&fromyear=<%=ar.getValue("fromyear")%>
+			&tomonth=<%=ar.getValue("tomonth")%>
+			&toyear=<%=ar.getValue("toyear")%>
+			&targetareaid=
+			&teamID=<%=ar.getValue("teamID") %>
+			&strategyList=<%=ar.getValue("strategyList") %>
+			&region=<%=region %>
+			">
+		[Zoom Out to Team]</A>
+<%} %>
+<%if (type.equals("locallevel")||type.equals("targetarea")){%>
+<br>
 <A href="Report?action=statReport&type=regional
 			&frommonth=<%=ar.getValue("frommonth")%>
 			&fromyear=<%=ar.getValue("fromyear")%>
