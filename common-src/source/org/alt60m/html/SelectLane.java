@@ -44,7 +44,15 @@ public class SelectLane implements java.io.Serializable {
     public void setCurrentValue(String aValue) {
 		currentLane = new String(aValue);
     }
-
+    public  String transLane(String aValue){
+    	String result=aValue;
+    	for (int i = 0; i < lanes.length; ++i) {
+    		if (lanes[i].equals(aValue)) {
+    			result=laneNames[i];
+    		} 
+    	    }
+    	return result;
+    }
 
     public String print() {
 	StringBuffer sb = new StringBuffer();
