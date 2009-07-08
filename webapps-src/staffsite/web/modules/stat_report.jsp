@@ -235,7 +235,7 @@ while(report.hasNext()){
 		<%if (!type.equals("targetarea")){%>
 		<A  href="Report?action=statReport&type=<%
 			if(type.equals("national")){out.print("regional");}
-			else if (type.equals("regional")){out.print("locallevel");}
+			else if (type.equals("regional")&&!isEvent){out.print("locallevel");}
 			else {out.print("targetarea");}
 			%>
 			&frommonth=<%=ar.getValue("frommonth")%>
@@ -317,7 +317,7 @@ while(report.hasNext()){
 }
 
 %>
-<%if (type.equals("targetarea")){%>
+<%if (type.equals("targetarea")&&!ar.getValue("teamID").equals("")){%>
 <A href="Report?action=statReport&type=locallevel
 			&frommonth=<%=ar.getValue("frommonth")%>
 			&fromyear=<%=ar.getValue("fromyear")%>
