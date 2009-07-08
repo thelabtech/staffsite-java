@@ -67,7 +67,7 @@ public class Reports {
 		}
 		else
 		{
-			return " GROUP BY substring(ministry_targetarea.eventType,1,1), ministry_locallevel.TeamID ORDER BY substring(ministry_targetarea.eventType,1,1), ministry_locallevel.TeamID "; 
+			return " GROUP BY substring(ministry_targetarea.eventType,1,1), if(ministry_targetarea.eventType is null,ministry_locallevel.teamID,ministry_targetarea.targetAreaID) ORDER BY substring(ministry_targetarea.eventType,1,1), if(ministry_targetarea.eventType is null,ministry_locallevel.name,ministry_targetarea.name) "; 
 		}
 	}
 	private static String summingFieldsPortion(String type){
@@ -78,7 +78,7 @@ public class Reports {
 		" CAST(ministry_activity.periodBegin AS DATE) as activityPeriodBegin,"+
 		" CAST(ministry_statistic.periodEnd AS DATE) as statPeriodEnd,"+
 		" CAST(ministry_statistic.periodBegin AS DATE) as statPeriodBegin,"+
-		" ministry_locallevel.teamID as localLevelId,"+
+		" concat_ws('','',ministry_locallevel.teamID) as localLevelId,"+
 		" ministry_targetarea.region, "+
 		" SUM(ministry_statistic.exposuresViaMedia) as exposuresViaMedia,"+
 		" SUM(ministry_statistic.evangelisticOneOnOne) as evangelisticOneOnOne, "+
@@ -120,10 +120,14 @@ public class Reports {
 			
 			" MAX(ministry_targetarea.eventType) as eventType,"+
 			" '' as eventKeyID,"+
-			" '' as targetAreaID, "+
-			" '' as campusName,"+
-			" ministry_locallevel.lane as strategy, "+
-			" ministry_locallevel.name as rowid,"+
+			" MAX(ministry_targetarea.TargetAreaID) as targetAreaID, "+
+			" MAX(ministry_targetarea.name) as campusName,"+
+			" if(max(ministry_targetarea.eventType) is null, "+ //then
+			" if(concat_ws('','',ministry_locallevel.lane)='','FS',ministry_locallevel.lane), "+//else
+			" max(ministry_activity.strategy)) as strategy, "+
+			" if(Max(ministry_targetarea.eventType) is null, "+//then
+			" ministry_locallevel.name, "+//else
+			" max(ministry_targetarea.targetAreaID)) as rowid,"+
 			" ''  as enrollment ";
 		}
 		else
@@ -180,7 +184,7 @@ public class Reports {
 		else if (type.equals("regional"))
 		{
 			queryPortion="SELECT ministry_statistic.peopleGroup, "+
-						" ministry_locallevel.name as rowid,"+
+			" if(ministry_targetarea.eventType is null,ministry_locallevel.name,ministry_targetarea.targetAreaID) as rowid,"+
 							" ministry_targetarea.region,"+
 							" ministry_targetarea.targetAreaID, "+
 							" ministry_targetarea.name, "+
@@ -345,6 +349,7 @@ public class Reports {
 							report.add(eventTopper);
 							
 							if (!(lastRow.getRowid()+"").equals("")){
+								log.debug("top at 348:"+row.toString());
 								ReportRow top=new ReportRow(row);
 								top.setFunction("top");
 								report.add(top);	
@@ -353,7 +358,11 @@ public class Reports {
 						if (type.equals("national")){
 							row.setLabel(org.alt60m.ministry.Regions.expandRegion(row.getRegion()));
 						} 
-						else if (type.equals("regional")){
+						else if (type.equals("regional")&&(!(row.getEventType().equals("Campus")||row.getEventType().equals("")))){
+							SelectLane sl=new SelectLane();							
+							row.setLabel(row.getCampusName()+"<br><i>"+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+"</i>");
+						}
+						else if (type.equals("regional")&&((row.getEventType().equals("Campus")||row.getEventType().equals("")))){
 							SelectLane sl=new SelectLane();							
 							row.setLabel(row.getRowid()+"<br><i>"+sl.transLane(row.getStrategy())+"</i>");
 						}
@@ -370,6 +379,8 @@ public class Reports {
 							runningTotal=new ReportRow();						
 						}					
 						if (((!lastRow.getStrategy().equals(row.getStrategy()))&&(type.equals("targetarea")))||((lastRow.getStrategy().equals("")||(lastRow.getStrategy()==null)))){	//always at top and between strategies for targetarea
+							log.debug("top at 377:"+lastRow.toString());
+							log.debug("top at 377:"+row.toString());
 							ReportRow top=new ReportRow(row);
 							top.setFunction("top");
 							report.add(top);					
@@ -421,7 +432,9 @@ public class Reports {
 				report.add(eventBlock);
 				runningTotal=new ReportRow();
 			}//resultset had data, otherwise return no rows in Vector<ReportRow> 'report'
-			
+			for(ReportRow rr:report){
+				log.debug(rr.toString());
+			}
 			return report;
 		} catch (Exception e) {
 				log.error("Failed to perform getSuccessCriteriaReport().", e);
