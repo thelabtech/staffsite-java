@@ -2,7 +2,13 @@ div.logoside
 {
 	display:block;
 	height:auto;
-	width:auto;
+	width:100px;
+	}
+	div#logobar
+{
+	display:block;
+	height:auto;
+	width:100%;
 	}
 div#menubar
 	{
@@ -11,8 +17,7 @@ div#menubar
 	
 	
 	background-color:#8b381a;
-	background-image:url('/modules/images/major_tabs.gif');
-background-repeat:repeat-x;
+	
 	
 	display:block;
 	width:100%;
@@ -23,8 +28,8 @@ background-repeat:repeat-x;
 ul#mainmenu
 {
 display:block;
-
-
+height:40px;
+overflow:hidden;
 }
 ul#mainmenu li.active,ul#mainmenu li.inactive 
 {
@@ -33,38 +38,54 @@ ul#mainmenu li.active,ul#mainmenu li.inactive
 display:block;
 float:left;
 color:white;
-	
+font-weight:bold;
+overflow:hidden;
 }
-
-
+ul#mainmenu li.active
+{
+background-color:#dd5f3e;
+height:40px;
+overflow:hidden;
+}
 ul#mainmenu li  a, ul#mainmenu li  a:visited
 {
+	font-weight:normal;
 	color:#cdcdcd;
 }
 
+ul#submenu li ,ul#submenu li 
+{
+	padding:10px;
+	width:auto;
+display:block;
+float:left;
+color:white;
+font-weight:bold;
+overflow:hidden;
+}
+ul#submenu li.ministry
+{display:block;width:30px;}
 
+ul#submenu li.report
+{display:block;width:150px;}
+
+
+ul#submenu li  a, ul#submenu li  a:visited
+{
+	color:#cdcdcd;
+	font-weight:normal;
+}
  
 ul#submenu
 {
+	background-image:url('/modules/images/major_tabs.gif');
+background-repeat:repeat-x;
 	display:block;
-}
-li.submenu
-{
-padding:10px;
-	width:auto;;
-	display:block;
-float:left;
+	height:40px;
+	overflow:hidden;
 	
 }
 
-li.submenu_active
-{
-padding:10px;
-	width:auto;;
-	display:block;
-float:left;
-	
-}
 div#content h1
 {
 display:block;

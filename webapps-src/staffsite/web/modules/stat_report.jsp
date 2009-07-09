@@ -124,6 +124,10 @@ while(report.hasNext()){
 			}
 		%>
 		<td class="report_header_label" ><center> <%=row.getCampusName()+" - "+org.alt60m.ministry.Strategy.expandStrategy(row.getStrategy())+inactiveNote+teamNote %></center></td>
+		<%}else if(type.equals("regional")&&!isEvent){%>
+		<td class="report_header_label" > <center>Team - <i>Strategy</i></center></td>
+		<%}else if(type.equals("regional")&&isEvent){%>
+		<td class="report_header_label" > <center>Event  - <i>Strategy</i></center></td>
 		<%}else{ %>
 		<td class="report_header_label" > <center>Ministry Location - Strategy (enrollment)</center></td>
 		<%} %>

@@ -2,11 +2,11 @@
 boolean quick=session.getValue("quicksearch")!=null;
 if(quick){ %>
 <%@page import="org.alt60m.ministry.States"%>
-<div id="quicksearch" class="quicksearch_open">
+<div  class="quicksearch_open">
 <a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><i>Close Advanced Search</i></a><br><br>
 <% session.putValue("quicksearch",null); %>
 <%} else {
-%><div id="quicksearch" class="quicksearch_closed">
+%><div  class="quicksearch_closed">
 <a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">(Advanced Search)</a><br>
 <%} %>
 
