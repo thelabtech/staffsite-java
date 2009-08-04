@@ -22,7 +22,11 @@ Vector<Hashtable<String,Object>>rows=section.getRows();
 %><table class="movement_list"><%
 for(Hashtable h:rows){
 		extantStrats.add((String)h.get("strategy"));
-		isFirst=true;%>
+		isFirst=true;
+		org.alt60m.ministry.model.dbio.Activity sentTeamActivity=new org.alt60m.ministry.model.dbio.Activity((String)h.get("id"));
+		Boolean isLink=(sentTeamActivity.getSentTeamId()!=null);
+		if(!isLink){
+		%>
 		<tr>
 			<%if(module.equals("location")||module.equals("campus")){ %>
 			<td class="team"><a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a></td>
@@ -44,6 +48,11 @@ for(Hashtable h:rows){
 		<%if(isLocation){ %>
 				<%@ include file="/modules/list/_list_contacts.jspf" %>
 		<%} %>
+	<%}else{ 
+	LocalLevel sentTeam=new LocalLevel(sentTeamActivity.getSentTeamId());
+	%>
+	<td class="team"><a href="/servlet/Team?action=content&module=team&id=<%=sentTeamActivity.getSentTeamId() %>">Sent Team: <%=sentTeam.getName()%></a></td>
+	<%} %>
 <%}%>
 </table>
 <%if(module.equals("location")||module.equals("campus")){ %>

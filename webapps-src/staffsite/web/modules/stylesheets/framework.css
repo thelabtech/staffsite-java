@@ -4,7 +4,11 @@ td{
 	font-family:verdana,arial,sans-serif;
 	font-size:10px;
 }
-
+td.phone
+{padding-left:5px;
+	}
+	td.email{padding-left:5px;
+	}
 
 
 div#left_pane

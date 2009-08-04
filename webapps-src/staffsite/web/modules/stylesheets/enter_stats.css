@@ -13,7 +13,7 @@ border-bottom:solid 1px black;
 li.wideTab
 {
 margin:none;
-width:100px;
+width:95px;
 
 background-color:#888888;
 font-size:10px;
@@ -202,6 +202,7 @@ a.remove_stats_bookmark
 margin:10px;
 font-size:10px;
 color:#cacaca;
+float:right;
 }
 div.stats_submit_surround
 {

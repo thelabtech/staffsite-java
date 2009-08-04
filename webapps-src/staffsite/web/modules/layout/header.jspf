@@ -30,7 +30,7 @@
 			<div id="logobar">
 		          <div class="logoside">
 		
-		           	 <a href="Home" class="logo" alt="InfoBase Home">Home</a>
+		           	 <a href="Home" class="logo" alt="InfoBase Home"><img src="/modules/images/infobase_logo.gif"/></a>
 		          </div><!-- logoside -->
            		 <%@ include file="/modules/layout/_search.jspf" %>
 			</div><!-- logobar -->

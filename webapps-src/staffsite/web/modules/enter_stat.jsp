@@ -175,7 +175,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 								flipColor=!flipColor;lastMovement=mr.getValue("activityid");displayName=(String)mr.getValue("displayname");
 								%>
 								<div class="<%=(flipColor)?"stats_form_row_darker":"stats_form_row" %>"  >
-								<a class="remove_stats_bookmark" href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>">remove bookmark</a>
+								<a class="remove_stats_bookmark" href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>"><img src="/modules/images/unbookmark.gif"/></a>
 								<%
 							}else{
 								displayName=(String)mr.getValue("displayname").split("&%@!")[1];

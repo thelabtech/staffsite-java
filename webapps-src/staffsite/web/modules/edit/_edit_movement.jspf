@@ -4,10 +4,11 @@
 %>
 <jsp:useBean id="statusHelper" class="org.alt60m.ministry.html.SelectStatus" />
 	<div class="edit_object">
-
+	
 	<input type=hidden name="action" value="saveEditActivity">
 <% Hashtable movement=ar.getHashtable("movement");%>
 	<table cellspacing=0 cellpadding=5 border=0 align="center" >
+<p><%=isNew?ar.getValue("strategy"):movement.get("strategy")%></p>
 	<form name="updateActivityForm" method="post" action="/servlet/Movement">
 	<input type=hidden name="action" value="saveEditActivity">
 	<input type="hidden" name="module" value="location">
@@ -33,7 +34,7 @@
 				<b>This Ministry Location is a(n)...</B><BR>
 				<%
 					statusHelper.setName("updateoption");
-					statusHelper.setCurrentValue((String)movement.get("status"));
+					statusHelper.setCurrentValue(!isNew?(String)movement.get("status"):"PI");
 					statusHelper.setStrategyName(org.alt60m.ministry.Strategy.expandStrategy((String)movement.get("strategy")));
 					statusHelper.setStatuses(statusOptions);
 				%>
@@ -64,9 +65,38 @@
 		</td>
 	</tr>
 
+<%Iterator teams = ar.getCollection("teams").iterator();%>
+<%if(ar.getValue("isStudentVenture")!=null){ %>
+			<tr>
+		<td	align="left" COLSPAN="2">*Sent Team:
+</td>
+	</tr>
+
+	<tr>
+		<td nowrap align=left COLSPAN="2">
+				
+					<select name="sent_teamID">
+						<option value=""></option>
+				<%
+				//loop through each record
+				teams = ar.getCollection("teams").iterator();
+				while(teams.hasNext()) {
+					Hashtable thisTeam = (Hashtable)teams.next();
+				%>
+					<option value="<%=thisTeam.get("LocalLevelId")%>" <%=((String)thisTeam.get("LocalLevelId")).equals(movement.get("locallevelid"))?" selected":""%>><%=thisTeam.get("Name")%></option>
+				<%
+				}
+				%>
+					</select>**</font>
+				</td>
+			</tr>
+			<Script type="text/javascript" language="javascript">
+			 checkSentTeam=true;
+			</script>
+<%}  %>
 	<tr>
 		<td	align="left" COLSPAN="2">
-			<b>To change the Missional Team that is responsible for this Ministry Location, select the name of the new Missional Team from this menu.</b>
+			<b> *<%=(ar.getValue("isStudentVenture")!=null)?"Sending":"Missional" %> Team:</b>
 			</font>
 		</td>
 	</tr>
@@ -74,10 +104,10 @@
 	<tr>
 		<td nowrap align=left COLSPAN="2">
 			<select name="teamid">
-				<option value="none"></option>
+				<option value=""></option>
 				<%
 				//loop through each record
-				Iterator teams = ar.getCollection("teams").iterator();
+				 teams = ar.getCollection("teams").iterator();
 				while(teams.hasNext()) {
 					Hashtable thisTeam = (Hashtable)teams.next();
 				%>
@@ -103,11 +133,11 @@
 	</td></tr>
 	
  
-	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:submitForm()" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
+	<tr><td colspan="2" align="center" nowrap><br><a href="JavaScript:submitForm()" id="subber" onMouseOver="document.updateStrategyButton.src='/images/ok_bon.gif';" onMouseOut="document.updateStrategyButton.src='/images/ok_boff.gif';"><img name="updateStrategyButton" src="/images/ok_boff.gif" border="0" align="top"></a></td></tr>
 	</table>
 	</form>
 	
-<A href="/servlet/Campus?action=index&module=location">Cancel</A>	
+<A href="/servlet/Campus?action=content&module=location">Cancel</A>	
 </div>
 	
 <%} else {%>

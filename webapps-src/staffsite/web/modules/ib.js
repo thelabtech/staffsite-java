@@ -33,14 +33,23 @@ function setDefinition(setTo,strategy) {
 //  }
 
 }
-	function submitForm() {
-		if (document.updateActivityForm.teamid.options[document.updateActivityForm.teamid.selectedIndex].value == "none") {
-			alert("You must select a Missional Team.");
+var checkSentTeam=false;
+function submitForm() {
+	if ((checkSentTeam&&document.updateActivityForm.sent_teamID.options[document.updateActivityForm.sent_teamID.selectedIndex].value == "")||
+		(checkSentTeam&&document.updateActivityForm.teamid.options[document.updateActivityForm.teamid.selectedIndex].value == "") )
+				{
+					alert("You must select a Sent Team and a Supervising a Missional Team.");
+				
 		}
-		else {
-			document.updateActivityForm.submit();
+	else if (document.updateActivityForm.teamid.options[document.updateActivityForm.teamid.selectedIndex].value == "") 
+	{
+		alert("You must select a Missional Team.");
 		}
+	else {
+		document.getElementById('subber').disabled=true;
+		document.updateActivityForm.submit();
 	}
+}
 
 	var checked=false;
 	function check(){

@@ -1,0 +1,48 @@
+View Specialty Roles in :<br>
+<%
+int breaker=0;
+for(String r:Regions.abbrevRegion){ 
+if (breaker>6){
+breaker=0;
+
+%><br><%
+}%>
+<a href="/servlet/Person?action=index&id=0&module=person&region=<%=r%>" ><%=Regions.expandRegion(r) %>&nbsp;&nbsp;&nbsp;</a>
+<%
+breaker++;
+} %><br><br>
+<b>Specialty Roles in <%=Regions.expandRegion(ar.getValue("region")) %>:</b>
+<% 
+Vector<Hashtable<String,Object>>homeList=(Vector<Hashtable<String,Object>>)ar.getCollection("homeList");
+if(homeList!=null){
+	String lastStrat="";
+	%><table><%
+for(Hashtable h:homeList){
+	if(!h.get("strategy").equals(lastStrat)){%>
+		<tr><td colspan="5">&nbsp;</td></tr>
+		<tr><td colspan="3"><h3><%=h.get("strategy").equals("")?"No Strategy Listed":org.alt60m.ministry.StaffStrategy.expandStaffStrategy((String)h.get("strategy"))%></h3></td>
+		<td class="phone">Work</td><td class="phone">Mobile</td></tr><%}
+	
+			%>
+<tr><td>
+			<%if(((String)h.get("title")).toUpperCase().contains("DIRECTOR")){ %><b><%} %>
+			<%=h.get("title") %>
+			<%if(((String)h.get("title")).toUpperCase().contains("DIRECTOR")){ %></b><%} %>
+</td>
+<td>
+	<A href="/servlet/Person?action=content&module=person&id=<%= h.get("id") %>&accountNo=<%=h.get("accountNo")%>"><%=((String) h.get("name")).replace(" (null)","") %></A>
+</td>
+<td class="email">
+	<A href="mailto:<%=h.get("email") %>"><%=h.get("email") %></A>
+</td>
+<td class="phone">
+	<%=h.get("workPhone") %>
+</td>
+<td class="phone"> 
+	<%=h.get("cellPhone") %>
+</td></tr>	
+<%
+lastStrat=(String)h.get("strategy");
+}%></table><%
+	}
+%>
