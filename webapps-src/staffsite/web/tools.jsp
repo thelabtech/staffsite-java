@@ -207,7 +207,7 @@ int curr_tab = 3; %>
 		-->
 		<tr>
 			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://sp.campuscrusadeforchrist.com/admin" : "http://sp.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
+						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td>
 				<%=font%><b>Conference Registration System 2.0 (CRS) </b></font></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
