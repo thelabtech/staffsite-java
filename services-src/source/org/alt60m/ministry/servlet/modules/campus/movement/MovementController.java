@@ -127,7 +127,10 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
         try {
         	ActionResults results = (ActionResults)ctx.getSessionValue("location_response");
         	results.putValue("edit_movement","true" );
+        	TargetArea ta=new TargetArea((String)results.getHashtable("info").get("targetareaid"));
 			if(ctx.getInputString("new")!=null){
+				 Boolean isStudentVenture=((ctx.getInputString("strategy").equals("SV"))&&(!ta.getType().equals("High School")));
+				 if(isStudentVenture){results.putValue("isStudentVenture", "true");}
 				results.putValue("strategy",ctx.getInputString("strategy"));
 				results.addHashtable("movement", MovementHelper.info("0"));
 				results.putValue("new_movement","true" ); 
@@ -135,7 +138,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
 				results.addHashtable("movement", MovementHelper.info(ctx.getInputString("activityid")));
 				results.removeValue("new_movement");
 			}
-			TargetArea ta=new TargetArea((String)results.getHashtable("info").get("targetareaid"));
+			
 			 Collection colLLs = ObjectHashUtil.list(MovementHelper.getLocalLevelTeamsByRegion(ta.getRegion()));
 	            results.addCollection("teams", colLLs);
 			ctx.setReturnValue(results);
@@ -150,13 +153,17 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     public void saveEditActivity(ActionContext ctx) {
         try {
             String activityId = ctx.getInputString("activityid");
-           
+            
             String periodEnd = ctx.getInputString("datechanged", true);
 
             String Url = ctx.getInputString("url", true);
             String Facebook = ctx.getInputString("facebook", true);
             String strategy = ctx.getInputString("strategy", Strategy.strategiesArray());
-            
+            String sent_teamID = null;
+            if (strategy.equals("SV"))sent_teamID = ctx.getInputString("sent_teamID");
+            log.debug(strategy);
+            log.debug(sent_teamID);
+            log.debug(ctx.getInputString("sent_teamID"));
             String updateOption = ctx.getInputString("updateoption", true);
             if (activityId==null){
             	Activity act=new Activity();
@@ -171,7 +178,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
             	
             	activityId=act.getActivityId();
             }
-           MovementHelper.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url, Facebook);
+           MovementHelper.saveEditActivity(activityId, periodEnd, strategy, updateOption, ctx.getProfileID(), ctx.getInputString("teamid"), Url, Facebook,sent_teamID);
            content(ctx);
         }
         catch (ActivityExistsException aee) {

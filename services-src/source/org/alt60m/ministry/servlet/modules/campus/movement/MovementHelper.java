@@ -44,9 +44,9 @@ public class MovementHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 		}
 	}
   public static void saveEditActivity(String activityId, String periodEnd, String strategy, 
-	String newStatus, String profileId, String newTeamId, String newUrl, String newFacebook) throws Exception, ActivityExistsException {
+	String newStatus, String profileId, String newTeamId, String newUrl, String newFacebook, String sent_teamID) throws Exception, ActivityExistsException {
 	try {
-	checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, newFacebook, periodEnd, profileId);
+	checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, newFacebook, periodEnd, profileId,sent_teamID);
 	 		//if (checkAndPersistChanges(newTeamId, newStatus, activityId, newUrl, periodEnd, profileId)) {
 	//	if (strategy.equals("SC") || strategy.equals("CA")) {
 			
@@ -128,13 +128,13 @@ private static boolean checkDuplicateActiveActivity(String targetAreaId, String 
 return checkDuplicateActiveActivity(targetAreaId, strategy, "0");
 }
 
-private static boolean checkAndPersistChanges(String newTeamId, String newStatus, String oldActivityId, String newUrl, String newFacebook, String periodEnd, String profileId) {
+private static boolean checkAndPersistChanges(String newTeamId, String newStatus, String oldActivityId, String newUrl, String newFacebook, String periodEnd, String profileId, String sent_teamID) {
 Activity oldActivity = new Activity(oldActivityId);
-return checkAndPersistChanges(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(), newFacebook, oldActivity.getFacebook(),   oldActivity, periodEnd, profileId);
+return checkAndPersistChanges(newTeamId, oldActivity.getLocalLevelId(), newStatus, oldActivity.getStatus(), newUrl, oldActivity.getUrl(), newFacebook, oldActivity.getFacebook(),   oldActivity, periodEnd, profileId,  sent_teamID);
 }
 
 private static boolean checkAndPersistChanges(String newTeamId, String oldTeamId, 
-	String newStatus, String oldStatus, String newUrl, String oldUrl, String newFacebook, String oldFacebook, Activity oldActivity, String periodEnd, String profileId)  {
+	String newStatus, String oldStatus, String newUrl, String oldUrl, String newFacebook, String oldFacebook, Activity oldActivity, String periodEnd, String profileId, String sent_teamID)  {
 boolean change = false;
 
 if (!newTeamId.equals(oldTeamId)){
@@ -142,6 +142,7 @@ if (!newTeamId.equals(oldTeamId)){
 	oldActivity.setTeam(team);
 	change = true;
 }
+oldActivity.setSentTeamId(sent_teamID);
 if(!newStatus.equals(oldStatus))
 {
 	try {

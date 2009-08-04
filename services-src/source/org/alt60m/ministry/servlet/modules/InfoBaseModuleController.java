@@ -17,6 +17,7 @@ import org.alt60m.ministry.model.dbio.Staff;
 
 import org.alt60m.ministry.servlet.InfoBaseTool;
 import org.alt60m.ministry.servlet.modules.model.Section;
+import org.alt60m.ministry.servlet.modules.person.PersonQueries;
 
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
@@ -79,6 +80,7 @@ public class InfoBaseModuleController extends Controller {
         	String lastClass=InfoBaseModuleHelper.lastClass(ctx);
         	results.addHashtable("search",InfoBaseModuleHelper.sessionSearch(ctx));
         	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
+        	results.addCollection("homeList",PersonQueries.getRegionalSpecialties(getUserPerson(ctx).getRegion()));
         	results.putValue("module", "home");
 			results.putValue("title", "Home");
 			results.putValue("mode", "home");
@@ -199,7 +201,9 @@ public class InfoBaseModuleController extends Controller {
 				results.putValue("granularity", "region");
 				if(ctx.getInputString("edit")!=null){results.putValue("edit_"+lastClass,"true" );}else{results.removeValue("edit_"+lastClass);}
     			if(ctx.getInputString("new")!=null) {results.putValue("new_"+lastClass,"true" ); }else {results.removeValue("new_"+lastClass);}
-    			
+    			results.addCollection("homeList",PersonQueries.getRegionalSpecialties(ctx.getInputString("region")==null?getUserPerson(ctx).getRegion():ctx.getInputString("region")));
+    			results.putValue("region",ctx.getInputString("region")==null?getUserPerson(ctx).getRegion():ctx.getInputString("region"));
+            	
 				ctx.setReturnValue(results);    	
                 ctx.goToView(lastClass+"_home");
                 id="";
