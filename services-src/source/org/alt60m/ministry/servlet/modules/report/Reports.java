@@ -650,12 +650,12 @@ public class Reports {
 							renderedReport.append("<tr >");
 							renderedReport.append("<td class=\"muster_label_"+(!type.equals("movement")?cell:cellAlt) +"\">"+(secure?"<i>":""));
 							if(type.equals("teamorg")||type.equals("teamgeo")){ 
-								renderedReport.append("<a href=\"/servlet/Team?action=content&id="+resultSet.getString("teamID")+"\">");
+								renderedReport.append("<a href=\"/servlet/Team?action=content&module=team&id="+resultSet.getString("teamID")+"\">");
 								renderedReport.append(resultSet.getString("teamName"));
 							}
 							 else 
 							{ 
-								renderedReport.append("<a href=\"/servlet/Campus?action=content&id="+resultSet.getString("campusID")+"\">");
+								renderedReport.append("<a href=\"/servlet/Campus?action=content&module=location&id="+resultSet.getString("campusID")+"\">");
 								if (type.equals("movement")){
 									renderedReport.append((resultSet.getString("campusName")+((secure?" (sensitive)":"")+"</a>")+" </td><td class=\""+
 											(type.equals("movement")?"muster_"+cell:"muster_label_"+cellAlt) +"\">"+(secure?"<i>":"")+
@@ -676,7 +676,7 @@ public class Reports {
 						if (type.equals("movement")){ 
 							 
 							 renderedReport.append("<td class=\"muster_"+cellAlt +"\">"+(secure?"<i>":""));
-							 renderedReport.append("<a href=\"/servlet/Team?action=content&id="+resultSet.getString("teamID")+"\">"+resultSet.getString("teamName")+"</a>");	
+							 renderedReport.append("<a href=\"/servlet/Team?action=content&module=team&id="+resultSet.getString("teamID")+"\">"+resultSet.getString("teamName")+"</a>");	
 									 renderedReport.append("</td>");
 						} 
 						if(type.equals("location")){
