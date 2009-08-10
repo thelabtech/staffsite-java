@@ -1,0 +1,177 @@
+<!-- _add_person.jspf -->
+<%
+if(ar.getValue("add_person")!=null){
+	%><div class="edit_object"><%
+Hashtable holdPerson=new Hashtable();
+if (ar.getHashtable("holdPerson")!=null){
+	holdPerson=ar.getHashtable("holdPerson");
+}
+String teamID=ar.getValue("teamID");
+String activityid=ar.getValue("activityid");
+Activity act=new Activity(activityid);
+TargetArea ta=new TargetArea(act.getTargetAreaId());
+String purpose=ar.getValue("purpose");
+Boolean confirmed=false;
+
+
+if (ar.getValue("infoMessage")!=null&&(!ar.getValue("infoMessage").equals(""))){
+	%>
+<center><p style="color:red;"><%= ar.getValue("infoMessage")%></p></center>
+	<%
+}
+if(ar.getCollection("perps")!=null&&((ar.getCollection("perps")).size()>0)){%>
+	<table    align="center" >
+<tr><td colspan=8>People with emails or account numbers matching your submission:</td></tr>
+<tr><td>&nbsp;</td><td>First</td><td>Preferred</td><td>Last</td>
+<td>Staff Account #</td><td>Address Type</td><td>Address</td><td>Email</td><td>Phone #s</td></tr>
+<%Vector<Person>perps=(Vector<Person>)ar.getCollection("perps");
+for(Person p:perps){
+	Address address=new Address();
+	boolean firstAdd=true;
+	for(Address a:(Vector<Address>)address.selectList("fk_PersonID='"+p.getPersonID()+"' and addressType in ('current','permanent')")){
+		
+	%>
+	<tr><td>
+<%if(firstAdd){ %>
+<%if (purpose.equals("team")){%>
+<a href="/servlet/Team?action=saveTeamMember&personID=<%=p.getPersonID() %>&id=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>">That's the One!</a>
+<%} else if (purpose.equals("contact")){%>
+	<a href="/servlet/Movement?action=savePersonContact&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>&id=<%=ta.getTargetAreaId() %>">That's the One!</a>
+<% }%>
+<%} %>
+</td><td>
+<%=firstAdd?p.getFirstName():"&nbsp;" %>
+</td><td>
+<%=firstAdd?p.getPreferredName():"&nbsp;" %>
+</td><td>
+<%=firstAdd?p.getLastName():"&nbsp;" %>
+</td><td>
+<%=firstAdd?p.getAccountNo():"&nbsp;" %>
+</td><td>		
+<%=a.getAddressType() %>
+		</td><td>
+		<%=a.getAddress1() %><%=(a.getAddress2()!=null)&&(a.getAddress2().length()>0)?"<br>"+a.getAddress2():"" %><br>
+		<%=a.getCity() %>,
+		<%=a.getState() %>&nbsp;
+		<%=a.getZip() %>
+		</td><td>
+		<%=a.getEmail() %>
+		</td><td>
+		<%=(a.getHomePhone()!=null)&&(a.getHomePhone().length()>0)?"<br>Home: "+a.getHomePhone():"" %>
+		<%=(a.getWorkPhone()!=null)&&(a.getWorkPhone().length()>0)?"<br>Work: "+a.getWorkPhone():"" %>
+		<%=(a.getCellPhone()!=null)&&(a.getCellPhone().length()>0)?"<br>Cell: "+a.getCellPhone():"" %>
+</td></tr>
+	<%firstAdd=false;
+	}}
+%>
+</table>
+<%
+}
+else {
+	if(ar.getCollection("suspects")!=null&&((ar.getCollection("suspects")).size()>0)){
+		confirmed=true;%>
+		<table    align="center" >
+		<tr><td colspan=8>People with names matching your submission:</td></tr>
+		<tr><td>&nbsp;</td><td>First</td><td>Preferred</td><td>Last</td>
+		<td>Staff Account #</td><td>Address Type</td><td>Address</td><td>Email</td><td>Phone #s</td></tr>
+		<%Vector<Person>suspects=(Vector<Person>)ar.getCollection("suspects");
+		for(Person p:suspects){
+			Address address=new Address();
+			
+			boolean firstAdd=true;
+			for(Address a:(Vector<Address>)address.selectList("fk_PersonID='"+p.getPersonID()+"' and addressType in ('current','permanent')")){
+				
+			%>
+			<tr><td>
+		<%if(firstAdd){ %>
+		<%if (purpose.equals("team")){%>
+<a href="/servlet/Team?action=saveTeamMember&personID=<%=p.getPersonID() %>&id=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>">That's the One!</a>
+<%} else if (purpose.equals("contact")){%>
+	<a href="/servlet/Movement?action=savePersonContact&personID=<%=p.getPersonID() %>&locallevelid=<%=teamID %>&teamID=<%=teamID %>&purpose=<%=purpose %>&activityid=<%=activityid %>&id=<%=ta.getTargetAreaId() %>">That's the One!</a>
+<% }%><%} %>
+		</td><td>
+		<%=firstAdd?p.getFirstName():"&nbsp;" %>
+		</td><td>
+		<%=firstAdd?p.getPreferredName():"&nbsp;" %>
+		</td><td>
+		<%=firstAdd?p.getLastName():"&nbsp;" %>
+		</td><td>
+		<%=firstAdd?p.getAccountNo():"&nbsp;" %>
+		</td><td>		
+		<%=a.getAddressType() %>
+		</td><td>
+		<%=a.getAddress1() %><%=(a.getAddress2()!=null)&&(a.getAddress2().length()>0)?"<br>"+a.getAddress2():"" %><br>
+		<%=a.getCity() %>,
+		<%=a.getState() %>&nbsp;
+		<%=a.getZip() %>
+		</td><td>
+		<%=a.getEmail() %>
+		</td><td>
+		<%=(a.getHomePhone()!=null)&&(a.getHomePhone().length()>0)?"<br>Home: "+a.getHomePhone():"" %>
+		<%=(a.getWorkPhone()!=null)&&(a.getWorkPhone().length()>0)?"<br>Work: "+a.getWorkPhone():"" %>
+		<%=(a.getCellPhone()!=null)&&(a.getCellPhone().length()>0)?"<br>Cell: "+a.getCellPhone():"" %>
+		</td></tr>
+			<%firstAdd=false;
+			}}
+		%>
+		</table>
+		<%
+	}
+	
+
+	
+
+
+%>
+
+
+<table    align="center" >
+	<form method="post" name="makePerson" action="/servlet/Home" >
+            <input type="hidden" name="action" value="checkNewPerson"/>
+            <input type="hidden" name="teamID" value="<%=teamID%>"/>
+			<input type="hidden" name="locallevelid" value="<%=teamID%>"/>
+			<input type="hidden" name="activityid" value="<%=activityid%>"/>
+			<input type="hidden" name="module" value="<%=module %>"/>
+			<input type="hidden" name="id" value="<%=ar.getValue("id") %>"/>
+			<input type="hidden" name="purpose" value="<%=purpose%>"/>
+			<input type="hidden" name="targetareaid" value="<%=ta.getTargetAreaId()%>"/>
+	<input type="hidden" name="confirmed" value="<%=confirmed?"confirmed":"no" %>"/>
+     <tr><td align=right >*First Name: </td><td><input  type="text" name="firstName" value="<%=holdPerson.get("firstName")!=null?holdPerson.get("firstName"):"" %>" required/></td></tr>
+<tr><td align=right >(Preferred Name): </td><td><input  type="text" name="preferredName" value="<%=holdPerson.get("preferredName")!=null?holdPerson.get("preferredName"):"" %>" /></td></tr>
+     <tr><td align=right >*Last Name: </td><td><input  type="text" name="lastName" value="<%=holdPerson.get("lastName")!=null?holdPerson.get("lastName"):"" %>" required/></td></tr>
+     <tr><td align=right >*Email: </td><td><input  type="text" name="email" value="<%=holdPerson.get("email")!=null?holdPerson.get("email"):"" %>" required/></td></tr>
+<tr><td align=right >Marital Status: </td><td><select   name="marital"  >
+																<%Hashtable marital=new Hashtable();
+																if(holdPerson.get("marital")==null)holdPerson.put("marital","");
+																marital.put("","Not Specified");
+																marital.put("M","Married");
+																marital.put("S","Single");
+																Iterator wed=marital.keySet().iterator();
+																while (wed.hasNext()){
+																	String ms=(String)wed.next();
+																	//why is all this necessary? excellence. We want a nice dropdown that looks neat and retains its data through error-checking cycles.
+																	%>
+																	<option <%= ms.equals(holdPerson.get("marital"))?"selected":"" %> value="<%=ms %>"><%= marital.get(ms)%></option>
+																	<%
+																}
+																%>
+														</select></td></tr>
+<tr><td colspan="2"><Center> Current Contact Info (Optional but helpful):</Center></td></tr>     
+<tr><td align=right >Home Phone: </td><td><input type="text" name="homePhone" value="<%=holdPerson.get("homePhone")!=null?holdPerson.get("homePhone"):"" %>" /></td></tr>
+    <tr><td align=right >Work Phone: </td><td><input type="text" name="workPhone" value="<%=holdPerson.get("workPhone")!=null?holdPerson.get("workPhone"):"" %>" /></td></tr>
+    <tr><td align=right >Mobile Phone: </td><td><input type="text" name="mobilePhone" value="<%=holdPerson.get("mobilePhone")!=null?holdPerson.get("mobilePhone"):"" %>" /></td></tr>
+    <tr><td align=right >Address 1: </td><td><input type="text" name="address1" value="<%=holdPerson.get("address1")!=null?holdPerson.get("address1"):"" %>" /></td></tr>
+    <tr><td align=right >Address 2: </td><td><input type="text" name="address2" value="<%=holdPerson.get("address2")!=null?holdPerson.get("address2"):"" %>" /></td></tr>
+    <tr><td align=right >City: </td><td><input type="text" name="city" value="<%=holdPerson.get("city")!=null?holdPerson.get("city"):"" %>" /></td></tr>
+    <tr><td align=right >State: </td><td><input type="text" name="state" value="<%=holdPerson.get("state")!=null?holdPerson.get("state"):"" %>" /></td></tr>
+    <tr><td align=right >Zip: </td><td><input type="text" name="zip" value="<%=holdPerson.get("zip")!=null?holdPerson.get("zip"):"" %>" /></td></tr>
+    <tr><td align=right >Country:</td><td><input type="text" name="country" value="<%=holdPerson.get("country")!=null?holdPerson.get("country"):"" %>" /></td></tr>
+    <tr><td><input type="submit" name="Submit" value="<%=confirmed?"Just Do It":"Submit"%>" /></td></tr>
+        </form>
+ </table>
+<%}
+%></div><%
+}
+else{
+}
+%>
