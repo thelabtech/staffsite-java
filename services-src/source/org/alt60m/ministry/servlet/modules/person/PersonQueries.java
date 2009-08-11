@@ -25,7 +25,7 @@ public class PersonQueries extends org.alt60m.ministry.servlet.modules.InfoBaseM
 		" ministry_staff.workPhone as workPhone, ministry_staff.mobilePhone as cellPhone "+
 		" FROM ministry_staff  "+
 		" WHERE (((ministry_staff.jobStatus)='Full Time Staff') AND ((ministry_staff.ministry)='Campus Ministry') AND ((ministry_staff.removedFromPeopleSoft)='N')) "+
-		" and (((ministry_staff.jobTitle) Not In ('Team Leader (Direct Ministry)','Team Member - Mom','Field Staff In Training','Raising Support Full Time','Seminary Staff','Field Staff','Local Leader'))) "+
+		" and (((ministry_staff.jobTitle) Not In ('Director (Direct Ministry)','Team Leader (Direct Ministry)','Team Member - Mom','Field Staff In Training','Raising Support Full Time','Seminary Staff','Field Staff','Local Leader'))) "+
 		" and ministry_staff.region='"+region+"' "+
 		" Order by field(if(ministry_staff.strategy in ('FLD','Staffed','Catalytic'),'FLD',ministry_staff.strategy),'National Director','Operations','HR','Fund Dev','FLD','ESM','DES','EPI','NTN','BRD','WSN','R&D','SR','SV','SSS','JPO','LHS','') asc, ministry_staff.jobTitle; ";
 		ResultSet rs = stmt.executeQuery(qry);
