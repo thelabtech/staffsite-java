@@ -53,6 +53,7 @@
 						  <option value="KC">Korean CCC</a>
 						  <option value="GK">Greek</a>
 						  <option value="VL">Valor</a>
+							<option value="SV">Student Venture</a>
 						  <option value="OT">Other</a>
 						</select>
 						&nbsp;=&nbsp;
