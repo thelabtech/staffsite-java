@@ -286,6 +286,8 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             	results.putValue("message", "You entered non-numerical data in these movements; please try again.");
             	results.putValue("statSuccess", (String)ctx.getSessionValue("statSuccess"));
             	results.putValue("module",this.module);
+
+            	results.addHashtable("search", InfoBaseModuleHelper.sessionSearch(ctx));
     			results.putValue("title",this.title);
     			results.putValue("mode","content");
             	ctx.setReturnValue(results);

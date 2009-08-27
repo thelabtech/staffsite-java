@@ -88,6 +88,9 @@ public class StatHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
                     }
                     results.addCollection("statistics", allDates);
                     results.putValue("displayname", targetArea.getName()+" - "+Strategy.expandStrategy(strategy)+((strategy.equals("BR"))?"&%@!"+(peopleGroup.equals("null") ? "(Other Internationals)" : peopleGroup):""));
+                    results.putValue("location_name", targetArea.getName());
+                    results.putValue("strategy_name", Strategy.expandStrategy(strategy));
+                    results.putValue("people_group_name",((strategy.equals("BR"))?(peopleGroup.equals("null") ? "(Other Internationals)" : peopleGroup):""));
                     multiResults.addActionResults(results.getValue("displayname")+"_"+activityId,results);
             	}
             

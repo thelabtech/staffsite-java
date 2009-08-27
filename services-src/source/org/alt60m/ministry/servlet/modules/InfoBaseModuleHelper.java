@@ -1,6 +1,7 @@
 package org.alt60m.ministry.servlet.modules;
 
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Hashtable;
@@ -221,6 +222,7 @@ public class InfoBaseModuleHelper {
 			h.put("location_id", rs.getString("location_id")+"");
 			h.put("location", rs.getString("location")+"");
 			h.put("size", rs.getString("size")+"");
+			h.put("status", rs.getString("status")+"");
 			h.put("strategy", rs.getString("strategy")+"");
 			h.put("region", rs.getString("region")+"");
 			h.put("city", rs.getString("city")+"");
@@ -248,6 +250,7 @@ public class InfoBaseModuleHelper {
 			h.put("location_id", rs.getString("location_id")+"");
 			h.put("location", rs.getString("location")+"");
 			h.put("size", rs.getString("size")+"");
+			h.put("status", rs.getString("status")+"");
 			h.put("strategy", rs.getString("strategy")+"");
 			h.put("region", rs.getString("region")+"");
 			h.put("city", rs.getString("city")+"");
@@ -270,6 +273,7 @@ public class InfoBaseModuleHelper {
 			h.put("location_id", rs.getString("location_id")+"");
 			h.put("location", rs.getString("location")+"");
 			h.put("size", rs.getString("size")+"");
+			h.put("status", rs.getString("status")+"");
 			h.put("strategy", rs.getString("strategy")+"");
 			h.put("region", rs.getString("region")+"");
 			h.put("city", rs.getString("city")+"");
@@ -283,6 +287,7 @@ public class InfoBaseModuleHelper {
 	   public static Hashtable sessionSearch(ActionContext ctx){
 	    	Hashtable result=new Hashtable();
 	    	String lastClass=ctx.getInputString("module")+"";
+	    	if (!Arrays.asList("person","campus","location","movement","team").contains(lastClass)) lastClass="";
         	if (lastClass.equals("")) lastClass=(String)ctx.getSessionValue("lastClass");
         	if (lastClass.equals("")) lastClass="location";
 	    	String key=lastClass+"_search";
