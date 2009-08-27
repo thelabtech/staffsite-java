@@ -25,7 +25,7 @@ td.report_light, td.report_darker,td.split
 	
 
 text-align:center;
-width:60px;
+width:59px;
 }
 div.bridges_split td.report_light, div.bridges_split td.report_darker, div.bridges_split td.label
 {
@@ -39,8 +39,10 @@ td.label
 text-align:right;
 width:230px;
 }
-table.row, table.row_tall
+table.row, table.row_tall,table.row_short
 {
+	
+	margin:0px;
 display:block;
 overflow:hidden;
 }
@@ -74,8 +76,8 @@ float:none;
 width:100%;
 height:auto;
 border:none;
-margin:0;
-padding:0;
+margin:0px;
+padding:0px;
 overflow:hidden;
 
 }
@@ -104,7 +106,7 @@ background-color:#b7d3e9;
 td.report_header
 {
 
-width:60px;
+width:59px;
 }
 td.report_header_double
 {
@@ -157,10 +159,11 @@ width:900px;
 }
 
 ul.micro
-{
+{width:100%;
 border:none;
 padding:none;
 margin:none;
+margin-left:-30px;
 }
 ul.micro li
 {
@@ -168,7 +171,7 @@ border:none;
 padding:none;
 margin:none;
 display:block;
-width:60px;
+width:58px;
 float:left;
 overflow:hidden;
 }

@@ -4,7 +4,7 @@
 
 int record=1;
 boolean isLocation=(module.equals("location")||module.equals("campus"));
-boolean isFirst=true;
+
 boolean topRow=true;
 Vector<String> extantStrats=new Vector<String>();
 String collapse_section_id="";
@@ -19,57 +19,132 @@ if(isLocation){
 	rowId="location_id";
 }
 Vector<Hashtable<String,Object>>rows=section.getRows();
-%><table class="movement_list"><%
+%>
+<%if(!isLocation){ %><!-- if team -->
+	<div class="lefthand">
+            
+            	<h3 class="indented">This <%=moduleUrl %> is responsible for the following movements:</h3>
+                
+                <table class="movements">
+					<tr>
+                    	<th>Ministry Location</th>
+
+                        <th>Strategy</th>
+                        <th>Status</th>
+                        <th>Size</th>
+ 						<th>&nbsp;</th>
+                    </tr>
+
+
+<%} %>
+<%
 for(Hashtable h:rows){
 		extantStrats.add((String)h.get("strategy"));
-		isFirst=true;
+		
 		org.alt60m.ministry.model.dbio.Activity sentTeamActivity=new org.alt60m.ministry.model.dbio.Activity((String)h.get("id"));
 		Boolean isLink=(sentTeamActivity.getSentTeamId()!=null);
 		if(!isLink){
 		%>
-		<tr>
-			<%if(module.equals("location")||module.equals("campus")){ %>
-			<td class="team"><a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a></td>
-			<%} else { %>
-			<td class="campus"><a href="/servlet/Campus?action=content&module=location&id=<%=h.get("location_id") %>"><%=h.get("location") %></a></td>
-			<%} %>
-			<td class=
-			<td class="strategy"><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></td>
-			<td class="size"><%=h.get("size") %> students</td>
-			<td class="enter_stat"><a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a></td>
-		<%if(isLocation){ %>
-			<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-				<td class="edit_movement"><A HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
-				Edit
-				</A></td>
-			<%}%>
-		<%} %>
-		</tr>	
-		<%if(isLocation){ %>
-				<%@ include file="/modules/list/_list_contacts.jspf" %>
-		<%} %>
+ <%if(isLocation){ %><!-- location listing of mvts -->
+	<div class="strategy">
+            	<h3><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></h3>
+		<div class="details">
+                	<div class="thecolumn">
+						<div class="field">
+                            <label>Status:</label>
+ 							<%org.alt60m.ministry.model.dbio.Activity act=new org.alt60m.ministry.model.dbio.Activity((String)h.get("id"));
+ 							%>
+ 							<%=act.getStatusFullName() %>
+                        </div><!-- end field -->
+						
+                      
+						<div class="field">
+                            <label>Contacts:</label>
+
+                            <div class="box">
+										<%@ include file="/modules/list/_list_contacts.jspf" %>
+ 							 </div>
+                        </div><!-- end field -->
+						
+                          
+						<div class="clear"></div>
+
+                    </div><!-- end thecolumn -->
+
+
+			
+			           <div class="thecolumn">
+                    
+                        <div class="field">
+                            <label>Missional Team:</label>
+                            <a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a>
+                        			<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+						
+							<A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
+							
+							</A>
+						
+						<%}%>
+						</div><!-- end field -->
+                        <div class="field">
+                            <label>Size:</label>
+                            <%=h.get("size") %> students  (<a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a>)
+                        </div><!-- end field -->
+                       <%if(!((String)h.get("facebook")).equals("null")&&!((String)h.get("facebook")).equals("")){ %>
+						<div class="field">
+                            <label>Facebook:</label>
+ 							<a href="<%=h.get("facebook") %>"><%=h.get("facebook") %></a>
+                        </div><!-- end field -->
+						<%} %>
+						 <%if(!((String)h.get("url")).equals("null")&&!((String)h.get("url")).equals("")){ %>
+                         <div class="field">
+                            <label>Website:</label>
+ 							<a href="<%=h.get("url") %>"><%=h.get("url") %></a>
+                        </div><!-- end field -->
+						<%} %>
+                    	<div class="clear"></div>
+				</div><!--  the column -->
+			<%} else { %><!-- team listing of mvts -->
+     <tr>
+		<td><a href="/servlet/Campus?action=content&module=location&id=<%=h.get("location_id") %>"><%=h.get("location") %></a></td>
+		<td><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></td>
+		<td><%=h.get("status") %></td>
+		<td><%=h.get("size") %> students  </td>
+		<td>(<a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a>)</td>
+	</td><%} %>
+			
 	<%}else{ 
 	LocalLevel sentTeam=new LocalLevel(sentTeamActivity.getSentTeamId());
-	%>
-	<td class="team"><a href="/servlet/Team?action=content&module=team&id=<%=sentTeamActivity.getSentTeamId() %>">Sent Team: <%=sentTeam.getName()%></a></td>
+	%><div class="strategy">
+            	<h3>
+	<a href="/servlet/Team?action=content&module=team&id=<%=sentTeamActivity.getSentTeamId() %>">Sent Team: <%=sentTeam.getName()%></a>
+	</h3></div>
 	<%} %>
+<div class="clear"></div>
+</div><!-- end detail -->
+            	
+                
+
+            </div><!-- end strategy -->
 <%}%>
-</table>
+ 
+<%if(!isLocation){ %><!-- if team -->
+	</table>
+</div>
+<%} %>
 <%if(module.equals("location")||module.equals("campus")){ %>
-<table>
-<tr><%
+<%
 	extantStrats.add("EV");
 	for(String strat:java.util.Arrays.asList(org.alt60m.ministry.Strategies.strategiesArray())){
 		if(!extantStrats.contains(strat)){
 			%>
-	<td>
+	
 		<A HREF="/servlet/Movement?action=edit&new=true&strategy=<%=strat %>&module=location">
 		Add <%=org.alt60m.ministry.Strategy.expandStrategy(strat) %>
 		</A>
-	</td><%
+	<%
 		}
 	}%>
-</tr>
-</table>
+
 <%} %>
 

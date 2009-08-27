@@ -1,7 +1,14 @@
-					</div><!-- innercontent -->
+          	<div class="clear"></div>
+					
+</div><!-- innercontent -->
 				</div><!-- content -->
-			<div id="footer">
-			</div><!-- footer -->
+			       <div id="footer">
+			<h4>Infobase</h4>
+            <a href="mailto:help@campuscrusadeforchrist.com" class="sendfeedback">Send Feedback</a><br />
+
+            &copy; Copyright 2009
+        </div>
+<!-- footer -->
 		</div><!-- innerwrapper -->
 	</div><!-- wrapper -->
 </body>

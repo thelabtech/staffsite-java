@@ -1,3 +1,3 @@
-			<div id="bannerbar">
-			      <a href="banner"><img src="/modules/images/<%=module %>_banner.gif" alt="" /></a>
+			<div id="bannerbar" style="background-image:url(/modules/images/banners/banner04.png); background-repeat: no-repeat; background-position: right bottom;">
+			      <img src="/modules/images/banners/slogan.png" class="slogan" />
 			 </div>

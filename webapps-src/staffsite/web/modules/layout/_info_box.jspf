@@ -1,44 +1,105 @@
 
 <%if(infoModes.contains(mode)){ %>
-<div id="info_box" >
-<b><%=info.get("name")%><br></b>
-<ul><li>
-	
-	Region: <%=org.alt60m.ministry.Regions.expandRegion((String)info.get("region")) %> <br>
-	<%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
-	<%=info.get("city")%>,&nbsp;<%=info.get("state")%><br>
-	<%=info.get("zip")%>, <%=info.get("Country") %><br>
-	</li><li>
-	<%if(module.equals("person")){%>
-		Work Phone: <%=info.get("workphone")%><br>
-		Mobile Phone: <%=info.get("cellphone")%><br>
-		Home Phone: <%=info.get("homephone")%><br>
-	<%}else{ %>	
-		Phone: <%=info.get("phone")%><br>
-	<%} %>
-	Email: <%=info.get("email")%>
-</li><li>
-	<%if(module.equals("person")){%>
-</li></ul>
-	<% }else if(module.equals("campus")||module.equals("location")){%>
-		Enrollment: <%=info.get("enrollment")%><br>
-		Semester? <%= (((Boolean) info.get("IsSemester")).booleanValue()) ?"Yes":"No"%><br>
-		School Year: <%=info.get("MonthSchoolStarts")%> - <%=info.get("MonthSchoolStops")%>
-</li></ul>
-		<A href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true">Edit this Location</A>
+
+ <div class="<%=(!module.equals("team"))?"":"righthand" %>">
+            
+            	<h3 class="indented">Details about this <%=moduleUrl %></h3>
+                
+                <div class="strategy">
+            	<div class="details">
+                	
+                    
+                        <div class="field">
+
+                            <label>Address:</label>
+							<div class="box">
+                            <%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
+							<%=info.get("city")%>,&nbsp;<%=info.get("state")%><br>
+							<%=info.get("zip")%>, <%=info.get("Country") %><br>
+							</div>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Region:</label>
+                            <%=org.alt60m.ministry.Regions.expandRegion((String)info.get("region")) %>
+                        </div>
+
+							<%if(module.equals("person")){%>
+		 
+							<div class="field">
+                            <label>Work Phone:</label>
+                            <%=info.get("workphone")%>                            
+                        	</div>
+							<div class="field">
+                            <label>Mobile Phone:</label>
+                            <%=info.get("cellphone")%>                            
+                        	</div>
+							<div class="field">
+                            <label>Home Phone:</label>
+                            <%=info.get("homephone")%>                            
+                        	</div>
+		
+						<%}else{ %>	
+							<div class="field">
+                            <label>Phone:</label>
+                            <%=info.get("phone")%>                            
+                        	</div>
+						<%} %>
+							<div class="field">
+                            <label>Email:</label>
+                            <%=info.get("email")%>                           
+                        	</div>
+
+						<%if(module.equals("campus")||module.equals("location")){%>
+							<div class="field">
+                            <label>Enrollment:</label>
+                            <%=info.get("enrollment")%>                            
+                        	</div>
+							<div class="field">
+                            <label>Semester?</label>
+                            <%= (((Boolean) info.get("IsSemester")).booleanValue()) ?"Yes":"No"%>                            
+                        	</div>
+							<div class="field">
+                            <label>School Year:</label>
+                            <%=info.get("MonthSchoolStarts")%> - <%=info.get("MonthSchoolStops")%>                            
+                        	</div>
+		<A class="editfield" href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true"></A>
 	
 	<% }else if(module.equals("team")){%>
 		<% org.alt60m.html.SelectLane strategy= new org.alt60m.html.SelectLane();
 		strategy.setCurrentValue((String)info.get("lane"));
 		
 		%>
-	Strategy: 	<%=strategy.display()%><br>
-	Team Website: 	<a href="<%=info.get("url")%>"><%=info.get("url")%></a>
-</li></ul>
-	<A href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true">Edit this Team</A><br>
-
-	<%} %>
-</div><!-- info_box -->
-<%} else {%>
-
+							<div class="field">
+                            <label>Strategy:</label>
+                            <%=strategy.display()%>                           
+                        	</div>
+							<div class="field">
+                            <label>Team Website:</label>
+                            <a href="<%=info.get("url")%>"><%=info.get("url")%></a>                         
+                        	</div>
+	
+	<A class="editfield" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true"></A><br>
 <%}%>
+	<%if(module.equals("person")){%>
+	<%@ include file="/modules/layout/_person_team_info.jspf" %>
+<%} %>
+                        
+                    	<div class="clear"></div>
+                
+                
+                	<div class="clear"></div>
+                </div>
+
+            
+            </div>
+
+ 
+						</div><!-- righthand -->						
+<%} %>           
+                
+                        
+                
+                
+            
+

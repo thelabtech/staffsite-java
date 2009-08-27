@@ -1,38 +1,36 @@
 
-<tr><td colspan="3">
-<table>
 
 <%
 boolean present=false;
 Vector<Hashtable<String,Object>>contacts=(Vector<Hashtable<String,Object>>)h.get("contacts");
 for(Hashtable<String,Object> c:contacts){%>
-<tr>
-	<td>&nbsp;&nbsp;&nbsp;</td><td><%=isFirst?"<i>Movement Contacts:&nbsp;</i>":"&nbsp;" %></td>
-<td><A href="/servlet/Person?action=content&module=person&id=<%= c.get("id") %>&accountNo=<%=c.get("accountNo")%>"><%= ((String) c.get("name")).replace(" (null)","") %></A>
+
+<A href="/servlet/Person?action=content&module=person&id=<%= c.get("id") %>&accountNo=<%=c.get("accountNo")%>"><%= ((String) c.get("name")).replace(" (null)","") %></A>
 <%if(ar.getValue("isRD").equals("true")||c.get("id").equals(ar.getValue("personID"))||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-	&nbsp;<A
+	<A class="deletefield"
 		HREF="/servlet/Movement?action=removePersonContact&module=location&personID=<%= c.get("id") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
-		<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A></td>
+		</A><br/>
+
 	<%} %>
 	<%
 	if ( c.get("id").equals(ar.getValue("personID"))){present=true;}
 	
 				
 	%>
-		</tr>			
+					
 
 <%	
-isFirst=false;
+
 }
 if (!present){%>
-<tr><td colspan="3">
-	<A HREF="/servlet/Movement?action=savePersonContact&module=location&personID=<%=ar.getValue("personID") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
-	<center><i>Become a Contact for this Movement</i></center></A>
-	</td></tr>	<%} %>
-		<tr><td colspan="3">
+
+	<A class="tiny" HREF="/servlet/Movement?action=savePersonContact&module=location&personID=<%=ar.getValue("personID") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
+	Become a Contact for this Movement</A>
+	<%} %>
+		
 		<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
-		<A HREF="/servlet/Movement?action=addPersonContact&module=location&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&lastName=">
-		<center><i>Add Contact</i></center>
+		<A class="tiny" HREF="/servlet/Movement?action=addPersonContact&module=location&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&lastName=">
+		Add Contact
 		</A><%} 
 		else
 		{
@@ -40,5 +38,3 @@ if (!present){%>
 		If this contact info is incorrect, please email your Regional Director with the correct information.
 		<%
 		}%>
-</td></tr>					
-</table></td></tr>

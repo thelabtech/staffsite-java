@@ -1,0 +1,18 @@
+<%
+Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
+for(Section section:subordinate_objects){
+	
+	String type=section.getType();
+	 if(type.equals("Team")){%>
+		<div class="field">
+
+                            <label>Missional Teams:</label>
+							<div class="box">
+                            <%Vector<Hashtable<String,Object>>rows=section.getRows();
+							for(Hashtable h:rows){%>
+							<A href="/servlet/Team?action=content&module=team&id=<%= h.get("id") %>"><%= h.get("name") %></A>
+							<%}%>
+							</div>
+                        </div>
+<%} %>
+<%}%>

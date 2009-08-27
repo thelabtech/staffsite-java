@@ -1,0 +1,52 @@
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var preloadFlag = false;
+
+	function preloadImages() {
+		if (document.images) {
+			header_08_over = newImage("/images/header_08-over.jpg");
+			header_09_over = newImage("/images/header_09-over.jpg");
+			header_10_over = newImage("/images/header_10-over.jpg");
+			header_11_over = newImage("/images/header_11-over.jpg");
+			header_12_over = newImage("/images/header_12-over.jpg");
+			header_13_over = newImage("/images/header_13-over.jpg");
+			preloadFlag = true;
+		}
+	}
+	//------------------------------
+
+// -->
+</SCRIPT>
+<%@ include file= "/headers/connexionbar.jspf"%>
+		<TABLE WIDTH=900 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+			
+
+			<TR>
+				<TD ROWSPAN=3><IMG SRC="/images/header_noshield_01.gif" WIDTH=153 HEIGHT=21></TD>
+				<TD><IMG style="margin-left:140px;" SRC="/images/header_07.jpg" WIDTH=261 HEIGHT=21></TD>
+				<TD><A HREF="/servlet/StaffController?action=showHome"
+						ONMOUSEOVER="changeImages('header_08', '/images/header_08-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_08', '/images/header_08.jpg'); return true;">
+						<IMG NAME="header_08" SRC="/images/header_08.jpg" WIDTH=54 HEIGHT=21 BORDER=0></A></TD>
+				<TD><A HREF="/servlet/StaffController?action=showMPD"
+						ONMOUSEOVER="changeImages('header_09', '/images/header_09-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_09', '/images/header_09.jpg'); return true;">
+						<IMG NAME="header_09" SRC="/images/header_09.jpg" WIDTH=55 HEIGHT=21 BORDER=0></A></TD>
+				<TD><A HREF="/servlet/StaffController?action=showTools"
+						ONMOUSEOVER="changeImages('header_10', '/images/header_10-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_10', '/images/header_10.jpg'); return true;">
+						<IMG NAME="header_10" SRC="/images/header_10.jpg" WIDTH=63 HEIGHT=21 BORDER=0></A></TD>
+				<TD><A HREF="http://wiki.uscm.org/" target="_blank"
+						ONMOUSEOVER="changeImages('header_11', '/images/header_11-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_11', '/images/header_11.jpg'); return true;">
+						<IMG NAME="header_11" SRC="/images/header_11.jpg" WIDTH=56 HEIGHT=21 BORDER=0></A></TD>
+				<TD><A HREF="/links.jsp"
+						ONMOUSEOVER="changeImages('header_12', '/images/header_12-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_12', '/images/header_12.jpg'); return true;">
+						<IMG NAME="header_12" SRC="/images/header_12.jpg" WIDTH=60 HEIGHT=21 BORDER=0></A></TD>
+				<TD><A HREF="javascript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"
+						ONMOUSEOVER="changeImages('header_13', '/images/header_13-over.jpg'); return true;"
+						ONMOUSEOUT="changeImages('header_13', '/images/header_13.jpg'); return true;">
+						<IMG NAME="header_13" SRC="/images/header_13.jpg" WIDTH=58 HEIGHT=21 BORDER=0></A></TD>
+				</TR>
+		</TABLE>

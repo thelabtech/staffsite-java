@@ -1,50 +1,67 @@
 div.quicksearch_open,div.quicksearch_closed
 {
-position:absolute;
-top:0px;
-right:0px;
-margin:none;
-z-index:300;
-display:block;
-width:300px;
-padding:5px;
-color:black;
-lineheight:10px;
-overflow:hidden;
+	position:absolute;
+	top:60px;
+	right:300px;
+padding: 0px;
+padding-left:10px;
+width: 250px;
+background: #dbdbdb;
+min-height: 35px;
+display: block;
+z-index:30;
+height: auto;
+
 }
-div.quicksearch_open
-{
-	border:solid 1px #cdcdcd;
-	height:460px;
-	background-color:#ffffee;
-	}
-	div.quicksearch_closed
-{
-	background-color:none;
-	border:none;
-	height:45px;
+div.quicksearch_open img ,div.quicksearch_closed img {
+	position:absolute;
+	top:17px;
+	right:18px;z-index:20;}
+
+div.quicksearch_open form input,
+div.quicksearch_open form select,
+div.quicksearch_closed form input,
+div.quicksearch_closed form select{
+	display:block;
 	
-	}
-		div.quicksearch_closed form
+}
+div.quicksearch_open form input.name, 
+div.quicksearch_closed form input.name {
+	border: none;
+	font-size: 13px;
+	height:20px;
+	width: 200px;
+	margin-bottom:10px;
+}
+
+div.quicksearch_open form select.drop, 
+div.quicksearch_open form select.dropmulti {
+border: none;
+font-size: 13px;
+width: 200px;
+margin-bottom:10px;
+
+}
+div.quicksearch_open form select.dropmulti {
+	height:40px;
+}
+		div.quicksearch_closed form,div.quicksearch_open form
 {
-	display:inline;
+	display:block;
+	border:none;
+	margin:none;
+	padding:none;
 	}
 		
-div#quicksearch td
+
+div.quicksearch_closed a
 {
-font-size:10px;
+height:0px;
 }
-div.quicksearch_closed a:link,div.quicksearch_closed a:active,div.quicksearch_closed a:visited
-{
-color:#333388;
-diaplsy:inline;
-}
-div.quicksearch_open a:link,div.quicksearch_open a:active,div.quicksearch_open a:visited
-{
-color:#333388;
-}
+
 input#search_submit
 {
 display:inline;
 width:110px;
+margin-bottom:10px;
 }

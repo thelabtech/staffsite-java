@@ -1,37 +1,34 @@
 <div id="menubar" >
-				<ul id="mainmenu" >
-						<li class="left"></li>
+	<img src="/modules/images/topmenubg_left.png" style="float: left;"/>
+		<div id="usual1" class="usual">
+				<ul  >
+						
 				<% String[] tabs={"Home","Ministry","Enter Stats","View Reports"};  %>
 				<% String[] tabValues={"Home?action=home","Home?action=index&module="+(session.getValue("lastClass")==null?"location":(String)session.getValue("lastClass")),"Stat","Report"};  %>
 				<% String[] tabModules={"home","skipthis","stat","report"};  %>
-				<% for(int i=0;i<tabs.length;i++){ 
-					if(module.equalsIgnoreCase(tabModules[i])||(tabs[i].equals("Ministry")&&searchModules.contains(majorModule))){%>
-						
-						<li id="tab_<%=i%>" class="active">
-						<%=tabs[i]%>
-				
-						
+				<% for(int i=0;i<tabs.length;i++){ %>
+					
+					
+					<li >
+						<A href="<%=tabValues[i]%>" <%=(module.equalsIgnoreCase(tabModules[i])||(tabs[i].equals("Ministry")&&searchModules.contains(majorModule)))?"class=\"selected\"":""%>><%=tabs[i]%></A>
 					</li>
-					<%}else{ %>
-					<li id="tab_<%=i%>" class="inactive">
-						<A href="<%=tabValues[i]%>"><%=tabs[i]%></A>
-					</li>
-					<%} %>
+					
 				<%}%>
-					<li class="right"></li>
+					
 				</ul>
-				<ul id="submenu" >
+
+<div id="tab1" class="submenubar">
+
+				<ul  >
 								<%if(searchModules.contains(module)){ %>
 								<li class="ministry">&nbsp;</li>
 								<% String[] minorTabs={"Location","People","Teams"};  
 								String[] minorTabValues={"location","person","team"};  
 								for(int j=0;j<minorTabs.length;j++){ %>
-								<li id="minor_tab_<%=j%>" class="<%=(minorTabValues[j].equals(module))?"active":"" %>" >
-									<%if (!minorTabValues[j].equals(module)){%>
-										<A href="Home?action=index&module=<%=minorTabValues[j]%>"><%=minorTabs[j]%></A>
-										<%}else{ %>
-										<%=minorTabs[j]%>
-										<%}%>
+								<li id="minor_tab_<%=j%>"  >
+									
+										<A class="<%=(minorTabValues[j].equals(module))?"active":"" %>" href="Home?action=index&module=<%=minorTabValues[j]%>"><%=minorTabs[j]%></A>
+										
 								</li>
 								<%}
 								%>
@@ -48,4 +45,10 @@
 								}
 								%>
 						</ul>
+</div></div>
+        <img src="images/topmenubg_right.png" style="float: right; " />   
+			<script type="text/javascript"> 
+              $("#usual1 ul").idTabs(); 
+            </script>
+
 			</div>
