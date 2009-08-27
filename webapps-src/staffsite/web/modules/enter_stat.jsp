@@ -15,7 +15,9 @@ Iterator miniResultsCounter;
 Integer counter=new Integer(0);
 Integer tabIndex=new Integer(1);
 Hashtable criteria;
-
+String lastSchool="";
+String thisSchool="";
+int schoolCount=0;
 String lastStatID;
 String holdstring;
 String uniqueStat;
@@ -48,10 +50,11 @@ Integer specialHeight=0;
 <script type="text/javascript" language="javascript">
 var infoTimer;
 var infoBoxEl;
-function infoBox(mW,info)
+function infoBox(mW,info,left)
 {
 document.getElementById(mW+'_info_box').innerHTML=document.getElementById(info+'_info_box').innerHTML;
 infoBoxEl=document.getElementById(mW+'_info_box');
+infoBoxEl.style.left=left+'px';
 infoTimer=setTimeout("infoBoxEl.style.display='block';",200);
 }
 
@@ -118,9 +121,9 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 	<%	
 } //end week-navigation tabs
 %>
-<li class="wideTab" >&nbsp;	</li>	
+
 </ul>
-<div  id="maindiv" >
+
 		<form  method="post" id="fast_ll_stat" name="fast_ll_stat" action="/servlet/Stat?action=saveFastSuccessCriteria">
 				<input type="hidden" name="weeksBack" value="<%=""+weeksBack %>"/>
 				
@@ -133,8 +136,9 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 				</center>
 				
 				<%} %>
-				<center>For criteria definitions, hold your mouse pointer over the statistic name.</center>
 				
+				<ul class="results">
+
 				<%		
 				Integer involvedStudentsPasser = 0;
 				Integer studentLeadersPasser = 0;
@@ -174,17 +178,17 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 							if (!mr.getValue("activityid").equals(lastMovement)){
 								flipColor=!flipColor;lastMovement=mr.getValue("activityid");displayName=(String)mr.getValue("displayname");
 								%>
-								<div class="<%=(flipColor)?"stats_form_row_darker":"stats_form_row" %>"  >
-								<a class="remove_stats_bookmark" href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>"><img src="/modules/images/unbookmark.gif"/></a>
+								
+								
 								<%
 							}else{
 								displayName=(String)mr.getValue("displayname").split("&%@!")[1];
 							}
 								%>
 										
-										
-										
-										<center><%=displayName.replace("&%@!"," - ")%></center>
+
+						
+								
 										
 										
 										
@@ -205,16 +209,39 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 										<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" >
 										<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeDecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" >
 										<input    id="week_<%=counter%>" type="hidden"   name="<%=uniqueStat%>[BeforeSeekers]" value="<%=seekersPasser==null?"":seekersPasser%>"  onBlur="" >
+							<%
+										thisSchool=mr.getValue("targetareaid");
+										if(!thisSchool.equals(lastSchool)&&!lastSchool.equals("")){ 
+											
+											%></div></li><!-- close campus div -->
+											<%}
 										
-							<br>
-						<div class="stats_form_leftmost">
-									<button class="stats_hover_help" onMouseOver="infoBox('<%=uniqueStat%>','multipliers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Multipliers</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ><br>
-									<button class="stats_hover_help" onMouseOver="infoBox('<%=uniqueStat%>','student_leaders');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ><br>
-									<button class="stats_hover_help" onMouseOver="infoBox('<%=uniqueStat%>','involved_students');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Involved Students</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" onBlur=""><br>
+										if(!thisSchool.equals(lastSchool)){ 
+										schoolCount++;
+										%>
+										<li id="<%=schoolCount+"" %>">
+											<table class="movementheader">
+
+						                    	<tr onClick="javascript:$('#<%=schoolCount+"" %>').toggleClass('selected');">
+						                        	<th class="expand"></th>
+						                            <th class="schoolname" style="width: 87%;"><%=mr.getValue("location_name")%></th>
+						                            <th class="bookmark"><a href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>" class="unbookmark">Unbookmark</a></th>
+						                        </tr>
+						                    </table>
+					<div class="schoolentry">
+										<%
+										
+										} %>			
+						<div class="aschool">
+										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>	
+						<div class="thecolumn">
+									<div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
+									<div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','student_leaders',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ></div>
+									<div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','involved_students',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Involved Students</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" onBlur=""></div>
 									<%
 									if(mr.getValue("strategy").equals("BR")){
 											%>
-											<button class="stats_hover_help" onMouseOver="infoBox('<%=uniqueStat%>','seekers');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Seekers</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[Seekers]"  value="<%=seekersPasser==null?"":seekersPasser%>" onBlur=""><br>
+											<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','seekers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Seekers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Seekers]"  value="<%=seekersPasser==null?"":seekersPasser%>" onBlur=""></div>
 											<%
 									}
 									else
@@ -224,32 +251,31 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 									}
 									%>
 						</div>
-						<div class="stats_form_middle">
-									<button class="stats_hover_help_wide" onMouseOver="infoBox('<%=uniqueStat%>','personal_evangelism');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Personal Evangelism</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[PersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" ><br>
-									<button class="stats_hover_help_wide" onMouseOver="infoBox('<%=uniqueStat%>','group_evangelism');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Group Evangelism</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[GroupEvangelismExposures]" value="<%if(criteria.get("GroupEvangelismExposures")!=null){out.print(criteria.get("GroupEvangelismExposures"));}%>"  onBlur="" ><br>
-									<button class="stats_hover_help_wide" onMouseOver="infoBox('<%=uniqueStat%>','media_exposures');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Media Exposures</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[MediaExposures]" value="<%if(criteria.get("MediaExposures")!=null){out.print(criteria.get("MediaExposures"));}%>"  onBlur="" ><br>
-									<button class="stats_hover_help_wide" onMouseOver="infoBox('<%=uniqueStat%>','holy_spirit_conversations');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Holy Spirit Presentations</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[HolySpiritConversations]" value="<%if(criteria.get("HolySpiritConversations")!=null){out.print(criteria.get("HolySpiritConversations"));}%>"  onBlur="" ><br>
+						<div class="thecolumn">
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','personal_evangelism',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Personal Evangelism</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[PersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" ></div>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','group_evangelism',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Group Evangelism</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[GroupEvangelismExposures]" value="<%if(criteria.get("GroupEvangelismExposures")!=null){out.print(criteria.get("GroupEvangelismExposures"));}%>"  onBlur="" ></div>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','media_exposures',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Media Exposures</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[MediaExposures]" value="<%if(criteria.get("MediaExposures")!=null){out.print(criteria.get("MediaExposures"));}%>"  onBlur="" ></div>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','holy_spirit_conversations',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Holy Spirit Presentations</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[HolySpiritConversations]" value="<%if(criteria.get("HolySpiritConversations")!=null){out.print(criteria.get("HolySpiritConversations"));}%>"  onBlur="" ></div>
 									
 						</div>
-						<div class="stats_form_rightmost">
+						<div class="thecolumn">
 									<input   tabIndex="3000" id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[Decisions]" value=""  onBlur="" >
-									<button class="stats_hover_help_widest" onMouseOver="infoBox('<%=uniqueStat%>','decisions_personal');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Personal Evangelism Decisions</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[DecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" ><br>
-									<button class="stats_hover_help_widest" onMouseOver="infoBox('<%=uniqueStat%>','decisions_group');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Group Evangelism Decisions</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[DecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" ><br>
-									<button class="stats_hover_help_widest" onMouseOver="infoBox('<%=uniqueStat%>','decisions_media');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Media Exposure Decisions</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[DecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" ><br>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','decisions_personal',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Personal Evangelism Decisions</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[DecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" ></div>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','decisions_group',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Group Evangelism Decisions</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[DecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" ></div>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','decisions_media',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Media Exposure Decisions</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[DecisionsMediaExposures]" value="<%if(criteria.get("DecisionsMediaExposures")!=null){out.print(criteria.get("DecisionsMediaExposures"));}%>"  onBlur="" ></div>
 									
-									<button class="stats_hover_help_widest" onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent');" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Laborers Sent</button><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="stats_input" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ><br>
+									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Laborers Sent</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ></div>
 						</div>
 						<div class="stats_info_surround">	
 							<div id="<%=uniqueStat%>_info_box" class="stats_info_box" >
 					
 							</div>
 						</div>
+								</div><!-- close aschool div -->
 					
-					</div>
 				
 							
-							
-							<%
+						<%	lastSchool=thisSchool;
 						}
 						counter++;
 					}
@@ -257,8 +283,10 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 					formHeight+=specialHeight+30;
 				}	
 				%>
-		</form>
-</div>
+</div></li><!-- close final campus div -->
+</ul>
+		
+
 <center>
 <div class="stats_submit_surround">
 <input id="noscript_submit" type="submit" value="Submit" class="stats_submit" tabIndex="<%out.print(tabIndex);tabIndex++;%>">
@@ -272,8 +300,17 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 document.getElementById('noscript_submit').style.display="none";
 document.getElementById('javascript_submit_link').style.display="block";
 document.getElementById('javascript_submit_image').style.display="block";
+
 </script>
-</div>
+
+</form>
+<noscript>
+<style type="text/css">
+ul.results li{
+height: auto;
+}
+</style>
+</noscript>
 <div class="stats_input_key" id="input_key">
 <h4>Input Key</h4>
 <h5 style="margin:0px;margin-top:10px;">Personal Evangelism</h5>
@@ -366,13 +403,6 @@ This statistic is for Bridges movements only.
 document.getElementById("input_key").style.display="none";
 </script>
 
-</div>
-</form>
-
-
-
-</div>
-</div>
 
 
 <%@ include file="/modules/layout/footer.jspf"%>
