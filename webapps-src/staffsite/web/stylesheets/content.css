@@ -1,0 +1,35 @@
+
+div#content_box
+{display:block;
+width:890px;
+margin:none;
+	overflow:hidden;
+border:solid 1px #cdcdcd;
+padding:5px;
+color:black;
+background-color:white;
+}
+div#content_box td
+{
+padding-left:3px;
+padding-right:3px;
+width:auto;
+}
+div#content_box table
+{
+
+width:auto;
+}
+div.associate
+{
+position:absolute;
+display:block;
+background-color:#ffffdd;
+border:solid 1px #cdcdcd;
+z-index:100;
+top:30px;
+left:120px;
+width:500px;
+height:200px;
+padding:10px;
+}

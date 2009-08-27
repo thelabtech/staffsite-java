@@ -1,0 +1,33 @@
+div#muster_report
+{
+	display:block;
+	overflow:hidden;
+	width:900px;
+	}
+	table#muster_report
+{
+	display:block;
+	overflow:hidden;
+	width:900px;
+	}
+	
+table#muster_report td
+{
+	display:auto;
+padding:3px;
+
+text-align:center;
+font-family:verdana,arial,sans-serif;
+color:black;
+font-size:10px;
+border:solid 1px #cdcdcd;
+overflow:hidden;
+background-color:#ffffff;
+height:25px;
+}
+table#muster_report td.muster_cap, table#muster_report td.muster_cap_label
+{
+	background-color:#b7d3e9;
+	}
+
+	

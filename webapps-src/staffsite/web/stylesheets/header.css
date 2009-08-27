@@ -1,0 +1,159 @@
+div.logoside
+{
+	display:block;
+	height:auto;
+	width:100px;
+	}
+	div#logobar
+{
+	display:block;
+	height:auto;
+	width:100%;
+	}
+div#menubar
+	{
+	
+	border:none;
+	
+	
+	
+	display:block;
+	width:100%;
+	height:88px;
+	
+	
+	}
+ul#mainmenu
+{
+display:block;
+height:49px;
+overflow:hidden;
+background-image:url('/modules/images/major_tabs.gif');
+background-repeat:repeat-x;
+}
+ul#mainmenu li.active,ul#mainmenu li.inactive 
+{
+	padding:10px;
+	width:auto;
+display:block;
+float:left;
+color:white;
+font-weight:bold;
+overflow:hidden;
+margin:none;
+text-align:left;
+width:120px;
+font-family: "Myriad Pro", Arial, Helvetica;
+	font-size: 14px;
+}
+ul#mainmenu li.active
+{
+
+background-image:url('/modules/images/active_tab.gif');
+background-repeat:no-repeat;
+height:49px;
+overflow:hidden;
+
+}
+ul#mainmenu li.left
+{
+	margin:none;
+display:block;
+float:left;
+background-image:url('/modules/images/left_corner_major_tabs.gif');
+background-repeat:no-repeat;
+height:49px;
+overflow:hidden;
+  width:20px;
+
+}
+ul#mainmenu li.right
+{
+display:block;
+margin:none;
+margin-right:-1px;
+background-image:url('/modules/images/right_corner_major_tabs.gif');
+background-repeat:no-repeat;
+height:49px;
+overflow:hidden;
+float:right;
+      width:20px;
+}
+ul#mainmenu li.inactive
+{
+
+background-image:url('/modules/images/major_tabs.gif');
+background-repeat:repeat-x;
+height:49px;
+overflow:hidden;
+}
+ul#mainmenu li  a, ul#mainmenu li  a:visited
+{
+	font-weight:normal;
+	color:white;
+}
+
+ul#submenu li ,ul#submenu li 
+{
+	padding:10px;
+	width:auto;
+display:block;
+float:left;
+color:white;
+font-weight:bold;
+overflow:hidden;
+height:39px;
+font-family: "Myriad Pro", Arial, Helvetica;
+	font-size: 14px;
+}
+ul#submenu li.active
+{
+		background-image:url('/modules/images/minor_tabs_active.gif');
+background-repeat:repeat-x;
+	}
+ul#submenu li.ministry
+{display:block;width:120px;}
+
+ul#submenu li.report
+{display:block;width:340px;}
+
+
+ul#submenu li  a, ul#submenu li  a:visited
+{
+	color:#005492;
+	font-weight:normal;
+}
+ 
+ul#submenu
+{
+	background-image:url('/modules/images/minor_tabs.gif');
+background-repeat:repeat-x;
+	display:block;
+	height:39px;
+	overflow:hidden;
+	
+}
+
+div#content h1
+{
+display:block;
+overflow:hidden;
+}
+span.breadcrumbspacer
+{
+display:none;
+
+}
+div.breadcrumb 
+{
+display:block;
+width:600px;
+}
+div.breadcrumb a
+{
+display:inline;
+}
+a#propose
+{
+float:right;
+}

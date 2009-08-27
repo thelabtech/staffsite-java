@@ -1,0 +1,50 @@
+div.quicksearch_open,div.quicksearch_closed
+{
+position:absolute;
+top:0px;
+right:0px;
+margin:none;
+z-index:300;
+display:block;
+width:300px;
+padding:5px;
+color:black;
+lineheight:10px;
+overflow:hidden;
+}
+div.quicksearch_open
+{
+	border:solid 1px #cdcdcd;
+	height:460px;
+	background-color:#ffffee;
+	}
+	div.quicksearch_closed
+{
+	background-color:none;
+	border:none;
+	height:45px;
+	
+	}
+		div.quicksearch_closed form
+{
+	display:inline;
+	}
+		
+div#quicksearch td
+{
+font-size:10px;
+}
+div.quicksearch_closed a:link,div.quicksearch_closed a:active,div.quicksearch_closed a:visited
+{
+color:#333388;
+diaplsy:inline;
+}
+div.quicksearch_open a:link,div.quicksearch_open a:active,div.quicksearch_open a:visited
+{
+color:#333388;
+}
+input#search_submit
+{
+display:inline;
+width:110px;
+}

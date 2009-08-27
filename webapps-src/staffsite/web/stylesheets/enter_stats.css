@@ -1,0 +1,253 @@
+li.weekTab
+{
+margin:none;
+width:50px;
+
+background-color:#888888;
+font-size:10px;
+color:white;
+border:none;
+border-bottom:solid 1px black;
+ text-align:center;
+}
+li.wideTab
+{
+margin:none;
+width:95px;
+
+background-color:#888888;
+font-size:10px;
+color:white;
+border:none;
+border-bottom:solid 1px black;
+ text-align:center;
+}
+li.weekTab a
+{color:white;
+}
+li.weekTab a:visited
+{color:white;
+}
+li.thisWeek
+{
+margin:none;
+width:48px;
+border-style:solid; 
+border-width:1px;
+border-top-width:1px;
+border-top-style:solid;
+border-top-color:black;
+border-right:solid 1px black;
+border-left:solid 1px black;
+border-bottom-style:solid;
+border-bottom-color:white;
+border-bottom-width:1px;
+background-color:white;
+text-align:center;
+}
+li.weekBackground
+{
+margin:none;
+
+margin-right:-51px;
+
+
+width:52px;
+
+border:none;
+background-color:black;
+
+}
+ul#tab_wrapper
+{
+display:block;
+width:900px;
+margin:none;
+margin-bottom:-1px;
+height:45px;
+background-color:#888888;
+}
+ul#tab_wrapper li.weekTab, ul#tab_wrapper li.thisWeek, ul#tab_wrapper li.weekBackground, ul#tab_wrapper li.wideTab
+{
+display:block;
+float:left;
+height:45px;
+overflow:hidden;
+margin:none;
+}
+div#maindiv
+{
+display:block;
+height:auto;
+padding:none;
+padding-top:10px;
+width:900px;
+border-width:1px;
+border-style:solid;
+border-color:black;
+border-top:none;
+margin:none;
+background-color:white;
+overflow:hidden;
+}
+form#fast_ll_stat
+{
+	position:relative;
+	overflow:hidden;
+	display:block;
+margin:0px;
+border:none;
+width:auto;
+}
+
+input.stats_input
+{
+position:relative;
+z-index:1;
+width:50px;
+margin:0px;
+}
+button.stats_hover_help,button.stats_hover_help_wide,button.stats_hover_help_widest
+{
+	padding:none;
+	border:none;
+display:inline;
+padding-right:10px;
+background:none;
+text-align:right;
+width:150px;
+}
+button.stats_hover_help_wide
+{
+width:180px;
+}
+button.stats_hover_help_widest
+{
+width:230px;
+}
+div.stats_info_box
+{
+position:absolute;
+top:70px;
+left:100px;
+margin:10px;
+font-family:verdana,arial,sans-serif;
+padding:5px;
+font-size:12px;
+z-index:20;
+display:none;
+width:470px;
+height:auto;
+border-style:solid;
+border-width:1px;
+border-color:black;
+background-color:white;
+}
+div.stats_info_surround
+{
+	height:0px;
+	border:0px;
+	display:block;
+	width:0px;
+	margin:none;
+	position:relative;
+}
+div.stats_form_rightmost,div.stats_form_middle,div.stats_form_leftmost
+{
+
+background:none;
+
+margin:none;
+display:block;
+float:left;
+padding-right:0px;
+width:310px;
+text-align:right;
+height:150px;
+overflow:hidden;
+
+	}
+div.stats_form_middle
+{
+
+width:270px;
+}
+div.stats_form_leftmost
+{
+width:200px;
+
+}
+div.stats_form_row,div.stats_form_row_darker
+{
+height:180px;
+margin:none;
+padding:none;
+border:none;
+
+display:block;
+width:100%;
+overflow:hidden;
+}
+div.stats_form_row
+{
+background-color:#ffffff;
+}
+div.stats_form_row_darker
+{
+background-color:#eeeeee;
+}
+a.remove_stats_bookmark
+{
+	display:inline;
+margin:10px;
+font-size:10px;
+color:#cacaca;
+float:right;
+}
+div.stats_submit_surround
+{
+	position:relative;
+	}
+input.stats_submit
+{
+	position:absolute;
+	top:-25px;
+	left:400px;
+	z-index:30;
+margin:0px;
+margin-top:0px;
+border:none;
+padding:0px;
+display:block;
+
+}
+a.stats_submit
+{
+	position:absolute;
+	top:-25px;
+	z-index:30;
+	left:400px;
+margin:0px;
+margin-top:0px;
+border:none;
+padding:0px;
+display:block;
+
+}
+div.stats_input_key
+{
+margin:0px;
+border:none;
+padding:20px;
+display:block;
+z-index:10;
+}
+div.maindiv center
+{
+width:600px;
+}
+div#enter_stat
+{
+display:block;
+overflow:hidden;
+}
