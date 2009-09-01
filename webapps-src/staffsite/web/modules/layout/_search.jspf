@@ -13,7 +13,7 @@ search_type=((String)search.get("type"));
 if(quick){ %>
 <%@page import="org.alt60m.ministry.States"%>
 <div  class="quicksearch_open">
-<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><img src="/modules/images/expand.png"/></a><br>
+<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><img src="/modules/images/collapse.png"/></a><br>
 <% session.putValue("quicksearch",null); %>
 <%} else {
 %><div  class="quicksearch_closed">
@@ -26,14 +26,30 @@ if(quick){ %>
 <%@page import="org.alt60m.ministry.Strategy"%>
 <%@page import="org.alt60m.ministry.Regions"%>
 <input type="hidden" name="action" value="search"/>
+<%if(!quick){ %><table><tr><td>
+<select name="module" class="dropclear">
+							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Campus:</option>
+							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:</option>
+							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:</option>
+						</select></td><td>
 <input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
+</td></tr></table>
+<%} else {%>
+<table><tr><td>
+Name:</td><td>
+<input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/></td></tr>
+<%} %>
+
 
 <%
 
 if(quick){%>
 
-City:<input name="city" class="name" type="text" value="<%=search.get("city")!=null&&quick?search.get("city"):"" %>"/>
-State:<select name="state" class="drop">
+<tr><td>
+City:</td><td><input name="city" class="name" type="text" value="<%=search.get("city")!=null&&quick?search.get("city"):"" %>"/>
+</td></tr>
+<tr><td>
+State:</td><td><select name="state" class="drop">
 	<option value="" >Any</option>
 		<%String selectedState=(search.get("state")!=null&&quick)?(String)search.get("state"):"";
 		String[] stateCodesArray=States.abbrevState;
@@ -46,8 +62,10 @@ State:<select name="state" class="drop">
 			%>
 	<option value="<%=stateCode %>"  <%=selectedState.equals(stateCode)?"selected":"" %>><%=stateName %></option>
 <%			}%>					
-</select>
-Country:<select name="country" class="drop">
+</select><br>
+</td></tr>
+<tr><td>
+Country:</td><td><select name="country" class="drop">
 	<option value="" >Any</option>
 		<%String selectedCountry=(search.get("country")!=null&&quick)?(String)search.get("country"):"";
 		String[] countrySearchArray=org.alt60m.util.CountryCodes.countryList;
@@ -59,48 +77,65 @@ Country:<select name="country" class="drop">
 			%>
 	<option value="<%=countryCode %>"  <%=selectedCountry.equals(countryCode)?"selected":"" %>><%=countryName %></option>
 <%			}%>					
-</select>
+</select><br>
+<tr><td>
+Strategy: <br>(CTRL to multi select)
 
-Strategy:
-<input name="strategy" type="hidden"  value="nonnull"/>
+</td><td>
 <select name="strategy" multiple class="dropmulti">
-
+<option value="nonnull">Any</option>
 <%
-
+boolean selectStrategy=false;
 for(String s:Strategy.strategiesArray()){ %>
 <%if(!s.equals("EV")){ %>
 
-<option    <%=((((String)search.get("strategy")).contains(s))&&quick)?"selected":"" %> value="<%=s%>" >
+<option    
+<%if((((String)search.get("strategy")).contains(s))&&quick){
+	out.print("selected");
+	selectStrategy=true;
+}
+%> value="<%=s%>" >
 <%=Strategy.expandStrategy(s) %>
 </option>
 <%} }%>
-</select>
-
-Region:
-<input name="region" type="hidden" value="nonnull"/>
+<option value="nonnull" <%=selectStrategy?"":"selected" %>>Any</option>
+</select></td></tr>
+<tr><td>
+Region: <br>(CTRL to multi select)
+</td><td>
 <select name="region" class="dropmulti" multiple>
+<option value="nonnull">Any</option>
+<%boolean selectRegion=false; %>
 <%for(String r:Regions.abbrevRegion){ %>
 
-<option  <%=((((String)search.get("region")).contains(r))&&quick)?"selected":"" %> value="<%=r%>" >
+<option  <%
+if((((String)search.get("region")).contains(r))&&quick){
+	out.print("selected"); 
+	selectRegion=true;
+}
+%> value="<%=r%>" >
 <%=Regions.expandRegion(r) %>
 </option>
 
-<%} %></select>
+<%} %>
+<option value="nonnull" <%=selectRegion?"":"selected" %>>Any</option>
+</select></td></tr>
 
-
-Select type of information:
+<tr><td>
+Type of information:</td><td>
 						
 						<select name="module" class="drop">
 							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Campus</option>
 							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
 							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
-						</select><br>
-<input type="submit" id="search_submit" name="search_submit" value="Search InfoBase"/>
-
+						</select></td></tr>
+<tr><td colspan="2">
+<input type="submit" id="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
+</table>
 <%} else { %>
 
 <input type="hidden" name="singleField" value="true">
-<input type="hidden" name="module" value="<%=search_type %>"> 
+
 <input type="hidden" name="region" value="nonnull">
 <input type="hidden" name="strategy" value="nonnull">
 <input type="hidden" name="city" value="">

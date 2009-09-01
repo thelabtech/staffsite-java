@@ -1,7 +1,7 @@
 <%
 String type="";
 if (contentModes.contains(mode)){%>
-<div id="content_box" >
+<!-- start content_box -->
 <%
 Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
 for(Section section:subordinate_objects){
@@ -24,7 +24,7 @@ for(Section section:subordinate_objects){
 	What is supposed to go here?
 	<%}%>
 <%}}%>
-</div><!-- content_box -->
+<!-- end content_box -->
 <%
 }
 else

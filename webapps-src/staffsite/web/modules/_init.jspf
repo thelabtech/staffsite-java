@@ -18,11 +18,18 @@
 	}
 	String moduleRoot="/modules/"+ module +"/";
 	String searchModuleUrl="Home";
+	
 	String moduleUrl=module.substring(0,1).toUpperCase()+module.substring(1).toLowerCase();
 	String mode=ar.getValue("mode")!=null?ar.getValue("mode"):"index";
 	List normalModules=Arrays.asList("home","person","campus","location","movement","team");
 	List contentModes=Arrays.asList("content","list","edit","addMember","addContact","editLocation","editMovement");
 	List searchModules=Arrays.asList("person","campus","location","movement","team");
+	String ministryModule="location";
+	if(session.getValue("lastClass")!=null){
+		if(searchModules.contains((String)session.getValue("lastClass"))){
+			ministryModule=(String)session.getValue("lastClass");
+		}
+	}
 	if(searchModules.contains(module)&&contentModes.contains(mode)){
 		thisCountry=(String)ar.getHashtable("info").get("country");
 		thisRegion=(String)ar.getHashtable("info").get("region");
@@ -44,7 +51,7 @@
 			pageTitle="";
 		
 	}else if (module.equals("report")){
-		pageTitle=isMuster.equals("true")?"Movement Rollcall Report":"Success Criteria Report";
+		pageTitle=isMuster.equals("true")?"Movement Tracker Report":"Success Criteria Report";
 			
 	}else if (module.equals("stat")){
 		pageTitle="Enter Stats";

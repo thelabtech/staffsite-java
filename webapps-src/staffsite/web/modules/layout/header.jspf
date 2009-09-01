@@ -31,7 +31,7 @@
 		
 		           	 <a href="Home" class="logo" alt="InfoBase Home"></a>
 		          </div><!-- logoside -->
-           		 <%@ include file="/modules/layout/_search.jspf" %>
+           		
 			</div><!-- logobar -->
 <%@ include file="/modules/layout/_menubar.jspf" %>
 <%@ include file="/modules/layout/_bannerbar.jspf" %>

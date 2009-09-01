@@ -1,21 +1,24 @@
 div.quicksearch_open,div.quicksearch_closed
 {
-	position:absolute;
-	top:60px;
-	right:300px;
+	position:relative;
+	color:white;
 padding: 0px;
-padding-left:10px;
-width: 250px;
-background: #dbdbdb;
-min-height: 35px;
+
+width: 400px;
+background: none;
 display: block;
+float:right;
 z-index:30;
 height: auto;
-
+border:none;
 }
+
+div.quicksearch_open{
+	background:url(/modules/images/opensearchbg.png) no-repeat top;
+	}
 div.quicksearch_open img ,div.quicksearch_closed img {
 	position:absolute;
-	top:17px;
+	top:11px;
 	right:18px;z-index:20;}
 
 div.quicksearch_open form input,
@@ -32,14 +35,32 @@ div.quicksearch_closed form input.name {
 	height:20px;
 	width: 200px;
 	margin-bottom:10px;
+	display:block;
 }
 
 div.quicksearch_open form select.drop, 
 div.quicksearch_open form select.dropmulti {
+	display:block;
 border: none;
 font-size: 13px;
 width: 200px;
 margin-bottom:10px;
+
+}
+div.quicksearch_open form table td,div.quicksearch_closed form table td {
+
+text-align:right;
+vertical-align:center;
+
+}
+div.quicksearch_closed form select.dropclear  {
+border: none;
+font-size: 13px;
+width: 120px;
+text-align:right;
+margin-bottom:10px;
+background:none;
+display:block;
 
 }
 div.quicksearch_open form select.dropmulti {
@@ -50,18 +71,16 @@ div.quicksearch_open form select.dropmulti {
 	display:block;
 	border:none;
 	margin:none;
-	padding:none;
+	margin-top:-10px;
+	padding-left:20px;
 	}
 		
 
-div.quicksearch_closed a
-{
-height:0px;
-}
+
 
 input#search_submit
 {
-display:inline;
+display:block;
 width:110px;
 margin-bottom:10px;
 }

@@ -20,16 +20,3 @@ div#content_box table
 
 width:auto;
 }
-div.associate
-{
-position:absolute;
-display:block;
-background-color:#ffffdd;
-border:solid 1px #cdcdcd;
-z-index:100;
-top:30px;
-left:120px;
-width:500px;
-height:200px;
-padding:10px;
-}

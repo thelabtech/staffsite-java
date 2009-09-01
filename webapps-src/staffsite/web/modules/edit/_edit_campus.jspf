@@ -47,6 +47,14 @@ mySelectC.setName("Country");
 	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Abbrv") %>" NAME="Abbrv" SIZE="27" MAXLENGTH="31"></TD>
 </TR>
 <TR>
+	<TD ALIGN="RIGHT">Address 1:</FONT></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Address1") %>" NAME="Address1" SIZE="27" MAXLENGTH="29"></TD>
+</TR>
+<TR>
+	<TD ALIGN="RIGHT">Address 2:</FONT></TD>
+	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("Address2") %>" NAME="Address2" SIZE="27" MAXLENGTH="29"></TD>
+</TR>
+<TR>
 	<TD ALIGN="RIGHT">*City:</FONT></TD>
 	<TD><INPUT TYPE="TEXT" VALUE="<%= source.get("City") %>" NAME="City" SIZE="27" MAXLENGTH="29"></TD>
 </TR>

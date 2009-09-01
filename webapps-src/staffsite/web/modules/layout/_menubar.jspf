@@ -1,10 +1,11 @@
 <div id="menubar" >
 	<img src="/modules/images/topmenubg_left.png" style="float: left;"/>
 		<div id="usual1" class="usual">
+ <%@ include file="/modules/layout/_search.jspf" %>
 				<ul  >
 						
 				<% String[] tabs={"Home","Ministry","Enter Stats","View Reports"};  %>
-				<% String[] tabValues={"Home?action=home","Home?action=index&module="+(session.getValue("lastClass")==null?"location":(String)session.getValue("lastClass")),"Stat","Report"};  %>
+				<% String[] tabValues={"Home?action=home","Home?action=index&module="+ministryModule,"Stat","Report"};  %>
 				<% String[] tabModules={"home","skipthis","stat","report"};  %>
 				<% for(int i=0;i<tabs.length;i++){ %>
 					
@@ -34,7 +35,7 @@
 								%>
 								<%} else if (module.equals("report")) { %>
 								<li class="report">&nbsp;</li>
-								<% String[] minorTabs={"Success Criteria","Ministry Rollcall"};  %>
+								<% String[] minorTabs={"Success Criteria","Ministry Tracker"};  %>
 								<% 
 								String[] minorTabValues={"/servlet/Report?action=index&isMuster=false","/servlet/Report?action=index&isMuster=true"}; 
 								 for(int j=0;j<minorTabs.length;j++){ %>

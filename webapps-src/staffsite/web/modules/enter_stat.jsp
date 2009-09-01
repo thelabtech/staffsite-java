@@ -304,6 +304,9 @@ document.getElementById('javascript_submit_image').style.display="block";
 </script>
 
 </form>
+<script type="text/javascript" language="javascript">
+$('#1').toggleClass('selected');
+</script>
 <noscript>
 <style type="text/css">
 ul.results li{

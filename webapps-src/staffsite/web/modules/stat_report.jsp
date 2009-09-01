@@ -374,11 +374,11 @@ else
 		
 	
 <%
-int wide=920;
+int wide=935;
 		if(DateUtils.parseDate(periodBegin).before(DateUtils.parseDate("8/1/2008"))){
-			wide+=60;}
+			wide+=59;}
 		if(strategyList.contains("BR")){
-			wide+=80;}
+			wide+=79;}
 		%>
 <style type="text/css" >
 div#wrapper

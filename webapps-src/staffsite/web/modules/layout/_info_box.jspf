@@ -8,7 +8,7 @@
                 <div class="strategy">
             	<div class="details">
                 	
-                    
+                    <%= (!module.equals("team"))?"<div class=\"thecolumn\">":""%>
                         <div class="field">
 
                             <label>Address:</label>
@@ -49,7 +49,7 @@
                             <label>Email:</label>
                             <%=info.get("email")%>                           
                         	</div>
-
+					 <%= (!module.equals("team"))?"<div class=\"clear\"></div></div><div class=\"thecolumn\">":""%>
 						<%if(module.equals("campus")||module.equals("location")){%>
 							<div class="field">
                             <label>Enrollment:</label>
@@ -63,6 +63,15 @@
                             <label>School Year:</label>
                             <%=info.get("MonthSchoolStarts")%> - <%=info.get("MonthSchoolStops")%>                            
                         	</div>
+							<div class="field">
+                            <label>School Website:</label>
+                            <a href="<%=(info.get("InfoUrl")+"").contains("http://")?info.get("InfoUrl"):"http://"+info.get("InfoUrl")%>"><%=info.get("InfoUrl")%></a>                         
+                        	</div>
+							<%if((info.get("UrlToLogo")!=null)&&(!(info.get("UrlToLogo").equals("")))){ %>
+							<div class="field">
+                            <img src="<%=(info.get("UrlToLogo")+"").contains("http://")?info.get("UrlToLogo"):"http://"+info.get("UrlToLogo")%>">                        
+                        	</div>
+							<%} %>
 		<A class="editfield" href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true"></A>
 	
 	<% }else if(module.equals("team")){%>
@@ -81,10 +90,11 @@
 	
 	<A class="editfield" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true"></A><br>
 <%}%>
+
 	<%if(module.equals("person")){%>
 	<%@ include file="/modules/layout/_person_team_info.jspf" %>
 <%} %>
-                        
+   <%= (!module.equals("team"))?"<div class=\"clear\"></div></div>":""%>                     
                     	<div class="clear"></div>
                 
                 
