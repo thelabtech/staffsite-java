@@ -63,8 +63,12 @@ background:white;
 display:block;
 
 }
+div.quicksearch_open form table td.dropmulti {
+	text-align:center;
+}
 div.quicksearch_open form select.dropmulti {
-	height:40px;
+	height:auto;
+	width:auto;
 }
 		div.quicksearch_closed form,div.quicksearch_open form
 {

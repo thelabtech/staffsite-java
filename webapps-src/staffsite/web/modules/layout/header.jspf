@@ -8,11 +8,11 @@
   
   <head>
   	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    
-	<link type="text/css" href="/modules/css/redmond/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
-<link type="text/css" href="/modules/stylesheets/search.css" rel="stylesheet" />	
 
-    <link rel="stylesheet" type="text/css" href="/modules/css/styles.css" media="screen">
+    <link type="text/css" href="/modules/css/redmond/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+ <link type="text/css" href="/modules/stylesheets/search.css" rel="stylesheet" />	
+
+     <link rel="stylesheet" type="text/css" href="/modules/css/styles.css" media="screen">
       <script type="text/javascript" src="/modules/ib.js" language="javascript"></script> 
     <script type="text/javascript" src="/modules/js/jquery.min.js"></script>
     <script type="text/javascript" src="/modules/js/jquery.idTabs.min.js"></script>

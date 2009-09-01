@@ -77,13 +77,15 @@ Country:</td><td><select name="country" class="drop">
 			%>
 	<option value="<%=countryCode %>"  <%=selectedCountry.equals(countryCode)?"selected":"" %>><%=countryName %></option>
 <%			}%>					
-</select><br>
-<tr><td>
-Strategy: <br>(CTRL to multi select)
+</select></td></tr>
 
-</td><td>
+
+<tr><td class="dropmulti">
+Strategy: 
+
+
 <select name="strategy" multiple class="dropmulti">
-<option value="nonnull">Any</option>
+
 <%
 boolean selectStrategy=false;
 for(String s:Strategy.strategiesArray()){ %>
@@ -99,12 +101,12 @@ for(String s:Strategy.strategiesArray()){ %>
 </option>
 <%} }%>
 <option value="nonnull" <%=selectStrategy?"":"selected" %>>Any</option>
-</select></td></tr>
-<tr><td>
-Region: <br>(CTRL to multi select)
-</td><td>
+</select></td>
+<td class="dropmulti">
+Region: 
+
 <select name="region" class="dropmulti" multiple>
-<option value="nonnull">Any</option>
+
 <%boolean selectRegion=false; %>
 <%for(String r:Regions.abbrevRegion){ %>
 
@@ -120,6 +122,7 @@ if((((String)search.get("region")).contains(r))&&quick){
 <%} %>
 <option value="nonnull" <%=selectRegion?"":"selected" %>>Any</option>
 </select></td></tr>
+<tr><td colspan="2"><i>(To select more than one Region or Strategy, hold down CTRL)</i></td></tr>
 
 <tr><td>
 Type of information:</td><td>
