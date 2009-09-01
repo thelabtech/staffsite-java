@@ -6,8 +6,19 @@ for(Section section:subordinate_objects){
 	%><br><b><%= section.getName() %></b><br>
 	<%	 type=section.getType();%>
 		<%@ include file="/modules/list/_search_results.jspf" %>
-	<%}
-	
+	<%}%>
+
+<%
+if(((String)ar.getValue("granularity")).equals("region")){	
+	%><b>Or search by Strategy:</b><br><table><%
+for(String s:Strategy.strategiesArray()){ %>
+<%if(!s.equals("EV")&&!s.equals("FS")&&!s.equals("OT")&&!s.equals("GK")&&!s.equals("WS")){ %>
+<tr><td>
+<a href="<%=moduleUrl %>?action=search&module=<%=module %>&strategy=<%=s%>&region=nonnull&city=&country=&state=&name=" >
+<%=Strategy.expandStrategy(s) %>
+</a></td></tr>
+<%}}%></table><% 
+}
 	} else {%>
 	<%@ include file="/modules/home/_person_home.jspf" %>
 	<%}%>
