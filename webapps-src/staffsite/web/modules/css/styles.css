@@ -622,8 +622,8 @@ display:block;
 background-color:#ffffdd;
 border:solid 1px #cdcdcd;
 z-index:100;
-top:130px;
-left:50px;
+top:330px;
+left:350px;
 width:auto;
 height:auto;
 padding:10px;
@@ -639,7 +639,7 @@ display:block;
 background-color:#ffffdd;
 border:solid 3px #8b381a;
 z-index:200;
-top:130px;
+top:330px;
 left:50px;
 width:200px;;
 height:auto;
@@ -647,6 +647,19 @@ padding:10px;
 padding-top:30px;
 padding-bottom:30px;
 
+padding:10px;
+}
+div.associate
+{
+position:absolute;
+display:block;
+background-color:#ffffdd;
+border:solid 1px #cdcdcd;
+z-index:100;
+top:330px;
+left:120px;
+width:500px;
+height:200px;
 padding:10px;
 }
 div#info_box a
