@@ -269,7 +269,11 @@ public class InfoBaseModuleQueries {
 				Hashtable<String,Object> h=new Hashtable<String,Object>();
 				h.put("id",rs.getString("personID")+"");
 				h.put("accountNo",rs.getString("accountNo")+"");
-				h.put("name", rs.getString("firstName")+" ("+rs.getString("preferredName")+") "+rs.getString("lastName")+"");
+				String operantName="";
+				if ((rs.getString("firstName")+"").equals(rs.getString("preferredName")+"")||(rs.getString("preferredName")+"").equals("")){
+					operantName=(rs.getString("firstName")+" "+rs.getString("lastName"));
+				}else {operantName=rs.getString("firstName")+" ("+rs.getString("preferredName")+") "+rs.getString("lastName")+"";}
+				h.put("name", operantName);
 				h.put("firstName",rs.getString("firstName")+"");
 				h.put("lastName",rs.getString("lastName")+"");
 				h.put("preferredName",rs.getString("preferredName")+"");
