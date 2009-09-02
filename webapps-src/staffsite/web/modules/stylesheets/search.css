@@ -11,6 +11,7 @@ float:right;
 z-index:30;
 height: auto;
 border:none;
+margin-right:30px;
 }
 
 div.quicksearch_open{

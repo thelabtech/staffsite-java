@@ -1,7 +1,7 @@
 <div id="menubar" >
 	<img src="/modules/images/topmenubg_left.png" style="float: left;"/>
 		<div id="usual1" class="usual">
- <%@ include file="/modules/layout/_search.jspf" %>
+
 				<ul  >
 						
 				<% String[] tabs={"Home","Ministry","Enter Stats","View Reports"};  %>
@@ -47,7 +47,9 @@
 								%>
 						</ul>
 </div></div>
-        <img src="images/topmenubg_right.png" style="float: right; " />   
+ 
+        <img src="/modules/images/topmenubg_right.png" style="float: right; " />  
+<%@ include file="/modules/layout/_search.jspf" %> 
 			<script type="text/javascript"> 
               $("#usual1 ul").idTabs(); 
             </script>

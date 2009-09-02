@@ -730,3 +730,9 @@ form#fast_ll_stat
 {
 display:block;
 }
+div#usual1{
+	display:inline;
+	float:left;
+	
+height:69px;
+}
