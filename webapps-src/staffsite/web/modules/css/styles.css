@@ -170,7 +170,7 @@ width: 100%;
 margin-top: 0px;
 height: 112px;
 width: auto;
-background: #fbf2e1;
+background: #ffff99;
 padding: 0;
 text-align: left;
 }
@@ -209,13 +209,13 @@ margin: 0;
 ul.results li{
 height: 35px;
 overflow: hidden;
-background: #f0f0f0;
+background: #dddd77;
 margin-bottom: 2px;
 }
 
 ul.results li.selected {
 height: auto;
-background: #fbf2e1;
+background: #eeee88;
 }
 
 table.movementheader {
@@ -359,7 +359,7 @@ font-size: 14px;
 
 div.aschool:hover,
 div.aschool:focus {
-background: #cbe2f6;
+background: #a0c2c6;
 }
 
 div.aschool .thecolumn {
@@ -546,11 +546,11 @@ margin-bottom: 1em;
 border-bottom: 1px #d7c392 solid;
 margin: 0;
 padding: 6px;
-background: #e9dcbc;
+background: #dddd77;
 }
 
 .strategy .details {
-background: #f6eeda;
+background: #eeee88;
 padding: 6px;
 }
 
