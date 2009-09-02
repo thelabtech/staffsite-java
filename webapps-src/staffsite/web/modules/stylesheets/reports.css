@@ -23,7 +23,7 @@ border:solid 1px #cdcdcd;
 td.report_light, td.report_darker,td.split
 {
 	
-
+margin:none;
 text-align:center;
 width:59px;
 }
@@ -41,7 +41,8 @@ width:230px;
 }
 table.row, table.row_tall,table.row_short
 {
-	
+	border-collapse:collapse;
+	padding:0px;
 	margin:0px;
 display:block;
 overflow:hidden;
@@ -116,12 +117,12 @@ width:122px;
 td.report_header_triple
 {
 
-width:184px;
+width:185px;
 }
 td.report_header_quadruple
 {
 
-width:246px;
+width:248px;
 }
 
 td.report_header_label
