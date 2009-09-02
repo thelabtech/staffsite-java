@@ -185,7 +185,10 @@ if(thisDate.get(Calendar.MONTH)<=7){
 		</div>
 		
 		<div class="field">
-			  Report will cover from the first of the "from" month<br> through the end of the "to" month.
+			  Report will cover from the first of the "from" month through the end of the "to" month.<br>
+			For a particular school year or range of school years, choose August for From and To months and the appropriate From/To years. 
+		
+
 		</div>
 	<div class="field">	
 			
