@@ -28,9 +28,10 @@ if(quick){ %>
 <input type="hidden" name="action" value="search"/>
 <%if(!quick){ %><table><tr><td>
 <select name="module" class="dropclear">
-							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Campus:</option>
+							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Location:</option>
+							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:</option>							
 							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:</option>
-							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:</option>
+							
 						</select></td><td>
 <input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
 </td></tr></table>
@@ -128,9 +129,9 @@ if((((String)search.get("region")).contains(r))&&quick){
 Type of information:</td><td>
 						
 						<select name="module" class="drop">
-							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Campus</option>
-							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
+							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Location</option>							
 							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
+							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
 						</select></td></tr>
 <tr><td colspan="2">
 <input type="submit" id="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
