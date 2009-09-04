@@ -244,6 +244,6 @@ public class LocalLevel extends DBIOEntity {
 	" (ministry_targetarea targetarea join ministry_activity activity on "+
 	" ((targetarea.targetAreaID = activity.fk_targetAreaID))) order by targetarea.name) ministry_viewSortedActivities ";
        a.changeTargetTable(table);
-       return (a.selectList("fk_teamID = '"+this.getLocalLevelId()+"' and status in ('AC','LA','TR','KE','PI','FR')")).isEmpty();
+       return (a.selectList("fk_teamID = '"+this.getLocalLevelId()+"' and status in ('AC','LA','MU','TR','KE','PI','FR')")).isEmpty();
 	}
 }

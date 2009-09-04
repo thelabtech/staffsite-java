@@ -3,14 +3,15 @@ package org.alt60m.ministry;
 import java.util.EnumSet;
 
 public enum Status {
-	AC("Active"), 
+	AC("Launched"), 
 	IN("Inactive"),  
-	FR("Forerunner"),
+	FR("Pioneering"),
 	PI("Pioneering"),
-	KE("Key Contact"), 
+	KE("Key Leader"), 
 	LA("Launched"), 
-	TR("Transformational");
-
+	TR("Multiplying"),
+	MU("Multiplying"),
+	TN("Transitioned");
 	private String name;
 
 	Status(String name) {
@@ -23,6 +24,6 @@ public enum Status {
 	
 	public static EnumSet<Status> catalyticStatuses()
 	{
-		return EnumSet.of(FR, KE, LA, PI, TR);
+		return EnumSet.of(FR, KE, LA, PI, TR,MU);
 	}
 }

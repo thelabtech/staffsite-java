@@ -477,7 +477,7 @@ public class Reports {
 		Hashtable<String,String> orderCodes=new Hashtable<String,String>();
 		
 		orderCodes.put("strategy","strategy");
-		orderCodes.put("status"," field(lastStatus.status,'AC','TR','LA','KE','PI','FR') ");
+		orderCodes.put("status"," field(lastStatus.status,'MU','TR','LA','AC','KE','PI','FR') ");
 		orderCodes.put("team","teamName");
 		orderCodes.put("campus","campusName");
 		orderCodes.put("region","region");
@@ -519,7 +519,7 @@ public class Reports {
 			" LEFT JOIN "+lastStatus(date)+" ON ministry_activity.ActivityID=lastStatus.activity_id "+
 			" WHERE "+ 
 			" ministry_activity.strategy in ("+strategyList+") and (ministry_targetarea.isClosed is null or ministry_targetarea.isClosed='') and "+
-			" lastStatus.status in ('AC','TR','LA') "+
+			" lastStatus.status in ('AC','TR','LA','MU') "+
 			((!(region.equals(""))&& (!(region.toLowerCase().equals("national"))))? " and "+(type.equals("teamorg")?"ministry_locallevel.":"ministry_targetarea.")+"region = '"+region+"' ":"")+
 			" GROUP BY "+group+
 			" ORDER BY "+ processedOrder( order)+
@@ -528,12 +528,14 @@ public class Reports {
 	private static String convertStatus(String code){
 		Hashtable<String,String> codes=new Hashtable<String,String>();
 		codes.put("IN","Inactive");
-		codes.put("FR","Forerunner");
+		codes.put("FR","Pioneering");
 		codes.put("PI","Pioneering");
-		codes.put("KE","Key Contact");
+		codes.put("KE","Key Leader");
 		codes.put("LA","Launched");
-		codes.put("AC","Active");
-		codes.put("TR","Transformational");
+		codes.put("AC","Launched");
+		codes.put("TR","Multiplying");
+		codes.put("MU","Multiplying");
+		codes.put("TN","Transitioned");
 		if(codes.keySet().contains(code.toUpperCase())){
 			return codes.get(code);
 		}

@@ -1,5 +1,6 @@
 package org.alt60m.ministry.html;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 
 import org.alt60m.ministry.Status;
@@ -66,13 +67,16 @@ public class SelectStatus implements java.io.Serializable {
 			} else {
 				checked = "";
 			}
+			if((!Arrays.asList("AC","FR","TR").contains(status.toString()))){
+				if(!(!strategyName.equals("WSN")&&(status.toString().equals("TN")))){
 			sb.append("<input type=radio name=" + name + " value=" + status
 					+ checked + "> <SPAN NAME=\"" + toDef(status)
 					+ "\" onMouseOver=\"setDefinition(" + toDef(status)+",'"+strategyName
-					+ "');\" onMouseOut=\"setDefinition('empty','');\">"
+					+ "');\" onMouseOut=\"setDefinition(empty,'');\">"
 					+ status.getName().toUpperCase() + "</SPAN> "
 					+ strategyName + " campus.<br>");
 			sb.append(lineSep);
+			}}
 		}
 		return sb.toString();
 	}

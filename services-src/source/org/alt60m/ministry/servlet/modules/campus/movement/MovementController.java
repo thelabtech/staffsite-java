@@ -128,9 +128,10 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
         	ActionResults results = (ActionResults)ctx.getSessionValue("location_response");
         	results.putValue("edit_movement","true" );
         	TargetArea ta=new TargetArea((String)results.getHashtable("info").get("targetareaid"));
-			if(ctx.getInputString("new")!=null){
-				 Boolean isStudentVenture=((ctx.getInputString("strategy").equals("SV"))&&(!ta.getType().equals("High School")));
-				 if(isStudentVenture){results.putValue("isStudentVenture", "true");}
+        	 Boolean isStudentVenture=(((ctx.getInputString("strategy")+"").equals("SV"))&&(!ta.getType().equals("High School")));
+			 if(isStudentVenture){results.putValue("isStudentVenture", "true");}
+        	if(ctx.getInputString("new")!=null){
+				
 				results.putValue("strategy",ctx.getInputString("strategy"));
 				results.addHashtable("movement", MovementHelper.info("0"));
 				results.putValue("new_movement","true" ); 
