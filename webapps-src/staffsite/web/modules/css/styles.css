@@ -546,7 +546,7 @@ margin-bottom: 1em;
 border-bottom: 1px #d7c392 solid;
 margin: 0;
 padding: 6px;
-background: #dddd77;
+background: #ddd377;
 }
 
 .strategy .details {
@@ -580,7 +580,7 @@ border-right: none;padding: 6px;
 }
 
 table.movements th {
-background: #f6eeda;
+background: #ddd377;
 }
 
 div#info_box
