@@ -75,6 +75,20 @@
 		<A class="editfield" href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true"></A>
 	
 	<% }else if(module.equals("team")){%>
+
+			<%Activity checkExistsSentActivity=new Activity();
+					checkExistsSentActivity.setSentTeamId((String)ar.getHashtable("info").get("locallevelid"));	
+					checkExistsSentActivity.setStatus("LA");
+					if(checkExistsSentActivity.select()){
+					LocalLevel sendingTeam=new LocalLevel(checkExistsSentActivity.getLocalLevelId());
+					%>
+						<div class="field">
+                            <label>Sending Team:</label>
+							<div class="box">
+                            <A href="/servlet/Team?action=content&module=team&id=<%= sendingTeam.getLocalLevelId() %>"><%= sendingTeam.getName() %></A>
+							</div>
+						</div>
+				<%}%>
 		<% org.alt60m.html.SelectLane strategy= new org.alt60m.html.SelectLane();
 		strategy.setCurrentValue((String)info.get("lane"));
 		

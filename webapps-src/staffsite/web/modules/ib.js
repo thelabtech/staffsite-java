@@ -11,26 +11,26 @@ function hide(){
 	}
 }
 var active = " has an active CCC<BR>movement, usually with ten or more students.";
-var inactive = " has no active<BR>Campus Ministry strategy or potential<BR>student leader at the Ministry Location.";
+var inactive = " has no active Campus Ministry strategy <br>or potential student leader at the Ministry Location.";
 var pioneering = " is actively doing something<BR>to start a ministry at this Ministry Location.";
 var keycontact = " has found a key contact at this<BR>Ministry Location - student, volunteer, or partner.";
+var keyleader = " has found a key leader at this<BR>Ministry Location - student, volunteer, or partner.";
 var launched = " has a critical mass of five<BR>students, staff coach, etc.";
 var transformational = " has a movement of 50 or more students<BR>involved, or 1% of the student body.";
+var multiplying = " has a movement of 50 or more students<BR>involved, or 1% of the student body.";
 var forerunner = " has a person who can resource<BR>this Ministry Location to move it to the next level.";
 var staffed = " has staff assigned to this Ministry Location<BR>who report through the Staffed Campuses lane.";
-var empty = "";
+var transitioned = " has passed this movement over <br>to local leaders.";
+var empty = "Move your mouse pointer over a <BR>capitalized word to see a short explanation.";
 
 function setDefinition(setTo,strategy) {
-
-// if (NS) {
-//    with (document["definition"].document) {
-//      open();
-//      write(setTo);
-//      close();
-//}
-//  } else {
-    document.all["definition"].innerHTML = strategy+" "+setTo;
-//  }
+	if (strategy==null){
+		document.getElementById('definition').innerHTML =empty;
+	}
+	else
+	{
+    document.getElementById('definition').innerHTML = strategy+" "+setTo;
+	}
 
 }
 var checkSentTeam=false;

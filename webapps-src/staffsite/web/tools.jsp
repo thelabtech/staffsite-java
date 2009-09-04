@@ -72,19 +72,12 @@ int curr_tab = 3; %>
 <%=box.printTop()%>
 	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
 		<tr>
-			<td valign="center" align="center">
-				<a href="/servlet/InfoBaseController"><img src="/images/logo_infobase.gif"></a> </td><td>
-				<%=font%><b>The Campus InfoBase</b></font></td><td>
-				<%=fontS%>Information on all campuses involved with the Campus Ministry.</font>
+			<td valign="center" align="center" colspan="2">
+				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
+				<%=fontS%>Information on all campuses involved with the Campus Ministry. Also enter stats and generate reports.</font>
 			</td>
 		</tr>
-		<tr>
-			<td valign="center" align="center">
-				<a href="/servlet/InfoBaseController?action=showSuccessCriteriaHome"><img src="/images/logo_success.gif"></a> </td><td>
-				<%=font%><b>Success Criteria</b></font></td><td>
-				<%=fontS%>Entering and viewing Success Criteria. <!-- Click <A HREF="/servlet/InfoBaseController">here</A> for entering data and <A HREF="/servlet/InfoBaseController?action=createReport&type=locallevel">here</A> for generating reports. -->
-			<td>
-		</tr>
+		
 		<%// if (isStudent.equals("false")) { %>
 		<%
 		boolean fskEnabled = true;

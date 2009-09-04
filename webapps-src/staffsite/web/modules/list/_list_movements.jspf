@@ -118,7 +118,8 @@ for(Hashtable h:rows){
 	%><div class="strategy">
             	<h3>
 	<a href="/servlet/Team?action=content&module=team&id=<%=sentTeamActivity.getSentTeamId() %>">Sent Team: <%=sentTeam.getName()%></a>
-	</h3></div>
+<A HREF="/servlet/Movement?action=saveEditActivity&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=<%=module %>&id=<%= module.equals("team")?h.get("team_id"):h.get("location_id") %>&strategy=SV&updateoption=IN&sent_teamID=<%=sentTeamActivity.getSentTeamId() %>&teamid=<%=h.get("team_id") %>&url=<%=h.get("url") %>&facebook=<%=h.get("facebook") %>&datechanged=<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>">
+	<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A></h3></div>
 	<%} %>
 <div class="clear"></div>
 </div><!-- end detail -->
@@ -141,7 +142,7 @@ for(Hashtable h:rows){
 	
 		<A HREF="/servlet/Movement?action=edit&new=true&strategy=<%=strat %>&module=location">
 		Add <%=org.alt60m.ministry.Strategy.expandStrategy(strat) %>
-		</A>
+		</A>&nbsp;
 	<%
 		}
 	}%>

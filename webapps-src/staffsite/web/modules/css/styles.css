@@ -103,8 +103,8 @@ background:url(../images/topmenubg.png) repeat-x bottom left;
 
 #menubar ul {
 height: 43px;
-margin: 0;
-padding: 0;
+margin: 0px;
+padding: 0px;
 }
 
 #menubar ul li {
@@ -170,7 +170,7 @@ width: 100%;
 margin-top: 0px;
 height: 112px;
 width: auto;
-background: #ffff99;
+background: #fff599;
 padding: 0;
 text-align: left;
 }
@@ -209,13 +209,13 @@ margin: 0;
 ul.results li{
 height: 35px;
 overflow: hidden;
-background: #dddd77;
+background: #ddd377;
 margin-bottom: 2px;
 }
 
 ul.results li.selected {
 height: auto;
-background: #eeee88;
+background: #eee488;
 }
 
 table.movementheader {
@@ -624,7 +624,7 @@ border:solid 1px #cdcdcd;
 z-index:100;
 top:330px;
 left:350px;
-width:auto;
+width:500px;
 height:auto;
 padding:10px;
 

@@ -8,7 +8,7 @@
 	<input type=hidden name="action" value="saveEditActivity">
 <% Hashtable movement=ar.getHashtable("movement");%>
 	<table cellspacing=0 cellpadding=5 border=0 align="center" >
-<p><%=isNew?ar.getValue("strategy"):movement.get("strategy")%></p>
+
 	<form name="updateActivityForm" method="post" action="/servlet/Movement">
 	<input type=hidden name="action" value="saveEditActivity">
 	<input type="hidden" name="module" value="location">
@@ -17,7 +17,7 @@
 	<input type=hidden name="strategy" value="<%=isNew?ar.getValue("strategy"):movement.get("strategy")%>">
 	<input type=hidden name="targetareaid" value="<%=info.get("targetareaid")%>">
 	<input type=hidden name="id" value="<%=info.get("targetareaid")%>">
-
+<%if(ar.getValue("isStudentVenture")==null){ %>
 	<tr><td align="left" COLSPAN="2">
 	<b>Use the radio buttons to change the status below:<BR>
 <BR>
@@ -34,7 +34,17 @@
 				<b>This Ministry Location is a(n)...</B><BR>
 				<%
 					statusHelper.setName("updateoption");
-					statusHelper.setCurrentValue(!isNew?(String)movement.get("status"):"PI");
+					String showStatus=(String)movement.get("status");
+					if(((String)movement.get("status")).equals("AC")){
+						showStatus="LA";
+					}
+					if(((String)movement.get("status")).equals("FR")){
+						showStatus="PI";
+					}
+					if(((String)movement.get("status")).equals("TR")){
+						showStatus="MU";
+					}
+					statusHelper.setCurrentValue(!isNew?showStatus:"PI");
 					statusHelper.setStrategyName(org.alt60m.ministry.Strategy.expandStrategy((String)movement.get("strategy")));
 					statusHelper.setStatuses(statusOptions);
 				%>
@@ -45,9 +55,12 @@
 		
 	
 	%>
-	
+	</tr>
+
+
+<tr>
 			<TD>
-						<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0"><TR><TD CLASS="definition"><SPAN ID="definition">Move your mouse pointer over a <BR>capitalized word to see a short explanation.</SPAN></FONT></TD></TR></TABLE>
+				<div ID="definition">Move your mouse pointer over a <BR>capitalized word to see a short explanation.</div>
 			</TD>
 		</TR>
 		
@@ -64,7 +77,10 @@
 			<a href="javascript:pickdate(document.updateActivityForm.datechanged)">[select date]</font></a>
 		</td>
 	</tr>
-
+<%} else { %>
+<input type="hidden" name="updateoption" value="LA"/>
+<input type="hidden" name="datechanged" value="<%=((today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DATE)+"/"+today.get(Calendar.YEAR))%>"/>
+<%} %>
 <%Iterator teams = ar.getCollection("teams").iterator();%>
 <%if(ar.getValue("isStudentVenture")!=null){ %>
 			<tr>
@@ -82,10 +98,14 @@
 				teams = ar.getCollection("teams").iterator();
 				while(teams.hasNext()) {
 					Hashtable thisTeam = (Hashtable)teams.next();
+					Activity checkExistsSentActivity=new Activity();
+					checkExistsSentActivity.setSentTeamId((String)thisTeam.get("LocalLevelId"));
+					
+					if((thisTeam.get("Lane").equals("SV"))&&(!checkExistsSentActivity.select()||checkExistsSentActivity.getStatus().equals("IN"))){
 				%>
 					<option value="<%=thisTeam.get("LocalLevelId")%>" <%=((String)thisTeam.get("LocalLevelId")).equals(movement.get("locallevelid"))?" selected":""%>><%=thisTeam.get("Name")%></option>
 				<%
-				}
+				}}
 				%>
 					</select>**</font>
 				</td>
@@ -110,6 +130,7 @@
 				 teams = ar.getCollection("teams").iterator();
 				while(teams.hasNext()) {
 					Hashtable thisTeam = (Hashtable)teams.next();
+					
 				%>
 					<option value="<%=thisTeam.get("LocalLevelId")%>" <%=((String)thisTeam.get("LocalLevelId")).equals(movement.get("locallevelid"))?" selected":""%>><%=thisTeam.get("Name")%></option>
 				<%
