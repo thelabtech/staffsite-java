@@ -5,7 +5,7 @@
 			       <div id="footer">
 			<h4>Infobase</h4>
             <a href="mailto:help@campuscrusadeforchrist.com" class="sendfeedback">Send Feedback</a><br />
-
+			<a href="<%=module.equals("report")?"/servlet/InfoBaseController?action=showSuccessCriteriaHome":"/servlet/InfoBaseController" %>">Something is busted! Take me to the old version!</a>
             &copy; Copyright 2009
         </div>
 <!-- footer -->
