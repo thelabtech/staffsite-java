@@ -396,7 +396,13 @@ public class InfoBaseModuleQueries {
 				h.put("accountNo",rs.getString("accountNo")+"");
 				h.put("city",rs.getString("city")+"");
 				h.put("state",rs.getString("state")+"");
-				h.put("name", rs.getString("firstName")+" ("+rs.getString("preferredName")+") "+rs.getString("lastName")+"");
+				String makeName="";
+				if(((String)rs.getString("firstName")+"").equals(rs.getString("preferredName")+"")){
+					makeName=rs.getString("firstName")+" "+rs.getString("lastName")+"";
+				} else {
+					makeName=rs.getString("firstName")+" ("+rs.getString("preferredName")+") "+rs.getString("lastName")+"";
+				}
+				h.put("name", makeName);
 				h.put("firstName",rs.getString("firstName")+"");
 				h.put("lastName",rs.getString("lastName")+"");
 				h.put("preferredName",rs.getString("preferredName")+"");

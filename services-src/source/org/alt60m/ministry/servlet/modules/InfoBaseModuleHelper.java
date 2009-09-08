@@ -147,7 +147,7 @@ public class InfoBaseModuleHelper {
  	 		   result.put(s.toUpperCase(), addHash.get(s));
  	 		   result.put(s, addHash.get(s));
  	 	   }
- 		  result.put("name", ((Person)tify).getFirstName()+" "+((((Person)tify).getPreferredName()+"").equals("")?"":"("+((Person)tify).getPreferredName()+") ")+((Person)tify).getLastName());
+ 		  result.put("name", ((Person)tify).getFirstName()+" "+(((((Person)tify).getPreferredName()+"").equals("")||(((Person)tify).getPreferredName()+"").equals(((Person)tify).getFirstName()))?"":"("+((Person)tify).getPreferredName()+") ")+((Person)tify).getLastName());
  		  result.put("phone",result.get("workphone"));
  	   } else {
  		  result.put("name", "");
