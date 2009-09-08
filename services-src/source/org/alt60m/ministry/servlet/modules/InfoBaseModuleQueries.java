@@ -72,7 +72,7 @@ public class InfoBaseModuleQueries {
 	}
 	public static String getSelect(String type, boolean reqMovement){
 		if (type.equals("person")){
-			return " Select concat_ws('',mp.firstName,if(mp.preferredName<>'',concat_ws('',' (',mp.preferredName,') '),' '),mp.lastName)  as name, "+
+			return " Select concat_ws('',mp.firstName,if((mp.preferredName<>'' and mp.preferredName <> mp.firstName),concat_ws('',' (',mp.preferredName,') '),' '),mp.lastName)  as name, "+
 					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, mp.accountNo as accountNo ";
 		}else if (type.equals("team")){
 			return " Select ml.name as name, "+
