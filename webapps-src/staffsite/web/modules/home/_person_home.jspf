@@ -7,10 +7,11 @@ breaker=0;
 
 %><br><%
 }%>
-<a href="/servlet/Person?action=index&id=0&module=person&region=<%=r%>" ><%=Regions.expandRegion(r) %>&nbsp;&nbsp;&nbsp;</a>
+<a href="/servlet/Person?action=index&id=0&module=person&region=<%=r%>" ><%=Regions.expandRegion(r) %></a>&nbsp;&nbsp;&nbsp;
 <%
 breaker++;
 } %><br><br>
+If this information is incorrect, it is because the Personnel Record is incorrect. Please contact the appropriate HR representative.<br><br>
 <b>Specialty Roles in <%=Regions.expandRegion(ar.getValue("region")) %>:</b>
 <% 
 Vector<Hashtable<String,Object>>homeList=(Vector<Hashtable<String,Object>>)ar.getCollection("homeList");
