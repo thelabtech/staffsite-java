@@ -233,6 +233,11 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 										
 										} %>			
 						<div class="aschool">
+							<div class="stats_info_surround">	
+							<div id="<%=uniqueStat%>_info_box" class="stats_info_box" >
+					
+							</div>
+						</div>
 										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>	
 						<div class="thecolumn">
 									<div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
@@ -266,11 +271,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 									
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Laborers Sent</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ></div>
 						</div>
-						<div class="stats_info_surround">	
-							<div id="<%=uniqueStat%>_info_box" class="stats_info_box" >
-					
-							</div>
-						</div>
+						
 								</div><!-- close aschool div -->
 					
 				
