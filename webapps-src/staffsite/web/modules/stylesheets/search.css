@@ -13,6 +13,9 @@ height: auto;
 border:none;
 margin-left:-20px;
 }
+div.quicksearch_closed{
+	width: 500px;
+	}
 
 div.quicksearch_open{
 	background:url(/modules/images/opensearchbg.png) no-repeat top;
@@ -20,13 +23,23 @@ div.quicksearch_open{
 div.quicksearch_open img ,div.quicksearch_closed img {
 	position:absolute;
 	top:11px;
-	right:18px;z-index:20;}
+	right:18px;z-index:20;
+	width:400px;
+	}
 
 div.quicksearch_open form input,
 div.quicksearch_open form select,
 div.quicksearch_closed form input,
 div.quicksearch_closed form select{
 	display:block;
+	
+}
+div.quicksearch_open a.open_close:link ,
+div.quicksearch_open a.open_close:visited ,
+div.quicksearch_closed a.open_close:link ,
+div.quicksearch_closed a.open_close:visited {
+	font-size:9px;
+	color:white;
 	
 }
 div.quicksearch_open form input.name, 
@@ -71,7 +84,7 @@ div.quicksearch_open form select.dropmulti {
 	height:auto;
 	width:auto;
 }
-		div.quicksearch_closed form,div.quicksearch_open form
+		div.quicksearch_open form
 {
 	display:block;
 	border:none;
@@ -79,11 +92,23 @@ div.quicksearch_open form select.dropmulti {
 	margin-top:-10px;
 	padding-left:20px;
 	}
-		
+			div.quicksearch_closed form
+{
+	display:block;
+	border:none;
+	margin:none;
+	margin-top:6px;
+	padding-left:20px;
+	}	
 
+input.short_submit
+{
+display:block;
+width:60px;
+margin-bottom:10px;
+}
 
-
-input#search_submit
+input.search_submit
 {
 display:block;
 width:110px;

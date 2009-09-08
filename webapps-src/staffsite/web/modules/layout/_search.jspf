@@ -13,11 +13,11 @@ search_type=((String)search.get("type"));
 if(quick){ %>
 <%@page import="org.alt60m.ministry.States"%>
 <div  class="quicksearch_open">
-<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>"><img src="/modules/images/collapse.png"/></a><br>
+<a class="open_close" href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>">Close</a><br>
 <% session.putValue("quicksearch",null); %>
 <%} else {
 %><div  class="quicksearch_closed">
-<a href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true"><img src="/modules/images/expand.png"/></a><br>
+
 <%} %>
 
 		            	<%String searchUrl="Home";%>
@@ -28,13 +28,13 @@ if(quick){ %>
 <input type="hidden" name="action" value="search"/>
 <%if(!quick){ %><table><tr><td>
 <select name="module" class="dropclear">
-							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Location:</option>
-							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:</option>							
-							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:</option>
+							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Location:&nbsp;&nbsp;</option>
+							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:&nbsp;&nbsp;</option>							
+							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:&nbsp;&nbsp;</option>
 							
 						</select></td><td>
 <input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
-</td></tr></table>
+</td>
 <%} else {%>
 <table><tr><td>
 Name:</td><td>
@@ -134,7 +134,7 @@ Type of information:</td><td>
 							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
 						</select></td></tr>
 <tr><td colspan="2">
-<input type="submit" id="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
+<input type="submit" class="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
 </table>
 <%} else { %>
 
@@ -145,6 +145,9 @@ Type of information:</td><td>
 <input type="hidden" name="city" value="">
 <input type="hidden" name="state" value="">
 <input type="hidden" name="country" value="">
+<td><input class="short_submit" type="submit"  name="search_submit" value="Search"/>
+</td><td><a class="open_close"  href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Advanced Search</a><br>
+</td></tr></table>
 <%} %>
 
 						
