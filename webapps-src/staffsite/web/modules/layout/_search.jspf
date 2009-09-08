@@ -38,7 +38,7 @@ if(quick){ %>
 <%} else {%>
 <table><tr><td>
 Name:</td><td>
-<input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/></td></tr>
+<input name="name" type="text" class="name" value=""/></td></tr>
 <%} %>
 
 
@@ -47,7 +47,7 @@ Name:</td><td>
 if(quick){%>
 
 <tr><td>
-City:</td><td><input name="city" class="name" type="text" value="<%=search.get("city")!=null&&quick?search.get("city"):"" %>"/>
+City:</td><td><input name="city" class="name" type="text" value=""/>
 </td></tr>
 <tr><td>
 State:</td><td><select name="state" class="drop">
@@ -80,41 +80,36 @@ Country:</td><td><select name="country" class="drop">
 <%			}%>					
 </select></td></tr>
 
-
-<tr><td class="dropmulti">
+<tr><td colspan="2">
+<table>
+<tr><td>
 Strategy: 
 
-
-<select name="strategy" multiple class="dropmulti">
+<table>
+<input type="hidden" name="strategy" value="nonnull"/>
 
 <%
 boolean selectStrategy=false;
 for(String s:Strategy.strategiesArray()){ %>
 <%if(!s.equals("EV")){ %>
-
-<option    
- value="<%=s%>" >
-<%=Strategy.expandStrategy(s) %>
-</option>
+<tr><td><%=Strategy.expandStrategy(s) %></td><td ><input name= "strategy" type="checkbox"    value="<%=s%>" /></td></tr>
 <%} }%>
-<option value="nonnull" selected>Any</option>
-</select></td>
-<td class="dropmulti">
+</table
+</td>
+<td >
 Region: 
-
-<select name="region" class="dropmulti" multiple>
+<table>
+<input type="hidden" name="region" value="nonnull" >
 
 <%boolean selectRegion=false; %>
 <%for(String r:Regions.abbrevRegion){ %>
+<tr><td><%=Regions.expandRegion(r) %></td><td ><input name= "region" type="checkbox"    value="<%=r%>" /></td></tr>
 
-<option   value="<%=r%>" >
-<%=Regions.expandRegion(r) %>
-</option>
 
-<%} %>
-<option value="nonnull" selected>Any</option>
-</select></td></tr>
-<tr><td colspan="2"><i>(To select more than one Region or Strategy, hold down CTRL)</i></td></tr>
+<%} %></table>
+</td></tr>
+</table>
+</td></tr>
 
 <tr><td>
 Type of information:</td><td>
