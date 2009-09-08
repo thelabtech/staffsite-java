@@ -61,6 +61,7 @@ public class PersonUpdater {
 		result.put("person.preferredName","staff.preferredName");
 		
 		result.put("person.maritalStatus","staff.maritalStatus");
+		result.put("person.region","staff.region");
 		result.put("person.isSecure","staff.isSecure");
 		
     	return result;
