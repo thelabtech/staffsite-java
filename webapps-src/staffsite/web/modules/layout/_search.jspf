@@ -61,7 +61,7 @@ State:</td><td><select name="state" class="drop">
 			String stateCode=stateCodesArray[i];
 			String stateName=stateNamesArray[i];
 			%>
-	<option value="<%=stateCode %>"  <%=selectedState.equals(stateCode)?"selected":"" %>><%=stateName %></option>
+	<option value="<%=stateCode %>"  ><%=stateName %></option>
 <%			}%>					
 </select><br>
 </td></tr>
@@ -76,7 +76,7 @@ Country:</td><td><select name="country" class="drop">
 			String countryCode=countrySearchArray[(i*2)+1];
 			String countryName=countrySearchArray[(i*2)];
 			%>
-	<option value="<%=countryCode %>"  <%=selectedCountry.equals(countryCode)?"selected":"" %>><%=countryName %></option>
+	<option value="<%=countryCode %>"  ><%=countryName %></option>
 <%			}%>					
 </select></td></tr>
 
@@ -93,15 +93,11 @@ for(String s:Strategy.strategiesArray()){ %>
 <%if(!s.equals("EV")){ %>
 
 <option    
-<%if((((String)search.get("strategy")).contains(s))&&quick){
-	out.print("selected");
-	selectStrategy=true;
-}
-%> value="<%=s%>" >
+ value="<%=s%>" >
 <%=Strategy.expandStrategy(s) %>
 </option>
 <%} }%>
-<option value="nonnull" <%=selectStrategy?"":"selected" %>>Any</option>
+<option value="nonnull" selected>Any</option>
 </select></td>
 <td class="dropmulti">
 Region: 
@@ -111,17 +107,12 @@ Region:
 <%boolean selectRegion=false; %>
 <%for(String r:Regions.abbrevRegion){ %>
 
-<option  <%
-if((((String)search.get("region")).contains(r))&&quick){
-	out.print("selected"); 
-	selectRegion=true;
-}
-%> value="<%=r%>" >
+<option   value="<%=r%>" >
 <%=Regions.expandRegion(r) %>
 </option>
 
 <%} %>
-<option value="nonnull" <%=selectRegion?"":"selected" %>>Any</option>
+<option value="nonnull" selected>Any</option>
 </select></td></tr>
 <tr><td colspan="2"><i>(To select more than one Region or Strategy, hold down CTRL)</i></td></tr>
 
