@@ -9,9 +9,9 @@ for(Hashtable<String,Object> c:contacts){%>
 <%if(ar.getValue("isRD").equals("true")||c.get("id").equals(ar.getValue("personID"))||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
 	<A class="deletefield"
 		HREF="/servlet/Movement?action=removePersonContact&module=location&personID=<%= c.get("id") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
-		</A><br/>
+		</A>
 
-	<%} %>
+	<%} %><br/>
 	<%
 	if ( c.get("id").equals(ar.getValue("personID"))){present=true;}
 	
@@ -25,16 +25,16 @@ for(Hashtable<String,Object> c:contacts){%>
 if (!present){%>
 
 	<A class="tiny" HREF="/servlet/Movement?action=savePersonContact&module=location&personID=<%=ar.getValue("personID") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
-	Become a Contact for this Movement</A>
+	Become a Contact for this Movement</A><br>
 	<%} %>
 		
 		<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
 		<A class="tiny" HREF="/servlet/Movement?action=addPersonContact&module=location&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&lastName=">
 		Add Contact
-		</A><%} 
+		</A><br><%} 
 		else
 		{
 		%>
-		If this contact info is incorrect, please email your Regional Director with the correct information.
+		If this contact info is incorrect, please email your Regional Director or the Team Leader with the correct information.
 		<%
 		}%>

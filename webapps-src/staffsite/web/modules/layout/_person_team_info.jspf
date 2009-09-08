@@ -10,7 +10,7 @@ for(Section section:subordinate_objects){
 							<div class="box">
                             <%Vector<Hashtable<String,Object>>rows=section.getRows();
 							for(Hashtable h:rows){%>
-							<A href="/servlet/Team?action=content&module=team&id=<%= h.get("id") %>"><%= h.get("name") %></A>
+							<A href="/servlet/Team?action=content&module=team&id=<%= h.get("id") %>"><%= h.get("name") %></A><br>
 							<%}%>
 							</div>
                         </div>

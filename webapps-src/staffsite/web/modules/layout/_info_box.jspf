@@ -47,7 +47,7 @@
 						<%} %>
 							<div class="field">
                             <label>Email:</label>
-                            <%=info.get("email")%>                           
+                            <a href="mailto:<%=info.get("email")%>"><%=info.get("email")%></a>                           
                         	</div>
 					 <%= (!module.equals("team"))?"<div class=\"clear\"></div></div><div class=\"thecolumn\">":""%>
 						<%if(module.equals("campus")||module.equals("location")){%>
