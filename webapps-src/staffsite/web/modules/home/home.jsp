@@ -1,4 +1,7 @@
 <%@ include file="/modules/layout/header.jspf"%>
+<a class="open_close"  style="text-decoration:none;" href="Home?action=home&module=location&quicksearch=true"><h3 style="display:inline;">Find a Location</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="open_close" style="text-decoration:none;"  href="Home?action=home&module=person&quicksearch=true"><h3 style="display:inline;">Find a Person</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="open_close" style="text-decoration:none;"   href="Home?action=home&module=team&quicksearch=true"><h3 style="display:inline;">Find a Team</h3></a><br><br>
 Welcome to the InfoBase Home page. <br><br>
 Choose the "Ministry" tab to search for campuses, teams and people. The secondary tabs let you choose between these categories. 
 You may opt to drill down by region, state, city etc. or to use the search feature on the upper right of the website.<br><br>
