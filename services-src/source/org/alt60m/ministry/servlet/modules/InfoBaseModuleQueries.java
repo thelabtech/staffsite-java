@@ -53,11 +53,11 @@ public class InfoBaseModuleQueries {
 	}
 	public static String getNameExp(String type){
 		if (type.equals("person")){
-			return " concat_ws('',mp.firstName,' (',mp.preferredName,') ',mp.lastName) ";
+			return " concat_ws('',' ',mp.firstName,' ( ',mp.preferredName,' ) ',mp.lastName,' ') ";
 		}else if (type.equals("team")){
-		return " ml.name ";
+		return " concat_ws('',' ',ml.name,' ') ";
 		}else { 
-		return " concat_ws('',mt.name,' (',mt.altName,'/',mt.abbrv,')') ";
+		return " concat_ws('',' ',mt.name,' ( ',mt.altName,' / ',mt.abbrv,' )') ";
 			
 		}
 	}
@@ -159,8 +159,10 @@ public class InfoBaseModuleQueries {
 				Vector<String>countries=CountryCodes.partialToCodes(s);				
 				Vector<String>states=States.partialToCodes(s);
 				if(s.length()>2){
-					s="%"+s+"%";
+					s="%"+s+"%";}else{
+						s="% "+s+" %";
 					}
+					
 				if(countries.size()+states.size()>0&&singleField){
 					conditions+=" and (false ";
 				for(String country:countries){
@@ -171,14 +173,14 @@ public class InfoBaseModuleQueries {
 					conditions +=" or state='"+state+"' ";
 					
 					}
-				conditions +=" or concat_ws('',upper("+nameExp+")"+(singleField?" ,' ',upper(city) ":"")+") like '"+s+"') ";
+				conditions +=" or concat_ws('',upper("+nameExp+")"+(singleField?" ,' ',upper(city),' ' ":"")+") like '"+s+"') ";
 				
 				}else{
-					conditions +=" and (concat_ws('',upper("+nameExp+")"+(singleField?" ,' ',upper(city) ":"")+") like '"+s+"') ";
+					conditions +=" and (concat_ws('',upper("+nameExp+")"+(singleField?" ,' ',upper(city),' ' ":"")+") like '"+s+"') ";
 			
 				}
 			
-			nameOnlyConditions +=" + (upper("+nameExp+") like '"+s+"' ) "+((type.equals("person")||type.equals("team"))?"":" + (upper(abbrv) like '"+s+"' ) ");
+			nameOnlyConditions +=" + (upper("+nameExp+") like '"+s+"' ) "+((type.equals("person")||type.equals("team"))?"":" and (upper(abbrv) like '"+s+"' ) ");
 		}
 		result.put("tables",tables);
 		result.put("nameOnlyConditions", nameOnlyConditions+" ) as priority ");
