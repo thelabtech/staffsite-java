@@ -108,7 +108,9 @@ for(Hashtable h:rows){
      <tr>
 		<td><a href="/servlet/Campus?action=content&module=location&id=<%=h.get("location_id") %>"><%=h.get("location") %></a></td>
 		<td><%=org.alt60m.ministry.Strategy.expandStrategy((String)h.get("strategy")) %></td>
-		<td><%=h.get("status") %></td>
+		<td><%org.alt60m.ministry.model.dbio.Activity act=new org.alt60m.ministry.model.dbio.Activity((String)h.get("id"));	%>
+ 			<%=act.getStatusFullName() %>
+		</td>
 		<td><%=h.get("size") %> students  </td>
 		<td>(<a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a>)</td>
 	</td><%} %>

@@ -201,9 +201,11 @@ padding: 15px 10px;
 }
 
 ul.results {
-list-style: none;
-padding: 0;
-margin: 0;
+list-style-image:none;
+list-style-position:none;
+list-style-type:none;
+padding: 0px;
+margin: 0px;
 }
 
 ul.results li{
@@ -555,6 +557,7 @@ padding: 6px;
 }
 
 .strategy .details .field {
+	display:block;
 line-height: 1.5em;
 }
 
@@ -687,7 +690,7 @@ background-color:white;
 div.stats_info_surround
 {
 	height:0px;
-	border:0px;
+	border:none;
 	display:block;
 	width:0px;
 	margin:none;

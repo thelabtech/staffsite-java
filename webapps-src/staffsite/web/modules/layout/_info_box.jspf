@@ -99,10 +99,13 @@
                         	</div>
 							<div class="field">
                             <label>Team Website:</label>
-                            <a href="<%=info.get("url")%>"><%=info.get("url")%></a>                         
+                            <a href="<%=info.get("url")%>"><%=info.get("url")%></a> &nbsp;                        
                         	</div>
-	
-	<A class="editfield" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true"></A><br>
+				<div class="field">
+					<label>
+					<A class="editfield" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true"></A>
+					</label>&nbsp;				
+				</div>
 <%}%>
 
 	<%if(module.equals("person")){%>
