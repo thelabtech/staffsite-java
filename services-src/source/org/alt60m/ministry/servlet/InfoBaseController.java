@@ -277,7 +277,7 @@ public class InfoBaseController extends Controller {
 
             TargetArea target = ibt.getTargetArea(targetAreaId);
             log.debug(target.getType());
-            Boolean isStudentVenture=((strategy.equals("SV"))&&(!target.getType().equals("High School")));
+            Boolean isStudentVenture=((strategy.equals("SV"))&&(!target.getType().equals("HighSchool")));
             
             Collection teams = ibt.getLocalLevelTeamsByRegion(target.getRegion()!=null?target.getRegion():"");
             Vector<Hashtable<String, Object>> hashedTeams = new Vector<Hashtable<String, Object>>();
