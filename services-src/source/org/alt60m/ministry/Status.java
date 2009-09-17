@@ -9,8 +9,8 @@ public enum Status {
 	PI("Pioneering"),
 	KE("Key Leader"), 
 	LA("Launched"), 
-	TR("Multiplying"),
-	MU("Multiplying"),
+	TR("Multiplying (formerly Transformational)"),
+	MU("Multiplying (formerly Transformational)"),
 	TN("Transitioned");
 	private String name;
 
