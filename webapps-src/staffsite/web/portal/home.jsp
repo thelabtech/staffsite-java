@@ -133,7 +133,7 @@ function toggleDiv(who){
 					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=(String)session.getValue("accountNo")%>&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=home">
 				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
 				
-				<A href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A><br>
+				<A href="/servlet/Team?action=content&id=<%= thisTeam.get("teamID") %>&module=team"><%= fontS %><%= thisTeam.get("name") %></A><br>
                 <%
 				firsty++;
 				}%>
@@ -342,26 +342,9 @@ function toggleDiv(who){
 						%>
 						<br>
 						<span style="text-decoration:none;font-size:12px;color:yellow;font-weight:bold;">New!  &nbsp;</span>
-						<a style="font-size:12px;" href="/servlet/InfoBaseController?action=enterFastSuccessCriteriaForActivity<%=pileUpSuccessCriteriaIds%>">
+						<a style="font-size:12px;" href="/servlet/Stat">
 						<b>Enter Stats  </b>
-						</a><BR>
-						<div  class="fakeLink" id="resizingBookMarkSC" style="height:auto;overflow:hidden;margin-top:10px;"  >
-					
-
-						<a style="text-decoration:none;display:none;" id="statsToggle" href="javascript:toggleDiv('resizingBookMarkSC');" >
-						<i>Individual Movements </i><span style="font-size:12px;">&darr;</span>
-						</a><br>
-						<%	
-						out.print(sCBookMarks);
-						%>
-						
-						</div>
-						<script type="text/javascript" language="javascript">
-						document.getElementById('resizingBookMarkSC').style.height='16px';
-						document.getElementById('resizingBookMarkSC').style.overflow='hidden';
-						document.getElementById('statsToggle').style.display='inline';
-						
-						</script>
+						</a>
 						<%
 						}
 					
@@ -389,7 +372,7 @@ function toggleDiv(who){
 						while(prefs.hasNext()) {
 							pref = (StaffSitePref)prefs.next();
 							%>
-								<a href="/servlet/InfoBaseController?action=showTeam&locallevelid=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
+								<a href="/servlet/Team?action=content&id=<%=pref.getValue()%>&module=team"><%=pref.getDisplayName()%></a><BR>
 							<%
 						}
 					}
