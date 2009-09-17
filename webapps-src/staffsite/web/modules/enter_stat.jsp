@@ -120,6 +120,12 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 	
 	<%	
 } //end week-navigation tabs
+else{
+	%><a class="open_close"  style="text-decoration:none;" href="Stat?action=index&module=stat&quicksearch=true"><h3 style="display:inline;">Find a Location</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	<br>
+	You have no stats bookmarks. Find your location and click the Enter Stats link to enter the stats. A bookmark will automatically be saved for future reference.
+	<%
+}
 %>
 
 </ul>
