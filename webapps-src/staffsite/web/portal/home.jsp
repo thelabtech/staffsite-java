@@ -156,11 +156,11 @@ function toggleDiv(who){
 				<% box.setTitle("Search the InfoBase");%>
 				<%=box.printTop()%>
 				<FORM name="ibsearch" ACTION="JavaScript:ibsearch();">
-					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search" checked> Staff (last name)<br>
-					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search"> Ministry Location<br>
-					<!--<img src="/images/blank.gif" width="15" height="1"><INPUT TYPE=radio name="search"> Team<br>-->
+					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search" checked> Location<br>
+					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search" > Person<br>
+					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search"> Team<br>
 					<center>
-					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="query" value='<%=profile.get("LastName")%>'><br>
+					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="query" value=''><br>
 					<br>
 					<A HREF="JavaScript: ibsearch();" onMouseOver="document.ibsearchbutton.src='/images/search_bon.gif';" onMouseOut="document.ibsearchbutton.src='/images/search_boff.gif';"><IMG NAME="ibsearchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></A>
 					<br>
@@ -173,29 +173,56 @@ function toggleDiv(who){
 				<script>
 				function ibsearch() {
 					if (document.ibsearch.search[0].checked) {
-						document.ibstaff.searchtext.value = document.ibsearch.query.value;
-						document.ibstaff.submit();
+						document.locsearch.name.value = document.ibsearch.query.value;						
+						document.locsearch.submit();
 					}
-					if (document.ibsearch.search[1].checked) {
-						document.ibcampus.searchstring.value = document.ibsearch.query.value;
-						document.ibcampus.submit();
+					if (document.ibsearch.search[1].checked) {						
+						document.persearch.name.value = document.ibsearch.query.value;						
+						document.persearch.submit();
+					}
+					if (document.ibsearch.search[2].checked) {						
+						document.teamsearch.name.value = document.ibsearch.query.value;
+						document.teamsearch.submit();
 					}
 				}
 				</script>
 
-				<form name="ibstaff" action="/servlet/InfoBaseController" method="post">
-				<input type=HIDDEN name="action" value="listPerson">
-				<INPUT TYPE=HIDDEN name="searchby" value="lastname">
-				<INPUT TYPE=HIDDEN name="mode" value="list">
-				<input type=hidden name="searchtext">
+				<form action="Home" name="locsearch" method="post">
+				<input type="hidden" name="module" value="location"/>
+				<input type="hidden" name="action" value="search"/>
+				<input name="name" type="hidden" class="name" value=""/>
+				<input type="hidden" name="singleField" value="true">
+				<input type="hidden" name="region" value="nonnull">
+				<input type="hidden" name="strategy" value="nonnull">
+				<input type="hidden" name="city" value="">
+				<input type="hidden" name="state" value="">
+				<input type="hidden" name="country" value="">
 				</form>
 
-				<FORM NAME="ibcampus" ACTION="/servlet/InfoBaseController" METHOD="POST">
-				<input type=hidden name="action" value="detailedListCampus">
-				<input type=hidden name="searchby" value="name">
-				<INPUT TYPE="hidden" name="view" value="campusList">
-				<input type="hidden" name="searchstring">
-				</FORM>
+				<form action="Home" name="persearch" method="post">
+				<input type="hidden" name="module" value="person"/>
+				<input type="hidden" name="action" value="search"/>
+				<input name="name" type="hidden" class="name" value=""/>
+				<input type="hidden" name="singleField" value="true">
+				<input type="hidden" name="region" value="nonnull">
+				<input type="hidden" name="strategy" value="nonnull">
+				<input type="hidden" name="city" value="">
+				<input type="hidden" name="state" value="">
+				<input type="hidden" name="country" value="">
+				</form>
+
+				<form action="Home" name="teamsearch" method="post">
+				<input type="hidden" name="module" value="team"/>
+				<input type="hidden" name="action" value="search"/>
+				<input name="name" type="hidden" class="name" value=""/>
+				<input type="hidden" name="singleField" value="true">
+				<input type="hidden" name="region" value="nonnull">
+				<input type="hidden" name="strategy" value="nonnull">
+				<input type="hidden" name="city" value="">
+				<input type="hidden" name="state" value="">
+				<input type="hidden" name="country" value="">
+				</form>
+
 			<!-- end infobase search module -->
 			<% box.setTitle("Staff Birthdays");	%>
 			<%=box.printTop()%>
