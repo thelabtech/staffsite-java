@@ -165,7 +165,7 @@ function toggleDiv(who){
 					<A HREF="JavaScript: ibsearch();" onMouseOver="document.ibsearchbutton.src='/images/search_bon.gif';" onMouseOut="document.ibsearchbutton.src='/images/search_boff.gif';"><IMG NAME="ibsearchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></A>
 					<br>
 					<img src="/images/blank.gif" width="1" height="15" valign="bottom">
-					<a href="/servlet/InfoBaseController">[InfoBase]</a>
+					<a href="/servlet/Home">[InfoBase]</a>
 					</center>
 				<%=box.printBottom()%>
 				</form>
