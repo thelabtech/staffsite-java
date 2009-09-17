@@ -350,32 +350,15 @@ function toggleDiv(who){
 				<%
 					Bookmarks bookmarks = new Bookmarks();
 					StaffSitePref pref = null;
-					prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.STATISTIC).iterator();
-					if (!prefs.hasNext())  {
-						%><i>(none)<i><br><%
-					} else {
-						while(prefs.hasNext()) {
-							pref = (StaffSitePref)prefs.next();
-							
-							pileUpSuccessCriteriaIds += "&activities["+pref.getValue()+"]="+pref.getDisplayName();
-							numSCI++;
-							
-								sCBookMarks+="<a href=\"/servlet/InfoBaseController?action=enterSuccessCriteriaForActivity&activityid="+pref.getValue()+"\">"+pref.getDisplayName()+"</a><BR>";
-							
-						}
-					}
-					if(!(pileUpSuccessCriteriaIds==""))
-						{
+					
+					
 						%>
 						<br>
-						<span style="text-decoration:none;font-size:12px;color:yellow;font-weight:bold;">New!  &nbsp;</span>
+						
 						<a style="font-size:12px;" href="/servlet/Stat">
 						<b>Enter Stats  </b>
 						</a>
-						<%
-						}
-					
-					%>
+						
 				<%=hr%>
 				</font><%=fontB%><B>Ministry Location</B><br></font><%=fontB1%>
 				<% prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.TARGET_AREA).iterator();
@@ -385,7 +368,7 @@ function toggleDiv(who){
 						while(prefs.hasNext()) {
 							pref = (StaffSitePref)prefs.next();
 							%>
-								<a href="/servlet/InfoBaseController?action=showTargetArea&targetareaid=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
+								<a href="/servlet/Location?action=content&module=location&id=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
 							<%
 						}
 					}
