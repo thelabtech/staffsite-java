@@ -288,7 +288,8 @@ public class InfoBaseModuleHelper {
 	    	Hashtable result=new Hashtable();
 	    	String lastClass=ctx.getInputString("module")+"";
 	    	if (!Arrays.asList("person","campus","location","movement","team").contains(lastClass)) lastClass="";
-        	if (lastClass.equals("")) lastClass=(String)ctx.getSessionValue("lastClass");
+        	if (lastClass.equals("")) lastClass=(String)ctx.getSessionValue("lastClass")+"";
+        	
         	if (lastClass.equals("")) lastClass="location";
 	    	String key=lastClass+"_search";
 	    	if (ctx.getSessionValue(key)!=null){
