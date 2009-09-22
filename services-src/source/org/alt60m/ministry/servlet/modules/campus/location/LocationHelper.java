@@ -117,6 +117,7 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 				msgText.append("   This is an automated request for a new target area.\n\n\n");
 				msgText.append("-----------------------------------------------------------------\n");
 				msgText.append("Campus Name: " + request.get("Name") + "\n");
+				msgText.append("Campus Type: " + request.get("Type") + "\n");
 				msgText.append("Campus Address 1: " + request.get("Address1") + "\n");
 				msgText.append("Campus Address 2: " + request.get("Address2") + "\n");
 				msgText.append("Campus City: " + request.get("City") + "\n");
@@ -165,6 +166,7 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 				msgLinkText.append("Url=" + request.get("Url") + "&");
 				msgLinkText.append("isSecure=" + request.get("isSecure") + "&");
 				msgLinkText.append("IsSemester=" + request.get("IsSemester") + "&");
+				msgLinkText.append("Type=" + request.get("Type") + "&");
 				msgLinkText.append("Note=" + request.get("Note"));
 				
 				msg.setBody(msgText.toString()+msgLinkText.toString().replace(" ","+"));
@@ -206,6 +208,7 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 			target.setCiaUrl((String)request.get("CiaUrl"));
 			target.setEventType(null);
 			target.setEventKeyID(null);
+			target.setType((String)request.get("Type"));
 			target.persist();
 		} catch (Exception e) {
 			log.error("Failed to perform createNewTargetArea().", e);

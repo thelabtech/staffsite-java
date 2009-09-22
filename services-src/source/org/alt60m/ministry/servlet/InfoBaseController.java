@@ -1021,7 +1021,7 @@ public class InfoBaseController extends Controller {
         	event.setIsSecureString(isSecure);
         	event.setUrl(event.getEventLink());
         	event.setEmail(email);
-        	
+        	event.setType("Event");
         	event.persist(); //we always save the most recent data for the event, populated from the toolside link.
         	
         	activity.setTargetAreaId(event.getTargetAreaId());
