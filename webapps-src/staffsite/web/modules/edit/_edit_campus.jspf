@@ -108,7 +108,13 @@ mySelectC.setName("Country");
 <%boolean secure = ((Boolean)source.get("IsSecure"));%>
 *Is this Ministry Location secure?</td>
 <td> <input type="radio" name="isSecure" value="true" <%=secure?"CHECKED=\"checked\"":"" %>>Yes <input type="radio" name="isSecure" value="false" <%=secure?"":" CHECKED=\"checked\" " %> >No</td>
-</TR>   
+</TR>  
+<TR>
+	<td >
+<%boolean sv = ((Boolean)((String)(source.get("Type")+"")).equals("HighSchool"));%>
+*Is this a High School?</td>
+<td> <input type="radio" name="Type" value="College" <%=!sv?"CHECKED=\"checked\"":"" %>>No <input type="radio" name="Type" value="HighSchool" <%=!sv?"":" CHECKED=\"checked\" " %> >Yes</td>
+</TR> 
 
 <%} %>
 <TR>
