@@ -13,7 +13,7 @@
 					
 					<li ><% 
 					currentTab=(module.equalsIgnoreCase(tabModules[i])||(tabs[i].equals("Ministry")&&searchModules.contains(majorModule)));%>
-						<A href="<%=(currentTab) ? "Home?action=search&type="+module+"&module="+module +"&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region":tabValues[i]%>" <%=currentTab?"class=\"selected\"":""%>><%=tabs[i]%></A>
+						<A href="<%=(currentTab&&!module.equals("person")) ? "Home?action=search&type="+module+"&module="+module +"&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region":tabValues[i]%>" <%=currentTab?"class=\"selected\"":""%>><%=tabs[i]%></A>
 					</li>
 					
 				<%}%>
@@ -30,7 +30,7 @@
 								for(int j=0;j<minorTabs.length;j++){ %>
 								<li id="minor_tab_<%=j%>"  >
 									
-										<A class="<%=(minorTabValues[j].equals(module))?"active":"" %>" href="<%=(minorTabValues[j].equals(module)) ? "Home?action=search&type="+module+"&module="+module +"&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region":"Home?action=index&module="+minorTabValues[j]%>"><%=minorTabs[j]%></A>
+										<A class="<%=(minorTabValues[j].equals(module))?"active":"" %>" href="<%=(minorTabValues[j].equals(module)&&!module.equals("person")) ? "Home?action=search&type="+module+"&module="+module +"&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region":"Home?action=index&module="+minorTabValues[j]%>"><%=minorTabs[j]%></A>
 										
 								</li>
 								<%}
