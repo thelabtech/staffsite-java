@@ -1,7 +1,7 @@
 		<%@ page import="org.alt60m.servlet.*,java.util.*"%>
 		<% 	
 		 String urlAddressString = (String)(request.getParameter("secure"))+"";
-		if (!(urlAddressString.equals("true")||session.getAttribute("from_secure_site").equals("true"))) { //first cloaking if statement
+		if (!(urlAddressString.equals("true")||((String)(session.getAttribute("from_secure_site"))+"").equals("true"))) { //first cloaking if statement
 		%>
 			Concerned about privacy? See our <a href="JavaScript: popupWindow('/general/privacyPolicy.htm', 'Policy', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">privacy policy.</a>	
 		<% } //end first cloaking if statement %>
