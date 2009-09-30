@@ -1003,6 +1003,9 @@ public class InfoBaseController extends Controller {
         	String eventType=ctx.getInputString("eventType");
         	String eventKeyID=ctx.getInputString("eventKeyID");
         	String region=ctx.getInputString("region");
+        	if(Regions.expandRegion(region).equals(region)){
+        		region="";
+        	}
         	String name=ctx.getInputString("name");
         	String isSecure=ctx.getInputString("isSecure");
         	String email=ctx.getInputString("email");
