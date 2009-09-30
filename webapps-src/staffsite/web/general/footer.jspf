@@ -8,7 +8,7 @@
 		</td>
 	</tr>
 </table>
-<%if (!(urlAddressString.equals("true")||session.getAttribute("from_secure_site").equals("true"))) { //first cloaking if statement %>
+<%if (!(urlAddressString.equals("true")||((String)(session.getAttribute("from_secure_site"))+"").equals("true"))) { //first cloaking if statement %>
 <hr width="580" />
 <p>
 <font size="-2">© 2002 Campus Crusade for Christ International<br>

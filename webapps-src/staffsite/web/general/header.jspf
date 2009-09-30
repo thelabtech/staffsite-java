@@ -27,7 +27,9 @@
 	boolean clk = cloakConference.getIsCloaked();
 
 	
-	if (((String)(request.getParameter("secure"))+"").equals("true")||session.getAttribute("from_secure_site").equals("true")) {
+	if (((String)(request.getParameter("secure"))+"").equals("true")
+			||
+		((String)(session.getAttribute("from_secure_site"))+"").equals("true")) {
 		session.setAttribute("from_secure_site","true");
 		pageTitle = "Conference Registration Tool - User Account Password Management";
 	}
