@@ -1,13 +1,14 @@
-		<% 
-		 String urlAddressString = request.getRequestURL().toString();
-		if (!urlAddressString.contains("www.conferenceregistrationtool.com")) { //first cloaking if statement
+		<%@ page import="org.alt60m.servlet.*,java.util.*"%>
+		<% 	
+		 String urlAddressString = (String)(request.getParameter("secure"))+"";
+		if (!(urlAddressString.equals("true")||session.getAttribute("from_secure_site").equals("true"))) { //first cloaking if statement
 		%>
 			Concerned about privacy? See our <a href="JavaScript: popupWindow('/general/privacyPolicy.htm', 'Policy', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">privacy policy.</a>	
 		<% } //end first cloaking if statement %>
 		</td>
 	</tr>
 </table>
-<%if (!urlAddressString.contains("www.conferenceregistrationtool.com")) { //first cloaking if statement %>
+<%if (!(urlAddressString.equals("true")||session.getAttribute("from_secure_site").equals("true"))) { //first cloaking if statement %>
 <hr width="580" />
 <p>
 <font size="-2">© 2002 Campus Crusade for Christ International<br>

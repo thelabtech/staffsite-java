@@ -26,7 +26,12 @@
 
 	boolean clk = cloakConference.getIsCloaked();
 
-	if (event != null && clk == true) pageTitle = "Conference Registration Tool - User Account Password Management";
+	
+	if (((String)(request.getParameter("secure"))+"").equals("true")||session.getAttribute("from_secure_site").equals("true")) {
+		session.setAttribute("from_secure_site","true");
+		pageTitle = "Conference Registration Tool - User Account Password Management";
+	}
+	
 		
 	if (pageTitle == null || pageTitle.equals("")) pageTitle = "Campus Crusade for Christ | Campus Ministry"; 
 %>
