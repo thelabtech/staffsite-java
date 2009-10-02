@@ -47,7 +47,7 @@ public class InfoBaseModuleQueries {
 		return result;
 	}
 	public static String getBreadcrumbTypeConditions(String type,String granularity,String tableAbbr ){
-		String typeConditions=(type.equals("team")?"":"  and (mt.eventType is null or mt.eventType<=>'') ");
+		String typeConditions=(type.equals("team")?" and ml.isActive='T' ":"  and (mt.eventType is null or mt.eventType<=>'') ");
 		typeConditions+=" and "+tableAbbr+"region is not null and not("+tableAbbr+"region<=>'') and "+
 		tableAbbr+"city is not null and not("+tableAbbr+"city<=>'') and "+
 		tableAbbr+"country is not null and not("+tableAbbr+"country<=>'')  ";
@@ -71,7 +71,7 @@ public class InfoBaseModuleQueries {
 		if (type.equals("person")){
 			return "";
 		}else if (type.equals("team")){
-			return "";
+			return " and ml.isActive='T' ";
 		}else { 
 			return " and (mt.eventType is null or mt.eventType<=>'') ";
 			}
