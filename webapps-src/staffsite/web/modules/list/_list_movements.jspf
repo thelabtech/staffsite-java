@@ -78,13 +78,13 @@ for(Hashtable h:rows){
                         <div class="field">
                             <label>Missional Team:</label>
                             <a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a>
-                        			<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+                        			
 						
 							<A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
 							
 							</A>
 						
-						<%}%>
+						
 						</div><!-- end field -->
                         <div class="field">
                             <label>Size:</label>

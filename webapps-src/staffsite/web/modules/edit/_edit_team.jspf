@@ -159,14 +159,20 @@ if (isNew){
 			<td >
 				<%
 				boolean isActive = source.get("IsActive") != null ? ((Boolean)source.get("IsActive")).booleanValue() : true;
-
+				 org.alt60m.ministry.model.dbio.Activity teamTestAct=new org.alt60m.ministry.model.dbio.Activity();
+				 boolean canActivate=false;
+				if(teamTestAct.selectList(" fk_teamID='"+source.get("locallevelid")+"' and status <> 'IN' ").size()>0){
+				%>Cannot Inactivate With Active Movements<br><%	
+				}else{
+					canActivate=true;
+				}
 				
 					if(isActive) 
 					{
-						%><input type="radio" name="IsActive" value="TRUE" checked>Yes <input type="radio" name="IsActive" value="FALSE">No<%
+						%><input type="radio" name="IsActive" value="TRUE" <%=canActivate?"":"disabled" %> checked>Yes <input type="radio" name="IsActive" value="FALSE">No<%
 					} else 
 					{
-						%><input type="radio" name="IsActive" value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
+						%><input type="radio" name="IsActive" <%=canActivate?"":"disabled" %> value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
 					}
 				
 					
