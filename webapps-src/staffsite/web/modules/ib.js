@@ -186,5 +186,30 @@ function submitForm() {
 			document.getElementById('blankLabelCell[1]').style.display="inline";
 			}
 		}
-		
+		//------------------------------
+		// Date function opicking tool
+		// Usage: onFocus="pickdate(this)"
+		//------------------------------
+		var theDateElement;
+
+		function pickdate(element) {
+			theDateElement = element;
+			theDateElement.blur();
+			myFloater = window.open('','DatePicker','resizable=no,scrollbars=no,width=250,height=230');
+			var goTo = "/selday.jsp";
+			if (theDateElement.value!=null){goTo=goTo+'?date='+theDateElement.value;}
+			myFloater.location.href = goTo;
+		}
+
+		function pickdatePicker(element) {
+			theDateElement = element;
+				myFloater = window.open('/crs/pickday.jsp','DatePicker','resizable=no,scrollbars=no,width=325,height=50');
+		}
+
+		function setdate(theDate) {
+			theDateElement.value=theDate;
+			theDateElement.blur();
+		}
+		//------------------------------
+
 		
