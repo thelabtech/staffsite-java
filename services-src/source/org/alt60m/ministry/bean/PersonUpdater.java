@@ -94,15 +94,15 @@ public class PersonUpdater {
   public void initiateNewPersonsFromStaffTable() throws Exception {
 	 Connection conn = DBConnectionFactory.getDatabaseConn();
 	Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-	String wherePart="(ms.person_id is null or ms.person_id=0) and ms.removedFromPeopleSoft='N' and (ms.isSecure='F' or ms.isSecure is null) and ms.lastName like 'B%'";
-	String qry="INSERT INTO ministry_person  (accountNo, firstName, lastName)  SELECT lonelies.accountNo,'Temp','DeleteMe'  FROM "
+	String wherePart="(ms.person_id is null or ms.person_id=0) and ms.removedFromPeopleSoft='N' and (ms.isSecure='F' or ms.isSecure is null) ";
+	String qry="INSERT INTO ministry_person  (accountNo, firstName, lastName, createdBy)  SELECT lonelies.accountNo,'Temp','DeleteMe','PU'  FROM "
 		+" (select ms.accountNo as accountNo from ministry_staff ms left join ministry_person mp on mp.accountNo=ms.accountNo "
 		+" left join ministry_address ma1 on ms.fk_primaryAddress=ma1.AddressID left join ministry_address ma2 on ms.fk_secondaryAddress=ma2.AddressID "
 		+" where mp.personID is null and ma1.AddressID is not null and ma2.AddressID is not null and "+wherePart+" ) lonelies ;";
 	log.debug(qry);
 	stmt.execute(qry);
 	String qry2="update ministry_staff ms inner join ministry_person mp on mp.accountNo=ms.accountNo "
-		+" set ms.person_id=mp.personID where mp.firstname='Temp' and mp.lastName='DeleteMe' and "+wherePart+" ;";
+		+" set ms.person_id=mp.personID where mp.firstname='Temp' and mp.lastName='DeleteMe' and mp.createdBy='PU' and "+wherePart+" ;";
 	log.debug(qry2);
 	stmt.execute(qry2);
 	
