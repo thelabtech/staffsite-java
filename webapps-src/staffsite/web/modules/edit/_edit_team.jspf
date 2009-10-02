@@ -169,10 +169,10 @@ if (isNew){
 				
 					if(isActive) 
 					{
-						%><input type="radio" name="IsActive" value="TRUE" <%=canActivate?"":"disabled" %> checked>Yes <input type="radio" name="IsActive" value="FALSE">No<%
+						%><input type="radio" name="IsActive" value="TRUE" <%=canActivate?"":"disabled" %> checked>Yes <input type="radio" name="IsActive"  <%=canActivate?"":"disabled" %> value="FALSE">No<%
 					} else 
 					{
-						%><input type="radio" name="IsActive" <%=canActivate?"":"disabled" %> value="TRUE">Yes <input type="radio" name="IsActive" value="FALSE" checked>No<%
+						%><input type="radio" name="IsActive" <%=canActivate?"":"disabled" %> value="TRUE">Yes <input type="radio" name="IsActive"  <%=canActivate?"":"disabled" %> value="FALSE" checked>No<%
 					}
 				
 					
