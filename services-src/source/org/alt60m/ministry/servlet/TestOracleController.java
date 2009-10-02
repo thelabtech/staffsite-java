@@ -22,12 +22,13 @@ import org.alt60m.staffSite.model.dbio.*;
  */
 public class TestOracleController extends Controller {
 
-//	
-//	public void testStaffUpdater(ActionContext ctx){
-//		org.alt60m.ministry.bean.TestStaffUpdater tsu = new org.alt60m.ministry.bean.TestStaffUpdater();
-//		tsu.performUpdate();
-//		ctx.goToURL("/servlet/StaffController?action=showHome");
-//	}
+	
+	public void testPersonUpdater(ActionContext ctx) throws Exception{
+		org.alt60m.ministry.bean.PersonUpdater tsu = new org.alt60m.ministry.bean.PersonUpdater();
+		tsu.initiateNewPersonsFromStaffTable();
+		//tsu.update();
+		ctx.goToURL("/servlet/StaffController?action=showHome");
+	}
 //	public void testTeamUpdater(ActionContext ctx){
 //		org.alt60m.ministry.bean.TeamUpdater tu = new org.alt60m.ministry.bean.TeamUpdater();
 //		tu.performUpdate();
