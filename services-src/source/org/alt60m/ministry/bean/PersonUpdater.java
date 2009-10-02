@@ -99,13 +99,13 @@ public class PersonUpdater {
 	Date createdAt=new Date();
 	java.sql.Date sqlDate=new java.sql.Date(createdAt.getTime());
 	String sqlDateString=sqlDate.toString();
-	String qry="INSERT INTO ministry_person  (accountNo, firstName, lastName, createdBy, dateCreated)  SELECT lonelies.accountNo,'Temp','DeleteMe','PU',"+sqlDateString+"  FROM "
+	String qry="INSERT INTO ministry_person  (accountNo, firstName, lastName, createdBy, dateCreated)  SELECT lonelies.accountNo,'Temp','DeleteMe','PU','"+sqlDateString+"'  FROM "
 		+" (select ms.accountNo as accountNo from ministry_staff ms left join ministry_person mp on mp.accountNo=ms.accountNo "
 		+" left join ministry_address ma1 on ms.fk_primaryAddress=ma1.AddressID left join ministry_address ma2 on ms.fk_secondaryAddress=ma2.AddressID "
 		+" where mp.personID is null and ma1.AddressID is not null and ma2.AddressID is not null and "+wherePart+" ) lonelies ;";
 	log.debug(qry);
 	stmt.execute(qry);
-	String qry2="update ministry_staff ms inner join ministry_person mp on mp.accountNo=ms.accountNo "
+	String qry2="UPDATE ministry_staff ms inner join ministry_person mp on mp.accountNo=ms.accountNo "
 		+" set ms.person_id=mp.personID where mp.firstname='Temp' and mp.lastName='DeleteMe' and "+wherePart+" ;";
 	log.debug(qry2);
 	stmt.execute(qry2);
