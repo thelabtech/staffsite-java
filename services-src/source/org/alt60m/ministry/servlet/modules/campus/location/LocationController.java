@@ -73,7 +73,7 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
     					String serverName = (ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "https://": "http://")
     							+ ctx.getRequest().getServerName()+
     							(ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "":":"+ctx.getRequest().getServerPort());
-    					ibt.sendTargetAreaRequestEmail(request, "isaac.kimball@uscm.org", ctx.getProfileID(),serverName);
+    					ibt.sendTargetAreaRequestEmail(request, "todd.gross@uscm.org", ctx.getProfileID(),serverName);
     					ctx.setSessionValue("confirm", "Your location proposal has been sent.");
     				} else {
     					ibt.createNewTargetArea(request);

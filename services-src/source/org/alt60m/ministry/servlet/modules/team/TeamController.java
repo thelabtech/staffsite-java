@@ -154,14 +154,14 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
             content(ctx);
         	} else {
         		TeamHelper ibt = new TeamHelper();
-        		List admins=Arrays.asList("isaac.kimball@uscm.org","todd.gross@sojourners.com","scott.latsa@uscm.org");
+        		List admins=Arrays.asList("isaac.kimball@uscm.org","todd.gross@uscm.org","scott.latsa@uscm.org");
         		boolean admin = admins.contains(((String)ctx.getSessionValue("userName")).toLowerCase());
     			Hashtable request = ctx.getHashedRequest();
     			if (!admin) {
     				String serverName = (ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "https://": "http://")
 					+ ctx.getRequest().getServerName()+
 					(ctx.getRequest().getServerName().endsWith("campuscrusadeforchrist.com") ? "":":"+ctx.getRequest().getServerPort());
-    				ibt.sendLocalLevelRequestEmail(request,"isaac.kimball@uscm.org", ctx.getProfileID(),serverName);
+    				ibt.sendLocalLevelRequestEmail(request,"todd.gross@uscm.org", ctx.getProfileID(),serverName);
     				ctx.setSessionValue("confirm", "Your location proposal has been sent.");
     			} else {
     				ibt.saveTeam(request, null, "new");
