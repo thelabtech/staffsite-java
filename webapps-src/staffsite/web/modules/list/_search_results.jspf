@@ -38,7 +38,9 @@ if(lastRecord.substring(0,lastLen).toLowerCase().compareTo(testName.substring(0,
 <%} %>
 	<tr>
 		<td>
-			<A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>">
+			<A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"
+			<%if(module.equals("person")){if(!h.get("accountNo").equals("")){%> style="color:blue;" <%}else {%> style="color:black;" <%}} %>
+			>
 				<%= h.get("name") %>
 			</A>
 		</td>
