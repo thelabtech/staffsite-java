@@ -24,8 +24,8 @@ public class TestOracleController extends Controller {
 
 	
 	public void testPersonUpdater(ActionContext ctx) throws Exception{
-		org.alt60m.ministry.bean.PersonUpdater tsu = new org.alt60m.ministry.bean.PersonUpdater();
-		tsu.initiateNewPersonsFromStaffTable();
+		//org.alt60m.ministry.bean.PersonUpdater tsu = new org.alt60m.ministry.bean.PersonUpdater();
+		//tsu.initiateNewPersonsFromStaffTable();
 		//tsu.update();
 		ctx.goToURL("/servlet/StaffController?action=showHome");
 	}
