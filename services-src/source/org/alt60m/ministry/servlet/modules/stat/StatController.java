@@ -119,6 +119,9 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
  
 	public void deleteFastSuccessCriteriaBookmark(ActionContext ctx){
    	 try {
+   		if (! loginCheck(ctx)) {
+    		return;
+    	}
    	if(ctx.getInputString("delBookmark")!=null){
        	_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, (String)ctx.getInputString("delBookmark"));
        		

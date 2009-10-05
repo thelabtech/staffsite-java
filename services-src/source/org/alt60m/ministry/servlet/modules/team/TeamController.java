@@ -76,6 +76,9 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     
     public void saveTeamMember(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             String teamID = ctx.getInputString("id");
             String personID = ctx.getInputString("personID");
             TeamHelper ibt = new TeamHelper();
@@ -91,6 +94,9 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
     public void removeTeamMember(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
         	ActionResults result=new ActionResults("removeTeamMember");
     		result.putValue("personID",ctx.getInputString("personID"));
         	String teamID = ctx.getInputString("id");
@@ -146,6 +152,9 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
     public void saveTeam(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
         	if(ctx.getInputString("new")==null){
         	String mode = "update";
             String localLevelId = null;
@@ -179,6 +188,9 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
     public void saveTeamLeader(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             String teamID = ctx.getInputString("teamID", true);
             String personID = ctx.getInputString("personID", true);
             TeamHelper ibt = new TeamHelper();
@@ -194,6 +206,9 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
     public void removeTeamLeader(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
         	String teamID = ctx.getInputString("teamID", true);
             String personID = ctx.getInputString("personID");
             TeamHelper ibt = new TeamHelper();

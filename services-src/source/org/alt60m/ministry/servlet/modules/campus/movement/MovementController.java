@@ -62,6 +62,9 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
  
     public void savePersonContact(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             String activityId = ctx.getInputString("activityid", true);
             String personID = ctx.getInputString("personID", true);
             MovementHelper ibt = new MovementHelper();
@@ -77,6 +80,9 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void removePersonContact(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             String activityId = ctx.getInputString("activityid", true);
             String personID = ctx.getInputString("personID");
             MovementHelper ibt = new MovementHelper();
@@ -91,6 +97,7 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void addPersonContact(ActionContext ctx) {
         try {
+        	
         	ActionResults results = new ActionResults("addPersonContact");
             InfoBaseModuleHelper ibt = new InfoBaseModuleHelper();
             String search = "";
@@ -153,6 +160,9 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void saveEditActivity(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             String activityId = ctx.getInputString("activityid");
             
             String periodEnd = ctx.getInputString("datechanged", true);

@@ -53,6 +53,9 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
    
     public void saveTargetAreaInfo(ActionContext ctx) {
         try {
+        	if (! loginCheck(ctx)) {
+        		return;
+        	}
             if(ctx.getInputString("new")==null){
         	String targetAreaId = ctx.getInputString(TARGET_AREA_ID_TOKEN, true);
 			LocationHelper ibt = new LocationHelper();
