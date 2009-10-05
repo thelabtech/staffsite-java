@@ -1,3 +1,4 @@
+<%if(module.equals("person")){%> <b>Blue</b> means the record is <i>likely</i> a staff person, as we have a match with PeopleSoft.<br><%} %>
 <table>
 <%
 boolean firstRow=true;
@@ -46,6 +47,7 @@ if(lastRecord.substring(0,lastLen).toLowerCase().compareTo(testName.substring(0,
 		</td>
 		<%String region=(String)h.get("region"); %>
 		<td>
+				<%if(module.equals("person")){%> <%=h.get("email")%>&nbsp;&nbsp;<%=h.get("address")%>,&nbsp;<%} %>
 				<%=h.get("city") %>
 				<%=((String)h.get("country")).equals("USA")?", "+org.alt60m.ministry.States.expandState((String)h.get("state")):"" %>
 				<%=!((String)h.get("country")).equals("USA")?", "+org.alt60m.util.CountryCodes.codeToName((String)h.get("country")):"" %>

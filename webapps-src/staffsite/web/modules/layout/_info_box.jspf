@@ -110,6 +110,61 @@
 
 	<%if(module.equals("person")){%>
 	<%@ include file="/modules/layout/_person_team_info.jspf" %>
+	<%
+	Staff staff=new Staff();
+	staff.setPersonID((Integer)info.get("personid"));
+	java.util.Vector<Staff> staffList=staff.selectList();
+	if(staffList.size()>0){
+		staff=staffList.firstElement();
+	%><br>	
+	<div class="field">
+    	<label>Ministry:</label>
+   		<%=staff.getMinistry() %>        
+   	</div>
+<% if (!"CAMPUS MINISTRY".equalsIgnoreCase(staff.getMinistry())) { %>
+	<div class="field">
+    	<label>Dept. Name:</label>
+   		<%=staff.getDeptName() %>        
+   	</div>
+	<div class="field">
+    	<label>Job Code:</label>
+   		<%=staff.getJobCode() %>        
+   	</div>
+<%}else{ %>
+	<div class="field">
+    	<label>Strategy:</label>
+   		<%=staff.getStrategy() %>        
+   	</div>
+<%} %>
+	<div class="field">
+    	<label>Job Title:</label>
+   		<%=staff.getJobTitle() %>        
+   	</div>
+	<div class="field">
+    	<label>Job Status:</label>
+   		<%=staff.getJobStatus() %>        
+   	</div>
+	<div class="field">
+    	<label>Hire Date:</label>
+		<%java.text.SimpleDateFormat normalDateFormat = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
+   		<%=normalDateFormat.format((java.util.Date)staff.getHireDate()) %>        
+   	</div>
+	<div class="field">
+    	<label>Marital Status:</label>
+   		<%=staff.getMaritalStatus() %>        
+   	</div>
+	<div class="field">
+    	<label>Note:</label>
+   		<%=staff.getNote() %>        
+   	</div>	
+	<%}	else {%>
+	<div class="field">
+    	<label>Staff Info:</label>
+   		No matching Staff record found.       
+   	</div>
+
+<%} %>
+	
 <%} %>
    <%= (!module.equals("team"))?"<div class=\"clear\"></div></div>":""%>                     
                     	<div class="clear"></div>
