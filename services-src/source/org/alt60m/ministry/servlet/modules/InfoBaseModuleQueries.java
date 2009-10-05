@@ -79,13 +79,15 @@ public class InfoBaseModuleQueries {
 	public static String getSelect(String type, boolean reqMovement){
 		if (type.equals("person")){
 			return " Select concat_ws('',mp.firstName,if((mp.preferredName<>'' and mp.preferredName <> mp.firstName),concat_ws('',' (',mp.preferredName,') '),' '),mp.lastName)  as name, "+
-					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, mp.accountNo as accountNo ";
+					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "
+					+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, mp.accountNo as accountNo, "
+					+" concat_ws('', ma.address1 ,if(ma.address2 is null,'',' '),ma.address2) as address, ma.email as email " ;
 		}else if (type.equals("team")){
 			return " Select ml.name as name, "+
-					" ml.city as city, ml.state as state, ml.country as country, ml.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, ml.teamID as id, '' as accountNo  ";
+					" ml.city as city, ml.state as state, ml.country as country, ml.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "+(reqMovement?" mact.status ":" '' ") +"  as status, ml.teamID as id, '' as accountNo, '' as address, '' as email  ";
 		}else { 
 			return " Select mt.name as name, "+
-					" mt.city as city, mt.state as state,  mt.country as country, mt.region as region,  "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,   "+(reqMovement?" mact.status ":" '' ") +"  as status, mt.targetAreaID as id, '' as accountNo  ";
+					" mt.city as city, mt.state as state,  mt.country as country, mt.region as region,  "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,   "+(reqMovement?" mact.status ":" '' ") +"  as status, mt.targetAreaID as id, '' as accountNo,  '' as address, '' as email ";
 		}
 	}
 	public static String getGroup(String type){
@@ -221,7 +223,8 @@ public class InfoBaseModuleQueries {
 		conditions+=nonNameConditions( city, state, region,  country, strategy, type,  reqMovement);
 		if(conditions.equals("")){conditions=" and false ";}
 		String qry="select core.name as name, core.city as city, core.state as state, core.country as country, core.region as region, "+
-			" core.id as id, core.accountNo as accountNo, core.status as status, core.strategy as strategy, core.priority as priority from ("+
+			" core.id as id, core.accountNo as accountNo, core.status as status, core.strategy as strategy, core.priority as priority, "+
+			" core.address as address, core.email as email from ("+
 			select +nameOnlyConditions+ " from "+tables+" where (true "+conditions+typeConditions+" ) group by "+group+" ) core"+
 			" order by core.priority desc, core.name asc;";
 		log.debug(qry);
