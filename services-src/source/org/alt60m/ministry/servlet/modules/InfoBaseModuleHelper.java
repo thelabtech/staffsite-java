@@ -330,7 +330,8 @@ public class InfoBaseModuleHelper {
    	public static String lastClass(ActionContext ctx){
    		String lastClass=ctx.getInputString("module");
    		if (lastClass==null) lastClass=(String)ctx.getSessionValue("lastClass");
-       	if (lastClass==null) lastClass="location";       	
+       	if (lastClass==null) lastClass="location"; 
+       	if (lastClass.equals("stat")||lastClass.equals("report")) lastClass="location";
    		ctx.setSessionValue("lastClass", lastClass);
    		log.debug("lastClass="+lastClass);
    		return lastClass;
