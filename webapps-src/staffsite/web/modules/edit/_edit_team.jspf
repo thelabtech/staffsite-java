@@ -166,15 +166,28 @@ if (isNew){
 				}else{
 					canActivate=true;
 				}
-				
+				if(canActivate){
 					if(isActive) 
 					{
-						%><input type="radio" name="IsActive" value="TRUE" <%=canActivate?"":"disabled" %> checked>Yes <input type="radio" name="IsActive"  <%=canActivate?"":"disabled" %> value="FALSE">No<%
+						%><input type="radio" name="IsActive" value="TRUE"  checked>Yes </input>
+							<input type="radio" name="IsActive"   value="FALSE">No</input><%
 					} else 
 					{
-						%><input type="radio" name="IsActive" <%=canActivate?"":"disabled" %> value="TRUE">Yes <input type="radio" name="IsActive"  <%=canActivate?"":"disabled" %> value="FALSE" checked>No<%
+						%><input type="radio" name="IsActive"  value="TRUE">Yes </input>
+							<input type="radio" name="IsActive"   value="FALSE" checked>No</input><%
 					}
-				
+				}else{
+					if(isActive) 
+					{
+						%>Yes
+						<input type="hidden" name="IsActive" value="TRUE"  />
+						<%
+					} else 
+					{
+						%>No
+						<input type="hidden" name="IsActive" value="TRUE"  /><%
+					}
+				}
 					
 				%>
 				
