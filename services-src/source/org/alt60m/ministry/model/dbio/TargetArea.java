@@ -50,6 +50,7 @@ public class TargetArea extends DBIOEntity {
 		setMetadata("MonthSchoolStarts", "monthSchoolStarts", table);
 		setMetadata("MonthSchoolStops", "monthSchoolStops", table);
 		setMetadata("IsSemesterString", "isSemester", table);
+		setMetadata("IsNoFiceOK", "isNoFiceOK", table);
 		setMetadata("IsApprovedString", "isApproved", table);
 		setMetadata("AoaPriority", "aoaPriority", table);
 		setMetadata("Aoa", "aoa", table);
@@ -88,6 +89,7 @@ public class TargetArea extends DBIOEntity {
 	private String monthSchoolStarts = "";
 	private String monthSchoolStops = "";
 	private String isSemester = "";
+	private String isNoFiceOK = "";
 	private String isApproved = "";
 	private String aoaPriority = "";
 	private String aoa = "";
@@ -184,6 +186,9 @@ public class TargetArea extends DBIOEntity {
 	public void setIsSemester(boolean isSemester) { this.isSemester = isSemester ? "T" : "F"; }
 	public String getIsSemesterString() { return isSemester; }
 	public void setIsSemesterString(String isSemester) { this.isSemester = isSemester; }
+	
+	public String getIsNoFiceOK() { return isNoFiceOK; }
+	public void setIsNoFiceOK(String isNoFiceOK) { this.isNoFiceOK = isNoFiceOK; }
 	
 	public String getAoaPriority() { return aoaPriority; }
 	public void setAoaPriority(String aoaPriority) { this.aoaPriority = aoaPriority; }

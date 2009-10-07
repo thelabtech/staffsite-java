@@ -57,6 +57,7 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
             ObjectHashUtil.hash2obj(request, ta);
             ta.setEventType(null);
             ta.setEventKeyID(null);
+            
             ta.persist();
         }
         catch (Exception e) {
@@ -209,6 +210,8 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 			target.setEventType(null);
 			target.setEventKeyID(null);
 			target.setType((String)request.get("Type"));
+			target.setFice("0");
+			target.setIsNoFiceOK("T");
 			target.persist();
 		} catch (Exception e) {
 			log.error("Failed to perform createNewTargetArea().", e);
