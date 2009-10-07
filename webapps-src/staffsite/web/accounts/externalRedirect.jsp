@@ -6,4 +6,5 @@ Your work here is done. Please close this window.
 <%}else{ %>
 Click <a href="<%=loginPage %>">here</a> to continue.
 <%} %>
+
 <%@ include file="/general/footer.jspf" %>
