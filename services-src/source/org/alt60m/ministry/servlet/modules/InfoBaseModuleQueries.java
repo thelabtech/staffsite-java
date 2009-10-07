@@ -80,7 +80,7 @@ public class InfoBaseModuleQueries {
 		if (type.equals("person")){
 			return " Select concat_ws('',mp.firstName,if((mp.preferredName<>'' and mp.preferredName <> mp.firstName),concat_ws('',' (',mp.preferredName,') '),' '),mp.lastName)  as name, "+
 					" ma.city as city, ma.state as state, ma.country as country, mp.region as region, "+(reqMovement?" mact.strategy ":" '' ") +"  as strategy,  "
-					+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, mp.accountNo as accountNo, "
+					+(reqMovement?" mact.status ":" '' ") +"  as status, mp.personID as id, ms.accountNo as accountNo, "
 					+" concat_ws('', ma.address1 ,if(ma.address2 is null,'',' '),ma.address2) as address, ma.email as email " ;
 		}else if (type.equals("team")){
 			return " Select ml.name as name, "+
@@ -119,9 +119,12 @@ public class InfoBaseModuleQueries {
 	}
 	public static String getTables(String type, boolean reqMovement){
 		if (type.equals("person")){
-			return " ministry_person mp left join ministry_newaddress ma on (ma.fk_PersonID=mp.personID and ma.addressType='current') "+
-					"  "+
-					(reqMovement?" join ministry_movement_contact mmc on mmc.personID= mp.personID  inner join ministry_activity mact  on ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ":"  ");
+			return " ministry_person mp left join ministry_newaddress ma "
+					+" on (ma.fk_PersonID=mp.personID and ma.addressType='current') "+
+					"  left join ministry_staff ms on ms.person_id=mp.personID "+
+					(reqMovement?" inner join ministry_movement_contact mmc on mmc.personID= mp.personID  "
+					+" inner join ministry_activity mact  on "
+					+" ( mact.ActivityID=mmc.ActivityID and mact.status <> 'IN' and mact.status is not null ) ":"  ");
 		}else if (type.equals("team")){
 			return " ministry_locallevel ml   "+
 					(reqMovement?" inner  join ministry_activity mact on (ml.teamID=mact.fk_teamID and mact.status <> 'IN' and mact.status is not null ) ":"");
