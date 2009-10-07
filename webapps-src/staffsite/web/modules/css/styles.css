@@ -273,15 +273,16 @@ margin-right: 20px;
 }
 
 .field {
+	display:block;
 margin-bottom: 5px;
 }
 
 .field label {
 width: 100px;
-float: left;
+
 line-height: 20px;
 text-align: right;
-width: 85px;
+
 padding-right: 10px;
 }
 
@@ -558,6 +559,7 @@ padding: 6px;
 
 .strategy .details .field {
 	display:block;
+	
 line-height: 1.5em;
 }
 

@@ -116,7 +116,7 @@
 	java.util.Vector<Staff> staffList=staff.selectList();
 	if(staffList.size()>0){
 		staff=staffList.firstElement();
-	%><br>	
+	%>	
 	<div class="field">
     	<label>Ministry:</label>
    		<%=staff.getMinistry() %>        
@@ -144,10 +144,14 @@
     	<label>Job Status:</label>
    		<%=staff.getJobStatus() %>        
    	</div>
+	
 	<div class="field">
     	<label>Hire Date:</label>
+		<%if(staff.getHireDate()!=null){ %>
+		<%if(!staff.getHireDate().equals("")){ %>
 		<%java.text.SimpleDateFormat normalDateFormat = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
-   		<%=normalDateFormat.format((java.util.Date)staff.getHireDate()) %>        
+   		<%=normalDateFormat.format((java.util.Date)staff.getHireDate()) %>   
+		<%}} %>     
    	</div>
 	<div class="field">
     	<label>Marital Status:</label>
