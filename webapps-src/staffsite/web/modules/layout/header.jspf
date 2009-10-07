@@ -32,7 +32,7 @@
 		           	 <a href="Home" class="logo" alt="InfoBase Home"></a>
 					 
 		          </div><!-- logoside -->
-           		<a style="float:right;" href="http://wiki.uscm.org/display/NCO/Infobase+Help">InfoBase Help</a>
+           		<a style="margin-top:50px;margin-right:10px;float:right;" target="_blank" href="http://wiki.uscm.org/display/NCO/Infobase+Help">InfoBase Help</a>
 			</div><!-- logobar -->
 <%@ include file="/modules/layout/_menubar.jspf" %>
 <%@ include file="/modules/layout/_bannerbar.jspf" %>
