@@ -63,7 +63,7 @@ public class LocationController extends org.alt60m.ministry.servlet.modules.Info
         	content(ctx);
             } else {
             	LocationHelper ibt = new LocationHelper();
-            	List admins=Arrays.asList("trent.murray@uscm.org","todd.gross@uscm.org","isaac.kimball@uscm.org");
+            	List admins=Arrays.asList("todd.gross@uscm.org","mark.kohman@uscm.org","todd.gross@cojourners.com","ruth.rhea@uscm.org","justin.sabelko@uscm.org","robin.muscarella@studentventure.org");
             	log.debug((String)ctx.getSessionValue("userName"));
     			boolean admin = admins.contains(((String)ctx.getSessionValue("userName")).toLowerCase());
     			if (isNullOrEmpty(ctx.getInputString("Name")) || isNullOrEmpty(ctx.getInputString("City")) ||

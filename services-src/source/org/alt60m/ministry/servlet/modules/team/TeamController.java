@@ -163,7 +163,7 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
             content(ctx);
         	} else {
         		TeamHelper ibt = new TeamHelper();
-        		List admins=Arrays.asList("isaac.kimball@uscm.org","todd.gross@uscm.org","scott.latsa@uscm.org");
+        		List admins=Arrays.asList("todd.gross@uscm.org","mark.kohman@uscm.org","todd.gross@cojourners.com","ruth.rhea@uscm.org","justin.sabelko@uscm.org","robin.muscarella@studentventure.org");
         		boolean admin = admins.contains(((String)ctx.getSessionValue("userName")).toLowerCase());
     			Hashtable request = ctx.getHashedRequest();
     			if (!admin) {
