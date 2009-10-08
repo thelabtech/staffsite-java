@@ -163,10 +163,10 @@ public class TeamHelper extends org.alt60m.ministry.servlet.modules.InfoBaseModu
 			msg.setTo(to);
 			
 			msg.setFrom("\"StaffSite_InfoBase\" <help@campuscrusadeforchrist.com>");
-			msg.setSubject("New Local Level Request");
+			msg.setSubject("New Team Request");
 			StringBuffer msgText = new StringBuffer(2000);
 				msgText.append("To whom it may concern, \n");
-				msgText.append("   This is an automated request for a new target area.\n\n\n");
+				msgText.append("   This is an automated request for a new team.\n\n\n");
 				msgText.append("-----------------------------------------------------------------\n");
 				msgText.append("Team Name: " + request.get("Name") + "\n");
 				msgText.append("Lane: " + request.get("Lane") + "\n");
