@@ -2,6 +2,7 @@
 package org.alt60m.ministry.servlet.modules.stat;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -58,47 +59,57 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         	
         	ActionResults results=new ActionResults();
         	ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
-        	Hashtable<String,String> activities=new Hashtable<String,String>();
+        	ArrayList<Activity> activities=new ArrayList<Activity>();
         	
-            
-            if(ctx.getInputString("addBookmark")!=null){
-            	
+            if(ctx.getInputString("addBookmark")!=null) {
             	String singleKey=ctx.getInputString("addBookmark");
-            		_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
-            		_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activities.get(singleKey), singleKey);
-            		activities.put(singleKey,singleKey);
-            }else{
-            Collection<StaffSitePref> acts=_bookmarks.getBookmarks(ctx.getProfileID(),Bookmarks.STATISTIC);
-            for(StaffSitePref sp:acts){
-            	activities.put(sp.getValue(),sp.getValue());
-            }}
+            	_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
+            	Activity activity = new Activity(singleKey);
+            	if (!activity.isPKEmpty()) {
+	            	_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activity.getTargetArea().getName(), singleKey);
+	            	activities.add(activity);
+            	}
+            } else {
+	            Collection<StaffSitePref> acts=_bookmarks.getBookmarks(ctx.getProfileID(),Bookmarks.STATISTIC);
+	            for(StaffSitePref sp:acts){
+	            	Activity activity = new Activity();
+	            	activity.setActivityId(sp.getValue());
+	            	if (!activity.select()) {
+	            		_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, sp.getValue());
+	            	} else {
+	            		activities.add(activity);
+	            	}
+	            }
+            }
             results=StatHelper.fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
-        	if (weeksBack!=null)
-    		{results.putValue("weeksBack", weeksBack);
+        	if (weeksBack!=null) {
+        		results.putValue("weeksBack", weeksBack);
         	}
-    	else
-    		{results.putValue("weeksBack", "0");
+        	else {
+        		results.putValue("weeksBack", "0");
     		}
-        	if(ctx.getSessionValue("statSuccess")!=null){
-        		if(ctx.getSessionValue("statSuccess").equals("true")){
+        	if(ctx.getSessionValue("statSuccess")!=null) {
+        		if(ctx.getSessionValue("statSuccess").equals("true")) {
         			results.putValue("message","Your stats were saved successfully. Check below or run a report to verify.");
-        			
         		}
         		results.putValue("statSuccess", (String)ctx.getSessionValue("statSuccess"));
         		ctx.setSessionValue("statSuccess", null);
-        	}else{
+        	} else {
         		results.putValue("statSuccess", "");
+        	}
+        	Hashtable<String,String> activityIds = new Hashtable<String,String>();
+        	for (Activity activity:activities) {
+        		activityIds.put(activity.getActivityId(), activity.getActivityId());
         	}
         	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
         	results.addHashtable("search", InfoBaseModuleHelper.sessionSearch(ctx));
-        	results.addHashtable("activities", activities);
+        	results.addHashtable("activities", activityIds);
         	results.putValue("module",this.module);
 			results.putValue("title",this.title);
 			results.putValue("mode","content");
             ctx.setReturnValue(results);
             ctx.goToView("enter_stat");
-            	
         }
         
         catch (Exception e) {
@@ -150,6 +161,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         	String peopleGroup="";
         	Boolean hasData=false;
         	Boolean hasProblem=false;
+        	ArrayList<Activity> badActivities = new ArrayList<Activity>();
         	Hashtable<String,String> badSaves=new Hashtable<String,String>();
         	StatHelper ibt;
         	 Statistic stat;
@@ -228,6 +240,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
 					}
 					else if	(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))
 					{
+						badActivities.add(new Activity(activityId));
 						badSaves.put(activityId, username);
 						hasProblem=true;
 					}
@@ -276,9 +289,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         		index(ctx); }
         	else{ //if non-numerical input
         		ActionResults results=new ActionResults();
-        		Hashtable<String,String> activities=new Hashtable<String,String>();
-        		
-        		results=StatHelper.fastStats(badSaves);
+        		results=StatHelper.fastStats(badActivities);
             	results.addHashtable("activities",badSaves);
         		String weeksBack = ctx.getInputString("weeksBack", false);
             	if (weeksBack!=null)
