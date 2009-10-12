@@ -68,7 +68,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             		_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activities.get(singleKey), singleKey);
             		activities.put(singleKey,singleKey);
             }else{
-            Collection<StaffSitePref> acts=_bookmarks.getBookmarks(ctx.getProfileID(),2);
+            Collection<StaffSitePref> acts=_bookmarks.getBookmarks(ctx.getProfileID(),Bookmarks.STATISTIC);
             for(StaffSitePref sp:acts){
             	activities.put(sp.getValue(),sp.getValue());
             }}
