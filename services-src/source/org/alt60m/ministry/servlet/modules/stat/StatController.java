@@ -104,7 +104,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
-            log.error("Failed to perform enterFastSuccessCriteria ().", e);
+            log.error("Failed to perform index().", e);
         }
     }
 
