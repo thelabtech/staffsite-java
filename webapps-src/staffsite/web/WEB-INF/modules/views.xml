@@ -60,4 +60,5 @@
 	<view name="addMissionalTeamMember" url="/modules/layout/layout.jsp"></view>
 	<view name="showMuster" url="/modules/show_muster.jsp"></view>
 	<view name="makePerson" url="/modules/layout/layout.jsp"></view>
+    <view name="login" url="/servlet/StaffController?action=logInGCX"></view>
 </views>
