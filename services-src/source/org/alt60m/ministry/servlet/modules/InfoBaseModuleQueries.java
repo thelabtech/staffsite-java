@@ -340,12 +340,11 @@ public class InfoBaseModuleQueries {
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
-			" if(stats.invldStudents is null,0,stats.invldStudents) as size "+
+			" (select sum(invldStudents) as invldStudents from ministry_statistic" +
+			" where fk_Activity = ma.ActivityID and periodEnd = (select max(periodEnd) as maxPeriodEnd" +
+			" from ministry_statistic where fk_Activity = ma.ActivityID)) as size "+
 			" from ministry_targetarea mt inner join ministry_activity ma on ma.fk_targetareaid=mt.targetareaid "+
 			" inner join ministry_locallevel ml on ml.teamID=ma.fk_teamID "+
-			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
-			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
-			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" where ma.fk_teamID="+teamID+" and ma.status<>'IN'  order by location asc, strategy asc, size desc  ;";
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);
@@ -363,15 +362,14 @@ public class InfoBaseModuleQueries {
 			String query=" Select mt.name as location, ma.strategy as strategy, ma.status as status, "+
 			" mt.city as city, mt.state as state, mt.region as region, mt.targetAreaID as location_id, "+
 			" ml.name as team, ml.teamID as team_id, ma.ActivityID as id, ma.url as url, ma.facebook as facebook, "+
-			" if(stats.invldStudents is null,0,stats.invldStudents) as size, "+
+			" (select sum(invldStudents) as invldStudents from ministry_statistic" +
+			" where fk_Activity = ma.ActivityID and periodEnd = (select max(periodEnd) as maxPeriodEnd" +
+			" from ministry_statistic where fk_Activity = ma.ActivityID)) as size, "+
 			" leaders.leader_id as leader_id "+
 			" from ministry_targetarea mt inner join ministry_activity ma on ma.fk_targetareaid=mt.targetareaid "+
 			" inner join ministry_locallevel ml on ml.teamID=ma.fk_teamID "+
 			" left join (select group_concat(tm.personID separator ',') as leader_id, tm.teamID as teamID "+
 			" from ministry_missional_team_member tm where tm.is_leader=1 group by tm.teamID) leaders on leaders.teamID=ml.teamID  "+
-			" left join (select ms.fk_Activity as fk_Activity, ms.invldStudents as invldStudents from ministry_statistic ms   "+
-			" inner join (select Max(lms.StatisticID) as id from ministry_statistic lms group by lms.fk_Activity ) lastStat "+
-			"  on lastStat.id=ms.StatisticID ) stats on stats.fk_Activity=ma.ActivityID "+
 			" where ma.fk_targetAreaId="+taID+" and ma.status<>'IN' order by team asc, strategy asc, size desc ;";
 			log.debug(query);
 			ResultSet rs=stmt.executeQuery(query);

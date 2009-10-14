@@ -118,19 +118,16 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
             InfoBaseModuleHelper ibt = new InfoBaseModuleHelper();
             String search = "";
             Vector<Contact> contacts=new Vector<Contact>();
-            if((ctx.getInputString("lastName")!= "")){
+            if((ctx.getInputString("lastName")!= "")) {
             	search = ctx.getInputString("lastName") + "%";
-            	 contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
+            	contacts = ibt.listContactsByLastName(search.toUpperCase().replace("'", "%27"));
             }
-            else
-            {
-	            
+            else {
 	        	results.putValue("infoMessage", "You need to specify a last name.");
-	        	
             }
             String teamID = ctx.getInputString("id", true);
-           results.addCollection("contacts", contacts);
-           results.putValue("lastName",ctx.getInputString("lastName"));
+            results.addCollection("contacts", contacts);
+            results.putValue("lastName",ctx.getInputString("lastName"));
             results.addHashtable("search",TeamHelper.sessionSearch(ctx));
 			results.addCollection("content", TeamHelper.content(teamID));
 			results.addHashtable("info", TeamHelper.info(teamID));
