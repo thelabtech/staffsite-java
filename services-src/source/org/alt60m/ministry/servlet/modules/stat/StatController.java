@@ -151,132 +151,99 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
     		return;
     	}
         try {
-        	HttpServletRequest tempCtx=ctx.getRequest();
-        	ActionResults errorResults=new ActionResults("fast_stats_error");
         	Hashtable<String,Hashtable<String,String>> newStats=new Hashtable<String,Hashtable<String,String>>(convertBracketedParamsToHashtable(ctx));
         	log.debug(newStats);
-        	Hashtable<String,String> thisStat;
-        	Iterator scanStats=(newStats.keySet().iterator());
-        	String activityId;
-        	String peopleGroup="";
-        	Boolean hasData=false;
-        	Boolean hasProblem=false;
+        	Iterator<String> scanStats = (newStats.keySet().iterator());
+        	boolean hasProblem = false;
         	ArrayList<Activity> badActivities = new ArrayList<Activity>();
-        	Hashtable<String,String> badSaves=new Hashtable<String,String>();
-        	StatHelper ibt;
-        	 Statistic stat;
-        	 String statisticId;
-        	 String username = (String) ctx.getSessionValue("userName");
-        	 List<String> keys;
-        	 Map<String, String> statMap;
-        	while (scanStats.hasNext())
-        	{
-        		hasData=new Boolean(false);
+        	Hashtable<String,String> badSaves = new Hashtable<String,String>();
+        	String username = (String) ctx.getSessionValue("userName");
+        	
+        	while (scanStats.hasNext())	{
+        		boolean hasData = false;
         		log.debug("hasData="+hasData);
-        		thisStat=new Hashtable<String,String>();
-        		thisStat=newStats.get(scanStats.next());
-	            activityId = thisStat.get("activityid");
-	            peopleGroup = thisStat.get("PeopleGroup");
-				ibt = new StatHelper();
-				stat = new Statistic();
-				keys = Arrays.asList(new String[] { "PeriodBegin",
+        		Hashtable<String, String> thisStat=newStats.get(scanStats.next());
+	            String activityId = thisStat.get("activityid");
+	            String peopleGroup = thisStat.get("PeopleGroup");
+				StatHelper ibt = new StatHelper();
+				Statistic stat = new Statistic();
+				List<String> keys = Arrays.asList(new String[] { "PeriodBegin",
 						"PeriodEnd", "PersonalEvangelismExposures",
 						"GroupEvangelismExposures", "MediaExposures", "Decisions",
 						"Multipliers", "StudentLeaders", "InvolvedStudents",
 						"LaborersSent", "PeopleGroup", "DecisionsMediaExposures","DecisionsPersonalEvangelismExposures",
 						"DecisionsGroupEvangelismExposures","HolySpiritConversations", "Seekers" });
-				 statMap = new HashMap<String, String>();
-				for (String key : keys) 
-				{
-					
+				Map<String, String> statMap = new HashMap<String, String>();
+				for (String key : keys) {
+					String newValue = thisStat.get(key);
+					String oldValue = thisStat.get("Before"+key);
 					if(("PersonalEvangelismExposures GroupEvangelismExposures  MediaExposures  " +
 							"Decisions Multipliers  StudentLeaders  InvolvedStudents LaborersSent" +
 							"  PeopleGroup  DecisionsMediaExposures DecisionsPersonalEvangelismExposures " +
-							" DecisionsGroupEvangelismExposures HolySpiritConversations  Seekers ").contains((String)key)){//we only test the stats entered by user
-						log.debug(key+": "+(String) thisStat.get(key)+", Before"+key+": "+(String) thisStat.get("Before"+key));
+							" DecisionsGroupEvangelismExposures HolySpiritConversations  Seekers ").contains(key)) { //we only test the stats entered by user
+						log.debug(key+": "+newValue+", Before"+key+": "+oldValue);
 							
-						if(
-								(! //no blank or invalid values in supplied data
-									isBlankOrNonNumeric((String)thisStat.get(key))
+						if( //no blank or invalid values in supplied data
+							( !isBlankOrNonNumeric((String)thisStat.get(key)) ) &&
+								( ( //demographic stats must be new non zero value to count as changed (i.e. 4 to 0 is changed, null to 0 is not)
+									//otherwise an autofilled value could be mistaken for a new value; autofill
+									//will always supply zero in place of null.
+									( ("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key))	&&
+										//blankequalszerocompare treats any blank as string "0" in either input.
+										(!blankEqualsZeroCompare(newValue, oldValue) )
+								  )	||
+								  ( //other stats only need to be new value, because they are not autofilled.
+									//We test to make sure it's not demographic data
+									//to prevent this from giving a false positive for those stats.
+									(!("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key)) &&
+										(!(newValue.equals(oldValue)))	
+								  )
 								)
-								&&
-								(
-									(//demographic stats must be new non zero value to count as changed (i.e. 4 to 0 is changed, null to 0 is not)
-											//otherwise an autofilled value could be mistaken for a new value; autofill
-											//will always supply zero in place of null.
-											(("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key))
-											&&
-											(!
-													blankEqualsZeroCompare((String)thisStat.get(key),(String) thisStat.get("Before"+key))
-													//blankequalszerocompare treats any blank as string "0" in either input.
-											)
-									)
-										||
-									(//other stats only need to be new value, because they are not autofilled.
-											//We test to make sure it's not demographic data
-											//to prevent this from giving a false positive for those stats.
-											(!("Multipliers  StudentLeaders  InvolvedStudents").contains((String)key))
-											&&
-											(!(((String) thisStat.get(key)).equals((String) thisStat.get("Before"+key))))	
-									)
-								)
-							)	
-							
-						{
+						   ) {
 							hasData=true;
-							log.debug(key+": "+(String) thisStat.get(key)+", BeforeKey: "+(String) thisStat.get("Before"+key));
+							log.debug(key+": "+newValue+", BeforeKey: "+oldValue);
 							log.debug("hasData="+hasData);
 						}
 					}
-					if(("PeriodBegin PeriodEnd".contains((String)key)))
-					{
-						statMap.put(key, (String) thisStat.get(key));
+					
+					if("PeriodBegin PeriodEnd".contains(key)) {
+						statMap.put(key, newValue);
 					}
-					else if (("PeopleGroup".equals((String)key)))
-					{
-						if ((!(null==((String) thisStat.get(key))))&&(!((String) thisStat.get(key)).equals(""))&&(!((String) thisStat.get(key)).equals("null"))){
-							statMap.put(key, (String) thisStat.get(key));
+					else if ("PeopleGroup".equals(key))	{
+						if (newValue!=null && !newValue.equals("") && !newValue.equals("null")) {
+							statMap.put(key, newValue);
 						}
 					}
-					else if	(((String) thisStat.get(key)).replaceAll("[^0123456789]","error").contains("error"))
-					{
+					else if	(newValue.replaceAll("[^0123456789]","error").contains("error")) {
 						badActivities.add(new Activity(activityId));
 						badSaves.put(activityId, username);
 						hasProblem=true;
 					}
-					else
-					{
-						statMap.put(key, ((String) thisStat.get(key)).replaceAll("[^0123456789]",""));	
+					else {
+						statMap.put(key, newValue.replaceAll("[^0123456789]",""));	
 					}
 				}
-	        	if(hasData)
-	        	{
-					if (thisStat.get("statisticid").equals("")) 
-					{
-		            	
-		            	if ((peopleGroup==null)||(peopleGroup.equals("null"))||(peopleGroup.equals(""))||(peopleGroup.equals("(Other Internationals)")))
-		            	{
-		            		if (!stat.select("fk_Activity="+activityId+" and periodBegin='"+org.alt60m.util.DateUtils.clearTimeFromDate(DateUtils.parseDate(thisStat.get("PeriodBegin")))+"' and ((peopleGroup is null) or (peopleGroup in ('','null','(Other Internationals)')))")) 
-		            			{
+				
+	        	if(hasData) {
+					if (thisStat.get("statisticid").equals("")) {
+		            	if (peopleGroup==null || peopleGroup.equals("null") || peopleGroup.equals("") || peopleGroup.equals("(Other Internationals)")) {
+		            		if (!stat.select("fk_Activity="+activityId+" and periodBegin='"+org.alt60m.util.DateUtils.clearTimeFromDate(DateUtils.parseDate(thisStat.get("PeriodBegin")))+"' and ((peopleGroup is null) or (peopleGroup in ('','null','(Other Internationals)')))")) {
 			                    stat = ibt.createStatObject();
 			                    stat.setActivityId(activityId);
-			                    }
+			                }
 		            	}
-		            	else 
-		            	{
+		            	else {
 		            		stat.setPeriodBegin(DateUtils.parseDate(thisStat.get("PeriodBegin")));
 			            	stat.setActivityId(activityId);
 		            		stat.setPeopleGroup(peopleGroup);
-			            	if (!stat.select()) 
-			            	{
+			            	if (!stat.select()) {
 			                    stat = ibt.createStatObject();
 			                    stat.setActivityId(activityId);
 		                    }
 		            	} 
 		            }
-					else 
-					{
-		                statisticId = thisStat.get("statisticid");
+					else {
+		                String statisticId = thisStat.get("statisticid");
 		                stat = ibt.getStatObject(statisticId);
 		            }
 					username = (String) ctx.getSessionValue("userName");
@@ -284,18 +251,21 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
 		        	ibt.saveStatObjectWithActivity(statMap, stat);
 	        	}
 			}
-        	if(!hasProblem){
+        	
+        	if(!hasProblem) {
         		ctx.setSessionValue("statSuccess", "true");
-        		index(ctx); }
-        	else{ //if non-numerical input
-        		ActionResults results=new ActionResults();
-        		results=StatHelper.fastStats(badActivities);
+        		index(ctx); 
+        	}
+        	else { //if non-numerical input
+        		ActionResults results = StatHelper.fastStats(badActivities);
             	results.addHashtable("activities",badSaves);
         		String weeksBack = ctx.getInputString("weeksBack", false);
-            	if (weeksBack!=null)
-        		{results.putValue("weeksBack", weeksBack);}
-            	else
-        		{results.putValue("weeksBack", "0");}
+            	if (weeksBack!=null) {
+            		results.putValue("weeksBack", weeksBack);
+            	}
+            	else {
+            		results.putValue("weeksBack", "0");
+            	}
             	ctx.setSessionValue("statSuccess", "false");
             	results.putValue("message", "You entered non-numerical data in these movements; please try again.");
             	results.putValue("statSuccess", (String)ctx.getSessionValue("statSuccess"));
@@ -307,7 +277,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             	ctx.setReturnValue(results);
                 ctx.goToView("enter_stat");
         	}
-        }catch (Exception e) {
+        } catch (Exception e) {
             ctx.setError();
             ctx.goToErrorView();
             log.error("Failed to perform saveFastSuccessCriteria().", e);
