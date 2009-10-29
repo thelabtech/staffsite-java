@@ -178,7 +178,7 @@ public class PersonUpdater {
 		  person.setRegion("");
 	  }
 	  
-	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N"));
+//	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N"));
 	  java.text.SimpleDateFormat bDayFormatter = new java.text.SimpleDateFormat("MM/dd/yyyy");
 	  if (staff.getBirthDate()!=null)
 	  {person.setBirthDate(bDayFormatter.format(staff.getBirthDate())); }
