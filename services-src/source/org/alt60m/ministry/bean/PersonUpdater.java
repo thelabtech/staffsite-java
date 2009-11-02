@@ -19,12 +19,29 @@ import org.apache.commons.logging.LogFactory;
  */
 
 public class PersonUpdater {
+	private static final List<String> STAFF_POSITIONS = setStaffPositions(); 
+	
 	private static Log log = LogFactory.getLog(PersonUpdater.class);
 	
+	private static List<String> setStaffPositions() {
+		List<String> result = new ArrayList<String>();
+		result.add("Associate Staff");
+		result.add("Full Time Staff");
+		result.add("Hourly Full Time");
+		result.add("Hourly on Call");
+		result.add("Salaried Exempt");
+		result.add("Self-Supported Staff");
+		result.add("Staff on Delayed Payroll");
+		result.add("Staff on Paid Leave");
+		result.add("Staff on Unpaid Leave");
+		result.add("Staff Raising Init Supprt");
+		return result;
+	}
 
 
-
-    public PersonUpdater() {    }
+    public PersonUpdater() {    
+    }
+    
     private Hashtable<String,String>staffPersonKeysForUpdatableTest(){
     	Hashtable<String,String>result=new Hashtable<String,String>();
     	result.put("current.address1","home.address1");
@@ -177,8 +194,8 @@ public class PersonUpdater {
 	  {
 		  person.setRegion("");
 	  }
-	  
 //	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N"));
+	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N") && STAFF_POSITIONS.contains(staff.getJobStatus()));
 	  java.text.SimpleDateFormat bDayFormatter = new java.text.SimpleDateFormat("MM/dd/yyyy");
 	  if (staff.getBirthDate()!=null)
 	  {person.setBirthDate(bDayFormatter.format(staff.getBirthDate())); }
