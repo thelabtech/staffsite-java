@@ -355,7 +355,7 @@ public class InfoBaseModuleController extends Controller {
         String personID = person.getPersonID()+"";
         String isRD="false";
         LocalLevel lab=new LocalLevel(); //LAB members are honorary RDees!!
-        lab.setName("The LAB");
+        lab.setName("The LAB - Technology");
         lab.setRegion("NC");
         lab.select();
         Section labMembers=InfoBaseModuleQueries.getTeamMembers(lab.getLocalLevelId());
