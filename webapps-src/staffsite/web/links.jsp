@@ -30,6 +30,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 						<TR><td><%=fontB%><a href="http://missionalteamleaders.com" target="_blank">Missional Team Leaders</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://crupress.campuscrusadeforchrist.com" target="_blank">CruPress</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://centerfield.campuscrusadeforchrist.com" target="_blank">Centerfield Productions</a></td></tr>
+						<TR><td><%=fontB%><a HREF="http://www.everystudentpromotion.com/" target="_blank">EveryStudentPromotion.com</a></td></tr>
 						<TR><td><%=fontB%><a href="http://campusprhelp.com" target="_blank">Campus PR Help</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com/ibs/SeminaryPartnerships/index.html" target="_blank">Seminary Partnerships</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://ibs.campuscrusadeforchrist.com/ibs/GraduateStudy/index.html" target="_blank">Graduate Study Program</a></td></tr>
@@ -45,7 +46,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a HREF="http://www.godsquad.com/" target="_blank">GodSquad</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.everystudent.com/" target="_blank">EveryStudent.com</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://startingwithgod.com" target="_blank">StartingwithGod.com</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.escmedia.org/" target="_blank">Every&nbsp;Student's&nbsp;Choice</a></td></tr>
+					  
 					  <tr><td></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.impactmovement.com" target="_blank">Impact Movement</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.destinomovement.com" target="_blank">Destino Movement</a></td></tr>
