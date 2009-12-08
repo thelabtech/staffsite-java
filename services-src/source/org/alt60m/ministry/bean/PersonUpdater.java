@@ -154,6 +154,7 @@ public class PersonUpdater {
 		qry=updateFields+qry+keyFields;
 		
 		log.info("Requesting dissynchronous Person records for staff...");		
+		log.debug(qry);
 		ResultSet rs = stmt.executeQuery(qry);
 		if(rs.isBeforeFirst())log.info("Updating dissynchronous Person table records from Staff table...");	
 		else log.info("No Person records out of synch with Staff table.");
