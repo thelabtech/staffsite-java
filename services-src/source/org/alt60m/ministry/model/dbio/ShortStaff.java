@@ -47,7 +47,6 @@ public class ShortStaff extends DBIOEntity {
 		setMetadata("LastName","lastName",table);
 		setMetadata("Email","email",table);
 		setMetadata("RemovedFromPeopleSoft","removedFromPeopleSoft",table);
-		setMetadata("TeamId","fk_teamID",table);
 		setMetadata("JobTitle","jobTitle",table);
 		setMetadata("Region","region",table);
 		setAutodetectProperties(false);

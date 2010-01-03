@@ -191,7 +191,6 @@ public class Staff extends DBIOEntity {
 		setMetadata("RemovedFromPeopleSoft","removedFromPeopleSoft",table);
 		setMetadata("IsNonUSStaff","isNonUSStaff",table);  // Currently used so Review360 can see people not in PS
 		
-		setMetadata("TeamId","fk_teamID",table);
 		setMetadata("PrimaryAddressId","fk_primaryAddress",table);
 		setMetadata("SecondaryAddressId","fk_secondaryAddress",table);
 		setMetadata("PersonID","person_id",table);

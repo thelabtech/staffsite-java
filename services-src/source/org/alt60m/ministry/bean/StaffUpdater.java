@@ -273,7 +273,7 @@ public class StaffUpdater {
 			String staffID = (String) k.next();
 			try {
 				log.info("removing : "+staffID);
-				String removeQuery = "update ministry_staff set removedFromPeopleSoft = 'Y', fk_teamID = 0 where accountNo = '"+staffID+"'";
+				String removeQuery = "update ministry_staff set removedFromPeopleSoft = 'Y' where accountNo = '"+staffID+"'";
 				sqlstatement.executeUpdate(removeQuery);				
 				log.info("removed successfully : "+staffID);
 			} catch (Exception e) {
@@ -373,7 +373,7 @@ public class StaffUpdater {
     private void insert(Staff staff) throws Exception {
 		Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
 		Statement sqlstatement = sqlconn.createStatement();
-		ResultSet sqlrs = sqlstatement.executeQuery("INSERT INTO "+STAFF_TBL+" (accountNo, firstName, middleInitial, lastName, isMale, position, countryStatus, jobStatus, ministry, strategy, isNewStaff, primaryEmpLocState, primaryEmpLocCountry, primaryEmpLocCity, spouseFirstName, spouseMiddleName, spouseLastName, spouseAccountNo, spouseEmail, fianceeFirstName, fianceeMiddleName, fianceeLastName, fianceeAccountno, isFianceeStaff, fianceeJoinStaffDate, isFianceeJoiningNS, joiningNS, homePhone, workPhone, mobilePhone, pager, email, isEmailSecure, url, newStaffTrainingdate, fax, note, region, countryCode, ssn, maritalStatus, deptId, jobCode, accountCode, compFreq, compRate, compChngAmt, jobTitle, deptName, coupleTitle, otherPhone, preferredName, namePrefix, origHiredate, birthDate, marriageDate, hireDate, rehireDate, loaStartDate, loaEndDate, loaReason, severancePayMonthsReq, serviceDate, lastIncDate, jobEntryDate, deptEntryDate, reportingDate, employmentType, resignationReason, resignationDate, contributionsToOtherAcct, contributionsToAcntName, contributionsToAcntNo, isSecure, isSupported, fk_teamID, fk_primaryAddress, fk_secondaryAddress) "+
+		ResultSet sqlrs = sqlstatement.executeQuery("INSERT INTO "+STAFF_TBL+" (accountNo, firstName, middleInitial, lastName, isMale, position, countryStatus, jobStatus, ministry, strategy, isNewStaff, primaryEmpLocState, primaryEmpLocCountry, primaryEmpLocCity, spouseFirstName, spouseMiddleName, spouseLastName, spouseAccountNo, spouseEmail, fianceeFirstName, fianceeMiddleName, fianceeLastName, fianceeAccountno, isFianceeStaff, fianceeJoinStaffDate, isFianceeJoiningNS, joiningNS, homePhone, workPhone, mobilePhone, pager, email, isEmailSecure, url, newStaffTrainingdate, fax, note, region, countryCode, ssn, maritalStatus, deptId, jobCode, accountCode, compFreq, compRate, compChngAmt, jobTitle, deptName, coupleTitle, otherPhone, preferredName, namePrefix, origHiredate, birthDate, marriageDate, hireDate, rehireDate, loaStartDate, loaEndDate, loaReason, severancePayMonthsReq, serviceDate, lastIncDate, jobEntryDate, deptEntryDate, reportingDate, employmentType, resignationReason, resignationDate, contributionsToOtherAcct, contributionsToAcntName, contributionsToAcntNo, isSecure, isSupported, fk_primaryAddress, fk_secondaryAddress) "+
 														" VALUES ('"+staff.getAccountNo()+"', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', null, null, null, null, null, null, null, '', 0, null, null, null, null, null, '', '', null, '', '', '', '', '', '', '', '')");
 		sqlrs.close();
 		sqlstatement.close();
