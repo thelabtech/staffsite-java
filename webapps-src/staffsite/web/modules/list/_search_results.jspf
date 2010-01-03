@@ -49,8 +49,8 @@ if(lastRecord.substring(0,lastLen).toLowerCase().compareTo(testName.substring(0,
     <%String region=(String)h.get("region"); %>
     <td>
         <% if(module.equals("person")){ %> 
-          <%=h.get("email")%>&nbsp;&nbsp;
-          <%=!InfoBaseModuleHelper.isNullOrEmpty((String)h.get("address")) ? h.get("address") + ", " : ""%>
+          <%= !InfoBaseModuleHelper.isNullOrEmpty((String)h.get("email")) ? h.get("email") : "" %>&nbsp;&nbsp;
+          <%= !InfoBaseModuleHelper.isNullOrEmpty((String)h.get("address")) ? h.get("address") + ", " : ""%>
         <% } %>
         <%= !InfoBaseModuleHelper.isNullOrEmpty((String)h.get("city")) ? (String)h.get("city") + ", " : "" %>
         <% if(((String)h.get("country")).equals("USA")) { %>
