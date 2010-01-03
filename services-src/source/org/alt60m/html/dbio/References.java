@@ -14,16 +14,16 @@ public class References implements java.io.Serializable {
 
 	String bodyFont = "<FONT FACE=\"Arial\" SIZE=\"1\" COLOR=\"#336699\">";
 
-	String accountNo = "";
+	String email = "";
 
 	public static final String CURRENT_YEAR = SIUtil.CURRENT_SI_YEAR;
 
 	public References() {
 	}
 
-	public void initReferences(String staffAccountNo) {
-		accountNo = staffAccountNo;
-		log.debug("References.initReferences(): accountNo=" + accountNo);
+	public void initReferences(String e) {
+		email = e;
+		log.debug("References.initReferences(): email=" + email);
 	}
 
 	public void setBodyFont(String aValue) {
@@ -35,35 +35,27 @@ public class References implements java.io.Serializable {
 			String strSQL = "";
 			String refString = "<!--  -------------------- References MODULE ------------------- --> ";
 
-			// display all MS references for this staff -- Commentted out cause Josh didn't implement this because he's a bastard.
+			// display all SP references for this staff 
 			
-			if (accountNo == null) {
+			if (email == null) {
 				refString = refString + "<i>Currently Not Available</i><BR>";
-				log.warn("References initialized with null accountNo!");
+				log.warn("References initialized with null email!");
 			} else {
-				/*
 				refString = refString
 						+ "<font size=2><B>Summer Projects</B></font><BR>";
-				if (accountNo.trim().length() == 0) {
+				if (email.trim().length() == 0) {
 					// many staff login accounts do not have an AccountNo. So
 					// don't pull up matching references; it would be all
 					// references without a staffnumber!
 					refString = refString + "<i>None</i><BR>";
 				} else {
-					strSQL = "select r.referenceid, r.formworkflowstatus, p.firstname as legalfirstname, p.lastname as legallastname FROM wsn_sp_reference as r INNER JOIN wsn_sp_wsnapplication as a ON r.fk_WsnApplicationid = a.WsnApplicationid INNER JOIN ministry_person as p on a.fk_personID = p.personId WHERE r.staffnumber='"
-							+ accountNo
-							+ "' and a.wsnYear='"
+					strSQL = "select r.id as referenceid, r.status as formworkflowstatus, p.firstname as legalfirstname, p.lastname as legallastname, " +
+							 "r.access_key FROM sp_references as r INNER JOIN sp_applications as a ON r.application_id = a.id INNER JOIN ministry_person p " +
+							 "ON a.person_id = p.personID WHERE r.status != 'completed' AND r.email='"
+							+ email
+							+ "' and a.year='"
 							+ CURRENT_YEAR
-							+ "' ORDER BY p.lastname;";
-
-					// "SELECT r.referenceid, r.formworkflowstatus,
-					// p.legalfirstname, p.legallastname"+
-					// " FROM wsn_sp_reference as r INNER JOIN
-					// wsn_sp_viewapplication as p ON r.fk_WsnApplicationid =
-					// p.WsnApplicationid" +
-					// " WHERE r.staffnumber='" + accountNo + "' and
-					// p.wsnYear='" + CURRENT_YEAR + "' ORDER BY
-					// p.legallastname";
+							+ "' ORDER BY r.last_name;";
 
 					// Start new query
 					log.debug("References.print(): strSQL=" + strSQL);
@@ -74,7 +66,7 @@ public class References implements java.io.Serializable {
 					log
 							.debug("References.print(): Number of MS references foundNEW: "
 									+ msResults);
-					String _referenceid, _formworkflowstatus, _firstname, _lastname = null;
+					String _referenceid, _formworkflowstatus, _firstname, _lastname, _access_key = null;
 					try {
 						while (msResults.next()) {
 							_referenceid = msResults.getString("referenceid");
@@ -82,6 +74,7 @@ public class References implements java.io.Serializable {
 									.getString("formworkflowstatus");
 							_firstname = msResults.getString("legalfirstname");
 							_lastname = msResults.getString("legallastname");
+							_access_key = msResults.getString("access_key");
 							String name = _firstname + " " + _lastname;
 							log.debug("References NAME=" + name + " status="
 									+ _formworkflowstatus);
@@ -89,12 +82,9 @@ public class References implements java.io.Serializable {
 								refString = refString + bodyFont + name
 										+ "</font><br>";
 							else {
-								WsnReference ref = new WsnReference();
-								ref.setReferenceID(Integer
-										.valueOf(_referenceid).intValue());
 								refString = refString
-										+ "<a TARGET='_blank' href='/servlet/MSController?action=refFormEncEdit&encRefID="
-										+ ref.encodeReferenceID() + "'>"
+										+ "<a target='_blank' href='http://sp.campuscrusadeforchrist.com/references/"
+										+ _referenceid + "?k=" + _access_key + "'>"
 										+ bodyFont + name + "</font></a><br>";
 							}
 
@@ -106,10 +96,11 @@ public class References implements java.io.Serializable {
 				}
 				
 
+				/*
 				// display all SI references for this staff
 				refString = refString
-						+ "<BR>"<font size=2><B>STINT</B></font><BR>";
-				if (accountNo.trim().length() == 0) {
+						+ "<BR><font size=2><B>STINT</B></font><BR>";
+				if (email.trim().length() == 0) {
 					// many staff login accounts do not have an AccountNo. So
 					// don't
 					// pull up matching references; it would be all references
@@ -122,7 +113,7 @@ public class References implements java.io.Serializable {
 							+ " as a ON r.fk_siapplicationid = a.applicationid"
 							+ " INNER JOIN ministry_person as p ON a.fk_personid = p.personid"
 							+ " WHERE r.staffnumber='"
-							+ accountNo
+							+ email
 							+ "' and a.siYear='"
 							+ CURRENT_YEAR
 							+ "' ORDER BY p.lastname";
@@ -176,9 +167,9 @@ public class References implements java.io.Serializable {
 
 				refString = refString
 						+ "<BR>(Completed references are also listed.)";
-				*/
+					*/
+				
 			}
-			refString = "<i>Unfortunately this feature is not available this year.</i><br />";
 			return refString;
 		} catch (Exception e) {
 			log.error("ReferencesError:", e);

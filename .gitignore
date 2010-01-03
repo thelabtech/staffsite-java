@@ -1,0 +1,31 @@
+# /
+/*.bak
+/build
+/web
+
+# /config/WEB-INF/classes/
+/config/WEB-INF/classes/*.bak
+
+# /webapps-src/staffsite/web/
+/webapps-src/staffsite/web/*.tmp
+
+# /webapps-src/staffsite/web/WEB-INF/
+/webapps-src/staffsite/web/WEB-INF/proxyreceptor.save
+
+# /webapps-src/staffsite/web/cms/
+/webapps-src/staffsite/web/cms/cmsIndex
+
+# /webapps-src/staffsite/web/crs/
+/webapps-src/staffsite/web/crs/bugs
+
+# /webapps-src/staffsite/web/crs/database/
+/webapps-src/staffsite/web/crs/database/upload
+/webapps-src/staffsite/web/crs/database/download
+
+/.classpath
+/.project
+/common-lib/
+/webapps-src/staffsite/web/WEB-INF/classes/
+
+/.tomcatplugin
+/work

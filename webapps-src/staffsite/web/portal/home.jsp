@@ -99,17 +99,15 @@ function toggleDiv(who){
 			<br> -->
 
 			<!-- This section is for Summer Project and STINT/Internship Reference links -->
-			<!--<%// if (isStudent.equals("false")) { %>
+			<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("My References");%>
 				<%=box.printTop()%>
-				<center>
-				<% references.initReferences((String)session.getValue("accountNo")); %>
+				<% references.initReferences((String)session.getAttribute("userName")); %>
 				<%=references.print() %>
 				<!-- End section for Summer Project and STINT/Internship Reference links -->
-				<!-- </center>
 				<%=box.printBottom()%>
 				<br>
-			<%// } %> -->
+			<%// } %>
 		<!--	<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("2008 SLICE Survey");	%>
 				<%=box.printTop()%>
