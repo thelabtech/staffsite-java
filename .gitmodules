@@ -1,0 +1,3 @@
+[submodule "common-lib"]
+	path = common-lib
+	url = git@git.uscm.org:common-lib.git
