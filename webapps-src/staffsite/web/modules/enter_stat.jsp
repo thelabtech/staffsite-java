@@ -1,4 +1,3 @@
-
 <%@ include file="/modules/layout/header.jspf"%>
 <%
 String pileUpSuccessCriteriaIds=""; 
@@ -6,8 +5,6 @@ String weekLink="";
 java.text.SimpleDateFormat myDate = new java.text.SimpleDateFormat();
 myDate.applyPattern("MM/dd/yyyy");
  
- 	
-
 ActionResults mr;
 Collection statistics;
 Iterator slist ;
@@ -97,6 +94,11 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 					<%=criteria.get("PeriodBeginShort")%><br>
 					to<br>
 					<%=criteria.get("PeriodEndShort")%><BR>
+					<% if(criteria.get("StatisticId").equals("")) { %>
+					 <img src="/infobase/images/reddot.gif" border="0">
+					<% } else { %>
+            <img src="/infobase/images/greendot.gif" border="0">
+					<% } %>
 					</A>
 					<%} %>
 					</li>						
@@ -110,6 +112,11 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
 					<%=criteria.get("PeriodBeginShort")%><br>
 					to<br>
 					<%=criteria.get("PeriodEndShort")%><BR>
+          <% if(criteria.get("StatisticId").equals("")) { %>
+           <img src="/infobase/images/reddot.gif" border="0">
+          <% } else { %>
+            <img src="/infobase/images/greendot.gif" border="0">
+          <% } %>
 					</li>
 					<%
 				}
@@ -191,12 +198,6 @@ else{
 								displayName=(String)mr.getValue("displayname").split("&%@!")[1];
 							}
 								%>
-										
-
-						
-								
-										
-										
 										
 										<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[PeriodBegin]" value="<%=new java.sql.Date(myDate.parse((String)criteria.get("PeriodBegin")).getTime())%>">
 										<input id="week_<%=counter%>" type="hidden" name="<%=uniqueStat%>[PeriodEnd]" value="<%=new java.sql.Date(myDate.parse((String)criteria.get("PeriodEnd")).getTime())%>">

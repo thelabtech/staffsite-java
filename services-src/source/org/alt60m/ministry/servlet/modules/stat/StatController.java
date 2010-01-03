@@ -162,7 +162,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
         	while (scanStats.hasNext())	{
         		boolean hasData = false;
         		log.debug("hasData="+hasData);
-        		Hashtable<String, String> thisStat=newStats.get(scanStats.next());
+        		Hashtable<String, String> thisStat = newStats.get(scanStats.next());
 	            String activityId = thisStat.get("activityid");
 	            String peopleGroup = thisStat.get("PeopleGroup");
 				StatHelper ibt = new StatHelper();
