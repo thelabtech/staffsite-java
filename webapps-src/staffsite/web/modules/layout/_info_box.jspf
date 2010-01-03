@@ -1,4 +1,5 @@
-<%@page import="org.alt60m.ministry.servlet.modules.*" %>
+<%@page import="org.alt60m.ministry.servlet.modules.*, java.util.*, java.text.*" %>
+<% SimpleDateFormat noYearDateFormat = new SimpleDateFormat("MM/dd"); %>
 <%if(infoModes.contains(mode)){ %>
 
  <div class="<%=(!module.equals("team"))?"":"righthand" %>">
@@ -54,9 +55,9 @@
                         	</div>
 						<%} %>
 							<div class="field">
-                            <label>Email:</label>
-                            <a href="mailto:<%=info.get("email")%>"><%=info.get("email")%></a>                           
-                        	</div>
+                 <label>Email:</label>
+                 <a href="mailto:<%=info.get("email")%>"><%=info.get("email")%></a>                           
+             	</div>
 					 <%= (!module.equals("team"))?"<div class=\"clear\"></div></div><div class=\"thecolumn\">":""%>
 						<%if(module.equals("campus")||module.equals("location")){%>
 							<div class="field">
@@ -153,6 +154,12 @@
    		<%=staff.getJobStatus() %>        
    	</div>
 	
+   <% if(info.get("BirthDate") != null) { %>
+   <div class="field">
+      <label>Birthday:</label>
+      <%= noYearDateFormat.format((Date)info.get("RawBirthDate")) %>                           
+   </div>
+   <% } %>
 	<div class="field">
     	<label>Hire Date:</label>
 		<%if(staff.getHireDate()!=null){ %>

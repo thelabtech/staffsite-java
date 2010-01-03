@@ -1,4 +1,4 @@
-
+<%@page import="org.alt60m.ministry.servlet.modules.*" %>
 
 <%
 
@@ -81,14 +81,13 @@ for(Hashtable h:rows){
                         			
 						
 							<A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
-							
 							</A>
 						
 						
 						</div><!-- end field -->
                         <div class="field">
                             <label>Size:</label>
-                            <%=h.get("size") %> students  (<a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a>)
+                            <%= InfoBaseModuleHelper.isNullOrEmpty((String)h.get("size")) ? "0" : h.get("size") %> students  (<a href="/servlet/Stat?action=index&addBookmark=<%= h.get("id") %>">Enter Stats</a>)
                         </div><!-- end field -->
                        <%if(!((String)h.get("facebook")).equals("null")&&!((String)h.get("facebook")).equals("")){ %>
 						<div class="field">
