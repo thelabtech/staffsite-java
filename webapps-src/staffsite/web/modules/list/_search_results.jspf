@@ -1,4 +1,5 @@
-<%if(module.equals("person")){%> <b>Blue</b> means the record is <i>likely</i> a staff person, as we have a match with PeopleSoft.<br><%} %>
+<%@page import="org.alt60m.ministry.servlet.modules.*" %>
+<%if(module.equals("person")){%> <strong>Blue</strong> means the record is <em>likely</em> a staff person, as we have a match with PeopleSoft.<br><%} %>
 <table>
 <%
 boolean firstRow=true;
@@ -20,11 +21,11 @@ nextGran.put("","name");
 Vector<Hashtable<String,Object>>rows=section.getRows();
 for(Hashtable h:rows){
 
-	String drillCountry=(((String)h.get("country")).equals("")||((String)h.get("country")).equals("null"))?"":((String)h.get("country"));
-	String drillRegion=(((String)h.get("region")).equals("")||((String)h.get("region")).equals("null"))?"nonnull":((String)h.get("region"));
-	String drillState=(((String)h.get("state")).equals("")||((String)h.get("state")).equals("null"))?"":((String)h.get("state"));
-	String drillCity=(((String)h.get("city")).equals("")||((String)h.get("city")).equals("null"))?"":((String)h.get("city"));
-	String crumbGran=(String)nextGran.get(granularity);
+  String drillCountry=(((String)h.get("country")).equals("")||((String)h.get("country")).equals("null"))?"":((String)h.get("country"));
+  String drillRegion=(((String)h.get("region")).equals("")||((String)h.get("region")).equals("null"))?"nonnull":((String)h.get("region"));
+  String drillState=(((String)h.get("state")).equals("")||((String)h.get("state")).equals("null"))?"":((String)h.get("state"));
+  String drillCity=(((String)h.get("city")).equals("")||((String)h.get("city")).equals("null"))?"":((String)h.get("city"));
+  String crumbGran=(String)nextGran.get(granularity);
 %>
 
 
@@ -37,31 +38,37 @@ if(lastRecord.substring(0,lastLen).toLowerCase().compareTo(testName.substring(0,
 %>
 <tr><td><center><b>Next Relevance Section</b></center></td></tr>
 <%} %>
-	<tr>
-		<td>
-			<A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"
-			<%if(module.equals("person")){if(!h.get("accountNo").equals("")){%> style="color:blue;" <%}else {%> style="color:black;" <%}} %>
-			>
-				<%= h.get("name") %>
-			</A>
-		</td>
-		<%String region=(String)h.get("region"); %>
-		<td>
-				<%if(module.equals("person")){%> <%=h.get("email")%>&nbsp;&nbsp;<%=h.get("address")%>,&nbsp;<%} %>
-				<%=h.get("city") %>
-				<%=((String)h.get("country")).equals("USA")?", "+org.alt60m.ministry.States.expandState((String)h.get("state")):"" %>
-				<%=!((String)h.get("country")).equals("USA")?", "+org.alt60m.util.CountryCodes.codeToName((String)h.get("country")):"" %>
-				<%=!region.equals("")?", "+org.alt60m.ministry.Regions.expandRegion(region):"" %>
-		</td>
-	</tr>
+  <tr>
+    <td>
+      <A href="/servlet/<%=searchUrl %>?action=content&module=<%=module %>&id=<%= h.get("id") %>"
+      <%if(module.equals("person")){if(!h.get("accountNo").equals("")){%> style="color:blue;" <%}else {%> style="color:black;" <%}} %>
+      >
+        <%= h.get("name") %>
+      </A>
+    </td>
+    <%String region=(String)h.get("region"); %>
+    <td>
+        <% if(module.equals("person")){ %> 
+          <%=h.get("email")%>&nbsp;&nbsp;
+          <%=!InfoBaseModuleHelper.isNullOrEmpty((String)h.get("address")) ? h.get("address") + ", " : ""%>
+        <% } %>
+        <%= !InfoBaseModuleHelper.isNullOrEmpty((String)h.get("city")) ? (String)h.get("city") + ", " : "" %>
+        <% if(((String)h.get("country")).equals("USA")) { %>
+          <%= org.alt60m.ministry.States.expandState((String)h.get("state")) %>
+        <% } else if(!InfoBaseModuleHelper.isNullOrEmpty((String)h.get("country"))) { %>
+          <%= org.alt60m.util.CountryCodes.codeToName((String)h.get("country")) %>
+        <% } %>
+        <%=!InfoBaseModuleHelper.isNullOrEmpty(region) ? ", " + org.alt60m.ministry.Regions.expandRegion(region) : "" %>
+    </td>
+  </tr>
 <%} else {%>
-	<tr>
-		<td>
-			<a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=drillCountry%>&region=<%=drillRegion%>&state=<%=drillState%>&city=<%=drillCity%>&name=&strategy=nonnull<%=drillCity.equals("")||drillCity.equals("Empty city")?"&breadcrumb="+crumbGran:"" %>">
-			<%= h.get("name") %>
-			</a>
-		</td>
-	</tr><%} %>
+  <tr>
+    <td>
+      <a href="<%=searchUrl %>?action=search&module=<%=module %>&type=<%=module %>&country=<%=drillCountry%>&region=<%=drillRegion%>&state=<%=drillState%>&city=<%=drillCity%>&name=&strategy=nonnull<%=drillCity.equals("")||drillCity.equals("Empty city")?"&breadcrumb="+crumbGran:"" %>">
+      <%= h.get("name") %>
+      </a>
+    </td>
+  </tr><%} %>
 
 <%firstRow=false;
 lastRecord=testName;

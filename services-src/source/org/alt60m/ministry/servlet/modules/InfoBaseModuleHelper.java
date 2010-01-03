@@ -41,6 +41,9 @@ public class InfoBaseModuleHelper {
 		Hashtable<String, Collection<Hashtable<String, Object>>> staffByRegion = new Hashtable<String, Collection<Hashtable<String, Object>>>();
     }
 
+    public static boolean isNullOrEmpty(String string) {
+        return !(string != null && string.length() > 0 && !string.equals("null"));
+    }
 
     public static Section getSearchResults(String type,String name,String city,String state,String region,String country, String strategy, boolean singleField)throws Exception{
     	Section t=new Section();

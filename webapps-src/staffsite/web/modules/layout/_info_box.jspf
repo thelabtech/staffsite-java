@@ -1,4 +1,4 @@
-
+<%@page import="org.alt60m.ministry.servlet.modules.*" %>
 <%if(infoModes.contains(mode)){ %>
 
  <div class="<%=(!module.equals("team"))?"":"righthand" %>">
@@ -12,10 +12,18 @@
                         <div class="field">
 
                             <label>Address:</label>
-							<div class="box">
-                            <%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
-							<%=info.get("city")%>,&nbsp;<%=info.get("state")%><br>
-							<%=info.get("zip")%>, <%=info.get("Country") %><br>
+							<div class="box" style="margin-top:-18px">
+              <% if(!(InfoBaseModuleHelper.isNullOrEmpty((String)info.get("address1")) && InfoBaseModuleHelper.isNullOrEmpty((String)info.get("address2")))) { %>
+                <%=info.get("address1")%>&nbsp;<%=info.get("address2")%><br>
+              <% } %>
+              <% if(!(InfoBaseModuleHelper.isNullOrEmpty((String)info.get("state")) && InfoBaseModuleHelper.isNullOrEmpty((String)info.get("city")))) { %>
+  							<%=info.get("city")%>
+	   						<%= !InfoBaseModuleHelper.isNullOrEmpty((String)info.get("state")) && !InfoBaseModuleHelper.isNullOrEmpty((String)info.get("city")) ? ", "  : "" %>
+			   				<%= info.get("state") %><br>
+			   			<% } %>
+							<%=info.get("zip")%>
+							<%= !InfoBaseModuleHelper.isNullOrEmpty((String)info.get("Country")) && !InfoBaseModuleHelper.isNullOrEmpty((String)info.get("zip")) ? ", "  : "" %>
+						  <%= info.get("Country") %><br>
 							</div>
                         </div>
                         

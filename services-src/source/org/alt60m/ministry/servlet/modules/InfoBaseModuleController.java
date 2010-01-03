@@ -59,10 +59,8 @@ public class InfoBaseModuleController extends Controller {
     
     public InfoBaseModuleController() {
         log.debug("InfoBaseModuleController constructor");
-       
-       
-        
     }
+    
     public Person getUserPerson(ActionContext ctx){
     	 String username = (String) ctx.getSessionValue("userName");
          User user=new User();
@@ -73,6 +71,7 @@ public class InfoBaseModuleController extends Controller {
          person.select();
          return person;
     }
+    
     public void home(ActionContext ctx) {
         try {
         	ActionResults results = new ActionResults("home");
