@@ -65,69 +65,12 @@ document.getElementById(mW+'_info_box').innerHTML='';
 
 
 <div class="enter_stat" id="enter_stat">
-<ul id="tab_wrapper">
 
 
 <%
 miniResultsCounter = ar.getActionResultsIterator();
-if (miniResultsCounter.hasNext()) //start week navigation tabs
+if (!miniResultsCounter.hasNext()) //start week navigation tabs
 {
-	thisOne=(String)(miniResultsCounter.next());
-	mr=ar.getActionResults(thisOne);
-	statistics = mr.getCollection((String)("statistics"));	
-	slist = ((Collection)(statistics)).iterator();
-	
-	
-	counter = 0;
-	while(slist.hasNext()) // print dates
-		{
-			criteria = (Hashtable)slist.next();
-			
-			
-			
-			if(weeksBack!=(15-counter))
-				{ 
-					%>						
-					<li class="weekTab" >
-					<%if(!ar.getValue("statSuccess").equals("false")){%>
-					<A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-counter)%>">
-					<%=criteria.get("PeriodBeginShort")%><br>
-					to<br>
-					<%=criteria.get("PeriodEndShort")%><BR>
-					<% if(criteria.get("StatisticId").equals("")) { %>
-					 <img src="/infobase/images/reddot.gif" border="0">
-					<% } else { %>
-            <img src="/infobase/images/greendot.gif" border="0">
-					<% } %>
-					</A>
-					<%} %>
-					</li>						
-					<%
-				}
-			else 
-				{
-					%>
-					
-					<li class="thisWeek"  >
-					<%=criteria.get("PeriodBeginShort")%><br>
-					to<br>
-					<%=criteria.get("PeriodEndShort")%><BR>
-          <% if(criteria.get("StatisticId").equals("")) { %>
-           <img src="/infobase/images/reddot.gif" border="0">
-          <% } else { %>
-            <img src="/infobase/images/greendot.gif" border="0">
-          <% } %>
-					</li>
-					<%
-				}
-			counter++;
-			
-		}
-	%>
-	
-	<%	
-} //end week-navigation tabs
-else{
 	%><a class="open_close"  style="text-decoration:none;" href="Stat?action=index&module=stat&quicksearch=true"><h3 style="display:inline;">Find a Location</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;<br>
 	<br>
 	You have no stats bookmarks. Find your location and click the Enter Stats link to enter the stats. A bookmark will automatically be saved for future reference.
@@ -135,7 +78,6 @@ else{
 }
 %>
 
-</ul>
 
 		<form  method="post" id="fast_ll_stat" name="fast_ll_stat" action="/servlet/Stat?action=saveFastSuccessCriteria">
 				<input type="hidden" name="weeksBack" value="<%=""+weeksBack %>"/>
@@ -165,7 +107,6 @@ else{
 					statistics = mr.getCollection((String)("statistics"));
 					
 					slist = ((Collection)(statistics)).iterator();
-					slist = ((Collection)(statistics)).iterator();
 					counter = 0;
 					involvedStudentsPasser = 0;
 					studentLeadersPasser = 0;
@@ -187,7 +128,6 @@ else{
 						if(weeksBack==(15-counter))
 						{	//note the id attributes below are for a possible future improvement 
 							//using javascript.
-							
 							if (!mr.getValue("activityid").equals(lastMovement)){
 								flipColor=!flipColor;lastMovement=mr.getValue("activityid");displayName=(String)mr.getValue("displayname");
 								%>
@@ -235,17 +175,21 @@ else{
 						                            <th class="bookmark"><a href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>" class="unbookmark">Unbookmark</a></th>
 						                        </tr>
 						                    </table>
+						                    				
 					<div class="schoolentry">
 										<%
 										
 										} %>			
 						<div class="aschool">
 							<div class="stats_info_surround">	
-							<div id="<%=uniqueStat%>_info_box" class="stats_info_box" >
-					
+								<div id="<%=uniqueStat%>_info_box" class="stats_info_box" >
+										
+								</div>
+							
 							</div>
-						</div>
-										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>	
+
+										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>
+							
 						<div class="thecolumn">
 									<div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
 									<div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','student_leaders',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ></div>
@@ -278,7 +222,43 @@ else{
 									
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Laborers Sent</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ></div>
 						</div>
+						<div style="clear:both;padding-top:20px">
+						<ul>
+						<%
+						Iterator sdlist = ((Collection)(statistics)).iterator();
 						
+						
+						int dcounter = 0;
+						while(sdlist.hasNext()) // print dates
+							{
+								Hashtable dcriteria = (Hashtable)sdlist.next();
+								
+								
+								
+									%>
+									<li class="weekTab" style="height:65px" >
+									<%if(!ar.getValue("statSuccess").equals("false")){
+										if(weeksBack!=(15-dcounter)) {%>
+											<A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-dcounter)%>">
+									<% } %>
+										<%=dcriteria.get("PeriodBeginShort")%><br>
+										to<br>
+										<%=dcriteria.get("PeriodEndShort")%><BR>
+										<% if(dcriteria.get("StatisticId").equals("")) { %>
+											<img src="/infobase/images/reddot.gif" border="0">
+										<% } else { %>
+					            			<img src="/infobase/images/greendot.gif" border="0">
+										<% } 
+										if(weeksBack!=(15-dcounter)) {%>
+											</A>
+									<%	}
+									}	%>
+									</li>	
+								
+						<%		dcounter++;
+							}%>	
+					</ul>
+					</div>
 								</div><!-- close aschool div -->
 					
 				
