@@ -83,14 +83,19 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             }
             results=StatHelper.fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
-    		results.putValue("activityid", ctx.getInputString("activityid", false));
-    		
+
         	if (weeksBack!=null) {
         		results.putValue("weeksBack", weeksBack);
         	}
         	else {
         		results.putValue("weeksBack", "0");
     		}
+        	
+        	String activityid = ctx.getInputString("activityid", false);
+        	if (activityid!=null) {
+        		results.putValue("activityid", activityid);
+        	}
+
         	if(ctx.getSessionValue("statSuccess")!=null) {
         		if(ctx.getSessionValue("statSuccess").equals("true")) {
         			results.putValue("message","Your stats were saved successfully. Check below or run a report to verify.");
