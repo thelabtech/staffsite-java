@@ -65,6 +65,7 @@ document.getElementById(mW+'_info_box').innerHTML='';
 
 
 <div class="enter_stat" id="enter_stat">
+<div  style="float:right;">
 <ul id="tab_wrapper">
 
 <%
@@ -87,7 +88,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
             if(weeksBack!=(15-counter))
                 { 
                     %>                        
-                    <li class="weekTab" >
+                    <li class="weekTab" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:pink" : "" %>" >
                     <%if(!ar.getValue("statSuccess").equals("false")){%>
                     <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-counter)%>">
                     <%=criteria.get("PeriodBeginShort")%><br>
@@ -101,7 +102,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
             else 
                 {
                     %>
-                    <li class="thisWeek"  >
+                    <li class="thisWeek" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:pink" : "" %>" >
                     <%=criteria.get("PeriodBeginShort")%><br>
                     to<br>
                     <%=criteria.get("PeriodEndShort")%><BR>
@@ -122,7 +123,8 @@ else{
 	You have no stats bookmarks. Find your location and click the Enter Stats link to enter the stats. A bookmark will automatically be saved for future reference.
 <%}%>
 </ul>
-
+</div>
+<div style="clear:both"></div>
 		<form  method="post" id="fast_ll_stat" name="fast_ll_stat" action="/servlet/Stat?action=saveFastSuccessCriteria">
 				<input type="hidden" name="weeksBack" value="<%=""+weeksBack %>"/>
 				
@@ -212,42 +214,41 @@ else{
 										%>
 										<li id="<%=schoolCount+"" %>">
 											<table class="movementheader">
-
-						                    	<tr onClick="javascript:$('#<%=schoolCount+"" %>').toggleClass('selected');">
-						                        	<th class="expand"></th>
-						                            <th class="schoolname" style="width: 87%;">
-                                          <span style="float:left;padding-right:10px"><%=mr.getValue("location_name")%></span>
-						                              <ul style="display:inline">
-												                      <%
-												                      Iterator sdlist = ((Collection)(statistics)).iterator();
-												                      
-												                      
-												                      int dcounter = 0;
-												                      while(sdlist.hasNext()) // print dates
-												                        {
-												                          Hashtable dcriteria = (Hashtable)sdlist.next();
-												                          
-												                            %>
-												                            <li class="weekTab" style="height:15px;<%= dcriteria.get("FirstWeek") != null && (Boolean)dcriteria.get("FirstWeek") ? "background:white" : "" %>" >
-												                            <%if(!ar.getValue("statSuccess").equals("false")){%>
-												                                <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-dcounter)%>">
-												                              <% if(dcriteria.get("StatisticId").equals("")) { %>
-												                                <img src="/infobase/images/reddot.gif" border="0">
-												                              <% } else { %>
-												                                      <img src="/infobase/images/greendot.gif" border="0">
-												                              <% } %>
-												                                </A>
-												                            <%  
-												                            } %>
-												                            </li> 
-												                          
-												                      <%    dcounter++;
-												                        }%> 
-												                    </ul>
-						                            </th>
-						                            <th class="bookmark"><a href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>" class="unbookmark">Unbookmark</a></th>
-						                        </tr>
-						                    </table>
+		                    	<tr onClick="javascript:$('#<%=schoolCount+"" %>').toggleClass('selected');">
+		                        	<th class="expand"></th>
+		                            <th class="schoolname" style="width: 87%;">
+                                      <span style="float:left;padding-right:10px"><%=mr.getValue("location_name")%></span>
+		                              <ul style="display:inline;float:right;">
+								                      <%
+								                      Iterator sdlist = ((Collection)(statistics)).iterator();
+								                      
+								                      
+								                      int dcounter = 0;
+								                      while(sdlist.hasNext()) // print dates
+								                        {
+								                          Hashtable dcriteria = (Hashtable)sdlist.next();
+								                          
+								                            %>
+								                            <li class="weekTab" style="height:15px;<%= dcriteria.get("FirstWeek") != null && (Boolean)dcriteria.get("FirstWeek") ? "background:pink" : "" %>" >
+								                            <%if(!ar.getValue("statSuccess").equals("false")){%>
+								                                <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-dcounter)%>">
+								                              <% if(dcriteria.get("StatisticId").equals("")) { %>
+								                                <img src="/infobase/images/reddot.gif" border="0">
+								                              <% } else { %>
+								                                      <img src="/infobase/images/greendot.gif" border="0">
+								                              <% } %>
+								                                </A>
+								                            <%  
+								                            } %>
+								                            </li> 
+								                          
+								                      <%    dcounter++;
+								                        }%> 
+								                    </ul>
+		                            </th>
+		                            <th class="bookmark"><a href="/servlet/Stat?action=deleteFastSuccessCriteriaBookmark&delBookmark=<%=mr.getValue("activityid")%>" class="unbookmark">Unbookmark</a></th>
+		                        </tr>
+		                    </table>
 						                    				
 					<div class="schoolentry">
 										<%

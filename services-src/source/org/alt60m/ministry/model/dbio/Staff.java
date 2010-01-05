@@ -92,7 +92,7 @@ public class Staff extends DBIOEntity {
 	private String contributionsToAcntNo = "";
 	private String removedFromPeopleSoft = "";
 	private String isNonUSStaff = "";  // Currently used so Review360 can see people not in PS
-	private int personID=0;
+	private int personID;
 	
 	public Staff(String id) {
 		accountNo = id;

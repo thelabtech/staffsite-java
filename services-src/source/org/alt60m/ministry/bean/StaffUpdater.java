@@ -32,7 +32,6 @@ public class StaffUpdater {
 	Hashtable<String, String> luStrategy = new Hashtable<String, String>();
     Hashtable<String, String> luRegion = new Hashtable<String, String>();
     Hashtable<String, String> luRespScope = new Hashtable<String, String>();
-//    Hashtable luWorkLoc = new Hashtable();
 
 
 
@@ -152,47 +151,7 @@ public class StaffUpdater {
 			log.error("Error opening database connection",e);				
 		}
     }
-
-	//Have to rewrite this because now the staff table is in mssql and ps-emp in oracle
-/*
-	private void removeStaffObject() throws Exception {
-		log.info("making Oracle connection ... ");
-		Connection psconn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
-		Statement psstatement = psconn.createStatement();
-
-		log.info("making sql connection ... ");
-		Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
-		Statement sqlstatement = sqlconn.createStatement();
-		ResultSet sqlrs;
-		ResultSet psrs;
-
-		log.info("[" + new java.util.Date() + "] Querying...");
-		String psqry = "select "+PS_EMPL_ID+" from " + PS_EMPL_TBL + " order by "+PS_EMPL_ID+" desc";
-		log.debug(psqry);
-		psrs = psstatement.executeQuery(psqry);
-
-		String qry =
-			"select accountNo from " + STAFF_TBL + " where accountNo not in " +
-				"(" + TextUtils.listToCommaDelimitedQuotedString(psrs,"'") + ")" +
-			" order by " + PS_EMPL_ID + " desc";
-		log.debug(qry);
-
-		sqlrs = sqlstatement.executeQuery(qry);
-		psconn.close();
-
-		while (sqlrs.next()) {
-			String staffID = sqlrs.getString("accountNo");
-			try {
-				Staff staff = new Staff(staffID);
-				log.info("[" + new java.util.Date() + "] Removing account: " + staffID);
-				staff.delete();
-			} catch (Exception e) {
-				log.error(
-					"[" + new java.util.Date() + "] Failed to remove account: " + staffID,e);
-			}
-		}
-	}
-*/
+    
 	private void insertStaffObjects() throws Exception {
 		log.info("making Oracle connection ... ");
 		Connection psconn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
@@ -254,7 +213,7 @@ public class StaffUpdater {
 			}
 		}
 
-		Iterator k = inserts.iterator();
+		Iterator<String> k = inserts.iterator();
 		while (k.hasNext()) {
 			String staffID = (String) k.next();
 			try {
@@ -296,7 +255,6 @@ public class StaffUpdater {
 
     private void updateStaffObjects() throws Exception {
 		insertStaffObjects();
-//		Connection conn = org.alt60m.util.DBConnectionFactory.getOracleDatabaseConn();
 		Statement statement = _connection.createStatement();
 		ResultSet rs = null;
 
@@ -306,11 +264,6 @@ public class StaffUpdater {
 		log.debug(qry);
 		rs = statement.executeQuery(qry);
 		
-/*		ResultSetMetaData rsmd = rs.getMetaData();
-		for (int i = 1; i < rsmd.getColumnCount(); i++) {
-			log.info(rsmd.getColumnName(i));
-		}
-*/
 		java.util.Date querystop = new java.util.Date();
 		log.debug("[" + querystop + "] Got Recordset.");
 		while (rs.next()) {
@@ -318,50 +271,10 @@ public class StaffUpdater {
 		    String currentNo = rs.getString(PS_EMPL_ID);
 		    log.info(" PS record: " + currentNo + "...");
 		    try {
-//		    	boolean justCreated = false;
-//				try {
-					staff.setAccountNo(currentNo);
-					staff.select();
-//					log.info("Ministry: " + rs.getString("ccc_ministry") + " , Region: " + rs.getString("ccc_sub_ministry") + ", EffDate: " + rs.getString("effdt"));
-//				    if (!staff.select()) {
-//						log.debug("Using if/else create");
-//						staff = new Staff();
-//						staff.setAccountNo(currentNo);
-//						insert(staff);				
-//						justCreated = true;
-//				    } else {
-//						justCreated = false;			    	
-//				    }
-//				} catch (Exception nf) {
-//				    log.debug("Using throwed create");
-//					staff = new Staff();
-//					staff.setAccountNo(currentNo);
-//					insert(staff);				
-//				    justCreated = true;
-//				}
-	            
-	            // Are they campus staff?
-//				boolean isCampusStaff = "CAMPUS MINISTRY".equalsIgnoreCase(staff.getMinistry());
-						
-				// always fill in new records
-//				if (justCreated) {
-//	            	log.debug("is new, so setting attributes...");
-//			    	setStaffAttributes(staff, rs);
-//					staff.persist();
-			    // Non-campus staff, so fill in
-				/*} else*/ //if (!isCampusStaff) {
-	          	log.debug("noncampus, so setting attributes...");
-//	          	log.debug(rs.getString("tax_location_cd") + ": ");
-//	          	log.debug(rs.getString("descr") + ", ");
-//	          	log.info(rs.getString("tax_state"));
-			    	setStaffAttributes(staff, rs);
-					staff.persist();
-			    // Is campus staff, and not a new record
-	            //} else /*if (isCampusStaff && !justCreated)*/ {
-	            //	log.debug("is campus, but WILL NOT UPDATE...");
-	            //} /*else {
-			    //	log.debug("UNKNOWN CASE...");
-			    //}*/
+				staff.setAccountNo(currentNo);
+				staff.select();
+		    	setStaffAttributes(staff, rs);
+				staff.persist();
 		    } catch (Exception e) {
 				log.error("Failed to process record " + currentNo, e);
 				if(_stopOnFail) throw e;
@@ -369,47 +282,11 @@ public class StaffUpdater {
 		}
     }
     
-/*    //DBIO inserts expect an auto-generated identity field, which accountNo isn't for staff
-    private void insert(Staff staff) throws Exception {
-		Connection sqlconn = org.alt60m.util.DBConnectionFactory.getDatabaseConn();
-		Statement sqlstatement = sqlconn.createStatement();
-		ResultSet sqlrs = sqlstatement.executeQuery("INSERT INTO "+STAFF_TBL+" (accountNo, firstName, middleInitial, lastName, isMale, position, countryStatus, jobStatus, ministry, strategy, isNewStaff, primaryEmpLocState, primaryEmpLocCountry, primaryEmpLocCity, spouseFirstName, spouseMiddleName, spouseLastName, spouseAccountNo, spouseEmail, fianceeFirstName, fianceeMiddleName, fianceeLastName, fianceeAccountno, isFianceeStaff, fianceeJoinStaffDate, isFianceeJoiningNS, joiningNS, homePhone, workPhone, mobilePhone, pager, email, isEmailSecure, url, newStaffTrainingdate, fax, note, region, countryCode, ssn, maritalStatus, deptId, jobCode, accountCode, compFreq, compRate, compChngAmt, jobTitle, deptName, coupleTitle, otherPhone, preferredName, namePrefix, origHiredate, birthDate, marriageDate, hireDate, rehireDate, loaStartDate, loaEndDate, loaReason, severancePayMonthsReq, serviceDate, lastIncDate, jobEntryDate, deptEntryDate, reportingDate, employmentType, resignationReason, resignationDate, contributionsToOtherAcct, contributionsToAcntName, contributionsToAcntNo, isSecure, isSupported, fk_primaryAddress, fk_secondaryAddress) "+
-														" VALUES ('"+staff.getAccountNo()+"', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', null, null, null, null, null, null, null, '', 0, null, null, null, null, null, '', '', null, '', '', '', '', '', '', '', '')");
-		sqlrs.close();
-		sqlstatement.close();
-		sqlconn.close();   	
-    }
-*/
-/*
-	private void updateCurrentAddress(Staff staff) {
-		Address primaryAddress = staff.getPrimaryAddress();
-		Address secondaryAddress = staff.getSecondaryAddress();
-		java.util.Date today = new java.util.Date();
-		log.debug(
-			"Updating current address for: " + staff.getLastName() + ", " + staff.getFirstName() + "...");
-		// If there exists a secondary address, and the date range is current
-		try {
-			if (secondaryAddress != null
-				&& today.before(secondaryAddress.getEndDate())
-				&& today.after(secondaryAddress.getStartDate())) {
-				log.info("...using secondary address.");
-				staff.setCurrentAddressId(staff.getSecondaryAddressId());
-			} else {
-				log.info("...using primary address.");
-				staff.setCurrentAddressId(staff.getPrimaryAddressId());
-			}
-		} catch (NullPointerException npe) {
-			log.error("...null pointer using address.",npe);
-			staff.setCurrentAddressId(staff.getPrimaryAddressId());
-		}
-	}
-*/
-
+	@SuppressWarnings("unchecked")
 	private void setStaffAttributes(Staff staff, ResultSet rs)
 		throws java.sql.SQLException, Exception {
 		Hashtable before = ObjectHashUtil.obj2hash(staff);
 
-		//staff.setNamePrefix(rs.getString("name_prefix"));
 		// NO SSN!
 		//staff.setSsn(rs.getString("ssn"));
 		staff.setIsMale("M".equals(rs.getString("sex")));
@@ -477,6 +354,8 @@ public class StaffUpdater {
 		log.info("Account No. " + staff.getAccountNo());
 		showWhatChanged(before, after);
 	}
+	
+	@SuppressWarnings("unchecked")
 	private void showWhatChanged(Hashtable before, Hashtable after) {
 			Enumeration keys = before.keys();
 			while(keys.hasMoreElements()) {

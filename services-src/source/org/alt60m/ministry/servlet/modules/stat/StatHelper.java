@@ -152,9 +152,10 @@ public class StatHelper extends
 			Hashtable<String, Object> row = enteredStats.next();
 			for (int cnt = 0; cnt < 16; cnt++) {
 				Date begin = (Date) row.get("PeriodBegin");
-				if (sqlFormat.format(begin).equals(
-						sqlFormat.format(allDates.get(cnt).get("PeriodBegin"))))
+				if (sqlFormat.format(begin).equals(sqlFormat.format(allDates.get(cnt).get("PeriodBegin")))) {
+					row.put("FirstWeek", allDates.get(cnt).get("FirstWeek"));
 					allDates.set(cnt, row);
+				}
 			}
 		}
 		return allDates;
