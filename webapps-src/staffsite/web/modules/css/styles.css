@@ -699,7 +699,7 @@ div.stats_info_surround
 	position:relative;
 }
 
-li.weekTab,li.thisWeek
+li.weekTab,li.thisWeek, li.checkmark
 {
 display:inline;
 float:left;
@@ -719,6 +719,20 @@ li.thisWeek
 {
 	font-weight:bold;
 color:black;
+}
+
+ul.results li.checkmark 
+{
+	height: 15px;
+}
+li.selected li.checkmark 
+{
+  background: #EEE488;
+}
+
+li.first_week, ul.results li.first_week
+{
+  background: #D3D3D3;  
 }
 
 ul#tab_wrapper

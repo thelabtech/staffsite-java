@@ -1,15 +1,16 @@
 li.weekTab
 {
-margin:none;
-width:50px;
-
-background-color:#888888;
-font-size:10px;
-color:white;
-border:none;
-border-bottom:solid 1px black;
- text-align:center;
+	margin:none;
+	width:50px;
+	
+	background-color:#888888;
+	font-size:10px;
+	color:white;
+	border:none;
+	border-bottom:solid 1px black;
+  text-align:center;
 }
+
 li.wideTab
 {
 margin:none;
@@ -22,12 +23,9 @@ border:none;
 border-bottom:solid 1px black;
  text-align:center;
 }
-li.weekTab a
-{color:white;
-}
-li.weekTab a:visited
-{color:white;
-}
+li.weekTab a, li.weekTab a:visited
+{color:white;}
+
 li.thisWeek
 {
 margin:none;

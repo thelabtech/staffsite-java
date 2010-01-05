@@ -30,6 +30,8 @@ Integer movements=0;
 Integer errorJog=0;
 Integer formHeight=0;
 Integer specialHeight=0;
+
+String currentActivity = ar.getValue("activityid");
 	
 
 	
@@ -88,7 +90,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
             if(weeksBack!=(15-counter))
                 { 
                     %>                        
-                    <li class="weekTab" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:pink" : "" %>" >
+                    <li class="weekTab" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:#D3D3D3" : "" %>" >
                     <%if(!ar.getValue("statSuccess").equals("false")){%>
                     <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-counter)%>">
                     <%=criteria.get("PeriodBeginShort")%><br>
@@ -102,7 +104,7 @@ if (miniResultsCounter.hasNext()) //start week navigation tabs
             else 
                 {
                     %>
-                    <li class="thisWeek" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:pink" : "" %>" >
+                    <li class="thisWeek" style="<%= criteria.get("FirstWeek") != null && (Boolean)criteria.get("FirstWeek") ? "background:#D3D3D3" : "" %>" >
                     <%=criteria.get("PeriodBeginShort")%><br>
                     to<br>
                     <%=criteria.get("PeriodEndShort")%><BR>
@@ -212,7 +214,8 @@ else{
 										if(!thisSchool.equals(lastSchool)){ 
 										schoolCount++;
 										%>
-										<li id="<%=schoolCount+"" %>">
+										<li id="<%=schoolCount+"" %>" class="<%= currentActivity != null && currentActivity.equals(mr.getValue("activityid")) ? "selected" : "" %>">
+                      <a name="a<%= mr.getValue("activityid") %>" ></a>
 											<table class="movementheader">
 		                    	<tr onClick="javascript:$('#<%=schoolCount+"" %>').toggleClass('selected');">
 		                        	<th class="expand"></th>
@@ -229,9 +232,9 @@ else{
 								                          Hashtable dcriteria = (Hashtable)sdlist.next();
 								                          
 								                            %>
-								                            <li class="weekTab" style="height:15px;<%= dcriteria.get("FirstWeek") != null && (Boolean)dcriteria.get("FirstWeek") ? "background:pink" : "" %>" >
+								                            <li class="checkmark <%= dcriteria.get("FirstWeek") != null && (Boolean)dcriteria.get("FirstWeek") ? "first_week" : "" %>" >
 								                            <%if(!ar.getValue("statSuccess").equals("false")){%>
-								                                <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-dcounter)%>">
+								                                <A  href="<%="/servlet/Stat?action=index&weeksBack="+(15-dcounter) + "&activityid=" + mr.getValue("activityid") + "#a" + mr.getValue("activityid") %>">
 								                              <% if(dcriteria.get("StatisticId").equals("")) { %>
 								                                <img src="/infobase/images/reddot.gif" border="0">
 								                              <% } else { %>
@@ -328,9 +331,11 @@ document.getElementById('javascript_submit_image').style.display="block";
 </script>
 
 </form>
-<script type="text/javascript" language="javascript">
-$('#1').toggleClass('selected');
-</script>
+<% if(ar.getValue("activityid") == null) { %>
+	<script type="text/javascript" language="javascript">
+	$('#1').toggleClass('selected');
+	</script>
+<% } %>
 <noscript>
 <style type="text/css">
 ul.results li{

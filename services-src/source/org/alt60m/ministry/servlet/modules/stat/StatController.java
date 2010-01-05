@@ -83,6 +83,8 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             }
             results=StatHelper.fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
+    		results.putValue("activityid", ctx.getInputString("activityid", false));
+    		
         	if (weeksBack!=null) {
         		results.putValue("weeksBack", weeksBack);
         	}
