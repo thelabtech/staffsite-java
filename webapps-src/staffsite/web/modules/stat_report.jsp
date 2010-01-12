@@ -197,14 +197,12 @@ while(report.hasNext()){
 		<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"bridges":"non_bridges" %>">
 		<tr><td >&nbsp;</td></tr>
-		<tr><td class="event_block" >Begin <%=row.getLabel()%> Report</td>
-		</tr></table>
+		</table>
 	<% newEventType=true;}
 	else if (row.getFunction().equals("eventBlockBottom")){%>
 	<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
-				"bridges":"non_bridges" %>"><tr>
-<td class="event_block" >End <%=row.getLabel()%> Report</td>
-	</tr></table>
+				"bridges":"non_bridges" %>">
+</table>
 <%}
 	
 	else	{//display data rows%>
@@ -223,7 +221,7 @@ while(report.hasNext()){
 	
 	
 	<%
-	if(type.equals("targetarea")||type.equals("national")||row.getFunction().equals("detail")){%>
+	if(type.equals("targetarea") || type.equals("national") || row.getFunction().equals("detail")) {%>
 		<table class="row_short"><tr>
 	<%}
 	else
@@ -237,7 +235,7 @@ while(report.hasNext()){
 	<td class="label">
 	<%if(!row.getFunction().equals("detail")){ %>
 		<%if (!type.equals("targetarea")){%>
-		<A  href="Report?action=statReport&type=<%
+		<a  href="Report?action=statReport&type=<%
 			if(type.equals("national")){out.print("regional");}
 			else if (type.equals("regional")&&!isEvent){out.print("locallevel");}
 			else {out.print("targetarea");}
@@ -251,7 +249,7 @@ while(report.hasNext()){
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
-		<%=row.getLabel().equals("")?"Not Specified": row.getLabel()%><%if (!type.equals("targetarea")){%></A><%} %>&nbsp;
+		<%=row.getLabel().equals("")?"Not Specified": row.getLabel()%><%if (!type.equals("targetarea")){%></a><%} %>&nbsp;
 			<%if((row.getStatus().equals("IN"))&&(row.getEventType().equals("Campus"))&&type.equals("locallevel")){%>
 			<i>(Inactive)</i>
 			<%} %>

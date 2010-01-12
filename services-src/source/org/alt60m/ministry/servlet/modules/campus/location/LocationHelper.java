@@ -65,11 +65,12 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
  			throw new Exception(e);
        }
     }
-    public static Hashtable newLocation(ActionContext ctx) throws Exception {
+    @SuppressWarnings("unchecked")
+	public static Hashtable<Object, Comparable> newLocation(ActionContext ctx) throws Exception {
     	Hashtable newInfo=LocationHelper.info("0");
     	if(ctx.getInputString("new")!=null){
 			
-        	Hashtable<String,String> newTeam=ctx.getHashedRequest();
+        	Hashtable<String,String> newTeam = ctx.getHashedRequest();
         	log.debug(newTeam.toString());
         	log.debug(newInfo.toString());
         	for(Object o:newInfo.keySet()){

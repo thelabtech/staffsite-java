@@ -44,9 +44,6 @@ public class References implements java.io.Serializable {
 				refString = refString
 						+ "<font size=2><B>Summer Projects</B></font><BR>";
 				if (email.trim().length() == 0) {
-					// many staff login accounts do not have an AccountNo. So
-					// don't pull up matching references; it would be all
-					// references without a staffnumber!
 					refString = refString + "<i>None</i><BR>";
 				} else {
 					strSQL = "select r.id as referenceid, r.status as formworkflowstatus, p.firstname as legalfirstname, p.lastname as legallastname, " +

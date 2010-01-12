@@ -220,6 +220,7 @@ public class TargetArea extends DBIOEntity {
 		}
 		return result;
 	}
+	@SuppressWarnings("unchecked")
 	public Vector getActivities(String orderField, boolean DESC) {
 		Activity a = new Activity();
 		return a.selectList("fk_targetAreaID = '" + this.targetAreaId + "' ORDER BY " + orderField + " " + (DESC ? "DESC" : "ASC"));
@@ -233,12 +234,14 @@ public class TargetArea extends DBIOEntity {
 		a.update();
 	}	
 
+	@SuppressWarnings("unchecked")
 	public Vector getNonCccMins() {
 		NonCccMin ncm = new NonCccMin();
 		String table = "ministry_viewTargetAreaNonCccMin";
 		ncm.changeTargetTable(table);
 		return ncm.selectList("TargetAreaID = '" + this.targetAreaId + "'");
 	}	
+	@SuppressWarnings("unchecked")
 	public Vector getNonCccMins(String orderField, boolean DESC) {
 		NonCccMin ncm = new NonCccMin();
 		String table = "ministry_viewTargetAreaNonCccMin";
@@ -258,6 +261,7 @@ public class TargetArea extends DBIOEntity {
 		ncc.setTargetAreaId(this.getTargetAreaId());
 		ncc.delete();
 	}
+	@SuppressWarnings("unchecked")
 	public Vector getOtherMinistries() {
 		return this.getNonCccMins();
 	}
@@ -267,9 +271,9 @@ public class TargetArea extends DBIOEntity {
 	public String getIsApprovedString() { return isApproved; }
 	public void setIsApprovedString(String isApproved) { this.isApproved = isApproved; }
         
-        public void getFieldvalue() { }  public String getFieldvalue(String foo) { return ""; }
-        public void getHeaderName() { }  public String getHeaderName(String foo) { return ""; }
-        public void getColumnName() { }  public String getColumnName(String foo) { return ""; }
+    public void getFieldvalue() { }  public String getFieldvalue(String foo) { return ""; }
+    public void getHeaderName() { }  public String getHeaderName(String foo) { return ""; }
+    public void getColumnName() { }  public String getColumnName(String foo) { return ""; }
         
     public String getEventLink() {
     	String eventLink="";

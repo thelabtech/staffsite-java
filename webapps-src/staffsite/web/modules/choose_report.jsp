@@ -35,22 +35,22 @@ function submitReportForm(thisForm) {
 Integer yearvar=1998;	
 String teamID="";
 	String region="";
-	String targetAreaID="";
+	String targetAreaID = ar.getValue("targetareaid");
 	String type = ar.getValue("type");
-	if(type.equals("locallevel")){
+	if(targetAreaID != null) {
+		type = "targetarea";
+	}
+	if(type.equals("locallevel") && ar.getValue("locallevelid") != null){
 		teamID = ar.getValue("locallevelid");
 	} else if(type.equals("regional")) {		
 		region = ar.getValue("region");
-	}else if(type.equals("targetarea")) {
-		
-		targetAreaID =ar.getValue("targetareaid");
 	}
 	
 %>
 <input type=hidden name="teamID" value="<%=teamID%>">
 <input type=hidden name="region" value="<%=region%>">
 <input type=hidden name="targetareaid" value="<%=targetAreaID%>">
-<input type=hidden name=type value="<%= ar.getValue("type") %>">
+<input type=hidden name=type value="<%= type %>">
 <div class="strategy">
 <div class="details">  
 <div class="thecolumn">

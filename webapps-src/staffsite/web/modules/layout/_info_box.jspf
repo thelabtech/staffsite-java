@@ -4,7 +4,12 @@
 
  <div class="<%=(!module.equals("team"))?"":"righthand" %>">
             
-            	<h3 class="indented">Details about this <%=moduleUrl %></h3>
+            	<h3 class="indented">
+            	   Details about this <%=moduleUrl %>
+            	   <% if(moduleUrl.equals("Location")) { %>
+            	     <a href="/servlet/Report?targetareaid=<%= ar.getHashtable("info").get("targetareaid") %>">[View Reports]</a>
+            	   <% } %>
+            	</h3>
                 
                 <div class="strategy">
             	<div class="details">

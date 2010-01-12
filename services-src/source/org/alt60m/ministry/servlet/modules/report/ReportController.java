@@ -1,21 +1,22 @@
 
 package org.alt60m.ministry.servlet.modules.report;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Vector;
 
 import org.alt60m.ministry.model.dbio.LocalLevel;
 import org.alt60m.ministry.model.dbio.ReportRow;
+import org.alt60m.ministry.model.dbio.TargetArea;
 import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.servlet.ActionResults;
-import org.alt60m.servlet.Controller.ActionContext;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
+import org.alt60m.util.DBConnectionFactory;
 
 public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBaseModuleController {
 
@@ -53,7 +54,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
         	results.addHashtable("search", InfoBaseModuleHelper.lastSearch(ctx));
         	String type = ctx.getInputString("type");
             
-            if(type==null||!Arrays.asList(_reportTypes).contains(type)){
+            if(type == null || !Arrays.asList(_reportTypes).contains(type)){
             	type="national";
             }
             Boolean skip=false;
@@ -73,7 +74,6 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
             }
             
             
-            
             ctx.setSessionValue("isMuster",isMuster);
             results.putValue("isMuster",isMuster);
             
@@ -85,6 +85,9 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
 	            results.putValue("fromYear", Integer.toString(cal.get(Calendar.YEAR) - 1));
 	            results.putValue("toYear", Integer.toString(cal.get(Calendar.YEAR)));
 	            results.putValue("type", type);
+	            if(ctx.getInputString("targetareaid") != null) {
+	            	results.putValue("targetareaid", ctx.getInputString("targetareaid"));
+	            }
 	            results.putValue("personID",getUsersPersonId(ctx));
 	    		results.putValue("module",this.module);
 	    		results.putValue("title",this.title);
@@ -93,6 +96,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
 	    		if(!skip){
 	    		if(isMuster.equals("true")){
 	             	ctx.goToView("setMusterCriteriaAgile");
+	             	log.debug("Muster");
 	             }else{
 	    		ctx.goToView("setReportCriteriaAgile");
 	           }}
@@ -104,64 +108,81 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
     }
     public void statReport(ActionContext ctx){
     	try{
+    		Calendar cal = Calendar.getInstance();
     		ActionResults results=new ActionResults();
-    	String type = ctx.getInputString("type", _reportTypes);
-    	String region= ctx.getInputString("region");
-    	String teamID=ctx.getInputString("teamID");
-    	String targetAreaId=ctx.getInputString("targetareaid");
-    	String fromYear=ctx.getInputString("fromyear");
-    	String fromMonth=ctx.getInputString("frommonth");
-    	String periodBegin = "'"+fromYear + "/" + fromMonth+"/01'";
-    	Integer toYear=Integer.parseInt(ctx.getInputString("toyear"));
-    	Integer toMonth=Integer.parseInt(ctx.getInputString("tomonth"));
-    	if(ctx.getInputString("strategyList")==null){//this tells us it's from the checkbox page, so we move up the date to the first of the next month
-	    	if (toMonth.equals(12)){ //we want to cut off stats on the first of the subsequent month, so we rule out invalid months first
-	    		toYear+=1;
-	    		toMonth=1;
+	    	String type = ctx.getInputString("type", _reportTypes);
+	    	String targetAreaId = ctx.getInputString("targetareaid");
+	    	String region = ctx.getInputString("region");
+	    	if((region == null || region.equals("")) && (type.equals("locallevel") || type.equals("targetarea"))) {
+	    		// If no region was passed in, get one from the target area
+	    		TargetArea ta = new TargetArea(targetAreaId);
+	    		region = ta.getRegion();
+	    	} 
+	    	String fromYear = ctx.getInputString("fromyear");
+	    	fromYear = fromYear == null ? Integer.toString(cal.get(Calendar.YEAR) - 1) : fromYear;
+	    	String fromMonth = ctx.getInputString("frommonth");
+	    	fromMonth = fromMonth == null ? "8" : fromMonth;
+	    	String periodBegin = "'"+fromYear + "/" + fromMonth+"/01'";
+	    	Integer toYear = ctx.getInputString("toyear") == null ? cal.get(Calendar.YEAR) : Integer.parseInt(ctx.getInputString("toyear"));
+	    	Integer toMonth = ctx.getInputString("tomonth") == null ? cal.get(Calendar.MONTH) : Integer.parseInt(ctx.getInputString("tomonth"));
+	    	
+	    	if(ctx.getInputString("strategyList")==null){//this tells us it's from the checkbox page, so we move up the date to the first of the next month
+		    	if (toMonth.equals(12)){ //we want to cut off stats on the first of the subsequent month, so we rule out invalid months first
+		    		toYear+=1;
+		    		toMonth=1;
+		    	}
+		    	else
+		    	{
+		    		toMonth+=1;
+		    	}
+	    	}
+	    	String periodEnd = "'"+toYear.toString() + "/" + toMonth.toString()+"/01'";
+	    	String strategyList = "";
+	    	if(ctx.getInputString("strategyList")==null){
+	    		String[] strategiesArray = ctx.getInputStringArray("strategies");
+		    	for (String strat : strategiesArray)strategyList += "'" + strat +"',";
+		    	strategyList=strategyList.substring(0,strategyList.length()-1);//trim final comma
 	    	}
 	    	else
 	    	{
-	    		toMonth+=1;
+	    		strategyList=ctx.getInputString("strategyList");
 	    	}
-    	}
-    	String periodEnd = "'"+toYear.toString() + "/" + toMonth.toString()+"/01'";
-    	String strategyList = "";
-    	String temp="";
-    	Collection strategies;
-    	if(ctx.getInputString("strategyList")==null){
-    		String[] strategiesArray = ctx.getInputStringArray("strategies");
-	    	for (String strat : strategiesArray)strategyList += "'" + strat +"',";
-	    	strategyList=strategyList.substring(0,strategyList.length()-1);//trim final comma
-    	}
-    	else
-    	{
-    		strategyList=ctx.getInputString("strategyList");
-    		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
-    	}
-    	
-    	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
-    	results.putValue("type", type);
-    	results.putValue("region", region);
-    	results.putValue("teamID", teamID);
-    	results.putValue("fromyear", fromYear);
-    	results.putValue("frommonth", fromMonth);
-    	results.putValue("toyear", toYear.toString());
-    	results.putValue("tomonth", toMonth.toString());
-    	results.putValue("periodBegin",  fromMonth+ "/1/" + fromYear);
-    	results.putValue("periodEnd",  toMonth+ "/1/" + toYear);
-    	results.putValue("strategyList", strategyList);
-    	results.addCollection("report", report);
-    	 results.putValue("personID",getUsersPersonId(ctx));
-    	 ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
-     	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
-     	results.addHashtable("search", InfoBaseModuleHelper.lastSearch(ctx));
- 		results.putValue("module",this.module);
- 		results.putValue("title",this.title);
- 		results.putValue("mode","content");
- 		ctx.setSessionValue("report", results);
- 		ctx.setSessionValue("report_view", "reportDisplayAgile");
-    	ctx.setReturnValue(results);
-    	ctx.goToView("reportDisplayAgile");
+	    	String teamID = ctx.getInputString("teamID");
+	    	if(targetAreaId != null && !targetAreaId.equals("") && (teamID == null || teamID.equals(""))) {
+				Connection conn = DBConnectionFactory.getDatabaseConn();
+				Statement stmt = conn.createStatement();
+				String query = "SELECT fk_teamID FROM ministry_activity WHERE fk_targetAreaID = " + targetAreaId + " AND strategy IN(" + strategyList + ") LIMIT 1";
+				log.debug(query);
+				ResultSet activity = stmt.executeQuery(query);
+				if(activity.next()) {
+					teamID = activity.getString("fk_teamID");
+				}
+	    	}
+	    	
+	    	Vector<ReportRow> report=Reports.getSuccessCriteriaReport( type,  region,  strategyList,  periodEnd,  periodBegin,  teamID, targetAreaId);
+	    	results.putValue("type", type);
+	    	results.putValue("region", region);
+	    	log.debug("teamID: " + teamID);
+	    	results.putValue("teamID", teamID);
+	    	results.putValue("fromyear", fromYear);
+	    	results.putValue("frommonth", fromMonth);
+	    	results.putValue("toyear", toYear.toString());
+	    	results.putValue("tomonth", toMonth.toString());
+	    	results.putValue("periodBegin",  fromMonth+ "/1/" + fromYear);
+	    	results.putValue("periodEnd",  toMonth+ "/1/" + toYear);
+	    	results.putValue("strategyList", strategyList);
+	    	results.addCollection("report", report);
+	    	 results.putValue("personID",getUsersPersonId(ctx));
+	    	 ctx.setSessionValue("quicksearch",ctx.getInputString("quicksearch")==null?null:"true");
+	     	results.addHashtable("info",InfoBaseModuleHelper.infotize(new LocalLevel()));
+	     	results.addHashtable("search", InfoBaseModuleHelper.lastSearch(ctx));
+	 		results.putValue("module",this.module);
+	 		results.putValue("title",this.title);
+	 		results.putValue("mode","content");
+//	 		ctx.setSessionValue("report", results);
+//	 		ctx.setSessionValue("report_view", "reportDisplayAgile");
+	    	ctx.setReturnValue(results);
+	    	ctx.goToView("reportDisplayAgile");
     	}
     	catch (Exception e) {
             ctx.setError();
@@ -178,8 +199,7 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
             String periodEndMonth=ctx.getInputString("periodEndMonth");
             String periodEnd=periodEndYear+"/"+periodEndMonth+"/31";
             String strategyList="";
-            Collection strategies;
-        	if(ctx.getInputString("strategyList")==null){
+            if(ctx.getInputString("strategyList")==null){
         		String[] strategiesArray = ctx.getInputStringArray("strategies");
     	    	for (String temp : strategiesArray)strategyList += "'" + temp +"', ";
     	    	strategyList=strategyList.substring(0,strategyList.length()-2);//trim final comma
@@ -187,7 +207,6 @@ public class ReportController extends org.alt60m.ministry.servlet.modules.InfoBa
         	else
         	{
         		strategyList=ctx.getInputString("strategyList");
-        		 strategies=Arrays.asList(strategyList.replace("'","").split(","));
         	}
         	
         	String report=Reports.getMuster(type, region, periodEnd, strategyList, sortOrderFromRequest(ctx),org.alt60m.ministry.servlet.UnlockCampus.keys((String)ctx.getSessionValue("userName")));
