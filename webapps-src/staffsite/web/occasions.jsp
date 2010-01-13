@@ -2,8 +2,8 @@
 <jsp:useBean id="wed" class="org.alt60m.html.Weddings" />
 <jsp:useBean id="ann" class="org.alt60m.html.StaffAnniversaries" />
 <%
-	String campusOnly = "";
-	campusOnly = (String)session.getValue("campusOnly");
+	String campusOnly = "true";
+	// campusOnly = (String)session.getValue("campusOnly");
 %>
 <HTML>
 <HEAD>
