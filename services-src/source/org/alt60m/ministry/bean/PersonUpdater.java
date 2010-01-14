@@ -79,6 +79,7 @@ public class PersonUpdater {
 		result.put("person.preferredName","staff.preferredName");
 		
 		result.put("person.maritalStatus","staff.maritalStatus");
+		result.put("person.ministry", "staff.ministry");
 		result.put("person.region","staff.region");
 		result.put("person.isSecure","staff.isSecure");
 		
@@ -189,6 +190,7 @@ public class PersonUpdater {
 	  Staff spouse=new Staff(staff.getSpouseAccountNo());
 	  person.setFk_spouseID(spouse.getPersonID());
 	  
+	  person.setMinistry(staff.getMinistry());
 	  if (("NC SE MA MS GP GL NW RR UM SW NC").contains(staff.getRegion())){
 	  person.setRegion(staff.getRegion());}
 	  else

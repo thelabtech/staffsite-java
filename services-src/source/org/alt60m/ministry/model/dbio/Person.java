@@ -76,6 +76,7 @@ public class Person extends DBIOEntity {
 		setMetadata("Fk_spouseID", "fk_spouseID", table);
 		setMetadata("Fk_childOf", "fk_childOf", table);
 		setMetadata("IsSecureString","isSecure",table);
+		setMetadata("Ministry", "ministry", table);
 		
 		setAutodetectProperties(false);		
 	}
@@ -113,6 +114,7 @@ public class Person extends DBIOEntity {
     private int fk_spouseID = 0;
     private int fk_childOf = 0;
     private String isSecure = "";
+    private String ministry = "";
     //not saved (directly) to database; but used for changedBy and createdBy
     private String toolName = "NONE SPECIFIED";
 
@@ -399,6 +401,7 @@ public class Person extends DBIOEntity {
 	public void setMaritalStatus(String maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
+	
 	/**
 	 * @return Returns the isStaff.
 	 */
@@ -434,6 +437,13 @@ public class Person extends DBIOEntity {
 	 */
 	public void setMajor(String major) {
 		this.major = major;
+	}
+
+	public String getMinistry() {
+		return ministry;
+	}
+	public void setMinistry(String ministry) {
+		this.ministry = ministry;
 	}
 
 	/**
