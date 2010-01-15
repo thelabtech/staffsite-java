@@ -267,23 +267,7 @@ else{
 
 										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>
 						<div class="thecolumn">
-									<div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
-									<div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','student_leaders',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ></div>
-									<div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','involved_students',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Involved Students</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" onBlur=""></div>
-									<%
-									if(mr.getValue("strategy").equals("BR")){
-											%>
-											<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','seekers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Seekers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Seekers]"  value="<%=seekersPasser==null?"":seekersPasser%>" onBlur=""></div>
-											<%
-									}
-									else
-									{	%>
-										<input   id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[Seekers]"  value="<%if(criteria.get("Seekers")!=null){out.print(criteria.get("Seekers"));}%>" onBlur="">
-										<%
-									}
-									%>
-						</div>
-						<div class="thecolumn">
+                                    <b>Weekly Stats</b>
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','personal_evangelism',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Personal Evangelism</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[PersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" ></div>
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','group_evangelism',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Group Evangelism</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[GroupEvangelismExposures]" value="<%if(criteria.get("GroupEvangelismExposures")!=null){out.print(criteria.get("GroupEvangelismExposures"));}%>"  onBlur="" ></div>
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','media_exposures',600);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Media Exposures</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[MediaExposures]" value="<%if(criteria.get("MediaExposures")!=null){out.print(criteria.get("MediaExposures"));}%>"  onBlur="" ></div>
@@ -291,6 +275,7 @@ else{
 									
 						</div>
 						<div class="thecolumn">
+                                    <b>&nbsp;</b>
 									<input   tabIndex="3000" id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[Decisions]" value=""  onBlur="" >
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','decisions_personal',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Personal Evangelism Decisions</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[DecisionsPersonalEvangelismExposures]" value="<%if(criteria.get("DecisionsPersonalEvangelismExposures")!=null){out.print(criteria.get("DecisionsPersonalEvangelismExposures"));}%>"  onBlur="" ></div>
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','decisions_group',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Group Evangelism Decisions</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[DecisionsGroupEvangelismExposures]" value="<%if(criteria.get("DecisionsGroupEvangelismExposures")!=null){out.print(criteria.get("DecisionsGroupEvangelismExposures"));}%>"  onBlur="" ></div>
@@ -298,6 +283,25 @@ else{
 									
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Laborers Sent</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ></div>
 						</div>
+                        <div class="thecolumn">
+                                    <b>Semester/Quarter Stats</b> (update each semester/quarter or as changes occur)<br/>
+                                    The following are prefilled with the most recently entered stats.  If these numbers have changed, please update them below.
+                                    <div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
+                                    <div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','student_leaders',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ></div>
+                                    <div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','involved_students',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Involved Students</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[InvolvedStudents]"  value="<%=involvedStudentsPasser==null?"":involvedStudentsPasser%>" onBlur=""></div>
+                                    <%
+                                    if(mr.getValue("strategy").equals("BR")){
+                                            %>
+                                            <div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','seekers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Seekers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Seekers]"  value="<%=seekersPasser==null?"":seekersPasser%>" onBlur=""></div>
+                                            <%
+                                    }
+                                    else
+                                    {   %>
+                                        <input   id="week_<%=counter%>" type="hidden"  name="<%=uniqueStat%>[Seekers]"  value="<%if(criteria.get("Seekers")!=null){out.print(criteria.get("Seekers"));}%>" onBlur="">
+                                        <%
+                                    }
+                                    %>
+                        </div>
 								</div><!-- close aschool div -->
 					
 				
