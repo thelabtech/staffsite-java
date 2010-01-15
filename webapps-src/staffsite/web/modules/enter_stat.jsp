@@ -284,7 +284,7 @@ else{
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','laborers_sent',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Laborers Sent</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[LaborersSent]" value="<%if(criteria.get("LaborersSent")!=null){out.print(criteria.get("LaborersSent"));}%>"  onBlur="" ></div>
 						</div>
                         <div class="thecolumn">
-                                    <b>Semester/Quarter Stats</b> (update each semester/quarter or as changes occur)<br/>
+                                    <b>Semester/Quarter Stats</b><br/>
                                     The following are prefilled with the most recently entered stats.  If these numbers have changed, please update them below.
                                     <div class="field"><label  onMouseOver="infoBox('<%=uniqueStat%>','multipliers',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Multipliers</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[Multipliers]"  value="<%=multipliersPasser==null?"":multipliersPasser%>" onBlur="" ></div>
                                     <div class="field"><label   onMouseOver="infoBox('<%=uniqueStat%>','student_leaders',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" onClick="return false;">Student Leaders</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[StudentLeaders]"  value="<%=studentLeadersPasser==null?"":studentLeadersPasser%>" onBlur="" ></div>
