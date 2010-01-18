@@ -210,6 +210,18 @@ public class ProfileManager {
 
         return (StaffSiteProfile)profiles.iterator().next();
     }
+    
+    public StaffSiteProfile getProfile(CASUser user) throws ProfileNotFoundException, ProfileManagementException, MultipleProfilesFoundException, SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
+    	String username = user.getUsername();
+    	StaffSiteProfile ssp = null;
+    	try {
+    		ssp = getProfile(username);
+    	} catch (ProfileNotFoundException e) {
+    		User ssmUser = _securityMan.checkGCXCommunities(user);
+    		ssp = getProfile(ssmUser.getUsername());
+    	}
+    	return ssp;
+    }
 
     
 
@@ -379,7 +391,13 @@ public class ProfileManager {
 			throw new ProfileManagementException("Unable to authorize", e);
 		}
 		// Get profile
-		StaffSiteProfile ssp = getProfile(user.getUsername());
+		StaffSiteProfile ssp;
+		try {
+			ssp = getProfile(user);
+		} catch (SecurityManagerFailedException e) {
+			log.error(e, e);
+			throw new ProfileManagementException("Unable to authorize", e);
+		}
 		if (ssp.getAccountNo()!= null && 
 				user.getAcctNo() != null &&
 				!ssp.getAccountNo().equals(user.getAcctNo()))

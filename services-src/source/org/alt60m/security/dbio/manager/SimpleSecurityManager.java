@@ -543,60 +543,73 @@ public class SimpleSecurityManager implements SecurityManager {
 			// SSO login
 			
 			log.info("User " + user.getUsername() + " is logging in for first time");
-
-			// check if user is a member of CampusStaff; if so, create a
-			// staffsite account for them
-			try {
-				Collection<String> groups = null;
-				CommunityAdminInterface cai = null;
-				try {
-					cai = new CommunityAdminInterface("CampusStaff");
-					groups = cai.listContainingGroups(user.getGUID());
-					if (groups != null) {
-						log.debug("Groups:");
-						for (String group : groups) {
-							log.debug(group);
-						}
-					}
-				} catch (CommunityAdminInterfaceException caie) {
-					log.error("Membership query exception", caie);
-				}
-				if (groups == null) {
-					// log
-					if (cai.getError() == null) {
-						log.error("Membership query failed; unknown cause");
-					} else {
-						log.warn("Membership query failed: "
-								+ cai.getError());
-					}
-					// throw new SecurityManagerFailedException("Unable to
-					// perform GCX Community membership query");
-				}
-				if (groups != null && groups.contains(membershipFullGroupName)){
-					ssmUser = createProfile(user, guid);
-				}
-				else
-				{	
-					log.debug("User was not part of " + membershipFullGroupName);
-					ssmUser = addLegacy(user, username, acctNo);
-				}
-			}
-			catch (IOException e1)
-			{
-				throw new SecurityManagerFailedException("Unable to authorize", e1);
-			}
-//			catch (CommunityAdminInterfaceException e1)
-//			{
-//				//TODO: log failure
-//				throw new SecurityManagerFailedException("Unable to authorize", e1);
-//			}
 			
+			ssmUser = checkGCXCommunities(user);
 		}
 		
 		return ssmUser;
 	}
 
 
+	public User checkGCXCommunities(CASUser user)
+			throws SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
+		
+		String username = user.getUsername();
+		String guid = user.getGUID();
+		String acctNo = user.getAcctNo();
+		
+		User ssmUser = null;
+		// check if user is a member of CampusStaff; if so, create a
+		// staffsite account for them
+		try {
+			Collection<String> groups = null;
+			CommunityAdminInterface cai = null;
+			try {
+				cai = new CommunityAdminInterface("CampusStaff");
+				groups = cai.listContainingGroups(user.getGUID());
+				if (groups != null) {
+					log.debug("Groups:");
+					for (String group : groups) {
+						log.debug(group);
+					}
+				}
+			} catch (CommunityAdminInterfaceException caie) {
+				log.error("Membership query exception", caie);
+			}
+			if (groups == null) {
+				// log
+				if (cai.getError() == null) {
+					log.error("Membership query failed; unknown cause");
+				} else {
+					log.warn("Membership query failed: "
+							+ cai.getError());
+				}
+				// throw new SecurityManagerFailedException("Unable to
+				// perform GCX Community membership query");
+			}
+			if (groups != null && groups.contains(membershipFullGroupName)){
+				ssmUser = createProfile(user, guid);
+			}
+			else
+			{	
+				log.debug("User was not part of " + membershipFullGroupName);
+				ssmUser = addLegacy(user, username, acctNo);
+			}
+		}
+		catch (IOException e1)
+		{
+			throw new SecurityManagerFailedException("Unable to authorize", e1);
+		}
+//		catch (CommunityAdminInterfaceException e1)
+//		{
+//			//TODO: log failure
+//			throw new SecurityManagerFailedException("Unable to authorize", e1);
+//		}
+		
+		return ssmUser;
+	}
+
+	
 	/**
 	 * code for "legacy" users; i.e., had a profile, but not one
 	 * created under SSO. Need to find their ssm/profile and

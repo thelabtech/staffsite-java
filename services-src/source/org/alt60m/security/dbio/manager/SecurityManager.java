@@ -2,6 +2,7 @@ package org.alt60m.security.dbio.manager;
 
 import org.alt60m.cas.CASUser;
 import org.alt60m.security.dbio.model.User;
+import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
 
 public interface SecurityManager {
 	/**
@@ -47,4 +48,6 @@ public interface SecurityManager {
 	 * @throws UserNotVerifiedException
 	 */
 	public User checkUser(CASUser user) throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException;
+
+	public User checkGCXCommunities(CASUser user) throws SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException;
 } 
