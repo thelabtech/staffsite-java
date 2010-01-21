@@ -1,9 +1,14 @@
 package org.alt60m.html;
+
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.Vector;
+import org.alt60m.ministry.model.dbio.Country;
 import org.alt60m.util.CountryCodes;
 
 public class SelectCountry implements java.io.Serializable {
 
-	String[] countrycodes = CountryCodes.countryList;
+//	String[] countrycodes = CountryCodes.countryList;
  	String currentCountry;
     String name;
 
@@ -17,13 +22,16 @@ public class SelectCountry implements java.io.Serializable {
     }
 
     public String print() {
+    	SortedMap<String, String> countries = Country.getAllCountries();
+    	Set<String> countryKeys = countries.keySet();
 		StringBuffer sb = new StringBuffer();
 		sb.append("<select name=\"" + name + "\"><option value=\"\">&nbsp;</option>");
-		for (int i=0; i<countrycodes.length; i=i+2) {
-			if (countrycodes[i+1].equals(currentCountry)) {	
-				sb.append("<option value=\"" + countrycodes[i+1] + "\" selected>" + countrycodes[i] + " (" + countrycodes[i+1] + ")");
+		for (String country : countryKeys) {
+			String code = countries.get(country);
+			if (code.equals(currentCountry)) {	
+				sb.append("<option value=\"" + code + "\" selected>" + country + " (" + code + ")");
 			} else {
-				sb.append("<option value=\"" + countrycodes[i+1] + "\">" + countrycodes[i] + " (" + countrycodes[i+1] + ")");
+				sb.append("<option value=\"" + code + "\">" + country + " (" + code + ")");
 			}
 		}
 		sb.append("</select>");
@@ -31,12 +39,14 @@ public class SelectCountry implements java.io.Serializable {
     }
 
 	public String display() {
+    	SortedMap<String, String> countries = Country.getAllCountries();
+    	Set<String> countryKeys = countries.keySet();
 		StringBuffer sb = new StringBuffer();
-		int i;
 
-		for (i = 0; i < countrycodes.length; i=i+2) {
-			if (countrycodes[i+1].equals(currentCountry)) {
-				sb.append(countrycodes[i]);
+		for (String country : countryKeys) {
+			String code = countries.get(country);
+			if (code.equals(currentCountry)) {
+				sb.append(country);
 			}
 		}
 		return sb.toString();
