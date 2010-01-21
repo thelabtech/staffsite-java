@@ -3,8 +3,7 @@ package org.alt60m.html;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.Vector;
-import org.alt60m.ministry.model.dbio.Country;
-import org.alt60m.util.CountryCodes;
+import org.alt60m.util.Country;
 
 public class SelectCountry implements java.io.Serializable {
 

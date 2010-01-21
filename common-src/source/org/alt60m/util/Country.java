@@ -1,4 +1,4 @@
-package org.alt60m.ministry.model.dbio;
+package org.alt60m.util;
 
 import java.util.*;
 import com.kenburcham.framework.dbio.DBIOEntity;
