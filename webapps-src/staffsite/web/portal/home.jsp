@@ -308,7 +308,7 @@ function toggleDiv(who){
 			<%=box.printBottom()%>
 			<br>
 			<!-- start 'Way Forward' module -->
-			<% box.setTitle("Way Forward");%>
+<!--			<% box.setTitle("Way Forward");%>
 			<%=box.printTop()%>
 			<%=fontS%>
 				<A  class="sideBar"   href="http://campuscrusadeforchrist.com/wayforward/">Podcasts</a><br>
@@ -316,7 +316,7 @@ function toggleDiv(who){
 			</font>
 			<%=box.printBottom()%>
 			<br>				
-			<!-- start 'SLICE' module -->
+-->			<!-- start 'SLICE' module -->
 			<!-- <% box.setTitle("SLICE Survey 2007");%>
 			<%=box.printTop()%>
 			<%=fontS%>
