@@ -85,7 +85,7 @@ function toggleDiv(who){
 				<% box.setTitle("Check Email");	%>
 				<%=box.printTop()%>
 				<center>
-	<a href="JavaScript: popupWindow('http://mymail.uscm.org', 'LoginEmail', 'dependent=no,scrollbars=yes,resizable')" onMouseOver="window.status='Show my uscm email'; return true;" onMouseOut="window.status=''; return true;">My USCM Mailbox<br>(use Outlook password)</A>
+	<a href="JavaScript: popupWindow('http://mymail.ccci.org', 'LoginEmail', 'dependent=no,scrollbars=yes,resizable')" onMouseOver="window.status='Show my uscm email'; return true;" onMouseOut="window.status=''; return true;">My USCM Mailbox<br>(use Outlook password)</A>
 				<%=box.printBottom()%>
 				<br>
 			<%// } %>
