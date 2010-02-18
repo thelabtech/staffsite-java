@@ -20,7 +20,7 @@ public class DBConnectionFactory {
 	protected static Log log = LogFactory.getLog(DBConnectionFactory.class);
 
 	private static final String ORACLE_DRIVER = "oracle.jdbc.OracleDriver";
-    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = hart-a8211v)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = hart-a8411v)(PORT = 1521)) (FAILOVER = ON) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = psbatch.ccci.org) (FAILOVER_MODE = (TYPE = SELECT) (METHOD = BASIC) (RETRIES = 180) (DELAY = 5) ) ) )";
+    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = harta8211v)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = harta8311v)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = harta8411v)(PORT = 1521)) (FAILOVER = ON) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = psbatch.ccci.org) (FAILOVER_MODE = (TYPE = SELECT) (METHOD = BASIC) (RETRIES = 180) (DELAY = 5) ) ) )";
 	private static final String ORACLE_DEFAULT_USER = "istcampus";
 	private static final String ORACLE_DEFAULT_PW = "gocampus";
 
