@@ -14,15 +14,15 @@
 		
 		// Has password
 		if (password != null)
-			refreshURL = "https://" + username + ":" + URLEncoder.encode(password,false) + "@mymail.uscm.org/exchange/logonfrm.asp?isnewwindow=0&mailbox="+username;
+			refreshURL = "https://" + username + ":" + URLEncoder.encode(password,false) + "@mymail.ccci.org/exchange/logonfrm.asp?isnewwindow=0&mailbox="+username;
 		
 		// Login name only (no password)
 		else 
-			refreshURL = "https://mymail.uscm.org/exchange/logonfrm.asp?isnewwindow=0&mailbox="+username;
+			refreshURL = "https://mymail.ccci.org/exchange/logonfrm.asp?isnewwindow=0&mailbox="+username;
 	
 	// No nothing - just go to normal login
 	} else {
-		refreshURL = "https://mymail.uscm.org";
+		refreshURL = "https://mymail.ccci.org";
 	}
 
 %>
