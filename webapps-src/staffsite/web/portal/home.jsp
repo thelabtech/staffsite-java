@@ -237,7 +237,7 @@ function toggleDiv(who){
 			<%=box.printBottom()%>
 			
 		</td>
-		<td width="2%"></td>
+		<td width="25"></td>
 
 		<% box.setStyle("neoclassic");%>
 
@@ -261,7 +261,7 @@ function toggleDiv(who){
 
 		<% box.setStyle(boxStyle); box.setScreenAlign("right");%>
 
-		<td width="2%"></td>
+		<td width="25"></td>
 
 		<td valign='top' width=140>
 
