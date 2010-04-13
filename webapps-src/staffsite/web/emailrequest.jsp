@@ -84,9 +84,9 @@
   <p>
 <%
   } else {
-    email.setTo("help@campuscrusadeforchrist.com");
+    email.setTo("help@cojourners.com");
     email.setFrom(request.getParameter("email"));
-    email.setSubject("E-mail and Website Account Request");
+    email.setSubject("E-mail and Website Account Request: " + request.getParameter("firstName")+" "+request.getParameter("middleInitial")+" "+request.getParameter("lastName"));
 
     StringBuffer s = new StringBuffer();
 
