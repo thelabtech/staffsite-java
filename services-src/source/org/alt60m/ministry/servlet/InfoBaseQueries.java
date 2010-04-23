@@ -48,7 +48,7 @@ public class InfoBaseQueries {
 			" AND (ministry_activity_history.toStrategy Is Null)  GROUP BY ministry_activity_history.activity_id ) lastDates "+
 			" INNER JOIN ministry_activity_history  ON (lastDates.activity_id=ministry_activity_history.activity_id AND "+
 			" lastDates.id=ministry_activity_history.id)) lastStatus  ON ministry_activity.ActivityID=lastStatus.activity_id  "+
-			" WHERE  ministry_activity.strategy in ('FS', 'GK', 'WS', 'CL', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') "+
+			" WHERE  ministry_activity.strategy in ('FS', 'GK', 'WS', 'FC', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') "+
 			" and  (ministry_activity.status<>lastStatus.status) and lastStatus.status in ('AC','TR','LA','PI','KE','FR','IN')  "+
 			" GROUP BY   ministry_activity.ActivityID  ORDER BY campusName, strategy;";
 				
@@ -557,7 +557,7 @@ public class InfoBaseQueries {
 	
 	public static Hashtable<String,Integer> getActivityCountByRegionAndStrategies(String region, Collection<String> strategies) {//will be deprecated by getActivityCountByParametersAndStrategies  
 		try{
-			String queryToMatch=" ministry_activity.strategy in ('FS', 'GK', 'WS', 'CL', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') and  lastStatus.status in ('AC','TR','LA')  and ministry_targetarea.region = 'NW' ";
+			String queryToMatch=" ministry_activity.strategy in ('FS', 'GK', 'WS', 'FC', 'AA', 'KC', 'BR', 'OT', 'IN', 'II', 'VL', 'IE', 'ID') and  lastStatus.status in ('AC','TR','LA')  and ministry_targetarea.region = 'NW' ";
 			String queryPortion=" lastStatus.status in ('AC','TR','LA')  and ministry_activity.strategy in (";
 			Iterator strategIt=strategies.iterator();
 			while(strategIt.hasNext())

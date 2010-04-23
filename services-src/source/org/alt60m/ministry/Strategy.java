@@ -13,7 +13,7 @@ public enum Strategy {
 	WS ("WSN"),
 	BR ("Bridges"),
 	AA ("Athletes In Action"),
-	CL ("Faculty Commons"),
+	FC ("Faculty Commons"),
 	KC ("Korean CCC"),
 	GK ("Greek"),
 	VL ("Valor"),
@@ -60,7 +60,7 @@ public enum Strategy {
 	}
 
 	public static EnumSet<Strategy> campusNoSuccessCriteriaStrategies() {
-		return EnumSet.of(CL, KC);
+		return EnumSet.of(FC, KC);
 	}
 	
 	public static EnumSet<Strategy> campusStrategies() {

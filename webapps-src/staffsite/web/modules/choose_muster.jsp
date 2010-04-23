@@ -62,7 +62,7 @@
 			</li><li>Bridges<input type="checkbox" name="strategies"   value="BR" >
 			</li><li>WSN Local Teams<input type="checkbox" name="strategies"   value="WS" >
 			</li><li>Athletes In Action<input type="checkbox" name="strategies"   value="AA" >
-            </li><li>Faculty Commons<input type="checkbox" name="strategies"   value="CL" >
+            </li><li>Faculty Commons<input type="checkbox" name="strategies"   value="FC" >
             </li><li>Student Venture<input type="checkbox" name="strategies"   value="SV" >
 			</li><li>Korean CCC<input type="checkbox" name="strategies"   value="KC" >
 			</li><li>Greek<input type="checkbox" name="strategies"   value="GK" >

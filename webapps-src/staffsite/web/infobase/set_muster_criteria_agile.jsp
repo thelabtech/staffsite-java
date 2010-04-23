@@ -191,7 +191,7 @@ inputs = table.getElementsByTagName('input');
 			Bridges<input type="checkbox" name="strategies"   value="BR" ><br>
 			WSN Local Teams<input type="checkbox" name="strategies"   value="WS" ><br>
 			Athletes In Action<input type="checkbox" name="strategies"   value="AA" ><br>
-			Faculty Commons<input type="checkbox" name="strategies"   value="CL" ><br>
+			Faculty Commons<input type="checkbox" name="strategies"   value="FC" ><br>
 			Korean CCC<input type="checkbox" name="strategies"   value="KC" ><br>
 			Greek<input type="checkbox" name="strategies"   value="GK" ><br>
 			Valor<input type="checkbox" name="strategies"   value="VL" ><br>

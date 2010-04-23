@@ -17,7 +17,7 @@ public class SelectLane implements java.io.Serializable {
     		"FD", 
     		"BR",
     		"SV",
-    		"CL",
+    		"FC",
     		"OT"};
 	String[] laneNames = {" ", 
 			"Field Strategies", 
