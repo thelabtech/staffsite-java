@@ -80,7 +80,7 @@ Hashtable staffInfo = (Hashtable)session.getValue("staffInfo");
 		
 		To remove yourself from a Missional Team, click the red "X" beside its name <br>
 		on your <A HREF="/servlet/StaffController?action=showHome">staff homepage</A>, 
-		the <A HREF="/servlet/InfoBaseController">InfoBase</A> home page or your 
+		the <A HREF="/servlet/Home">InfoBase</A> home page or your 
 		<A HREF="/servlet/InfoBaseController?action=showPersonInfo&accountNo=<%=accountNo%>&personID=<%=ar.getValue("personID") %>">personal info</A> page.<br><br>
 		
 		<NOBR><A HREF="/servlet/StaffController?action=showTools"><I>Jump to Tools page</I></A></NOBR><br>
