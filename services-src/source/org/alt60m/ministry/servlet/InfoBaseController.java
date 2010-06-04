@@ -2659,7 +2659,7 @@ public class InfoBaseController extends Controller {
         String personID = person.getPersonID()+"";
         String isRD="false";
         LocalLevel lab=new LocalLevel(); //LAB members are honorary RDees!!
-        lab.setName("The LAB - Technology");
+        lab.setName("CM The LAB - Technology");
         lab.setRegion("NC");
         lab.select();
         Vector<Contact> labMembers=InfoBaseQueries.getTeamMembers(lab.getLocalLevelId());
