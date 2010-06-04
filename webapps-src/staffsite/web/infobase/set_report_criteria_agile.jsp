@@ -126,7 +126,7 @@ function submitReportForm(thisForm) {
 					<input type="checkbox" name="strategies"   value="WS" >WSN Local Teams<br>
 					
 					<input type="checkbox" name="strategies"   value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies"   value="CL" >Faculty Commons<br>
+					<input type="checkbox" name="strategies"   value="FC" >Faculty Commons<br>
 					<input type="checkbox" name="strategies"   value="KC" >Korean CCC<br>
 					<input type="checkbox" name="strategies"   value="GK" >Greek<br>
 					<input type="checkbox" name="strategies"   value="VL" >Valor<br>

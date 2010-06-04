@@ -36,7 +36,7 @@ else if (strategy.equals("IN")) {strategyName = "Nations";}
 else if (strategy.equals("II")) {strategyName = "Impact";}
 else if (strategy.equals("BR")) {strategyName = "Bridges";}
 else if (strategy.equals("AA")) {strategyName = "Athletes In Action";}
-else if (strategy.equals("CL")) {strategyName = "Faculty Commons";}
+else if (strategy.equals("FC")) {strategyName = "Faculty Commons";}
 else if (strategy.equals("KC")) {strategyName = "Korean CCC";}
 else  {strategyName = strategy;}
 %>

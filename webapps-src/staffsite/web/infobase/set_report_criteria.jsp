@@ -98,7 +98,7 @@ Integer yearvar=1998;
 					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
 					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN Local Teams<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
-					<input type="checkbox" name="strategies[CL]"  checked value="CL" >Faculty Commons<br>
+					<input type="checkbox" name="strategies[CL]"  checked value="FC" >Faculty Commons<br>
 					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
 					<input type="checkbox" name="strategies[GK]"  checked value="GK" >Greek<br>
 					<input type="checkbox" name="strategies[VL]"  checked value="VL" >Valor<br>
