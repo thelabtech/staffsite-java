@@ -93,6 +93,16 @@ public class Staff extends DBIOEntity {
 	private String removedFromPeopleSoft = "";
 	private String isNonUSStaff = "";  // Currently used so Review360 can see people not in PS
 	private int personID;
+	private String middleName = "";
+	private String paygroup = "";
+	private String idType = "";
+	private String statusDescr = "";
+	private String internationalStatus = "";
+	private double balance = 0;
+	private String cccHrSendingDept = "";
+	private String cccHrCaringDept = "";
+	private String cccCaringMinistry = "";
+	private String assignmentLength = "";
 	
 	public Staff(String id) {
 		accountNo = id;
@@ -189,6 +199,16 @@ public class Staff extends DBIOEntity {
 		setMetadata("IsSecureString","isSecure",table);
 		setMetadata("IsSupportedString","isSupported",table);
 		setMetadata("RemovedFromPeopleSoft","removedFromPeopleSoft",table);
+		setMetadata("MiddleName","isNonUSStaff",table);
+		setMetadata("Paygroup","isNonUSStaff",table);
+		setMetadata("IdType","isNonUSStaff",table);
+		setMetadata("StatusDescr","isNonUSStaff",table);
+		setMetadata("InternationalStatus","isNonUSStaff",table);
+		setMetadata("Balance","isNonUSStaff",table);
+		setMetadata("CccHrSendingDept","isNonUSStaff",table);
+		setMetadata("CccHrCaringDept","isNonUSStaff",table);
+		setMetadata("CccCaringMinistry","isNonUSStaff",table);
+		setMetadata("AssignmentLength","isNonUSStaff",table);
 		setMetadata("IsNonUSStaff","isNonUSStaff",table);  // Currently used so Review360 can see people not in PS
 		
 		setMetadata("PrimaryAddressId","fk_primaryAddress",table);
@@ -592,5 +612,65 @@ public class Staff extends DBIOEntity {
 	 */
 	public void setPrimaryEmpLocDesc(String primaryEmpLocDesc) {
 		this.primaryEmpLocDesc = primaryEmpLocDesc;
+	}
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	public String getPaygroup() {
+		return paygroup;
+	}
+	public void setPaygroup(String paygroup) {
+		this.paygroup = paygroup;
+	}
+	public String getIdType() {
+		return idType;
+	}
+	public void setIdType(String idType) {
+		this.idType = idType;
+	}
+	public String getStatusDescr() {
+		return statusDescr;
+	}
+	public void setStatusDescr(String statusDescr) {
+		this.statusDescr = statusDescr;
+	}
+	public String getInternationalStatus() {
+		return internationalStatus;
+	}
+	public void setInternationalStatus(String internationalStatus) {
+		this.internationalStatus = internationalStatus;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	public String getCccHrSendingDept() {
+		return cccHrSendingDept;
+	}
+	public void setCccHrSendingDept(String cccHrSendingDept) {
+		this.cccHrSendingDept = cccHrSendingDept;
+	}
+	public String getCccHrCaringDept() {
+		return cccHrCaringDept;
+	}
+	public void setCccHrCaringDept(String cccHrCaringDept) {
+		this.cccHrCaringDept = cccHrCaringDept;
+	}
+	public String getCccCaringMinistry() {
+		return cccCaringMinistry;
+	}
+	public void setCccCaringMinistry(String cccCaringMinistry) {
+		this.cccCaringMinistry = cccCaringMinistry;
+	}
+	public String getAssignmentLength() {
+		return assignmentLength;
+	}
+	public void setAssignmentLength(String assignmentLength) {
+		this.assignmentLength = assignmentLength;
 	}
 }
