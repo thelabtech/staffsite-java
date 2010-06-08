@@ -328,7 +328,7 @@ public class StaffUpdater {
 		staff.setPaygroup(rs.getString("paygroup"));
 		staff.setIdType(rs.getString("id_type"));
 		staff.setStatusDescr(rs.getString("status_descr"));
-		staff.setInternationalStatus(rs.getString("international_status"));
+		staff.setInternationalStatus(rs.getString("internation_status"));
 		staff.setBalance(rs.getDouble("balance"));
 		staff.setCccHrSendingDept(rs.getString("ccc_hr_sending_dept"));
 		staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
