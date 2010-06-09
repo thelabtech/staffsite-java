@@ -330,10 +330,10 @@ public class StaffUpdater {
 		staff.setStatusDescr(rs.getString("status_descr"));
 		staff.setInternationalStatus(rs.getString("internation_status"));
 		staff.setBalance(rs.getDouble("balance"));
-		staff.setCccHrSendingDept(rs.getString("ccc_hr_sending_dept"));
+		staff.setCccHrSendingDept(rs.getString("ccc_hr_sndng_dept"));
 		staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
-		staff.setCccCaringMinistry(rs.getString("ccc_caring_ministry"));
-		staff.setAssignmentLength(rs.getString("assignment_length"));
+		staff.setCccCaringMinistry(rs.getString("ccc_carng_ministry"));
+		staff.setAssignmentLength(rs.getString("assignment_lngth"));
 		
 
 		//guarentees that if a staff is reloaded at night, they are said to be on peoplesoft.  (I.E., seen on Infobase)
