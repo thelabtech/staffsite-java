@@ -199,16 +199,16 @@ public class Staff extends DBIOEntity {
 		setMetadata("IsSecureString","isSecure",table);
 		setMetadata("IsSupportedString","isSupported",table);
 		setMetadata("RemovedFromPeopleSoft","removedFromPeopleSoft",table);
-		setMetadata("MiddleName","isNonUSStaff",table);
-		setMetadata("Paygroup","isNonUSStaff",table);
-		setMetadata("IdType","isNonUSStaff",table);
-		setMetadata("StatusDescr","isNonUSStaff",table);
-		setMetadata("InternationalStatus","isNonUSStaff",table);
-		setMetadata("Balance","isNonUSStaff",table);
-		setMetadata("CccHrSendingDept","isNonUSStaff",table);
-		setMetadata("CccHrCaringDept","isNonUSStaff",table);
-		setMetadata("CccCaringMinistry","isNonUSStaff",table);
-		setMetadata("AssignmentLength","isNonUSStaff",table);
+		setMetadata("MiddleName","middleName",table);
+		setMetadata("Paygroup","paygroup",table);
+		setMetadata("IdType","idType",table);
+		setMetadata("StatusDescr","statusDescr",table);
+		setMetadata("InternationalStatus","internationalStatus",table);
+		setMetadata("Balance","balance",table);
+		setMetadata("CccHrSendingDept","cccHrSendingDept",table);
+		setMetadata("CccHrCaringDept","cccHrCaringDept",table);
+		setMetadata("CccCaringMinistry","cccCaringMinistry",table);
+		setMetadata("AssignmentLength","assignmentLength",table);
 		setMetadata("IsNonUSStaff","isNonUSStaff",table);  // Currently used so Review360 can see people not in PS
 		
 		setMetadata("PrimaryAddressId","fk_primaryAddress",table);
