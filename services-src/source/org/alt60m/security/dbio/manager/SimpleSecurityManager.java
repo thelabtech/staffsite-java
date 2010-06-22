@@ -828,7 +828,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		ssmUser = new User();
 		ssmUser.setUsername(user.getUsername());
 		ssmUser.select();
-		if (!digestedPassword.equals("")) {
+		if (digestedPassword != null && !digestedPassword.equals("")) {
 			// restore original password
 			ssmUser.setPassword(digestedPassword);
 		}
