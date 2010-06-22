@@ -214,12 +214,7 @@ public class ProfileManager {
     public StaffSiteProfile getProfile(CASUser user) throws ProfileNotFoundException, ProfileManagementException, MultipleProfilesFoundException, SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
     	String username = user.getUsername();
     	StaffSiteProfile ssp = null;
-    	try {
-    		ssp = getProfile(username);
-    	} catch (ProfileNotFoundException e) {
-    		User ssmUser = _securityMan.checkGCXCommunities(user);
-    		ssp = getProfile(ssmUser.getUsername());
-    	}
+  		ssp = getProfile(username);
     	return ssp;
     }
 
@@ -394,6 +389,15 @@ public class ProfileManager {
 		StaffSiteProfile ssp;
 		try {
 			ssp = getProfile(user);
+		} catch (ProfileNotFoundException e) {
+			try {
+				// Since they have a verified account, create a profile for them
+				_securityMan.createProfile(user);
+				ssp = getProfile(user);
+			} catch (SecurityManagerFailedException e1) {
+				log.error(e, e);
+				throw new ProfileManagementException("Unable to authorize", e);
+			}
 		} catch (SecurityManagerFailedException e) {
 			log.error(e, e);
 			throw new ProfileManagementException("Unable to authorize", e);

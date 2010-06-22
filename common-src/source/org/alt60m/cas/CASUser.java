@@ -68,6 +68,17 @@ public class CASUser implements Serializable {
 	}
 
 	/**
+	 * @return a valid employee ID, or null if the user has none
+	 */
+	public String getEmployeeId() {
+		String accountNo = attributes.get(ATTR_EMPLOYEE_ID);
+		if (accountNo != null && accountNo.equals("")) {
+			accountNo = null;
+		}
+		return accountNo;
+	}
+	
+	/**
 	 * @return a valid account number, or null if the user has none
 	 */
 	public String getAcctNo() {

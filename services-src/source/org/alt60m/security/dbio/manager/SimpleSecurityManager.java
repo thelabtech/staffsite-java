@@ -522,7 +522,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * 
 	 */
 	public User checkUser(CASUser user)
-			throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException {
+			throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException, MultipleProfilesFoundException, ProfileManagementException {
 		
 		String username = user.getUsername();
 		String guid = user.getGUID();
@@ -544,13 +544,74 @@ public class SimpleSecurityManager implements SecurityManager {
 			
 			log.info("User " + user.getUsername() + " is logging in for first time");
 			
-			ssmUser = checkGCXCommunities(user);
+			ssmUser = checkAndCreateUser(user);
+		}
+		
+		return ssmUser;
+	}
+	
+	public User checkAndCreateUser(CASUser user) throws UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException, MultipleProfilesFoundException, ProfileManagementException {
+		User ssmUser = null;
+		
+		if (checkIfEmployee(user)) {
+			ssmUser = checkIfUserExists(user);
+			if (ssmUser == null) {
+				ssmUser = createProfile(user);
+			}
+		} else {
+			throw new UserNotVerifiedException("No employee ID");
+		}
+		
+		return ssmUser;
+	}
+	
+	public boolean checkIfEmployee(CASUser user) {
+		String emplid = user.getEmployeeId();
+		return (emplid != null && !emplid.equals(""));
+	}
+	
+	public User checkIfUserExists(CASUser user) throws MultipleProfilesFoundException, SsmUserAlreadyExistsException, ProfileManagementException, SecurityManagerFailedException {
+		User ssmUser = null;
+		String username = user.getUsername();
+		String accountNo = user.getAcctNo();
+		
+		try {
+			ssmUser = getUserObjectByUsername(username);
+			
+			// Make sure Profile exists, then add GUID to user record
+			StaffSiteProfile ssp = ProfileManager.getProfile(username);
+			addGUID(ssmUser, user);
+		} catch (UserNotFoundException e) {
+			try {
+				ssmUser = getUserObjectByAccountNo(accountNo);
+
+				// Make sure username and GUID are correct
+				changeUsername(ssmUser, username);
+				addGUID(ssmUser, user);
+			} catch (UserNotFoundException e1) {
+				// will return null
+			} catch (ProfileNotFoundException e1) {
+				// will return null
+			}
+		} catch (ProfileNotFoundException e) {
+			try {
+				//try getting profile by account number (like above)
+				StaffSiteProfile ssp = getProfileByAccountNo(accountNo);
+				//if successful, change profile username to match ssm
+				ssp.setUserName(username);
+				ssp.persist();
+				addGUID(ssmUser, user);
+			} catch (ProfileNotFoundException e1) {
+				// has user but no profile
+				createProfile(user);
+				addGUID(ssmUser, user);
+			}
 		}
 		
 		return ssmUser;
 	}
 
-
+/* No more GCX
 	public User checkGCXCommunities(CASUser user)
 			throws SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
 		
@@ -608,7 +669,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		
 		return ssmUser;
 	}
-
+*/
 	
 	/**
 	 * code for "legacy" users; i.e., had a profile, but not one
@@ -622,6 +683,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @throws UserNotVerifiedException
 	 * @throws UserNotFoundException
 	 */
+/*
 	User addLegacy(CASUser user, String username, String acctNo) throws SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException {
 
 		
@@ -695,7 +757,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		}
 		return ssmUser;
 	}
-
+*/
 
 	/**
 	 * @param user
@@ -703,7 +765,7 @@ public class SimpleSecurityManager implements SecurityManager {
 	 * @return
 	 * @throws SecurityManagerFailedException
 	 */
-	User createProfile(CASUser user, String guid) throws SecurityManagerFailedException {
+	public User createProfile(CASUser user) throws SecurityManagerFailedException {
 		log.debug("Creating profile for user: " + user.getUsername());
 		User ssmUser;
 		//create a profile
@@ -770,7 +832,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			// restore original password
 			ssmUser.setPassword(digestedPassword);
 		}
-		ssmUser.setGloballyUniqueID(guid);
+		ssmUser.setGloballyUniqueID(user.getGUID());
 		ssmUser.persist();
 		Person p = new Person();
 		p.setToolName("SSM");
@@ -787,10 +849,13 @@ public class SimpleSecurityManager implements SecurityManager {
 	}
 
 	private void addGUID(User ssmUser, CASUser casUser){
-		log.info("Attempting to add user " +
-				casUser.getUsername() + " to CampusStaff");
+		log.info("Adding GUID to user " + casUser.getUsername());
 		String guid = casUser.getGUID();
-		
+		ssmUser.setGloballyUniqueID(guid);
+		ssmUser.persist();
+	}
+	
+/*
 		//first do a proxy request to GCX; this will fail if they've not logged
 		//into gcx yet, but it will put them in the system
 		
@@ -849,7 +914,7 @@ public class SimpleSecurityManager implements SecurityManager {
 			log.error("Exception adding user to CampusStaff", e);
 			log.info("User not added to CampusStaff");
 		}
-	}
+*/
 
 	/**
 	 * @param ssmUser
