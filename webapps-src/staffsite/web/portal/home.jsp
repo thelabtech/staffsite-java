@@ -54,6 +54,11 @@ function toggleDiv(who){
 		color:<%=color1%>;
 		
 		}
+	a.titleLink
+		{
+		color: #ffffff;
+		text-decoration: none;
+		} 
 	
 </STYLE>	
 
@@ -73,7 +78,10 @@ function toggleDiv(who){
 
 <% region = (String)profile.get("region"); %>
 <% try { %>
-
+<!-- temporary sticky note graphic to announce removal of GCX tool bar -->
+		<div style="position:absolute; top:120px;">
+			<img src="/images/sticky_note.png" width="224" height="134" style="position:relative; left:205px; top:-127px;" />
+		</div>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
 	<tr valign=top>
 		<td width="140">
@@ -278,35 +286,51 @@ function toggleDiv(who){
 			<%// } %>
 			</font>
 			<%=box.printBottom()%>
-			<br>
+			<br/>
+			
       <style type=text/css>
       a.sideBar
       {
       height:20px;
       }
       </style>
+      
 			<!-- start 'Staff Services' module -->
-			<% box.setTitle("Staff Services");%>
+			<% box.setTitle("<a class='titleLink' href='https://staff2.ccci.org/ss/pages/index.html' target='_blank'>Staff Services</a>");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A  class="sideBar"   class="sideBar" href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><BR>
-				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br>
-				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a><br/>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/OHSFrame.html' target='_blank'>Handbooks/Manuals</a><br/>
+				<A  class="sideBar"   class="sideBar" href='http://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet' target="_blank">Reimbursements</A><br/>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account</a><br/>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/pages/index.html' target='_blank'>Staff Services</a>
 			</font>
 			<%=box.printBottom()%>
-			<br>
+			<br/>
 			<!-- start 'Staff Web' module -->
-			<% box.setTitle("Staff Web");%>
+			<% box.setTitle("<a class='titleLink' href='http://staffweb.ccci.org/' target='_blank'>StaffWeb</a>");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A  class="sideBar"   href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>Nat'l Discount Programs</a><br>
-				<A  class="sideBar"   href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br>
-				<A  class="sideBar"   href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br>
-				<A  class="sideBar"   href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br>
+				<A  class="sideBar"   href='https://staff2.ccci.org/ss/servlet/Fin8Reports' target='_blank'>Financial Reports</a><br/>
+				<A  class="sideBar"   href="http://staffweb.ccci.org/legal/index.aspx" target="_blank">Legal Rights on Campus</a><br/>
+				<A  class="sideBar"   href='http://staffweb.ccci.org/mpd/index.aspx' target='_blank'>MPD</a><br/>
+				<A  class="sideBar"   href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Programs</a><br/>
+				<A  class="sideBar"   href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br/>
+				<A  class="sideBar"   href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br/>
 				<A  class="sideBar"   href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
 			</font>
 			<%=box.printBottom()%>
-			<br>
+			<br/>
+			<!-- start 'Global' module -->
+			<% box.setTitle("Global");%>
+			<%=box.printTop()%>
+			<%=fontS%>
+				<A  class="sideBar"   href='http://www.gogmx.org' target='_blank'>GMX (Videos)</a><br/>
+				<A  class="sideBar"   href='http://mygcx.org' target='_blank'>MyGCX (Communities)</a><br/>
+				<A  class="sideBar"   href="https://www.mygcx.org/GPS/screen/softwareOrdering" target="_blank">Order Software</a><br/>
+			</font>
+			<%=box.printBottom()%>
+			<br/>
 			<!-- start 'Way Forward' module -->
 <!--			<% box.setTitle("Way Forward");%>
 			<%=box.printTop()%>
