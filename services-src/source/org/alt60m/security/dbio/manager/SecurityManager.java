@@ -3,6 +3,8 @@ package org.alt60m.security.dbio.manager;
 import org.alt60m.cas.CASUser;
 import org.alt60m.security.dbio.model.User;
 import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
+import org.alt60m.staffSite.profiles.dbio.MultipleProfilesFoundException;
+import org.alt60m.staffSite.profiles.dbio.ProfileManagementException;
 
 public interface SecurityManager {
 	/**
@@ -46,8 +48,10 @@ public interface SecurityManager {
 	 * @return The (SecurityManager) User object associated with the given CASUser
 	 * @throws UserNotFoundException
 	 * @throws UserNotVerifiedException
+	 * @throws ProfileManagementException 
+	 * @throws MultipleProfilesFoundException 
 	 */
-	public User checkUser(CASUser user) throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException;
-
-	public User checkGCXCommunities(CASUser user) throws SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException;
+	public User checkUser(CASUser user) throws UserNotFoundException, UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException, MultipleProfilesFoundException, ProfileManagementException;
+	public User createProfile(CASUser user) throws SecurityManagerFailedException;
+	//public User checkGCXCommunities(CASUser user) throws SecurityManagerFailedException, SsmUserAlreadyExistsException, UserNotVerifiedException, UserNotFoundException;
 } 
