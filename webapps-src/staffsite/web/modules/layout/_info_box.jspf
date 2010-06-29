@@ -87,6 +87,7 @@
                         	</div>
 							<%} %>
 		<A class="editfield" href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true"></A>
+		<A class="edittext" href="/servlet/Campus?action=index&module=location&id=<%= ar.getHashtable("info").get("targetareaid") %>&edit=true">(Edit)</A>
 	
 	<% }else if(module.equals("team")){%>
 
@@ -118,6 +119,7 @@
 				<div class="field">
 					<label>
 					<A class="editfield" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true"></A>
+					<A class="edittext" href="/servlet/Team?action=index&module=team&id=<%=ar.getHashtable("info").get("locallevelid") %>&edit=true">(Edit)</A>
 					</label>&nbsp;				
 				</div>
 <%}%>

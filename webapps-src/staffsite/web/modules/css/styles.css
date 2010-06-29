@@ -322,6 +322,10 @@ height: 20px;
 margin-left: 2px;
 }
 
+#update_info a {
+	text-decoration: none;	
+}
+
 
 .schoolentry {}
 
@@ -537,6 +541,9 @@ font-weight: bold;
 a.editfield {background: url(../images/icons/pencil_tiny.png) no-repeat 0% 50%; width: 10px; display: inline-block; height:10px; width: 10px; margin: 0 5px;}
 a.deletefield {background: url(../images/icons/delete_tiny.png) no-repeat 0% 50%; width: 10px; display: inline-block; height:10px; width: 10px; margin: 0 5px;}
 
+a.edittext {
+	font-size: 10px;	
+}
 
 .tiny {font-size: 9px;}
 

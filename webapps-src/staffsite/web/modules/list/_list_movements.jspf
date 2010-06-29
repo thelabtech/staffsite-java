@@ -82,6 +82,8 @@ for(Hashtable h:rows){
 						
 							<A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
 							</A>
+							<A class="edittext" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">(Edit)
+							</A>
 						
 						
 						</div><!-- end field -->
