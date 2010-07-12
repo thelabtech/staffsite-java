@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 public class CommunityAdminInterface {
 
 	//TODO: get from web.xml parameter
-	private static String CAS_SIGNIN_URL = "https://signin.ccci.org/cas/login";
+	private static String CAS_SIGNIN_URL = "https://signin.mygcx.org/cas/login";
 	
 	private static String GCX_AUTHORIZATION_ADMIN_USERNAME = "campus.admin@mygcx.org";
 
