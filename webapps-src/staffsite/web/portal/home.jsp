@@ -80,7 +80,7 @@ function toggleDiv(who){
 <% try { %>
 <!-- temporary sticky note graphic to announce removal of GCX tool bar -->
 		<div style="position:absolute; top:-140px;">
-			<img src="/images/sticky_note.png" width="224" height="134" style="position:relative; left:205px; top:133px;" />
+			<img src="/images/sticky_note2.png" width="224" height="134" style="position:relative; left:205px; top:133px;" />
 		</div>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>>
 	<tr valign=top>
