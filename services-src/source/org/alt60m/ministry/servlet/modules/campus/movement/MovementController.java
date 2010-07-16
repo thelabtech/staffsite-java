@@ -132,7 +132,27 @@ public class MovementController extends org.alt60m.ministry.servlet.modules.Info
     }
     public void edit(ActionContext ctx) {
         try {
-        	ActionResults results = (ActionResults)ctx.getSessionValue("location_response");
+    		ActionResults results = new ActionResults("content()");
+    		String lastClass=InfoBaseModuleHelper.lastClass(ctx);
+    		String id = ctx.getInputString("targetareaid"); 
+            if (id!=null){
+            	ctx.setSessionValue(lastClass, ctx.getInputString("targetareaid"));
+            } else {
+            	id=(String)ctx.getSessionValue(lastClass)+"";
+            }
+            results.addHashtable("search", InfoBaseModuleHelper.lastSearch(ctx));
+            results.addCollection("content", InfoBaseModuleHelper.content(id, lastClass)); //write this; classes vary though-- put forks in lower layer
+            results.addHashtable("info",InfoBaseModuleHelper.info(id, lastClass) );
+            results.addHashtable("newInfo",InfoBaseModuleHelper.newInfo(ctx, lastClass) );
+            Person person=getUserPerson(ctx);
+            results.putValue("personID",person.getPersonID()+"");
+            results.putValue("isRD",isLeader(person,lastClass,id));
+			results.putValue("module",lastClass);
+			results.putValue("title",lastClass);
+			results.putValue("mode","content");
+			results.putValue("view","index");
+			ctx.setSessionValue(lastClass+"_response", results);//put this before switch tests
+
         	results.putValue("edit_movement","true" );
         	TargetArea ta=new TargetArea((String)results.getHashtable("info").get("targetareaid"));
         	 Boolean isStudentVenture=(((ctx.getInputString("strategy")+"").equals("SV"))&&(!ta.getType().equals("HighSchool")));
