@@ -265,7 +265,12 @@ else{
 							
 							</div>
 
-										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %></h2>
+										<h2><%=mr.getValue("strategy_name")%>&nbsp;<%=mr.getValue("people_group_name") %>
+					                    <A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= mr.getValue("activityid") %>&targetareaid=<%= mr.getValue("targetareaid") %>&module=location&id=<%= mr.getValue("targetareaid") %>">
+			                            </A>
+			                            <A class="edittext" HREF="/servlet/Movement?action=edit&activityid=<%= mr.getValue("activityid") %>&targetareaid=<%= mr.getValue("targetareaid") %>&module=location&id=<%= mr.getValue("targetareaid") %>">(Edit)
+			                            </A></h2>
+										
 						<div class="thecolumn">
                                     <b>Weekly Stats</b>
 									<div class="field"><label onMouseOver="infoBox('<%=uniqueStat%>','personal_evangelism',200);" onMouseOut="infoBoxClear('<%=uniqueStat%>');" >Personal Evangelism</label><input   tabIndex="<%out.print(tabIndex);tabIndex++;%>" id="week_<%=counter%>" type="text" class="totalnumber" name="<%=uniqueStat%>[PersonalEvangelismExposures]" value="<%if(criteria.get("PersonalEvangelismExposures")!=null){out.print(criteria.get("PersonalEvangelismExposures"));}%>"  onBlur="" ></div>
