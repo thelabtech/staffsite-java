@@ -36,23 +36,23 @@
 
 	<context-param>
 		<param-name>edu.yale.its.tp.cas.proxyUrl</param-name>
-		<param-value>https://signin.mygcx.org/cas/proxy</param-value>
+		<param-value>https://signin.ccci.org/cas/proxy</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>CasLoginURL</param-name>
-		<param-value>https://signin.mygcx.org/cas/login</param-value>
+		<param-value>https://signin.ccci.org/cas/login</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>CasLogoutURL</param-name>
-		<param-value>https://signin.mygcx.org/cas/logout</param-value>
+		<param-value>https://signin.ccci.org/cas/logout</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>CasValidationURL</param-name>
 		<param-value>
-			https://signin.mygcx.org/cas/serviceValidate
+			https://signin.ccci.org/cas/serviceValidate
 		</param-value>
 	</context-param>
 
