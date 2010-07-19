@@ -15,7 +15,7 @@ function preloadImages() {
 }
 // -->
 </SCRIPT>
-<%@ include file= "/headers/connexionbar.jspf"%>
+
 <TABLE WIDTH=760 BORDER=0 CELLPADDING=0 CELLSPACING=0>
 	<TR><TD>
 	
@@ -35,6 +35,9 @@ function preloadImages() {
 %>
 		</FONT></FONT>
 		</TD>
+		<div style="position: absolute;">
+			<a href ="/servlet/StaffController?action=logOut" style="font-family:Arial, sans-serif; font-size:14px; position:relative; top:10px; left:710px;">Logout</a>
+		</div>
 		<TD COLSPAN=6 ALIGN=RIGHT>
 		<!-- other link text -->
 		<%=fontB1%>

@@ -17,7 +17,7 @@
 
 // -->
 </SCRIPT>
-<%@ include file= "/headers/connexionbar.jspf"%>
+
 		<TABLE WIDTH=900 BORDER=0 CELLPADDING=0 CELLSPACING=0>
 			<TR>
 				<TD COLSPAN=8 ALIGN=RIGHT>
