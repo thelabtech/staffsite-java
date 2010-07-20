@@ -149,44 +149,43 @@ div
 			<br>
 			<center>
 			<% 
-				box.setTitle("E-Mail and Campus Staff Site Account Request");
+				box.setTitle("Request a Campus Ministry E-mail Account");
 				box.setWidth("600");
 				box.setColor(colorL);
 				box.setBodyColor(colorL);
 			%>	
 			<%=box.printTop()%>
 			
-			<table style="border-collapse:collapse;">
+			<table border=0 style="border-collapse:collapse;">
 				<form name=myForm method=post action="emailrequest.jsp">
-				<tr><td colspan="4">	<%=fontB%>Are you in Campus Ministry <br>(only Campus Ministry staff receive <br>uscm.org email addresses and access to the Campus Staff Site) </td><td  colspan="2" width="30%"> <select name="campus"> <option> <option>Yes <option>No </select> </td></tr>
-				
-				<tr><td colspan="4" bgcolor="#9999FF">	<%=fontB%><font color=white> If you are with another CCC ministry and you are <br>only requesting access to the Campus Staff Site, <br>please give your reason and then proceed with form:</font></font></td><td colspan="2" width="30%" bgcolor="#9999FF" >	<input type=textarea rows=3 width=20 name="nonCampusStaffSiteAccessReason">	</td></tr>
+				<tr><td colspan="4">				<%=fontB%>To request a new Campus Ministry email account (i.e. firstname.lastname@uscm.org) please fill out this form: </td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>First Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="firstName" name="firstName">	</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Last Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="lastName" name="lastName">	</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Middle Initial: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="middleInitial">	</td></tr> 
+				<tr><td width="15%">	<%=fontB%>First Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="firstName" name="firstName" style="float:left;">	</td></tr>
+				<tr><td width="15%">	<%=fontB%>Last Name: 		</td><td colspan="2" width="30%">	<input type=text size=12 id="lastName" name="lastName">	</td></tr>
+				<tr><td width="15%">	<%=fontB%>Middle Initial: 		</td><td colspan="2" width="30%">	<input type=text size=12 name="middleInitial">	</td></tr> 
 				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Staff Account #: 	</td><td colspan="2" width="30%">	<input type=text size=12 name="accountNo">	</td></tr>
+				<tr><td width="15%">	<%=fontB%>Staff Account #: 	</td><td colspan="2" width="30%">	<input type=text size=12 name="accountNo">	</td></tr>
 				<tr><td>&nbsp;</td></tr>
 				
-				<tr><td colspan="4" align=right>	<%=fontB%>Password:<br>
+				<tr><td width="15%">	<%=fontB%>Password:<br>
 													
-					</td><td colspan="2" width="30%">	<input type=password id="pw" onchange="checkpw();" required size=12 name="password"> </td></tr>
-<tr><td colspan="4" align=right>	<%=fontB%>Re-enter password:</td><td colspan="2" width="30%">	<input type=password id="pwconf" required onchange="checkpwconf();" size=12 name="passwordConf"></td></tr>
+					</td><td colspan="1" width="30%">	<input type=password id="pw" onchange="checkpw();" required size=12 name="password"> </td></tr>
+<tr><td width="15%">	<%=fontB%>Re-enter password:</td><td colspan="2" width="30%">	<input type=password id="pwconf" required onchange="checkpwconf();" size=12 name="passwordConf"></td></tr>
 								
-<tr><td colspan="6"><%=fontB%>Your Password must be <div id="eight">at least 8 characters long,&nbsp;</div> 
+<tr><td colspan="5"><div style="font-family:Arial; font-size:10px; color:#336699;">Your Password must be <div id="eight">at least 8 characters long,&nbsp;</div> 
 													and include 3 or 4 of the following types:&nbsp;<br>
 													<b><div id="upper">UPPERCASE LETTER,&nbsp;</div></b> 
 													<b><div id="lower">lowercase letter,&nbsp;</div></b> 
 													<b>number such as <div id="digit">1234567890,&nbsp;</div> </b>
 													<b>and/or symbol such as <div id="symbol">~!#$%^+*(). </div></b> 
-													Also it cannot contain any <div id="spaces">spaces&nbsp;</div>
+													<br/>Also, it cannot contain any <div id="spaces">spaces&nbsp;</div>
 													 or <div id="your_name">any part of your name&nbsp;</div> 
-													or the word <div id="passwordword">"password"&nbsp;</div></td></tr>
+													or the word <div id="passwordword">"password"&nbsp;</div></div></td></tr>
 				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>If female and married, is your husband on staff? </td><td colspan="2" width="30%"> <select name="married"> <option> <option>Yes <option>No </select> </td></tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Campus Region (if you know where you will be assigned): </td><td colspan="2" width="30%"> 
+				
+				<tr><td width="10%" colspan=3>	<%=fontB%>Campus Region (if you know where you will be assigned): </td></tr>
+				
+				<tr><td colspan="2" width="15%"> 
 					<SELECT NAME="region" >
 						<OPTION VALUE=""></OPTION>
 						<OPTION VALUE="GL">Great Lakes</OPTION>
@@ -204,10 +203,10 @@ div
 					</SELECT>
 				</td></tr>
 				<tr><td colspan="6">	<br><%=fontB%>How can we contact you when we are finished creating your account? (fill in one)	</td>	</tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>An existing e-mail:</td><td colspan="2" width="30%">	<input type=text size=20 name="email">		</td></tr>
-				<tr><td colspan="4" align=right>	<%=fontB%>Phone:			</td><td colspan="2" width="30%">	<input type=text size=12 name="phone">		</td></tr>
+				<tr><td colspan="1">	<%=fontB%>An existing e-mail:</td><td colspan="2" width="30%">	<input type=text size=20 name="email">		</td></tr>
+				<tr><td colspan="1">	<%=fontB%>Phone:			</td><td colspan="2" width="30%">	<input type=text size=12 name="phone">		</td></tr>
 				</form>
-			
+				<tr><td>&nbsp;</td></tr>
 				<tr><td colspan="6">
 					<%=fontB %>You will be contacted once your Campus Staff Site account and your uscm e-mail account<br> are set up.
 					In the meantime, if you have questions, you can <a href="mailto:help@campuscrusadeforchrist.com">e-mail</a> us.</font>
