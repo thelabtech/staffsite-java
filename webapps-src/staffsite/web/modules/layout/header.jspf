@@ -4,43 +4,47 @@
 <%@ include file="/modules/_init.jspf" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>
+      Campus Staff Site - InfoBase
+    </title>
     <link type="text/css" href="/modules/css/redmond/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
- <link type="text/css" href="/modules/stylesheets/search.css" rel="stylesheet" />	
-
-     <link rel="stylesheet" type="text/css" href="/modules/css/styles.css" media="screen">
-      <script type="text/javascript" src="/modules/ib.js" language="javascript"></script> 
+    <link type="text/css" href="/modules/stylesheets/search.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/modules/css/styles.css" media="screen" />
+    <link type="text/css" href="/modules/stylesheets/reports.css" rel="stylesheet" />
+    <!--[if IE]>
+		  <link rel="stylesheet" type="text/css" href="css/ie_fixes.css">
+		<![endif]-->
+    <script type="text/javascript" src="/modules/ib.js" language="javascript"></script>
     <script type="text/javascript" src="/modules/js/jquery.min.js"></script>
     <script type="text/javascript" src="/modules/js/jquery.idTabs.min.js"></script>
-	<script type="text/javascript" src="/modules/js/jquery-ui.min.js"></script>
-    
-    <link type="text/css" href="/modules/stylesheets/reports.css" rel="stylesheet" />
-    <script src="/modules/css/fcbkcomplete.min.js" type="text/javascript" charset="utf-8"></script> 
-</HEAD>
-
-<body>
-	<div id="wrapper">
-<%@ include file="/modules/layout/smallheadergraphic.jspf"%>
-		<div id="innerwrapper" >
-			<div id="logobar">
-		          <div class="logoside">
-		
-		           	 <a href="Home" class="logo" alt="InfoBase Home"></a>
-					 
-		          </div><!-- logoside -->
-           		<a style="margin-top:50px;margin-right:10px;float:right;" target="_blank" href="http://wiki.uscm.org/display/NCO/Infobase+Help">InfoBase Help</a>
-			</div><!-- logobar -->
-<%@ include file="/modules/layout/_menubar.jspf" %>
-<%@ include file="/modules/layout/_bannerbar.jspf" %>
-
-<%@ include file="/modules/layout/_breadcrumb.jspf" %>			    
-
-			  
-			        <!-- Content Start -->	
-					<div id="content">
-					        <h1><%=pageTitle %></h1>
-							<div id="innercontent">
+    <script type="text/javascript" src="/modules/js/jquery-ui.min.js"></script>
+    <script src="/modules/css/fcbkcomplete.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <%@ include file="/modules/layout/smallheadergraphic.jspf"%>
+      <div id="innerwrapper">
+        <div id="logobar">
+          <div class="logoside">
+            <a href="Home" class="logo" alt="InfoBase Home"></a>
+          </div><!-- logoside -->
+          <div id="helpside" class="float-right">
+	          <a class="help" target="_blank" href="http://wiki.uscm.org/display/NCO/Infobase+Help">
+	            <img id="helpImg" src="/modules/images/help.gif" alt="help" /> 
+	            InfoBase Help
+	          </a>
+	        </div>
+        </div><!-- logobar -->
+        <%@ include file="/modules/layout/_menubar.jspf" %>
+        <%@ include file="/modules/layout/_bannerbar.jspf" %>
+        <%@ include file="/modules/layout/_breadcrumb.jspf" %>
+        <!-- Content Start -->
+        <div id="content"><!--
+          <h1>
+            <%=pageTitle %>
+          </h1>
+          -->
+          <div id="innercontent">

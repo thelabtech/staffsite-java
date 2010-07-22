@@ -2,7 +2,7 @@
 boolean quick=session.getValue("quicksearch")!=null;
 String search_type="location";
 if((search.get("type")!=null)&&!((String)search.get("type")).equals("null")){
-search_type=((String)search.get("type"));	
+	  search_type=((String)search.get("type"));	
 }else{
 	if(searchModules.contains(module)){
 		search_type=module;
@@ -11,29 +11,26 @@ search_type=((String)search.get("type"));
 
 
 if(quick){ %>
-<%@page import="org.alt60m.ministry.States"%>
-<div  class="quicksearch_open">
-<a class="open_close" href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>">Close</a><br>
-<% session.putValue("quicksearch",null); %>
-<%} else {
-%><div  class="quicksearch_closed">
-
-<%} %>
-
-		            	<%String searchUrl="Home";%>
-						<form action="<%=searchUrl%>" method="post">
+  <%@page import="org.alt60m.ministry.States"%>
+  <div  class="quicksearch_open">
+< a class="open_close" href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>">Close</a><br>
+  <% session.putValue("quicksearch",null); %>
+<%} else {%>
+  <!--<div  class="quicksearch_closed">
+--><%} %>
+ 	<%String searchUrl="Home";%>
+	<form action="<%=searchUrl%>" method="post">
 
 <%@page import="org.alt60m.ministry.Strategy"%>
 <%@page import="org.alt60m.ministry.Regions"%>
 <input type="hidden" name="action" value="search"/>
-<%if(!quick){ %><table><tr><td>
-<select name="module" class="dropclear">
-							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Location:&nbsp;&nbsp;</option>
-							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:&nbsp;&nbsp;</option>							
-							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:&nbsp;&nbsp;</option>
-							
-						</select></td><td>
-<input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
+<%if(!quick){ %>
+  <select name="module">
+	  <option value="location" <%= search_type.equals("location")?"selected":"" %>>Find a Location:&nbsp;&nbsp;</option>
+	  <option value="person" <%= search_type.equals("person")?"selected":"" %>>Find a Person:&nbsp;&nbsp;</option>							
+		<option value="team" <%= search_type.equals("team")?"selected":"" %>>Find a Team:&nbsp;&nbsp;</option>
+	</select>
+  <input name="name" type="text" class="name" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
 </td>
 <%} else {%>
 <table><tr><td>
@@ -45,99 +42,95 @@ Name:</td><td>
 <%
 
 if(quick){%>
-
-<tr><td>
-City:</td><td><input name="city" class="name" type="text" value=""/>
-</td></tr>
-<tr><td>
-State:</td><td><select name="state" class="drop">
-	<option value="" >Any</option>
-		<%String selectedState=(search.get("state")!=null&&quick)?(String)search.get("state"):"";
-		String[] stateCodesArray=States.abbrevState;
-		String[] stateNamesArray=States.expandedState;
-		int statesLength=stateCodesArray.length;
-		
-		for(int i=0;i<statesLength;i++){
-			String stateCode=stateCodesArray[i];
-			String stateName=stateNamesArray[i];
-			%>
-	<option value="<%=stateCode %>"  ><%=stateName %></option>
-<%			}%>					
-</select><br>
-</td></tr>
-<tr><td>
-Country:</td><td><select name="country" class="drop">
-	<option value="" >Any</option>
-		<%String selectedCountry=(search.get("country")!=null&&quick)?(String)search.get("country"):"";
-		String[] countrySearchArray=org.alt60m.util.CountryCodes.countryList;
-		int countriesLength=countrySearchArray.length;
-		int realLength=countriesLength/2;
-		for(int i=0;i<realLength;i++){
-			String countryCode=countrySearchArray[(i*2)+1];
-			String countryName=countrySearchArray[(i*2)];
-			%>
-	<option value="<%=countryCode %>"  ><%=countryName %></option>
-<%			}%>					
-</select></td></tr>
-
-<tr><td colspan="2">
-<table>
-<tr><td>
-Strategy: 
-
-<table>
-<input type="hidden" name="strategy" value="nonnull"/>
-
-<%
-boolean selectStrategy=false;
-for(String s:Strategy.strategiesArray()){ %>
-<%if(!s.equals("EV")){ %>
-<tr><td><%=Strategy.expandStrategy(s) %></td><td ><input name= "strategy" type="checkbox"    value="<%=s%>" /></td></tr>
-<%} }%>
-</table
-</td>
-<td >
-Region: 
-<table>
-<input type="hidden" name="region" value="nonnull" >
-
-<%boolean selectRegion=false; %>
-<%for(String r:Regions.abbrevRegion){ %>
-<tr><td><%=Regions.expandRegion(r) %></td><td ><input name= "region" type="checkbox"    value="<%=r%>" /></td></tr>
-
-
-<%} %></table>
-</td></tr>
-</table>
-</td></tr>
-
-<tr><td>
-Type of information:</td><td>
-						
-						<select name="module" class="drop">
-							<option value="location" <%= search_type.equals("location")?"selected":"" %>>Location</option>							
-							<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
-							<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
-						</select></td></tr>
-<tr><td colspan="2">
-<input type="submit" class="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
-</table>
+	<tr><td>
+	City:</td><td><input name="city" class="name" type="text" value=""/>
+	</td></tr>
+	<tr><td>
+	State:</td><td><select name="state" class="drop">
+		<option value="" >Any</option>
+			<%String selectedState=(search.get("state")!=null&&quick)?(String)search.get("state"):"";
+			String[] stateCodesArray=States.abbrevState;
+			String[] stateNamesArray=States.expandedState;
+			int statesLength=stateCodesArray.length;
+			
+			for(int i=0;i<statesLength;i++){
+				String stateCode=stateCodesArray[i];
+				String stateName=stateNamesArray[i];
+				%>
+		<option value="<%=stateCode %>"  ><%=stateName %></option>
+	<%			}%>					
+	</select><br>
+	</td></tr>
+	<tr><td>
+	Country:</td><td><select name="country" class="drop">
+		<option value="" >Any</option>
+			<%String selectedCountry=(search.get("country")!=null&&quick)?(String)search.get("country"):"";
+			String[] countrySearchArray=org.alt60m.util.CountryCodes.countryList;
+			int countriesLength=countrySearchArray.length;
+			int realLength=countriesLength/2;
+			for(int i=0;i<realLength;i++){
+				String countryCode=countrySearchArray[(i*2)+1];
+				String countryName=countrySearchArray[(i*2)];
+				%>
+		<option value="<%=countryCode %>"  ><%=countryName %></option>
+	<%			}%>					
+	</select></td></tr>
+	
+	<tr><td colspan="2">
+	<table>
+	<tr><td>
+	Strategy: 
+	
+	<table>
+	<input type="hidden" name="strategy" value="nonnull"/>
+	
+	<%
+	boolean selectStrategy=false;
+	for(String s:Strategy.strategiesArray()){ %>
+	<%if(!s.equals("EV")){ %>
+	<tr><td><%=Strategy.expandStrategy(s) %></td><td ><input name= "strategy" type="checkbox"    value="<%=s%>" /></td></tr>
+	<%} }%>
+	</table
+	</td>
+	<td >
+	Region: 
+	<table>
+	<input type="hidden" name="region" value="nonnull" >
+	
+	<%boolean selectRegion=false; %>
+	<%for(String r:Regions.abbrevRegion){ %>
+	<tr><td><%=Regions.expandRegion(r) %></td><td ><input name= "region" type="checkbox"    value="<%=r%>" /></td></tr>
+	
+	
+	<%} %></table>
+	</td></tr>
+	</table>
+	</td></tr>
+	
+	<tr><td>
+	Type of information:</td><td>
+							
+							<select name="module" class="drop">
+								<option value="location" <%= search_type.equals("location")?"selected":"" %>>Location</option>							
+								<option value="person" <%= search_type.equals("person")?"selected":"" %>>Person</option>
+								<option value="team" <%= search_type.equals("team")?"selected":"" %>>Team</option>
+							</select></td></tr>
+	<tr><td colspan="2">
+	<input type="submit" class="search_submit" name="search_submit" value="Search InfoBase"/></td></tr>
+	</table>
 <%} else { %>
 
-<input type="hidden" name="singleField" value="true">
-
-<input type="hidden" name="region" value="nonnull">
-<input type="hidden" name="strategy" value="nonnull">
-<input type="hidden" name="city" value="">
-<input type="hidden" name="state" value="">
-<input type="hidden" name="country" value="">
-<td><input class="short_submit" type="submit"  name="search_submit" value="Search"/>
-</td><td><a class="open_close"  href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Advanced Search</a><br>
-</td></tr></table>
-<%} %>
-
-						
-						
-
-						</form>
-		          </div>	
+	<input type="hidden" name="singleField" value="true">
+	
+	<input type="hidden" name="region" value="nonnull">
+	<input type="hidden" name="strategy" value="nonnull">
+	<input type="hidden" name="city" value="">
+	<input type="hidden" name="state" value="">
+	<input type="hidden" name="country" value="">
+	<input type="submit"  name="search_submit" value="Search"/>
+	<!--<a class="open_close"  href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Advanced Search</a>
+--><%} %>
+</form>
+<% if(quick) { %>
+</div>	
+<% } %>

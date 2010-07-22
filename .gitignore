@@ -29,3 +29,5 @@
 
 /.tomcatplugin
 /work
+.DS_Store
+.livereload

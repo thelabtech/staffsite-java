@@ -1,29 +1,153 @@
 <%@ include file="/modules/layout/header.jspf"%>
-<a class="open_close"  style="text-decoration:none;" href="Home?action=home&module=location&quicksearch=true"><h3 style="display:inline;">Find a Location</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a class="open_close" style="text-decoration:none;"  href="Home?action=home&module=person&quicksearch=true"><h3 style="display:inline;">Find a Person</h3></a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a class="open_close" style="text-decoration:none;"   href="Home?action=home&module=team&quicksearch=true"><h3 style="display:inline;">Find a Team</h3></a><br><br>
-Welcome to the InfoBase Home page. <br><br>
-Choose the "Ministry" tab to search for campuses, teams and people. The secondary tabs let you choose between these categories. 
-You may opt to drill down by region, state, city etc. or to use the search feature on the upper right of the website.<br><br>
-
-To enter your stats, click the "Stats" tab or click the "Enter Stats" link on the movement of your choice 
-(in the Location view; if you click a movement in the Team or Person views it will take you to the Location view). 
-This will also make a bookmark so that whenever you go to the Stats tab, any movement you have entered stats for will show up, 
-though you may use the "remove bookmark" link to make movements go away that you don't need.<br><br>
-
-As you will surely discover, the "Reports" tab gives you the option to make a Success Criteria report based on strategies and time-frame.
-You are not asked to provide a region. The report will start at the all-inclusive National level, and will drill down through Regions
- to the Teams those regions oversee, and 
-thence to the movements those teams supervise. Note that this has no bearing whatsoever on the listed status of any movement, so the particular movements 
-appearing will be different in number than those appearing on the Ministry Tracker.<br><br>
-
-There is also the Ministry Tracker report under the "Reports" tab; this is basically a count of all movements with status "Active," 
-"Launched" or "Transformational." You can also get a count of teams with this kind of movements or the campuses they are on. If you tweak the date 
-fields on the report you can get a glimpse of how our movements stacked up at any point in the last several years. 
-Note that this has no bearing whatsoever on Success Criteria stats.<br><br>
-
-All users may add themselves to any team as team members (in the Team view), or to any movement as a contact (in the Location view). 
-Team leaders and regional directors may also add other people to teams and movements, as well as assigning team leaders.<br><br>
-
-We hope this brief overview will prove to have been unnecessary. Happy InfoBasing.
+          <div id="enterStats">
+            <h1>
+              Enter Stats
+            </h1>
+            <h3>
+              Enter your stats two ways:
+            </h3>
+            <div id="steps">
+              <p>
+                1
+              </p>
+              <p>
+                2
+              </p>
+            </div><!-- end steps -->
+            <div id="instruct">
+              <h3 class="body-header">
+                To Get Started
+              </h3>
+              <p>
+                Search for your specific location, person, or team.
+              </p>
+              <p>
+                Next, use the "Enter Stats" link under your specific strategy.
+              </p>
+              <p>
+                Once you enter stats for a specific campus and strategy, it will automatically be bookmarked for the next time you enter stats.
+              </p>
+              <h3 class="body-header" style="margin-top: 68px;">
+                Next Time You Enter Stats
+              </h3>
+              <p>
+                Choose "Enter Stats" from the navigational bar on the top.
+              </p>
+              <p>
+                You can now enter stats from any strategy or location you have bookmarked on that page.
+              </p>
+            </div><!-- end instruct -->
+          </div><!-- end enterStats -->
+          <div id="search">
+            <h1>
+              Search
+            </h1>
+            <h3>
+              Search for a campus, person, or team.
+            </h3>
+            <h3 class="body-header">
+              Type of Information:
+            </h3>   
+            <form action="<%=searchUrl%>" method="post" id="search_form">
+              <input type="hidden" name="action" value="search"/>
+              <div class="formText">
+                <input style="margin-left: -2px;" type="radio" name="module" value="location" />&nbsp;&nbsp;Location<br />
+                <input style="margin-left: -2px;" type="radio" name="module" value="person" />&nbsp;&nbsp;Person<br />
+                <input style="margin-left: -2px;" type="radio" name="module" value="team" />&nbsp;&nbsp;Team<br />
+                <br />
+                <div class="select-divs">
+                  Name:
+                </div>
+                <input name="name" type="text" class="input-margin" value="<%=search.get("name")!=null?search.get("name"):"" %>"/>
+                <br />
+                <div class="select-divs">
+                  City:
+                </div><input class="input-margin" type="text" name="city" /><br />
+                <div class="select-divs">
+                  State:
+                </div>
+                 <select name="state" class="input-margin">
+							    <option value="" >Any</option>
+							      <%String selectedState=(search.get("state")!=null&&quick)?(String)search.get("state"):"";
+							      String[] stateCodesArray=States.abbrevState;
+							      String[] stateNamesArray=States.expandedState;
+							      int statesLength=stateCodesArray.length;
+							      
+							      for(int i=0;i<statesLength;i++){
+							        String stateCode=stateCodesArray[i];
+							        String stateName=stateNamesArray[i];
+							        %>
+							    <option value="<%=stateCode %>"  ><%=stateName %></option>
+							  <%      }%>         
+							  </select><br />
+                <div class="select-divs">
+                  Country:
+                </div>
+                 <select name="country" class="input-margin">
+							    <option value="" >Any</option>
+							      <%String selectedCountry=(search.get("country")!=null&&quick)?(String)search.get("country"):"";
+							      String[] countrySearchArray=org.alt60m.util.CountryCodes.countryList;
+							      int countriesLength=countrySearchArray.length;
+							      int realLength=countriesLength/2;
+							      for(int i=0;i<realLength;i++){
+							        String countryCode=countrySearchArray[(i*2)+1];
+							        String countryName=countrySearchArray[(i*2)];
+							        %>
+							    <option value="<%=countryCode %>"  ><%=countryName %></option>
+							  <%      }%>         
+							  </select><br />
+              </div><!-- end formText -->
+              <div id="strategy">
+                <h3 class="body-header">
+                  Strategy:
+                </h3>
+                <div class="formText">
+                  <input type="hidden" name="strategy" value="nonnull"/>
+                    <%
+									  boolean selectStrategy=false;
+									  for(String s:Strategy.strategiesArray()){ %>
+									     <%if(!s.equals("EV")){ %>
+									       <input type="checkbox" name="strategy" value="<%=s%>" />&nbsp;&nbsp;<%=Strategy.expandStrategy(s) %><br />
+									     <%} 
+									  }%>
+                </div><!-- end formText -->
+              </div><!-- end strategy -->
+              <div id="region">
+                <h3 class="body-header">
+                  Region:
+                </h3>
+                <div class="formText">
+                  <input type="hidden" name="region" value="nonnull" >
+								  <%boolean selectRegion=false; %>
+								  <%for(String r:Regions.abbrevRegion){ %>
+                    <input type="checkbox" name="region" value="<%=r%>" />&nbsp;&nbsp;<%=Regions.expandRegion(r) %><br />
+								  <%} %>
+                </div><!-- end formText -->
+              </div><!-- end region -->
+              <a href="#" onclick="$('#search_form').submit();return false;">
+                <img id="searchInfo" class="no-border" src="/modules/images/button_search.gif" alt="Search InfoBase" />
+              </a>
+            </form>
+          </div><!-- end search -->
+          <div id="viewReports">
+            <h1>
+              View Reports
+            </h1>
+            <h3 style="width: 265px;">
+              Create reports of ministry activity.
+            </h3>
+            <h3 class="body-header">
+              Success Criteria Reports
+            </h3>
+            <p>
+              Generate a report for your missional team, region, or for a specific conference or Summer Project.
+            </p><a href="/servlet/Report?action=index&isMuster=false"><img class="no-border" src="/modules/images/button_create_SC_report.gif" alt="Create Success Criteria Report" /></a><br />
+            <br />
+            <h3 class="body-header">
+              Ministry Tracker
+            </h3>
+            <p>
+              Count the number of teams, movements, missional teams by region, strategy, and other criteria.
+            </p><a href="/servlet/Report?action=index&isMuster=true"><img class="no-border" src="/modules/images/button_create_MT_report.gif" alt="Create Ministry Tracker Report" /></a>
+          </div><!-- end viewReports -->
 <%@ include file="/modules/layout/footer.jspf"%>

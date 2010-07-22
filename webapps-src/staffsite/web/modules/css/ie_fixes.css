@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* Campus Staff Site InfoBase */
+/* Style sheet to correct IE bugs */
+
+#mainNav ul li {
+	display: inline;
+	
+}
+
+#mainNav ul li:hover {
+	background: url(../images/hover_over_home_enterstats_andviewreports.gif) no-repeat 50% 50%;
+	display: inline;
+}
+
+#instruct {
+	display: inline;
+}
+
+#region {
+	display: inline;
+}
+
+#steps {
+	line-height: 265px;
+	margin-top: -121px;
+}
+
+#instruct {
+	position: relative;
+	left: 30px;
+	width: 215px;
+}
+
+#strategy {
+	margin-top: 18px;
+}
+
+#content {
+	margin-top: 25px;
+}
+
+#quickSearch {
+	width: 30em;
+	position: relative;
+	left: 480px;
+	top: -27px;
+}
