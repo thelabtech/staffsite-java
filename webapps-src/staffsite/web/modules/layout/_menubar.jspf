@@ -13,7 +13,7 @@
   			<%}%>
 		</ul>
   </div><!-- end mainNav -->
-	<div id="tab1" class="submenubar" style="display:none">
+	<div id="tab1" class="submenubar">
 	
 					<ul  >
 									<%if(searchModules.contains(module)){ %>

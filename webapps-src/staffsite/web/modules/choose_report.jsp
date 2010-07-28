@@ -53,8 +53,9 @@ String teamID="";
 <input type=hidden name=type value="<%= type %>">
 <div class="strategy">
 <div class="details">  
-<div class="thecolumn">
+<div class="thecolumn" style="float: left;">
 		<div class="field">
+		  <br/><br/>
                             <label>Strategies:</label>
 
            <div class="box">
@@ -83,7 +84,7 @@ String teamID="";
 </div>
 
 
-<div class="thecolumn">
+<div class="thecolumn" style="float: right; margin-top: 30px;">
 		<div class="field">
 		                <label>Type:</label>
 

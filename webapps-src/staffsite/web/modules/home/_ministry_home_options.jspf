@@ -3,14 +3,14 @@
 String type="";
 Vector<Section>subordinate_objects=(Vector<Section>)ar.getCollection("content");
 for(Section section:subordinate_objects){
-	%><br><b><%= section.getName() %></b><br>
+	%><br><b><%= section.getName() %></b><br><br/>
 	<%	 type=section.getType();%>
 		<%@ include file="/modules/list/_search_results.jspf" %>
 	<%}%>
 
 <%
 if(((String)ar.getValue("granularity")).equals("region")){	
-	%><b>Or search by Strategy:</b><br><table><%
+	%><br/><br/><b>Or search by Strategy:</b><br><br/><table><%
 for(String s:Strategy.strategiesArray()){ %>
 <%if(!s.equals("EV")&&!s.equals("FS")&&!s.equals("OT")&&!s.equals("GK")&&!s.equals("WS")){ %>
 <tr><td>

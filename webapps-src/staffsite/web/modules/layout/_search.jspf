@@ -13,7 +13,7 @@ if((search.get("type")!=null)&&!((String)search.get("type")).equals("null")){
 if(quick){ %>
   <%@page import="org.alt60m.ministry.States"%>
   <div  class="quicksearch_open">
-< a class="open_close" href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>">Close</a><br>
+<a class="open_close" href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>">Close</a><br>
   <% session.putValue("quicksearch",null); %>
 <%} else {%>
   <!--<div  class="quicksearch_closed">
@@ -128,8 +128,8 @@ if(quick){%>
 	<input type="hidden" name="state" value="">
 	<input type="hidden" name="country" value="">
 	<input type="submit"  name="search_submit" value="Search"/>
-	<!--<a class="open_close"  href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Advanced Search</a>
---><%} %>
+	<a class="open_close"  href="<%=moduleUrl %>?action=<%=module.equals("home")?"home":"index" %>&module=<%=module %>&quicksearch=true">Advanced Search</a>
+<%} %>
 </form>
 <% if(quick) { %>
 </div>	

@@ -14,7 +14,7 @@
 /* Logo bar styles */
 
 a.logo {
-  background: url(../images/logo_infobase.gif) no-repeat;
+  background: url(/modules/images/logo_infobase.gif) no-repeat;
   width: 185px;
   height: 49px;
   display: block;
@@ -48,7 +48,7 @@ a.logo {
 /* Menu bar styles */
 
 #menuBar {
-  background: url(../images/menubg_body.png);
+  background: url(/modules/images/menubg_body.png);
   clear: both;
   height: 51px;
 }
@@ -79,12 +79,12 @@ a.logo {
 }
 
 #mainNav ul li:hover {
-  background: url(../images/hover_over_home_enterstats_andviewreports.gif) no-repeat 50% 50%;
+  background: url(/modules/images/hover_over_home_enterstats_andviewreports.gif) no-repeat 50% 50%;
   display: inline-block;
 }
 
 #quickSearch {
-  width: 420px;
+  width: 420;
   position: relative;
   left: 520px;
   top: -26px;
@@ -104,7 +104,7 @@ a.logo {
 /* Banner bar background style */
 
 #bannerBar {
-  background: url(../images/header%20images/6.jpg) no-repeat;
+  background: url(/modules/images/header%20images/6.jpg) no-repeat;
   height: 116px;
   clear: both;
   border-bottom: 3px solid #969f5e;
@@ -171,7 +171,7 @@ a.logo {
 
 #footer {
   clear: both;
-  background: url(../images/footer.gif) repeat-x;
+  background: url(/modules/images/footer.gif) repeat-x;
   position: relative;
   top: 40px;
   padding: 20px 0 20px 30px;
@@ -238,3 +238,41 @@ h3 {
 }
 a {text-decoration: none}
 img {border: 0px}
+
+/* Styles for inner pages */
+
+label {
+  color: #5AB4F2;
+  font-family: Palatino, Times, serif;
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 18px;
+}
+
+#content {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+.field  {
+  margin-bottom: 25px;
+}
+
+.thecolumn {
+  width: 420px;
+}
+
+#breadcrumb a {
+  margin-right: 10px;
+}
+
+#breadcrumb {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  margin-top: 8px;
+  margin-right: 3px;
+}
+
+.quicksearch_open {
+  position: absolute; 
+}

@@ -9,6 +9,7 @@
 				<%@ include file="/modules/layout/_confirm.jspf" %>
 				<% session.putValue("confirm",null); %>
 				<%} %>
+<br/><br/>
 Welcome to the <%=moduleUrl %> Home page. <br>
 <%@ include file="/modules/home/_ministry_home_options.jspf"%>
 <%@ include file="/modules/layout/footer.jspf"%>
