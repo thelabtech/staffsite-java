@@ -84,10 +84,10 @@ a.logo {
 }
 
 #quickSearch {
-  width: 420;
+  width: 435px;
   position: relative;
   left: 520px;
-  top: -26px;
+  top: -64px;
 }
 
 #quickSearch select, #quickSearch input {
@@ -98,6 +98,22 @@ a.logo {
   color: #ffffff;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 9px;
+}
+
+.submenubar ul {
+  margin-top: 2px;
+}
+
+.submenubar ul li a {
+  color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  margin-right: 20px;
+}
+
+.submenubar ul li {
+  display: inline;
+  list-style-type: none;
 }
 
 
@@ -236,8 +252,14 @@ h3 {
 .input-margin {
   margin-bottom: 5px; 
 }
-a {text-decoration: none}
-img {border: 0px}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  border: 0px;
+}
 
 /* Styles for inner pages */
 
