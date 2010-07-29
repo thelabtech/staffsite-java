@@ -21,7 +21,7 @@
 									<% String[] minorTabs={"Location","People","Teams"};  
 									String[] minorTabValues={"location","person","team"};  
 									for(int j=0;j<minorTabs.length;j++){ %>
-									<li id="minor_tab_<%=j%>"  >
+									<li id="minor_tab_<%=j%>" class="<%=(minorTabValues[j].equals(module))?"active":"" %>">
 										
 											<A class="<%=(minorTabValues[j].equals(module))?"active":"" %>" href="<%=(minorTabValues[j].equals(module)&&!module.equals("person")) ? "Home?action=search&type="+module+"&module="+module +"&country=&region=nonnull&state=&city=&name=&strategy=nonnull&breadcrumb=region":"Home?action=index&module="+minorTabValues[j]%>"><%=minorTabs[j]%></A>
 											
@@ -34,7 +34,7 @@
 									<% 
 									String[] minorTabValues={"/servlet/Report?action=index&isMuster=false","/servlet/Report?action=index&isMuster=true"}; 
 									 for(int j=0;j<minorTabs.length;j++){ %>
-									<li id="minor_tab_<%=j%>"  >
+									<li id="minor_tab_<%=j%>"  class="<%=(j == isMusterInt )?"active":"" %>" >
 										<A href="<%=minorTabValues[j]%>"><%=minorTabs[j]%></A>
 									</li>
 									<%}

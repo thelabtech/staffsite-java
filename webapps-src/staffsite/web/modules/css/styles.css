@@ -53,6 +53,26 @@ a.logo {
   height: 51px;
 }
 
+#menuBar ul li.selected {
+  background: url(/modules/images/hover_over_home_enterstats_andviewreports.gif) 50% 50% no-repeat;
+}
+
+#menuBar .submenubar ul li.report {
+  margin-right: 146px;
+}
+
+#menuBar .submenubar ul li.ministry {
+  margin-right: 64px;
+}
+
+#menuBar .submenubar ul li a.active {
+  background: url(/modules/images/subnav_hover.gif) 50% 50% repeat-x;
+}
+
+#menuBar .submenubar ul li a:hover {
+  background: url(/modules/images/subnav_hover.gif) 50% 50% repeat-x;
+}
+
 #menu_right {
   clear: right; 
 }
@@ -297,4 +317,9 @@ label {
 
 .quicksearch_open {
   position: absolute; 
+}
+
+.quicksearch_open table {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
 }
