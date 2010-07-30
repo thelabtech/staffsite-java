@@ -58,11 +58,11 @@ a.logo {
 }
 
 #menuBar .submenubar ul li.report {
-  margin-right: 146px;
+  margin-right: 138px;
 }
 
 #menuBar .submenubar ul li.ministry {
-  margin-right: 64px;
+  margin-right: 54px;
 }
 
 #menuBar .submenubar ul li a.active {
@@ -107,7 +107,7 @@ a.logo {
   width: 435px;
   position: relative;
   left: 520px;
-  top: -64px;
+  top: -26px;
 }
 
 #quickSearch select, #quickSearch input {
@@ -120,6 +120,10 @@ a.logo {
   font-size: 9px;
 }
 
+.submenubar {
+  position: absolute; 
+}
+
 .submenubar ul {
   margin-top: 2px;
 }
@@ -128,7 +132,7 @@ a.logo {
   color: #ffffff;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
-  margin-right: 20px;
+  padding: 10px;
 }
 
 .submenubar ul li {
