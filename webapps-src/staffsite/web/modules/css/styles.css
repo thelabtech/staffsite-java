@@ -327,3 +327,60 @@ label {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
+
+/* Enter Stats page */
+
+table.movementheader {
+  border-collapse: collapse;
+  height: 35px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.checkmark, .checkmark first_week {
+  display: inline;
+  list-style-type: none;
+}
+
+#tab_wrapper {
+  float: right;
+  height: 55px;
+  list-style-type: none;
+}
+
+.weekTab, .thisWeek {
+  display: inline;
+  float: left;
+  margin-right: 20px;
+  text-align: center;
+}
+
+li.selected {
+  list-style-type: none;
+}
+
+div.aschool h2 {
+  font-size: 14px;
+}
+
+a.edittext {
+  font-size: 10px;
+}
+
+.aschool .thecolumn {
+  float: left;
+  margin-right: 20px;
+}
+
+.schoolentry .thecolumn .field label {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  color: #000000;
+  margin-right: 12px;
+}
+
+.stats_submit_surround {
+  clear: both;
+}
