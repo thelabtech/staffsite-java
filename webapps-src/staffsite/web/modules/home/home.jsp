@@ -140,14 +140,14 @@
               Success Criteria Reports
             </h3>
             <p>
-              Generate a report for your missional team, region, or for a specific conference or Summer Project.
+              Generate a report for your missional team, geography, ministry, or for a specific conference or Summer Project.
             </p><a href="/servlet/Report?action=index&isMuster=false"><img class="no-border" src="/modules/images/button_create_SC_report.gif" alt="Create Success Criteria Report" /></a><br />
             <br />
             <h3 class="body-header">
               Ministry Tracker
             </h3>
             <p>
-              Count the number of teams, movements, missional teams by region, strategy, and other criteria.
+              Count the number of teams, movements, missional teams by geography, strategy, and other criteria.
             </p><a href="/servlet/Report?action=index&isMuster=true"><img class="no-border" src="/modules/images/button_create_MT_report.gif" alt="Create Ministry Tracker Report" /></a>
           </div><!-- end viewReports -->
 <%@ include file="/modules/layout/footer.jspf"%>
