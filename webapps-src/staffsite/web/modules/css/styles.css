@@ -336,11 +336,13 @@ table.movementheader {
   margin: 0;
   padding: 0;
   width: 100%;
+  background-color: #a2adff;
 }
 
 .checkmark, .checkmark first_week {
   display: inline;
   list-style-type: none;
+  margin-right: 10px;
 }
 
 #tab_wrapper {
@@ -374,11 +376,88 @@ a.edittext {
 }
 
 .schoolentry .thecolumn .field label {
-  font-size: 14px;
+  float: right;
+  font-size: 12px;
   font-family: Helvetica, Arial, sans-serif;
   font-style: normal;
   color: #000000;
   margin-right: 12px;
+  text-align: left;
+  width: 192px;
+}
+
+.schoolentry .thecolumn .field {
+  margin-bottom: 5px;
+}
+
+.schoolentry .thecolumn .field input.totalnumber {
+  border: 1px solid silver;
+  padding: 2px;
+  width: 50px;
+}
+
+.schoolentry .thecolumn, .schoolentry {
+  background-color: #A2ADFF;
+}
+
+div.aschool {
+  border-top: 1px solid silver;
+  height: 200px;
+  padding: 10px;
+}
+
+div.aschool .thecolumn {
+  width: 30%;
+}
+
+th.bookmark {
+  width: 10%;
+}
+
+table.movementheader th {
+  padding-left: 10px;
+}
+
+#enter_stat .results {
+  padding-left: 0;
+}
+
+ul.results li.selected {
+  height: auto;
+}
+
+ul.results li {
+  height: 35px;
+  margin-bottom: 3px;
+  overflow: hidden;
+}
+
+a.editfield {
+  background: url("/modules/images/icons/pencil_tiny.png") no-repeat scroll 0 50% transparent;
+  display: inline-block;
+  height: 10px;
+  margin: 0 5px;
+  width: 10px;
+}
+
+th.expand, td.expand {
+  background: url("/modules/images/expand.png") no-repeat scroll 50% 50% transparent;
+  width: 60px;
+}
+
+ul.results li.selected th.expand {
+  background: url("/modules/images/contract.png") no-repeat scroll 50% 50% transparent;
+  width: 60px;
+}
+
+li.first_week img, ul.results li.first_week img {
+  background-color: #d3d3d3;
+}
+
+a.unbookmark {
+  background: url("/modules/images/icons/bookmark.png") no-repeat scroll 0 50% transparent;
+  font-weight: normal;
+  padding-left: 20px;
 }
 
 .stats_submit_surround {
