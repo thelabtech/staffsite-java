@@ -22,6 +22,24 @@
     <script type="text/javascript" src="/modules/js/jquery.idTabs.min.js"></script>
     <script type="text/javascript" src="/modules/js/jquery-ui.min.js"></script>
     <script src="/modules/css/fcbkcomplete.min.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+      /* Banner bar background style */
+      <%
+      Random rand = new Random();
+      int min = 1, max = 11;
+
+		   // nextInt is normally exclusive of the top value,
+		   // so add 1 to make it inclusive
+		   int randomNum = rand.nextInt(max - min + 1) + min;
+
+      %>
+			#bannerBar {
+			  background: url(/modules/images/header_images/<%= randomNum %>.jpg) no-repeat;
+			  height: 116px;
+			  clear: both;
+			  border-bottom: 3px solid #969f5e;
+			}
+    </style>
   </head>
   <body>
     <div id="wrapper">

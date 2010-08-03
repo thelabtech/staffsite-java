@@ -141,15 +141,6 @@ a.logo {
 }
 
 
-/* Banner bar background style */
-
-#bannerBar {
-  background: url(/modules/images/header%20images/6.jpg) no-repeat;
-  height: 116px;
-  clear: both;
-  border-bottom: 3px solid #969f5e;
-}
-
 /* Main content column styles */
 
 #enterStats {
