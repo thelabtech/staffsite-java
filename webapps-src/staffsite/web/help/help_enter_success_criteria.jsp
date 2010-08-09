@@ -126,7 +126,7 @@ style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></
   navigate to them with one click, instead of going through the whole process 
   from step 1.</span></p>
 <p><span style='font-size:10.0pt;font-family:Arial'>You may also want to consider 
-  dividing this responsibility among your staff team. In the case of Field Strategies 
+  dividing this responsibility among your staff team. In the case of Campus Field Ministry 
   campuses, you could challenge a trusted student on each campus to be responsible 
   for entering Success Criteria for his / her campus. <a href="mailto:help@campuscrusadeforchrist.com?subject=Request for students to access the staff site">Email 
   us</a> to request 

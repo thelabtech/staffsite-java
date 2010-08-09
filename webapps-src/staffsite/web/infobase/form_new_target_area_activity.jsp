@@ -3,7 +3,7 @@
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
 %>
-																<!--	FS ("Field Strategies"),-->
+																<!--	FS ("Campus Field Ministry"),-->
 																<!--	IE ("Epic"),-->
 																<!--	ID ("Destino"), -->
 																<!--	II ("Impact"),-->
@@ -26,7 +26,7 @@ String strategy = new String (request.getParameter("strategy"));
 String strategyName = new String();
 if (strategy.equals("SC")) {strategyName = "Staffed Campus";}
 
-else if (strategy.equals("FS")) {strategyName = "Field Strategies";}
+else if (strategy.equals("FS")) {strategyName = "Campus Field Ministry";}
 else if (strategy.equals("CA")) {strategyName = "Catalytic";}
 else if (strategy.equals("WS")) {strategyName = "WSN Local Teams";}
 else if (strategy.equals("ID")) {strategyName = "Destino";}

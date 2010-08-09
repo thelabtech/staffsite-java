@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public enum Strategy {
-	FS ("Field Strategies"),
+	FS ("Campus Field Ministry"),
 	IE ("Epic"),
 	ID ("Destino"), 
 	II ("Impact"),

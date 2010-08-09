@@ -183,7 +183,7 @@ inputs = table.getElementsByTagName('input');
 	<td id="boxes" style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
 			<img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/><br>
-			Field Strategies<input type="checkbox" name="strategies"   value="FS" ><br>
+			Field Ministries<input type="checkbox" name="strategies"   value="FS" ><br>
 			ESM-Impact<input type="checkbox" name="strategies"   value="II" ><br>
 			ESM-Epic<input type="checkbox" name="strategies"   value="IE" ><br>
 			ESM-Destino<input type="checkbox" name="strategies"   value="ID" ><br>

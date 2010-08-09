@@ -61,11 +61,11 @@ String teamID="";
            <div class="box">
 				<ul id="boxes" style="list-style:none;background:none;height:auto;text-alogn:left;" >
 				 		<li ><img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/></li>
-						<li ><input type="checkbox" name="strategies"   value="FS" >Field Ministries</li>
-						<li ><input type="checkbox" name="strategies"   value="II" >ESM-Impact</li>
-						<li ><input type="checkbox" name="strategies"   value="IE" >ESM-Epic</li>
-						<li ><input type="checkbox" name="strategies"   value="ID" >ESM-Destino</li>
-						<li ><input type="checkbox" name="strategies"   value="IN" >ESM-Nations</li>
+						<li ><input type="checkbox" name="strategies"   value="FS" >Campus Field Ministry</li>
+						<li ><input type="checkbox" name="strategies"   value="II" >EFM-Impact</li>
+						<li ><input type="checkbox" name="strategies"   value="IE" >EFM-Epic</li>
+						<li ><input type="checkbox" name="strategies"   value="ID" >EFM-Destino</li>
+						<li ><input type="checkbox" name="strategies"   value="IN" >EFM-Nations</li>
 						<li ><input type="checkbox" name="strategies"   value="BR" >Bridges</li>
 						<li ><input type="checkbox" name="strategies"   value="WS" >WSN Local Teams</li>
 						

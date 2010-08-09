@@ -40,11 +40,11 @@
 						  <option value="city">city</a>
 						  <option value="state">state(abbr)</a>
 						  <option value="country">country</a>
-						  <option value="FS">Field Strategies</a>
-						  <option value="II">ESM-Impact</a>
-						  <option value="IE">ESM-Epic</a>
-						  <option value="ID">ESM-Destino</a>
-						  <option value="IN">ESM-Nations</a>
+						  <option value="FS">Campus Field Ministry</a>
+						  <option value="II">EFM-Impact</a>
+						  <option value="IE">EFM-Epic</a>
+						  <option value="ID">EFM-Destino</a>
+						  <option value="IN">EFM-Nations</a>
 						  <option value="BR">Bridges</a>
 						  <option value="WS">WSN Local Teams</a>
 						 

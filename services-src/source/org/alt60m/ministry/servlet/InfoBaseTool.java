@@ -1034,7 +1034,7 @@ public class InfoBaseTool {
 		if (!checkDuplicateActiveActivity(targetAreaId, strategy)) {
 			saveActivity(localLevelId, targetAreaId, strategy, status, periodBegin, Url);
 		} else {
-			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add Field Strategies, most likely the campus you selected already has one active already.  To change it, go to that campus's page.");
+			throw new ActivityExistsException("This strategy (or a related strategy) is already active for this target area.  If you are trying to add Campus Field Ministry, most likely the campus you selected already has one active already.  To change it, go to that campus's page.");
 		}
 	}
 	

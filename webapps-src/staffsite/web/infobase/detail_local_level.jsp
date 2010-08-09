@@ -22,7 +22,7 @@ ar = ActionResults.getActionResults(session);
 	teamLane=lanes.display();
 	String title="";
 	if(Arrays.asList(
-			"Field Strategies", 
+			"Field Ministries", 
 			"Ethnic Student Ministries",
 			"Destino",
     		"Epic",

@@ -54,7 +54,7 @@
 	
 		<ul style="list-style:none;background:none;height:auto;">
 			<li ><img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/>
-			</li><li>Field Ministries<input type="checkbox" name="strategies"   value="FS" >
+			</li><li>Campus Field Ministry<input type="checkbox" name="strategies"   value="FS" >
 			</li><li>EFM-Impact<input type="checkbox" name="strategies"   value="II" >
 			</li><li>EFM-Epic<input type="checkbox" name="strategies"   value="IE" >
 			</li><li>EFM-Destino<input type="checkbox" name="strategies"   value="ID" >

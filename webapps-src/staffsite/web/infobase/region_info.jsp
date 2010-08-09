@@ -237,7 +237,7 @@ Iterator infoI = ar.getCollection("regionalInfo").iterator();
 						<input type=hidden name="BR" value="ON">
 						<input type=hidden name="FromYear" value="ZZ">
 						<input type=hidden name="region" value="<%=request.getParameter("region")%>">
-						<%=fontB%><input type="submit" value="All Strategies/Past 16 weeks"></font>
+						<%=fontB%><input type="submit" value="All Ministries/Past 16 weeks"></font>
 					</td>
 				</tr>
 				</form>

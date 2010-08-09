@@ -10,7 +10,7 @@ for(Section section:subordinate_objects){
 
 <%
 if(((String)ar.getValue("granularity")).equals("region")){	
-	%><br/><br/><b>Or search by Strategy:</b><br><br/><table><%
+	%><br/><br/><b>Or search by Ministry:</b><br><br/><table><%
 for(String s:Strategy.strategiesArray()){ %>
 <%if(!s.equals("EV")&&!s.equals("FS")&&!s.equals("OT")&&!s.equals("GK")&&!s.equals("WS")){ %>
 <tr><td>

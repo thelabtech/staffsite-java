@@ -21,7 +21,7 @@ if(homeList!=null){
 for(Hashtable h:homeList){
 	if(!h.get("strategy").equals(lastStrat)){%>
 		<tr><td colspan="5">&nbsp;</td></tr>
-		<tr><td colspan="3"><h3><%=h.get("strategy").equals("")?"No Strategy Listed":org.alt60m.ministry.StaffStrategy.expandStaffStrategy((String)h.get("strategy"))%></h3></td>
+		<tr><td colspan="3"><h3><%=h.get("strategy").equals("")?"No Ministry Listed":org.alt60m.ministry.StaffStrategy.expandStaffStrategy((String)h.get("strategy"))%></h3></td>
 		<td class="phone">Work</td><td class="phone">Mobile</td></tr><%}
 	
 			%>

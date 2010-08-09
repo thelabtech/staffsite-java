@@ -51,12 +51,12 @@
 <A NAME="overview"></A><FONT SIZE="5">Overview:</FONT>
 <HR>
 <P>
-The Campus InfoBase is the Campus Ministry's official database, rich with information on campuses, ministry strategies, teams and staff members.  The InfoBase is the common place for all of us, as a ministry, to share and track this information. Using the InfoBase, you can input and/or extract information about…<P>
+The Campus InfoBase is the Campus Ministry's official database, rich with information on campuses, ministry Ministries, teams and staff members.  The InfoBase is the common place for all of us, as a ministry, to share and track this information. Using the InfoBase, you can input and/or extract information about…<P>
 
 …the general makeup of a campus<BR>
 …whether Campus Crusade for Christ is active on a given campus<BR>
 …which strategy of our ministry is active on a campus<BR>
-…what phase of development the ministry is in (for Field Strategies ministry locations)<BR>
+…what phase of development the ministry is in (for Field Ministries ministry locations)<BR>
 …who is on staff at a campus, and how to contact them;<BR>
 …and much more.<P>
 
@@ -72,7 +72,7 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 <HR>
 <A NAME="glossary"></A><H3>Glossary</H3>
 <HR>
-<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Field Strategies, WSN, Ethnic Student Ministries - Epic / Destino / Impact.
+<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Field Ministries, WSN, Ethnic Student Ministries - Epic / Destino / Impact.
 
 
 <P><B>Contact Person</B>: This is the person on a campus to whom inquiries about the local level ministry can be addressed. This person's name and contact information will be listed in the Campus Ministry locators on various websites such as campuscrusadeforChrist.com (the Campus Ministry's public website), Godsquad and EveryStudent.com. There can be up to two Contact People for each campus.
@@ -127,7 +127,7 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 
 <OL>
 <LI>Find the campus.
-<LI>Under "What's going on at this campus?" click the link for the strategy that you would like to add. If the campus is in the United States, the choices will be "Add SC" (Staffed Campus), "Add FS" (Field Strategies) and "Add CA" (Catalytic). If it is not in the United States, the choices will be "Add WSN STINT" and "Add WSN ICS" (International Campus Staff). If you would like to add a contextual ministry, you find those links under "Contextual Ministries"---"ESM - E" for Epic, "ESM - D" for Destino, and "ESM - I" for Impact.
+<LI>Under "What's going on at this campus?" click the link for the strategy that you would like to add. If the campus is in the United States, the choices will be "Add SC" (Staffed Campus), "Add FS" (Field Ministries) and "Add CA" (Catalytic). If it is not in the United States, the choices will be "Add WSN STINT" and "Add WSN ICS" (International Campus Staff). If you would like to add a contextual ministry, you find those links under "Contextual Ministries"---"ESM - E" for Epic, "ESM - D" for Destino, and "ESM - I" for Impact.
 <LI>The first box to fill in is "Local Level Team." Click the down arrow to the right of the menu box and a list of all teams in the region will be displayed. Then, choose the team that is assigned to the campus. If the team is not in the list, click the "New Team" link at the bottom of the screen.  Complete the form and click "Update."
 <LI>Select the date that the strategy was or will be initiated on the campus.
 <LI>Click the "Add" button.
@@ -199,7 +199,7 @@ Your school's logo can appear at the top of the InfoBase page for your campus. <
 <A NAME="chstatus"><B>Changing the Status of a Campus</B><P>
 <OL>
 <LI>Find the campus.
-<LI>Locate the campus status in the upper-left corner of the box entitled "Staffed Campus Strategy," "Field Strategies" or "Catalytic Strategy."
+<LI>Locate the campus status in the upper-left corner of the box entitled "Staffed Campus Strategy," "Field Ministries" or "Catalytic Strategy."
 <LI>Click the word "Change" in the strategy box.
 <LI>Change the status by selecting the bullet to the left of the appropriate option.
 <LI>Click "OK."<P>
@@ -284,7 +284,7 @@ OR...<P>
 <OL>
 <LI>Find the team.
 <LI>At the bottom of the "Where is this team working" box, under "Add a campus to this team," click the strategy that you would like to have associated with the new campus.
-<LI>Select the name of the new campus from the pull down menu.  Choose the movement status (for Catalytic Strategies) and provide the date the strategy was or will be initiated.
+<LI>Select the name of the new campus from the pull down menu.  Choose the movement status (for Catalytic Ministries) and provide the date the strategy was or will be initiated.
 <LI>Click on "Add" to finish.
 </OL>
 <P ALIGN="RIGHT">
@@ -374,7 +374,7 @@ This feature allows you to quickly access the page where you can enter your camp
 <A HREF="#top"><I>Back to top</I></A>
 <HR>
 <P>
-<B>Q: There are campuses in the InfoBase that don't display any ministry strategies, even though I know there are ministries on those campuses.  Why? </B>
+<B>Q: There are campuses in the InfoBase that don't display any ministry Ministries, even though I know there are ministries on those campuses.  Why? </B>
 <P>
 <B>A: </B>Each local level team is responsible for keeping the information about its own ministry activities up to date in the InfoBase.  If you see outdated or absent information on a campus' record and know any of the staff members who are working with that campus, you can tell them their information needs to be updated.  Otherwise, please email the name of the campus to help@campuscrusadeforchrist.com, and we will attempt to locate the correct local staff and ask them to update their information.
 <P ALIGN="RIGHT">
@@ -397,7 +397,7 @@ This feature allows you to quickly access the page where you can enter your camp
 <P>
 <B>Q: My campus is listed twice in the InfoBase.  How can I delete one listing?</B>
 <P>
-<B>A: </B>Sometimes, duplicate ministry strategies are inadvertently added to the InfoBase.  This is usually because someone added a strategy without first checking to see if one already existed on that campus.  To remedy this, email us and let us know which strategy you would like to have removed.  Please do the following steps to avoid duplicating campuses in the future.  When you want to add a campus to your team's scope, please check first to see if a strategy exists on that campus (do not go directly to "add CAT," "add SC" etc. links at the bottom of your Team page).  You can do this by searching for that campus' name on the main page of the InfoBase.  Once you are on the Campus page, see if there is a box describing an existing strategy under the section "What's going on at this campus?" If there is already an existing strategy, click the "Change" link the "Status" field. This will bring you to a screen where one of the options is to "Change the team responsible for this campus." You can choose your team from the pull down menu.  You can also change the status of the strategy on this screen, if necessary. If there is not an existing strategy, you can use the "add CA" link under "What's going on at this campus?" to add a new strategy and assign the status and team as you wish.
+<B>A: </B>Sometimes, duplicate ministry Ministries are inadvertently added to the InfoBase.  This is usually because someone added a strategy without first checking to see if one already existed on that campus.  To remedy this, email us and let us know which strategy you would like to have removed.  Please do the following steps to avoid duplicating campuses in the future.  When you want to add a campus to your team's scope, please check first to see if a strategy exists on that campus (do not go directly to "add CAT," "add SC" etc. links at the bottom of your Team page).  You can do this by searching for that campus' name on the main page of the InfoBase.  Once you are on the Campus page, see if there is a box describing an existing strategy under the section "What's going on at this campus?" If there is already an existing strategy, click the "Change" link the "Status" field. This will bring you to a screen where one of the options is to "Change the team responsible for this campus." You can choose your team from the pull down menu.  You can also change the status of the strategy on this screen, if necessary. If there is not an existing strategy, you can use the "add CA" link under "What's going on at this campus?" to add a new strategy and assign the status and team as you wish.
 <P ALIGN="RIGHT">
 <A HREF="#top"><I>Back to top</I></A>
 <HR>
@@ -409,9 +409,9 @@ This feature allows you to quickly access the page where you can enter your camp
 <A HREF="#top"><I>Back to top</I></A>
 <HR>
 <P>
-<B>Q: There are a lot of countries in the InfoBase that don't display any ministry strategies, even though I know we have ministries in those countries.  Why is this?</B>
+<B>Q: There are a lot of countries in the InfoBase that don't display any ministry Ministries, even though I know we have ministries in those countries.  Why is this?</B>
 <P>
-<B>A: </B>The campus InfoBase only contains information on Campus Ministry strategies that are either in the United States or are part of a WSN partnership with a U.S. campus or region.  Currently, the best way to find information about national Campus Crusade ministries in other countries is to use Google or another search engine.  You can type in "Campus Crusade for Christ (country)," or in some cases it is helpful to type in "Agape (country)," since our ministry goes by Agape in some parts of the world.
+<B>A: </B>The campus InfoBase only contains information on Campus Ministry Ministries that are either in the United States or are part of a WSN partnership with a U.S. campus or region.  Currently, the best way to find information about national Campus Crusade ministries in other countries is to use Google or another search engine.  You can type in "Campus Crusade for Christ (country)," or in some cases it is helpful to type in "Agape (country)," since our ministry goes by Agape in some parts of the world.
 <P ALIGN="RIGHT">
 <A HREF="#top"><I>Back to top</I></A>
 <%=hr%>
