@@ -49,21 +49,21 @@
 	</div>				
 
 	<div class="field">
-		<label>Strategy:</label>
+		<label>Ministry:</label>
 		<div id="boxes" class="box">
 	
 		<ul style="list-style:none;background:none;height:auto;">
 			<li ><img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/>
-			</li><li>Field Strategies<input type="checkbox" name="strategies"   value="FS" >
-			</li><li>ESM-Impact<input type="checkbox" name="strategies"   value="II" >
-			</li><li>ESM-Epic<input type="checkbox" name="strategies"   value="IE" >
-			</li><li>ESM-Destino<input type="checkbox" name="strategies"   value="ID" >
-			</li><li>ESM-Nations<input type="checkbox" name="strategies"   value="IN" >
+			</li><li>Field Ministries<input type="checkbox" name="strategies"   value="FS" >
+			</li><li>EFM-Impact<input type="checkbox" name="strategies"   value="II" >
+			</li><li>EFM-Epic<input type="checkbox" name="strategies"   value="IE" >
+			</li><li>EFM-Destino<input type="checkbox" name="strategies"   value="ID" >
+			</li><li>EFM-Nations<input type="checkbox" name="strategies"   value="IN" >
 			</li><li>Bridges<input type="checkbox" name="strategies"   value="BR" >
 			</li><li>WSN Local Teams<input type="checkbox" name="strategies"   value="WS" >
 			</li><li>Athletes In Action<input type="checkbox" name="strategies"   value="AA" >
-            </li><li>Faculty Commons<input type="checkbox" name="strategies"   value="FC" >
-            </li><li>Student Venture<input type="checkbox" name="strategies"   value="SV" >
+      </li><li>Faculty Commons<input type="checkbox" name="strategies"   value="FC" >
+      </li><li>Student Venture<input type="checkbox" name="strategies"   value="SV" >
 			</li><li>Korean CCC<input type="checkbox" name="strategies"   value="KC" >
 			</li><li>Greek<input type="checkbox" name="strategies"   value="GK" >
 			</li><li>Valor<input type="checkbox" name="strategies"   value="VL" >
@@ -98,7 +98,7 @@
 				 <option value="team">Missional Team Name</option>
 				 <option value="region">Region</option>
 				 <option value="status">Status</option>
-				 <option value="strategy" selected>Strategy</option>
+				 <option value="strategy" selected>Ministry</option>
 				</select> 
 				</div>
 				<div id="option[0]">
@@ -109,7 +109,7 @@
 				 <option value="team">Missional Team Name</option>
 				 <option value="region">Region</option>
 				 <option value="status">Status</option>
-				 <option value="strategy">Strategy</option>
+				 <option value="strategy">Ministry</option>
 					  </select> 
 				</div>
 				<div id="option[1]">
@@ -120,7 +120,7 @@
 				 <option value="team">Missional Team Name</option>
 				 <option value="region">Region</option>
 				 <option value="status">Status</option>
-				 <option value="strategy">Strategy</option>
+				 <option value="strategy">Ministry</option>
 					  </select> 
 				</div>
 				<div id="option[2]" style="display:none;">

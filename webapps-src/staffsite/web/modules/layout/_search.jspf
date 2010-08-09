@@ -79,7 +79,7 @@ if(quick){%>
 	<tr><td colspan="2">
 	<table>
 	<tr><td>
-	Strategy: 
+	Ministry: 
 	
 	<table>
 	<input type="hidden" name="strategy" value="nonnull"/>

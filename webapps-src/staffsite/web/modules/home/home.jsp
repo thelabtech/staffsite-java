@@ -99,7 +99,7 @@
               </div><!-- end formText -->
               <div id="strategy">
                 <h3 class="body-header">
-                  Strategy:
+                  Ministry:
                 </h3>
                 <div class="formText">
                   <input type="hidden" name="strategy" value="nonnull"/>

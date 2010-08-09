@@ -454,3 +454,63 @@ a.unbookmark {
 .stats_submit_surround {
   clear: both;
 }
+
+/* Ministry Locations page */
+
+h3.indented {
+  font-style: normal;
+  text-indent: 0.5em;
+}
+
+.strategy h3 {
+  background: none repeat scroll 0 0 #3756ab;
+  border-bottom: 1px solid #3756ab;
+  margin: 0;
+  padding: 6px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.strategy {
+  border: 1px solid #3756ab;
+  margin-bottom: 1em;
+}
+
+.strategy .details .field {
+  display: block;
+  line-height: 1.5em;
+}
+
+.strategy .details .thecolumn {
+  float: left;
+  width: 45%;
+}
+
+.strategy .details .box {
+  display: block;
+  margin-left: 100px;
+  margin-top: -18px;
+}
+
+.details .thecolumn .field label {
+  color: #000000;
+  font-size: 12px;
+  font-style: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: left;
+  width: 100px;
+  line-height: 20px;
+  padding-right: 8px;
+}
+
+.strategy .details {
+  padding: 6px;
+  background: none repeat scroll 0 0 #a2adff;
+}
+
+.clear {
+  clear: both;
+}

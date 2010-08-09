@@ -109,7 +109,7 @@
 		
 		%>
 							<div class="field">
-                            <label>Strategy:</label>
+                            <label>Ministry:</label>
                             <%=strategy.display()%>                           
                         	</div>
 							<div class="field">
@@ -148,7 +148,7 @@
    	</div>
 <%}else{ %>
 	<div class="field">
-    	<label>Strategy:</label>
+    	<label>Ministry:</label>
    		<%=staff.getStrategy() %>        
    	</div>
 <%} %>

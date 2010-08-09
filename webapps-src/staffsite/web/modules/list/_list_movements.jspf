@@ -29,7 +29,7 @@ Vector<Hashtable<String,Object>>rows=section.getRows();
 					<tr>
                     	<th>Ministry Location</th>
 
-                        <th>Strategy</th>
+                        <th>Ministry</th>
                         <th>Status</th>
                         <th>Size</th>
  						<th>&nbsp;</th>

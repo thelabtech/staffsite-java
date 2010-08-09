@@ -56,12 +56,12 @@ String teamID="";
 <div class="thecolumn" style="float: left;">
 		<div class="field">
 		  <br/><br/>
-                            <label>Strategies:</label>
+                            <label>Ministries:</label>
 
            <div class="box">
 				<ul id="boxes" style="list-style:none;background:none;height:auto;text-alogn:left;" >
 				 		<li ><img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/></li>
-						<li ><input type="checkbox" name="strategies"   value="FS" >Field Strategies</li>
+						<li ><input type="checkbox" name="strategies"   value="FS" >Field Ministries</li>
 						<li ><input type="checkbox" name="strategies"   value="II" >ESM-Impact</li>
 						<li ><input type="checkbox" name="strategies"   value="IE" >ESM-Epic</li>
 						<li ><input type="checkbox" name="strategies"   value="ID" >ESM-Destino</li>
@@ -76,7 +76,7 @@ String teamID="";
 						<li ><input type="checkbox" name="strategies"   value="GK" >Greek</li>
 						<li ><input type="checkbox" name="strategies"   value="VL" >Valor</li>
 						<li ><input type="checkbox" name="strategies"   value="OT" >Other</li>
-						<li ><input type="checkbox" name="strategies"  onclick="checkEvents();" value="EV" >Projects and Conferences without a specified Strategy</li>
+						<li ><input type="checkbox" name="strategies"  onclick="checkEvents();" value="EV" >Projects and Conferences without a specified Ministry</li>
 			</ul>
 		</div>
     </div><!-- end field -->
