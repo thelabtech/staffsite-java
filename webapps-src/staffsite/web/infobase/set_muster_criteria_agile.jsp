@@ -183,11 +183,11 @@ inputs = table.getElementsByTagName('input');
 	<td id="boxes" style="width:200px;text-align:right;margin-right:none;">
 	<%=fontB%>
 			<img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/><br>
-			Field Ministries<input type="checkbox" name="strategies"   value="FS" ><br>
-			ESM-Impact<input type="checkbox" name="strategies"   value="II" ><br>
-			ESM-Epic<input type="checkbox" name="strategies"   value="IE" ><br>
-			ESM-Destino<input type="checkbox" name="strategies"   value="ID" ><br>
-			ESM-Nations<input type="checkbox" name="strategies"   value="IN" ><br>
+			Campus Field Ministry<input type="checkbox" name="strategies"   value="FS" ><br>
+			EFM-Impact<input type="checkbox" name="strategies"   value="II" ><br>
+			EFM-Epic<input type="checkbox" name="strategies"   value="IE" ><br>
+			EFM-Destino<input type="checkbox" name="strategies"   value="ID" ><br>
+			EFM-Nations<input type="checkbox" name="strategies"   value="IN" ><br>
 			Bridges<input type="checkbox" name="strategies"   value="BR" ><br>
 			WSN Local Teams<input type="checkbox" name="strategies"   value="WS" ><br>
 			Athletes In Action<input type="checkbox" name="strategies"   value="AA" ><br>

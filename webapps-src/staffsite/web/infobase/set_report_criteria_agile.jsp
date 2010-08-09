@@ -117,11 +117,11 @@ function submitReportForm(thisForm) {
 			<table id="boxes" border="0" cellpadding="5" cellspacing="5" <%=bgcolorL%>>
 			  <tr><td><%=fontB%>
 			  		<img src="/modules/images/checkAll.gif" id="checkAllButton" onClick="check();"/><br>
-					<input type="checkbox" name="strategies"   value="FS" >Field Ministries<br>
-					<input type="checkbox" name="strategies"   value="II" >ESM-Impact<br>
-					<input type="checkbox" name="strategies"   value="IE" >ESM-Epic<br>
-					<input type="checkbox" name="strategies"   value="ID" >ESM-Destino<br>
-					<input type="checkbox" name="strategies"   value="IN" >ESM-Nations<br>
+					<input type="checkbox" name="strategies"   value="FS" >Campus Field Ministry<br>
+					<input type="checkbox" name="strategies"   value="II" >EFM-Impact<br>
+					<input type="checkbox" name="strategies"   value="IE" >EFM-Epic<br>
+					<input type="checkbox" name="strategies"   value="ID" >EFM-Destino<br>
+					<input type="checkbox" name="strategies"   value="IN" >EFM-Nations<br>
 					<input type="checkbox" name="strategies"   value="BR" >Bridges<br>
 					<input type="checkbox" name="strategies"   value="WS" >WSN Local Teams<br>
 					

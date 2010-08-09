@@ -91,10 +91,10 @@ Integer yearvar=1998;
 			  <tr><td><%=fontB%>
 					<input type="checkbox" name="strategies[SC]" checked value="SC" >Staffed Campus<br>
 					<input type="checkbox" name="strategies[CA]"  checked value="CA" >Catalytic<br>
-					<input type="checkbox" name="strategies[II]"  checked value="II" >ESM-Impact<br>
-					<input type="checkbox" name="strategies[IE]"  checked value="IE" >ESM-Epic<br>
-					<input type="checkbox" name="strategies[ID]"  checked value="ID" >ESM-Destino<br>
-					<input type="checkbox" name="strategies[IN]"  checked value="IN" >ESM-Nations<br>
+					<input type="checkbox" name="strategies[II]"  checked value="II" >EFM-Impact<br>
+					<input type="checkbox" name="strategies[IE]"  checked value="IE" >EFM-Epic<br>
+					<input type="checkbox" name="strategies[ID]"  checked value="ID" >EFM-Destino<br>
+					<input type="checkbox" name="strategies[IN]"  checked value="IN" >EFM-Nations<br>
 					<input type="checkbox" name="strategies[BR]"  checked value="BR" >Bridges<br>
 					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN Local Teams<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>

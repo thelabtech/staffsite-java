@@ -111,9 +111,9 @@ String reportTitle = regions.display() + " Regional Success Criteria";
 	<tr>
 		<!-- <td rowspan=2 align=center><%=fontB1%>&nbsp</font></td> -->
 		<td colspan=2 align=center><%=fontB1%>Catalytic</font></td>
-		<td colspan=2 align=center><%=fontB1%>ESM - Destino</font></td>
-		<td colspan=2 align=center><%=fontB1%>ESM - Epic</font></td>
-		<td colspan=2 align=center><%=fontB1%>ESM - Impact</font></td>
+		<td colspan=2 align=center><%=fontB1%>EFM - Destino</font></td>
+		<td colspan=2 align=center><%=fontB1%>EFM - Epic</font></td>
+		<td colspan=2 align=center><%=fontB1%>EFM - Impact</font></td>
 		<td colspan=2 align=center><%=fontB1%>Staffed Campus</font></td>
 		<td colspan=2 align=center><%=fontB1%>WSN</font></td>
 		<td colspan=2 align=center><%=fontB1%>Bridges</font></td>

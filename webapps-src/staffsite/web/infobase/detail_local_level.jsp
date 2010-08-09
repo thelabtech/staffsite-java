@@ -22,7 +22,7 @@ ar = ActionResults.getActionResults(session);
 	teamLane=lanes.display();
 	String title="";
 	if(Arrays.asList(
-			"Field Ministries", 
+			"Campus Field Ministry", 
 			"Ethnic Student Ministries",
 			"Destino",
     		"Epic",
@@ -269,10 +269,10 @@ document.getElementById('<%=staffMember.getPersonID() %>_leader_status').style.d
 																<!--	OT ("Other")-->
 					<%=font%>[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=FS">add FS</A>]  
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=BR">add BR</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=ID">add ESM-D</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IE">add ESM-E</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=II">add ESM-I</A>] 
-									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IN">add ESM-N</A>] <BR>
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=ID">add EFM-D</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IE">add EFM-E</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=II">add EFM-I</A>] 
+									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=IN">add EFM-N</A>] <BR>
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=AA">add AIA</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=CL">add Faculty Commons</A>] 
 									[<A HREF="/servlet/InfoBaseController?action=addActivity&locallevelid=<%= teamID %>&strategy=KC">add KCCC</A>] 
