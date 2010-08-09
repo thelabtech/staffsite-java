@@ -327,7 +327,7 @@ table.movementheader {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #a2adff;
+  background-color: #8089ca;
 }
 
 .checkmark, .checkmark first_week {
@@ -387,7 +387,7 @@ a.edittext {
   width: 50px;
 }
 
-.schoolentry .thecolumn, .schoolentry {
+.schoolentry {
   background-color: #A2ADFF;
 }
 
@@ -513,4 +513,8 @@ h3.indented {
 
 .clear {
   clear: both;
+}
+
+div.aschool:hover {
+background-color:#B5B5B5;
 }
