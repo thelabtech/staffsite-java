@@ -6,7 +6,7 @@ Vector<Hashtable<String,Object>>contacts=(Vector<Hashtable<String,Object>>)h.get
 for(Hashtable<String,Object> c:contacts){%>
 
 <A href="/servlet/Person?action=content&module=person&id=<%= c.get("id") %>&accountNo=<%=c.get("accountNo")%>"><%= ((String) c.get("name")).replace(" (null)","") %></A>
-<%if(ar.getValue("isRD").equals("true")||c.get("id").equals(ar.getValue("personID"))||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+<%if(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true")||c.get("id").equals(ar.getValue("personID"))||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
 	<A class="deletefield"
 		HREF="/servlet/Movement?action=removePersonContact&module=location&personID=<%= c.get("id") %>&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&strategy=<%= h.get("strategy") %>">
 		</A>
@@ -28,7 +28,7 @@ if (!present){%>
 	Become a Contact for this Movement</A><br>
 	<%} %>
 		
-		<%if(ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
+		<%if(session.getValue("isHR").equals("true")||ar.getValue("isRD").equals("true")||((java.util.Vector<String>)h.get("leader_id")).contains(ar.getValue("personID"))){ %>
 		<A class="tiny" HREF="/servlet/Movement?action=addPersonContact&module=location&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&id=<%= h.get("location_id") %>&lastName=">
 		Add Contact
 		</A><br><%} 
