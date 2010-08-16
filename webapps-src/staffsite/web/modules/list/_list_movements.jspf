@@ -55,7 +55,9 @@ for(Hashtable h:rows){
                             <label>Status:</label>
  							<%org.alt60m.ministry.model.dbio.Activity act=new org.alt60m.ministry.model.dbio.Activity((String)h.get("id"));
  							%>
- 							<%=act.getStatusFullName() %>
+ 							<a href="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
+ 							    <%=act.getStatusFullName() %>
+                            </a>                        
                         </div><!-- end field -->
 						
                       
@@ -79,14 +81,6 @@ for(Hashtable h:rows){
                         <div class="field">
                             <label>Missional Team:</label>
                             <a href="/servlet/Team?action=content&module=team&id=<%=h.get("team_id") %>"><%=h.get("team") %></a>
-                        			
-						
-							<A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
-							</A>
-							<A class="edittext" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">(Edit)
-							</A>
-						
-						
 						</div><!-- end field -->
                         <div class="field">
                             <label>Size:</label>
@@ -104,6 +98,10 @@ for(Hashtable h:rows){
  							<a href="<%=h.get("url") %>"><%=h.get("url") %></a>
                         </div><!-- end field -->
 						<%} %>
+					    <A class="editfield" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">
+                        </A>
+                        <A class="edittext" HREF="/servlet/Movement?action=edit&activityid=<%= h.get("id") %>&targetareaid=<%= h.get("location_id") %>&module=location&id=<%= h.get("location_id") %>">(Edit)
+                        </A>						
                     	<div class="clear"></div>
 				</div><!--  the column -->
 			<%} else { %><!-- team listing of mvts -->
