@@ -68,16 +68,17 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<% box.setTitle("Regional links");	%>
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
+                      <TR><td><%=fontB%><a href="http://www.gnwcru.org" target="_blank">Greater Northwest Site</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.glccc.org" target="_blank">Great Lakes Site</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.uppermidwest.org" target="_blank">Upper Midwest Site</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.gpiregion.com" target="_blank">Great Plains Site</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://staff.r3cru.com" target="_blank">Red River Site</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.gnwcru.org" target="_blank">Greater Northwest Site</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.psw.org" target="_blank">Pacific Southwest Site</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://midsouthcru.com/home" target="_blank">MidSouth Student Site</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.ugoglobal.com" target="_blank">Ugoglobal.com (Midsouth WSN)</a></td></tr>		
-						<TR><td><%=fontB%><a href="http://staff.campuscrusade.net" target="_blank">Southeast Staff Site</td></tr>
-						<TR><td><%=fontB%><a href="http://www.campuscrusade.net" target="_blank">Southeast Student Site</td></tr>
+                      <TR><td><%=fontB%><a href="http://www.libertyregion.com" target="_blank">Northeast Site</a></td></tr>
+                      <TR><td><%=fontB%><a href="http://www.psw.org" target="_blank">Pacific Southwest Site</a></td></tr>
+                      <TR><td><%=fontB%><a href="http://staff.r3cru.com" target="_blank">Red River Site</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://staff.campuscrusade.net" target="_blank">Southeast Staff Site</td></tr>
+					  <TR><td><%=fontB%><a href="http://www.campuscrusade.net" target="_blank">Southeast Student Site</td></tr>
+                      <TR><td><%=fontB%><a href="http://www.uppermidwest.org" target="_blank">Upper Midwest Site</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
 			<p>
