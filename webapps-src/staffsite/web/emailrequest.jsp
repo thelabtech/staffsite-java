@@ -4,11 +4,6 @@
 <%
   boolean ok  = true;
   String  msg = new String();
-  if (((request.getParameter("nonCampusStaffSiteAccessReason") == null)||(request.getParameter("nonCampusStaffSiteAccessReason").equals("")))&&(request.getParameter("campus").equals("No"))) {
-	    ok = false;
-	    msg = "You have indicated that you are not part of the Campus ministry. <br>You need to give us a reason to give you Campus Staff Site Access.";
-	  }
- 
   if (request.getParameter("firstName") == null) {
 	    ok = false;
 	    msg = "You need to give us your first name so we know what to name your accounts.";
@@ -97,9 +92,6 @@
     s.append("email: " + request.getParameter("email") + "\n");
     s.append("phone: " + request.getParameter("phone") + "\n");
     s.append("region: " + request.getParameter("region") + "\n");
-    s.append("married to staff? (if female) " + request.getParameter("married") + "\n");
-    s.append("campus ministry? " + request.getParameter("campus") + "\n");
-    s.append("non-campus Staff Site Access reason? " + request.getParameter("nonCampusStaffSiteAccessReason") + "\n");
     email.setBody(s.toString());
     email.send();
     

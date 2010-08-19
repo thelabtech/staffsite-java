@@ -1,6 +1,6 @@
 <jsp:useBean id="email" class="org.alt60m.util.SendMessage" />
 <jsp:useBean id="box" class="org.alt60m.html.Box"/>
-<jsp:useBean id="pwv" class="org.alt60m.staffSite.bean.PasswordValidator"/>
+<%@ page import="org.alt60m.staffSite.bean.PasswordValidator, java.util.*" %>
 
 <%@ include file="/style.jspf"%>
 
@@ -21,10 +21,10 @@
 	}
 
 	String password = request.getParameter("password");
-	String pwError = pwv.validate(request.getParameter("password"), request.getParameter("passwordConf"), request.getParameter("firstName"), request.getParameter("lastName"));
-	if(pwError != "") {
+	List<String> pwError = PasswordValidator.validate(request.getParameter("password"), request.getParameter("passwordConf"));
+	if(!pwError.isEmpty()) {
 		ok = false;
-		msg = pwError;
+		msg = pwError.toString();
 	}
 
 	if (request.getParameter("reason") == null) {
