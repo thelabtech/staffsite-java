@@ -152,7 +152,7 @@ public class InfoBaseModuleQueries {
 			result +=" and upper("+objectTable+"region) in "+region.toUpperCase()+" ";
 		}
 		if (reqMovement){
-			result +=" and upper(strategy) in "+strategy.toUpperCase()+" ";
+			result +=" and upper(mact.strategy) in "+strategy.toUpperCase()+" ";
 		}
 		return result;
 	}
