@@ -350,7 +350,7 @@ public class StaffUpdater {
 		//		staff.setEmailSecure(rs.getString("psEmailSecure"));
 		staff.setPreferredName(rs.getString("pref_first_name"));
 		staff.setHomePhone(rs.getString("home_phone"));
-		staff.setOtherPhone(rs.getString("phone"));
+		staff.setOtherPhone(rs.getString("phone")); // Actually a duplicate of home phone
 		staff.setMobilePhone(rs.getString("cell_phone"));
 
 		String ccode = rs.getString("nid_country");
