@@ -161,7 +161,7 @@ if (isNew){
 				boolean isActive = source.get("IsActive") != null ? ((Boolean)source.get("IsActive")).booleanValue() : true;
 				 org.alt60m.ministry.model.dbio.Activity teamTestAct=new org.alt60m.ministry.model.dbio.Activity();
 				 boolean canActivate=false;
-				if(teamTestAct.selectList(" fk_teamID='"+source.get("locallevelid")+"' and status <> 'IN' ").size()>0){
+				if(teamTestAct.selectList(" fk_teamID='"+source.get("locallevelid")+"' and status NOT IN ('IN','TN') ").size()>0){
 				%>Cannot Inactivate With Active Movements<br><%	
 				}else{
 					canActivate=true;
