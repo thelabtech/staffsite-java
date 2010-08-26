@@ -60,9 +60,9 @@
         <%@ include file="/modules/layout/_bannerbar.jspf" %>
         <%@ include file="/modules/layout/_breadcrumb.jspf" %>
         <!-- Content Start -->
-        <div id="content"><!--
+        <div id="content">
           <h1>
             <%=pageTitle %>
           </h1>
-          -->
+          
           <div id="innercontent">
