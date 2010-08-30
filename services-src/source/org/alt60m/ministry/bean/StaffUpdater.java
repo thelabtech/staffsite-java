@@ -346,7 +346,7 @@ public class StaffUpdater {
 		staff.setCoupleTitle(rs.getString("couple_name_prefix"));
 		staff.setFirstName(rs.getString("first_name"));
 		staff.setLastName(rs.getString("last_name"));
-		staff.setEmail(rs.getString("email_addr"));
+		staff.setEmail(rs.getString("email_addr").trim());
 		//		staff.setEmailSecure(rs.getString("psEmailSecure"));
 		staff.setPreferredName(rs.getString("pref_first_name"));
 		staff.setHomePhone(rs.getString("home_phone"));
