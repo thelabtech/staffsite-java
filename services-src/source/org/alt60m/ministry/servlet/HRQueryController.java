@@ -21,7 +21,7 @@ public class HRQueryController extends Controller {
 	String VIEWS_FILE;
 	final String DEFAULT_ACTION = "showStaffQuery";
 	private final String[] _abbrevStrategy = new String[] {"Catalytic","Staffed","ESM","WSN","Operations","HR","Fund Dev","National Director's Office"};
-	private final String[] _expandStrategy = new String[] {"Catalytic","Staffed Campus","ESM","WSN","Operations","Human Resources","Fund Development","National Director's Office"};
+	private final String[] _expandStrategy = new String[] {"Catalytic","Staffed Campus","ESM","WSN","Operations","Leadership Development","Fund Development","National Director's Office"};
 	private final String[] _abbrevRegion = new String[] {"NE","MA","MS","SE","GL","UM","GP","RR","NW","SW","NC"};
 	private final String[] _expandRegion = new String[] {"Northeast","Mid-Atlantic","MidSouth","Southeast","Great Lakes","Upper Midwest","Great Plains Int'l","Red River","Greater Northwest","Pacific Southwest","National Campus Office"};
 	

@@ -23,7 +23,7 @@ ar = ActionResults.getActionResults(session);
 	String title="";
 	if(Arrays.asList(
 			"Campus Field Ministry", 
-			"Ethnic Student Ministries",
+			"Ethnic Field Ministry",
 			"Destino",
     		"Epic",
     		"Impact",

@@ -72,7 +72,7 @@ It is said, "information is power."  When used to its full potential, the InfoBa
 <HR>
 <A NAME="glossary"></A><H3>Glossary</H3>
 <HR>
-<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Campus Field Ministry, WSN, Ethnic Student Ministries - Epic / Destino / Impact.
+<P><B>Strategy</B>:  The type of ministry activity on a campus; i.e. Campus Field Ministry, WSN, Ethnic Field Ministry - Epic / Destino / Impact.
 
 
 <P><B>Contact Person</B>: This is the person on a campus to whom inquiries about the local level ministry can be addressed. This person's name and contact information will be listed in the Campus Ministry locators on various websites such as campuscrusadeforChrist.com (the Campus Ministry's public website), Godsquad and EveryStudent.com. There can be up to two Contact People for each campus.

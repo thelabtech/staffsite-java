@@ -18,21 +18,23 @@ public class SelectLane implements java.io.Serializable {
     		"BR",
     		"SV",
     		"FC",
+    		"KC",
     		"OT"};
 	String[] laneNames = {" ", 
 			"Campus Field Ministry", 
-			"Ethnic Student Ministries",
+			"Ethnic Field Ministry",
 			"Destino",
     		"Epic",
     		"Impact",
     		"Nations",
 			"Worldwide Student Network", 
 			"Operations", 
-			"Human Resources", 
+			"Leadership Development", 
 			"Fund Dev", 
 			"Bridges Int'l",
 			"Student Venture",
 			"Faculty Commons",
+			"Korean CCC",
 			"Other"};
 	String currentLane;
     String name;
