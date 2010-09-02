@@ -367,7 +367,7 @@ public class InfoBaseModuleController extends Controller {
         }
        
        Staff staff=new Staff(person.getAccountNo());
-       if (staff.getJobTitle().contains("Regional Director")){
+       if (staff.getJobTitle().contains("Director")){
     	   log.debug("Real RDee!");
    			isRD="true";
    			
