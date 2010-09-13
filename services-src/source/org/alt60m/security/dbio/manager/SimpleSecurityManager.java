@@ -559,6 +559,7 @@ public class SimpleSecurityManager implements SecurityManager {
 				ssmUser = createProfile(user);
 			}
 		} else {
+			// TODO: Check if they already have a SSP record.  If so, add GUID.
 			throw new UserNotVerifiedException("No employee ID");
 		}
 		

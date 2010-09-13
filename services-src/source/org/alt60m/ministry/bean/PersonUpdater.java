@@ -191,10 +191,9 @@ public class PersonUpdater {
 	  person.setFk_spouseID(spouse.getPersonID());
 	  
 	  person.setMinistry(staff.getMinistry());
-	  if (("NC SE MA MS GP GL NW RR UM SW NE").contains(staff.getRegion())){
-	  person.setRegion(staff.getRegion());}
-	  else
-	  {
+	  if (("NC SE MA MS GP GL NW RR UM SW NE HLIC").contains(staff.getRegion())){
+		  person.setRegion(staff.getRegion());}
+	  else {
 		  person.setRegion("");
 	  }
 //	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N"));
