@@ -81,6 +81,7 @@ public class PersonUpdater {
 		result.put("person.maritalStatus","staff.maritalStatus");
 		result.put("person.ministry", "staff.ministry");
 		result.put("person.region","staff.region");
+		result.put("person.strategy", "staff.strategy");
 		result.put("person.isSecure","staff.isSecure");
 		
     	return result;
@@ -196,6 +197,7 @@ public class PersonUpdater {
 	  else {
 		  person.setRegion("");
 	  }
+	  person.setStrategy(staff.getStrategy());
 //	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N"));
 	  person.setIsStaff(staff.getRemovedFromPeopleSoft().equals("N") && STAFF_POSITIONS.contains(staff.getJobStatus()));
 	  java.text.SimpleDateFormat bDayFormatter = new java.text.SimpleDateFormat("MM/dd/yyyy");
