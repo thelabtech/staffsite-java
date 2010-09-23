@@ -266,7 +266,7 @@ while(report.hasNext()){
 		if((row.getPeopleGroup()!=null)&&(!row.getPeopleGroup().equals("null"))){
 					out.print(row.getPeopleGroup());
 					}
-		else if(row.getStrategy().equals("BR")){out.print("stats prior to 4/23/2008");}
+		else if(row.getStrategy().equals("BR")){out.print("No Specific People Group Listed");}
 		}
 	%>
 	</td>
