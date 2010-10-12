@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
 public class StaffUpdater {
 	private static Log log = LogFactory.getLog(StaffUpdater.class);
 	
-	private static final String PS_EMPL_TBL = "sysadm.PS_EMPLOYEES";
+	private static final String PS_EMPL_TBL = "sysadm.PS_CCC_CM_EMPL_VW";
     private static final String PS_TAX_TBL = "sysadm.PS_TAX_LOCATION1";
     private static final String PS_EMPL_ID  = "emplid";
     private static final String STAFF_TBL = "ministry_staff";
@@ -303,16 +303,16 @@ public class StaffUpdater {
 			staff.setOrigHireDate(null);
 		}
 		staff.setServiceDate(rs.getDate("service_dt"));
-		staff.setLastIncDate(rs.getDate("last_increase_dt"));
+		//staff.setLastIncDate(rs.getDate("last_increase_dt"));
 		staff.setWorkPhone(rs.getString("work_phone"));
 		staff.setDeptId(rs.getString("deptid"));
 		staff.setJobCode(rs.getString("jobcode"));
-		staff.setJobEntryDate(rs.getDate("job_entry_dt"));
-		staff.setDeptEntryDate(rs.getDate("dept_entry_dt"));
+		//staff.setJobEntryDate(rs.getDate("job_entry_dt"));
+		//staff.setDeptEntryDate(rs.getDate("dept_entry_dt"));
 		staff.setAccountCode(rs.getString("acct_cd"));
-		staff.setCompFreq(rs.getString("comp_frequency"));
-		staff.setCompRate(rs.getString("comprate"));
-		staff.setCompChngAmt(rs.getString("change_amt"));
+		//staff.setCompFreq(rs.getString("comp_frequency"));
+		//staff.setCompRate(rs.getString("comprate"));
+		//staff.setCompChngAmt(rs.getString("change_amt"));
 		staff.setJobTitle(rs.getString("jobtitle"));
 		staff.setDeptName(rs.getString("deptname"));
 		staff.setPrimaryEmpLocCity(rs.getString("tax_city"));
@@ -322,17 +322,17 @@ public class StaffUpdater {
 		staff.setJobStatus(JobStatusTranslator.codeToDescription(rs.getString("status_code")));
 		staff.setMinistry(translateMinistry(rs.getString("ccc_ministry")));
 		staff.setRegion(translateRegion(rs.getString("ccc_sub_ministry")));
-		staff.setStrategy(translateStrategy(rs.getString("lane_outreach")));
+		//staff.setStrategy(translateStrategy(rs.getString("lane_outreach")));
 		staff.setPosition(translateRespScope(rs.getString("respons_scope")));
-		staff.setMiddleName(rs.getString("middle_name"));
-		staff.setPaygroup(rs.getString("paygroup"));
-		staff.setIdType(rs.getString("id_type"));
+		//staff.setMiddleName(rs.getString("middle_name"));
+		//staff.setPaygroup(rs.getString("paygroup"));
+		//staff.setIdType(rs.getString("id_type"));
 		staff.setStatusDescr(rs.getString("status_descr"));
-		staff.setInternationalStatus(rs.getString("internation_status"));
-		staff.setBalance(rs.getDouble("balance"));
-		staff.setCccHrSendingDept(rs.getString("ccc_hr_sndng_dept"));
-		staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
-		staff.setCccCaringMinistry(rs.getString("ccc_carng_ministry"));
+		//staff.setInternationalStatus(rs.getString("internation_status"));
+		//staff.setBalance(rs.getDouble("balance"));
+		//staff.setCccHrSendingDept(rs.getString("ccc_hr_sndng_dept"));
+		//staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
+		//staff.setCccCaringMinistry(rs.getString("ccc_carng_ministry"));
 		staff.setAssignmentLength(rs.getString("assignment_lngth"));
 		
 
@@ -353,12 +353,12 @@ public class StaffUpdater {
 		staff.setOtherPhone(rs.getString("phone")); // Actually a duplicate of home phone
 		staff.setMobilePhone(rs.getString("cell_phone"));
 
-		String ccode = rs.getString("nid_country");
-		staff.setCountryCode(ccode);
+		//String ccode = rs.getString("nid_country");
+		//staff.setCountryCode(ccode);
 
-		if (!"SECURE".equalsIgnoreCase(ccode)) {
-			setAddr(staff, rs);
-		}
+		//if (!"SECURE".equalsIgnoreCase(ccode)) {
+		//	setAddr(staff, rs);
+		//}
 		staff.setIsSecure(rs.getString("SECURE_EMPLOYEE").equals("Y"));
 		Hashtable after = ObjectHashUtil.obj2hash(staff);
 		log.info("Account No. " + staff.getAccountNo());
