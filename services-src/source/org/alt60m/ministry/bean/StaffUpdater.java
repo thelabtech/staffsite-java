@@ -322,17 +322,17 @@ public class StaffUpdater {
 		staff.setJobStatus(JobStatusTranslator.codeToDescription(rs.getString("status_code")));
 		staff.setMinistry(translateMinistry(rs.getString("ccc_ministry")));
 		staff.setRegion(translateRegion(rs.getString("ccc_sub_ministry")));
-		//staff.setStrategy(translateStrategy(rs.getString("lane_outreach")));
+		staff.setStrategy(translateStrategy(rs.getString("lane_outreach")));
 		staff.setPosition(translateRespScope(rs.getString("respons_scope")));
-		//staff.setMiddleName(rs.getString("middle_name"));
+		staff.setMiddleName(rs.getString("middle_name"));
 		//staff.setPaygroup(rs.getString("paygroup"));
 		//staff.setIdType(rs.getString("id_type"));
 		staff.setStatusDescr(rs.getString("status_descr"));
-		//staff.setInternationalStatus(rs.getString("internation_status"));
-		//staff.setBalance(rs.getDouble("balance"));
-		//staff.setCccHrSendingDept(rs.getString("ccc_hr_sndng_dept"));
-		//staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
-		//staff.setCccCaringMinistry(rs.getString("ccc_carng_ministry"));
+		staff.setInternationalStatus(rs.getString("internation_status"));
+		staff.setBalance(rs.getDouble("balance"));
+		staff.setCccHrSendingDept(rs.getString("ccc_hr_sndng_dept"));
+		staff.setCccHrCaringDept(rs.getString("ccc_hr_caring_dept"));
+		staff.setCccCaringMinistry(rs.getString("ccc_carng_ministry"));
 		staff.setAssignmentLength(rs.getString("assignment_lngth"));
 		
 
@@ -353,12 +353,12 @@ public class StaffUpdater {
 		staff.setOtherPhone(rs.getString("phone")); // Actually a duplicate of home phone
 		staff.setMobilePhone(rs.getString("cell_phone"));
 
-		//String ccode = rs.getString("nid_country");
-		//staff.setCountryCode(ccode);
+		String ccode = rs.getString("nid_country");
+		staff.setCountryCode(ccode);
 
-		//if (!"SECURE".equalsIgnoreCase(ccode)) {
-		//	setAddr(staff, rs);
-		//}
+		if (!"SECURE".equalsIgnoreCase(ccode)) {
+			setAddr(staff, rs);
+		}
 		staff.setIsSecure(rs.getString("SECURE_EMPLOYEE").equals("Y"));
 		Hashtable after = ObjectHashUtil.obj2hash(staff);
 		log.info("Account No. " + staff.getAccountNo());

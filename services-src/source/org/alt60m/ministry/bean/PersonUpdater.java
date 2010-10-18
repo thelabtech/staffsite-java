@@ -35,6 +35,8 @@ public class PersonUpdater {
 		result.add("Staff on Paid Leave");
 		result.add("Staff on Unpaid Leave");
 		result.add("Staff Raising Init Supprt");
+		result.add("Un-Paid Affiliate");
+		result.add("Part Time Volunteer");
 		return result;
 	}
 
