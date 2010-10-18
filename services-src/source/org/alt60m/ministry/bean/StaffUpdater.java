@@ -260,7 +260,7 @@ public class StaffUpdater {
 
 		log.info("[" + new java.util.Date() +"] Querying...");
 		java.sql.Date currDate = new java.sql.Date(new java.util.Date().getTime());
-		String qry = "select emp.*, tax.descr as tax_descr, tax.country as tax_country, tax.city as tax_city, tax.state as tax_state from " + PS_EMPL_TBL + " emp LEFT JOIN " + PS_TAX_TBL + " tax ON emp.tax_location_cd = tax.tax_location_cd WHERE emp.empl_rcd = 0 AND emp.effdt <= to_date('" + currDate.toString() + "','yyyy-mm-dd') order by " + PS_EMPL_ID + " desc";
+		String qry = "select emp.*, tax.descr as tax_descr, tax.country as tax_country, tax.city as tax_city, tax.state as tax_state from " + PS_EMPL_TBL + " emp LEFT JOIN " + PS_TAX_TBL + " tax ON emp.tax_location_cd = tax.tax_location_cd order by " + PS_EMPL_ID + " desc";
 		log.debug(qry);
 		rs = statement.executeQuery(qry);
 		
