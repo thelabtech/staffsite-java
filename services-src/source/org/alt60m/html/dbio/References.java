@@ -36,11 +36,12 @@ public class References implements java.io.Serializable {
 			String refString = "<!--  -------------------- References MODULE ------------------- --> ";
 
 			// display all SP references for this staff 
-			
+
 			if (email == null) {
 				refString = refString + "<i>Currently Not Available</i><BR>";
 				log.warn("References initialized with null email!");
 			} else {
+				/*
 				refString = refString
 						+ "<font size=2><B>Summer Projects</B></font><BR>";
 				if (email.trim().length() == 0) {
@@ -91,7 +92,7 @@ public class References implements java.io.Serializable {
 					}
 					// end new query
 				}
-				
+				*/
 
 				/*
 				// display all SI references for this staff
