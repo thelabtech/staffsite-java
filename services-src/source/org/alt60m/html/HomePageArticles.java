@@ -88,7 +88,7 @@ public class HomePageArticles implements java.io.Serializable {
 		String stringBuffer = "<!--  --------------------Recent Articles MODULE ------------------- --> ";
 		
 		int numToDisplay = new Integer(numOfArticles).intValue();
-		int numHeadersToDisplay = 2;    // specify the Number of Headlines to display in full.
+		int numHeadersToDisplay = 3;    // specify the Number of Headlines to display in full.
 
 		//grab the files
 		try {

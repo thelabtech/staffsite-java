@@ -256,7 +256,7 @@ function toggleDiv(who){
 			</font>
 			<%	//COMMUNICATIONS LX ARTICLES INSERTED HERE
 				articles.setCategoryId("10");
-				articles.setNumOfArticles("5");%>
+				articles.setNumOfArticles("6");%>
 				<%=articles.print()%>
 			</font>
 
