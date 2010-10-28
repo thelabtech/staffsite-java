@@ -138,7 +138,7 @@
 				%>
 			</select>**</font><br>
 			** Can't find the right Missional Team?  Propose one to be entered here: </font>
-			<a href="/servlet/InfoBaseController?action=proposeNewLocalLevel">[New Team]</a></font>
+			<a href="/servlet/Team?action=index&module=team&new=true">[New Team]</a></font>
 		</td>
 	</tr>
 <!-- URL and Facebook-->  
