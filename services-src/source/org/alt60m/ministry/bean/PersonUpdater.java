@@ -194,7 +194,7 @@ public class PersonUpdater {
 	  person.setFk_spouseID(spouse.getPersonID());
 	  
 	  person.setMinistry(staff.getMinistry());
-	  if (("NC SE MA MS GP GL NW RR UM SW NE HLIC").contains(staff.getRegion())){
+	  if (("NC SE MA MS GP GL NW RR UM SW NE HLIC KEY").contains(staff.getRegion())){
 		  person.setRegion(staff.getRegion());}
 	  else {
 		  person.setRegion("");
