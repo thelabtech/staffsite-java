@@ -874,9 +874,13 @@ public class CmsController extends Controller {
 
 			// set moderator permissions
 			Hashtable profile = (Hashtable) ctx.getSessionValue("profile");
-			String submitter = (String) profile.get("FirstName") + " " + (String) profile.get("LastName");
-			if (usersRoles.containsKey(profile.get("UserName").toString().toLowerCase()) || submitter.equals((String) f.get("Submitter"))) {
-				ar.putValue("Moderator", "true");
+			if (profile != null) {
+				String submitter = (String) profile.get("FirstName") + " " + (String) profile.get("LastName");
+				if (usersRoles.containsKey(profile.get("UserName").toString().toLowerCase()) || submitter.equals((String) f.get("Submitter"))) {
+					ar.putValue("Moderator", "true");
+				} else {
+					ar.putValue("Moderator", "false");
+				}
 			} else {
 				ar.putValue("Moderator", "false");
 			}
