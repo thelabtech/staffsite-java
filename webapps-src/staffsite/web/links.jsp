@@ -70,7 +70,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
                       <TR><td><%=fontB%><a href="http://www.gnwcru.org" target="_blank">Greater Northwest Site</a></td></tr>
-					  <TR><td><%=fontB%><a href="http://www.glccc.org" target="_blank">Great Lakes Site</a></td></tr>
+					  <TR><td><%=fontB%><a href="http://greatlakescru.com" target="_blank">Great Lakes Site</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.gpiregion.com" target="_blank">Great Plains Site</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://www.midsouthcru.com" target="_blank">MidSouth Site</a></td></tr>
 					  <TR><td><%=fontB%><a HREF="http://www.ugoglobal.com" target="_blank">Ugoglobal.com (Midsouth WSN)</a></td></tr>		
