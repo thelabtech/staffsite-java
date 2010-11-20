@@ -191,7 +191,9 @@ public class PersonUpdater {
 	  person.setGender(staff.getIsMale()?"1":"0");
 	  person.setMaritalStatus(staff.getMaritalStatus());
 	  Staff spouse=new Staff(staff.getSpouseAccountNo());
-	  person.setFk_spouseID(spouse.getPersonID());
+	  if (!spouse.isPKEmpty()) {
+		  person.setFk_spouseID(spouse.getPersonID());
+	  }
 	  
 	  person.setMinistry(staff.getMinistry());
 	  if (("NC SE MA MS GP GL NW RR UM SW NE HLIC KEY").contains(staff.getRegion())){
