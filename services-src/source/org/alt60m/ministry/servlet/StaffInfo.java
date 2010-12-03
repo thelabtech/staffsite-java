@@ -51,6 +51,7 @@ public class StaffInfo {
 		s.setAccountNo(id);
 		if ((id!=null) && (!s.isPKEmpty())&&(s.select())) 
 			if("HR".equalsIgnoreCase(s.getStrategy())) return true;
+			else if("LD".equalsIgnoreCase(s.getStrategy())) return true;
 			else return false;
 		else return false;
     }
