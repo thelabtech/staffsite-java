@@ -843,7 +843,14 @@ public class CmsController extends Controller {
 			ActionResults ar = new ActionResults("edit");
 
 			//get fileInfo
-			File file = new File(ctx.fetchId());
+			File file = new File();
+			try {
+				file = new File(ctx.fetchId());
+			} catch (IllegalArgumentException e) { // No need to log and send out error email
+				ctx.setError(e.getMessage());
+				ctx.goToErrorView();
+				return;
+			}
 			Hashtable f = ObjectHashUtil.obj2hash(file);
 			ar.addHashtable("f", f);
 

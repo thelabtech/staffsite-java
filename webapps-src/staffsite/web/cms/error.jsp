@@ -1,5 +1,6 @@
 <%@ page import="java.util.*" %>
 <% Hashtable tub = (Hashtable)session.getValue("tub"); %>
+<% String error = (String)session.getValue("error"); %>
 
 <HTML>
 <HEAD>
@@ -12,7 +13,11 @@
 <table width="90%" align="center"><tr><td>
 <%=font%>
 
-You've had an error!
+<% if (error != null) { %>
+  <%= error %>
+<% } else { %>
+  You've had an error!
+<% } %>
 
 </font>
 </td></tr></table>

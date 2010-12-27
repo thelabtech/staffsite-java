@@ -32,3 +32,4 @@ Disallow: /lx_frame.jsp
 Disallow: /lx_top.jsp
 Disallow: /hr_si/
 Disallow: /infobase/
+Disallow: /quest/
