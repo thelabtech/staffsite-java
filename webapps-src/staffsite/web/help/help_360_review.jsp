@@ -35,7 +35,7 @@
 
 <%=hr%>
 
-<%=fontTextXXL%>Instructions</font>
+<!--<%=fontTextXXL%>Instructions</font>
 <%=hr%>
 <B><A name="initiate">To Initiate a 360 Review on Someone:</A></B><BR><BR>
 
@@ -44,6 +44,8 @@
 3.	Click on "Administration" in the box entitled "360 Tools."<BR>
 4.	Click on "Start a new 360" in the box entitled "360 Tools."<BR>
 5.	Follow the instructions on the screen.<BR><BR>
+
+-->
 
 <p align=right style='text-align:right'><i><span
 style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>
