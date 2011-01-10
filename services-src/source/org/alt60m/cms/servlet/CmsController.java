@@ -192,7 +192,7 @@ public class CmsController extends Controller {
 				//grab the files
 				if (catId.equals("1")) {
 					// need to list all that don't have a category assigned
-					query = "categories = null";
+					query = "CmsCategoryId is null";
 				} else {
 					query = "CmsCategoryId like '" + catId + "' order by title";
 				}
