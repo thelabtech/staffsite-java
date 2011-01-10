@@ -128,7 +128,7 @@
 			<LI>Click [<U>Edit</U>] to change information about the Review (i.e. Due Date, Title, Purpose).
 			<LI>Click on the reviewer's name to edit their review or check on their progress.
 			<LI>Before printing a report, read this <A HREF="#note"><%=fontR%>note</FONT></A>.
-			<LI>To start a new review process, choose <U>Start a new 360</U> in the <B>360 Tools</B> section at the left.
+			<LI>New reviews can no longer be started in this tool. <a href="http://pr.uscm.org">Use the new Peer Review tool</a>.
 			<LI>To send invitation emails, check the boxes by the names of desired reviewers and click [Send Email Invitation to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewInvitationEmail.jsp', 'PreviewInvitationEmail', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Preview Invitation Email</a>
 			<LI>To send reminder emails, check the boxes by the names of desired reviewers and click [Send Email Reminder to the Reviewers you checked]. <a href="javascript: popupWindow('/Review360dbio/previewReminderEmail.jsp', 'PreviewReminderEmail', 'height=600,width=750,dependent=yes,scrollbars=yes,resizable')">Preview Reminder Email</a>
 			<LI>You can email multiple reviewers at once, but only for one review at a time.</FONT>
