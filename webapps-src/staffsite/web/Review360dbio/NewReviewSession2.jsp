@@ -33,7 +33,7 @@ function valid(form) {
 %>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" <%=bgcolorW%>> <!--Whole page table-->
     <TR>
-        <TD <%=bgcolorW%> VALIGN="BOTTOM" COLSPAN="3"><IMG SRC="/images/360logo.gif" BORDER="0">&nbsp;<%=fontB5%><B>Start a new 360 [2/3]</B></FONT></TD>
+        <TD <%=bgcolorW%> VALIGN="BOTTOM" COLSPAN="3"><IMG SRC="/images/360logo.gif" BORDER="0">&nbsp;<%=fontB5%>This tool is changing. Go to <a href="http://pr.uscm.org">http://pr.uscm.org</a> to start a new Review</FONT></TD>
 	</TR>
 	<TR>
 		<TD <%=bgcolorB%> COLSPAN="3"><IMG SRC="/images/blank.gif" HEIGHT="1" WIDTH="616" BORDER="0"></TD>

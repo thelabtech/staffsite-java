@@ -35,8 +35,10 @@
 
 <%=hr%>
 
-<!--<%=fontTextXXL%>Instructions</font>
+<%=fontTextXXL%>Instructions</font>
 <%=hr%>
+<A name="initiate" />This tool is changing. Go to <a href="http://pr.uscm.org">http://pr.uscm.org</a> to start a new Review
+<!-- 
 <B><A name="initiate">To Initiate a 360 Review on Someone:</A></B><BR><BR>
 
 1.	Click on "Tools" on the Staff Site Main Menu Bar.<BR>

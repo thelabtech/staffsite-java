@@ -89,12 +89,9 @@
 			<% box.setTitle("360 Tools");	%>
 			<%=box.printTop()%>
 
-			<A HREF="/servlet/Review360Controller?action=showIndex"><%=fontB1%>360 Home</FONT></A><BR><!--
-			<A HREF="/servlet/Review360Controller?action=newReviewSession"><%=fontB1%>Start a new 360</FONT></A><BR>
-			<% if("true".equals(tub.getValue("LightAdmin"))) { %>
-			<A HREF="/servlet/Review360LightController?action=newReviewSession"><%=fontB1%>Start a new 360 Light</FONT></A><BR>
-			<% } %>
-			--><A HREF="/servlet/Review360Controller?action=listAdminSessions"><%=fontB1%>Administration</FONT></A><BR>
+			<A HREF="/servlet/Review360Controller?action=showIndex"><%=fontB1%>360 Home</FONT></A><BR>
+      This tool is changing. Go to <a href="http://pr.uscm.org">http://pr.uscm.org</a> to start a new Review<br />
+      <A HREF="/servlet/Review360Controller?action=listAdminSessions"><%=fontB1%>Administration</FONT></A><BR>
 			<A href="JavaScript: popupWindow('/help/help_360_review.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>Help</font></A>
 			<%=box.printBottom()%>
 
@@ -430,7 +427,7 @@
 			<%=fontB%>
 			<B><%=fontB%>Administration Help</FONT></B>
 			<UL>
-			<LI>To start a new review process, choose <U>Start a new 360 Light</U> in the <B>360 Tools</B> section at the left.</FONT>
+			<LI>This tool is changing. Go to <a href="http://pr.uscm.org">http://pr.uscm.org</a> to start a new Review</LI>
 			</UL>
 		</TD>
     </TR>
