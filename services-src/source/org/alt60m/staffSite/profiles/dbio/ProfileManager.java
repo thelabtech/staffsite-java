@@ -152,7 +152,7 @@ public class ProfileManager {
 
         try {
 
-            _securityMan.removeUser(username);
+            //_securityMan.removeUser(username);
 
             // Remove profile
             getProfile(username).delete();
