@@ -157,8 +157,6 @@ public class ProfileManager {
             // Remove profile
             getProfile(username).delete();
 
-        } catch (UserNotFoundException unfe) {
-            throw new ProfileNotFoundException("Username: '" + username + "' was not found.  Couldn't delete.");
         } catch (Exception e) {
             throw new ProfileManagementException(e.toString());
         }
