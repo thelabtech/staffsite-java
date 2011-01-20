@@ -37,6 +37,8 @@
 
 <%=fontTextXXL%>Instructions</font>
 <%=hr%>
+<A name="initiate" />This tool is changing. Go to <a href="http://pr.uscm.org">http://pr.uscm.org</a> to start a new Review
+<!-- 
 <B><A name="initiate">To Initiate a 360 Review on Someone:</A></B><BR><BR>
 
 1.	Click on "Tools" on the Staff Site Main Menu Bar.<BR>
@@ -44,6 +46,8 @@
 3.	Click on "Administration" in the box entitled "360 Tools."<BR>
 4.	Click on "Start a new 360" in the box entitled "360 Tools."<BR>
 5.	Follow the instructions on the screen.<BR><BR>
+
+-->
 
 <p align=right style='text-align:right'><i><span
 style='font-size:10.0pt;font-family:Arial'><a href=#top>back to top</a></span></i></p>
