@@ -37,6 +37,7 @@ public class PersonUpdater {
 		result.add("Staff Raising Init Supprt");
 		result.add("Un-Paid Affiliate");
 		result.add("Part Time Volunteer");
+		result.add("Ministry Intern");
 		return result;
 	}
 
