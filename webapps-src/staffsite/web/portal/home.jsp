@@ -314,7 +314,7 @@ function toggleDiv(who){
 				<A  class="sideBar"   href="https://staff2.ccci.org/fs/NatlPrograms/National%20Programs.htm" target='_blank'>National Programs</a><br/>
 				<A  class="sideBar"   href='http://staffweb.ccci.org/fsg/articles-main/risk-management.aspx' target='_blank'>Risk Management (SOS)</a><br/>
 				<A  class="sideBar"   href='http://staffweb.ccci.org' target='_blank'>StaffWeb</a><br/>
-				<A  class="sideBar"   href='http://staffweb.ccci.org/csu-2009/index.aspx' target='_blank'>CSU 2009</a>
+				<A  class="sideBar"   href='http://staffweb.ccci.org/csu/index.aspx' target='_blank'>CSU</a>
 			</font>
 			<%=box.printBottom()%>
 			<br/>
