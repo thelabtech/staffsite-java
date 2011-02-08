@@ -550,7 +550,7 @@ public class SimpleSecurityManager implements SecurityManager {
 		return ssmUser;
 	}
 	
-	public User checkAndCreateUser(CASUser user) throws UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException, MultipleProfilesFoundException, ProfileManagementException {
+	public User checkAndCreateUser(CASUser user) throws UserNotVerifiedException, SecurityManagerFailedException, SsmUserAlreadyExistsException, MultipleProfilesFoundException, ProfileManagementException, UserNotFoundException {
 		User ssmUser = null;
 		
 		if (checkIfEmployee(user)) {
@@ -559,7 +559,19 @@ public class SimpleSecurityManager implements SecurityManager {
 				ssmUser = createProfile(user);
 			}
 		} else {
-			// TODO: Check if they already have a SSP record.  If so, add GUID.
+			// Check if they already have a SSP record.  If so, add GUID.
+			try {
+				StaffSiteProfile ssp = ProfileManager.getProfile(user.getUsername());
+			} catch (ProfileNotFoundException e) {
+				throw new UserNotFoundException("No SSP - In SimpleSecurityManager.checkAndCreateUser()");
+			}
+			ssmUser = checkIfUserExists(user);
+			if (ssmUser != null) {
+				ssmUser.setGloballyUniqueID(user.getGUID());
+				ssmUser.persist();
+			} else {
+				throw new UserNotFoundException("No SSM User - In SimpleSecurityManager.checkAndCreateUser()");
+			}
 			throw new UserNotVerifiedException("No employee ID");
 		}
 		
