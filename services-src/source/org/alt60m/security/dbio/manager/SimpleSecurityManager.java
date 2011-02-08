@@ -572,7 +572,6 @@ public class SimpleSecurityManager implements SecurityManager {
 			} else {
 				throw new UserNotFoundException("No SSM User - In SimpleSecurityManager.checkAndCreateUser()");
 			}
-			throw new UserNotVerifiedException("No employee ID");
 		}
 		
 		return ssmUser;
