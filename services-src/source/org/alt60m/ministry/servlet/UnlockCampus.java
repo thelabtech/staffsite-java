@@ -49,10 +49,10 @@ public class UnlockCampus  {
 		Collection<Activity> acts=act.selectList();
 		for (Activity a : acts) result.add(a.getTargetAreaId());
 
-		ActivityContact contactRelationship=new ActivityContact();//we get campuses by contact relationship
-		contactRelationship.setAccountNo(staff.getAccountNo());
-		Collection<ActivityContact> contactRelationshipS=contactRelationship.selectList();
-		for (ActivityContact a : contactRelationshipS) 	result.add(a.getActivity().getTargetAreaId());
+//		ActivityContact contactRelationship=new ActivityContact();//we get campuses by contact relationship
+//		contactRelationship.setAccountNo(staff.getAccountNo());
+//		Collection<ActivityContact> contactRelationshipS=contactRelationship.selectList();
+//		for (ActivityContact a : contactRelationshipS) 	result.add(a.getActivity().getTargetAreaId());
 		
 		if (staff.getPosition().equals("Regional Director"))	result.add(staff.getRegion()); //regional directors see all in their domain
 		if (staff.getPosition().equals("National Director"))	result.add("ALL"); //national directors see all, period.

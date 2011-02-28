@@ -1337,7 +1337,7 @@ public class StaffController extends Controller {
 		final String[] sections = new String[] { "PFormFrame",
 				"servlet/SaiServlet", "servlet/ReimbServlet",
 				"servlet/ReimbAdvServlet", "servlet/AsrServlet",
-				"servlet/SalaryCalcServlet", "ReimbServlet" };
+				"servlet/SalaryCalcServlet", "ReimbServlet", "SaiServlet" };
 
 		try {
 			ActionResults results = new ActionResults();
@@ -1354,6 +1354,8 @@ public class StaffController extends Controller {
 				//provide some backwards compatibility
 				if (section.equals("ReimbServlet")) {
 					section = "servlet/ReimbServlet";
+				} else if (section.equals("SaiServlet")) {
+					section = "servlet/SaiServlet";
 				}
 
 				String password = getEncryptedPreference(ctx.getProfileID(),
