@@ -222,10 +222,13 @@ int curr_tab = 3; %>
 		</tr>
 		<tr>
 			<td valign="center" align="center">
-				<a href="/servlet/Review360Controller"><img src="/images/360logo.gif"></a></td><td>
-				<%=font%><b>The 360<br>Review<br>Tool</b></font></td><td>
+				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td><td>
+				<%=font%><b>Panorama</b></font></td><td>
 				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
-				member more effective personally and in ministry. Come experience the adventure within the 360 review tool online!
+				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
+				<br/>
+				<a href="/servlet/Review360Controller">View pre-2011 reviews in the old 360 tool</a>
 				</font>
 			</td>
 		</tr>

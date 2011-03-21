@@ -277,7 +277,8 @@ function toggleDiv(who){
 			<a href='http://wiki.uscm.org/' target='_blank'><img src="/images/wiki_icon.png" border='0' style="margin-right:5px;">Wiki</a><br>
 			<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">OneCard</a><br>
 			<a href='/servlet/Report'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Success Criteria</a><br>
-			<a href='/servlet/Review360Controller'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">360 Review</a><br>
+			<a href='<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>'><img src="/images/small_360.gif" border='0' style="margin-right:5px;">Panorama</a><br>
 			<%// if (isStudent.equals("false")) { %>
 			<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
 			<%// } %>
