@@ -11,7 +11,7 @@ Team Leader
 <%} else { %>
 Team Member
 <%} %>
-<%if(!h.get("is_people_soft").equals(true)&&((session.getValue("isHR").equals("true"))||ar.getValue("isRD").equals("true"))){ %>
+<%if(!h.get("is_people_soft").equals(true)&&(ar.getValue("isHRDirector").equals("true"))){ %>
 &nbsp;:&nbsp;
 <%if(h.get("is_leader").equals(true)){ %>		
 <A style="border:none;"

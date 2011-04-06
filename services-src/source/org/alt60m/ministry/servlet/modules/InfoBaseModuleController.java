@@ -159,6 +159,7 @@ public class InfoBaseModuleController extends Controller {
             Person person=getUserPerson(ctx);
             results.putValue("personID",person.getPersonID()+"");
             results.putValue("isRD",isLeader(person,lastClass,id));
+            results.putValue("isHRDirector", isHRDirector(person));
 			results.putValue("module",lastClass);
 			results.putValue("title",lastClass);
 			results.putValue("mode","content");
@@ -368,6 +369,17 @@ public class InfoBaseModuleController extends Controller {
        
        Staff staff=new Staff(person.getAccountNo());
        if (staff.getJobTitle().contains("Director")){
+    	   log.debug("Real RDee!");
+   			isRD="true";
+   			
+       }
+       return isRD;
+    }
+    protected String isHRDirector(Person person)
+    {
+       String isRD="false";
+       Staff staff=new Staff(person.getAccountNo());
+       if (staff.getJobTitle().contains("Director (HR)")){
     	   log.debug("Real RDee!");
    			isRD="true";
    			
