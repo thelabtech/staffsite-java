@@ -135,6 +135,7 @@ public class TeamController extends org.alt60m.ministry.servlet.modules.InfoBase
             results.putValue("personID",person.getPersonID()+"");
             LocalLevel ll=new LocalLevel(teamID);
             results.putValue("isRD",isTeamLeader(person,ll));
+            results.putValue("isHRDirector", isHRDirector(person));
 			results.putValue("module",this.module);
 			results.putValue("title",this.title);
 			results.putValue("mode","addMember");
