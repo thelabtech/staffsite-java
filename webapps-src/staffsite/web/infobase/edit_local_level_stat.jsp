@@ -208,7 +208,7 @@
 				<tr align="left" valign="middle">
 					<th><%=fontB%>Laborers Sent</font></th>
 					<td><input type="text" name="LaborersSent" value="<%=statistic.get("LaborersSent")%>" size="10" onBlur="isInteger(this, this.value)"></td>
-					<td width="90%"><i><%=fontB1%>A graduated Christ-centered laborer (non-staff) is someone who is growing in his/her faith, is multiplying his/her life, and has been sent with a personal strategy to help fulfill the Great Commission.</font></i></td>
+					<td width="90%"><i><%=fontB1%>A graduated Christ-centered laborer (non-staff & staff) is someone who is growing in his/her faith, is multiplying his/her life, and has been sent with a personal strategy to help fulfill the Great Commission.</font></i></td>
 				</tr>
 
 			</table>
