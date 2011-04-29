@@ -210,7 +210,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Ministry Location AOA:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Area:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="aoa" size="27" maxlength=35>
@@ -218,7 +218,7 @@ boolean admin = (val != null && val.equalsIgnoreCase("true")) ? true : false;
 	</tr>
 	<tr <%=bgcolorL%>> 
 		<td>
-			<div align="right"><%=fontB%>Ministry Location AOA Priority:</a></font></div>
+			<div align="right"><%=fontB%>Ministry Location Area Priority:</a></font></div>
 		</td>
 		<td>
 			<input type="text" name="aoaPriority" size="27" maxlength=35>
