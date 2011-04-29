@@ -1681,8 +1681,8 @@ public class InfoBaseTool {
 				msgText.append("Is this campus secure/closed? " + request.get("isSecure") + "\n");
 				msgText.append("Campus Region: " + request.get("region") + "\n");
 				msgText.append("Campus MPTA: " + request.get("mpta") + "\n");
-				msgText.append("Campus AOA: " + request.get("aoa") + "\n");
-				msgText.append("Campus AOA Priority: " + request.get("aoaPriority") + "\n");
+				msgText.append("Campus Area: " + request.get("aoa") + "\n");
+				msgText.append("Campus Area Priority: " + request.get("aoaPriority") + "\n");
 				msgText.append("Info URL: " + request.get("infoUrl") + "\n");
 				msgText.append("CIA URL: " + request.get("ciaUrl") + "\n");
 				msgText.append("Submitters Email Address: " + request.get("from") + "\n");
