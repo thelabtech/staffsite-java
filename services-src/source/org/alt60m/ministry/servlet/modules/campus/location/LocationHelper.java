@@ -138,8 +138,8 @@ public class LocationHelper extends org.alt60m.ministry.servlet.modules.InfoBase
 				msgText.append("Is this campus secure/closed? " + request.get("isSecure") + "\n");
 				msgText.append("Campus Region: " + request.get("Region") + "\n");
 				msgText.append("Campus MPTA: " + request.get("Mpta") + "\n");
-				msgText.append("Campus AOA: " + request.get("Aoa") + "\n");
-				msgText.append("Campus AOA Priority: " + request.get("AoaPriority") + "\n");
+				msgText.append("Campus Area: " + request.get("Aoa") + "\n");
+				msgText.append("Campus Area Priority: " + request.get("AoaPriority") + "\n");
 				msgText.append("Info URL: " + request.get("InfoUrl") + "\n");
 				msgText.append("CIA URL: " + request.get("CiaUrl") + "\n");
 				msgText.append("-----------------------------------------------------------------\n");
