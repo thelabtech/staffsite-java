@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
 <user name="todd.gross@uscm.org" role="moderator"></user>
-<user name="jody.hanford@uscm.org" role="moderator"></user>
 <user name="ruth.rhea@uscm.org" role="moderator"></user>
 <user name="laura.viau@uscm.org" role="moderator"></user>
 <user name="larry.stephens@uscm.org" role="moderator"></user>
-<user name="jeff.bridgforth@uscm.org" role="moderator"></user>
 <user name="kathy.schwab@uscm.org" role="moderator"></user>
 <user name="leighann.dull@uscm.org" role="moderator"></user>
 <user name="brent.jordan@uscm.org" role="moderator"></user>
 <user name="summer.projects@uscm.org" role="moderator"></user>
-<user name="dennis.brockman@uscm.org" role="moderator"></user>
-<user name="bill.oliver@uscm.org" role="moderator"></user>
-<user name="mark.niemeyer@uscm.org" role="moderator"></user>
 <user name="anna.patterson@uscm.org" role="moderator"></user>
-<user name="betsy.harman@uscm.org" role="moderator"></user>
-<user name="brock.zagel@uscm.org" role="moderator"></user>
 <user name="tina.hood@uscm.org" role="moderator"></user>
 <user name="todd.williams@uscm.org" role="moderator"></user>
 <user name="cenia.wong@uscm.org" role="moderator"></user>
@@ -24,6 +17,6 @@
 <user name="josh.starcher@uscm.org" role="moderator"></user>
 <user name="jeff.hardy@uscm.org" role="moderator"></user>
 <user name="mark.kohman@uscm.org" role="moderator"></user>
-<user name="eddie.cortes@uscm.org" role="moderator"></user>
 <user name="dennis.brockman@uscm.org" role="moderator"></user>
+<user name="micah.linscott@uscm.org" role="moderator"></user>
 </users>
