@@ -85,9 +85,9 @@ int curr_tab = 3; %>
 		%>
  		<tr>
  			<td valign="center" align="center">
- 				<a href="http://fsk.campuscrusadeforchrist.com">
+ 				<a href="http://www.fsicatalog.com/FSK">
 				<img src="/images/logo_fsk.gif"></a></td><td>
- 				<%=font%><b>FSK Ordering Tool</b></font></td><td>
+ 				<%=font%><b><a href="http://www.fsicatalog.com/FSK">FSK Ordering Tool</b></font></td><td>
  				<%=fontS%>Allocating and ordering freshman survival kits for Fall 2008.</font><br>
 				
  			</td>
