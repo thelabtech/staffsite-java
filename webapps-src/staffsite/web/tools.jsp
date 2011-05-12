@@ -203,7 +203,10 @@ int curr_tab = 3; %>
 						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td>
 				<%=font%><b><a href="http://www.conferenceregistrationtool.com/admin">Conference Registration System (CRS) </b></font></td>
-			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
+			<td><%=fontS%>Create, administer, and register online for an event of any size.<br/>
+			<br/>
+			<a href="/servlet/CRSAdmin">Old CRS tool</a>
+			</font></td>
 		</tr>
 		<tr>
 			<td valign="center" align="center"><a href="
