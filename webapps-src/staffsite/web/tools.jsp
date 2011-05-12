@@ -112,7 +112,7 @@ int curr_tab = 3; %>
 		<tr>
 			<td valign="center" align="center">
 				<a href="http://quest.campuscrusadeforchrist.com" target="_blank"><img src="/images/logo_quest.gif"></a></td><td>
-				<%=font%><b>Quest Survey Tool</b></font></td><td>
+				<%=font%><b><a href="http://quest.campuscrusadeforchrist.com">Quest Survey Tool</b></font></td><td>
 				<%=fontS%>View and Enter QuEST survey results into the QuEST Database.	</font>
 			</td>
 		</tr>
@@ -168,7 +168,7 @@ int curr_tab = 3; %>
 						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
 			<td>
 				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
+				<%=font%><b><a href="http://stint.uscm.org/admin">The STINT/<br>Internship Tool</b></font></td>
 			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
 		</tr>
 
@@ -202,7 +202,7 @@ int curr_tab = 3; %>
 			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
 						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td>
-				<%=font%><b>Conference Registration System 2.0 (CRS) </b></font></td>
+				<%=font%><b><a href="http://www.conferenceregistrationtool.com/admin">Conference Registration System (CRS) </b></font></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.</font></td>
 		</tr>
 		<tr>
@@ -215,7 +215,7 @@ int curr_tab = 3; %>
 			<td>
 				
 				<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-				<%=font%><b>The<br>Summer<br>Project<br>Tool</b></font></td>
+				<%=font%><b><a href="http://sp.campuscrusadeforchrist.com/admin">The<br>Summer<br>Project<br>Tool</b></font></td>
 			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the 
 						ability to automatically generate new account numbers for accepted students, 
 						track their balances,  evaluate applications, etc.</font></td>
@@ -224,7 +224,7 @@ int curr_tab = 3; %>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
                         "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td><td>
-				<%=font%><b>Panorama</b></font></td><td>
+				<%=font%><b><a href="http://pr.uscm.org">Panorama</b></font></td><td>
 				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
 				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
 				<br/>
@@ -232,12 +232,12 @@ int curr_tab = 3; %>
 				</font>
 			</td>
 		</tr>
-		<tr>
+		<!--<tr> 
 			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
 			<td>
 				<%=font%><b><i>Conference Registration System (CRS) </i>-- PhaseOut in progress</b></font></td>
 			<td><%=fontS%>Available for administrating existing conferences only-- use CRS 2.0 for new conferences.</font></td>
-		</tr>
+		</tr> -->
 				<%// } %>			
 	</table>
 <%=box.printBottom()%>
