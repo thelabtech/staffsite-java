@@ -234,7 +234,7 @@ while(report.hasNext()){
 	
 	<td class="label">
 	<%if(!row.getFunction().equals("detail")){ %>
-		<%if (!type.equals("targetarea")&& ar.getValue("teamID") != null){%>
+		<%if (!type.equals("targetarea")&& ar.getValue("teamID") != null && !ar.getValue("teamID").equals("") && !ar.getValue"teamID".equals(" ")){%>
 		<a  href="Report?action=statReport&type=<%
 			if(type.equals("national")){out.print("regional");}
 			else if (type.equals("regional")&&!isEvent){out.print("locallevel");}
