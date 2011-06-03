@@ -239,13 +239,15 @@ while(report.hasNext()){
 			if(type.equals("national")){out.print("regional");}
 			else if (type.equals("regional")&&!isEvent){out.print("locallevel");}
 			else {out.print("targetarea");}
+			if (row.getLocalLevelID() == null) {	int tempteamID = 0;}
+			else {tempteamID = row.getLocalLevelID();}
 			%>
 			&frommonth=<%=ar.getValue("frommonth")%>
 			&fromyear=<%=ar.getValue("fromyear")%>
 			&tomonth=<%=ar.getValue("tomonth")%>
 			&toyear=<%=ar.getValue("toyear")%>
 			&targetareaid=<%=row.getTargetAreaID()%>
-			&teamID=<%=row.getLocalLevelId()%>
+			&teamID=<%=tempteamID%>
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
