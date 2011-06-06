@@ -250,7 +250,10 @@ while(report.hasNext()){
 			&tomonth=<%=ar.getValue("tomonth")%>
 			&toyear=<%=ar.getValue("toyear")%>
 			&targetareaid=<%=row.getTargetAreaID()%>
-			&teamID=<=tempTeamID%>
+			&teamID=<%
+			if (row.getLocalLevelID() == null) {out.print(0);}
+			else {out.print(row.getLocalLevelID();)}
+		  %>
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
