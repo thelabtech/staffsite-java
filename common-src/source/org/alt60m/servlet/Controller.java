@@ -158,7 +158,7 @@ public abstract class Controller extends HttpServlet {
 			_session.setAttribute(ERR_TOKEN, "Error processing request");
 		}
 
-		public void goToLastAction() 
+		public void goToLastAction() { 
 			goToView(getLastAction());
 		}
 
