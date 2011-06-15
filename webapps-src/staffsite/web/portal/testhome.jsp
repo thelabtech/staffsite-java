@@ -101,7 +101,7 @@ function preloadImages() {
 		<!-- other link text -->
 		<%=fontB1%>
 		| <A HREF="/sitemap.jsp"><%=fontB1%>site map</FONT></A>
-		| <a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
+		| <a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
 		| <A HREF="/logout.jsp"><%=fontB1%>logoff</FONT></A>
 		|&nbsp;&nbsp;&nbsp;&nbsp;
 		</FONT>
@@ -335,7 +335,7 @@ function preloadImages() {
 				<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0'>&nbsp;Find/submit&nbsp;a&nbsp;resource</a><br>
 				<a href='http://www.lxonline.org' target="_blank"><img src="/images/small_lx.gif" border='0'>&nbsp;Read&nbsp;LX</a><br>
 				<A HREF="/servlet/StaffController?action=loginPS&section=servlet/ReimbServlet" target="_blank"><img src="/images/small_dollar.gif" border='0'>&nbsp;Reimburse&nbsp;Expenses</A><BR>
-				<a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>&nbsp;Get&nbsp;Help</a><br>
+				<a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><img src="/images/small_question.gif" border='0'>&nbsp;Get&nbsp;Help</a><br>
 				<a href='/servlet/StaffController?action=loginStaffWeb' target='_blank'><img src="/images/small_chart.gif" border='0'>&nbsp;Go&nbsp;to&nbsp;StaffWeb</a><br>
 				<a href="http://www.CampusStories.org" target='_blank'><img src="/images/lightbulb.gif" border='0'>&nbsp;Find&nbsp;a&nbsp;Ministry&nbsp;Story</a><br>
 				<a href="http://myexpense.captura.net/?legalentity=ccci_wsl" target='_blank'><img src="/images/mastercard.gif" border='0'>&nbsp;Log&nbsp;on&nbsp;to&nbsp;OneCard</a><br>

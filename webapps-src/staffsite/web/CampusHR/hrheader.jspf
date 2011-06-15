@@ -202,7 +202,7 @@ function preloadImages() {
 				<!-- other link text -->
 				<%=fontB1%>
 				| <A HREF="/sitemap.jsp"><%=fontB1%>site map</FONT></A>
-				| <a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
+				| <a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
 				| <A HREF="/logout.jsp"><%=fontB1%>logoff</FONT></A>
 				|&nbsp;&nbsp;&nbsp;&nbsp;
 				</FONT>

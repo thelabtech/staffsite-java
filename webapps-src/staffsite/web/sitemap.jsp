@@ -46,7 +46,7 @@
 
 		<tr><td><B><A HREF="/sitemap.jsp">Sitemap</A></B>				</td><td> &nbsp; </td><td><%=fontTextS%>	This page.	</td></tr>
 
-		<tr><td <%=tableRightWB%>><B><a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help</a></B>				</td><td <%=tableRightWB%>> &nbsp; </td><td <%=tableRightWB%>><%=fontTextS%>	The help system.	</td></tr>
+		<tr><td <%=tableRightWB%>><B><a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')">Help</a></B>				</td><td <%=tableRightWB%>> &nbsp; </td><td <%=tableRightWB%>><%=fontTextS%>	The help system.	</td></tr>
 
 		<tr><td><B><A HREF="/logout.jsp">Logoff</A></B>				</td><td> &nbsp; </td><td><%=fontTextS%>	Though not really a page, this will log you out of this system.	</td></tr>
 

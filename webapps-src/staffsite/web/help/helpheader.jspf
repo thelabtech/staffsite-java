@@ -34,7 +34,7 @@ function parentWindow(url) {
 		 <TD BGCOLOR="#FFFFFF" ALIGN="LEFT" CELLSPACING="0" colspan="2">
 			 <center>
 			 <%=fontB%>
-			 <a href="/help/help_home.jsp">Help Home</a> | 
+			 <a href="http://wiki.uscm.org/display/CMIT/Home">Help Home</a> | 
 			 <a href="/help/help_general.jsp">General Help</a> | 
 			 <a href="/help/help_logging_in.jsp">Logging in</a> | 
 			 <a href="/help/help_email.jsp">Outlook E-mail</a> | 

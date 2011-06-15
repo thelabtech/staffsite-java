@@ -43,7 +43,7 @@ function preloadImages() {
 		<%=fontB1%>
 <!--
 		| <A HREF="/sitemap.jsp"><%=fontB1%>site map</FONT></A>
-		| <a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
+		| <a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><%=fontB1%>help</FONT></a>
 		| <A HREF="/logout.jsp"><%=fontB1%>logoff</FONT></A>
 		|&nbsp;&nbsp;&nbsp;&nbsp;
 -->
@@ -81,7 +81,7 @@ function preloadImages() {
 				ONMOUSEOUT="changeImages('header_12', '/images/header_12.jpg'); return true;">
 				<IMG NAME="header_12" SRC="<% if(curr_tab == 5){%>/images/header_12-over.jpg<%} 
 				else {%>/images/header_12.jpg <%}%>" WIDTH=60 HEIGHT=21 BORDER=0></A></TD>
-		<TD><A HREF="javascript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"
+		<TD><A HREF="javascript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"
 				ONMOUSEOVER="changeImages('header_13', '/images/header_13-over.jpg'); return true;"
 				ONMOUSEOUT="changeImages('header_13', '/images/header_13.jpg'); return true;">
 				<IMG NAME="header_13" SRC="<% if(curr_tab == 6){%>/images/header_13-over.jpg<%} 

@@ -109,7 +109,7 @@ function preloadImages() {
 				<!-- other link text -->
 				<FONT FACE="Arial" SIZE="1" COLOR="#336699">
 				| <A HREF="/sitemap.jsp"><FONT FACE="Arial" SIZE="1" COLOR="#336699">site map</FONT></A>
-				| <a href="JavaScript: popupWindow('/help/help_home.jsp', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><FONT FACE="Arial" SIZE="1" COLOR="#336699">help</FONT></a>
+				| <a href="JavaScript: popupWindow('http://wiki.uscm.org/display/CMIT/Home', 'StaffSiteHelp', 'height=550,width=600,dependent=yes,scrollbars=yes,resizable')"><FONT FACE="Arial" SIZE="1" COLOR="#336699">help</FONT></a>
 				| <A HREF="/logout.jsp"><FONT FACE="Arial" SIZE="1" COLOR="#336699">logoff</FONT></A>
 				|&nbsp;&nbsp;&nbsp;&nbsp;
 				</FONT>
