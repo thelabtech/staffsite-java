@@ -273,7 +273,7 @@ function toggleDiv(who){
 			<!-- start 'Quicklinks' module -->
 			<% box.setTitle("Quick Links");%>
 			<%=box.printTop()%>
-			<%=fontS%>
+			<!-- <%=fontS%> *This is the old Quicklinks code*
 			<a href='http://wiki.uscm.org/' target='_blank'><img src="/images/wiki_icon.png" border='0' style="margin-right:5px;">Wiki</a><br>
 			<a href="https://staff2.ccci.org/ss/concurSamlAdapter" target='_blank'><img src="/images/logo_onecard.gif" border='0' style="margin-right:5px;">OneCard</a><br>
 			<a href='/servlet/Report'><img src="/images/small_check.gif" border='0' style="margin-right:5px;">Success Criteria</a><br>
@@ -282,7 +282,23 @@ function toggleDiv(who){
 			<%// if (isStudent.equals("false")) { %>
 			<a href='/servlet/CmsController'><img src="/images/small_disk.gif" border='0' style="margin-right:5px;">Resource Center</a><br>
 			<%// } %>
-			</font>
+			</font> -->
+
+			<a href="http://wiki.uscm.org/" target="_blank"><img src="/images/wiki_icon.png" border="0"></a></td>
+			<td><%=fontS%><a href="http://wiki.uscm.org/" target="_blank">Wiki</a></font></td></tr>
+
+			<tr><td><a href="https://staff2.ccci.org/ss/concurSamlAdapter" target="_blank"><img src="/images/logo_onecard.gif" border="0"></a></td>
+			<td><%=fontS%><a href="https://staff2.ccci.org/ss/concurSamlAdapter">OneCard</a></font></td></tr>
+
+			<tr><td><a href="/servlet/Report"><img src="/images/small_check.gif" border="0"></a></td>
+			<td><%=fontS%><a href="/servlet/Report">Success Criteria</a></font></td></tr>
+
+			<tr><td><a href="http://pr.uscm.org"><img src="/images/small_360.gif" border="0"></a></td>
+			<td><%=fontS%><a href="http://pr.uscm.org">Panorama</a></font></td></tr>
+
+			<tr><td><a href="/servlet/CmsController"><img src="/images/small_disk.gif" border="0"></a></td>
+			<td><%=fontS%><a href="/servlet/CmsController" target="_blank">Resource Center</a></font>
+
 			<%=box.printBottom()%>
 			<br/>
 			
