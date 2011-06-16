@@ -285,19 +285,19 @@ function toggleDiv(who){
 			</font> -->
 
 			<a href="http://wiki.uscm.org/" target="_blank"><img src="/images/wiki_icon.png" border="0"></a></td>
-			<td><%=fontS%><a href="http://wiki.uscm.org/" target="_blank">Wiki</a></font></td></tr>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="http://wiki.uscm.org/" target="_blank">Wiki</a></font></td></tr>
 
-			<tr><td><a href="https://staff2.ccci.org/ss/concurSamlAdapter" target="_blank"><img src="/images/logo_onecard.gif" border="0"></a></td>
-			<td><%=fontS%><a href="https://staff2.ccci.org/ss/concurSamlAdapter">OneCard</a></font></td></tr>
+			<tr><td height="" bgcolor="#CCCC99"><a href="https://staff2.ccci.org/ss/concurSamlAdapter" target="_blank"><img src="/images/logo_onecard.gif" border="0"></a></td>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="https://staff2.ccci.org/ss/concurSamlAdapter">OneCard</a></font></td></tr>
 
-			<tr><td><a href="/servlet/Report"><img src="/images/small_check.gif" border="0"></a></td>
-			<td><%=fontS%><a href="/servlet/Report">Success Criteria</a></font></td></tr>
+			<tr><td height="" bgcolor="#CCCC99"><a href="/servlet/Report"><img src="/images/small_check.gif" border="0"></a></td>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="/servlet/Report">Success Criteria</a></font></td></tr>
 
-			<tr><td><a href="http://pr.uscm.org"><img src="/images/small_360.gif" border="0"></a></td>
-			<td><%=fontS%><a href="http://pr.uscm.org">Panorama</a></font></td></tr>
+			<tr><td height="" bgcolor="#CCCC99"><a href="http://pr.uscm.org"><img src="/images/small_360.gif" border="0"></a></td>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="http://pr.uscm.org">Panorama</a></font></td></tr>
 
-			<tr><td><a href="/servlet/CmsController"><img src="/images/small_disk.gif" border="0"></a></td>
-			<td><%=fontS%><a href="/servlet/CmsController" target="_blank">Resource Center</a></font>
+			<tr><td height="" bgcolor="#CCCC99"><a href="/servlet/CmsController"><img src="/images/small_disk.gif" border="0"></a></td>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="/servlet/CmsController" target="_blank">Resource Center</a></font>
 
 			<%=box.printBottom()%>
 			<br/>
