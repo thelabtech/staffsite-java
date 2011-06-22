@@ -234,7 +234,7 @@ while(report.hasNext()){
 	
 	<td class="label">
 	<%if(!row.getFunction().equals("detail")){ %>
-		<%if (!type.equals("targetarea")&& ar.getValue("teamID") != null && !ar.getValue("teamID").equals("") && !ar.getValue"teamID".equals(" ")){%>
+		<%if (!type.equals("targetarea")){%>
 				int tempTeamID;
 				if(row.getLocalLevelID() == null)
 					tempTeamID = 0;
@@ -250,10 +250,7 @@ while(report.hasNext()){
 			&tomonth=<%=ar.getValue("tomonth")%>
 			&toyear=<%=ar.getValue("toyear")%>
 			&targetareaid=<%=row.getTargetAreaID()%>
-			&teamID=<%
-			if (row.getLocalLevelID() == null) {out.print(0);}
-			else {out.print(row.getLocalLevelID();)}
-		  %>
+			&teamid=<%=ar.getvalue("teamID")%>
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
