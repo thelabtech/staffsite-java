@@ -235,11 +235,6 @@ while(report.hasNext()){
 	<td class="label">
 	<%if(!row.getFunction().equals("detail")){ %>
 		<%if (!type.equals("targetarea")){%>
-				int tempTeamID;
-				if(row.getLocalLevelID() == null)
-					tempTeamID = 0;
-				else
-					tempTeamID = row.getLocalLevelID();
 		<a  href="Report?action=statReport&type=<%
 			if(type.equals("national")){out.print("regional");}
 			else if (type.equals("regional")&&!isEvent){out.print("locallevel");}
@@ -250,7 +245,7 @@ while(report.hasNext()){
 			&tomonth=<%=ar.getValue("tomonth")%>
 			&toyear=<%=ar.getValue("toyear")%>
 			&targetareaid=<%=row.getTargetAreaID()%>
-			&teamid=<%=ar.getvalue("teamID")%>
+			&teamid=<%=row.getLocalLevelID()%>
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
