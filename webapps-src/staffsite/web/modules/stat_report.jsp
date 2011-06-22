@@ -245,7 +245,7 @@ while(report.hasNext()){
 			&tomonth=<%=ar.getValue("tomonth")%>
 			&toyear=<%=ar.getValue("toyear")%>
 			&targetareaid=<%=row.getTargetAreaID()%>
-			&teamid=<%=row.getLocalLevelID()%>
+			&teamid=<%=row.getLocalLevelId()%>
 			&strategyList=<%=ar.getValue("strategyList") %>
 			&region=<%=row.getRegion() %>
 			"> <%} %>
