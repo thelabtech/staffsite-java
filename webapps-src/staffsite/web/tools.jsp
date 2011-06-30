@@ -70,7 +70,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Ministry and Team Tracking");	%>
 <%=box.printTop()%>
-	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center" colspan="2">
 				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
@@ -156,7 +156,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Standard Tools");	%>
 <%=box.printTop()%>
-	<table border=1 cellpadding=2 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
 		<%
 		boolean stintEnabled = true;
@@ -264,7 +264,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Account Management");	%>
 <%=box.printTop()%>
-	<table width=100% border=1 cellpadding=2 bordercolorlight='#ddddaa'>
+	<table width=100% border=0 cellpadding=2 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
 <!--		
 		<tr>
