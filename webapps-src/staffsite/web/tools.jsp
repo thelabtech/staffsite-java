@@ -56,7 +56,112 @@ int curr_tab = 3; %>
 <br>
 
 <table width="95%" align=center>
-	<tr><td width='50%' valign=top>
+	<tr>
+	<td width='50%' valign=top>
+<% box.setStyle("classic");%>
+<% box.setColor(color2);%>
+<% box.setTitle("Power Tools");	%>
+<%=box.printTop()%>
+	<table border=0 cellpadding=10 bordercolorlight='#ddddaa'>
+		<tr>
+			<td valign="center" align="center">
+				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td>
+			<td>
+				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
+				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
+				<br/>
+				<a href="/servlet/Review360Controller">View pre-2011 reviews in the old 360 tool</a>
+				</font>
+			</td>
+		</tr>
+
+		<%// if (isStudent.equals("false")) { %>
+		<%
+		boolean stintEnabled = true;
+		if (stintEnabled) { 
+		%>
+		<tr>
+			<td valign="center" align="center"><a href="
+				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
+			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
+		</tr>
+
+		<%
+		} else {
+		%>
+		
+		<tr>
+			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
+			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
+		</tr>
+
+		<%
+		}
+		%>
+				
+		
+		<!--
+		<tr>
+			<td valign="center" align="center"><img src="/crs/images/crs_logo.gif" BORDER="0"></td>
+			<td>
+				<%=font%><b>Conference Registration System (CRS)</b></font></td><td>
+				<%=fontS%>The CRS site is temporarily unavailable.  Please try back in a few hours.</font>
+			</td>
+		</tr>
+		-->
+		<tr>
+			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"><br>Conference Registration System</a></td>
+			<td><%=fontS%>Create, administer, and register online for an event of any size.<br/>
+			<br/>
+			<a href="/servlet/CRSAdmin">Old CRS tool</a>
+			</font></td>
+		</tr>
+
+		<tr>
+			<td valign="center" align="center"><a href="
+				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+						"http://sp.campuscrusadeforchrist.com/admin" : "http://sp.int.uscm.org/admin" %>"><img src="/images/logo_allsp.gif"></a></td>
+				
+ 			<!--
+			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
+			<td>
+				
+				<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
+
+			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the 
+			ability to automatically generate new account numbers for accepted students, 
+			track their balances,  evaluate applications, etc.</font></td>
+		</tr>
+
+	<%// } %>			
+	</table>
+<%=box.printBottom()%>
+<BR>
+<% if(isHr||hasHRQueryAccess) { %>
+<% box.setStyle("classic");%>
+<% box.setColor(color2);%>
+<% box.setTitle("HR Administrative Tools");	%>
+<%=box.printTop()%>
+	<table border=0 cellpadding=2 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
+                               <TBODY>
+                          <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/AuthorizeController?action=showPage"><B>View Pending Requests</B></A></FONT></TD></TR><%}%>
+                          <TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/HRQueryController"><B>Query Tool</B></A></FONT></TD></TR>
+                          <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/CampusHR/initiate_acs.jsp"><B>Initiate ACOS</B></A></FONT></TD></TR><%}%>
+
+</TR></TBODY>	</table>
+<%=box.printBottom()%>
+<% } %>
+
+
+	</td>
+<td width='50%' valign=top>
 
 <% box.setStyle("classic");%>
 <% box.setColor(color2);%>
@@ -148,118 +253,9 @@ int curr_tab = 3; %>
 	</table>
 <%=box.printBottom()%>
 		<%// } %>			
-
 	</td>
-	<td width='50%' valign=top>
-<% box.setStyle("classic");%>
-<% box.setColor(color2);%>
-<% box.setTitle("Power Tools");	%>
-<%=box.printTop()%>
-	<table border=0 cellpadding=10 bordercolorlight='#ddddaa'>
-		<%// if (isStudent.equals("false")) { %>
-		<%
-		boolean stintEnabled = true;
-		if (stintEnabled) { 
-		%>
-		<tr>
-			<td valign="center" align="center"><a href="
-				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
-			
-				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
-			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
-		</tr>
 
-		<%
-		} else {
-		%>
-
-		<tr>
-			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
-			
-				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
-			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
-		</tr>
-
-		<%
-		}
-		%>
-				
-		
-		<!--
-		<tr>
-			<td valign="center" align="center"><img src="/crs/images/crs_logo.gif" BORDER="0"></td>
-			<td>
-				<%=font%><b>Conference Registration System (CRS)</b></font></td><td>
-				<%=fontS%>The CRS site is temporarily unavailable.  Please try back in a few hours.</font>
-			</td>
-		</tr>
-		-->
-		<tr>
-			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"><br>Conference Registration System</a></td>
-			<td><%=fontS%>Create, administer, and register online for an event of any size.<br/>
-			<br/>
-			<a href="/servlet/CRSAdmin">Old CRS tool</a>
-			</font></td>
-		</tr>
-
-		<tr>
-			<td valign="center" align="center"><a href="
-				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://sp.campuscrusadeforchrist.com/admin" : "http://sp.int.uscm.org/admin" %>"><img src="/images/logo_allsp.gif"></a></td>
-				
- 			<!--
-			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
-			<td>
-				
-				<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-
-			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the 
-			ability to automatically generate new account numbers for accepted students, 
-			track their balances,  evaluate applications, etc.</font></td>
-		</tr>
-
-		<tr>
-			<td valign="center" align="center">
-				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td>
-			<td>
-				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
-				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
-				<br/>
-				<a href="/servlet/Review360Controller">View pre-2011 reviews in the old 360 tool</a>
-				</font>
-			</td>
-		</tr>
-
-		<!--<tr> 
-			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
-			<td>
-				<%=font%><b><i>Conference Registration System (CRS) </i>-- PhaseOut in progress</b></font></td>
-			<td><%=fontS%>Available for administrating existing conferences only-- use CRS 2.0 for new conferences.</font></td>
-		</tr> -->
-				<%// } %>			
-	</table>
-<%=box.printBottom()%>
-<BR>
-<% if(isHr||hasHRQueryAccess) { %>
-<% box.setStyle("classic");%>
-<% box.setColor(color2);%>
-<% box.setTitle("HR Administrative Tools");	%>
-<%=box.printTop()%>
-	<table border=0 cellpadding=2 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
-                               <TBODY>
-                          <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/AuthorizeController?action=showPage"><B>View Pending Requests</B></A></FONT></TD></TR><%}%>
-                          <TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/HRQueryController"><B>Query Tool</B></A></FONT></TD></TR>
-                          <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/CampusHR/initiate_acs.jsp"><B>Initiate ACOS</B></A></FONT></TD></TR><%}%>
-
-</TR></TBODY>	</table>
-<%=box.printBottom()%>
-<% } %>
-
-
-	</td></tr>
+</tr>
 </table>
 	
 <% box.setStyle("rounded");%>
