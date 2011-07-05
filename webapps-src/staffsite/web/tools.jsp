@@ -34,10 +34,10 @@ int curr_tab = 3; %>
 		<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
 			<tr>
 				<td valign="center" align="center" colspan="2">
-					<img src="/images/missionhub_icon.png"> </td>
+					<img src="/images/missionhub_icon.gif"> </td>
 					<td>
 					<%=font%><b>MisionHub</b></font><br>
-					<%=fontS%>An online follow-up system with your audience in mind.</font>
+					<%=fontS%>An online <b>follow-up system</b> with your audience in mind. Check out the unveiling at CSU!</font>
 				</td>
 			</tr>
 		</table>
