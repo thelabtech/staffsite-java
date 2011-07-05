@@ -15,20 +15,38 @@ int curr_tab = 3; %>
 <% box.setStyle("rounded");%>
 <% box.setColor(color3);%>
 <% box.setTitleFontSize("5");	%>
-<% box.setTitle("Staff Tools");	%>
+<% box.setTitle("Tools");	%>
 <%=box.printTop()%>
-<table width='100%'>
-<tr valign=top><td valign=top>
-	<p><%=fontB%>
-	Not having the right tool for the job makes the job twice as difficult. This section of the site includes various tools 
-	to help make your job easier. Tools for everything from ordering your FSK packages to registering students for your Summer project can be found here. As time goes on, new and better tools will be introduced here.
-	</p></font>
-</td>
-
+<table width='95%' align="center">
+<tr valign=top>
+<!--
 <td valign=top>
 	<% box.reset();%>
 	<% box.setStyle("classic");%>
 	<% box.setColor(color2);%>
+-->
+	<td valign=top>
+	<% box.reset();%>
+	<% box.setStyle("classic");%>
+	<% box.setColor(color2);%>
+	<% box.setTitle("Coming Soon...");	%>
+	<%=box.printTop()%>
+		<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
+			<tr>
+				<td valign="center" align="center" colspan="2">
+					<img src="/images/missionhub_icon.png"> </td>
+					<td>
+					<%=font%><b>MisionHub</b></font><br>
+					<%=fontS%>An online follow-up system with your audience in mind.</font>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr></table>
+<%=box.printBottom()%>
+
+
+
 <!--
 	<% box.setTitle("Current Highlights");	%>
 	<%=box.printTop()%>
@@ -44,7 +62,6 @@ int curr_tab = 3; %>
 			</table>
 	<%=box.printBottom()%>
 -->
-</td>
 <!--
 <td valign=top>
 	<% box.reset();%>
@@ -58,8 +75,6 @@ int curr_tab = 3; %>
 	<%=box.printBottom()%>
 </td>
 -->
-</tr>
-</table>
 
 <br>
 
@@ -68,7 +83,7 @@ int curr_tab = 3; %>
 
 <% box.setStyle("classic");%>
 <% box.setColor(color2);%>
-<% box.setTitle("Ministry and Team Tracking");	%>
+<% box.setTitle("Hand Tools");	%>
 <%=box.printTop()%>
 	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
 		<tr>
@@ -154,9 +169,9 @@ int curr_tab = 3; %>
 	<td width='50%' valign=top>
 <% box.setStyle("classic");%>
 <% box.setColor(color2);%>
-<% box.setTitle("Standard Tools");	%>
+<% box.setTitle("Power Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=10 bordercolorlight='#ddddaa'>
 		<%// if (isStudent.equals("false")) { %>
 		<%
 		boolean stintEnabled = true;
@@ -166,9 +181,8 @@ int curr_tab = 3; %>
 			<td valign="center" align="center"><a href="
 				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
 						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
-			<td>
-				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-				<%=font%><b><a href="http://stint.uscm.org/admin">The STINT/<br>Internship Tool</b></font></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
 			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
 		</tr>
 
@@ -178,9 +192,8 @@ int curr_tab = 3; %>
 
 		<tr>
 			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
-			<td>
-				<!--	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-				<%=font%><b>The STINT/<br>Internship Tool</b></font></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
 			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
 		</tr>
 
@@ -200,34 +213,34 @@ int curr_tab = 3; %>
 		-->
 		<tr>
 			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
-			<td>
-				<%=font%><b><a href="http://www.conferenceregistrationtool.com/admin">Conference Registration System (CRS) </b></font></td>
+						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"><br>Conference Registration System</a></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.<br/>
 			<br/>
 			<a href="/servlet/CRSAdmin">Old CRS tool</a>
 			</font></td>
 		</tr>
+
 		<tr>
 			<td valign="center" align="center"><a href="
 				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
 						"http://sp.campuscrusadeforchrist.com/admin" : "http://sp.int.uscm.org/admin" %>"><img src="/images/logo_allsp.gif"></a></td>
-			<td>
-				<!--
+				
+ 			<!--
 			<td valign="center" align="center"><a href="/servlet/WsnSpController?action=showIndex"><img src="/images/logo_allsp.gif"></a></td>
 			<td>
 				
 				<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td><td>	-->
-				<%=font%><b><a href="http://sp.campuscrusadeforchrist.com/admin">The<br>Summer<br>Project<br>Tool</b></font></td>
+
 			<td><%=fontS%>View and manage online applications for WSN and US Summer Projects, with the 
-						ability to automatically generate new account numbers for accepted students, 
-						track their balances,  evaluate applications, etc.</font></td>
+			ability to automatically generate new account numbers for accepted students, 
+			track their balances,  evaluate applications, etc.</font></td>
 		</tr>
+
 		<tr>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td><td>
-				<%=font%><b><a href="http://pr.uscm.org">Panorama</b></font></td><td>
+                        "http://pr.uscm.org" : "http://pr.int.uscm.org" %>"><img src="/images/360logo.gif"></a></td>
+			<td>
 				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
 				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
 				<br/>
@@ -235,6 +248,7 @@ int curr_tab = 3; %>
 				</font>
 			</td>
 		</tr>
+
 		<!--<tr> 
 			<td valign="center" align="center"><a href="/servlet/CRSAdmin"><img src="/crs/images/crs_logo.gif" BORDER="0"></a></td>
 			<td>
