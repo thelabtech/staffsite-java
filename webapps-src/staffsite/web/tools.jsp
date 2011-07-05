@@ -17,14 +17,8 @@ int curr_tab = 3; %>
 <% box.setTitleFontSize("5");	%>
 <% box.setTitle("Tools");	%>
 <%=box.printTop()%>
-<table width='95%' align="center">
+<table width='50%' align="center">
 <tr valign=top>
-<!--
-<td valign=top>
-	<% box.reset();%>
-	<% box.setStyle("classic");%>
-	<% box.setColor(color2);%>
--->
 	<td valign=top>
 	<% box.reset();%>
 	<% box.setStyle("classic");%>
@@ -37,7 +31,7 @@ int curr_tab = 3; %>
 					<img src="/images/missionhub_icon.gif"> </td>
 					<td>
 					<%=font%><b>MisionHub</b></font><br>
-					<%=fontS%>An online <b>follow-up system</b> with your audience in mind. Check out the unveiling at CSU!</font>
+					<%=fontS%>An online <b>follow-up system</b> with your audience in mind. Check out the unveiling at CSU! This new tool will be accessible by students, volunteers, and staff via web, iPhone and Android.</font>
 				</td>
 			</tr>
 		</table>
@@ -45,23 +39,6 @@ int curr_tab = 3; %>
 </tr></table>
 <%=box.printBottom()%>
 
-
-
-<!--
-	<% box.setTitle("Current Highlights");	%>
-	<%=box.printTop()%>
-			<table width='100%'>
-			<tr><td>
-				<a href="/servlet/FskController"><img src="/images/logo_fsk.gif"></a>
-				<br><%=font%><b>FSK Ordering Tool</b></font>
-			</td>
-			<td>
-				<%=fontS%>Regions can now allocate kits and local leaders are now able to order their kits. Questions regarding materials? Email <a href="mailto:dave.schlernitzauer@uscm.org">Dave Schlernitzauer</a>.</font>
-			</td>
-			</tr>
-			</table>
-	<%=box.printBottom()%>
--->
 <!--
 <td valign=top>
 	<% box.reset();%>
@@ -161,6 +138,13 @@ int curr_tab = 3; %>
 		<TR>
 		<TD COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></TD>
 		</TR>
+		<tr>
+			<td>
+				<%=font%><a href="/servlet/StaffController?action=showCustomize"><%=fontB%>Customize</FONT></a></td>
+				<td><%=fontTextS%>Customize home page items</font>
+			</td>
+		</tr>
+
 	</table>
 <%=box.printBottom()%>
 		<%// } %>			
@@ -274,43 +258,6 @@ int curr_tab = 3; %>
 <%=box.printBottom()%>
 <% } %>
 
-<% box.setStyle("classic");%>
-<% box.setColor(color2);%>
-<% box.setTitle("Account Management");	%>
-<%=box.printTop()%>
-	<table width=100% border=0 cellpadding=2 bordercolorlight='#ddddaa'>
-		<%// if (isStudent.equals("false")) { %>
-<!--		
-		<tr>
-			<td>
-				<a href="/servlet/StaffController?action=showSetupEmail"><%=fontB%><B>Email setup</B></FONT></a></td>
-				<td><%=fontB1%>Change your email setup</font>
-			</td>
-		</tr>
--->
-<!--
-		<tr>
-			<td>
-				<a href="/servlet/StaffController?action=managePS" target="_blank"><%=fontB%><B>PeopleSoft setup</B></FONT></a></td>
-				<td><%=fontB1%>Change your PeopleSoft setup</font>
-			</td>
-		</tr>
-		<%// } %>
-		<tr>
-			<td>
-				<a href="/servlet/StaffController?action=changePassword"><%=fontB%><B>Staff Site Password</B></FONT></a></td>
-				<td><%=fontB1%>Change staff.campuscrusadeforchrist.com password</font>
-			</td>
-		</tr>
--->
-		<tr>
-			<td>
-				<a href="/servlet/StaffController?action=showCustomize"><%=fontB%><B>Customize</B></FONT></a></td>
-				<td><%=fontB1%>Customize home page items</font>
-			</td>
-		</tr>
-	</table>
-	<%=box.printBottom()%>
 
 	</td></tr>
 </table>
