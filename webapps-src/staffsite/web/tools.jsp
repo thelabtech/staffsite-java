@@ -62,7 +62,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Power Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=10 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=8 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
@@ -217,7 +217,7 @@ int curr_tab = 3; %>
 <%=box.printBottom()%>
 <br>
 		<%// if (isStudent.equals("false")) { %>
-<% box.setTitle("Personal Tasks");%>
+<% box.setTitle("Personal Tools");%>
 <% box.setStyle("classic");%>
 <% box.setColor(color2);%>
 <%=box.printTop()%>
