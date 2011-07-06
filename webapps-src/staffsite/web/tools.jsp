@@ -62,7 +62,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Power Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=8 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=7 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
@@ -120,7 +120,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("HR Administrative Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=2 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
+	<table border=0 cellpadding=4 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
                                <TBODY>
                           <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/AuthorizeController?action=showPage"><B>View Pending Requests</B></A></FONT></TD></TR><%}%>
                           <TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/HRQueryController"><B>Query Tool</B></A></FONT></TD></TR>
@@ -193,7 +193,7 @@ int curr_tab = 3; %>
 			<td valign="center" align="center"><a href="
 				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
 						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
-			
+			<td><%=font%><b><a href="http://stint.uscm.org/admin">Stint/Internship Tool</b></font></a></td>
 				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
 			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
 		</tr>
@@ -238,6 +238,8 @@ int curr_tab = 3; %>
 							<td><%=fontTextS%> Online additional salary requests.</font></td>
 						</tr>
 					</table>
+				</td>
+				<td>
 					<table>
 						<tr>
 							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SalaryCalc2002Servlet" target='_blank'>Salary Calculation</A></font></td>
@@ -263,7 +265,6 @@ int curr_tab = 3; %>
 				</td>
 			</tr>
 		</table>	
-<%=box.printBottom()%>
 
 <% box.setStyle("rounded");%>
 <%=box.printBottom()%>
