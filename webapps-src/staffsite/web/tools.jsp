@@ -75,36 +75,7 @@ int curr_tab = 3; %>
 				</font>
 			</td>
 		</tr>
-
-		<%// if (isStudent.equals("false")) { %>
-		<%
-		boolean stintEnabled = true;
-		if (stintEnabled) { 
-		%>
-		<tr>
-			<td valign="center" align="center"><a href="
-				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
-						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
-			
-				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
-			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
-		</tr>
-
-		<%
-		} else {
-		%>
-		
-		<tr>
-			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
-			
-				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
-			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
-		</tr>
-
-		<%
-		}
-		%>
-				
+					
 		
 		<!--
 		<tr>
@@ -213,51 +184,87 @@ int curr_tab = 3; %>
 				<%=fontS%>View and Enter QuEST survey results into the QuEST Database.	</font>
 			</td>
 		</tr>
+		<%// if (isStudent.equals("false")) { %>
+		<%
+		boolean stintEnabled = true;
+		if (stintEnabled) { 
+		%>
+		<tr>
+			<td valign="center" align="center"><a href="
+				<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
+						"http://stint.uscm.org/admin" : "http://stint.int.uscm.org/admin" %>"><img src="/images/logo_stintintern.gif" width="63" height="39"></a></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
+			<td><%=fontS%>View and manage online applications for STINTS or Internships.</font></td>
+		</tr>
+		<%
+		} else {
+		%>
+		<tr>
+			<td valign="center" align="center"><img src="/images/logo_stintintern.gif" width="63" height="39"></td>
+			
+				<!-- <td>	<a href="/servlet/wsnsummerproject?action=showIndex"><img src="/images/logo_wsnspt.gif"></a></td>	-->
+			<td><%=fontS%>The STINT/Internship Tool is not currently available.  Please check back after October first.</font></td>
+		</tr>
+		<%
+		}
+		%>
 	</table>
 <%=box.printBottom()%>
-<br>
-		<%// if (isStudent.equals("false")) { %>
+</td></tr></table>
+
+<table width="95%" align=center>
+	<tr>
+	<td width='50%' valign=top>
+	<%// if (isStudent.equals("false")) { %>
 <% box.setTitle("Personal Tools");%>
 <% box.setStyle("classic");%>
 <% box.setColor(color2);%>
 <%=box.printTop()%>
-	<table width='100%' border=0>
-		<tr>
-		<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet" target="_blank">Personal Reimbursement</A></font></td><td><%=fontTextS%> Online personal reimbursements.</font></td>
-		</tr>
-		<tr>
-		<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbAdvServlet" target='_blank'>Reimbursement Advance</A></font></td><td><%=fontTextS%> Online reimbursement advances.</font></td>
-		</tr>
-		<tr>
-		<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/AsrServlet" target='_blank'>Additional Salary Request</A></font></td><td><%=fontTextS%> Online additional salary requests.</font></td>
-		</tr>
-		<tr>
-		<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SalaryCalc2002Servlet" target='_blank'>Salary Calculation</A></font></td><td><%=fontTextS%> Online salary calculations.</font></td>
-		</tr>
-		<tr>
-		<td><%=font%><a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</A></font></td><td><%=fontTextS%> Downloadable personal and ministry forms.</font></td>
-		</tr>
-		<tr>
-		<td><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</A></font></td><td><%=fontTextS%>&nbsp;</font></td>
-		</tr>
-		<TR>
-		<TD COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></TD>
-		</TR>
-		<tr>
-			<td>
-				<%=font%><a href="/servlet/StaffController?action=showCustomize"><%=fontB%>Customize</FONT></a></td>
-				<td><%=fontTextS%>Customize home page items</font>
-			</td>
-		</tr>
-
-	</table>
+	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet" target="_blank">Personal Reimbursement</A></font></td>
+							<td><%=fontTextS%> Online personal reimbursements.</font></td>
+						</tr>
+						<tr>
+							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbAdvServlet" target='_blank'>Reimbursement Advance</A></font></td>
+							<td><%=fontTextS%> Online reimbursement advances.</font></td>
+						</tr>
+						<tr>
+							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/AsrServlet" target='_blank'>Additional Salary Request</A></font></td>
+							<td><%=fontTextS%> Online additional salary requests.</font></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SalaryCalc2002Servlet" target='_blank'>Salary Calculation</A></font></td>
+							<td><%=fontTextS%> Online salary calculations.</font></td>
+						</tr>
+						<tr>
+							<td><%=font%><a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a></font></td>
+							<td><%=fontTextS%> Downloadable personal and ministry forms.</font></td>
+						</tr>
+						<tr>
+							<td><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
+							<td><%=fontTextS%>&nbsp;</font></td>
+						</tr>
+						<tr>
+							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>
+						</tr>
+						<tr>
+							<td><%=font%><a href="/servlet/StaffController?action=showCustomize"><%=fontB%>Customize</FONT></a></td>
+							<td><%=fontTextS%>Customize home page items</font></td>
+						</tr>
+					</table>
+					<%// } %>			
+				</td>
+			</tr>
+		</table>	
 <%=box.printBottom()%>
-		<%// } %>			
-	</td>
 
-</tr>
-</table>
-	
 <% box.setStyle("rounded");%>
 <%=box.printBottom()%>
 
