@@ -138,7 +138,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Hand Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=4 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center" colspan="2">
 				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
@@ -213,7 +213,6 @@ int curr_tab = 3; %>
 <%=box.printBottom()%>
 </td></tr></table>
 
-<br>
 
 <table width="95%" align=center>
 	<tr>
@@ -247,29 +246,29 @@ int curr_tab = 3; %>
 				</td>
 				<td>
 					<table>
-											<tr>
+						<tr>
 							<td><%=font%><a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a></font></td>
 							<td><%=fontTextS%> Downloadable personal and ministry forms.</font></td>
-						</tr>
-						<tr>
-							<td><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
-							<td><%=fontTextS%>&nbsp;</font></td>
-						</tr>
-						<tr>
-							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>
 						</tr>
 						<tr>
 							<td><%=font%><a href="/servlet/StaffController?action=showCustomize"><%=fontB%>Customize</FONT></a></td>
 							<td><%=fontTextS%>Customize home page items</font></td>
 						</tr>
+						<tr>
+							<td COLSPAN="2"><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
+						</tr>
+						<tr>
+							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>
+						</tr>
+
 					</table>
+				<%=box.printBottom()%>
 					<%// } %>			
 				</td>
 			</tr>
 		</table>	
-<%=box.printBottom()%>
 
-<br>
+
 
 <% box.setStyle("rounded");%>
 <%=box.printBottom()%>
