@@ -62,7 +62,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Power Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=7 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
@@ -120,7 +120,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("HR Administrative Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=4 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
+	<table border=0 cellpadding=2 CELLSPACING=1 bordercolorlight='#ddddaa' WIDTH="100%">
                                <TBODY>
                           <%if(isHr){%><TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/AuthorizeController?action=showPage"><B>View Pending Requests</B></A></FONT></TD></TR><%}%>
                           <TR><TD><FONT face=Arial color=#336699 size=2><A HREF="/servlet/HRQueryController"><B>Query Tool</B></A></FONT></TD></TR>
@@ -138,7 +138,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Hand Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=2 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center" colspan="2">
 				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
@@ -213,6 +213,8 @@ int curr_tab = 3; %>
 <%=box.printBottom()%>
 </td></tr></table>
 
+<br>
+
 <table width="95%" align=center>
 	<tr>
 	<td width='50%' valign=top>
@@ -237,15 +239,15 @@ int curr_tab = 3; %>
 							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/AsrServlet" target='_blank'>Additional Salary Request</A></font></td>
 							<td><%=fontTextS%> Online additional salary requests.</font></td>
 						</tr>
-					</table>
-				</td>
-				<td>
-					<table>
 						<tr>
 							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SalaryCalc2002Servlet" target='_blank'>Salary Calculation</A></font></td>
 							<td><%=fontTextS%> Online salary calculations.</font></td>
 						</tr>
-						<tr>
+					</table>
+				</td>
+				<td>
+					<table>
+											<tr>
 							<td><%=font%><a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a></font></td>
 							<td><%=fontTextS%> Downloadable personal and ministry forms.</font></td>
 						</tr>
@@ -265,6 +267,9 @@ int curr_tab = 3; %>
 				</td>
 			</tr>
 		</table>	
+<%=box.printBottom()%>
+
+<br>
 
 <% box.setStyle("rounded");%>
 <%=box.printBottom()%>
