@@ -17,6 +17,7 @@ int curr_tab = 3; %>
 <% box.setTitleFontSize("5");	%>
 <% box.setTitle("Tools");	%>
 <%=box.printTop()%>
+<!-- 
 <table width='50%' align="center">
 <tr valign=top>
 	<td valign=top>
@@ -38,7 +39,7 @@ int curr_tab = 3; %>
 	</td>
 </tr></table>
 <%=box.printBottom()%>
-
+-->
 <!--
 <td valign=top>
 	<% box.reset();%>
@@ -63,6 +64,15 @@ int curr_tab = 3; %>
 <% box.setTitle("Power Tools");	%>
 <%=box.printTop()%>
 	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
+		<tr>
+			<td valign="center" align="center">
+				<a href="http://missionhub.com"><img src="/images/missionhub_icon.gif"></a></td>
+			<td>
+				<%=fontS%>MissionHub: An online follow-up system with your audience in mind.
+				</font>
+			</td>
+		</tr>
+
 		<tr>
 			<td valign="center" align="center">
 				<a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
@@ -216,7 +226,7 @@ int curr_tab = 3; %>
 
 <table width="95%" align=center>
 	<tr>
-	<td width='50%' valign=top>
+	<td width='100%' valign=top>
 	<%// if (isStudent.equals("false")) { %>
 <% box.setTitle("Personal Tools");%>
 <% box.setStyle("classic");%>
@@ -261,7 +271,7 @@ int curr_tab = 3; %>
 							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>
 						</tr>
 
-					</table>
+					</table></td></tr></table>
 				<%=box.printBottom()%>
 					<%// } %>			
 				</td>
