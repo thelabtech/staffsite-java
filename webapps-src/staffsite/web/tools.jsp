@@ -80,7 +80,6 @@ int curr_tab = 3; %>
 			<td>
 				<%=fontS%>We've all heard of 360 reviews, the tool that helps to make each staff 
 				member more effective personally and in ministry. Come experience the adventure within Panorama!<br/>
-				<br/>
 				<a href="/servlet/Review360Controller">View pre-2011 reviews in the old 360 tool</a>
 				</font>
 			</td>
@@ -100,7 +99,6 @@ int curr_tab = 3; %>
 			<td valign="center" align="center"><a href="<%= (request.getServerName().equals("staff.campuscrusadeforchrist.com") || request.getServerName().equals("staff.uscm.org")) ?
 						"http://www.conferenceregistrationtool.com/admin" : "http://crs.int.uscm.org/admin" %>"><img src="/images/crs_icon.jpg" BORDER="0"></a></td>
 			<td><%=fontS%>Create, administer, and register online for an event of any size.<br/>
-			<br/>
 			<a href="/servlet/CRSAdmin">Old CRS tool</a>
 			</font></td>
 		</tr>
@@ -148,7 +146,7 @@ int curr_tab = 3; %>
 <% box.setColor(color2);%>
 <% box.setTitle("Hand Tools");	%>
 <%=box.printTop()%>
-	<table border=0 cellpadding=4 bordercolorlight='#ddddaa'>
+	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center" colspan="2">
 				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
