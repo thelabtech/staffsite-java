@@ -3,7 +3,7 @@
      be found in the detail_target_area.jsp page.
      
 	Military Ministry,Athletes In Action,Christian Leadership Ministries (now Faculty Commons)
-	Korean CCC,Greek,Valor and Other
+	Korea CCC,Greek,Valor and Other
      
  -->
 
@@ -99,7 +99,7 @@ Integer yearvar=1998;
 					<input type="checkbox" name="strategies[WS]"   value="WS" >WSN Local Teams<br>
 					<input type="checkbox" name="strategies[AA]"  checked value="AA" >Athletes In Action<br>
 					<input type="checkbox" name="strategies[CL]"  checked value="FC" >Faculty Commons<br>
-					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korean CCC<br>
+					<input type="checkbox" name="strategies[KC]"  checked value="KC" >Korea CCC<br>
 					<input type="checkbox" name="strategies[GK]"  checked value="GK" >Greek<br>
 					<input type="checkbox" name="strategies[VL]"  checked value="VL" >Valor<br>
 					<input type="checkbox" name="strategies[OT]"  checked value="OT" >Other<br>

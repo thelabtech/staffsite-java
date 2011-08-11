@@ -262,7 +262,7 @@ document.getElementById('<%=staffMember.getPersonID() %>_leader_status').style.d
 																<!--	BR ("Bridges"),-->
 																<!--	AA ("Athletes In Action"),-->
 																<!--	CL ("Faculty Commons"),-->
-																<!--	KC ("Korean CCC"),-->
+																<!--	KC ("Korea CCC"),-->
 																<!--	GK ("Greek"),-->
 																<!--	VL ("Valor"),-->
 																<!--	EV ("Events"),-->

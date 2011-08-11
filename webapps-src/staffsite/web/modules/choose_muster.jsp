@@ -64,7 +64,7 @@
 			</li><li>Athletes In Action<input type="checkbox" name="strategies"   value="AA" >
       </li><li>Faculty Commons<input type="checkbox" name="strategies"   value="FC" >
       </li><li>Student Venture<input type="checkbox" name="strategies"   value="SV" >
-			</li><li>Korean CCC<input type="checkbox" name="strategies"   value="KC" >
+			</li><li>Korea CCC<input type="checkbox" name="strategies"   value="KC" >
 			</li><li>Greek<input type="checkbox" name="strategies"   value="GK" >
 			</li><li>Valor<input type="checkbox" name="strategies"   value="VL" >
 			</li><li>Other<input type="checkbox" name="strategies"   value="OT" >

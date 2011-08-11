@@ -3,7 +3,7 @@
      be found in the detail_target_area.jsp page.
      
 	Military Ministry,Athletes In Action,Christian Leadership Ministries (now Faculty Commons)
-	Korean CCC,Greek,Valor and Other
+	Korea CCC,Greek,Valor and Other
      
  -->
 
@@ -127,7 +127,7 @@ function submitReportForm(thisForm) {
 					
 					<input type="checkbox" name="strategies"   value="AA" >Athletes In Action<br>
 					<input type="checkbox" name="strategies"   value="FC" >Faculty Commons<br>
-					<input type="checkbox" name="strategies"   value="KC" >Korean CCC<br>
+					<input type="checkbox" name="strategies"   value="KC" >Korea CCC<br>
 					<input type="checkbox" name="strategies"   value="GK" >Greek<br>
 					<input type="checkbox" name="strategies"   value="VL" >Valor<br>
 					<input type="checkbox" name="strategies"   value="SV" >Student Venture<br>

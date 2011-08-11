@@ -72,7 +72,7 @@ String teamID="";
 						<li ><input type="checkbox" name="strategies"   value="AA" >Athletes In Action</li>
                         <li ><input type="checkbox" name="strategies"   value="FC" >Faculty Commons</li>
                         <li ><input type="checkbox" name="strategies"   value="SV" >Student Venture</li>
-						<li ><input type="checkbox" name="strategies"   value="KC" >Korean CCC</li>
+						<li ><input type="checkbox" name="strategies"   value="KC" >Korea CCC</li>
 						<li ><input type="checkbox" name="strategies"   value="GK" >Greek</li>
 						<li ><input type="checkbox" name="strategies"   value="VL" >Valor</li>
 						<li ><input type="checkbox" name="strategies"   value="OT" >Other</li>

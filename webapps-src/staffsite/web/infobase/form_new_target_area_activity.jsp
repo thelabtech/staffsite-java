@@ -12,7 +12,7 @@ ar = ActionResults.getActionResults(session);
 																<!--	BR ("Bridges"),-->
 																<!--	AA ("Athletes In Action"),-->
 																<!--	CL ("Faculty Commons"),-->
-																<!--	KC ("Korean CCC"),-->
+																<!--	KC ("Korea CCC"),-->
 																<!--	GK ("Greek"),-->
 																<!--	VL ("Valor"),-->
 																<!--	EV ("Events"),-->
@@ -37,7 +37,7 @@ else if (strategy.equals("II")) {strategyName = "Impact";}
 else if (strategy.equals("BR")) {strategyName = "Bridges";}
 else if (strategy.equals("AA")) {strategyName = "Athletes In Action";}
 else if (strategy.equals("FC")) {strategyName = "Faculty Commons";}
-else if (strategy.equals("KC")) {strategyName = "Korean CCC";}
+else if (strategy.equals("KC")) {strategyName = "Korea CCC";}
 else  {strategyName = strategy;}
 %>
 

@@ -5,7 +5,7 @@
       modules:  Strategy.java, detail_target_area.jsp and set_report_criteria.jsp
       
       Ministries effected: Military Ministry (now Valor), Athletes In Action, 
-      Christian Leadership Ministries (now Faculty COmmons), Korean CCC, Greek, Valor and Other
+      Christian Leadership Ministries (now Faculty COmmons), Korea CCC, Greek, Valor and Other
  -->
 
 <%@ page import="org.alt60m.servlet.*,java.util.*,org.alt60m.ministry.Strategy"%>

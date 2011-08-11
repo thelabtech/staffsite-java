@@ -14,7 +14,7 @@ public enum Strategy {
 	BR ("Bridges"),
 	AA ("Athletes In Action"),
 	FC ("Faculty Commons"),
-	KC ("Korean CCC"),
+	KC ("Korea CCC"),
 	GK ("Greek"),
 	VL ("Valor"),
 	SV ("Student Venture"),

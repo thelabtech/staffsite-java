@@ -34,7 +34,7 @@ public class SelectLane implements java.io.Serializable {
 			"Bridges Int'l",
 			"Student Venture",
 			"Faculty Commons",
-			"Korean CCC",
+			"Korea CCC",
 			"Other"};
 	String currentLane;
     String name;
