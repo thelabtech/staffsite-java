@@ -69,7 +69,7 @@ public class InfoBaseModuleQueries {
 	}
 	public static String getTypeConditions(String type){
 		if (type.equals("person")){
-			return " and mp.isSecure != 'T' ";
+			return " and (mp.isSecure != 'T' OR mp.isSecure is null) ";
 		}else if (type.equals("team")){
 			return " and ml.isActive='T' ";
 		}else { 
