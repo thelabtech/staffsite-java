@@ -378,6 +378,21 @@ public class InfoBaseModuleController extends Controller {
     protected String isHRDirector(Person person)
     {
        String isRD="false";
+       
+       String personID = person.getPersonID()+"";
+       LocalLevel lab=new LocalLevel(); //LAB members are honorary RDees!!
+       lab.setName("CM The LAB - Technology Team");
+       lab.setRegion("NC");
+       lab.select();
+       Section labMembers=InfoBaseModuleQueries.getTeamMembers(lab.getLocalLevelId());
+       for (Hashtable c:labMembers.getRows()){
+       	if((c.get("id")+"").equals(personID)){
+       		log.debug("The LAB!");
+       		isRD="true";
+       	}
+       	
+       }
+       
        Staff staff=new Staff(person.getAccountNo());
        if (staff.getJobTitle().contains("Director (HR)")){
     	   log.debug("Real RDee!");
