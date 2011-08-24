@@ -164,7 +164,7 @@ int curr_tab = 3; %>
  				<a href="http://www.fsicatalog.com/FSK">
 				<img src="/images/logo_fsk.gif"></a></td><td>
  				<%=font%><b><a href="http://www.fsicatalog.com/FSK">FSK Ordering Tool</b></font></td><td>
- 				<%=fontS%>Ordering Freshman Survival Kits for 2011-2012.</font><br>
+ 				<%=fontS%>Ordering Freshman Survival Kits for 2011-2012. Use access code "fsk+2011".</font><br>
 				
  			</td>
  		</tr>
