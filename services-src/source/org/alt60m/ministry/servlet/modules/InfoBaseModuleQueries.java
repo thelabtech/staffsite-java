@@ -226,8 +226,12 @@ public class InfoBaseModuleQueries {
 		conditions+=nonNameConditions( city, state, region,  country, strategy, type,  reqMovement);
 		if(conditions.equals("")){conditions=" and false ";}
 		String qry="select core.name as name, core.city as city, core.state as state, core.country as country, core.region as region, "+
-			" core.id as id, core.accountNo as accountNo, core.removedFromPeopleSoft as removedFromPeopleSoft, core.status as status, core.strategy as strategy, core.priority as priority, "+
-			" core.address as address, core.email as email from ("+
+			" core.id as id, core.accountNo as accountNo, core.status as status, core.strategy as strategy, core.priority as priority, "+
+			" core.address as address, core.email as email";
+		if(type.equals("person")) {
+			qry += ", core.removedFromPeopleSoft as removedFromPeopleSoft";
+		}
+		qry += " from ("+
 			select +nameOnlyConditions+ " from "+tables+" where (true "+conditions+typeConditions+" ) group by "+group+" ) core"+
 			" order by core.priority desc, core.name asc;";
 		log.debug(qry);
