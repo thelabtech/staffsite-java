@@ -65,6 +65,7 @@ public class InfoBaseModuleHelper {
 			object.put("id",rs.getString("id")+"");
 			if(type.equals("person")){
 				object.put("accountNo",(rs.getString("accountNo")+"").replace("null", ""));
+				object.put("removedFromPeopleSoft", rs.getString("removedFromPeopleSoft"));
 				object.put("address",rs.getString("address")+"");
 				object.put("email",rs.getString("email")+"");
 			}
