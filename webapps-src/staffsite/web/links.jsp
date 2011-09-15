@@ -60,7 +60,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 					  <TR><td><%=fontB%><a HREF="http://www.leaderu.com/" target="_blank">Faculty Commons Leadership University</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://studentventure.com/" target="_blank">Student Venture</a></td></tr>
 					  <tr><td><%=fontB%><a href="http://gocampus.org/" target="_blank">Student Venture's Coaching Center</a></td></tr>
-					  <TR><td><%=fontB%><a HREF="http://www.collegeprep.org/" target="_blank">College Prep Seminars</a></td></tr>
+					  <TR><td><%=fontB%><a HREF="http://www.gradguides.org/" target="_blank">Grad Guides</a></td></tr>
 				</table>
 			<%=box.printBottom()%>
 		</td>
