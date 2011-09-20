@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td>
-					<%=font%><a href='https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SaiServlet' target='_blank'>Staff Account Information</A>
+					<%=font%><a href='https://staffweb.ccci.org/mpd-donations/my-donations/index.htm' target='_blank'>Staff Account Information</A>
 				</td>
 				<td>
 					<%=fontTextS%>(view Donor Addresses, Donation Information, Staff Expense Report)</font>
@@ -52,7 +52,7 @@
 			</tr>
 			<tr>
 				<td>
-					<%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet" target="_blank">Reimbursements</A></td><td>  <%=fontTextS%>(personal ministry reimbursements) </font>
+					<%=font%><A HREF="https://staffweb.ccci.org/pay-benefits-staff-expenses/reimbursements/index.htm" target="_blank">Reimbursements</A></td><td>  <%=fontTextS%>(personal ministry reimbursements) </font>
 				</td>
 			</tr>
 			<tr>
