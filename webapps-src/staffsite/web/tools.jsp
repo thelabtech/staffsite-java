@@ -263,7 +263,7 @@ int curr_tab = 3; %>
 							<td><%=fontTextS%>Customize home page items</font></td>
 						</tr>
 						<tr>
-							<td COLSPAN="2"><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
+							<td COLSPAN="2"><%=font%><A HREF="https://staff2.ccci.org/ssfiles/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
 						</tr>
 						<tr>
 							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>
