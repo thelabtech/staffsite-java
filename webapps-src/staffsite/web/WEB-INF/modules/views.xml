@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <views>
-	<view name="error" url="/modules/error.jsp"></view>
+    <view name="redirect" url="/modules/redirect.jsp"></view>
+    <view name="error" url="/modules/error.jsp"></view>
 	<view name="nonNumeric" url="/modules/layout/layout.jsp"></view>
 	<view name="activityError" url="/modules/layout/layout.jsp"></view>
 	<view name="index" url="/modules/layout/layout.jsp"></view>

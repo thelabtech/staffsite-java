@@ -257,51 +257,51 @@
 	<servlet>
 		<servlet-name>InfoBaseController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.InfoBaseController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>InfoBaseModuleController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.InfoBaseModuleController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>PersonController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.person.PersonController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>TeamController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.team.TeamController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ReportController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.report.ReportController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>StatController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.stat.StatController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>MovementController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.campus.movement.MovementController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LocationController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.modules.campus.location.LocationController
+			org.alt60m.ministry.servlet.InfoBaseRedirectController
 		</servlet-class>
 	</servlet>
 	
