@@ -75,11 +75,13 @@ public class StaffUpdater {
 	}
 
 	public void initStrategy() throws Exception {
-		luStrategy.put("CMP", "Staffed");
-		luStrategy.put("CAT", "Catalytic");
+		luStrategy.put("CMP", "CFM");
+		luStrategy.put("CAT", "CFM");
 		luStrategy.put("OPS", "Operations");
 		luStrategy.put("FDV", "Fund Dev");
 		luStrategy.put("ND", "National Director");
+		luStrategy.put("HR", "LD");
+		luStrategy.put("FLD", "CFM");
 	}
 
     public void initRespScope() throws Exception {
