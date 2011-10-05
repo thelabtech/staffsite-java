@@ -3,7 +3,7 @@ package org.alt60m.html;
 
 public class SelectAoA implements java.io.Serializable {
 
-    String[] AoAs = {" ",  "Austrailia and South Pacific", "Canada", "East Asia", "Nigeria and Western Africa (NAWA)", "Namestan", "North America", "Western Europe", "South Asia", "Southeast Asia", "Southern and Eastern Africa", "Francophone Africa", "Latin America and Caribbean", "Eastern Europe/Russia" };
+    String[] AoAs = {" ", "East Asia Opportunities", "East Asia Orient", "Eastern Europe/Russia", "Francophone Africa", "Latin America", "NAME", "Nigeria and West Africa", "North America and Oceania", "PACT", "South Asia", "SouthEast Asia", "Southern and Eastern Africa", "Western Europe" };
 	String currentAoA;
     String name;
 
