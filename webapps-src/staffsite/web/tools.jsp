@@ -235,19 +235,19 @@ int curr_tab = 3; %>
 				<td>
 					<table>
 						<tr>
-							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbServlet" target="_blank">Personal Reimbursement</A></font></td>
+							<td><%=font%><A HREF="https://staffweb.ccci.org/pay-benefits-staff-expenses/reimbursements/new-reimbursement/index.htm" target="_blank">Personal Reimbursement</A></font></td>
 							<td><%=fontTextS%> Online personal reimbursements.</font></td>
 						</tr>
 						<tr>
-							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/ReimbAdvServlet" target='_blank'>Reimbursement Advance</A></font></td>
+							<td><%=font%><A HREF="https://staffweb.ccci.org/pay-benefits-staff-expenses/reimbursements/reimbursement-advance/index.htm" target='_blank'>Reimbursement Advance</A></font></td>
 							<td><%=fontTextS%> Online reimbursement advances.</font></td>
 						</tr>
 						<tr>
-							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/AsrServlet" target='_blank'>Additional Salary Request</A></font></td>
+							<td><%=font%><A HREF="https://staffweb.ccci.org/pay-benefits-staff-expenses/payroll/salary-calculation/additional-salary/index.htm" target='_blank'>Additional Salary Request</A></font></td>
 							<td><%=fontTextS%> Online additional salary requests.</font></td>
 						</tr>
 						<tr>
-							<td><%=font%><A HREF="https://staff2.ccci.org/ss/pages/EFormFrame.html?MainFrame=../servlet/SalaryCalc2002Servlet" target='_blank'>Salary Calculation</A></font></td>
+							<td><%=font%><A HREF="https://staffweb.ccci.org/pay-benefits-staff-expenses/payroll/salary-calculation/index.htm" target='_blank'>Salary Calculation</A></font></td>
 							<td><%=fontTextS%> Online salary calculations.</font></td>
 						</tr>
 					</table>
@@ -255,7 +255,7 @@ int curr_tab = 3; %>
 				<td>
 					<table>
 						<tr>
-							<td><%=font%><a href='https://staff2.ccci.org/ss/pages/PFormFrame.html' target='_blank'>Forms</a></font></td>
+							<td><%=font%><a href='https://staffweb.ccci.org/pay-benefits-staff-expenses/printable-forms/index.htm' target='_blank'>Forms</a></font></td>
 							<td><%=fontTextS%> Downloadable personal and ministry forms.</font></td>
 						</tr>
 						<tr>
@@ -263,7 +263,7 @@ int curr_tab = 3; %>
 							<td><%=fontTextS%>Customize home page items</font></td>
 						</tr>
 						<tr>
-							<td COLSPAN="2"><%=font%><A HREF="https://staff.ccci.org/ss/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
+							<td COLSPAN="2"><%=font%><A HREF="https://staff2.ccci.org/ssfiles/manuals/FPM/" target='_blank'>Financial Policy Manual</a></font></td>
 						</tr>
 						<tr>
 							<td COLSPAN="2"><%=font%><a href="/servlet/HRUpdateController">Change my personal or job information</a></td>

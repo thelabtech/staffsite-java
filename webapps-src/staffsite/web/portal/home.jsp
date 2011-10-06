@@ -265,8 +265,8 @@ function toggleDiv(who){
 			<a href="http://wiki.uscm.org/" target="_blank"><img src="/images/wiki_icon.png" border="0"></a></td>
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="http://wiki.uscm.org/" target="_blank">Wiki</a></font></td></tr>
 
-			<tr><td height="" bgcolor="#CCCC99"><a href="https://staffweb.ccci.org/ss/officedepotlogin" target="_blank"><img src="/images/logo_onecard.gif" border="0"></a></td>
-			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="https://staffweb.ccci.org/ss/officedepotlogin">OneCard</a></font></td></tr>
+			<tr><td height="" bgcolor="#CCCC99"><a href="https://staffweb.ccci.org/onecard/index.htm" target="_blank"><img src="/images/logo_onecard.gif" border="0"></a></td>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="https://staffweb.ccci.org/onecard/index.htm">OneCard</a></font></td></tr>
 
 			<tr><td height="" bgcolor="#CCCC99"><a href="/servlet/Report"><img src="/images/small_check.gif" border="0"></a></td>
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/reports">Success Criteria</a></font></td></tr>
@@ -294,7 +294,7 @@ function toggleDiv(who){
 			<% box.setTitle("<a class='titleLink' href='https://staff2.ccci.org/ss/pages/index.html' target='_blank'>Staff Services</a>");%>
 			<%=box.printTop()%>
 			<%=fontS%>
-				<A  class="sideBar"   href='https://staffweb.ccci.org/pay-benefits-staff-expenses/printable-forms/index.html' target='_blank'>Forms</a><br/>
+				<A  class="sideBar"   href='https://staffweb.ccci.org/pay-benefits-staff-expenses/printable-forms/index.htm' target='_blank'>Forms</a><br/>
 				<A  class="sideBar"   href='https://staffweb.ccci.org/pay-benefits-staff-expenses/staff-handbook/index.htm' target='_blank'>Handbooks/Manuals</a><br/>
 				<A  class="sideBar"   href='https://staffweb.ccci.org/pay-benefits-staff-expenses/reimbursements/index.htm' target="_blank">Reimbursements</A><br/>
 				<A  class="sideBar"   href='https://staffweb.ccci.org/mpd-donations/my-donations/index.htm' target="_blank">Donations</A><br/>
