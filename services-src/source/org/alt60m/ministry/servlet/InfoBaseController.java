@@ -45,6 +45,7 @@ import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
 
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.CountryCodes;
 import org.alt60m.util.DateUtils;
@@ -375,13 +376,13 @@ public class InfoBaseController extends Controller {
                 String displayName = ctx.getInputString("displayname", true);
                 if (type.equals("targetarea")) {
                     _bookmarks.addBookmark(ctx.getProfileID(),
-                        Bookmarks.TARGET_AREA, displayName, ctx.getInputString("targetareaid", true));
+                        Bookmarks.TARGET_AREA, ctx.getInputString("targetareaid", true));
                 } else if (type.equals("locallevel")) {
                     _bookmarks.addBookmark(ctx.getProfileID(),
-                        Bookmarks.LOCAL_LEVEL, displayName, ctx.getInputString("locallevelid", true));
+                        Bookmarks.LOCAL_LEVEL, ctx.getInputString("locallevelid", true));
                 } else if (type.equals("statistic")) {
                     _bookmarks.addBookmark(ctx.getProfileID(),
-                        Bookmarks.STATISTIC, displayName, ctx.getInputString("activityid", true));
+                        Bookmarks.STATISTIC, ctx.getInputString("activityid", true));
                 }
             }
             if (mode.equals("add"))
@@ -1085,7 +1086,7 @@ public class InfoBaseController extends Controller {
             	
             	String singleKey=(String)activities.keySet().iterator().next();
             		_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
-            		_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activities.get(singleKey), singleKey);
+            		_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
             }
             results=fastStats(activities);
             String weeksBack = ctx.getInputString("weeksBack", false);
@@ -1108,9 +1109,9 @@ public class InfoBaseController extends Controller {
     }
 
 	private ActionResults getBookmarks(ActionContext ctx, ActionResults results, int type, String id) throws Exception {
-		StaffSitePref p = _bookmarks.getBookmark(ctx.getProfileID(), type, id);
+		InfobaseBookmark p = _bookmarks.getBookmark(ctx.getProfileID(), type, id);
 		if (p != null)
-			results.putValue("bookmarkID", p.getStaffSitePrefID());
+			results.putValue("bookmarkID", String.valueOf(p.getId()));
 		else
 			results.putValue("bookmarkID", "");
 		return results;

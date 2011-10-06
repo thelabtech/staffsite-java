@@ -24,6 +24,7 @@ import org.alt60m.ministry.servlet.modules.InfoBaseModuleHelper;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller.ActionContext;
 import org.alt60m.staffSite.bean.dbio.Bookmarks;
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.DateUtils;
 
@@ -66,7 +67,7 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
             	_bookmarks.removeBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
             	Activity activity = new Activity(singleKey);
             	if (!activity.isPKEmpty()) {
-	            	_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, activity.getTargetArea().getName(), singleKey);
+	            	_bookmarks.addBookmark(ctx.getProfileID(), Bookmarks.STATISTIC, singleKey);
 	            	activities.add(activity);
             	}
             } else {
@@ -127,9 +128,9 @@ public class StatController extends org.alt60m.ministry.servlet.modules.InfoBase
     }
 
 	private ActionResults getBookmarks(ActionContext ctx, ActionResults results, int type, String id) throws Exception {
-		StaffSitePref p = _bookmarks.getBookmark(ctx.getProfileID(), type, id);
+		InfobaseBookmark p = _bookmarks.getBookmark(ctx.getProfileID(), type, id);
 		if (p != null)
-			results.putValue("bookmarkID", p.getStaffSitePrefID());
+			results.putValue("bookmarkID", String.valueOf(p.getId()));
 		else
 			results.putValue("bookmarkID", "");
 		return results;

@@ -1,6 +1,6 @@
 <%@ page import="org.alt60m.servlet.*" %>
 <%@ page import="java.io.*,java.util.*,javax.servlet.http.*,javax.mail.*,javax.mail.internet.*,javax.activation.*, javax.xml.transform.stream.*, javax.xml.transform.*, java.net.*" %>
-<%@ page import="org.alt60m.staffSite.bean.dbio.*,org.alt60m.staffSite.model.dbio.StaffSitePref" %>
+<%@ page import="org.alt60m.staffSite.bean.dbio.*,org.alt60m.staffSite.model.dbio.InfobaseBookmark,org.alt60m.ministry.model.dbio.*" %>
 <% int curr_tab = 1; 
 ActionResults ar; 
 ar = ActionResults.getActionResults(session);
@@ -132,16 +132,12 @@ function toggleDiv(who){
 				while(teamsIter.hasNext()){%>
 				
 				<%thisTeam=(Hashtable<String,String>)teamsIter.next();%>
-				<A style="border:none;"
-					HREF="/servlet/InfoBaseController?action=removeTeamMember&accountNo=<%=(String)session.getValue("accountNo")%>&personID=<%= personID %>&locallevelid=<%= thisTeam.get("teamID") %>&teamID=<%= thisTeam.get("teamID") %>&view=home">
-				<img alt="Remove" style="border:none;height:10px;width:10px;" src="/infobase/images/reddot.gif"></A>
-				
-				<A href="/servlet/Team?action=content&id=<%= thisTeam.get("teamID") %>&module=team"><%= fontS %><%= thisTeam.get("name") %></A><br>
+				<A href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org"%>/teams/<%= thisTeam.get("teamID") %>"><%= fontS %><%= thisTeam.get("name") %></A><br>
                 <%
 				firsty++;
 				}%>
 				
-				<a href="/servlet/HRUpdateController">Join Teams</A>
+				<a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org"%>/teams">Join Teams</A>
 				
 				<%=box.printBottom()%>
 				<br>
@@ -163,12 +159,12 @@ function toggleDiv(who){
 					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search" > Person<br>
 					<img src="/images/blank.gif" width="15" height="1"><input type=radio name="search"> Team<br>
 					<center>
-					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="query" value=''><br>
+					<INPUT TYPE=text size=15 maxlength=255 ALIGN='CENTER' NAME="name" value=''><br>
 					<br>
 					<A HREF="JavaScript: ibsearch();" onMouseOver="document.ibsearchbutton.src='/images/search_bon.gif';" onMouseOut="document.ibsearchbutton.src='/images/search_boff.gif';"><IMG NAME="ibsearchbutton" SRC="/images/search_boff.gif" BORDER="0" ALIGN="TOP"></A>
 					<br>
 					<img src="/images/blank.gif" width="1" height="15" valign="bottom">
-					<a href="/servlet/Home">[InfoBase]</a>
+					<a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org"%>">[InfoBase]</a>
 					</center>
 				<%=box.printBottom()%>
 				</form>
@@ -176,54 +172,36 @@ function toggleDiv(who){
 				<script>
 				function ibsearch() {
 					if (document.ibsearch.search[0].checked) {
-						document.locsearch.name.value = document.ibsearch.query.value;						
+						document.locsearch.name.value = document.ibsearch.name.value;						
 						document.locsearch.submit();
 					}
 					if (document.ibsearch.search[1].checked) {						
-						document.persearch.name.value = document.ibsearch.query.value;						
+						document.persearch.name.value = document.ibsearch.name.value;						
 						document.persearch.submit();
 					}
 					if (document.ibsearch.search[2].checked) {						
-						document.teamsearch.name.value = document.ibsearch.query.value;
+						document.teamsearch.name.value = document.ibsearch.name.value;
 						document.teamsearch.submit();
 					}
 				}
 				</script>
 
 				<form action="Home" name="locsearch" method="post">
-				<input type="hidden" name="module" value="location"/>
+				<input type="hidden" name="type" value="locations"/>
 				<input type="hidden" name="action" value="search"/>
 				<input name="name" type="hidden" class="name" value=""/>
-				<input type="hidden" name="singleField" value="true">
-				<input type="hidden" name="region" value="nonnull">
-				<input type="hidden" name="strategy" value="nonnull">
-				<input type="hidden" name="city" value="">
-				<input type="hidden" name="state" value="">
-				<input type="hidden" name="country" value="">
 				</form>
 
 				<form action="Home" name="persearch" method="post">
-				<input type="hidden" name="module" value="person"/>
+				<input type="hidden" name="type" value="people"/>
 				<input type="hidden" name="action" value="search"/>
 				<input name="name" type="hidden" class="name" value=""/>
-				<input type="hidden" name="singleField" value="true">
-				<input type="hidden" name="region" value="nonnull">
-				<input type="hidden" name="strategy" value="nonnull">
-				<input type="hidden" name="city" value="">
-				<input type="hidden" name="state" value="">
-				<input type="hidden" name="country" value="">
 				</form>
 
 				<form action="Home" name="teamsearch" method="post">
-				<input type="hidden" name="module" value="team"/>
+				<input type="hidden" name="type" value="teams"/>
 				<input type="hidden" name="action" value="search"/>
 				<input name="name" type="hidden" class="name" value=""/>
-				<input type="hidden" name="singleField" value="true">
-				<input type="hidden" name="region" value="nonnull">
-				<input type="hidden" name="strategy" value="nonnull">
-				<input type="hidden" name="city" value="">
-				<input type="hidden" name="state" value="">
-				<input type="hidden" name="country" value="">
 				</form>
 
 			<!-- end infobase search module -->
@@ -291,7 +269,7 @@ function toggleDiv(who){
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="https://staffweb.ccci.org/ss/officedepotlogin">OneCard</a></font></td></tr>
 
 			<tr><td height="" bgcolor="#CCCC99"><a href="/servlet/Report"><img src="/images/small_check.gif" border="0"></a></td>
-			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="/servlet/Report">Success Criteria</a></font></td></tr>
+			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/reports">Success Criteria</a></font></td></tr>
 
 			<tr><td height="" bgcolor="#CCCC99"><a href="http://pr.uscm.org"><img src="/images/small_360.gif" border="0"></a></td>
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="http://pr.uscm.org">Panorama</a></font></td></tr>
@@ -381,46 +359,46 @@ function toggleDiv(who){
 			<%=box.printTop()%>
 				<%=fontB%><B>Success Criteria</B><br></font><%=fontB1%>
 
-				<% String profileID = (String)session.getValue("loggedIn"); 
+				<% String userID = ar.getValue("userID"); 
 					String sCBookMarks="";
 				%>
 				<% Iterator prefs;%>
 				<%
 					Bookmarks bookmarks = new Bookmarks();
-					StaffSitePref pref = null;
+					InfobaseBookmark pref = null;
 					
 					
 						%>
 						<br>
 						
-						<a style="font-size:12px;" href="/servlet/Stat">
+						<a style="font-size:12px;" href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/stats">
 						<b>Enter Stats  </b>
 						</a>
 						
 				<%=hr%>
 				</font><%=fontB%><B>Ministry Location</B><br></font><%=fontB1%>
-				<% prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.TARGET_AREA).iterator();
+				<% prefs = bookmarks.getBookmarkValues(userID, Bookmarks.TARGET_AREA).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%
 					} else {
 						while(prefs.hasNext()) {
-							pref = (StaffSitePref)prefs.next();
+							pref = (InfobaseBookmark)prefs.next();
 							%>
-								<a href="/servlet/Location?action=content&module=location&id=<%=pref.getValue()%>"><%=pref.getDisplayName()%></a><BR>
+								<a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/locations/<%=pref.getValue()%>"><%=new TargetArea(pref.getValue()).getName()%></a><BR>
 							<%
 						}
 					}
 					%>
 				<%=hr%>
 				</font><%=fontB%><B>Missional Team</B><br></font><%=fontB1%>
-				<% prefs = bookmarks.getBookmarkValues(profileID, Bookmarks.LOCAL_LEVEL).iterator();
+				<% prefs = bookmarks.getBookmarkValues(userID, Bookmarks.LOCAL_LEVEL).iterator();
 					if (!prefs.hasNext())  {
 						%><i>(none)<i><br><%
 					} else {
 						while(prefs.hasNext()) {
-							pref = (StaffSitePref)prefs.next();
+							pref = (InfobaseBookmark)prefs.next();
 							%>
-								<a href="/servlet/Team?action=content&id=<%=pref.getValue()%>&module=team"><%=pref.getDisplayName()%></a><BR>
+								<a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/teams/<%=pref.getValue()%>"><%= new LocalLevel(pref.getValue()).getName() %></a><BR>
 							<%
 						}
 					}

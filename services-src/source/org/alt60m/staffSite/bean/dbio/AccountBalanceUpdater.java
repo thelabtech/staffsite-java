@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 public class AccountBalanceUpdater {
 
 	private static Log log = LogFactory.getLog(AccountBalanceUpdater.class);
-	final String BALANCE_PREFERENCE_NAME = "CURRENT_BALANCE";    
+	final String BALANCE_PREFERENCE_NAME = "balance";    
 
 	Connection m_connection = null;
 	UserPreferences _preferences;
@@ -64,7 +64,7 @@ public class AccountBalanceUpdater {
 
 						if(allBalances.containsKey(commonAccountNo)) {
 							balance = ((Integer) allBalances.get(commonAccountNo)).intValue();
-							_preferences.savePreference(profileID, BALANCE_PREFERENCE_NAME, dateStamp , Integer.toString(balance));
+							_preferences.savePreference(profileID, BALANCE_PREFERENCE_NAME, Integer.toString(balance));
 							if (verbose) 
 								log.info("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
 						} else { 

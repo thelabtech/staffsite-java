@@ -1,6 +1,8 @@
 package org.alt60m.staffSite.bean.dbio;
 
 import java.util.*;
+
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 
 public class UserPreferences
@@ -11,52 +13,51 @@ public class UserPreferences
 
 	}
 
-	public Collection getPreferences(String profileID) {
-		StaffSitePref pref = new StaffSitePref();
-		pref.setProfileID(profileID);
+	public Collection getPreferences(String userId) {
+		InfobaseBookmark pref = new InfobaseBookmark();
+		pref.setId(userId);
 		return pref.selectList();
 //		return _doQuery("select pref from org.alt60m.staffSite.model.StaffSitePref as pref where pref.profile.StaffSiteProfileID = $1", new Object[] {profileID});
 	}
-	public Collection getPreferences(String profileID, String name) {
-		StaffSitePref pref = new StaffSitePref();
-		pref.setProfileID(profileID);
+	public Collection getPreferences(String userId, String name) {
+		InfobaseBookmark pref = new InfobaseBookmark();
+		pref.setId(userId);
 		pref.setName(name);
 		return pref.selectList();
 	}
-	public String getPreferenceValue(String profileID, String name) {
-		if (profileID == null || profileID.equals("")) {
+	public String getPreferenceValue(String userId, String name) {
+		if (userId == null || userId.equals("")) {
 			return null;
 		}
-		StaffSitePref pref = new StaffSitePref();
-		pref.setProfileID(profileID);
+		InfobaseBookmark pref = new InfobaseBookmark();
+		pref.setId(userId);
 		pref.setName(name);
 		pref.select();
 		return pref.getValue();
 	}
-	public Collection getPreferences(String profileID, String name, String value) {
-		StaffSitePref pref = new StaffSitePref();
-		pref.setProfileID(profileID);
+	public Collection getPreferences(String userId, String name, String value) {
+		InfobaseBookmark pref = new InfobaseBookmark();
+		pref.setId(userId);
 		pref.setName(name);
 		pref.setValue(value);
 		return pref.selectList();
 //		return _doQuery("select pref from org.alt60m.staffSite.model.StaffSitePref as pref where pref.profile.StaffSiteProfileID = $1 and pref.name like $2 and pref.value like $3", new Object[] {profileID, name.toUpperCase(), value});
 	}
-	public StaffSitePref getPreference(String profileID, String name) {
-        Collection prefs = getPreferences(profileID, name);
-        return (StaffSitePref) (prefs.iterator().hasNext() ? prefs.iterator().next() : null);
+	public InfobaseBookmark getPreference(String userId, String name) {
+        Collection prefs = getPreferences(userId, name);
+        return (InfobaseBookmark) (prefs.iterator().hasNext() ? prefs.iterator().next() : null);
 	}
-	public StaffSitePref getPreference(String profileID, String name, String value) {
-        Collection prefs = getPreferences(profileID, name, value);
-        return (StaffSitePref) (prefs.iterator().hasNext() ? prefs.iterator().next() : null);
+	public InfobaseBookmark getPreference(String userId, String name, String value) {
+        Collection prefs = getPreferences(userId, name, value);
+        return (InfobaseBookmark) (prefs.iterator().hasNext() ? prefs.iterator().next() : null);
 	}
-    public void createPreference(String profileID, String type, String displayName, String value) {
+    public void createPreference(String userId, String type, String value) {
 
-		StaffSitePref pref = new StaffSitePref();
+    	InfobaseBookmark pref = new InfobaseBookmark();
 
         pref.setName(type);
-        pref.setDisplayName(displayName);
         pref.setValue(value);
-	    pref.setProfileID(profileID);
+	    pref.setUser_id(userId);
 	    pref.persist();
 
 //        org.alt60m.staffSite.StaffSiteBroker ssb = org.alt60m.factory.ServiceFactory.getStaffSiteBroker();
@@ -69,7 +70,7 @@ public class UserPreferences
     }
 
     public void deletePreference(String preferenceID) {
-	    StaffSitePref pref = new StaffSitePref(preferenceID);
+    	InfobaseBookmark pref = new InfobaseBookmark(preferenceID);
 	    pref.delete();
 
 //        org.alt60m.staffSite.StaffSiteBroker ssb = org.alt60m.factory.ServiceFactory.getStaffSiteBroker();
@@ -79,15 +80,14 @@ public class UserPreferences
 //		ssb.commit();
     }
 	
-	public void updatePreference(String profileID, String preferenceID, String name, String displayName, String value) {
+	public void updatePreference(String userId, String preferenceID, String name, String value) {
 
 //        	org.alt60m.staffSite.StaffSiteBroker ssb = org.alt60m.factory.ServiceFactory.getStaffSiteBroker();
 //			ssb.begin();
 
 //			StaffSitePref pref = ssb.getPreference(preferenceID); // (StaffSitePrefObject) _prefAdaptor.ejbNarrow(_prefAdaptor.getEjbObject(preferenceID));
-		StaffSitePref pref = new StaffSitePref(preferenceID);
+		InfobaseBookmark pref = new InfobaseBookmark(preferenceID);
 		pref.setName(name);
-		pref.setDisplayName(displayName);
 		pref.setValue(value);
 		pref.persist();
 
@@ -95,13 +95,13 @@ public class UserPreferences
 
 	}
 
-	public void savePreference(String profileID, String name, String displayName, String value) {
-		StaffSitePref pref = getPreference(profileID, name);
+	public void savePreference(String userId, String name, String value) {
+		InfobaseBookmark pref = getPreference(userId, name);
 		
 		if (pref != null)
-			updatePreference(profileID, pref.getStaffSitePrefID(), name, displayName, value);
+			updatePreference(userId, String.valueOf(pref.getId()), name, value);
 		else 
-			createPreference(profileID, name, displayName, value);
+			createPreference(userId, name, value);
 	}
 //    public Collection getPreferencesByQuery(String query, Object[] params) {
 //		return _doQuery(query, params);
@@ -118,7 +118,7 @@ public class UserPreferences
 //        return results;
 //    }
     private Collection _doQuery(String query) {
-        return new StaffSitePref().selectList(query);
+        return new InfobaseBookmark().selectList(query);
     }
 
 	public static void main(String[] args) 

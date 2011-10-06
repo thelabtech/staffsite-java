@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.servlet.Controller.ActionContext;
 
@@ -26,6 +27,21 @@ public class InfoBaseRedirectController extends Controller {
     
     public void redirect(ActionContext ctx) {
     	ctx.goToView("redirect");
+    }
+    
+    public void search(ActionContext ctx) {
+    	String type = ctx.getInputString("type");
+    	String name = ctx.getInputString("name");
+    	String namecity = "namecity";
+    	if (type.equals("people")) {
+    		namecity = "name";
+    	}
+    	String urlStart = ctx.getRequest().getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org";
+    	String url = urlStart + "/" + type + "/search_results?" + namecity + "=" + name;
+    	ActionResults ar = new ActionResults();
+    	ar.putValue("url", url);
+    	ctx.setReturnValue(ar);
+    	ctx.goToView("searchRedirect");
     }
 
     public void init() {
@@ -55,7 +71,11 @@ public class InfoBaseRedirectController extends Controller {
 			} else {
 				String requestedAction = req.getParameter("action");
 				log.info("Invoking action: " + requestedAction);
-				actionName = "redirect";
+				if (requestedAction.equals("search")) {
+					actionName = "search";
+				} else {
+					actionName = "redirect";
+				}
 			}
 			Method action = this.getClass().getMethod(actionName,  new Class[] {ActionContext.class});
 			long beginTime = System.currentTimeMillis();

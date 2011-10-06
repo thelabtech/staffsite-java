@@ -1,5 +1,6 @@
 package org.alt60m.staffSite.bean.dbio;
 
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.util.*;
 
@@ -14,8 +15,8 @@ public class EncryptedPreferences
 		_prefs = new UserPreferences();
 	}
 
-	public StaffSitePref getPreference(String profileID, String name) throws EncryptorException {
-		StaffSitePref p = _prefs.getPreference(profileID, name);
+	public InfobaseBookmark getPreference(String profileID, String name) throws EncryptorException {
+		InfobaseBookmark p = _prefs.getPreference(profileID, name);
 		
 		if (p != null) {
 			p.setValue( _enigma.decrypt(p.getValue()) );
@@ -29,7 +30,7 @@ public class EncryptedPreferences
 		
 		String encryptedValue = _enigma.encrypt(value);
 
-		_prefs.savePreference(profileID, name, displayName, encryptedValue); 
+		_prefs.savePreference(profileID, name, encryptedValue); 
 	}
 	
 	public static void main(String[] args) 
@@ -37,7 +38,7 @@ public class EncryptedPreferences
 		try{
 
 			EncryptedPreferences prefs = new EncryptedPreferences();
-			StaffSitePref p = prefs.getPreference(args[0], args[1]);
+			InfobaseBookmark p = prefs.getPreference(args[0], args[1]);
 			
 			System.out.println(p.toString());
 

@@ -1,60 +1,68 @@
 package org.alt60m.staffSite.bean.dbio;
 
 import java.util.*;
+
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 
 public class Bookmarks
 {
 	public final static int TARGET_AREA = 0;
+	public final static int TEAM = 1;
 	public final static int LOCAL_LEVEL = 1;
-	public final static int STATISTIC   = 2;
+	public final static int ACTIVITY   = 2;
+	public final static int STATISTIC = 2;
 
-	private final String[] _names = new String[] {"TARGETAREA", "LOCALLEVEL", "STATISTIC"};
+	private final String[] _names = new String[] {"target_area", "team", "activity"};
 	private UserPreferences _prefs;
 
 	public Bookmarks() throws Exception {
 		_prefs = new UserPreferences();
 	}
 
-	public boolean		hasBookmark(String profileID, int type, String value) {
-		if (getBookmark(profileID, type, value) == null)
+	public boolean hasBookmark(String userId, int type, String value) {
+		if (getBookmark(userId, type, value) == null)
 			return false;
 		else
 			return true;
 	}
-	public Collection getBookmarks(String profileID) {
+	public Collection getBookmarks(String userId) {
 //        Object[] params = new Object[] {profileID,"TARGETAREA","LOCALLEVEL","STATISTIC"};
-		return _prefs.getPreferencesByQuery("fk_StaffSiteProfile = "+profileID+" and (name like 'TARGETAREA' or name like 'LOCALLEVEL' or name like 'STATISTIC')");
+		return _prefs.getPreferencesByQuery("user_id = "+userId+" and (name like 'target_area' or name like 'team' or name like 'activity')");
 	}
-	public Collection getBookmarks(String profileID, int type) {
+	public Collection getBookmarks(String userId, int type) {
 //        Object[] params = new Object[] {profileID, _names[type]};
-		return _prefs.getPreferencesByQuery("fk_StaffSiteProfile = "+profileID+" and name like '"+_names[type]+"'");
+		return _prefs.getPreferencesByQuery("user_id = "+userId+" and name like '"+_names[type]+"'");
 	}
-	public Collection getBookmarkValues(String profileID, int type) {
+	public Collection getBookmarkValues(String userId, int type) {
 //		return _prefs.getPreferencesByQuery("CALL SQL SELECT displayName, value from staffsite_staffsitepref as pref where pref.fk_StaffSiteProfile = '"+profileID+"' and pref.name like '"+_names[type]+"' AS org.alt60m.persistence.castor.util.TwoFields");
-		return _prefs.getPreferencesByQuery("fk_StaffSiteProfile = "+profileID+" and name like '"+_names[type]+"'");
+		return _prefs.getPreferencesByQuery("user_id = "+userId+" and name like '"+_names[type]+"'");
 	}
-	public StaffSitePref getBookmark(String profileID, int type, String value) {
-		return _prefs.getPreference(profileID, _names[type], value);
+	public InfobaseBookmark getBookmark(String userId, int type, String value) {
+		return _prefs.getPreference(userId, _names[type], value);
 	}
-	public void addBookmark(String profileID, int type, String displayName, String value) {
-		StaffSitePref pref = getBookmark(profileID, type, value);
+	public void addBookmark(String userId, int type, String value) {
+		InfobaseBookmark pref = getBookmark(userId, type, value);
 		if (pref != null) { //exists 
-			removeBookmark(pref.getStaffSitePrefID());
+			removeBookmark(pref.getId());
 		}
-		_prefs.createPreference(profileID, _names[type], displayName, value);
+		_prefs.createPreference(userId, _names[type], value);
 	}
 	public void removeBookmark(String bookmarkID) {
 		_prefs.deletePreference(bookmarkID);
 	}
 
-	public void removeBookmark(String profileID, int type, String value) {
-		StaffSitePref p = getBookmark(profileID, type, value);
-
-		if (p!=null) removeBookmark(p.getStaffSitePrefID());
+	public void removeBookmark(int bookmarkID) {
+		_prefs.deletePreference(String.valueOf(bookmarkID));
 	}
 
-	
+	public void removeBookmark(String userId, int type, String value) {
+		InfobaseBookmark p = getBookmark(userId, type, value);
+
+		if (p!=null) removeBookmark(p.getId());
+	}
+
+/*
 	public static void main(String[] args) 
 	{
 		try{
@@ -100,5 +108,5 @@ public class Bookmarks
 		}
 
 	}
-
+*/
 }

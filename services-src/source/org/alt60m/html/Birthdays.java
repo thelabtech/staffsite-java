@@ -40,7 +40,7 @@ public class Birthdays implements java.io.Serializable {
 			log.debug((f.getAbsolutePath()));
 			FileInputStream fis = new FileInputStream(f);
 			p.load(fis);
-			pathToViewStaff		= p.getProperty("_pathToViewStaff");
+			pathToViewStaff		= "https://infobase.uscm.org/people/";
 			theFullFile			= new File(_pathToFile, p.getProperty("_birthdays")).getAbsolutePath();
 			theFullWeekFile		= new File(_pathToFile, p.getProperty("_birthdays_w")).getAbsolutePath();
 			theCampusFile		= new File(_pathToFile, p.getProperty("_birthdays_c")).getAbsolutePath();
@@ -103,7 +103,7 @@ public class Birthdays implements java.io.Serializable {
 				}
 				for (Iterator i = stafflist.iterator(); i.hasNext(); )	{
 					Staff thisStaff = (Staff) i.next();
-					birthdayString = birthdayString + "<a href='"+ pathToViewStaff +"&staffid="+thisStaff.getAccountNo()+"'>"+ bodyFont + thisStaff.getPreferredName()+" "+thisStaff.getLastName()+"</font></a><br>";
+					birthdayString = birthdayString + "<a href='"+ pathToViewStaff + thisStaff.getPersonID() + "'>"+ bodyFont + thisStaff.getPreferredName()+" "+thisStaff.getLastName()+"</font></a><br>";
 				}
 				fw.write(birthdayString);
 				fw.close();

@@ -39,7 +39,7 @@ public class Weddings implements java.io.Serializable {
 			FileInputStream fis = new FileInputStream(f);
 			p.load(fis);
 			//String pathToFile	= p.getProperty("_pathToFile");
-			pathToViewStaff		= p.getProperty("_pathToViewStaff");
+			pathToViewStaff		= "https://infobase.uscm.org/people/";
 			theFullFile			= new File(_pathToFile, p.getProperty("_weddings")).getAbsolutePath();
 			theFullWeekFile		= new File(_pathToFile, p.getProperty("_weddings_w")).getAbsolutePath();
 			theCampusFile		= new File(_pathToFile, p.getProperty("_weddings_c")).getAbsolutePath();
@@ -105,7 +105,7 @@ public class Weddings implements java.io.Serializable {
 						String AccountNo = (String) thisStaff.getAccountNo();
 						String SpouseName = (String) thisStaff.getSpouseFirstName();
 						if (!AccountNo.endsWith("S")) {
-							WeddingsString = WeddingsString + "<a href='"+ pathToViewStaff +"&staffid="+AccountNo+"'>"+ bodyFont + thisStaff.getPreferredName()+" ";
+							WeddingsString = WeddingsString + "<a href='"+ pathToViewStaff + thisStaff.getPersonID() + "'>"+ bodyFont + thisStaff.getPreferredName()+" ";
 							if (!SpouseName.equals("")) {
 								WeddingsString = WeddingsString + " & " + SpouseName +"<br>&nbsp;";
 							}

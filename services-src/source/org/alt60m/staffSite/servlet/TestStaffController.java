@@ -1211,7 +1211,7 @@ public class TestStaffController extends Controller {
 
 	private String getEncryptedPreference(String profileID, String name) throws EncryptorException{
 
-        StaffSitePref pref = _encryptedPreferences.getPreference(profileID, name);
+		InfobaseBookmark pref = _encryptedPreferences.getPreference(profileID, name);
         return (pref!=null) ? pref.getValue() : null;
 
 
@@ -1261,7 +1261,7 @@ public class TestStaffController extends Controller {
 	}
 
 	private void setPreference(String profileID, String name, String displayName, String value) {
-        _preferences.savePreference(profileID, name, displayName, value);
+        _preferences.savePreference(profileID, name, value);
 	}
 
 	private int getIntSessionValue(ActionContext ctx, String name) {

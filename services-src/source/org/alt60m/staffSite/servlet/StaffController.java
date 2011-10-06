@@ -35,6 +35,7 @@ import org.alt60m.servlet.ServletLogging;
 import org.alt60m.servlet.UsersProcessor;
 import org.alt60m.staffSite.bean.dbio.EncryptedPreferences;
 import org.alt60m.staffSite.bean.dbio.UserPreferences;
+import org.alt60m.staffSite.model.dbio.InfobaseBookmark;
 import org.alt60m.staffSite.model.dbio.StaffSitePref;
 import org.alt60m.staffSite.model.dbio.StaffSiteProfile;
 import org.alt60m.staffSite.profiles.dbio.InvalidAccountNumberException;
@@ -1199,6 +1200,7 @@ public class StaffController extends Controller {
 		person.setFk_ssmUserID(user.getUserID());
 		person.select();
 		result.putValue("personID",person.getPersonID()+"");
+		result.putValue("userID", user.getUserID()+"");
 		ctx.setReturnValue(result);
 		ctx.goToView("home");
 	}
@@ -1738,7 +1740,7 @@ public class StaffController extends Controller {
 	private String getEncryptedPreference(String profileID, String name)
 			throws EncryptorException {
 
-		StaffSitePref pref = _encryptedPreferences.getPreference(profileID,
+		InfobaseBookmark pref = _encryptedPreferences.getPreference(profileID,
 				name);
 		return (pref != null) ? pref.getValue() : null;
 
@@ -1790,7 +1792,7 @@ public class StaffController extends Controller {
 
 	private void setPreference(String profileID, String name,
 			String displayName, String value) {
-		_preferences.savePreference(profileID, name, displayName, value);
+		_preferences.savePreference(profileID, name, value);
 	}
 
 	private int getIntSessionValue(ActionContext ctx, String name) {

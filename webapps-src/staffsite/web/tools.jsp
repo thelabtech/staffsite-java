@@ -149,7 +149,7 @@ int curr_tab = 3; %>
 	<table border=0 cellpadding=5 bordercolorlight='#ddddaa'>
 		<tr>
 			<td valign="center" align="center" colspan="2">
-				<a href="/servlet/Home"><img src="/modules/images/infobaselogo.png"></a> </td><td>
+				<a href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>"><img src="/modules/images/infobaselogo.png"></a> </td><td>
 				<%=fontS%>Information on all campuses involved with the Campus Ministry. Also enter stats and generate reports.</font>
 			</td>
 		</tr>

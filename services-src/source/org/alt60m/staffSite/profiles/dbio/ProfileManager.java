@@ -294,7 +294,7 @@ public class ProfileManager {
             if (zipCode.length() != 5)
                 zipCode = "NO";
             UserPreferences preferences = new UserPreferences();
-            preferences.savePreference(profileID, "ZIPCODE", "Zip Code", zipCode);
+            preferences.savePreference(profileID, "zip", zipCode);
         }
         catch (Exception e) {
             throw e;
