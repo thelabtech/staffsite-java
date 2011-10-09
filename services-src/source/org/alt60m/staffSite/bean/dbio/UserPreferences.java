@@ -15,13 +15,13 @@ public class UserPreferences
 
 	public Collection getPreferences(String userId) {
 		InfobaseBookmark pref = new InfobaseBookmark();
-		pref.setId(userId);
+		pref.setUser_id(userId);
 		return pref.selectList();
 //		return _doQuery("select pref from org.alt60m.staffSite.model.StaffSitePref as pref where pref.profile.StaffSiteProfileID = $1", new Object[] {profileID});
 	}
 	public Collection getPreferences(String userId, String name) {
 		InfobaseBookmark pref = new InfobaseBookmark();
-		pref.setId(userId);
+		pref.setUser_id(userId);
 		pref.setName(name);
 		return pref.selectList();
 	}
@@ -30,14 +30,14 @@ public class UserPreferences
 			return null;
 		}
 		InfobaseBookmark pref = new InfobaseBookmark();
-		pref.setId(userId);
+		pref.setUser_id(userId);
 		pref.setName(name);
 		pref.select();
 		return pref.getValue();
 	}
 	public Collection getPreferences(String userId, String name, String value) {
 		InfobaseBookmark pref = new InfobaseBookmark();
-		pref.setId(userId);
+		pref.setUser_id(userId);
 		pref.setName(name);
 		pref.setValue(value);
 		return pref.selectList();

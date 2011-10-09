@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.*;
 
 import org.alt60m.util.DBConnectionFactory;
+import org.alt60m.security.dbio.manager.*;
+import org.alt60m.security.dbio.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,12 +50,14 @@ public class AccountBalanceUpdater {
 			m_connection.close();
 
 			String accountNo;
-			String profileID;
+			String username;
 			int balance;
 
 			while (rs.next()) {
 				accountNo = (String) rs.getString("accountNo");
-				profileID = (new Integer(rs.getInt("StaffSiteProfileID"))).toString();
+				username = (new Integer(rs.getString("userName"))).toString();
+				SimpleSecurityManager ssm = new SimpleSecurityManager();
+				User user = ssm.getUserObjectByUsername(username);
 				String dateStamp = (new java.text.SimpleDateFormat ("yyyy.MM.dd")).format(new java.util.Date());
 				try {
 
@@ -64,7 +68,7 @@ public class AccountBalanceUpdater {
 
 						if(allBalances.containsKey(commonAccountNo)) {
 							balance = ((Integer) allBalances.get(commonAccountNo)).intValue();
-							_preferences.savePreference(profileID, BALANCE_PREFERENCE_NAME, Integer.toString(balance));
+							_preferences.savePreference(String.valueOf(user.getUserID()), BALANCE_PREFERENCE_NAME, Integer.toString(balance));
 							if (verbose) 
 								log.info("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
 						} else { 

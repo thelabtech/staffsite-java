@@ -1213,8 +1213,12 @@ public class StaffController extends Controller {
 		try {
 			ActionResults results = new ActionResults();
 
-			results.putValue("balance", getPreference(ctx.getProfileID(),
-					"CURRENT_BALANCE", "N/A"));
+			org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
+			user.setUsername((String)ctx.getSessionValue("userName"));
+			user.select();
+
+			results.putValue("balance", getPreference(String.valueOf(user.getUserID()),
+					"balance", "N/A"));
 
 			ctx.setReturnValue(results);
 			ctx.goToView("mpd");
