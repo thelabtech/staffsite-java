@@ -28,6 +28,7 @@ import org.alt60m.ministry.servlet.StaffInfo;
 import org.alt60m.security.dbio.manager.UserNotFoundException;
 import org.alt60m.security.dbio.manager.UserNotVerifiedException;
 import org.alt60m.security.dbio.manager.SsmUserAlreadyExistsException;
+import org.alt60m.security.dbio.model.User;
 import org.alt60m.servlet.ActionResults;
 import org.alt60m.servlet.Controller;
 import org.alt60m.servlet.MissingRequestParameterException;
@@ -1212,8 +1213,11 @@ public class StaffController extends Controller {
 	public void showMPD(ActionContext ctx) {
 		try {
 			ActionResults results = new ActionResults();
+			
+			String profileID = ctx.getProfileID();
+			StaffSiteProfile ssp = new StaffSiteProfile(profileID);
 
-			org.alt60m.security.dbio.model.User user=new org.alt60m.security.dbio.model.User();
+			User user=new User();
 			user.setUsername((String)ctx.getSessionValue("userName"));
 			user.select();
 
