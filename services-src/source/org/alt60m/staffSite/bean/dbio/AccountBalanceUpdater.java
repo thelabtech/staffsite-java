@@ -55,7 +55,7 @@ public class AccountBalanceUpdater {
 
 			while (rs.next()) {
 				accountNo = (String) rs.getString("accountNo");
-				username = (new Integer(rs.getString("userName"))).toString();
+				username = rs.getString("userName");
 				SimpleSecurityManager ssm = new SimpleSecurityManager();
 				User user = ssm.getUserObjectByUsername(username);
 				String dateStamp = (new java.text.SimpleDateFormat ("yyyy.MM.dd")).format(new java.util.Date());

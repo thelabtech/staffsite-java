@@ -1218,7 +1218,7 @@ public class StaffController extends Controller {
 			StaffSiteProfile ssp = new StaffSiteProfile(profileID);
 
 			User user=new User();
-			user.setUsername((String)ctx.getSessionValue("userName"));
+			user.setUsername(ssp.getUserName());
 			user.select();
 
 			results.putValue("balance", getPreference(String.valueOf(user.getUserID()),
