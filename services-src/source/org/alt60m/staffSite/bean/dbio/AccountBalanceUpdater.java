@@ -39,7 +39,7 @@ public class AccountBalanceUpdater {
 			//get all StaffSiteProfiles
 			Connection sqlconn = DBConnectionFactory.getDatabaseConn();
 			Statement sqlstatement = sqlconn.createStatement();
-			String query = "SELECT obj.firstName, obj.lastName, obj.accountNo, obj.StaffSiteProfileID FROM staffsite_staffsiteprofile obj WHERE LENGTH(obj.accountNo) > 0 ORDER BY obj.lastName";
+			String query = "SELECT obj.firstName, obj.lastName, obj.accountNo, obj.userName, obj.StaffSiteProfileID FROM staffsite_staffsiteprofile obj WHERE LENGTH(obj.accountNo) > 0 ORDER BY obj.lastName";
 			ResultSet rs = sqlstatement.executeQuery(query);
 
 			java.util.Date querystop = new java.util.Date();
