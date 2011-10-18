@@ -57,32 +57,36 @@ public class AccountBalanceUpdater {
 				accountNo = (String) rs.getString("accountNo");
 				username = rs.getString("userName");
 				SimpleSecurityManager ssm = new SimpleSecurityManager();
-				User user = ssm.getUserObjectByUsername(username);
-				String dateStamp = (new java.text.SimpleDateFormat ("yyyy.MM.dd")).format(new java.util.Date());
 				try {
-
-					if(accountNo.length() < 9) {
-						if(verbose) log.warn("**Account number is malformed for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
-					} else {
-						String commonAccountNo = accountNo.substring(0,9);
-
-						if(allBalances.containsKey(commonAccountNo)) {
-							balance = ((Integer) allBalances.get(commonAccountNo)).intValue();
-							_preferences.savePreference(String.valueOf(user.getUserID()), BALANCE_PREFERENCE_NAME, Integer.toString(balance));
-							if (verbose) 
-								log.info("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
-						} else { 
-							if (verbose) 
-								log.info("**No balance info available for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
+					User user = ssm.getUserObjectByUsername(username);
+					String dateStamp = (new java.text.SimpleDateFormat ("yyyy.MM.dd")).format(new java.util.Date());
+					try {
+	
+						if(accountNo.length() < 9) {
+							if(verbose) log.warn("**Account number is malformed for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
+						} else {
+							String commonAccountNo = accountNo.substring(0,9);
+	
+							if(allBalances.containsKey(commonAccountNo)) {
+								balance = ((Integer) allBalances.get(commonAccountNo)).intValue();
+								_preferences.savePreference(String.valueOf(user.getUserID()), BALANCE_PREFERENCE_NAME, Integer.toString(balance));
+								if (verbose) 
+									log.info("  Updated balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")': " + balance);
+							} else { 
+								if (verbose) 
+									log.info("**No balance info available for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.  ");
+							}
 						}
+						
+					} catch(Exception e) {
+						log.error("**Failed to update balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.");
+						if(verbose) 
+							log.error("  Error message: " + e.getMessage(), e);
+						else
+							log.error("  Error message: " + e.toString());
 					}
-					
-				} catch(Exception e) {
-					log.error("**Failed to update balance for '" + rs.getString("LastName") + ", " + rs.getString("FirstName") + " (acct#" + accountNo + ")'.");
-					if(verbose) 
-						log.error("  Error message: " + e.getMessage(), e);
-					else
-						log.error("  Error message: " + e.toString());
+				} catch (Exception e) {
+					log.error("   Error message: " + e.getMessage());
 				}
 			}
 	
