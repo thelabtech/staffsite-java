@@ -1221,8 +1221,12 @@ public class StaffController extends Controller {
 			user.setUsername(ssp.getUserName());
 			user.select();
 
-			results.putValue("balance", getPreference(String.valueOf(user.getUserID()),
+			if (!user.isPKEmpty()) {
+				results.putValue("balance", getPreference(String.valueOf(user.getUserID()),
 					"balance", "N/A"));
+			} else {
+				results.putValue("balance", "N/A");
+			}
 
 			ctx.setReturnValue(results);
 			ctx.goToView("mpd");
