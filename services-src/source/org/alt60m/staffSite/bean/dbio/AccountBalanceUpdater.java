@@ -86,7 +86,7 @@ public class AccountBalanceUpdater {
 							log.error("  Error message: " + e.toString());
 					}
 				} catch (Exception e) {
-					log.error("   Error message: " + e.getMessage());
+					// log.error("   Error message: " + e.getMessage());
 				}
 			}
 	
