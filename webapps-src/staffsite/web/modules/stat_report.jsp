@@ -193,7 +193,7 @@ while(report.hasNext()){
 		<%} %>
 	<%	} 
 	else if (row.getFunction().equals("eventBlockTop")){
-		isEvent=("Conferences Summer Projects").contains(row.getLabel());%>
+		isEvent=true;%>
 		<table class="event_block_<%=(((!type.equals("targetarea"))&&strategyList.contains("BR"))||(type.equals("targetarea"))&&(row.getStrategy().equals("BR")))?
 				"bridges":"non_bridges" %>">
 		<tr><td >&nbsp;</td></tr>

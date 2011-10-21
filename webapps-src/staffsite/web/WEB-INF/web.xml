@@ -282,7 +282,7 @@
 	<servlet>
 		<servlet-name>ReportController</servlet-name>
 		<servlet-class>
-			org.alt60m.ministry.servlet.InfoBaseRedirectController
+			org.alt60m.ministry.servlet.modules.report.ReportController
 		</servlet-class>
 	</servlet>
 	<servlet>

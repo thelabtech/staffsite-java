@@ -103,15 +103,14 @@ function toggleDiv(who){
 			<%=box.printBottom()%>
 			<br> -->
 
-			<!-- This section is for Summer Project and STINT/Internship Reference links -->
+			<!-- This section is for Summer Project and STINT/Internship Reference links -- which don't work -->
 			<%// if (isStudent.equals("false")) { %>
-				<% box.setTitle("My References");%>
-				<%=box.printTop()%>
-				<% references.initReferences((String)session.getAttribute("userName")); %>
-				<%=references.print() %>
-				<!-- End section for Summer Project and STINT/Internship Reference links -->
-				<%=box.printBottom()%>
-				<br>
+		       	<%// box.setTitle("My References");%>
+				<%//=box.printTop()%>
+				<%// references.initReferences((String)session.getAttribute("userName")); %>
+				<%//=references.print() %>
+				<%//=box.printBottom()%>
+				<!-- <br> -->
 			<%// } %>
 		<!--	<%// if (isStudent.equals("false")) { %>
 				<% box.setTitle("2008 SLICE Survey");	%>
@@ -151,6 +150,14 @@ function toggleDiv(who){
 				<%=box.printBottom()%>
 				<br> -->
 			<%// } %>
+			<!-- start enter stats module -->
+			    <% box.setTitle("Enter Stats"); %>
+			    <%=box.printTop() %>
+			    <a style="font-size:12px;" href="<%= request.getServerName().equals("staff.campuscrusadeforchrist.com") ? "https://infobase.uscm.org" : "http://info.int.uscm.org" %>/stats">
+                   <b>Enter Stats</b>
+                </a>
+                <%=box.printBottom() %>
+                <br/>
 			<!-- end infobase search module -->
 				<% box.setTitle("Search the InfoBase");%>
 				<%=box.printTop()%>
@@ -355,7 +362,7 @@ function toggleDiv(who){
 			<!-- *******************************************************-->
 
 			<!-- start infobase search module -->
-			<% box.setTitle("Bookmarks");%>
+			<!-- <% box.setTitle("Bookmarks");%>
 			<%=box.printTop()%>
 				<%=fontB%><B>Success Criteria</B><br></font><%=fontB1%>
 
@@ -406,7 +413,7 @@ function toggleDiv(who){
 			<%=box.printBottom()%>
 			<p>
 			<% box.setTitle("Customize");%>
-			<%=box.print("<a href='/servlet/StaffController?action=showCustomize'>Customize</a> my homepage")%>
+			<%=box.print("<a href='/servlet/StaffController?action=showCustomize'>Customize</a> my homepage")%>-->
 		</td>
 
 	</tr>
