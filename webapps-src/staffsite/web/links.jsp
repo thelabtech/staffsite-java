@@ -26,6 +26,7 @@ Send us some <a href="/general/feedback.jsp">feedback</a> if you would like othe
 			<% box.setTitle("Links for Campus Ministry Staff");	%>
 			<%=box.printTop()%>
 				<table width="100%" cellspacing="1">
+                      <TR><td><%=fontB%><a href="/servlet/CmsController" target="_blank">Resource Center</a></td></tr>
 					  <TR><td><%=fontB%><a href="http://lakehartstint.org" target="_blank">Lake Hart Stint</a></td></tr>
 						<TR><td><%=fontB%><a href="http://missionalteamleaders.com" target="_blank">Missional Team Leaders</a></td></tr>
                       <TR><td><%=fontB%><a href="http://crupressgreen.com" target="_blank">CruPress Green</a></td></tr>

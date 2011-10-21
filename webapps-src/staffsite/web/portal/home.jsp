@@ -218,14 +218,6 @@ function toggleDiv(who){
 			<% birthdays.setJustCampus(campusOnly);%>
 			<%=birthdays.print()%>
 			<%=box.printBottom()%>
-			<br>
-			<% box.setTitle("Wedding Anniv.");	%>
-			<%=box.printTop()%>
-			<% weddings.initWeddings(getServletContext().getRealPath("/")); %>
-			<% weddings.setJustCampus(campusOnly);%>
-			<%=weddings.print()%>
-			<%=box.printBottom()%>
-			
 		</td>
 		<td width="25"></td>
 
@@ -280,9 +272,6 @@ function toggleDiv(who){
 
 			<tr><td height="" bgcolor="#CCCC99"><a href="http://pr.uscm.org"><img src="/images/small_360.gif" border="0"></a></td>
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="http://pr.uscm.org">Panorama</a></font></td></tr>
-
-			<tr><td height="" bgcolor="#CCCC99"><a href="/servlet/CmsController"><img src="/images/small_disk.gif" border="0"></a></td>
-			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="/servlet/CmsController" target="_blank">Resource Center</a></font>
 
 			<tr><td height="" bgcolor="#CCCC99"><a href="https://www.missionhub.com"><img src="/images/missionhub_icon.gif" width="17" height="17" border="0"></a></td>
 			<td height="" bgcolor="#CCCC99"><%=fontS%><a href="https://www.missionhub.com" target="_blank">MissionHub</a></font>
@@ -414,6 +403,14 @@ function toggleDiv(who){
 			<p>
 			<% box.setTitle("Customize");%>
 			<%=box.print("<a href='/servlet/StaffController?action=showCustomize'>Customize</a> my homepage")%>-->
+
+            <% box.setTitle("Wedding Anniv.");  %>
+            <%=box.printTop()%>
+            <% weddings.initWeddings(getServletContext().getRealPath("/")); %>
+            <% weddings.setJustCampus(campusOnly);%>
+            <%=weddings.print()%>
+            <%=box.printBottom()%>
+            
 		</td>
 
 	</tr>
