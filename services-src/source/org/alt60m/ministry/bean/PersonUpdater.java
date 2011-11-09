@@ -192,8 +192,10 @@ public class PersonUpdater {
 	  person.setGender(staff.getIsMale()?"1":"0");
 	  person.setMaritalStatus(staff.getMaritalStatus());
 	  Staff spouse=new Staff(staff.getSpouseAccountNo());
-	  if (!spouse.isPKEmpty()) {
-		  person.setFk_spouseID(spouse.getPersonID());
+	  if (!spouse.isPKEmpty()) { // This is a useless check since the PK is the account number, which was set in the constructor in the previous line
+		  if (spouse.getPersonID() != 0) {
+			  person.setFk_spouseID(spouse.getPersonID());
+		  }
 	  }
 	  
 	  person.setMinistry(staff.getMinistry());
