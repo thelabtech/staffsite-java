@@ -1244,6 +1244,7 @@ public class StaffController extends Controller {
 	 * Action: loginStaffWeb
 	 *
 	 */
+	/*
 	public void loginStaffWeb(ActionContext ctx) {
 
 		try {
@@ -1299,7 +1300,7 @@ public class StaffController extends Controller {
 		}
 
 	}
-
+	 */
 	/**
 	 * Action: loginStaffResources
 	 *
@@ -1427,7 +1428,7 @@ public class StaffController extends Controller {
 		}
 
 	}
-
+/*
 	public void showSetupPS(ActionContext ctx) {
 		try {
 
@@ -1491,7 +1492,7 @@ public class StaffController extends Controller {
 		}
 
 	}
-
+*/
 	public void showSetupEmail(ActionContext ctx) {
 		try {
 
@@ -1516,7 +1517,7 @@ public class StaffController extends Controller {
 	 * Action: setupPS
 	 *
 	 */
-	public void setupPS(ActionContext ctx) {
+/*	public void setupPS(ActionContext ctx) {
 
 		try {
 
@@ -1572,7 +1573,7 @@ public class StaffController extends Controller {
 		}
 
 	}
-
+*/
 	/**
 	 * Action: setupEmail
 	 *

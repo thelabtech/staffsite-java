@@ -57,7 +57,7 @@
 			</tr>
 			<tr>
 				<td>
-					<%=font%><A HREF="http://staffweb.ccci.org/mpd/index.aspx" target='_blank'>mpdonline.org</A>
+					<%=font%><A HREF="https://staffweb.ccci.org/mpd-donations/index.htm" target='_blank'>Cru MPD</A>
 				</td>
 				<td>
 					<%=fontTextS%>(Corporate Crusade MPD site)</font>

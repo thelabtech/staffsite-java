@@ -21,8 +21,6 @@
 	<view name="mpd" url="/mpd.jsp"></view>
 	<view name="tools" url="/tools.jsp"></view>
 	<view name="loginPS" url="/login_ps.jsp"></view>
-	<view name="setupPS" url="/setup_ps.jsp"></view>
-	<view name="managePS" url="/manage_ps.jsp"></view>
 	<view name="errorPS" url="/error_ps.jsp"></view>
 	<view name="errorStaffWeb" url="/error_staff_web.jsp"></view>
 	<view name="errorStaffResources" url="/error_staff_resources.jsp"></view>
