@@ -317,7 +317,6 @@ function toggleDiv(who){
 			<%=fontS%>
 				<A  class="sideBar"   href='http://www.gogmx.org' target='_blank'>GMX (Videos)</a><br/>
 				<A  class="sideBar"   href='http://mygcx.org' target='_blank'>MyGCX (Communities)</a><br/>
-				<A  class="sideBar"   href="https://www.mygcx.org/GPS/screen/softwareOrdering" target="_blank">Order Software</a><br/>
 			</font>
 			<%=box.printBottom()%>
 			<br/>

@@ -1347,7 +1347,7 @@ public class StaffController extends Controller {
 	 * Action: loginPS
 	 *
 	 */
-	public void loginPS(ActionContext ctx) {
+/*	public void loginPS(ActionContext ctx) {
 
 		final String[] sections = new String[] { "PFormFrame",
 				"servlet/SaiServlet", "servlet/ReimbServlet",
@@ -1428,7 +1428,7 @@ public class StaffController extends Controller {
 		}
 
 	}
-/*
+
 	public void showSetupPS(ActionContext ctx) {
 		try {
 
