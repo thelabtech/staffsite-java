@@ -1,5 +1,5 @@
 <%
-	String pageTitle = "Campus Crusade for Christ | Help Request";
+	String pageTitle = "Cru | Help Request";
 	session.putValue("ignore_AR_Error","true");
 %>
 <jsp:useBean id="email" class="org.alt60m.util.SendMessage" />
@@ -38,9 +38,9 @@ function popupWindow(cUrl,cName,cFeatures) {
 <form name="registrationForm" action="/general/feedback.jsp" method=post>
 <tr>
 <td colspan=2>
-So that we can assist you promptly and efficiently, please fill out this form in as much detail as possible. We will contact you via phone or email within 24 hours (or the next business day, if today is Friday, Saturday or Sunday) to respond to your inquiry.<br /><br />
+So that we can assist you promptly and efficiently, please fill out this form in as much detail as possible. We will contact you via phone or email within 24 hours (or the next business day, if today is Friday, Saturday or Sunday) in response to your inquiry.<br /><br />
 <b>Before filling out this form:</b><br />
-Please note that our web applications currently work best with Internet Explorer on Windows. If you are using a different browser or operating system, this might be why you are experiencing difficulties.  Please try with Internet Explorer and Windows, and then contact us if you continue to have problems.
+Please note that our web applications currently work best with Mozilla Firefox. If you are using a different browser, this might be why you are experiencing difficulties.  Please try with Firefox, and then contact us if you continue to have problems.
 </td>
 </tr>
 <tr>
@@ -60,17 +60,7 @@ Your Email Address:<br />(Please be sure to type your email address accurately. 
 <input type=text name="emailFrom" size=30 maxlength="80"><br /><br />
 Subject:<br />
 <input type=text name="subject" size=30 maxlength="80"><br /><br />
-<!-- Type of Feedback<br />
-<select name="feedbackType">
-	<option value="General Comments">General Comments</option>
-	<option value="General Question">General Questions</option>
-	<option value="Help Request">Help Request</option>
-	<option value="Broken Link Report">Broken Link Report</option>
-	<option value="Bug Report">Bug Report</option>
-	<option value="Other">Other</option>
-</select><br /><br />
--->
-Which system, if any, is this regarding?<br /><span class="note">(<i>e.g.</i> Conference Registration System, Summer Project Application, Personal Information Update Forms,  InfoBase / Success Criteria, <i>etc.</i>)</span><br />
+Which system, if any, is this regarding?<br /><span class="note">(<i>e.g.</i> Conference Registration System, Summer Project Application, MPD Tool, STINT Application, InfoBase, <i>etc.</i>)</span><br />
 <input type="text" name="regardingSystem" size=30 maxlength="80" value="<%=((system!=null)? system:"")%>"><br /><br />
 If you were trying to register for a conference, which conference was it?<br /><span class="note">(Please note: this form is only for reporting technical difficulties with the conference registration website.  If you have questions about the conference itself, please call or email the contact person for that conference.)</span><br />
 <input type="text" name="regardingConference" size=30 maxlength="80"><br /><br />
