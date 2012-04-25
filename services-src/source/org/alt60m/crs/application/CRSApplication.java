@@ -3194,7 +3194,7 @@ public class CRSApplication {
 			msg += "Your secret answer is: " + ssmUser.getPasswordAnswer();
 			msg += "\n\n";
 			msg += "If you would like to have your password reset, please contact " +
-					"help@campuscrusadeforchrist.com, or call 1-888-222-5462.";
+					"help@campuscrusadeforchrist.com, or call 407-826-2948.";
 			msg += "\n\n";
 			msg += "Yours Sincerely,";
 			msg += "\n";

@@ -115,7 +115,7 @@ public class CampusContacts implements java.io.Serializable
 											//LocalLevelObject llObj = actObj.doesSc();
 											if (!staffIterator.hasNext()) 
 											{
-												sb.append("<tr><TD></TD><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 1-800-678-5462</font> </td></tr>");
+												sb.append("<tr><TD></TD><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 407-826-2948</font> </td></tr>");
 											}
 											while (staffIterator.hasNext())
 											{
@@ -142,7 +142,7 @@ public class CampusContacts implements java.io.Serializable
 											}
 										} catch (NullPointerException npe) {
 											
-											sb.append("<tr><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 1-800-678-5462</font> </td></tr>");
+											sb.append("<tr><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 407-826-2948</font> </td></tr>");
 											
 										}
 									}
@@ -159,7 +159,7 @@ public class CampusContacts implements java.io.Serializable
 											java.util.Iterator staffIterator = actObj.getActivityContacts().iterator();
 											if (!staffIterator.hasNext()) 
 											{
-												sb.append("<tr><TD></TD><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 1-800-678-5462</font> </td></tr>");
+												sb.append("<tr><TD></TD><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 407-826-2948</font> </td></tr>");
 											}
 											while (staffIterator.hasNext())
 											{
@@ -185,7 +185,7 @@ public class CampusContacts implements java.io.Serializable
 											}
 										} catch (NullPointerException npe) {
 											
-											sb.append("<tr><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 1-800-678-5462</font> </td></tr>");
+											sb.append("<tr><td><font face='"+fontFace+"' size='2'>Student LINC Ministry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;<a href='mailto:StudentLinc@uscm.org'>StudentLinc@uscm.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone: 407-826-2948</font> </td></tr>");
 											
 										}
 									}
@@ -428,7 +428,7 @@ public class CampusContacts implements java.io.Serializable
 											sb.append("<font face='"+fontFace+"' size='2'><i>There are no Campus Crusade ministries here yet. A group of us have been praying for your campus and we have developed some resources that could help you start something.  We are trusting God to touch the life of every student while you are at school.  Would you like to be a part of this effort?  If so, you could easily start a ministry.</i><br><br>");
 											sb.append("<font face='"+fontFace+"' size='2'><i>To find out how, go to <a href='http://www.godsquad.com'>www.GodSquad.com</a> and click on \"wanna start something\"</i><br><br></font>");
 											sb.append("<font face='"+fontFace+"' size='2'><i>or</i><br><br></font>");
-											sb.append("<font face='"+fontFace+"' size='2'><i>Call or e-mail the Student LINC Ministry to talk with a Campus Consultant. (Phone: 1(800)678-5462. E-mail <a href=\"mailto:StudentLinc@uscm.org\">StudentLinc@uscm.org</a>)</i><br><br></font>");
+											sb.append("<font face='"+fontFace+"' size='2'><i>Call or e-mail the Student LINC Ministry to talk with a Campus Consultant. (Phone: 407-826-2948. E-mail <a href=\"mailto:StudentLinc@uscm.org\">StudentLinc@uscm.org</a>)</i><br><br></font>");
 										sb.append("</td>");
 									sb.append("</tr>");
 								

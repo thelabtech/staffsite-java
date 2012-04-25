@@ -59,7 +59,7 @@ public class LoginResetAndEmail {
 		sm.setTo(email);
 		sm.setFrom("help@campuscrusadeforchrist.com");
 		sm.setSubject("Your Campus Ministry Staff Site password has been reset");
-		sm.setBody("Dear "+firstName+", \n\n\tDue to a security upgrade, your password to the Campus Ministry Staff Site (http://staff.campuscrusadeforchrist.com) has been reset.  Your new password is: \"" + generatedPW + "\".  The first time you log in with this password, you will be prompted to enter a new password.  \n\n\tIf you have any questions, please contact Customer Service at 888-222-5462, or send an email to help@campuscrusadeforchrist.com.\n\nInformation Solutions Team");
+		sm.setBody("Dear "+firstName+", \n\n\tDue to a security upgrade, your password to the Campus Ministry Staff Site (http://staff.campuscrusadeforchrist.com) has been reset.  Your new password is: \"" + generatedPW + "\".  The first time you log in with this password, you will be prompted to enter a new password.  \n\n\tIf you have any questions, please contact Customer Service at 407-826-2948, or send an email to help@campuscrusadeforchrist.com.\n\nInformation Solutions Team");
 		sm.send(false);
     }
 
@@ -118,7 +118,7 @@ public class LoginResetAndEmail {
 		sm.setTo(email);
 		sm.setFrom("help@campuscrusadeforchrist.com");
 		sm.setSubject("Your Campus Ministry Staff Site password has been reset");
-		sm.setBody("Dear "+firstName+", \n\n\tAs per your request, your password to the Campus Ministry Staff Site (http://staff.campuscrusadeforchrist.com) has been reset.  Your new password is: \"" + generatedPW + "\".  The first time you log in with this password, you will be prompted to enter a new password.  \n\n\tIf you have any questions, please contact Customer Service at 888-222-5462, or send an email to help@campuscrusadeforchrist.com.\n\nInformation Solutions Team");
+		sm.setBody("Dear "+firstName+", \n\n\tAs per your request, your password to the Campus Ministry Staff Site (http://staff.campuscrusadeforchrist.com) has been reset.  Your new password is: \"" + generatedPW + "\".  The first time you log in with this password, you will be prompted to enter a new password.  \n\n\tIf you have any questions, please contact Customer Service at 407-826-2948, or send an email to help@campuscrusadeforchrist.com.\n\nInformation Solutions Team");
 		sm.send(false);
 	}
 

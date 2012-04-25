@@ -167,7 +167,7 @@ Because we have determined that a personal computer is a necessary ministry tool
 
 <p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/dell.aspx" rel="nofollow">Dell National Buying Program</a></span></p>
 
-<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.&nbsp; They can also help get you deep discounts on many software titles.</b>
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 407-826-2948 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.&nbsp; They can also help get you deep discounts on many software titles.</b>
 <br clear="all" /></p>
 
 <h3><a name="ComputerPurchaseGuidelines-AppleMac%27s"></a>Apple Mac's</h3>
@@ -182,7 +182,7 @@ Because we have determined that a personal computer is a necessary ministry tool
 
 <p>See the <span class="nobr"><a href="http://staffweb.ccci.org/fsg/np/partners/technology/apple.aspx" rel="nofollow">Apple National Buying Program</a></span></p>
 
-<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 888-222-5462 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.</b><b>They can also help get you deep discounts on many software titles.</b>
+<p><b>Contact your regional IT Pro, or the National Campus IT</b> <b><em>(Phone: 407-826-2948 or Email:</em></b> <b><em><span class="nobr"><a href="mailto:help@campuscrusadeforchrist.com" rel="nofollow">help@campuscrusadeforchrist.com</a></span></em></b><b>) for potential coordinated purchases and deeper discounts.</b><b>They can also help get you deep discounts on many software titles.</b>
 <br clear="all" /></p>
 
 <h3><a name="ComputerPurchaseGuidelines-"></a></h3>
