@@ -29,7 +29,7 @@ Thank you for your interest in joining us on a STINT or Internship!  We welcome 
 <A CLASS="button" HREF="<%=siRegPage%>" CLASS="button">First Time Users</A>
 -->
 
-<P>For more information about a STINT or Internship, please go to our <a href="/hr_si/dbio/contactUs.jsp"><b>Contact Us</b></a> section.  If you have questions about the site, please <a href="/general/feedback.jsp" target="_blank">send us feedback</a> or call 1-888-222-5462.</font>
+<P>For more information about a STINT or Internship, please go to our <a href="/hr_si/dbio/contactUs.jsp"><b>Contact Us</b></a> section.  If you have questions about the site, please <a href="/general/feedback.jsp" target="_blank">send us feedback</a> or call 407-826-2948.</font>
 
 <!-- <P>Note: The STINT/Internship Tool works best with Internet Explorer.  If you are using another browser and are experiencing difficulties, we recommend using Internet Explorer to apply.  If you do not have Internet Explorer on your computer, you can download it <a HREF="http://www.microsoft.com/windows/ie/default.asp" target="_blank"><b>here</b></a>. -->
 

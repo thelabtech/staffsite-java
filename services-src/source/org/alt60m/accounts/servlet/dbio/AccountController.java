@@ -700,7 +700,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 			String body = "This is a confirmation of your recent request to change your Campus Crusade for Christ user password."+
 					"\n\nYou recently requested that your password be changed."+
 					"\nYour new password is: "+newPassword+
-				    "\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
+				    "\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 407-826-2948."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ" +
 					"\nhttp://www.campuscrusadeforchrist.com";
 			sendEmail(userEmail, USCM_FROM_ADDRESS, subject, body, "text/plain");
@@ -739,7 +739,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\nThe answer you provided was:\t"+passwordAnswer+"<BR><BR>"+
 					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above.<BR><BR>"+
 					"\n\nPlease retain a copy of this information in your records. If you forget your password in the future and need to retrieve it, you will have to type the answer to your secret question exactly as it appears above.<BR><BR>"+
-					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462.<BR><BR>"+
+					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 407-826-2948.<BR><BR>"+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
 			log.debug(body);
 			sendEmail(username, GENERIC_FROM_ADDRESS, subject, body, "text/html");
@@ -760,7 +760,7 @@ public class AccountController extends org.alt60m.servlet.Controller {
 					"\nYour secret question is:\t"+passwordQuestion+
 					"\nThe answer you provided was:\t"+passwordAnswer+
 					"\nFor security reasons, your password has not been included in this email. However, if you forget your password in the future, you will be able to retrieve it by providing the answer to your secret question. Please retain this information in your records, as you will have to type the answer to your secret question exactly as it appears above."+
-					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 888-222-5462."+
+					"\n\nIf you have any questions please email help@campuscrusadeforchrist.com or call 407-826-2948."+
 					"\n\nThe Campus Ministry of Campus Crusade for Christ";
 			log.debug(body);
 			sendEmail(username, USCM_FROM_ADDRESS, subject, body, "text/plain");
