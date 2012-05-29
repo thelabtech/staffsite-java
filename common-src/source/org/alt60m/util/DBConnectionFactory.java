@@ -20,7 +20,7 @@ public class DBConnectionFactory {
 	protected static Log log = LogFactory.getLog(DBConnectionFactory.class);
 
 	private static final String ORACLE_DRIVER = "oracle.jdbc.OracleDriver";
-    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = harta8211v)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = harta8311v)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = harta8411v)(PORT = 1521)) (FAILOVER = ON) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = hcm9papp.ccci.org) (FAILOVER_MODE = (TYPE = SELECT) (METHOD = BASIC) (RETRIES = 180) (DELAY = 5) ) ) )";
+    private static final String ORACLE_PROD_URL = "jdbc:oracle:thin:@(DESCRIPTION = (LOAD_BALANCE = YES) (FAILOVER = ON) (ADDRESS = (PROTOCOL = TCP)(HOST = paorad00v.ccci.org)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = paorad01v.ccci.org)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = paorad02v.ccci.org)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = hcm9papp.ccci.org) (FAILOVER_MODE = (TYPE = SELECT) (METHOD = BASIC) (RETRIES = 20) (DELAY = 1) ) ) )";
 	private static final String ORACLE_DEFAULT_USER = "istcampus";
 	private static final String ORACLE_DEFAULT_PW = "iStCampus1";
 
